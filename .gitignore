@@ -1,0 +1,20 @@
+# 验证截图不进仓库（每次改动都会重新生成）
+shots/
+screenshots/
+
+# 生成过程中间产物：只保留 index.html 实际引用的图
+assets/gen/*
+!assets/gen/portrait-dark.png
+!assets/gen/portrait-light.png
+
+# 编辑器 / 系统
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# 备份文件
+*.bak
+*.bak-*
+*.v[0-9]
+*.backup
