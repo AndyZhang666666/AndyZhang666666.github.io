@@ -168,7 +168,7 @@ const JD_GRAPH = {
       level: 'have',
       kw: ['技术背景', '代码', 'python', 'api', '算法', '工程', '技术理解', '懂技术', '编程', '开发', '技术方案', '架构', '写代码'],
       ev: [
-        { co: '教育背景', text: 'Bristol 电子电气工程本科 + UCL 计算金融硕士（偏量化策略与编程）', metric: '两段 First Class' },
+        { co: '教育背景', text: 'Bristol 电子电气工程本科 + UCL 金融工程硕士（偏量化策略与编程）', metric: '两段 First Class' },
         { co: '个人项目', text: '这个网站和两套模型评测脚手架都是自己写的，纯静态无框架 + Node 脚本', metric: '代码在 GitHub' }
       ]
     },
@@ -181,7 +181,7 @@ const JD_GRAPH = {
       ev: [
         { co: 'Revolut', text: '英国数字银行 Revolut 增长与商业化方向实习，做订阅会员与智能预算 AI 功能', metric: '订阅转化 +15%' },
         { co: '中金公司', text: '研究部实习：跟踪 10+ 家上市公司季报，独立搭可比公司估值表', metric: '参与行业深度报告' },
-        { co: '教育背景', text: 'UCL 计算金融硕士', metric: 'First Class' }
+        { co: '教育背景', text: 'UCL 金融工程硕士', metric: 'First Class' }
       ]
     },
     {
@@ -202,7 +202,7 @@ const JD_GRAPH = {
       level: 'have',
       kw: ['硕士', '研究生', '本科', '学历', '985', '211', 'qs', '海外院校', '名校', '双一流', '统招', 'master', 'bachelor'],
       ev: [
-        { co: '教育背景', text: 'UCL（伦敦大学学院）计算金融硕士 2024.09–2026.01，First Class', metric: 'QS 前 10' },
+        { co: '教育背景', text: 'UCL（伦敦大学学院）金融工程硕士 2024.09–2026.01，First Class', metric: 'QS 前 10' },
         { co: '教育背景', text: 'University of Bristol 电子电气工程本科 2021.09–2024.07，First Class', metric: '一等学位' }
       ]
     },
