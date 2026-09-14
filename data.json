@@ -517,6 +517,24 @@
       "resultEn": "Became the retention hook — a wallpaper on the home screen is daily passive exposure."
     },
     {
+      "name": "地图类产品（进行中）",
+      "nameEn": "Map product (in progress)",
+      "subtitle": "正在开发，完成后上线并附可交互 Demo。",
+      "subtitleEn": "In development. Will ship with an interactive demo.",
+      "placeholder": true,
+      "pending": true,
+      "tags": [
+        "产品"
+      ],
+      "tagsEn": [
+        "Product"
+      ],
+      "metrics": [],
+      "metricsEn": [],
+      "url": "",
+      "github": ""
+    },
+    {
       "name": "德州扑克玩家类型测试",
       "nameEn": "Poker Player Type Quiz",
       "description": "基于 VPIP（入池率）、激进程度和粘性三个维度的德州扑克玩家风格测试工具，支持专业模式（含底池、位置、筹码深度）和简单模式两种体验。",
@@ -550,6 +568,42 @@
       ],
       "result": "已上线可直接玩，小红书导流验证真实用户是否愿意做完 10 题。",
       "resultEn": "Live and playable; drove traffic from RED to test whether real users finish all 10 questions."
+    },
+    {
+      "name": "扑克项目（进行中）",
+      "nameEn": "Poker project (in progress)",
+      "subtitle": "正在开发，完成后上线并附可交互 Demo。",
+      "subtitleEn": "In development. Will ship with an interactive demo.",
+      "placeholder": true,
+      "pending": true,
+      "tags": [
+        "德州扑克"
+      ],
+      "tagsEn": [
+        "Poker"
+      ],
+      "metrics": [],
+      "metricsEn": [],
+      "url": "",
+      "github": ""
+    },
+    {
+      "name": "扑克项目（进行中）",
+      "nameEn": "Poker project (in progress)",
+      "subtitle": "正在开发，完成后上线并附可交互 Demo。",
+      "subtitleEn": "In development. Will ship with an interactive demo.",
+      "placeholder": true,
+      "pending": true,
+      "tags": [
+        "德州扑克"
+      ],
+      "tagsEn": [
+        "Poker"
+      ],
+      "metrics": [],
+      "metricsEn": [],
+      "url": "",
+      "github": ""
     },
     {
       "name": "Growth Experiment Lab",

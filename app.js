@@ -575,12 +575,12 @@ function initPalette() {
   if (!box) return;
   const root = document.documentElement;
   const btns = [...box.querySelectorAll('.ps-btn')];
-  const current = () => root.getAttribute('data-palette') || 'copper';
+  const current = () => root.getAttribute('data-palette') || 'frost';
   const mark = () => btns.forEach(b => b.classList.toggle('active', b.dataset.palette === current()));
   const apply = (name) => {
     root.classList.add('theme-switching');
-    if (name === 'copper') root.removeAttribute('data-palette');
-    else root.setAttribute('data-palette', name);
+    // 默认主题是 frost，直接写属性，不再用「移除属性」表示默认
+    root.setAttribute('data-palette', name);
     try { localStorage.setItem('palette', name); } catch (_) {}
     mark();
     setTimeout(() => root.classList.remove('theme-switching'), 600);

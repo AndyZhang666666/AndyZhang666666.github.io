@@ -1,0 +1,325 @@
+/* ========================================
+   education.css — #education 板块扩展
+   学校徽记 / 研究与毕业设计 / 荣誉奖项
+   只引用 style.css 的语义变量，四套主题自动适配。
+   基调克制：无卡片、无阴影，靠留白 + 1px 线 + 字号层级分区。
+   ======================================== */
+
+.edu-extra {
+  margin-top: clamp(3.5rem, 7vw, 5.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 6vw, 4.5rem);
+}
+
+/* 通用小节头：mono 小字 + 1px 顶线 */
+.edu-block {
+  border-top: 1px solid var(--border);
+  padding-top: 1.75rem;
+}
+.edu-block-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+.edu-block-title {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.edu-block-hint {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+  opacity: 0.75;
+}
+
+/* 占位文案：一眼能看出「这里要填」 */
+.edu-placeholder {
+  color: var(--fg-dim) !important;
+  font-weight: 400 !important;
+  border-bottom: 1px dashed var(--border-strong);
+  padding-bottom: 0.0625rem;
+}
+
+/* =====================================================
+   1. 学校徽记（logo / monogram）
+   ===================================================== */
+.edu-logos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.edu-logo-item {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.75rem 0;
+  min-width: 0;
+}
+.edu-logo-item + .edu-logo-item {
+  border-left: 1px solid var(--border);
+  padding-left: clamp(1.5rem, 4vw, 3rem);
+}
+.edu-logo-item:first-child {
+  padding-right: clamp(1.5rem, 4vw, 3rem);
+}
+
+/* 文字徽记：56px 方框，serif 缩写，accent 色 */
+.edu-logo {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  line-height: 1;
+  user-select: none;
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.edu-logo.is-long { font-size: 0.75rem; letter-spacing: 0; }
+.edu-logo-item:hover .edu-logo {
+  border-color: var(--accent);
+  color: var(--accent-bright);
+}
+
+/* 图片 logo（data.education[i].logo 存在时启用） */
+.edu-logo.has-img {
+  border-color: var(--border);
+  padding: 8px;
+  background: var(--bg-1);
+}
+.edu-logo.has-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.edu-logo-meta { min-width: 0; }
+.edu-logo-school {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--fg);
+  line-height: 1.35;
+}
+.edu-logo-school a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.25s var(--ease);
+}
+.edu-logo-school a:hover { color: var(--accent); }
+.edu-logo-degree {
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
+.edu-logo-period {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+  margin-top: 0.375rem;
+}
+
+/* =====================================================
+   2. 研究与毕业设计
+   ===================================================== */
+.thesis-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(2rem, 5vw, 4rem);
+}
+
+.thesis-item { min-width: 0; }
+.thesis-item + .thesis-item {
+  border-left: 1px solid var(--border);
+  padding-left: clamp(2rem, 5vw, 4rem);
+  margin-left: calc(clamp(2rem, 5vw, 4rem) * -1);
+}
+
+.thesis-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.875rem;
+}
+.thesis-kicker .sep { color: var(--fg-dim); margin: 0 0.4em; }
+
+.thesis-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  margin: 0 0 0.75rem;
+  max-width: 62ch;
+  text-wrap: balance;
+}
+.thesis-title .edu-placeholder { display: inline-block; }
+
+.thesis-summary {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--fg-muted);
+  max-width: 62ch;
+  margin: 0 0 1rem;
+}
+
+.thesis-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem 0.5rem;
+  margin-bottom: 0.875rem;
+}
+.thesis-tags:empty { display: none; }
+.thesis-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--fg-dim);
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.thesis-item:hover .thesis-tag { border-color: var(--border-strong); }
+.thesis-tag.is-placeholder { border-style: dashed; }
+
+.thesis-result {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--second);
+}
+.thesis-result:empty { display: none; }
+.thesis-result::before {
+  content: '';
+  display: inline-block;
+  width: 10px; height: 1px;
+  background: var(--second);
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  opacity: 0.7;
+}
+
+/* =====================================================
+   3. 荣誉奖项
+   ===================================================== */
+.edu-award-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--border);
+}
+.edu-award-item {
+  display: grid;
+  grid-template-columns: 7ch minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.edu-award-year {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+  transition: color 0.3s var(--ease);
+}
+.edu-award-item:hover .edu-award-year { color: var(--accent); }
+.edu-award-body { min-width: 0; }
+.edu-award-title {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--fg);
+  line-height: 1.5;
+}
+.edu-award-note {
+  font-size: 0.8125rem;
+  color: var(--fg-muted);
+  line-height: 1.6;
+  margin-top: 0.2rem;
+  max-width: 62ch;
+}
+.edu-award-note:empty { display: none; }
+
+/* =====================================================
+   入场：复用站内 .reveal 视觉（由 education.js 自带 IO 触发 .visible）
+   ===================================================== */
+.edu-extra .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.edu-extra .reveal.visible { opacity: 1; transform: none; }
+
+/* =====================================================
+   浅色主题微调（成对写）
+   ===================================================== */
+[data-palette="frost"] .edu-logo,
+[data-palette="mist"] .edu-logo {
+  color: var(--accent-dim);
+}
+[data-palette="frost"] .edu-logo-item:hover .edu-logo,
+[data-palette="mist"] .edu-logo-item:hover .edu-logo {
+  color: var(--accent);
+}
+[data-palette="frost"] .edu-logo.has-img,
+[data-palette="mist"] .edu-logo.has-img {
+  background: transparent;
+}
+
+/* =====================================================
+   响应式
+   ===================================================== */
+@media (max-width: 720px) {
+  .edu-logos { grid-template-columns: 1fr; }
+  .edu-logo-item { padding: 1.375rem 0; }
+  .edu-logo-item:first-child { padding-right: 0; }
+  .edu-logo-item + .edu-logo-item {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+  }
+
+  .thesis-grid { grid-template-columns: 1fr; gap: 2rem 0; }
+  .thesis-item + .thesis-item {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    padding-top: 2rem;
+    margin-left: 0;
+  }
+
+  .edu-award-item { grid-template-columns: 5.5ch minmax(0, 1fr); gap: 1rem; }
+  .edu-block-head { flex-direction: column; gap: 0.375rem; }
+}
+
+/* =====================================================
+   无障碍降级
+   ===================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .edu-extra .reveal { opacity: 1; transform: none; transition: none; }
+  .edu-logo, .edu-award-year, .thesis-tag, .edu-logo-school a { transition: none; }
+}

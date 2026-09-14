@@ -1,0 +1,329 @@
+/* ============================================
+   德扑展示模块 · 仅作用于项目区的扑克项目组
+   独立模块：不改 style.css / poker.css
+   - A. 扇形牌阵（.pk-fan-wrap）：滚动到位后从一叠展开
+   - B. 扑克卡片毡面质感（.pk-card）+ 占位卡背面纹（.pk-facedown）
+   - C. 指标之间的花色分隔（.pk-card .project-metric）
+   - D. 点牌阵重新洗一次 + 换一句牌桌话（轻量彩蛋）
+   全部走 CSS 变量，四主题兼容
+   ============================================ */
+
+/* ---- 牌面色板：深色底上牌面用 --fg（奶白），红花色跟主题挑最像红的那个 ---- */
+:root {
+  --pk-face: var(--fg);
+  --pk-ink: var(--bg-0);
+  --pk-red: var(--accent);         /* copper：铜色当红桃 */
+  --pk-edge: rgba(var(--fg-rgb), 0.22);
+  --pk-w: 80px;
+  --pk-h: 112px;
+  --pk-spread: 10deg;              /* 相邻两张牌的夹角 */
+}
+[data-palette="indigo"] { --pk-red: var(--second); }   /* 珊瑚红 */
+[data-palette="mist"]   { --pk-red: var(--second); }   /* 橙 */
+[data-palette="frost"]  { --pk-red: var(--accent); }   /* 砖红 */
+
+/* 浅色主题：牌面要比页面底更白，墨色用 --fg */
+[data-palette="frost"],
+[data-palette="mist"] {
+  --pk-face: rgba(255, 255, 255, 0.96);
+  --pk-ink: var(--fg);
+  --pk-edge: rgba(var(--fg-rgb), 0.16);
+}
+
+/* ============================================
+   A. 扇形牌阵
+   ============================================ */
+.pk-fan-wrap {
+  grid-column: 1 / -1;             /* 若父级是 grid，独占一行 */
+  display: flex;
+  align-items: flex-end;
+  gap: 2.25rem;
+  padding: 0.25rem 0 1.75rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* 牌阵舞台：宽度给展开后的牌留出来，高度给抬起留余量 */
+.pk-fan {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(var(--pk-w) * 2.9);
+  height: calc(var(--pk-h) + 26px);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.pk-fan:focus-visible {
+  outline: 2px solid rgba(var(--accent-rgb), 0.6);
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+/* 单张牌：全部叠在舞台底部中心，靠 --i 决定旋转 */
+.pk-card-face {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: var(--pk-w);
+  height: var(--pk-h);
+  margin-left: calc(var(--pk-w) / -2);
+  border-radius: 7px;
+  background: var(--pk-face);
+  color: var(--pk-ink);
+  box-shadow:
+    0 0 0 1px var(--pk-edge),
+    var(--elev-2, 0 6px 18px rgba(0, 0, 0, 0.3));
+  font-family: var(--font-serif);
+  transform-origin: 50% 165%;      /* 原点放在牌下方一点，弧更圆 */
+  transform: rotate(calc(var(--i) * 0.9deg - 1.8deg)) translateY(calc(var(--i) * -0.5px));
+  transition:
+    transform 0.7s var(--ease-out),
+    opacity 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
+  transition-delay: calc(var(--i) * 45ms);
+  will-change: transform;
+  z-index: calc(1 + var(--i));
+}
+.pk-card-face.red { color: var(--pk-red); }
+
+/* 牌面：左上角点数 + 花色，中央大花色，右下角倒置镜像 */
+.pk-rank {
+  position: absolute;
+  top: 6px;
+  left: 7px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+.pk-rank small {
+  display: block;
+  font-size: 0.6875rem;
+  margin-top: 1px;
+}
+.pk-rank.flip {
+  top: auto;
+  left: auto;
+  right: 7px;
+  bottom: 6px;
+  transform: rotate(180deg);
+}
+.pk-pip {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1.875rem;
+  line-height: 1;
+  opacity: 0.92;
+}
+
+/* 展开：以中间那张为 0，两侧按夹角摊开；略微下沉模拟弧 */
+.pk-fan-wrap.is-open .pk-card-face {
+  transform:
+    rotate(calc((var(--i) - 2) * var(--pk-spread)))
+    translateY(0);
+}
+
+/* hover 某张：抬起放大；其余轻压 */
+@media (hover: hover) and (pointer: fine) {
+  .pk-fan-wrap.is-open .pk-fan:hover .pk-card-face {
+    transition-delay: 0s;
+    transition-duration: 0.45s;
+    transform: rotate(calc((var(--i) - 2) * var(--pk-spread))) translateY(6px);
+    opacity: 0.82;
+  }
+  .pk-fan-wrap.is-open .pk-fan .pk-card-face:hover {
+    transform: rotate(calc((var(--i) - 2) * var(--pk-spread))) translateY(-16px) scale(1.06);
+    opacity: 1;
+    z-index: 10;
+    box-shadow:
+      0 0 0 1px var(--pk-edge),
+      var(--elev-3, 0 18px 44px rgba(0, 0, 0, 0.4));
+  }
+}
+
+/* 洗牌：点击后先收拢再展开（JS 切 .is-shuffling） */
+.pk-fan-wrap.is-shuffling .pk-card-face {
+  transition-duration: 0.32s;
+  transition-delay: calc((4 - var(--i)) * 25ms);
+  transform: rotate(calc(var(--i) * 0.9deg - 1.8deg)) translateY(-3px);
+}
+
+/* 右侧说明：花色行 + 一句话 */
+.pk-fan-cap {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-bottom: 0.4rem;
+}
+.pk-fan-suits {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.32em;
+  color: var(--fg-dim);
+  margin-bottom: 0.55rem;
+}
+.pk-fan-suits b {
+  font-weight: 400;
+  color: var(--pk-red);
+}
+.pk-fan-line {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+  margin: 0;
+  max-width: 34ch;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.pk-fan-line.is-swapping {
+  opacity: 0;
+  transform: translateY(4px);
+}
+.pk-fan-hint {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 0.4s var(--ease) 0.9s, transform 0.4s var(--ease) 0.9s;
+}
+.pk-fan-wrap.is-open .pk-fan-hint {
+  opacity: 0.7;
+  transform: none;
+}
+
+/* ============================================
+   B. 扑克组卡片：毡面质感 + 角标
+   ============================================ */
+.project-card.pk-card {
+  /* 细网点：模拟牌桌毡面，透明度极低 */
+  background-image:
+    radial-gradient(rgba(var(--fg-rgb), 0.05) 0.6px, transparent 0.9px),
+    linear-gradient(135deg, var(--bg-2), var(--bg-1));
+  background-size: 7px 7px, 100% 100%;
+  background-position: 0 0, 0 0;
+}
+[data-palette="frost"] .project-card.pk-card,
+[data-palette="mist"]  .project-card.pk-card {
+  /* 浅色底：网点用深色但更淡，避免发灰 */
+  background-image:
+    radial-gradient(rgba(var(--fg-rgb), 0.06) 0.6px, transparent 0.9px),
+    linear-gradient(135deg, var(--bg-1), var(--bg-0));
+}
+
+/* 右上角小花色：hover 时才显，保持克制 */
+.pk-corner {
+  position: absolute;
+  top: 0.9rem;
+  right: 1rem;
+  z-index: 2;
+  font-size: 0.8125rem;
+  line-height: 1;
+  color: var(--fg-dim);
+  opacity: 0.35;
+  transform: translateY(-2px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), color 0.3s var(--ease);
+  pointer-events: none;
+}
+.pk-corner.red { color: var(--pk-red); }
+.project-card.pk-card:hover .pk-corner {
+  opacity: 0.9;
+  transform: none;
+}
+
+/* 占位卡：牌背纹（斜向交叉细线），与「尚未翻开」语义呼应 */
+.project-card.pk-card.pk-facedown {
+  background-image:
+    repeating-linear-gradient(45deg,  rgba(var(--accent-rgb), 0.07) 0 1px, transparent 1px 9px),
+    repeating-linear-gradient(-45deg, rgba(var(--accent-rgb), 0.07) 0 1px, transparent 1px 9px),
+    linear-gradient(135deg, var(--bg-2), var(--bg-1));
+  background-size: auto, auto, 100% 100%;
+}
+[data-palette="frost"] .project-card.pk-card.pk-facedown,
+[data-palette="mist"]  .project-card.pk-card.pk-facedown {
+  background-image:
+    repeating-linear-gradient(45deg,  rgba(var(--accent-rgb), 0.09) 0 1px, transparent 1px 9px),
+    repeating-linear-gradient(-45deg, rgba(var(--accent-rgb), 0.09) 0 1px, transparent 1px 9px),
+    linear-gradient(135deg, var(--bg-1), var(--bg-0));
+}
+.project-card.pk-card.pk-facedown .pk-corner {
+  opacity: 0.5;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  font-size: 2.25rem;
+  color: rgba(var(--accent-rgb), 0.18);
+}
+.project-card.pk-card.pk-facedown:hover .pk-corner {
+  transform: translate(50%, -50%) rotate(-8deg);
+  opacity: 0.6;
+}
+.project-card.pk-card.pk-facedown .project-card-inner { position: relative; z-index: 1; }
+
+/* ============================================
+   C. 指标之间的花色分隔
+   ============================================ */
+.pk-card .project-metric + .project-metric::before {
+  content: '♦';
+  position: absolute;
+  left: -0.875rem;
+  top: 50%;
+  transform: translateY(-52%);
+  font-size: 0.5625rem;
+  line-height: 1;
+  color: var(--fg-dim);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.pk-card .project-metric + .project-metric + .project-metric::before { content: '♣'; }
+.pk-card .project-metric + .project-metric + .project-metric + .project-metric::before { content: '♥'; color: var(--pk-red); }
+
+/* ============================================
+   响应式
+   ============================================ */
+@media (max-width: 720px) {
+  .pk-fan-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+}
+@media (max-width: 480px) {
+  :root { --pk-w: 52px; --pk-h: 74px; --pk-spread: 8deg; }
+  .pk-fan { width: calc(var(--pk-w) * 2.8); height: calc(var(--pk-h) + 20px); }
+  .pk-rank { font-size: 0.6875rem; top: 5px; left: 6px; }
+  .pk-rank small { font-size: 0.5625rem; }
+  .pk-rank.flip { right: 6px; bottom: 5px; }
+  .pk-pip { font-size: 1.5rem; }
+  .pk-fan-line { font-size: 0.9375rem; }
+  .pk-fan-hint { display: none; }
+}
+
+/* 触屏：没有 hover，牌阵不做抬起，改为点一下洗牌 */
+@media (hover: none) {
+  .pk-corner { opacity: 0.55; transform: none; }
+}
+
+/* ============================================
+   reduced-motion：直接摆成扇形，不做动画
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .pk-card-face,
+  .pk-fan-line,
+  .pk-fan-hint,
+  .pk-corner {
+    transition: none !important;
+  }
+  .pk-fan-wrap .pk-card-face {
+    transform: rotate(calc((var(--i) - 2) * var(--pk-spread))) !important;
+    opacity: 1 !important;
+  }
+  .pk-fan-hint { opacity: 0.7; transform: none; }
+}
