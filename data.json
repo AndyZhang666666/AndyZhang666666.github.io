@@ -898,8 +898,8 @@
         "n": "03",
         "zh": "能自己做的先自己做",
         "en": "Do it yourself when you can",
-        "dz": "写需求之前先把流程亲自走一遍。这个网站和几个评测工具都是自己写的，不是为了炫技，是为了确认自己真的理解。",
-        "de": "Before writing a spec, walk the flow myself. This site and the eval tools are hand-built — not to show off, but to make sure I actually understand."
+        "dz": "写需求之前先把流程亲自走一遍。走一遍才知道哪一步是多余的、哪一句话会被理解错。这个网站和几个评测工具都是自己写的，写到能跑起来，才算真的理解。",
+        "de": "Before writing a spec, walk the flow myself. Only then do I find which step is redundant and which sentence will be misread. This site and the eval tools are hand-built; they count as understood once they run."
       }
     ],
     "body3": "选 AI 方向，是因为这一轮技术把「能做什么」的边界推得比「该做什么」快得多。模型的能力是充裕的，稀缺的是把它放进一个真实场景、让它稳定解决一个具体问题的判断。这是产品经理的活，而且是现在最值得干的那一份。",
@@ -974,29 +974,43 @@
         "zh": "能力过剩，判断稀缺",
         "en": "Capability is abundant, judgement is scarce",
         "dz": "模型能做的事已经远多于产品里用上的事。今天多数 AI 产品的瓶颈不在模型，在有没有人把它放进一个真实场景，定义清楚它要解决的具体问题。这是产品的活，不是算法的活。",
-        "de": "Models can already do far more than products make use of. The bottleneck in most AI products today is not the model. It is whether someone has placed it in a real scenario and defined the specific problem it must solve. That is product work, not algorithm work."
+        "de": "Models can already do far more than products make use of. The bottleneck in most AI products today is not the model. It is whether someone has placed it in a real scenario and defined the specific problem it must solve. That is product work, not algorithm work.",
+        "refLabel": "YouTube · Andrej Karpathy, Software in the Era of AI (2025)",
+        "refUrl": "https://www.youtube.com/watch?v=LCEmiRjPEtQ"
       },
       {
         "n": "02",
         "zh": "评测是产品，不是测试",
         "en": "Evaluation is product, not QA",
         "dz": "一个 AI 功能「好不好」，不能靠感觉。我倾向于先把评测标准建出来再谈效果。标准本身就是产品的一部分，它决定了团队朝哪个方向优化，也决定了上线之后谁来说「够了」。",
-        "de": "Whether an AI feature is \"good\" cannot rest on feel. I prefer to build the evaluation standard before discussing results. The standard is part of the product: it decides which direction the team optimises toward, and who gets to say \"enough\" after launch."
+        "de": "Whether an AI feature is \"good\" cannot rest on feel. I prefer to build the evaluation standard before discussing results. The standard is part of the product: it decides which direction the team optimises toward, and who gets to say \"enough\" after launch.",
+        "refLabel": "eugeneyan · LLM-as-judge 评测实践",
+        "refUrl": "https://eugeneyan.com/writing/llm-evaluators/"
       },
       {
         "n": "03",
         "zh": "接下来十年是 Agent 的十年，不是 Agent 的一年",
         "en": "The decade of agents, not the year",
         "dz": "自动驾驶从演示到落地用了十几年，Agent 也一样。真正有价值的不是全自动的炫技，是让人能调节自主程度、在关键节点快速验证的「半自动」产品。做这类产品，交互设计和验证效率比模型能力更重要。",
-        "de": "Self-driving took over a decade from demo to deployment, and agents will follow the same arc. The value is not in fully autonomous showpieces but in \"partially autonomous\" products where people can dial autonomy up or down and verify quickly at key points. For such products, interaction design and verification speed matter more than raw model capability."
+        "de": "Self-driving took over a decade from demo to deployment, and agents will follow the same arc. The value is not in fully autonomous showpieces but in \"partially autonomous\" products where people can dial autonomy up or down and verify quickly at key points. For such products, interaction design and verification speed matter more than raw model capability.",
+        "refLabel": "Hamel Husain · Your AI Product Needs Evals",
+        "refUrl": "https://hamel.dev/blog/posts/evals/"
       },
       {
         "n": "04",
-        "zh": "to C 看留存，to B 看替换成本",
+        "zh": "To C 看留存，To B 看替换成本",
         "en": "Consumer AI is about retention, enterprise AI is about switching cost",
         "dz": "消费端的 AI 产品，新鲜感过后拼的还是留存：用户愿不愿意每天回来。企业端的关键是替换成本：AI 方案比旧流程好多少，才值得客户承担切换的代价。两边都不是「有 AI」就赢，是「AI 让哪个数字变了」才赢。",
-        "de": "Once novelty fades, consumer AI competes on retention: will people come back every day. On the enterprise side the question is switching cost: how much better than the old process must the AI solution be for a customer to bear the cost of change. Neither side wins by \"having AI\". They win by \"which number AI moved\"."
+        "de": "Once novelty fades, consumer AI competes on retention: will people come back every day. On the enterprise side the question is switching cost: how much better than the old process must the AI solution be for a customer to bear the cost of change. Neither side wins by \"having AI\". They win by \"which number AI moved\".",
+        "refLabel": "Lenny's Newsletter · Product sense",
+        "refUrl": "https://www.lennysnewsletter.com/p/product-sense"
       }
     ]
+  },
+  "stats": {
+    "titleZh": "一些数字",
+    "titleEn": "By the numbers",
+    "subZh": "从上线的东西里挑四个。",
+    "subEn": "Four numbers from things that shipped."
   }
 }
