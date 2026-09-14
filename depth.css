@@ -1,0 +1,225 @@
+/* ============================================================
+   depth —— 材质与层次
+   ------------------------------------------------------------
+   这轮改动的核心：
+     深浅主题不能只是「换色值」，阴影结构本身就该不同。
+
+     深色底：光线少，靠深投影拉开层次，靠上缘 1px 高光勾出边缘。
+     浅色底：环境光强，深投影会脏，改用多层低透明度扩散 + 极淡描边。
+
+   把 elevation 抽成变量，所有组件引用同一套，避免每处手写阴影。
+   ============================================================ */
+
+:root {
+  /* ---- 深色主题（默认 copper，indigo 继承同样的结构） ---- */
+  /* 上缘高光：模拟顶光打在卡片边缘 */
+  --edge-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --edge-highlight-strong: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+  /* 三级海拔：越高的层阴影越大越散 */
+  --elev-1:
+    0 1px 2px rgba(var(--shadow-rgb), 0.24),
+    0 2px 6px rgba(var(--shadow-rgb), 0.18);
+  --elev-2:
+    0 2px 4px rgba(var(--shadow-rgb), 0.28),
+    0 8px 22px rgba(var(--shadow-rgb), 0.34);
+  --elev-3:
+    0 4px 8px rgba(var(--shadow-rgb), 0.3),
+    0 18px 44px rgba(var(--shadow-rgb), 0.42);
+
+  /* 玻璃层：深色底上玻璃要够暗才显得"厚" */
+  --glass-bg: rgba(var(--bg-rgb), 0.72);
+  --glass-blur: 14px;
+  --glass-border: rgba(var(--fg-rgb), 0.1);
+
+  /* 内凹（用于输入框、滑轨槽） */
+  --inset-1: inset 0 1px 3px rgba(var(--shadow-rgb), 0.32);
+}
+
+/* ---- 浅色主题：换掉整套结构，不是只调透明度 ---- */
+[data-palette='frost'],
+[data-palette='mist'] {
+  /* 浅色底不需要高光勾边，反而需要极淡的暗描边定义边界 */
+  --edge-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --edge-highlight-strong: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+  /* 多层低透明度扩散：模拟柔和环境光遮蔽，避免"脏" */
+  --elev-1:
+    0 1px 2px rgba(var(--shadow-rgb), 0.06),
+    0 2px 6px rgba(var(--shadow-rgb), 0.05);
+  --elev-2:
+    0 1px 2px rgba(var(--shadow-rgb), 0.07),
+    0 6px 18px rgba(var(--shadow-rgb), 0.08),
+    0 14px 32px rgba(var(--shadow-rgb), 0.05);
+  --elev-3:
+    0 2px 4px rgba(var(--shadow-rgb), 0.08),
+    0 12px 32px rgba(var(--shadow-rgb), 0.11),
+    0 28px 60px rgba(var(--shadow-rgb), 0.07);
+
+  /* 浅色玻璃：要亮而透，不是暗 */
+  --glass-bg: rgba(255, 255, 255, 0.66);
+  --glass-blur: 16px;
+  --glass-border: rgba(var(--fg-rgb), 0.08);
+
+  --inset-1: inset 0 1px 2px rgba(var(--shadow-rgb), 0.07);
+}
+
+/* ============================================================
+   应用到组件
+   ============================================================ */
+
+/* ---- 卡片类：静态用 elev-1，hover 升到 elev-2 ---- */
+.project-card {
+  box-shadow: var(--elev-1), var(--edge-highlight);
+  transition:
+    box-shadow 0.34s var(--ease-enter, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.34s var(--ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    transform 0.18s ease-out;
+}
+
+.project-card:hover {
+  box-shadow: var(--elev-2), var(--edge-highlight-strong);
+}
+
+.work-card,
+.skill-category,
+.principle-card,
+.uses-group,
+.now-item {
+  box-shadow: var(--elev-1), var(--edge-highlight);
+}
+
+.work-card:hover,
+.skill-category:hover {
+  box-shadow: var(--elev-2), var(--edge-highlight-strong);
+}
+
+/* ---- 统计数字块：最高层，是最重要的信息 ---- */
+.stats-grid {
+  box-shadow: var(--elev-3), var(--edge-highlight-strong);
+}
+
+/* ---- 导航：滚动后浮起 ---- */
+#nav.scrolled {
+  box-shadow: var(--elev-2);
+}
+
+/* ---- 悬浮元素：玻璃层 ---- */
+.railnav,
+.portrait-caption {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  border: 1px solid var(--glass-border);
+}
+
+/* railnav 只有刻度，不要边框和背景，保持极轻 */
+.railnav {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 0;
+  box-shadow: none;
+}
+
+/* ---- 联系方式卡片：玻璃 + 海拔 ---- */
+.contact-item {
+  box-shadow: var(--elev-1), var(--edge-highlight);
+  transition:
+    box-shadow 0.3s var(--ease-enter, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.3s var(--ease),
+    background-color 0.3s var(--ease),
+    transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.contact-item:hover {
+  box-shadow: var(--elev-2), var(--edge-highlight-strong);
+}
+
+/* ---- 配色切换器：玻璃浮层 ---- */
+.palette-switch {
+  box-shadow: var(--elev-2);
+}
+
+/* ---- JD 匹配器：结果面板升一层，输入框内凹 ---- */
+.jd-result {
+  box-shadow: var(--elev-2), var(--edge-highlight);
+}
+
+.jd-textarea {
+  box-shadow: var(--inset-1);
+}
+
+.jd-textarea:focus {
+  box-shadow: var(--inset-1), 0 0 0 3px rgba(var(--accent-rgb), 0.16);
+}
+
+.jd-dim,
+.jd-ev {
+  box-shadow: var(--elev-1);
+}
+
+[data-palette='frost'] .jd-dim,
+[data-palette='mist'] .jd-dim,
+[data-palette='frost'] .jd-ev,
+[data-palette='mist'] .jd-ev {
+  box-shadow: none;
+  border: 1px solid var(--glass-border);
+}
+
+/* ---- 内嵌 demo 容器：内凹感，像嵌进卡片 ---- */
+.embed-container {
+  box-shadow: var(--inset-1);
+}
+
+/* ---- 按钮：静态 elev-1，hover 抬到 elev-2 ---- */
+.jd-btn-run,
+.embed-try-btn {
+  box-shadow: var(--elev-1), var(--edge-highlight);
+}
+
+.jd-btn-run:hover:not(:disabled),
+.embed-try-btn:hover {
+  box-shadow: var(--elev-2), var(--edge-highlight-strong);
+}
+
+/* ---- 浅色主题下按钮文字需要对比度校正 ---- */
+[data-palette='frost'] .jd-btn-run,
+[data-palette='mist'] .jd-btn-run {
+  color: #fff;
+}
+
+/* ---- 顶部导航：深色主题加一层底部渐变遮罩，避免内容"硬碰" ---- */
+#nav::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--fg-rgb), 0.14),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+}
+
+#nav.scrolled::after {
+  opacity: 1;
+}
+
+/* ---- 减少动态效果：所有过渡降级 ---- */
+@media (prefers-reduced-motion: reduce) {
+  .project-card,
+  .work-card,
+  .skill-category,
+  .contact-item,
+  .jd-dim,
+  .jd-ev {
+    transition: none;
+  }
+}
