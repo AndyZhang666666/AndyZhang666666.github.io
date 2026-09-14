@@ -1,0 +1,147 @@
+/* ============================================================
+   板块背景层 · bg-layers.css
+   ------------------------------------------------------------
+   两块背景纹理，各自独立：
+     #about  → 产品经理术语水印（PRODUCT/PM 词汇）
+     #ai     → AI 术语与符号水印（AI 词汇 + 节点连线）
+   都靠 section-bg.js 注入 DOM。纯装饰，不参与交互。
+   ============================================================ */
+
+/* ---- 通用：板块背景容器 ---- */
+.section { position: relative; }
+.section > .sec-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  /* 上下淡出，避免与相邻板块硬切 */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+.section > .section-head,
+.section > .about-grid,
+.section > .principle-grid,
+.section > .ai-views-grid { position: relative; z-index: 1; }
+
+/* ---- 水印词 ---- */
+.sec-bg-word {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--fg);
+  opacity: 0.085;
+  animation: bgDrift var(--dur, 60s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+
+/* AI 板块的词略大一号、更疏，和上面区分 */
+.ai-views > .sec-bg .sec-bg-word {
+  font-size: 0.875rem;
+  letter-spacing: 0.2em;
+  opacity: 0.09;
+}
+
+@keyframes bgDrift {
+  0%,
+  100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(var(--dx, 10px), var(--dy, -14px), 0); }
+}
+
+/* 浅色主题：同样透明度显得偏重，压一点 */
+[data-palette="frost"] .sec-bg-word,
+[data-palette="mist"]  .sec-bg-word { opacity: 0.075; }
+[data-palette="frost"] .ai-views > .sec-bg .sec-bg-word,
+[data-palette="mist"]  .ai-views > .sec-bg .sec-bg-word { opacity: 0.08; }
+
+/* ---- AI 板块专属：节点连线（神经网络/知识图谱意象，克制版）---- */
+.sec-bg-net {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.11;
+  color: var(--accent);
+}
+[data-palette="frost"] .sec-bg-net,
+[data-palette="mist"]  .sec-bg-net { opacity: 0.14; }
+
+.sec-bg-net circle {
+  fill: currentColor;
+  animation: netPulse var(--dur, 7s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+.sec-bg-net line {
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.5;
+}
+@keyframes netPulse {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 1; }
+}
+
+/* ---- 三段正文分步揭示（JS 加 .ab-in）---- */
+.about-main .about-body {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+}
+.about-main .about-body.ab-in {
+  opacity: 1;
+  transform: none;
+  transition-delay: var(--ab-delay, 0ms);
+}
+/* 首段（lead）保留全局 reveal 行为，不重复接管 */
+.about-main .about-lead { opacity: 1; }
+
+/* ---- 原则卡：顶线画入 + 数字轻浮起 ---- */
+.principle-card { position: relative; }
+.principle-card::before {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s var(--ease-out), background-color 0.3s var(--ease);
+}
+.principle-card.pc-in::before { transform: scaleX(1); }
+.principle-card:hover::before { transform: scaleX(1); }
+
+.principle-card .principle-num {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.55s var(--ease-out) 0.12s,
+    transform 0.55s var(--ease-out) 0.12s,
+    color 0.3s var(--ease);
+}
+.principle-card.pc-in .principle-num { opacity: 1; transform: none; }
+
+/* ---- 关于 AI：条目进入时编号从左侧滑入 ---- */
+.ai-views-grid .ai-view .ai-view-num {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+.ai-views-grid .ai-view.av-in .ai-view-num { opacity: 1; transform: none; }
+
+/* ---- 移动端：少放词，降噪 ---- */
+@media (max-width: 900px) {
+  .sec-bg-word { font-size: 0.6875rem; letter-spacing: 0.12em; opacity: 0.045; }
+  .ai-views > .sec-bg .sec-bg-word { font-size: 0.6875rem; opacity: 0.05; }
+  .sec-bg-net { opacity: 0.06; }
+}
+
+/* ---- 减少动态效果：全部静止 ---- */
+@media (prefers-reduced-motion: reduce) {
+  .sec-bg-word,
+  .sec-bg-net circle { animation: none; }
+  .about-main .about-body { opacity: 1; transform: none; transition: none; }
+  .principle-card::before { transform: scaleX(1); transition: none; }
+  .principle-card .principle-num { opacity: 1; transform: none; transition: none; }
+  .ai-views-grid .ai-view .ai-view-num { opacity: 1; transform: none; transition: none; }
+}

@@ -9,6 +9,7 @@
   var LABELS = {
     top:       ['首页', 'Top'],
     about:     ['关于', 'About'],
+    ai:        ['观点', 'On AI'],
     work:      ['经历', 'Work'],
     education: ['教育', 'Education'],
     projects:  ['项目', 'Projects'],
