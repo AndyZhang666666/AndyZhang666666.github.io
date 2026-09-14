@@ -210,48 +210,36 @@ html.theme-switching .hero .hero-jd-link.reveal {
   }
 }
 
-/* ---- 首屏 JD 匹配器入口：比按钮低一级的文字链，面向 HR ---- */
+/* ---- 首屏 JD 匹配器入口：按钮组下方一行文字链，低于按钮一级 ---- */
 .hero-jd-link {
   display: inline-flex;
-  align-items: center;
-  gap: 0.625rem;
-  margin-top: 1.375rem;
+  align-items: baseline;
+  gap: 0.375rem;
+  margin-top: 1.25rem;
   font-size: 0.875rem;
+  line-height: 1.5;
   color: var(--fg-muted);
   text-decoration: none;
   transition: color 0.3s var(--ease);
 }
-.hero-jd-tag {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.12em;
-  padding: 0.2rem 0.5rem;
-  border: 1px solid var(--border-strong);
-  border-radius: 999px;
-  color: var(--accent);
-  transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
-}
-.hero-jd-text {
-  position: relative;
-}
+.hero-jd-text { position: relative; }
 .hero-jd-text::after {
   content: '';
   position: absolute;
-  left: 0; right: 0; bottom: -0.2em;
+  left: 0; right: 0; bottom: -0.15em;
   height: 1px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s var(--ease-out);
+  background: currentColor;
+  opacity: 0.35;
+  transition: opacity 0.3s var(--ease), background-color 0.3s var(--ease);
 }
-.hero-jd-link svg {
-  width: 14px; height: 14px;
+.hero-jd-arrow {
+  font-size: 0.875rem;
+  display: inline-block;
   transition: transform 0.3s var(--ease-out);
 }
-.hero-jd-link:hover { color: var(--fg); }
-.hero-jd-link:hover .hero-jd-tag { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.08); }
-.hero-jd-link:hover .hero-jd-text::after { transform: scaleX(1); }
-.hero-jd-link:hover svg { transform: translateX(3px); }
+.hero-jd-link:hover { color: var(--accent); }
+.hero-jd-link:hover .hero-jd-text::after { opacity: 1; }
+.hero-jd-link:hover .hero-jd-arrow { transform: translateX(3px); }
 
 /* 跟随首屏卷帘节奏，在 CTA 之后进场 */
 .hero .hero-jd-link.reveal.visible { --rise-delay: 560ms; }
