@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>张千羽 Andy Zhang — AI 产品经理</title>
+<meta name="description" content="张千羽 Andy Zhang — AI 产品经理。从 0 到 1 定义功能、跑通数据、把模型效果变成可度量的决策依据。UCL 计算金融硕士，经历百度、美团、理想汽车、Revolut、山海星辰。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20260913d">
+<link rel="stylesheet" href="poker.css?v=20260913e">
+<link rel="stylesheet" href="hero-portrait.css?v=20260913d">
+<link rel="stylesheet" href="sections.css?v=20260913e">
+<link rel="stylesheet" href="enhance.css?v=20260913e">
+<link rel="stylesheet" href="interactions.css?v=20260913e">
+<link rel="stylesheet" href="jd.css?v=20260913b">
+<script>
+  // 在 CSS 生效前恢复上次选的配色，避免闪一下默认色
+  try { var p = localStorage.getItem('palette'); if (p && p !== 'copper') document.documentElement.setAttribute('data-palette', p); } catch (e) {}
+</script>
+</head>
+<body>
+
+<div class="scroll-progress" aria-hidden="true"></div>
+<div class="spotlight" aria-hidden="true"></div>
+<div class="grain"></div>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<nav id="nav">
+  <a href="#top" class="nav-logo">张千羽</a>
+  <div class="nav-links">
+    <a href="#about">关于</a>
+    <a href="#work">经历</a>
+    <a href="#education">教育</a>
+    <a href="#projects">项目</a>
+    <a href="#awards">奖项</a>
+    <a href="#contact">联系</a>
+  </div>
+  <button id="langToggle" class="lang-toggle" aria-label="切换语言">EN</button>
+</nav>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="hero">
+  <div class="hero-mesh" aria-hidden="true"><span class="mesh-c"></span></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-body">
+      <h1 class="hero-name reveal">
+        <span class="hero-name-zh">张千羽</span>
+        <span class="hero-name-en">Andy Zhang</span>
+      </h1>
+      <p class="hero-tagline reveal" data-zh="AI 产品经理。在百度文库做过命理馆，上线两周日活破万；在山海星辰把编剧的创作方法整理成 38 个可复用的 Skill。现在主要做模型效果评估和用户增长。" data-en="AI product manager. Built Fortune Hall at Baidu Wenku — 10k DAU within two weeks; at Shanhai, turned screenwriters' methods into 38 reusable Skills. Now focused on model evaluation and growth.">AI 产品经理。在百度文库做过命理馆，上线两周日活破万；在山海星辰把编剧的创作方法整理成 38 个可复用的 Skill。现在主要做模型效果评估和用户增长。</p>
+      <div class="hero-meta reveal">
+        <span data-zh="UCL 计算金融 硕士" data-en="MSc Computational Finance, UCL">UCL 计算金融 硕士</span>
+        <span class="dot">·</span>
+        <span data-zh="布里斯托大学 电子电气工程 本科" data-en="BEng EEE, University of Bristol">布里斯托大学 电子电气工程 本科</span>
+        <span class="dot">·</span>
+        <span>First Class</span>
+      </div>
+      <div class="hero-cta reveal">
+        <a href="#projects" class="btn btn-primary">
+          <span data-zh="看我做的东西" data-en="See my work">看我做的东西</span>
+          <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="https://github.com/AndyZhang666666" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+        <a href="#contact" class="btn btn-ghost" data-zh="联系我" data-en="Contact">联系我</a>
+      </div>
+    </div>
+    <div class="hero-portrait reveal" aria-hidden="true">
+      <span class="portrait-ring"></span>
+      <span class="portrait-blob"></span>
+      <img class="portrait-img portrait-img-dark" src="assets/gen/portrait-dark.png" alt="Andy Zhang" width="395" height="687" loading="eager" decoding="async">
+      <img class="portrait-img portrait-img-light" src="assets/gen/portrait-light.png" alt="" width="394" height="687" loading="eager" decoding="async">
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span data-zh="向下滚动" data-en="Scroll">向下滚动</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="section about">
+  <div class="section-head reveal" data-num="00">
+    <span class="section-num">00</span>
+    <h2 data-zh="关于我" data-en="About">关于我</h2>
+    <p class="section-sub" data-zh="背景、方法，以及几条工作原则。" data-en="Background, method, and a few working principles.">背景、方法，以及几条工作原则。</p>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-main reveal">
+      <p class="about-lead" data-zh="" data-en=""></p>
+      <p class="about-body" data-zh="" data-en=""></p>
+      <p class="about-body" data-zh="" data-en=""></p>
+    </div>
+
+    <aside class="about-side reveal" data-delay="120">
+      <dl id="aboutFacts" class="about-facts"></dl>
+      <div class="about-sig">
+        <span class="sig-line"></span>
+        <span class="sig-text" data-zh="张千羽 · Andy" data-en="Andy Zhang">张千羽 · Andy</span>
+      </div>
+    </aside>
+  </div>
+
+  <div class="principle-grid" id="principleGrid"></div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats">
+  <div class="stats-grid">
+    <div class="stat reveal" data-delay="0">
+      <div class="stat-num" data-count="10000" data-suffix="+">0</div>
+      <div class="stat-label" data-zh="文库命理馆 DAU" data-en="Baidu Fortune Hall DAU">文库命理馆 DAU</div>
+    </div>
+    <div class="stat reveal" data-delay="90">
+      <div class="stat-num" data-count="38" data-suffix="">0</div>
+      <div class="stat-label" data-zh="上架 Skill 数量" data-en="Skills shipped">上架 Skill 数量</div>
+    </div>
+    <div class="stat reveal" data-delay="180">
+      <div class="stat-num" data-count="100000" data-suffix="+">0</div>
+      <div class="stat-label" data-zh="创业项目全网粉丝" data-en="Total social media followers">创业项目全网粉丝</div>
+    </div>
+    <div class="stat reveal" data-delay="270">
+      <div class="stat-num" data-count="1000000" data-suffix="+">0</div>
+      <div class="stat-label" data-zh="命理馆累计 AI 测算次数" data-en="AI readings generated">命理馆累计 AI 测算次数</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee reveal" aria-label="经历与能力">
+  <div class="marquee-track marquee-track-a">
+    <div class="marquee-inner" id="marqueeInner"></div>
+  </div>
+  <div class="marquee-track marquee-track-b">
+    <div class="marquee-inner marquee-inner-rev" id="marqueeInnerB"></div>
+  </div>
+</div>
+
+<!-- ============ WORK ============ -->
+<section id="work" class="section">
+  <div class="section-head reveal" data-num="01">
+    <span class="section-num">01</span>
+    <h2 data-zh="工作经历" data-en="Experience">工作经历</h2>
+    <p class="section-sub" data-zh="六段经历，从金融研究到 AI 产品。展开任意一段可查看具体工作。" data-en="Six roles, from finance research to AI products. Expand any one for details.">六段经历，从金融研究到 AI 产品。展开任意一段可查看具体工作。</p>
+  </div>
+  <div id="timeline" class="timeline"></div>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section id="education" class="section">
+  <div class="section-head reveal" data-num="02">
+    <span class="section-num">02</span>
+    <h2 data-zh="教育背景" data-en="Education">教育背景</h2>
+  </div>
+  <div id="educationTimeline" class="timeline"></div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects" class="section">
+  <div class="section-head reveal" data-num="03">
+    <span class="section-num">03</span>
+    <h2 data-zh="项目与 Demo" data-en="Projects & Demos">项目与 Demo</h2>
+    <p class="section-sub" data-zh="带 Demo 的项目可直接在浏览器中试用，无需阅读代码。" data-en="Projects with a demo can be tried directly in the browser.">带 Demo 的项目可直接在浏览器中试用，无需阅读代码。</p>
+  </div>
+  <div id="projectGrid" class="project-grid"></div>
+</section>
+
+<!-- ============ AWARDS ============ -->
+<section id="awards" class="section">
+  <div class="section-head reveal" data-num="04">
+    <span class="section-num">04</span>
+    <h2 data-zh="奖项与荣誉" data-en="Awards & Honors">奖项与荣誉</h2>
+  </div>
+  <div id="awardList" class="award-list"></div>
+</section>
+
+<!-- ============ NOW ============ -->
+<section id="now" class="section">
+  <div class="section-head reveal" data-num="05">
+    <span class="section-num">05</span>
+    <h2 data-zh="现在" data-en="Now">现在</h2>
+    <p class="section-sub" id="nowUpdated" data-zh="更新于 2026.09" data-en="Updated 2026.09">更新于 2026.09</p>
+  </div>
+  <div id="nowGrid" class="now-grid"></div>
+</section>
+
+<!-- ============ USES ============ -->
+<section id="uses" class="section">
+  <div class="section-head reveal" data-num="06">
+    <span class="section-num">06</span>
+    <h2 data-zh="工具" data-en="Uses">工具</h2>
+    <p class="section-sub" data-zh="日常在用的工具。" data-en="Tools I use day to day.">日常在用的工具。</p>
+  </div>
+  <div id="usesGrid" class="uses-grid"></div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills" class="section">
+  <div class="section-head reveal" data-num="07">
+    <span class="section-num">07</span>
+    <h2 data-zh="能力" data-en="Skills">能力</h2>
+  </div>
+  <div id="skillGrid" class="skill-grid"></div>
+</section>
+
+<!-- ============ JD MATCHER ============ -->
+<section id="jd" class="section jd-matcher">
+  <div class="section-head reveal" data-num="07a">
+    <span class="section-num">07a</span>
+    <h2 data-zh="JD 匹配器" data-en="JD Matcher">JD 匹配器</h2>
+    <p class="section-sub" data-zh="不吹不编，诚实列出我有/部分有/暂时没有的经验。纯前端跑，不上传、不调接口。" data-en="Honest match: what I have, partly have, or don't. Runs locally, no upload, no API.">不吹不编，诚实列出我有/部分有/暂时没有的经验。纯前端跑，不上传、不调接口。</p>
+  </div>
+
+  <div class="jd-input-wrap reveal">
+    <label for="jdInput" class="jd-label">
+      <span data-zh="把 JD 的岗位职责 + 任职要求贴进来" data-en="Paste the job requirements here">把 JD 的岗位职责 + 任职要求贴进来</span>
+      <span id="jdCount" class="jd-count"></span>
+    </label>
+    <textarea id="jdInput" class="jd-textarea" rows="8" placeholder="例如：负责大模型应用产品的 0→1，搭建 Prompt 评估体系，通过 A/B 实验和数据分析优化用户转化……" data-zh-placeholder="例如：负责大模型应用产品的 0→1，搭建 Prompt 评估体系，通过 A/B 实验和数据分析优化用户转化……" data-en-placeholder="e.g.: Own 0→1 AI product design, build prompt eval framework, drive conversion via A/B tests and data analysis…"></textarea>
+    <div class="jd-samples">
+      <span class="jd-samples-label" data-zh="没 JD？试试：" data-en="No JD? Try:">没 JD？试试：</span>
+      <button type="button" class="jd-sample" data-jd="岗位职责：负责大模型应用产品从 0 到 1 的设计与落地，搭建 Prompt 工程与效果评估体系；通过数据分析和 A/B 实验驱动用户增长与商业化转化；撰写 PRD，推动跨团队协作落地。任职要求：本科及以上学历，有 AI 产品或 C 端产品经验，熟悉 SQL 与埋点分析，有海外市场经验加分。">AI 产品经理</button>
+      <button type="button" class="jd-sample" data-jd="岗位职责：负责 App 的用户增长与商业化变现，包括订阅付费转化、ARPU 提升、会员权益设计；通过埋点数据分析做转化漏斗归因，设计并执行 A/B 实验；与运营、算法协同优化推荐与触达策略。任职要求：有 C 端增长或商业化经验，熟悉 SQL，有金融或支付业务理解优先。">增长 / 商业化 PM</button>
+      <button type="button" class="jd-sample" data-jd="岗位职责：负责企业级 SaaS 工作台产品设计，服务 B 端商家客户；输出 PRD 与研发、算法团队协同推进；搭建中后台系统与数据看板。任职要求：3 年以上 B 端产品经验，熟悉 CRM 或 ERP 系统，有电商供应链背景优先。">B 端 SaaS PM</button>
+    </div>
+
+    <div class="jd-actions">
+      <button type="button" id="jdRun" class="jd-btn-run" disabled>
+        <span data-zh="开始匹配" data-en="Match">开始匹配</span>
+      </button>
+      <button type="button" id="jdClear" class="jd-btn-clear">
+        <span data-zh="清空" data-en="Clear">清空</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="jdResult" class="jd-result" hidden></div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="section contact">
+  <div class="reveal">
+    <span class="section-num">08</span>
+    <h2 class="contact-title" data-zh="聊聊？" data-en="Let's talk">聊聊？</h2>
+    <p class="contact-sub" data-zh="AI 产品、增长、评测体系，或者德州扑克，都可以聊。" data-en="AI products, growth, evaluation — or poker. Happy to talk.">AI 产品、增长、评测体系，或者德州扑克，都可以聊。</p>
+    <div id="contactGrid" class="contact-grid"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <span>© 2026 张千羽 Andy Zhang</span>
+  <span class="footer-note" data-zh="纯手写 HTML / CSS / JS，无框架" data-en="Hand-written HTML / CSS / JS, no framework">纯手写 HTML / CSS / JS，无框架</span>
+</footer>
+
+<div class="palette-switch" id="paletteSwitch" role="group" aria-label="配色">
+  <span class="ps-label">Theme</span>
+  <button type="button" class="ps-btn" data-palette="copper" data-name="铜 · 墨绿" style="--sw-bg:#0a0e0c;--sw-accent:#d8a27a" aria-label="铜 · 墨绿"></button>
+  <button type="button" class="ps-btn" data-palette="indigo" data-name="靛 · 石墨" style="--sw-bg:#090a0f;--sw-accent:#8b8cff" aria-label="靛 · 石墨"></button>
+  <button type="button" class="ps-btn" data-palette="mist" data-name="雾 · 青灰" style="--sw-bg:#f0f3f7;--sw-accent:#254ed6" aria-label="雾 · 青灰"></button>
+  <button type="button" class="ps-btn" data-palette="frost" data-name="霜 · 象牙纸" style="--sw-bg:#f5f2eb;--sw-accent:#d9481c" aria-label="霜 · 象牙纸"></button>
+</div>
+
+<script src="app.js?v=20260914a"></script>
+<script src="poker.js?v=20260913d" defer></script>
+<script src="jd-graph.js"></script>
+<script src="jd.js"></script>
+</body>
+</html>

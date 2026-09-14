@@ -1,0 +1,354 @@
+/* ========================================
+   sections.css — #about / #now / #uses / #colophon
+   只引用 style.css 中的语义变量，四套主题自动适配
+   ======================================== */
+
+/* =====================================================
+   ABOUT
+   ===================================================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+  gap: clamp(3rem, 7vw, 6.5rem);
+  align-items: start;
+}
+
+.about-lead {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  text-wrap: balance;
+  margin-bottom: 2rem;
+}
+
+.about-body {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--fg-muted);
+  max-width: 62ch;
+}
+.about-body + .about-body { margin-top: 1.25rem; }
+
+/* --- 侧栏事实列表 --- */
+.about-side {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-top: 0.5rem;
+}
+
+.about-facts {
+  border-top: 1px solid var(--border);
+}
+
+.about-fact {
+  display: grid;
+  grid-template-columns: 9ch minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: baseline;
+  padding: 0.9375rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.about-fact dt {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  transition: color 0.3s var(--ease);
+}
+
+.about-fact dd {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--fg);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.about-fact:hover dt { color: var(--accent); }
+
+.about-fact.empty dd {
+  display: inline-block;
+  color: var(--fg-dim);
+  border-bottom: 1px dashed var(--border-strong);
+  padding-bottom: 0.125rem;
+  min-width: 8ch;
+}
+
+/* --- 签名 --- */
+.about-sig {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.875rem;
+}
+
+.about-sig .sig-line {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+  flex: none;
+}
+
+.about-sig .sig-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--fg-dim);
+}
+
+/* --- 原则三列 --- */
+.principle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 3.5rem);
+  margin-top: clamp(4rem, 8vw, 6.5rem);
+}
+
+.principle-card {
+  position: relative;
+  padding-top: 1.5rem;
+  background: none;
+  border: 0;
+}
+.principle-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--border);
+  transition: background-color 0.3s var(--ease);
+}
+.principle-card:hover::before { background: var(--accent); }
+
+.principle-num {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent-dim);
+  margin-bottom: 1.25rem;
+  transition: color 0.3s var(--ease);
+}
+.principle-card:hover .principle-num { color: var(--accent); }
+
+.principle-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--fg);
+  margin-bottom: 0.625rem;
+}
+
+.principle-desc {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--fg-muted);
+}
+
+/* =====================================================
+   NOW
+   ===================================================== */
+.now-grid {
+  border-top: 1px solid var(--border);
+  max-width: 72ch;
+}
+
+.now-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 8ch minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.now-item dt {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.now-item dt::before {
+  content: '\2192';
+  position: absolute;
+  right: 100%;
+  top: 0;
+  margin-right: 0.5rem;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.now-item:hover dt::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.now-item dd {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--fg);
+}
+
+/* =====================================================
+   USES
+   ===================================================== */
+.uses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.uses-group-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.uses-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.uses-group li {
+  position: relative;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--fg);
+  padding-left: 1.125rem;
+}
+.uses-group li::before {
+  content: '\00B7';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent-dim);
+  font-weight: 700;
+  transition: color 0.25s var(--ease);
+}
+.uses-group li:hover::before { color: var(--accent); }
+
+/* =====================================================
+   COLOPHON（由 app.js 动态插入 footer 前）
+   ===================================================== */
+.colophon {
+  max-width: 60ch;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.colophon::before {
+  content: '';
+  position: absolute;
+  top: 0; left: clamp(1.25rem, 5vw, 4rem); right: clamp(1.25rem, 5vw, 4rem);
+  height: 1px;
+  background: var(--border);
+}
+
+.colophon-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 1.5rem;
+}
+
+.colophon-p {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--fg-muted);
+  text-wrap: pretty;
+}
+.colophon-p + .colophon-p { margin-top: 0.875rem; }
+
+.colophon-p2 {
+  font-size: 0.875rem;
+  color: var(--fg-dim);
+}
+
+/* =====================================================
+   浅色主题微调：虚线/分割线在浅底上略提对比
+   ===================================================== */
+[data-palette="frost"] .about-fact.empty dd,
+[data-palette="mist"] .about-fact.empty dd {
+  border-bottom-color: rgba(var(--fg-rgb), 0.28);
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+  }
+  .about-side { padding-top: 0; }
+  .principle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-lead { margin-bottom: 1.5rem; }
+  .about-fact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+    padding: 0.875rem 0;
+  }
+  .about-sig { justify-content: flex-start; }
+
+  .principle-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .now-item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.375rem;
+    padding: 1rem 0;
+  }
+  .now-item dt::before { display: none; }
+
+  .uses-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.25rem;
+  }
+}
+
+/* =====================================================
+   REDUCED MOTION
+   ===================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .about-fact dt,
+  .principle-card::before,
+  .principle-num,
+  .now-item dt::before,
+  .uses-group li::before {
+    transition: none;
+  }
+  .now-item dt::before {
+    transform: none;
+  }
+}

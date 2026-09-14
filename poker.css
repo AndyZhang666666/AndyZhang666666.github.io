@@ -1,0 +1,270 @@
+/* ============================================
+   德扑元素 · 联系区
+   独立模块，不改动主 style.css
+   四主题兼容：全部走 --accent / --second / --fg-rgb / --bg-* 变量
+   ============================================ */
+
+/* ---- 联系区容器：给绝对定位的筹码层留坐标系 ---- */
+.contact {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---- 背景筹码漂浮层 ---- */
+.poker-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.contact > .reveal {
+  position: relative;
+  z-index: 2;
+}
+
+/* 单枚筹码：双色边缘缺口用 conic-gradient 画 */
+.chip {
+  position: absolute;
+  width: var(--size, 44px);
+  height: var(--size, 44px);
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: chipFloat var(--dur, 18s) linear var(--delay, 0s) infinite;
+}
+
+.chip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--chip-c) 0deg 18deg,
+    transparent 18deg 45deg,
+    var(--chip-c) 45deg 63deg,
+    transparent 63deg 90deg,
+    var(--chip-c) 90deg 108deg,
+    transparent 108deg 135deg,
+    var(--chip-c) 135deg 153deg,
+    transparent 153deg 180deg,
+    var(--chip-c) 180deg 198deg,
+    transparent 198deg 225deg,
+    var(--chip-c) 225deg 243deg,
+    transparent 243deg 270deg,
+    var(--chip-c) 270deg 288deg,
+    transparent 288deg 315deg,
+    var(--chip-c) 315deg 333deg,
+    transparent 333deg 360deg
+  );
+  mask: radial-gradient(circle, transparent 58%, #000 59%, #000 100%);
+  -webkit-mask: radial-gradient(circle, transparent 58%, #000 59%, #000 100%);
+}
+
+/* 内圈 */
+.chip::after {
+  content: '';
+  position: absolute;
+  inset: 26%;
+  border-radius: 50%;
+  border: 1px solid var(--chip-c);
+  opacity: 0.55;
+}
+
+@keyframes chipFloat {
+  0%   { opacity: 0; transform: translate3d(0, 40px, 0) rotate(0deg) scale(0.85); }
+  12%  { opacity: var(--peak, 0.28); }
+  88%  { opacity: var(--peak, 0.28); }
+  100% { opacity: 0; transform: translate3d(var(--dx, 30px), -140px, 0) rotate(var(--rot, 200deg)) scale(1.05); }
+}
+
+/* ---- 底部牌桌弧线（替代原 footer::before 的直线） ---- */
+.felt-line {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(88%, 760px);
+  height: 90px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+}
+
+.felt-line svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+.felt-arc {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.25;
+  stroke-dasharray: 6 10;
+  opacity: 0.4;
+  animation: feltDash 40s linear infinite;
+}
+
+@keyframes feltDash { to { stroke-dashoffset: -320; } }
+
+/* 弧线上滚动的筹码 */
+.felt-runner {
+  fill: var(--second);
+  opacity: 0.7;
+  offset-path: var(--arc-path);
+  offset-rotate: 0deg;
+  animation: runnerMove var(--rdur, 14s) cubic-bezier(0.45, 0, 0.55, 1) var(--rdelay, 0s) infinite;
+}
+
+@keyframes runnerMove {
+  0%   { offset-distance: 0%;   opacity: 0; }
+  8%   { opacity: 0.7; }
+  92%  { opacity: 0.7; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+/* ---- 联系卡：翻牌交互 ---- */
+.contact-grid { perspective: 1200px; }
+
+.contact-item {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+/* 左上角小花色标记 */
+.contact-item::before {
+  content: attr(data-suit);
+  position: absolute;
+  top: 7px;
+  left: 9px;
+  font-size: 0.6875rem;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  pointer-events: none;
+}
+
+/* 右下角镜像花色 */
+.contact-item::after {
+  content: attr(data-suit);
+  position: absolute;
+  bottom: 7px;
+  right: 9px;
+  font-size: 0.6875rem;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0;
+  transform: rotate(180deg) translateY(-3px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  pointer-events: none;
+}
+
+.contact-item:hover::before,
+.contact-item:hover::after,
+.contact-item:focus-visible::before,
+.contact-item:focus-visible::after {
+  opacity: 0.8;
+  transform: translateY(0);
+}
+
+.contact-item:hover::after,
+.contact-item:focus-visible::after {
+  transform: rotate(180deg) translateY(0);
+}
+
+/* 红桃/方块用第二色 */
+.contact-item[data-suit="♥"]::before,
+.contact-item[data-suit="♥"]::after,
+.contact-item[data-suit="♦"]::before,
+.contact-item[data-suit="♦"]::after {
+  color: var(--second);
+}
+
+/* hover 时轻微翻牌抬起（叠加在原有 translateY(-3px) 之上） */
+.contact-item:hover {
+  transform: translateY(-4px) rotateX(4deg) rotateY(-2deg);
+}
+
+/* 复制成功：牌面闪一下 */
+.contact-item.copied {
+  animation: cardFlash 0.6s var(--ease);
+}
+
+@keyframes cardFlash {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0); }
+  35%      { box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.28); }
+}
+
+/* ---- 联系标题旁的一手牌 ---- */
+.hand {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: 0.6rem;
+  vertical-align: 0.35em;
+}
+
+.hand-card {
+  width: 20px;
+  height: 28px;
+  border-radius: 3px;
+  border: 1px solid rgba(var(--fg-rgb), 0.18);
+  background: var(--bg-2);
+  display: grid;
+  place-items: center;
+  font-size: 0.5625rem;
+  font-family: var(--font-mono);
+  color: var(--fg-muted);
+  transform-origin: bottom center;
+  opacity: 0;
+  animation: dealCard 0.55s var(--ease-out) forwards;
+  animation-delay: calc(0.5s + var(--n) * 0.11s);
+}
+
+.hand-card.red { color: var(--second); }
+
+@keyframes dealCard {
+  from { opacity: 0; transform: translate(-28px, -16px) rotate(-24deg) scale(0.8); }
+  to   { opacity: 1; transform: translate(0, 0) rotate(calc((var(--n) - 1) * 4deg)) scale(1); }
+}
+
+/* ---- 浅色主题微调 ---- */
+[data-palette="frost"] .chip,
+[data-palette="mist"] .chip { --peak: 0.22; }
+
+[data-palette="frost"] .felt-arc,
+[data-palette="mist"] .felt-arc { opacity: 0.5; }
+
+[data-palette="frost"] .hand-card,
+[data-palette="mist"] .hand-card {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(var(--fg-rgb), 0.14);
+}
+
+/* ---- 移动端：减量 ---- */
+@media (max-width: 640px) {
+  .chip:nth-child(n+7) { display: none; }
+  .felt-line { height: 60px; opacity: 0.35; }
+  .hand { display: none; }
+}
+
+/* ---- 尊重 reduced-motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .chip, .felt-arc, .felt-runner { animation: none; }
+  .chip { opacity: 0.16; }
+  .hand-card { animation: none; opacity: 1; transform: none; }
+  .contact-item:hover { transform: translateY(-3px); }
+}
+
+/* ---- 修正：标题下划线移到字下方；AK 牌与标题同行 ---- */
+.contact-title::after {
+  bottom: -0.14em;
+  height: 0.08em;
+  opacity: 0.7;
+}
+.contact .reveal > .contact-title { display: inline-block; vertical-align: middle; }
+.hand {
+  vertical-align: middle;
+  margin-left: 0.75rem;
+  transform: translateY(-0.35em);
+}
+@media (max-width: 640px) { .hand { display: none; } }

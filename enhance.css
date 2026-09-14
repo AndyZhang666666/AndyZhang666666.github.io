@@ -1,0 +1,207 @@
+/* =====================================================
+   ENHANCE LAYER —— 全局优化 + 首屏逐行升起
+   在 style.css / poker.css / hero-portrait.css 之后引用；
+   只用主题变量，四套配色自动适配
+   ===================================================== */
+
+/* ---------- 0. 令牌 ---------- */
+:root {
+  /* 颜色过渡（Josh W. Comeau 曲线） */
+  --ease-color: cubic-bezier(0.41, 0.1, 0.13, 1);
+  --color-transition:
+    background-color 0.35s var(--ease-color),
+    color 0.35s var(--ease-color),
+    border-color 0.35s var(--ease-color);
+
+  /* 首屏「卷帘」升起 */
+  --ease-rise: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --rise-dur: 0.8s;
+  --rise-transition:
+    transform var(--rise-dur) var(--ease-rise) var(--rise-delay, 0ms),
+    clip-path var(--rise-dur) var(--ease-rise) var(--rise-delay, 0ms);
+}
+
+/* =====================================================
+   A. 全局优化
+   ===================================================== */
+
+/* A1. 主题切换：全站颜色 350ms 平滑过渡
+   只列颜色类属性，不碰 transform / opacity / width，
+   已自带 transition 的元素（.btn / .reveal / #nav …）因权重更高不受影响 */
+*,
+*::before,
+*::after {
+  transition: var(--color-transition);
+}
+
+/* app.js 切主题时给 <html> 加 .theme-switching（600ms），
+   把原来 0.5s 的强制过渡对齐到 0.35s，并补上 svg / 阴影 */
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition:
+    var(--color-transition),
+    box-shadow 0.35s var(--ease-color),
+    fill 0.35s var(--ease-color),
+    stroke 0.35s var(--ease-color) !important;
+}
+
+/* 首屏升起元素在切主题窗口内也要保留位移过渡（?palette= 直达时首屏不会被跳过） */
+html.theme-switching .hero .hero-name > span,
+html.theme-switching .hero .hero-tagline.reveal,
+html.theme-switching .hero .hero-meta.reveal,
+html.theme-switching .hero .hero-cta.reveal {
+  transition: var(--rise-transition), var(--color-transition) !important;
+}
+
+/* A2. 选区色：强调色打底，文字用当前主题的底色
+   深色主题 → 深底色文字 / 浅色主题 → 近白文字，四套都够对比 */
+::selection,
+[data-palette="frost"] ::selection,
+[data-palette="mist"] ::selection {
+  background: var(--accent);
+  color: var(--bg-0);
+  -webkit-text-fill-color: var(--bg-0);
+}
+/* 渐变描字的名字被选中时也要能看见 */
+.hero-name-zh::selection {
+  background: var(--accent);
+  -webkit-text-fill-color: var(--bg-0);
+}
+
+/* A3. 数字等宽：count-up 与年份/指标不抖 */
+.stat-num,
+.stat-number,
+.count-up,
+[data-count],
+.timeline-period,
+.project-metric,
+.award-meta,
+.hero-meta,
+.contact-value,
+.marquee-meta,
+.footer-note,
+.work-desc strong,
+.portrait-caption {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* =====================================================
+   B. 首屏逐行升起（stagger reveal）
+   原理：元素自身 translateY 下沉 + clip-path 反向补偿，
+   让裁切窗口在页面坐标里静止，文字像卷帘一样从下往上露出。
+   无需额外包裹层，不改 HTML。
+   窗口上下各留 10% 余量，避免衬线字/中文字形被切边。
+   ===================================================== */
+
+/* B0. 容器 h1 不再整块位移，交给两个 span 各自升起 */
+.hero .hero-name.reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* B1. 起始态：藏在自身窗口下方 */
+.hero .hero-name > span,
+.hero .hero-tagline.reveal,
+.hero .hero-meta.reveal,
+.hero .hero-cta.reveal {
+  opacity: 1;
+  transform: translateY(110%);
+  clip-path: inset(-120% 0 100% 0);
+  transition: var(--rise-transition);
+}
+/* 按钮组：hover 有位移和投影，左右各放 3rem 余量；
+   结束态上下也放大到 100%，避免入场结束后阴影被裁 */
+.hero .hero-cta.reveal {
+  clip-path: inset(-120% -3rem 100% -3rem);
+}
+
+/* B2. 结束态：回到原位，窗口停在原位（带余量） */
+.hero .hero-name.visible > span,
+.hero .hero-tagline.reveal.visible,
+.hero .hero-meta.reveal.visible,
+.hero .hero-cta.reveal.visible {
+  transform: none;
+  clip-path: inset(-10% 0 -10% 0);
+}
+.hero .hero-cta.reveal.visible {
+  clip-path: inset(-100% -3rem -100% -3rem);
+}
+
+/* B3. 逐行延迟：中文名 0 → 英文名 100 → tagline 200 → meta 320 → cta 450 */
+.hero .hero-name.visible > span:nth-child(1) { --rise-delay: 0ms; }
+.hero .hero-name.visible > span:nth-child(2) { --rise-delay: 100ms; }
+.hero .hero-tagline.reveal.visible          { --rise-delay: 200ms; }
+.hero .hero-meta.reveal.visible             { --rise-delay: 320ms; }
+.hero .hero-cta.reveal.visible              { --rise-delay: 450ms; }
+
+/* =====================================================
+   C. 联系区图标：去 emoji，改为等宽字母徽记
+   app.js 注入的是 ☎ ✉ ◈ ⌘，这里把原字符归零，用 ::before 重绘
+   ===================================================== */
+.contact-icon {
+  font-size: 0;
+  line-height: 0;
+  color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.125rem;
+  height: 2.125rem;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: rgba(var(--accent-rgb), 0.06);
+}
+.contact-icon::before {
+  content: '·';
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--gold);
+}
+.contact-grid .contact-item:nth-child(1) .contact-icon::before { content: 'TEL'; }
+.contact-grid .contact-item:nth-child(2) .contact-icon::before { content: '@'; }
+.contact-grid .contact-item:nth-child(3) .contact-icon::before { content: 'WX'; }
+.contact-grid .contact-item:nth-child(4) .contact-icon::before { content: 'GH'; }
+.contact-item:hover .contact-icon {
+  border-color: var(--gold);
+  background: var(--gold-glow);
+}
+
+/* =====================================================
+   响应式
+   ===================================================== */
+@media (max-width: 900px) {
+  :root { --rise-dur: 0.7s; }
+}
+
+@media (max-width: 640px) {
+  :root { --rise-dur: 0.6s; }
+  /* 小屏节奏更紧凑 */
+  .hero .hero-name.visible > span:nth-child(2) { --rise-delay: 80ms; }
+  .hero .hero-tagline.reveal.visible          { --rise-delay: 150ms; }
+  .hero .hero-meta.reveal.visible             { --rise-delay: 240ms; }
+  .hero .hero-cta.reveal.visible              { --rise-delay: 340ms; }
+  .hero .hero-cta.reveal         { clip-path: inset(-120% -1.5rem 100% -1.5rem); }
+  .hero .hero-cta.reveal.visible { clip-path: inset(-100% -1.5rem -100% -1.5rem); }
+  .contact-icon { width: 1.875rem; height: 1.875rem; }
+}
+
+/* =====================================================
+   减少动效：直接落位
+   ===================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero-name > span,
+  .hero .hero-tagline.reveal,
+  .hero .hero-meta.reveal,
+  .hero .hero-cta.reveal {
+    transform: none;
+    clip-path: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,839 @@
+{
+  "name": "张千羽",
+  "nameEn": "Qianyu Zhang (Andy)",
+  "tagline": "AI 产品经理。在百度文库做过命理馆，上线两周日活破万；在山海星辰把编剧的创作方法整理成 38 个可复用的 Skill。现在主要做模型效果评估和用户增长。",
+  "taglineEn": "AI product manager. Built Fortune Hall at Baidu Wenku — 10k DAU within two weeks; at Shanhai, turned screenwriters' methods into 38 reusable Skills. Now focused on model evaluation and growth.",
+  "contact": {
+    "phone": "13149829129",
+    "email": "andy_zzz@yeah.net",
+    "wechat": "zhang_qianyu0327",
+    "github": "https://github.com/AndyZhang666666"
+  },
+  "education": [
+    {
+      "school": "伦敦大学学院 (University College London)",
+      "schoolEn": "University College London",
+      "degree": "计算金融 · 硕士",
+      "degreeEn": "MSc Computational Finance",
+      "period": "2024.09 – 2026.01",
+      "grade": "First Class Honours",
+      "link": "https://www.ucl.ac.uk/computer-science/study/postgraduate-taught/computational-finance-msc"
+    },
+    {
+      "school": "布里斯托大学 (University of Bristol)",
+      "schoolEn": "University of Bristol",
+      "degree": "电子电气工程 · 本科",
+      "degreeEn": "BEng Electronic and Electrical Engineering",
+      "period": "2021.09 – 2024.07",
+      "grade": "First Class Honours",
+      "link": "https://www.bristol.ac.uk/study/undergraduate/2026/electrical-electronic-engineering/beng-electrical-and-electronic-engineering/"
+    }
+  ],
+  "experience": [
+    {
+      "company": "山海星辰",
+      "companyEn": "Shanhai Xingchen",
+      "role": "AI 管培生（产品经理方向）",
+      "roleEn": "AI Management Trainee (Product Manager Track)",
+      "location": "杭州 · AI 内容出海",
+      "locationEn": "Hangzhou · AI Content Overseas",
+      "period": "2026.06 – 至今",
+      "periodEn": "2026.06 – Present",
+      "highlights": [
+        "对话式 Agent 剧本创作工作流从 0 到 1，爆款拆解耗时从 2 小时压缩至 10 分钟",
+        "创作方法平台化与 Skill 治理，累计上架 38 个 Skill、128 个版本，编剧有效创作时间优化约 20%",
+        "AI 驱动的双线竞品监测体系，整理耗时由数天压缩至小时级"
+      ],
+      "highlightsEn": [
+        "Built conversational Agent scriptwriting workflow from 0 to 1, reduced hit analysis time from 2 hours to 10 minutes",
+        "Platformized creative methods and Skill governance, shipped 38 Skills with 128 versions, optimized screenwriter productivity by ~20%",
+        "AI-driven competitive intelligence system, reduced analysis time from days to hours"
+      ],
+      "works": [
+        {
+          "name": "对话式剧本创作 Agent",
+          "nameEn": "Conversational Script Agent",
+          "desc": "把编剧的爆款拆解流程拆成可对话的多步工作流：先结构化拆解参考剧集的钩子密度与情绪曲线，再生成分集大纲与台词初稿。上线后单集拆解耗时从 2 小时压到 10 分钟。",
+          "descEn": "Turned screenwriters' teardown routine into a multi-step conversational workflow: structure hooks and emotion curves from reference dramas first, then generate episode outlines and draft dialogue. Teardown time per episode dropped from 2 hours to 10 minutes.",
+          "tags": [
+            "0→1",
+            "Agent 工作流"
+          ]
+        },
+        {
+          "name": "Skill 平台化与版本治理",
+          "nameEn": "Skill Platform & Version Governance",
+          "desc": "把散落在个人 prompt 里的创作方法收成平台资产：定义 Skill 的输入契约、评测标准与版本回滚机制，累计上架 38 个 Skill、128 个版本，编剧有效创作时间优化约 20%。",
+          "descEn": "Consolidated scattered personal prompts into platform assets: defined input contracts, eval criteria and version rollback for each Skill. 38 Skills and 128 versions shipped; ~20% more effective writing time.",
+          "tags": [
+            "平台化",
+            "治理"
+          ]
+        },
+        {
+          "name": "双线竞品监测体系",
+          "nameEn": "Dual-track Competitor Monitoring",
+          "desc": "内容侧盯对手上新剧集的题材与钩子结构，产品侧盯功能迭代与投放素材，两条线汇到同一张日更看板。人工整理从数天压缩到小时级。",
+          "descEn": "One track watches rivals' new titles and hook structures, the other tracks feature releases and ad creatives; both feed a daily dashboard. Manual compilation went from days to hours.",
+          "tags": [
+            "竞品情报",
+            "自动化"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "百度",
+      "companyEn": "Baidu",
+      "role": "AI 产品经理实习生",
+      "roleEn": "AI Product Manager Intern",
+      "location": "北京 · 百度文库",
+      "locationEn": "Beijing · Baidu Library",
+      "period": "2025.11 – 2026.05",
+      "highlights": [
+        "文库命理馆从 0 到 1：搭建命理星盘、日运抽签、马年运势、缘分测算四大模块，DAU 破万、分享率 26%",
+        "数据驱动产品迭代：搭建埋点体系（前端曝光/点击、后端调用/风控），通过 SQL 复盘识别 Tab 层级过深导致曝光折损 40%，推动跨模块引导设计，迭代后模块 UV 提升约 60%",
+        "AI 定制壁纸玩法：基于用户年龄性别标签智能推荐动态/静态壁纸，将抽象运势转化为可传播的视觉资产，提升复访留存",
+        "内容供给体系：搭建云盘、知识广场等内容基础设施，支撑 AI 生成内容的存储、检索与分发"
+      ],
+      "highlightsEn": [
+        "Launched AI Fortune Hall from 0 to 1: built 4 modules (Astrology, Daily Fortune, Yearly Luck, Compatibility), achieved 10k+ DAU and 26% share rate",
+        "Data-driven iteration: built event tracking (FE exposure/click, BE call/risk), identified 40% drop from tab depth via SQL, drove cross-module guidance, lifted UV by ~60%",
+        "AI wallpaper feature: smart recommendation based on age/gender, turned abstract fortunes into shareable visual assets, improved retention",
+        "Content infrastructure: built cloud drive & knowledge plaza to support AI content storage, retrieval and distribution"
+      ],
+      "works": [
+        {
+          "name": "文库命理馆 0→1",
+          "nameEn": "Wenku Fortune Hall (0→1)",
+          "desc": "从零定义命理星盘、日运抽签、马年运势、缘分测算四个模块的玩法与分享钩子，跑通 AI 生成 + 内容风控链路。上线后 DAU 破万，分享率 26%。",
+          "descEn": "Defined four modules from scratch — natal chart, daily draw, Year-of-the-Horse fortune, compatibility test — including share hooks and the AI-generation plus moderation pipeline. Past 10k DAU with a 26% share rate.",
+          "tags": [
+            "0→1",
+            "AI 内容"
+          ]
+        },
+        {
+          "name": "埋点体系与数据复盘",
+          "nameEn": "Tracking System & Funnel Review",
+          "desc": "自己搭前端曝光/点击、后端调用/风控四层埋点，用 SQL 复盘发现 Tab 层级过深导致曝光折损 40%，推动跨模块引导改版，迭代后模块 UV 提升约 60%。",
+          "descEn": "Built four layers of tracking (front-end impression/click, back-end call/moderation). SQL analysis surfaced a 40% impression loss from over-nested tabs; a cross-module entry redesign lifted module UV by ~60%.",
+          "tags": [
+            "数据驱动",
+            "SQL"
+          ]
+        },
+        {
+          "name": "AI 定制壁纸玩法",
+          "nameEn": "AI Wallpaper Personalization",
+          "desc": "把抽象运势文案转成能发朋友圈的视觉资产：按年龄性别标签推荐动态/静态壁纸，四种运势维度各配一套视觉语言，用来撑复访。",
+          "descEn": "Turned abstract fortune copy into shareable visual assets: dynamic or static wallpapers recommended by age and gender tags, with a distinct visual language per fortune dimension, to drive repeat visits.",
+          "tags": [
+            "AI 生成",
+            "留存"
+          ]
+        },
+        {
+          "name": "知识广场 · 云盘 AI 能力",
+          "nameEn": "Knowledge Square & Cloud Drive AI",
+          "desc": "内容供给侧的两块基建：知识广场解决 AI 生成内容的分发与检索，云盘解决存储与二次调用。写了两份 PRD，串起从生成到复用的闭环。",
+          "descEn": "Two pieces of content-supply infrastructure: Knowledge Square handles distribution and retrieval of AI-generated content, Cloud Drive handles storage and reuse. Two PRDs closing the loop from generation to reuse.",
+          "tags": [
+            "基建",
+            "内容分发"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "美团",
+      "companyEn": "Meituan",
+      "role": "用户增长产品经理实习生",
+      "roleEn": "Growth Product Manager Intern",
+      "location": "北京",
+      "locationEn": "Beijing",
+      "period": "2025.09 – 2026.01",
+      "highlights": [
+        "新用户激活漏斗优化：通过埋点分析识别首单转化卡点，设计引导策略，A/B 实验验证后首单转化率提升 12%",
+        "用户留存策略：搭建 Cohort 分析看板，定位高流失用户群体特征，推动个性化优惠券发放机制，次月留存率提升 8%",
+        "增长实验平台：参与搭建 A/B 实验配置后台，支持产品/运营快速验证增长假设，实验周期从 2 周压缩至 3 天"
+      ],
+      "highlightsEn": [
+        "New user activation funnel: identified first-order conversion blockers via tracking, designed guidance flow, A/B test lifted conversion by 12%",
+        "Retention strategy: built cohort dashboard, located high-churn segments, drove personalized coupon mechanism, lifted D30 retention by 8%",
+        "Growth experiment platform: helped build A/B config console, enabled fast hypothesis validation, reduced cycle from 2 weeks to 3 days"
+      ],
+      "works": [
+        {
+          "name": "新用户激活漏斗优化",
+          "nameEn": "New-user Activation Funnel",
+          "desc": "拆首单转化的每一跳，用埋点定位到卡在券的可感知性上，重排引导顺序并做 A/B 验证，首单转化率提升 12%。",
+          "descEn": "Broke down every step to first order, traced the drop-off to coupon perceptibility, resequenced the onboarding prompts and validated via A/B — first-order conversion up 12%.",
+          "tags": [
+            "A/B 实验",
+            "增长"
+          ]
+        },
+        {
+          "name": "Cohort 留存与券策略",
+          "nameEn": "Cohort Retention & Coupon Strategy",
+          "desc": "搭 Cohort 看板把流失切成群体特征，对高流失群做差异化券额度，次月留存提升 8%。",
+          "descEn": "Built a cohort dashboard to profile churn segments, then differentiated coupon values for high-churn groups — next-month retention up 8%.",
+          "tags": [
+            "留存",
+            "策略"
+          ]
+        },
+        {
+          "name": "增长实验配置后台",
+          "nameEn": "Growth Experiment Console",
+          "desc": "参与做实验配置后台，让产品运营自己开实验、自己看结果，实验周期从 2 周压到 3 天。",
+          "descEn": "Co-built an experiment console so PMs and ops could launch tests and read results themselves — cycle time from 2 weeks to 3 days.",
+          "tags": [
+            "工具",
+            "效率"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "理想汽车",
+      "companyEn": "Li Auto",
+      "role": "产品实习生（智能座舱）",
+      "roleEn": "Product Intern (Smart Cockpit)",
+      "location": "北京 · 产品部",
+      "locationEn": "Beijing · Product",
+      "period": "2024.05 – 2024.10",
+      "highlights": [
+        "AI 座舱「小憩模式」场景迭代：从用户午休真实行为出发重定义触发条件与座椅/空调/音频联动，午休时段渗透率由 10% 提升至 30%",
+        "把 20+ 场用户访谈与门店走访沉淀成座舱功能的需求优先级矩阵，直接进入产品迭代排期",
+        "搭建竞品座舱功能追踪看板，周报进入管理层定价与配置讨论"
+      ],
+      "highlightsEn": [
+        "Iterated the AI cockpit 'Nap Mode': redefined triggers and seat/climate/audio coordination from real midday behavior — nap-time penetration rose from 10% to 30%",
+        "Distilled 20+ user interviews and store visits into a cockpit feature priority matrix that fed straight into the product roadmap",
+        "Built a competitor cockpit-feature tracker whose weekly brief entered management pricing and trim discussions"
+      ],
+      "works": [
+        {
+          "name": "小憩模式场景迭代",
+          "nameEn": "Nap Mode Scenario Iteration",
+          "desc": "小憩模式原本只是个「把座椅放倒」的按钮。我从午休用户的真实动线出发，重定义触发时机、座椅倾角、空调风量与白噪音联动，让它变成一个完整场景。午休高频时段渗透率从 10% 提到 30%。",
+          "descEn": "Nap Mode used to be just a 'recline the seat' button. Starting from how people actually nap at lunch, I redefined trigger timing plus seat angle, airflow and white-noise coordination to make it a complete scenario. Penetration in the lunch window went from 10% to 30%.",
+          "tags": [
+            "场景设计",
+            "座舱"
+          ]
+        },
+        {
+          "name": "用户访谈 → 需求优先级矩阵",
+          "nameEn": "Interviews → Priority Matrix",
+          "desc": "20+ 场访谈和门店走访，不是写报告，而是把每条反馈打上频次、痛感和实现成本，压成一张座舱功能优先级矩阵，直接交给迭代排期。",
+          "descEn": "20+ interviews and store visits didn't end in a report — every piece of feedback was scored on frequency, pain and build cost and compressed into a cockpit priority matrix handed straight to sprint planning.",
+          "tags": [
+            "用户研究",
+            "优先级"
+          ]
+        },
+        {
+          "name": "竞品座舱功能看板",
+          "nameEn": "Competitor Cockpit Tracker",
+          "desc": "追踪主要竞品每次 OTA 的座舱功能变化，做成周更看板。这份周报后来进了管理层的定价与配置讨论。",
+          "descEn": "Tracked cockpit feature changes across rivals' OTA releases in a weekly dashboard; the brief later entered management pricing and trim discussions.",
+          "tags": [
+            "竞品",
+            "OTA"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Revolut",
+      "companyEn": "Revolut",
+      "role": "Product Intern (Growth & Monetization)",
+      "roleEn": "Product Intern (Growth & Monetization)",
+      "location": "伦敦 · 欧洲最大金融科技独角兽",
+      "locationEn": "London · Europe's Largest Fintech Unicorn",
+      "period": "2023.06 – 2023.09",
+      "highlights": [
+        "Premium 订阅增长实验，A/B 验证升级引导策略，订阅转化率提升超 15%",
+        "参与「智能预算」AI 功能迭代，基于模型纠错数据优化交互，模块点击率提升超 20%"
+      ],
+      "highlightsEn": [
+        "Premium subscription growth experiment, A/B tested upsell flow, lifted conversion by 15%+",
+        "Iterated 'Smart Budget' AI feature based on model correction data, increased click-through by 20%+"
+      ],
+      "works": [
+        {
+          "name": "Premium 订阅升级实验",
+          "nameEn": "Premium Upgrade Experiments",
+          "desc": "针对免费用户的升级引导做了三组 A/B：触发时机、权益展示顺序、价格锚点。胜出方案订阅转化率提升超 15%。",
+          "descEn": "Three A/B rounds on free-to-Premium prompts — trigger timing, benefit ordering, price anchoring. The winner lifted subscription conversion by 15%+.",
+          "tags": [
+            "A/B 实验",
+            "变现"
+          ]
+        },
+        {
+          "name": "智能预算 AI 功能迭代",
+          "nameEn": "Smart Budget AI Iteration",
+          "desc": "拿模型分类纠错数据反推交互：把用户高频改错的类目前置、允许一键批量修正。模块点击率提升超 20%。",
+          "descEn": "Used model-correction data to reshape the UI — surfaced frequently-corrected categories and added one-tap batch fixes. Module CTR up 20%+.",
+          "tags": [
+            "AI 产品",
+            "交互"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "中金公司",
+      "companyEn": "China International Capital Corporation",
+      "role": "研究部实习生",
+      "roleEn": "Research Intern",
+      "location": "北京",
+      "locationEn": "Beijing",
+      "period": "2022.06 – 2022.09",
+      "highlights": [
+        "覆盖互联网与 AI 应用赛道，跟踪 10+ 家上市公司季度财报",
+        "独立搭建可比公司估值表，参与撰写行业深度与业绩点评报告"
+      ],
+      "highlightsEn": [
+        "Covered internet & AI apps, tracked 10+ listed companies' quarterly earnings",
+        "Built comp valuation models, contributed to sector deep-dives and earnings notes"
+      ],
+      "works": [
+        {
+          "name": "互联网与 AI 应用赛道覆盖",
+          "nameEn": "Internet & AI Coverage",
+          "desc": "跟踪 10+ 家上市公司季度财报，独立搭可比公司估值表，参与撰写行业深度与业绩点评。这段让我习惯了用财务口径拆产品。",
+          "descEn": "Tracked quarterly results of 10+ listed companies, built the comps valuation sheet independently, co-wrote sector deep-dives and earnings notes. It taught me to read products through financial statements.",
+          "tags": [
+            "估值",
+            "行业研究"
+          ]
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "LLM 效果评估体系（creative-eval）",
+      "nameEn": "LLM Evaluation Framework (creative-eval)",
+      "description": "短剧剧本质量的 LLM 打分裁判与可信度验证。五维评分 rubric，与人工标注 ±1 分一致率 93.1%，同输入连跑三次的加权标准差 0.074。",
+      "descriptionEn": "LLM-as-judge for short drama script quality. Five-dimension rubric, 93.1% ±1-point agreement with human labels, weighted std 0.074 across 3 runs.",
+      "url": "https://andyzhang666666.github.io",
+      "github": "https://github.com/AndyZhang666666/creative-eval",
+      "metrics": [
+        "93.1% 一致率",
+        "0.074 标准差",
+        "40 条金标集"
+      ],
+      "metricsEn": [
+        "93.1% agreement",
+        "0.074 std dev",
+        "40 golden samples"
+      ],
+      "tags": [
+        "AI",
+        "Eval",
+        "产品"
+      ],
+      "featured": true,
+      "subtitle": "让\"剧本好不好\"变成一个可以被反驳的数字",
+      "subtitleEn": "Turning \"is this script good\" into a falsifiable number",
+      "context": "短剧行业筛剧本靠制片人主观判断，同一个本子两个人能给出完全相反的结论，且无法复现。",
+      "contextEn": "Short-drama script screening relies on subjective judgment; two readers often reach opposite conclusions with no reproducibility.",
+      "approach": [
+        "拆出钩子强度、人物动机、冲突密度、节奏、爽点五个维度，每维写死分档锚点，消除\"感觉不错\"式打分",
+        "人工标注 40 条金标集做基线，用 ±1 分一致率检验 LLM 裁判是否可信",
+        "同一输入连跑三次算加权标准差，把\"随机性\"本身当成一个要压住的指标"
+      ],
+      "approachEn": [
+        "Decomposed into 5 dimensions with fixed scoring anchors to eliminate vibe-based grading",
+        "Hand-labeled a 40-sample golden set as baseline; validated the judge via ±1-point agreement",
+        "Ran identical inputs 3x and tracked weighted std — treating variance itself as a target metric"
+      ],
+      "result": "一致率 93.1%，标准差 0.074。结论是：这套裁判可以replace初筛，但不能replace终审 —— 这个边界写在 README 第一段。",
+      "resultEn": "93.1% agreement, 0.074 std. Conclusion: the judge can replace first-pass screening but not final review — stated in the README opening."
+    },
+    {
+      "name": "LLM 效果评估体系（filing-eval）",
+      "nameEn": "LLM Evaluation Framework (filing-eval)",
+      "description": "公告摘要的事实核查评测。断言级比对，错误检出 11/11、误报 0/4、提示注入 5/5 守住。",
+      "descriptionEn": "Fact-checking eval for announcement summaries. Claim-level verification, 11/11 recall, 0/4 false positives, 5/5 prompt injection blocked.",
+      "url": "https://andyzhang666666.github.io",
+      "github": "https://github.com/AndyZhang666666/filing-eval",
+      "metrics": [
+        "11/11 检出",
+        "0/4 误报",
+        "5/5 防注入"
+      ],
+      "metricsEn": [
+        "11/11 recall",
+        "0/4 FP",
+        "5/5 injection blocked"
+      ],
+      "tags": [
+        "AI",
+        "Eval",
+        "产品"
+      ],
+      "subtitle": "摘要是否忠于原文，逐条断言去对",
+      "subtitleEn": "Claim-level fact-checking for generated summaries",
+      "context": "模型给公告写摘要时会\"顺口\"加上原文没有的数字和因果，人工抽检成本高且抓不全。",
+      "contextEn": "Summarization models fabricate numbers and causal links absent from the source; manual spot checks are costly and incomplete.",
+      "approach": [
+        "把摘要切成原子断言，逐条回原文找证据，判定「支持 / 矛盾 / 无依据」",
+        "构造 4 条\"看起来像错但其实对\"的诱导样本，专门测误报",
+        "塞 5 条提示注入进原文，检验评测流程本身会不会被带跑"
+      ],
+      "approachEn": [
+        "Split summaries into atomic claims; verified each against the source as supported / contradicted / unsupported",
+        "Built 4 adversarial \"looks-wrong-but-correct\" cases to measure false positives",
+        "Injected 5 prompt-injection payloads into source docs to test harness robustness"
+      ],
+      "result": "错误检出 11/11，误报 0/4，注入 5/5 全部守住。误报为 0 这条比检出率更重要 —— 评测工具自己乱报警，就没人会用。",
+      "resultEn": "11/11 recall, 0/4 false positives, 5/5 injections blocked. Zero false positives matters more than recall — a noisy eval tool gets abandoned."
+    },
+    {
+      "name": "百度文库命理馆",
+      "nameEn": "Baidu Library AI Fortune Hall",
+      "description": "从 0 到 1 搭建 AI 命理产品，包含命理星盘、日运抽签、马年运势、缘分测算四大模块。DAU 破万、分享率 26%，通过数据埋点与 SQL 分析驱动迭代，模块 UV 提升 60%。",
+      "descriptionEn": "Built AI fortune-telling product from 0 to 1 with 4 modules (Astrology, Daily Fortune, Yearly Luck, Compatibility). Achieved 10k+ DAU, 26% share rate, lifted module UV by 60% via data-driven iteration.",
+      "period": "2025.11 – 2026.05",
+      "company": "百度",
+      "companyEn": "Baidu",
+      "metrics": [
+        "DAU 破万",
+        "分享率 26%",
+        "UV +60%"
+      ],
+      "metricsEn": [
+        "10k+ DAU",
+        "26% share",
+        "UV +60%"
+      ],
+      "tags": [
+        "0→1",
+        "AI",
+        "数据驱动"
+      ],
+      "featured": true,
+      "subtitle": "0→1 做到 DAU 破万，26% 的人主动分享",
+      "subtitleEn": "0→1 to 10k+ DAU with a 26% share rate",
+      "context": "文库需要一个高频轻互动场景拉回访，命理是需求真实但供给极度同质化的品类。",
+      "contextEn": "Baidu Library needed a high-frequency light-interaction hook; fortune-telling had real demand but highly commoditized supply.",
+      "approach": [
+        "拆成命理星盘、日运抽签、马年运势、缘分测算四个模块，分别对应「一次性深度」和「每日轻回访」两种使用节奏",
+        "把结果做成可截图传播的视觉资产，而不是一段纯文字 —— 分享是这类产品最便宜的获客",
+        "全链路埋点后用 SQL 拆漏斗，发现入口曝光够但点击弱，改了入口文案与位置"
+      ],
+      "approachEn": [
+        "Four modules split across two usage rhythms: one-shot depth vs. daily light return",
+        "Made results screenshot-shareable visual assets rather than plain text — sharing is the cheapest acquisition here",
+        "Instrumented the full funnel, used SQL to isolate a weak-click / strong-impression entry, then reworked copy and placement"
+      ],
+      "result": "DAU 破万，分享率 26%，改入口后模块 UV +60%。",
+      "resultEn": "10k+ DAU, 26% share rate, +60% module UV after the entry rework."
+    },
+    {
+      "name": "AI 定制壁纸玩法",
+      "nameEn": "AI Personalized Wallpaper",
+      "description": "基于用户年龄性别标签智能推荐动态/静态壁纸，将抽象运势转化为可传播的视觉资产，提升命理产品复访留存。支持多维度内容供给（全年开运、财运、事业运、爱情运）。",
+      "descriptionEn": "Smart wallpaper recommendation based on age/gender, turned abstract fortunes into shareable visual assets, improved retention. Multi-dimensional content (fortune, wealth, career, love).",
+      "period": "2025.11 – 2026.05",
+      "company": "百度",
+      "companyEn": "Baidu",
+      "metrics": [
+        "4 种运势维度",
+        "动静态智能推荐",
+        "提升复访"
+      ],
+      "metricsEn": [
+        "4 fortune types",
+        "Smart recommendation",
+        "Retention lift"
+      ],
+      "tags": [
+        "AI",
+        "用户增长",
+        "产品"
+      ],
+      "subtitle": "把抽象运势变成能带走的东西",
+      "subtitleEn": "Turning abstract fortunes into something you take with you",
+      "context": "命理结果看完就走，缺一个把用户留在产品里的载体。",
+      "contextEn": "Fortune results were read once and forgotten — no artifact kept users coming back.",
+      "approach": [
+        "按年龄性别标签推荐动静态壁纸，避免所有人拿到同一张图",
+        "按全年开运 / 财运 / 事业 / 爱情四个维度切内容供给，覆盖不同诉求"
+      ],
+      "approachEn": [
+        "Recommended static/dynamic wallpapers by age-gender tags so users don't all get the same image",
+        "Split supply across four intents: yearly fortune, wealth, career, love"
+      ],
+      "result": "成为命理馆的留存抓手，用户拿走壁纸即形成日常曝光。",
+      "resultEn": "Became the retention hook — a wallpaper on the home screen is daily passive exposure."
+    },
+    {
+      "name": "德州扑克玩家类型测试",
+      "nameEn": "Poker Player Type Quiz",
+      "description": "基于 VPIP（入池率）、激进程度和粘性三个维度的德州扑克玩家风格测试工具，支持专业模式（含底池、位置、筹码深度）和简单模式两种体验。",
+      "descriptionEn": "Poker player style quiz based on VPIP, aggression, and stickiness. Supports both professional mode (with pot, position, stack depth) and simple mode.",
+      "url": "https://www.pokertesting.online/?utm_source=redonote&utm_medium=social",
+      "metrics": [
+        "10 道题",
+        "3 维度",
+        "专业/简单双模式"
+      ],
+      "metricsEn": [
+        "10 questions",
+        "3 dimensions",
+        "Pro/Simple modes"
+      ],
+      "tags": [
+        "产品",
+        "交互设计"
+      ],
+      "subtitle": "自己上线的小工具，从想法到域名全流程",
+      "subtitleEn": "A self-shipped tool — idea to live domain, end to end",
+      "context": "牌桌上判断对手风格全靠感觉，新手连自己是什么打法都说不清。",
+      "contextEn": "Reading opponent styles is intuition-driven; beginners can't even articulate their own.",
+      "approach": [
+        "用 VPIP、激进度、粘性三个维度建模，这是扑克圈公认的判据而不是我自创的",
+        "分专业模式（带底池、位置、筹码深度）和简单模式，避免新手在第一题就被术语劝退"
+      ],
+      "approachEn": [
+        "Modeled on VPIP, aggression, and stickiness — the community-accepted axes, not invented ones",
+        "Pro mode (pot, position, stack depth) and simple mode, so beginners aren't bounced by jargon on question one"
+      ],
+      "result": "已上线可直接玩，小红书导流验证真实用户是否愿意做完 10 题。",
+      "resultEn": "Live and playable; drove traffic from RED to test whether real users finish all 10 questions."
+    },
+    {
+      "name": "Growth Experiment Lab",
+      "nameEn": "Growth Experiment Lab",
+      "subtitle": "A/B 实验的决策模拟器：样本量够不够、什么时候能停、这个提升值不值得全量",
+      "subtitleEn": "A decision simulator for A/B tests: is the sample enough, when to stop, is the lift worth shipping",
+      "description": "把增长 PM 做实验时的三个判断做成可操作的工具。用蒙特卡洛模拟演示「每天偷看、一显著就停」会把假阳性率从 5% 推到 22.45%；结果解读器按置信区间下界折算最保守的月增量收入。",
+      "descriptionEn": "Turns the three judgement calls of running an A/B test into a hands-on tool. Monte Carlo shows how peeking daily inflates false positives from 5% to 22.45%; the interpreter converts the CI lower bound into a conservative monthly revenue estimate.",
+      "url": "https://andyzhang666666.github.io/growth-experiment-lab/",
+      "github": "https://github.com/AndyZhang666666/growth-experiment-lab",
+      "metrics": [
+        "4 个页签",
+        "假阳性 5% → 22.45%",
+        "本地计算"
+      ],
+      "metricsEn": [
+        "4 tabs",
+        "FPR 5% → 22.45%",
+        "Runs locally"
+      ],
+      "tags": [
+        "增长",
+        "A/B 实验",
+        "工具"
+      ],
+      "featured": true,
+      "context": "在美团做优惠券梯度的 A/B 验证时，难的不是跑实验，而是三件事：实验前算不清要多少样本；跑到一半看到数字好看想提前停；跑完了提升两个点，老板问这两个点值多少钱、置信不置信。这三件事都不是纯统计问题，而是统计结论如何变成当天的决策。",
+      "contextEn": "Running coupon A/B tests at Meituan, the hard part was never the test itself. It was three things: sizing the sample beforehand, resisting the urge to stop early when numbers looked good, and answering what a two-point lift is worth in money with what confidence. None of these are pure statistics — they are about turning a statistical result into a decision.",
+      "approach": [
+        "实验设计器：输入基线转化率、MDE、α、power、日流量，输出每组样本量与所需天数，并支持反推「只肯跑 7 天能检出多少」",
+        "偷看惩罚模拟器：在两组真实转化率完全相同的前提下，用蒙特卡洛跑四种检查策略，直接展示假阳性率的差异",
+        "结果解读器：给 p 值、置信区间和三档结论，再按区间上下界折算月增量收入，回答「最保守能拿多少」"
+      ],
+      "approachEn": [
+        "Designer: baseline rate, MDE, α, power and daily traffic in; per-arm sample size and duration out, plus a reverse mode — 'if I only run 7 days, what can I detect'",
+        "Peeking simulator: with identical true rates in both arms, Monte Carlo runs four checking strategies to show the false-positive gap directly",
+        "Interpreter: p-value, CI and a three-tier plain-language verdict, then monthly incremental revenue at both CI bounds"
+      ],
+      "result": "全部计算在浏览器完成，不上传数据。校验脚本确认「每日偷看」策略的假阳性率为 22.45%，与理论值一致。这是一个演示统计常识的工具，不是统计库。",
+      "resultEn": "Everything runs in the browser; nothing is uploaded. The validation script confirms a 22.45% false-positive rate for daily peeking, matching theory. It demonstrates statistical common sense; it is not a statistics library."
+    },
+    {
+      "name": "Pricing Model Sim",
+      "nameEn": "Pricing Model Sim",
+      "subtitle": "给一条留存曲线，算出单次解锁、包月订阅、混合三种付费机制 12 个月的 ARPU、LTV 与回本周期",
+      "subtitleEn": "Given a retention curve, compute 12-month ARPU, LTV and payback for pay-per-unlock, subscription and hybrid pricing",
+      "description": "付费机制模拟器。拖一条留存曲线、调几个价格参数，看三种机制的 LTV 曲线在哪个参数上换手。敏感性分析可以扫一遍月费或免费集数，找到最优机制的切换点。",
+      "descriptionEn": "A pricing-mechanism simulator. Drag a retention curve, tune a few price parameters, and see where the three LTV curves cross. Sensitivity analysis sweeps monthly fee or free episodes to find the switch-over point.",
+      "url": "https://andyzhang666666.github.io/pricing-model-sim/",
+      "github": "https://github.com/AndyZhang666666/pricing-model-sim",
+      "metrics": [
+        "3 种机制",
+        "12 个月推演",
+        "4 个合成案例"
+      ],
+      "metricsEn": [
+        "3 mechanisms",
+        "12-month horizon",
+        "4 synthetic cases"
+      ],
+      "tags": [
+        "商业化",
+        "订阅",
+        "工具"
+      ],
+      "context": "做海外短剧付费时遇到过收入下滑。团队的第一反应是加大买量，但问题未必在获客，也可能在付费机制——包月订阅市场的复购率比单集解锁市场高三倍多。最花时间的不是分析，是说服：要让所有人看见同一批用户换个付费机制，12 个月能差出多少收入。Excel 能算一两组参数，但要扫一遍「月费 25 到 40、免费集数 0 到 15」找换手点，手算做不到。",
+      "contextEn": "Revenue fell on an overseas short-drama product. The reflex was to buy more traffic, but the issue may sit in the pricing mechanism — subscription markets had over 3x the repurchase rate of pay-per-episode markets. The time sink was persuasion, not analysis: everyone needed to see how much 12-month revenue differs for the same users under a different mechanism. Excel handles a couple of parameter sets; sweeping fee 25–40 and free episodes 0–15 to find the crossover does not work by hand.",
+      "approach": [
+        "留存曲线：拖 D1 / D7 / D30 / D90 / D180 五个锚点实时重拟合，或选短剧、工具、社交三类预设",
+        "三机制对比：调参数看 LTV 与回本月份，结论卡直接说明谁更优、为什么",
+        "敏感性分析：选一个参数（月费、免费集数、订阅转化率、切换摩擦、CAC、付费率）扫一遍，标出最优机制的换手点"
+      ],
+      "approachEn": [
+        "Retention curve: drag five anchors (D1 / D7 / D30 / D90 / D180) with live refit, or pick a preset for drama, tools or social",
+        "Mechanism comparison: tune parameters, read LTV and payback month, with a verdict card stating which wins and why",
+        "Sensitivity: sweep one parameter (fee, free episodes, sub conversion, switching friction, CAC, pay rate) and mark the switch-over point"
+      ],
+      "result": "附手算校验与守恒检查脚本，4 个合成案例可一键载入。它回答的是「该选哪种机制」，不做定价寻优，也不接真实数据。",
+      "resultEn": "Ships with hand-calculation and conservation checks; four synthetic cases load in one click. It answers 'which mechanism' — it does not optimise price or connect to real data."
+    },
+    {
+      "name": "Bundle Lab",
+      "nameEn": "Bundle Lab",
+      "subtitle": "从订单里找出值得做成套餐的商品组合，并把收益边界算清楚",
+      "subtitleEn": "Find product combinations worth bundling from order data, and quantify the profit boundary",
+      "description": "套餐机会发现器。传一份订单明细，看多人订单与单人订单的错位，挖出经常一起买的组合，调折扣与采纳率看客单和毛利的变化，导出「推给谁、推什么、什么情况别推」的建议。附校验脚本回答挖出的组合是不是噪声。",
+      "descriptionEn": "A bundle-opportunity finder. Upload order lines, see where group orders and single orders diverge, surface frequently co-bought combinations, tune discount and adoption to watch basket size and margin move, then export a who / what / when-not-to recommendation. Validation scripts check whether the findings are noise.",
+      "url": "https://andyzhang666666.github.io/bundle-lab/",
+      "github": "https://github.com/AndyZhang666666/bundle-lab",
+      "metrics": [
+        "6 个页面",
+        "召回校验",
+        "合成数据可复现"
+      ],
+      "metricsEn": [
+        "6 pages",
+        "Recall check",
+        "Reproducible synthetic data"
+      ],
+      "tags": [
+        "增长",
+        "数据分析",
+        "工具"
+      ],
+      "context": "在美团沙特市场做用户增长时发现，客单价低不是用户不想多买，而是商品结构与点单结构错位：很多是多人点单，但菜单以单人餐为主，凑不成套就放弃。后来推了家庭套餐专区。那次分析大部分靠人工拉 SQL 再拍脑袋定组合，定完也说不清为什么是这几个组合、打几折不亏。",
+      "contextEn": "Working on growth for Meituan's Saudi market, low basket size turned out to be a mismatch between menu and ordering: many orders were for groups, yet the menu was built around single meals, so people gave up. A family-bundle section followed. That analysis was mostly hand-written SQL and gut-feel combos, with no clear answer to why these combos or what discount stays profitable.",
+      "approach": [
+        "订单画像：对比多人订单与单人订单的商品分布，定位错位",
+        "组合发现：从共现频次挖出「经常一起买」的组合，附召回校验（植入已知组合看能否被找回）",
+        "收益推演：调折扣与采纳率，输出客单、毛利变化与盈亏平衡采纳率"
+      ],
+      "approachEn": [
+        "Order profile: compare item mix between group and single orders to locate the mismatch",
+        "Combo discovery: surface frequently co-bought sets from co-occurrence, with a recall check (plant known combos, see if they come back)",
+        "Profit projection: tune discount and adoption, output basket, margin and break-even adoption"
+      ],
+      "result": "目标用户是没有算法团队的中小电商与餐饮运营——会看表格，不会写 SQL。全部计算在浏览器端。它是分析工具，不接平台 API、不做在线推荐、不做库存。",
+      "resultEn": "Built for small e-commerce and F&B operators without a data team — people who read spreadsheets but do not write SQL. Runs entirely in the browser. It is an analysis tool: no platform API, no live recommendation, no inventory."
+    },
+    {
+      "name": "留学咨询内容矩阵",
+      "nameEn": "Study Abroad Content Matrix",
+      "description": "MCN 模式搭建 40+ 垂类账号矩阵，签约 50+ KOL，总粉丝量破 10 万+，月均获取高意向线索超 100 条，CPL 降低 30%。",
+      "descriptionEn": "MCN-style content matrix with 40+ accounts, 50+ KOLs, 100k+ followers, 100+ qualified leads/month, 30% CPL reduction.",
+      "period": "2023.01 – 2025.01",
+      "role": "联合创始人",
+      "roleEn": "Co-Founder",
+      "metrics": [
+        "40+ 账号",
+        "10 万+ 粉丝",
+        "CPL -30%"
+      ],
+      "metricsEn": [
+        "40+ accounts",
+        "100k+ followers",
+        "CPL -30%"
+      ],
+      "tags": [
+        "创业",
+        "增长",
+        "运营"
+      ],
+      "subtitle": "两年，40+ 账号，把线索成本打下来 30%",
+      "subtitleEn": "Two years, 40+ accounts, 30% lower cost per lead",
+      "context": "留学咨询靠投流获客越来越贵，内容自然流量是唯一能复用的资产。",
+      "contextEn": "Paid acquisition in study-abroad consulting kept getting more expensive; organic content was the only reusable asset.",
+      "approach": [
+        "按国家、专业、预算切垂类账号，而不是做一个大号 —— 垂类越窄，线索意向越高",
+        "签约 50+ KOL 做分发，自己只保留选题与转化链路"
+      ],
+      "approachEn": [
+        "Built narrow vertical accounts by country / major / budget instead of one large account — narrower niche, higher lead intent",
+        "Signed 50+ KOLs for distribution, keeping topic selection and the conversion path in-house"
+      ],
+      "result": "40+ 账号、10 万+ 粉丝，月均 100+ 高意向线索，CPL -30%。",
+      "resultEn": "40+ accounts, 100k+ followers, 100+ high-intent leads/month, CPL -30%."
+    }
+  ],
+  "skills": {
+    "data": [
+      "SQL",
+      "Python",
+      "Excel 商业建模",
+      "A/B 实验",
+      "漏斗归因",
+      "单位经济测算"
+    ],
+    "dataEn": [
+      "SQL",
+      "Python",
+      "Excel Business Modeling",
+      "A/B Testing",
+      "Funnel Attribution",
+      "Unit Economics"
+    ],
+    "ai": [
+      "Agent 工作流",
+      "Prompt 工程",
+      "LLM-as-judge",
+      "Eval harness"
+    ],
+    "aiEn": [
+      "Agent Workflow",
+      "Prompt Engineering",
+      "LLM-as-judge",
+      "Eval Harness"
+    ],
+    "product": [
+      "0→1 产品孵化",
+      "用户体验设计",
+      "数据驱动决策",
+      "竞品分析"
+    ],
+    "productEn": [
+      "0→1 Product Launch",
+      "UX Design",
+      "Data-Driven Decision",
+      "Competitive Analysis"
+    ],
+    "language": [
+      "英语（五年英国学习与工作）",
+      "普通话"
+    ],
+    "languageEn": [
+      "English (5 years UK study & work)",
+      "Mandarin"
+    ]
+  },
+  "about": {
+    "lead": "张千羽，做 AI 产品。",
+    "leadEn": "Andy Zhang. I work on AI products.",
+    "body": "本科在布里斯托读电子电气工程，硕士在 UCL 读计算金融。两段专业教的东西相近：怎么把一个模糊的问题变成能算的问题。读完之后去做产品，是因为我更关心用户的行为——他们为什么这样用、为什么不这样用。",
+    "bodyEn": "I studied Electronic & Electrical Engineering at Bristol and Computational Finance at UCL. Both taught roughly the same skill: turning a vague question into one you can compute. I went into product because I care more about how people actually behave — why they use something one way and not another.",
+    "body2": "目前主要做两件事：一是给模型效果建评估体系，让「好不好」有一个能复核的标准；二是做用户增长，从数据里找问题、用实验验证判断。",
+    "body2En": "Two things take most of my time now: building evaluation systems so that 'is this model good' has a reviewable answer, and growth work — finding problems in data and testing judgements with experiments.",
+    "facts": [
+      {
+        "k": "MBTI",
+        "kEn": "MBTI",
+        "v": "待补充",
+        "vEn": "To fill",
+        "empty": true
+      },
+      {
+        "k": "牌桌位置",
+        "kEn": "Table position",
+        "v": "偏紧凶 · 会打位置",
+        "vEn": "Tight-aggressive, position-aware"
+      }
+    ],
+    "principles": [
+      {
+        "n": "01",
+        "zh": "先把问题说清楚",
+        "en": "State the problem first",
+        "dz": "多数做不下去的需求，是因为一开始没说清要解决什么。我习惯先把问题写成一句话，写不出来就说明还没想明白。",
+        "de": "Most stalled requests were never clearly stated. I write the problem as one sentence first; if I cannot, it is not ready."
+      },
+      {
+        "n": "02",
+        "zh": "指标要有失败条件",
+        "en": "A metric needs a failure condition",
+        "dz": "定指标的时候同时定清楚：什么情况算没达到。没有失败条件的指标只是装饰。",
+        "de": "When setting a metric, also define what counts as missing it. A metric without a failure condition is decoration."
+      },
+      {
+        "n": "03",
+        "zh": "能自己做的先自己做",
+        "en": "Do it yourself when you can",
+        "dz": "写需求之前先把流程亲自走一遍。这个网站和几个评测工具都是自己写的，不是为了炫技，是为了确认自己真的理解。",
+        "de": "Before writing a spec, walk the flow myself. This site and the eval tools are hand-built — not to show off, but to make sure I actually understand."
+      }
+    ]
+  },
+  "now": {
+    "updated": "2026.09",
+    "items": [
+      {
+        "k": "在做",
+        "kEn": "Building",
+        "zh": "几个开源的评测和增长工具：creative-eval、filing-eval、growth-experiment-lab、pricing-model-sim、bundle-lab。每个都有可点开的 demo。",
+        "en": "A set of open-source eval and growth tools — creative-eval, filing-eval, growth-experiment-lab, pricing-model-sim, bundle-lab. Each has a live demo."
+      },
+      {
+        "k": "在想",
+        "kEn": "Thinking about",
+        "zh": "离线评测跑出来的分数，怎样才能在线上被信任。评测体系和产品决策之间那一段，现在是空的。",
+        "en": "How offline eval scores earn trust in production. The gap between an eval system and a product decision is still mostly empty."
+      },
+      {
+        "k": "在玩",
+        "kEn": "Playing",
+        "zh": "德州扑克。位置、范围、下注尺度。做那个玩家类型测试也是从牌桌上来的。",
+        "en": "Texas Hold'em — position, ranges, sizing. The player-type quiz came from the table."
+      }
+    ]
+  },
+  "uses": {
+    "groups": [
+      {
+        "zh": "写代码 / 做原型",
+        "en": "Code & prototyping",
+        "items": [
+          "Claude Code",
+          "Cursor",
+          "Python",
+          "SQL",
+          "HTML / CSS / JS"
+        ]
+      },
+      {
+        "zh": "数据 / 分析",
+        "en": "Data & analysis",
+        "items": [
+          "Pandas",
+          "Excel 建模",
+          "Metabase",
+          "GA / 埋点"
+        ]
+      },
+      {
+        "zh": "设计与协作",
+        "en": "Design & collab",
+        "items": [
+          "Figma",
+          "飞书 / 多维表格",
+          "Notion"
+        ]
+      },
+      {
+        "zh": "这站本身",
+        "en": "This site",
+        "items": [
+          "手写 HTML",
+          "手写 CSS",
+          "手写 JS",
+          "零依赖 · 零构建"
+        ]
+      }
+    ]
+  },
+  "colophon": {
+    "zh": "这个站是手写的：一个 index.html、一个 style.css、一个 app.js，加一份 data.json 当数据层。没有框架、没有构建步骤、没有依赖——改一行字就是改一行字。四个配色主题是真的四套 CSS 变量，不是滤镜。",
+    "en": "This site is hand-written: one index.html, one style.css, one app.js, plus a data.json as the data layer. No framework, no build step, no dependencies — a text change is a text change. The four themes are four real sets of CSS variables, not a filter.",
+    "zh2": "字体用了 Inter / Noto Serif SC / JetBrains Mono。动画尽量用 CSS 而不是 JS，能省一帧是一帧。",
+    "en2": "Type is set in Inter, Noto Serif SC and JetBrains Mono. Animations prefer CSS over JS — one frame saved is one frame saved."
+  }
+}

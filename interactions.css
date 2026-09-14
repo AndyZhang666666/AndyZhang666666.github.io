@@ -1,0 +1,130 @@
+/* ============================================
+   交互细节 · interactions.css
+   - 经历 / 项目列表：hover 一项，其余变暗（Brittany Chiang 式）
+   - 项目卡标题 hover 划线（替代整体上浮）
+   - 磁吸按钮过渡曲线（JS 在 app.js initMagnetic 里算偏移）
+   - focus-visible / reduced-motion
+   追加在 style.css 之后，只用现有变量
+   ============================================ */
+
+/* ---- A. 互斥高亮：hover 容器时其余项变暗 ---- */
+@media (hover: hover) and (min-width: 901px) {
+  .works-grid:hover .work-card,
+  .project-grid:hover .project-card,
+  .timeline:hover > .timeline-item {
+    opacity: 0.5;
+    transition: opacity 0.3s var(--ease), transform 0.18s ease-out, border-color 0.34s var(--ease), box-shadow 0.34s var(--ease);
+  }
+  .works-grid .work-card:hover,
+  .project-grid .project-card:hover,
+  .timeline > .timeline-item:hover,
+  .timeline > .timeline-item.open {
+    opacity: 1;
+  }
+  /* 浅色主题变暗幅度再大一点才看得出 */
+  [data-palette="frost"] .works-grid:hover .work-card,
+  [data-palette="mist"]  .works-grid:hover .work-card,
+  [data-palette="frost"] .project-grid:hover .project-card,
+  [data-palette="mist"]  .project-grid:hover .project-card,
+  [data-palette="frost"] .timeline:hover > .timeline-item,
+  [data-palette="mist"]  .timeline:hover > .timeline-item {
+    opacity: 0.42;
+  }
+  [data-palette="frost"] .works-grid .work-card:hover,
+  [data-palette="mist"]  .works-grid .work-card:hover,
+  [data-palette="frost"] .project-grid .project-card:hover,
+  [data-palette="mist"]  .project-grid .project-card:hover,
+  [data-palette="frost"] .timeline > .timeline-item:hover,
+  [data-palette="mist"]  .timeline > .timeline-item:hover,
+  [data-palette="frost"] .timeline > .timeline-item.open,
+  [data-palette="mist"]  .timeline > .timeline-item.open {
+    opacity: 1;
+  }
+}
+
+/* ---- B. 项目卡：去掉「上浮 + 大阴影」，改为标题划线 + 边框提亮 ---- */
+.project-card:hover {
+  box-shadow: 0 6px 18px rgba(var(--shadow-rgb), 0.18);
+}
+[data-palette="frost"] .project-card:hover,
+[data-palette="mist"]  .project-card:hover {
+  box-shadow: 0 6px 18px rgba(var(--shadow-rgb), 0.08);
+}
+
+.project-name {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.15em;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  transition: background-size 0.4s var(--ease), color 0.3s var(--ease);
+}
+.project-card:hover .project-name {
+  background-size: 100% 2px;
+}
+.project-card.placeholder:hover .project-name {
+  background-size: 0% 2px;
+}
+
+/* 项目链接箭头：hover 时右移 */
+.project-link {
+  transition: color 0.25s var(--ease), transform 0.3s var(--ease);
+}
+.project-card:hover .project-link:not(.muted) {
+  transform: translateX(3px);
+}
+
+/* ---- C. 磁吸按钮：JS 写 transform，这里只给曲线 ---- */
+[data-magnetic] {
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.3s var(--ease),
+              background-color 0.3s var(--ease),
+              color 0.3s var(--ease),
+              box-shadow 0.3s var(--ease);
+  will-change: transform;
+}
+/* 离开时用带回弹的曲线 */
+[data-magnetic]:not(:hover) {
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 0.3s var(--ease),
+              background-color 0.3s var(--ease),
+              color 0.3s var(--ease),
+              box-shadow 0.3s var(--ease);
+}
+/* 联系卡原本 hover 是 translateY(-3px)，磁吸接管后由 JS 决定位移 */
+#contactGrid .contact-item[data-magnetic]:hover {
+  transform: none;
+}
+
+/* ---- D. 键盘可达性 ---- */
+a:focus-visible,
+button:focus-visible,
+.contact-item:focus-visible,
+.project-card:focus-visible,
+.timeline-head:focus-visible,
+.ps-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ---- E. 移动端 / reduced motion ---- */
+@media (max-width: 900px) {
+  [data-magnetic] { will-change: auto; }
+  .project-card:hover .project-link:not(.muted) { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .works-grid:hover .work-card,
+  .project-grid:hover .project-card,
+  .timeline:hover > .timeline-item { opacity: 1; }
+  .project-name { transition: none; }
+  .project-card:hover .project-name { background-size: 100% 2px; }
+  [data-magnetic] { transition: none; will-change: auto; }
+}
