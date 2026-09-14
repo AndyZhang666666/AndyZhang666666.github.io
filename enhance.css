@@ -213,8 +213,8 @@ html.theme-switching .hero .hero-jd-link.reveal {
 /* ---- 首屏 JD 匹配器入口：按钮组下方一行文字链，低于按钮一级 ---- */
 .hero-jd-link {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.375rem;
+  align-items: center;
+  gap: 0.625rem;
   margin-top: 1.25rem;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -222,6 +222,19 @@ html.theme-switching .hero .hero-jd-link.reveal {
   text-decoration: none;
   transition: color 0.3s var(--ease);
 }
+.hero-jd-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  color: var(--accent);
+  white-space: nowrap;
+  transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
+}
+.hero-jd-link:hover .hero-jd-tag { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.08); }
 .hero-jd-text { position: relative; }
 .hero-jd-text::after {
   content: '';
@@ -235,6 +248,7 @@ html.theme-switching .hero .hero-jd-link.reveal {
 .hero-jd-arrow {
   font-size: 0.875rem;
   display: inline-block;
+  margin-left: -0.25rem;
   transition: transform 0.3s var(--ease-out);
 }
 .hero-jd-link:hover { color: var(--accent); }
