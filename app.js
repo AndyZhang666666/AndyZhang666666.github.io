@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 function render() {
   if (!data) return;
   renderAbout();
+  renderAiViews();
   renderMarquee();
   renderTimeline();
   renderEducation();
@@ -234,6 +235,7 @@ function renderAbout() {
   const bodyPs = document.querySelectorAll('.about-body');
   if (bodyPs[0]) { bodyPs[0].setAttribute('data-zh', a.body); bodyPs[0].setAttribute('data-en', a.bodyEn); bodyPs[0].textContent = a.body; }
   if (bodyPs[1]) { bodyPs[1].setAttribute('data-zh', a.body2); bodyPs[1].setAttribute('data-en', a.body2En); bodyPs[1].textContent = a.body2; }
+  if (bodyPs[2]) { bodyPs[2].setAttribute('data-zh', a.body3 || ''); bodyPs[2].setAttribute('data-en', a.body3En || ''); bodyPs[2].textContent = a.body3 || ''; if (!a.body3) bodyPs[2].remove(); }
   
   const facts = document.getElementById('aboutFacts');
   facts.innerHTML = (a.facts || []).map(f => `
@@ -612,4 +614,19 @@ function initMagnetic() {
       el.style.transform = '';
     });
   });
+}
+
+
+// ===== 关于 AI：四条判断 =====
+function renderAiViews() {
+  const grid = document.getElementById('aiViewsGrid');
+  const v = data.aiViews;
+  if (!grid || !v || !v.items) return;
+  grid.innerHTML = v.items.map((it, i) => `
+    <article class="ai-view reveal" data-delay="${i * 90}">
+      <div class="ai-view-num">${esc(it.n)}</div>
+      <h3 class="ai-view-title" data-zh="${esc(it.zh)}" data-en="${esc(it.en)}">${esc(it.zh)}</h3>
+      <p class="ai-view-desc" data-zh="${esc(it.dz)}" data-en="${esc(it.de)}">${esc(it.dz)}</p>
+    </article>
+  `).join('');
 }

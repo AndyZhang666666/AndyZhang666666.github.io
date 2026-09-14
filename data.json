@@ -1,8 +1,8 @@
 {
   "name": "张千羽",
   "nameEn": "Qianyu Zhang (Andy)",
-  "tagline": "AI 产品经理，专注增长与商业化。具备从业务场景到 Agent 工作流设计、Prompt 资产管理与效果评估体系的完整方法论，能与算法团队协同推动 AI 产品从 0 到 1 并规模化复制；以 SQL 与 Python 独立完成数据分析，通过 A/B 实验、归因与漏斗模型定位可落地的增长路径；在订阅付费与促销策略上有实战经验，具备海外市场产品经历，英语可作为工作语言。",
-  "taglineEn": "AI product manager focused on growth and monetisation. Brings a complete method from business scenarios to Agent workflow design, prompt asset management and evaluation systems, working with algorithm teams to take AI products from zero to one and scale them; runs independent analysis in SQL and Python, using A/B tests, attribution and funnel models to locate growth paths that ship; hands-on experience in subscription pricing and promotion strategy, with overseas market experience and English as a working language.",
+  "tagline": "AI 产品经理，具备增长与商业化能力。能从业务场景出发设计 Agent 工作流、搭建效果评估体系，与算法团队把 AI 产品推到上线。习惯用 SQL 与 Python 自己看数据，靠 A/B 实验和漏斗归因找增长路径。做过订阅付费与海外市场，英语可作工作语言。",
+  "taglineEn": "AI product manager with growth and monetisation experience. Designs Agent workflows and evaluation systems from real business scenarios and ships AI products with algorithm teams. Runs data in SQL and Python, finds growth paths through A/B tests and funnel attribution. Has worked on subscription pricing and overseas markets. English is a working language.",
   "contact": {
     "phone": "13149829129",
     "email": "andy_zzz@yeah.net",
@@ -843,10 +843,10 @@
   "about": {
     "lead": "张千羽，AI 产品经理。",
     "leadEn": "Andy Zhang, AI product manager.",
-    "body": "本科在布里斯托大学读电子电气工程，硕士在伦敦大学学院读金融工程。两段学习训练的是同一件事：把模糊的问题转化为可以计算的问题。毕业后选择做产品，是因为比起模型本身，我更关心人的行为——用户为什么这样使用，为什么不那样使用。",
-    "bodyEn": "I studied Electronic and Electrical Engineering at Bristol and Financial Engineering at UCL. Both trained the same skill: turning a vague question into a computable one. I chose product after graduating because, more than the model itself, I care about how people behave — why they use something one way and not another.",
-    "body2": "我偏好有闭环的工作：从定义问题、上线验证到数据回收，能够看到一个判断被证实或证伪。从 0 到 1 的过程尤其如此，问题、方案与结果都在一个人的视野之内。",
-    "body2En": "I prefer work with a closed loop: define the problem, ship, collect the data, and see a judgement confirmed or refuted. Zero-to-one work is where this is clearest — problem, solution and outcome all sit within one person's view.",
+    "body": "本科在布里斯托读电子电气工程，硕士在伦敦大学学院读金融工程。两段训练教的是同一件事：把模糊的问题变成可以计算的问题。",
+    "bodyEn": "I studied Electronic and Electrical Engineering at Bristol and Financial Engineering at UCL. Both taught the same skill: turning a vague question into a computable one.",
+    "body2": "但算清楚一个问题之后，我更想知道的是人会怎么用它。产品经理这个岗位吸引我的地方，是它站在「能做什么」和「有人需要什么」的交界处。工程给你手段，用户给你理由，而判断哪些理由值得被满足，是这份工作真正的内容。我喜欢自己的判断能被验证：定义一个问题，把方案推上线，看数据回来说它对不对。这个循环短的时候，人学得最快。",
+    "body2En": "But once a problem is worked out, what I want to know is how people will use it. What draws me to product is that it sits where \"what can be built\" meets \"what someone needs\". Engineering gives you the means, users give you the reasons, and deciding which reasons deserve to be met is the real substance of the job. I like having my judgement tested: define a problem, ship the solution, let the data say whether it was right. The shorter that loop, the faster you learn.",
     "facts": [
       {
         "k": "MBTI",
@@ -871,6 +871,12 @@
         "kEn": "Focus",
         "v": "AI 应用产品 · 增长与商业化",
         "vEn": "AI applications · Growth & monetisation"
+      },
+      {
+        "k": "兴趣",
+        "kEn": "Interests",
+        "v": "德州扑克 · 骑行 · 电子音乐",
+        "vEn": "Poker · Cycling · Electronic music"
       }
     ],
     "principles": [
@@ -895,7 +901,9 @@
         "dz": "写需求之前先把流程亲自走一遍。这个网站和几个评测工具都是自己写的，不是为了炫技，是为了确认自己真的理解。",
         "de": "Before writing a spec, walk the flow myself. This site and the eval tools are hand-built — not to show off, but to make sure I actually understand."
       }
-    ]
+    ],
+    "body3": "选 AI 方向，是因为这一轮技术把「能做什么」的边界推得比「该做什么」快得多。模型的能力是充裕的，稀缺的是把它放进一个真实场景、让它稳定解决一个具体问题的判断。这是产品经理的活，而且是现在最值得干的那一份。",
+    "body3En": "I chose AI because this wave has pushed \"what can be built\" far ahead of \"what should be built\". Model capability is abundant. What is scarce is the judgement to put it into a real scenario and have it solve one concrete problem reliably. That is product work, and right now it is the product work most worth doing."
   },
   "now": {
     "updated": "2026.09",
@@ -958,5 +966,37 @@
     "en": "This site is hand-written: one index.html, one style.css, one app.js, plus a data.json as the data layer. No framework, no build step, no dependencies — a text change is a text change. The four themes are four real sets of CSS variables, not a filter.",
     "zh2": "字体用了 Inter / Noto Serif SC / JetBrains Mono。动画尽量用 CSS 而不是 JS，能省一帧是一帧。",
     "en2": "Type is set in Inter, Noto Serif SC and JetBrains Mono. Animations prefer CSS over JS — one frame saved is one frame saved."
+  },
+  "aiViews": {
+    "items": [
+      {
+        "n": "01",
+        "zh": "能力过剩，判断稀缺",
+        "en": "Capability is abundant, judgement is scarce",
+        "dz": "模型能做的事已经远多于产品里用上的事。今天多数 AI 产品的瓶颈不在模型，在有没有人把它放进一个真实场景，定义清楚它要解决的具体问题。这是产品的活，不是算法的活。",
+        "de": "Models can already do far more than products make use of. The bottleneck in most AI products today is not the model. It is whether someone has placed it in a real scenario and defined the specific problem it must solve. That is product work, not algorithm work."
+      },
+      {
+        "n": "02",
+        "zh": "评测是产品，不是测试",
+        "en": "Evaluation is product, not QA",
+        "dz": "一个 AI 功能「好不好」，不能靠感觉。我倾向于先把评测标准建出来再谈效果。标准本身就是产品的一部分，它决定了团队朝哪个方向优化，也决定了上线之后谁来说「够了」。",
+        "de": "Whether an AI feature is \"good\" cannot rest on feel. I prefer to build the evaluation standard before discussing results. The standard is part of the product: it decides which direction the team optimises toward, and who gets to say \"enough\" after launch."
+      },
+      {
+        "n": "03",
+        "zh": "接下来十年是 Agent 的十年，不是 Agent 的一年",
+        "en": "The decade of agents, not the year",
+        "dz": "自动驾驶从演示到落地用了十几年，Agent 也一样。真正有价值的不是全自动的炫技，是让人能调节自主程度、在关键节点快速验证的「半自动」产品。做这类产品，交互设计和验证效率比模型能力更重要。",
+        "de": "Self-driving took over a decade from demo to deployment, and agents will follow the same arc. The value is not in fully autonomous showpieces but in \"partially autonomous\" products where people can dial autonomy up or down and verify quickly at key points. For such products, interaction design and verification speed matter more than raw model capability."
+      },
+      {
+        "n": "04",
+        "zh": "to C 看留存，to B 看替换成本",
+        "en": "Consumer AI is about retention, enterprise AI is about switching cost",
+        "dz": "消费端的 AI 产品，新鲜感过后拼的还是留存：用户愿不愿意每天回来。企业端的关键是替换成本：AI 方案比旧流程好多少，才值得客户承担切换的代价。两边都不是「有 AI」就赢，是「AI 让哪个数字变了」才赢。",
+        "de": "Once novelty fades, consumer AI competes on retention: will people come back every day. On the enterprise side the question is switching cost: how much better than the old process must the AI solution be for a customer to bear the cost of change. Neither side wins by \"having AI\". They win by \"which number AI moved\"."
+      }
+    ]
   }
 }
