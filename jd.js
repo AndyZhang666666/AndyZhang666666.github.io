@@ -34,6 +34,8 @@
     const hits = [];
     JD_GRAPH.dims.forEach(d => {
       const found = d.kw.filter(k => low.includes(k));
+      // 「暂无经验」的维度要命中 2 个以上关键词才算数：JD 里顺带提一句「电商」「算法」不该把整体判定拖下去
+      if (d.level === 'gap' && found.length < 2) return;
       if (found.length) hits.push({ dim: d, kwHit: found.slice(0, 4), n: found.length });
     });
     // 命中词多的排前面，同数按权重
@@ -47,8 +49,8 @@
     hits.forEach(h => {
       const w = h.dim.weight;
       if (h.dim.level === 'gap') {
-        // 完全没做过的，比「部分相关」扣得更狠，别让分数虚高
-        total += w * 1.5;
+        // 完全没做过的：按原权重计入分母、不得分。不再额外加倍，否则一句带过就把整体拖成「不匹配」
+        total += w;
       } else {
         total += w;
         got += h.dim.level === 'have' ? w : w * 0.5;
@@ -57,21 +59,24 @@
     if (!total) return null;
     let pct = Math.round((got / total) * 100);
     // 有核心项（权重 2）完全没有，就不该出现高分
-    if (hits.some(h => h.dim.level === 'gap' && h.dim.weight >= 2)) pct = Math.min(pct, 68);
+    // gap 维度命中的关键词越多，说明 JD 主体就是那个方向：3 个封顶 65%，5 个以上封顶 45%
+    const gapMax = Math.max(0, ...hits.filter(h => h.dim.level === 'gap').map(h => h.n));
+    if (gapMax >= 5) pct = Math.min(pct, 45);
+    else if (gapMax >= 3) pct = Math.min(pct, 65);
     // 年限是硬门槛，能力再对也要如实压分
-    if (yearGap) pct = Math.min(pct, 75);
+    if (yearGap) pct = Math.min(pct, 82);
     // 关键词匹配再好也不等于面试通过，不给 100% 这种虚数
     return Math.min(pct, 95);
   }
 
   /* ---------- 4. 渲染 ---------- */
   function verdict(pct, gaps, yearGap) {
-    if (pct === null) return { t: '没识别出明确要求', d: '这段 JD 里的能力关键词太少，换一段更具体的岗位描述试试。' };
-    if (yearGap) return { t: '年限是硬门槛', d: '能力项对得上，但全职年限不够。如果这个岗位卡年限，我大概过不了初筛——先说清楚，不浪费你时间。' };
-    if (pct >= 85) return { t: '高度匹配', d: '核心要求基本都有直接证据，可以直接看下面的项目。' };
-    if (pct >= 65) return { t: '匹配', d: '主要要求对得上，有几项是相关经验而非完全对口，下面标出来了。' };
-    if (pct >= 45) return { t: '部分匹配', d: '有一半左右对得上。缺的那些我没做过，直接列在下面，不含糊。' };
-    return { t: '匹配度不高', d: '这个岗位的核心要求我大部分没有直接经验。不建议为了投而投。' };
+    if (pct === null) return { t: '未识别出明确要求', d: '这段描述中的能力关键词较少，请换一段更具体的岗位描述。' };
+    // 年限不再单独覆盖判定，只在分数上体现并另行提示
+    if (pct >= 80) return { t: '高度匹配', d: '核心要求均有直接证据，可查看下方对应项目。' };
+    if (pct >= 55) return { t: '匹配', d: '主要要求对应得上，其中少数为相关经验而非完全对口，已在下方标出。' };
+    if (pct >= 35) return { t: '部分匹配', d: '约有一半要求对应得上，未覆盖的部分已如实列出。' };
+    return { t: '匹配度有限', d: '该岗位的核心要求多数没有直接经验，已在下方列出。' };
   }
 
   function evHTML(ev) {
@@ -175,7 +180,7 @@
 
   function copyResult(pct, have, partial, gaps, need, yearGap) {
     let t = `张千羽 · JD 匹配结果\n匹配度 ${pct}%\n\n`;
-    if (need !== null) t += `年限要求：${need === 0 ? '应届/不限' : need + ' 年以上'}${yearGap ? '（我的全职年限不够，先说明）' : ''}\n${JD_GRAPH.seniority.text}\n\n`;
+    if (need !== null) t += `年限要求：${need === 0 ? '应届/不限' : need + ' 年以上'}${yearGap ? '（全职年限尚不足，特此说明）' : ''}\n${JD_GRAPH.seniority.text}\n\n`;
     if (have.length) {
       t += `【有直接证据】\n`;
       have.forEach(h => {

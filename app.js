@@ -290,6 +290,8 @@ function renderUses() {
 
 // ===== COLOPHON =====
 function renderColophon() {
+  return; // 站点说明板块已按要求移除（2026-09-14）
+
   const c = data.colophon;
   if (!c) return;
   
