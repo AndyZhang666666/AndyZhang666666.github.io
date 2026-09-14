@@ -133,11 +133,10 @@
 
 /* ---- 8. 分字入场（motion.js 把名字拆成 .char span） ----
    每个字从下方 0.6em 处升起 + 淡入，间隔 34ms。 */
-.hero-name-zh .char,
 .hero-name-en .char {
   display: inline-block;
   opacity: 0;
-  transform: translateY(0.55em) rotate(2deg);
+  transform: translateY(0.55em);
   transition:
     opacity 0.7s var(--ease-enter),
     transform 0.7s var(--ease-enter);
@@ -146,7 +145,6 @@
 }
 
 .hero-name.visible .char,
-.hero-name-zh.visible .char,
 .hero-name-en.visible .char {
   opacity: 1;
   transform: none;
@@ -156,7 +154,6 @@
 .char { display: inline-block; }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-name-zh .char,
   .hero-name-en .char {
     opacity: 1;
     transform: none;
