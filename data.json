@@ -934,8 +934,8 @@
         "n": "03",
         "zh": "能自己做的先自己做",
         "en": "Do it yourself when you can",
-        "dz": "写需求之前先把流程亲自走一遍。走一遍才知道哪一步是多余的、哪一句话会被理解错。这个网站和几个评测工具都是自己写的，写到能跑起来，才算真的理解。",
-        "de": "Before writing a spec, walk the flow myself. Only then do I find which step is redundant and which sentence will be misread. This site and the eval tools are hand-built; they count as understood once they run."
+        "dz": "写需求之前先把流程亲自走一遍。走一遍才知道哪一步是多余的、哪一句话会被理解错。",
+        "de": "Before writing a spec, walk the flow myself. Only then do I find which step is redundant and which sentence will be misread."
       }
     ],
     "body3": "选 AI 方向，是因为这一轮技术把「能做什么」的边界推得比「该做什么」快得多。模型的能力是充裕的，稀缺的是把它放进一个真实场景、让它稳定解决一个具体问题的判断。这是产品经理的活，而且是现在最值得干的那一份。",
@@ -1044,9 +1044,7 @@
     ]
   },
   "stats": {
-    "titleZh": "一些数字",
-    "titleEn": "By the numbers",
-    "subZh": "从上线的东西里挑四个。",
-    "subEn": "Four numbers from things that shipped."
+    "kickerZh": "做过的事，留下的数字",
+    "kickerEn": "What the work left behind"
   }
 }

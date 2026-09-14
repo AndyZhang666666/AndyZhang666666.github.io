@@ -130,3 +130,102 @@
   .schem-flow,
   .schem-node-fill { animation: none; }
 }
+
+/* ============================================================
+   项目区排版重构 · 第二部分
+   ------------------------------------------------------------
+   问题：featured 卡（展开成完整 case study）和普通卡混在同一行，
+   右侧被拉到同高但内容少，底部大片空白，整体参差。
+   改法：featured 卡独占整行；普通卡在下方的两列网格里排列；
+   网格改成 align-items: start，卡片不再被强行拉高。
+   ============================================================ */
+
+/* 分组网格：普通卡两列，featured 独占整行。
+   用 #projectGrid 前缀压过 projects-split.css 里的 auto-fill / 单列规则。 */
+#projectGrid .pgroup-grid,
+.pgroup .pgroup-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1.25rem;
+  align-items: start;
+}
+#projectGrid .pgroup-grid > .project-card.featured,
+.pgroup .pgroup-grid > .project-card.featured {
+  grid-column: 1 / -1 !important;
+}
+
+/* 卡片本身不再靠 stretch 拉高 */
+.pgroup-grid > .project-card { height: auto; }
+
+/* featured 卡内部：case study 三段在宽卡里横排更省高度 */
+.pgroup-grid > .project-card.featured .case {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  margin-top: 1.75rem;
+}
+
+/* 普通卡：标签、标题、副标题、描述、指标的纵向节奏收紧一点，
+   让两三行描述不至于把卡片撑得很高 */
+.pgroup-grid > .project-card:not(.featured) {
+  padding: 1.625rem;
+}
+.pgroup-grid > .project-card:not(.featured) .project-desc {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 占位卡（进行中）：高度与普通卡接近，虚线边框已由 projects-split.css 处理 */
+.pgroup-grid > .project-card.placeholder { min-height: 0; }
+
+/* 扑克组的网格沿用同样规则 */
+.pgroup-poker .pgroup-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (max-width: 1100px) {
+  #projectGrid .pgroup-grid,
+  .pgroup .pgroup-grid,
+  .pgroup-poker .pgroup-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  #projectGrid .pgroup-grid > .project-card.featured .case,
+  .pgroup .pgroup-grid > .project-card.featured .case { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+
+/* ============================================================
+   数字区抬头：不用编号，改成一行 mono 小标语
+   ============================================================ */
+.stats-head { margin-bottom: 2.25rem; }
+.stats-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin: 0;
+}
+.stats-kicker::before {
+  content: '';
+  display: inline-block;
+  width: 1.75rem;
+  height: 1px;
+  background: var(--accent);
+  vertical-align: middle;
+  margin-right: 0.75rem;
+  transform: translateY(-1px);
+}
+
+/* 数字区：数字与跑马灯上下排布，跑马灯贴着数字下方 */
+.stats .stats-grid { margin-bottom: 2.5rem; }
+.stats .marquee {
+  margin: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 0;
+}
+
+@media (max-width: 900px) {
+  .stats-head { margin-bottom: 1.5rem; }
+  .stats .stats-grid { margin-bottom: 1.75rem; }
+}
