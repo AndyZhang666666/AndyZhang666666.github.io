@@ -1,0 +1,145 @@
+/* railnav —— 右侧竖向章节导航
+   参考国际主义排版的边栏索引：默认只有刻度，hover 才展开文字。
+   目的：11 个 section 全部可达（顶部导航只覆盖 6 个），且不占视觉重量。 */
+
+.railnav {
+  position: fixed;
+  right: clamp(0.75rem, 2.2vw, 1.75rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 0.5rem 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.railnav.ready {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 首屏时隐藏，滚动进入内容区才出现 */
+.railnav.at-top {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rail-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.625rem;
+  height: 22px;
+  padding: 0 0.125rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 刻度线：默认短，激活变长 */
+.rail-tick {
+  display: block;
+  width: 14px;
+  height: 1px;
+  background: rgba(var(--fg-rgb), 0.28);
+  transition:
+    width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.rail-item:hover .rail-tick {
+  width: 26px;
+  background: rgba(var(--fg-rgb), 0.55);
+}
+
+.rail-item[aria-current='true'] .rail-tick {
+  width: 34px;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.5);
+}
+
+/* 标签：默认收起，hover 或激活时滑出 */
+.rail-label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--fg-dim);
+  opacity: 0;
+  transform: translateX(6px);
+  transition:
+    opacity 0.4s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 0.4s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)),
+    color 0.3s ease;
+}
+
+.rail-item:hover .rail-label {
+  opacity: 1;
+  transform: none;
+  color: var(--fg-muted);
+}
+
+.rail-item[aria-current='true'] .rail-label {
+  opacity: 1;
+  transform: none;
+  color: var(--accent);
+}
+
+/* 整条 hover 时全部标签浮现，读起来像一份目录 */
+.railnav:hover .rail-label {
+  opacity: 0.55;
+  transform: none;
+}
+
+.railnav:hover .rail-item:hover .rail-label,
+.railnav:hover .rail-item[aria-current='true'] .rail-label {
+  opacity: 1;
+}
+
+.rail-item:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* 浅色主题：刻度对比度补偿 */
+[data-palette='frost'] .rail-tick,
+[data-palette='mist'] .rail-tick {
+  background: rgba(var(--fg-rgb), 0.22);
+}
+
+[data-palette='frost'] .rail-item:hover .rail-tick,
+[data-palette='mist'] .rail-item:hover .rail-tick {
+  background: rgba(var(--fg-rgb), 0.45);
+}
+
+[data-palette='frost'] .rail-item[aria-current='true'] .rail-tick,
+[data-palette='mist'] .rail-item[aria-current='true'] .rail-tick {
+  box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.35);
+}
+
+/* 窄屏与触屏不显示：手指没有 hover，展开文字会挡内容 */
+@media (max-width: 1080px), (hover: none) {
+  .railnav {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .railnav,
+  .rail-tick,
+  .rail-label {
+    transition: none;
+  }
+}

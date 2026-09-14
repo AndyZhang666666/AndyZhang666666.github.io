@@ -1,0 +1,165 @@
+/* ============================================================
+   motion —— 缓动与节奏
+   ------------------------------------------------------------
+   廉价感最大的两个来源：
+     1. 到处用默认的 ease / ease-in-out
+     2. 所有元素同时出现在同一帧
+   这个文件只做这两件事，不引入新动效种类。
+   ============================================================ */
+
+:root {
+  /* Apple 系曲线：入场减速、退场加速、按压缩放 */
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-press: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* 统一的时长档位，避免 0.18s / 0.22s / 0.34s 这种随手值混用 */
+  --dur-1: 0.16s;   /* 按下、hover 这类即时反馈 */
+  --dur-2: 0.32s;   /* 常规过渡 */
+  --dur-3: 0.56s;   /* 内容入场 */
+  --dur-4: 0.9s;    /* 大块揭示 */
+}
+
+/* ---- 1. 把站内最常见的 transition 收敛到上面的档位 ---- */
+
+/* 按钮与链接：即时反馈用 dur-1，位移回弹用 ease-press */
+.btn,
+.project-link,
+.contact-item,
+.rail-item,
+.jd-sample,
+.ps-btn,
+.embed-try-btn,
+.jd-copy,
+.jd-btn-run,
+.jd-btn-clear {
+  transition-timing-function: var(--ease-enter);
+  transition-duration: var(--dur-2);
+}
+
+/* 卡片类：hover 反馈不需要 0.5s，压到 dur-2 */
+.project-card,
+.work-card,
+.skill-category,
+.award-item,
+.principle-card,
+.now-item,
+.uses-group,
+.stat {
+  transition-timing-function: var(--ease-enter);
+}
+
+/* ---- 2. 入场错峰 ----
+   .reveal 由 IntersectionObserver 加 .visible。原来是一起亮，
+   现在按 DOM 顺序或 data-delay 给每项一个递增延迟。 */
+
+.reveal {
+  transition-duration: var(--dur-3), var(--dur-3);
+  transition-timing-function: var(--ease-enter), var(--ease-enter);
+}
+
+/* 同一容器内的兄弟项自动错峰：用 nth-child 生成 delay，无需改 JS */
+.principle-grid > .reveal:nth-child(2) { transition-delay: 70ms, 70ms; }
+.principle-grid > .reveal:nth-child(3) { transition-delay: 140ms, 140ms; }
+
+.skill-grid > .reveal:nth-child(2) { transition-delay: 60ms, 60ms; }
+.skill-grid > .reveal:nth-child(3) { transition-delay: 120ms, 120ms; }
+.skill-grid > .reveal:nth-child(4) { transition-delay: 180ms, 180ms; }
+
+.uses-grid > .reveal:nth-child(2) { transition-delay: 60ms, 60ms; }
+.uses-grid > .reveal:nth-child(3) { transition-delay: 120ms, 120ms; }
+.uses-grid > .reveal:nth-child(4) { transition-delay: 180ms, 180ms; }
+
+.now-grid > .reveal:nth-child(2) { transition-delay: 70ms, 70ms; }
+.now-grid > .reveal:nth-child(3) { transition-delay: 140ms, 140ms; }
+
+.contact-grid > .reveal:nth-child(2) { transition-delay: 55ms, 55ms; }
+.contact-grid > .reveal:nth-child(3) { transition-delay: 110ms, 110ms; }
+.contact-grid > .reveal:nth-child(4) { transition-delay: 165ms, 165ms; }
+
+/* 项目卡：最多错峰到第 6 张，再多会显得慢 */
+.project-grid > .reveal:nth-child(2) { transition-delay: 50ms, 50ms; }
+.project-grid > .reveal:nth-child(3) { transition-delay: 100ms, 100ms; }
+.project-grid > .reveal:nth-child(4) { transition-delay: 150ms, 150ms; }
+.project-grid > .reveal:nth-child(5) { transition-delay: 200ms, 200ms; }
+.project-grid > .reveal:nth-child(6) { transition-delay: 250ms, 250ms; }
+
+/* app.js 已经把 data-delay 写进 transition-delay 的地方，让它继续生效 */
+.reveal[data-delay] { transition-delay: inherit; }
+
+/* ---- 3. 卡片 hover 的物理感 ---- */
+.project-card:hover,
+.work-card:hover,
+.skill-category:hover {
+  transition-duration: var(--dur-2);
+  transition-timing-function: var(--ease-enter);
+}
+
+/* 离开时稍微快一点，符合「进入慢、退出快」的物理直觉 */
+.project-card:not(:hover),
+.work-card:not(:hover) {
+  transition-duration: 0.22s;
+  transition-timing-function: var(--ease-exit);
+}
+
+/* ---- 4. 数字 count-up 稳定后的细微落定 ---- */
+.stat-num {
+  transition: color var(--dur-2) var(--ease-enter);
+}
+
+/* ---- 5. 锚点跳转：接管浏览器的瞬时跳转 ---- */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* ---- 6. 深色主题下点击反馈更明显（浅色主题上容易过重） ---- */
+[data-palette='frost'] .btn:active,
+[data-palette='mist'] .btn:active {
+  transform: scale(0.985);
+}
+
+/* ---- 7. 无障碍降级 ---- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-1: 0.01ms;
+    --dur-2: 0.01ms;
+    --dur-3: 0.01ms;
+    --dur-4: 0.01ms;
+  }
+  html { scroll-behavior: auto; }
+  .reveal { transition-delay: 0ms, 0ms; }
+}
+
+/* ---- 8. 分字入场（motion.js 把名字拆成 .char span） ----
+   每个字从下方 0.6em 处升起 + 淡入，间隔 34ms。 */
+.hero-name-zh .char,
+.hero-name-en .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.55em) rotate(2deg);
+  transition:
+    opacity 0.7s var(--ease-enter),
+    transform 0.7s var(--ease-enter);
+  transition-delay: calc(120ms + var(--ci, 0) * 34ms);
+  will-change: transform, opacity;
+}
+
+.hero-name.visible .char,
+.hero-name-zh.visible .char,
+.hero-name-en.visible .char {
+  opacity: 1;
+  transform: none;
+}
+
+/* 名字以外的地方（若 JS 拆了别的元素）保持同样节奏但更快 */
+.char { display: inline-block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-name-zh .char,
+  .hero-name-en .char {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

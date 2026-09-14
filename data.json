@@ -322,7 +322,7 @@
       "nameEn": "LLM Evaluation Framework (creative-eval)",
       "description": "短剧剧本质量的 LLM 打分裁判与可信度验证。五维评分 rubric，与人工标注 ±1 分一致率 93.1%，同输入连跑三次的加权标准差 0.074。",
       "descriptionEn": "LLM-as-judge for short drama script quality. Five-dimension rubric, 93.1% ±1-point agreement with human labels, weighted std 0.074 across 3 runs.",
-      "url": "https://andyzhang666666.github.io",
+      "url": "https://andyzhang666666.github.io/llm-output-eval/",
       "github": "https://github.com/AndyZhang666666/creative-eval",
       "metrics": [
         "93.1% 一致率",
@@ -355,14 +355,55 @@
         "Ran identical inputs 3x and tracked weighted std — treating variance itself as a target metric"
       ],
       "result": "一致率 93.1%，标准差 0.074。结论是：这套裁判可以replace初筛，但不能replace终审 —— 这个边界写在 README 第一段。",
-      "resultEn": "93.1% agreement, 0.074 std. Conclusion: the judge can replace first-pass screening but not final review — stated in the README opening."
+      "resultEn": "93.1% agreement, 0.074 std. Conclusion: the judge can replace first-pass screening but not final review — stated in the README opening.",
+      "demoNote": "Demo 以第二版 llm-output-eval 呈现",
+      "demoNoteEn": "Demo served by v2 (llm-output-eval)"
+    },
+    {
+      "name": "llm-output-eval",
+      "nameEn": "llm-output-eval",
+      "subtitle": "给长文本生成结果打分，并证明打分器本身可信",
+      "subtitleEn": "Score long-form LLM output, and prove the scorer itself can be trusted",
+      "description": "creative-eval 的第二版，把裁判做成可日常使用的工具：两版 prompt 各连跑 N 次做对比、低分维度自动收进 Bad Case 导出 CSV、每个分数附从原文逐字抽出的证据句。自带 API Key 即可跑真实评测，key 只留在浏览器。",
+      "descriptionEn": "Second iteration of creative-eval, turned into a daily tool: run two prompt versions N times each for comparison, auto-collect low-scoring dimensions into an exportable Bad Case list, and attach a verbatim evidence sentence to every score. Bring your own API key; it never leaves the browser.",
+      "url": "https://andyzhang666666.github.io/llm-output-eval/",
+      "github": "https://github.com/AndyZhang666666/llm-output-eval",
+      "metrics": [
+        "Spearman ρ 0.93",
+        "±1 分一致率 90–100%",
+        "30 条金标集"
+      ],
+      "metricsEn": [
+        "Spearman ρ 0.93",
+        "±1 agreement 90–100%",
+        "30 gold samples"
+      ],
+      "tags": [
+        "AI",
+        "Eval",
+        "工具"
+      ],
+      "context": "做剧本创作 Agent 时，最难的不是让模型产出，而是判断「这一版比上一版好」。评审意见永远是「感觉不对」，没法量化、没法比较。但分数本身也会骗人——没校准的尺子量出来的数字看着像结论，其实是噪声。",
+      "contextEn": "Building a screenwriting agent, the hard part was never generation — it was judging whether this version beats the last. Review feedback was always 'feels off': unquantifiable, incomparable. But scores lie too; an uncalibrated ruler produces numbers that look like conclusions and are actually noise.",
+      "approach": [
+        "逐维打分而非总分：五个维度各写清 1–5 档的可观察行为，每个分数必须附原文逐字证据，非逐字的静默丢弃",
+        "版本对比：两版各独立连跑 N 次给均值 ± 极差，只有极差不重叠才敢说「更好」",
+        "裁判校验：30 条人工金标集跑三项检查，与人工标注的 Spearman ρ 0.93，MAE 0.26；同时如实记录 temperature 0 并不确定、pacing 维度最噪、以及三处差 2 分以上的原因（其中一处是作者自己标错）"
+      ],
+      "approachEn": [
+        "Per-dimension scoring, not a total: five dimensions with observable 1–5 anchors; every score must cite verbatim evidence, non-verbatim quotes are silently dropped",
+        "Version comparison: each version runs N times independently for mean ± range; 'better' is only claimed when ranges do not overlap",
+        "Judge validation: 30 hand-labelled samples through three checks — Spearman ρ 0.93 vs human, MAE 0.26 — while honestly recording that temperature 0 is not deterministic, pacing is the noisiest dimension, and the three ≥2-point gaps (one of which was the author's own labelling error)"
+      ],
+      "result": "结论是：裁判给文本排的顺序和人一致，但不能稳定落到同一个整数上。对「V2 比 V1 好吗」够用，对「这段是 4 分」不够用。这条边界写在 README 里，不藏。",
+      "resultEn": "The verdict: the judge orders texts the way a human does, but does not land on the same integer reliably. Good enough for 'is V2 better than V1', not for 'this is a 4'. That boundary is stated in the README, not hidden."
     },
     {
       "name": "LLM 效果评估体系（filing-eval）",
       "nameEn": "LLM Evaluation Framework (filing-eval)",
       "description": "公告摘要的事实核查评测。断言级比对，错误检出 11/11、误报 0/4、提示注入 5/5 守住。",
       "descriptionEn": "Fact-checking eval for announcement summaries. Claim-level verification, 11/11 recall, 0/4 false positives, 5/5 prompt injection blocked.",
-      "url": "https://andyzhang666666.github.io",
+      "url": "",
       "github": "https://github.com/AndyZhang666666/filing-eval",
       "metrics": [
         "11/11 检出",

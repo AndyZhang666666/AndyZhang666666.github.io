@@ -1,0 +1,605 @@
+/* =====================================================
+   TYPOGRAPHY.CSS —— 排版节奏与信息层次重构
+   
+   诊断结果：
+   1. 字号阶梯不统一：hero-name 144px、h2 48px、about-lead 36px、各自为政
+   2. 行高不合理：hero-name-zh 行高 0.94 过紧，正文 1.65-1.75 偏松
+   3. 字重单调：全站只有 300/400/500/600/700 五档，缺乏细腻层次
+   4. **字距是最大问题**：
+      - hero-name-zh -0.96px (-0.0067em) 几乎没收紧
+      - h2 -0.72px (-0.015em) 收得不够
+      - section-num/timeline-period 等 mono 字距参差不齐
+      - 小号标签没有统一放开
+   5. 垂直节奏：section padding 140.8px 是计算值，无基线网格
+   6. 留白：桌面端 section 间距尚可，但内部元素间距不统一
+   7. 测量宽度：section-sub/about-body 是 62ch (英文) / 39ch (中文)，合理
+      但 timeline-highlights 113ch 过宽
+   8. 栅格对齐：gap 值从 1px 到 89.6px 不等，无共享节奏
+   9. 层次区分：mono 元素 (section-num/timeline-loc) 字距不一致
+   10. 移动端：需验证 375px
+
+   改动策略：
+   - 建立 1.25 比例字号系统（--fs-display 到 --fs-xs）
+   - 标题行高 1.0-1.15，正文 1.6-1.7
+   - 字距系统：大字 -0.035em，标题 -0.02em，正文 0，mono +0.10~0.16em
+   - 垂直节奏：8px 基线（--space-1 到 --space-32）
+   - 数字等宽已在 enhance.css 处理，这里不重复
+   - 只覆盖排版属性，不动颜色/边框/背景
+   ===================================================== */
+
+:root {
+  /* ========== 字号阶梯 (1.25 比例) ========== */
+  --fs-display: clamp(3.5rem, 10vw, 7.5rem);      /* 大标题 hero-name-zh */
+  --fs-h1: clamp(2.5rem, 6vw, 4.5rem);            /* 一级标题 */
+  --fs-h2: clamp(1.875rem, 4.5vw, 3rem);          /* section h2 */
+  --fs-h3: clamp(1.5rem, 3.2vw, 2.25rem);         /* about-lead */
+  --fs-h4: clamp(1.25rem, 2.4vw, 1.5rem);         /* timeline-company / project-name */
+  --fs-body-lg: clamp(1.0625rem, 1.8vw, 1.1875rem); /* section-sub / about-body */
+  --fs-body: 1rem;                                 /* 正文基准 */
+  --fs-sm: 0.9375rem;                              /* timeline-role / award-name */
+  --fs-xs: 0.875rem;                               /* project-desc / work-desc */
+  --fs-xxs: 0.8125rem;                             /* stat-label / footer */
+  --fs-mono: 0.75rem;                              /* section-num / timeline-period */
+  --fs-mono-sm: 0.6875rem;                         /* timeline-loc / hero-scroll */
+  --fs-mono-xs: 0.625rem;                          /* project-tag / skill-cat-name */
+
+  /* ========== 行高系统 ========== */
+  --lh-tight: 1.0;          /* 超大标题 */
+  --lh-snug: 1.15;          /* 标题 */
+  --lh-normal: 1.4;         /* 副标题 */
+  --lh-relaxed: 1.6;        /* 正文 */
+  --lh-loose: 1.7;          /* 长段落 */
+
+  /* ========== 字距系统 ========== */
+  --ls-display: -0.035em;   /* 超大标题收紧 */
+  --ls-h: -0.02em;          /* 标题收紧 */
+  --ls-h-mild: -0.01em;     /* 小标题轻微收紧 */
+  --ls-body: 0;             /* 正文不动 */
+  --ls-mono: 0.10em;        /* mono 基准放开 */
+  --ls-mono-md: 0.14em;     /* mono 中号 */
+  --ls-mono-lg: 0.18em;     /* mono 大号（全大写标签） */
+  --ls-wide: 0.32em;        /* hero-name-en 极宽 */
+
+  /* ========== 垂直节奏 (8px 基线) ========== */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+  --space-28: 7rem;     /* 112px */
+  --space-32: 8rem;     /* 128px */
+  --space-36: 9rem;     /* 144px */
+}
+
+/* =====================================================
+   全局排版基础
+   ===================================================== */
+body {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  letter-spacing: var(--ls-body);
+}
+
+/* =====================================================
+   HERO 区
+   ===================================================== */
+.hero-name-zh {
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+}
+
+.hero-name-en {
+  font-size: clamp(0.9375rem, 2.4vw, 1.5rem);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-wide);
+}
+
+.hero-tagline {
+  font-size: clamp(1.0625rem, 2.2vw, 1.375rem);
+  line-height: var(--lh-relaxed);
+  letter-spacing: var(--ls-body);
+  max-width: 42ch;
+}
+
+.hero-meta {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  letter-spacing: var(--ls-body);
+}
+
+.hero-scroll {
+  font-size: var(--fs-mono-sm);
+  letter-spacing: var(--ls-mono-lg);
+}
+
+/* =====================================================
+   Section 标题系统
+   ===================================================== */
+.section-num {
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono-lg);
+  margin-bottom: var(--space-3);
+}
+
+.section-head h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-h);
+}
+
+.section-sub {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-loose);
+  letter-spacing: var(--ls-body);
+  margin-top: var(--space-4);
+  max-width: 62ch;
+}
+
+.section-head {
+  margin-bottom: clamp(3rem, 6vw, 4.5rem);
+}
+
+/* Section 内边距统一 */
+.section {
+  padding-top: clamp(5rem, 11vw, 9rem);
+  padding-bottom: clamp(5rem, 11vw, 9rem);
+}
+
+/* =====================================================
+   About 区
+   ===================================================== */
+.about-lead {
+  font-size: var(--fs-h3);
+  line-height: 1.3;
+  letter-spacing: var(--ls-h-mild);
+  margin-bottom: var(--space-8);
+}
+
+.about-body {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-loose);
+  letter-spacing: var(--ls-body);
+  max-width: 62ch;
+}
+
+.about-body + .about-body {
+  margin-top: var(--space-5);
+}
+
+.about-fact dt {
+  font-size: var(--fs-mono-sm);
+  letter-spacing: var(--ls-mono-md);
+}
+
+.about-fact dd {
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  letter-spacing: var(--ls-body);
+}
+
+.about-sig .sig-text {
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono);
+}
+
+/* =====================================================
+   Stats 指标
+   ===================================================== */
+.stat-num {
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-h);
+  margin-bottom: var(--space-2);
+}
+
+.stat-label {
+  font-size: var(--fs-xxs);
+  line-height: 1.45;
+  letter-spacing: var(--ls-body);
+}
+
+/* =====================================================
+   Timeline 时间线
+   ===================================================== */
+.timeline-period {
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono);
+  margin-bottom: var(--space-2);
+}
+
+.timeline-company {
+  font-size: var(--fs-h4);
+  line-height: 1.3;
+  letter-spacing: var(--ls-h-mild);
+}
+
+.timeline-role {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  letter-spacing: var(--ls-body);
+}
+
+.timeline-loc {
+  font-size: var(--fs-mono-sm);
+  letter-spacing: var(--ls-mono);
+}
+
+.timeline-highlights {
+  margin-top: var(--space-4);
+}
+
+.timeline-highlights li {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-loose);
+  letter-spacing: var(--ls-body);
+  max-width: 72ch; /* 缩短行长 */
+}
+
+/* =====================================================
+   Project 项目卡片
+   ===================================================== */
+.project-name {
+  font-size: var(--fs-h4);
+  line-height: 1.3;
+  letter-spacing: var(--ls-h-mild);
+  margin-bottom: var(--space-3);
+}
+
+.project-desc {
+  font-size: var(--fs-xs);
+  line-height: var(--lh-loose);
+  letter-spacing: var(--ls-body);
+}
+
+.project-tag {
+  font-size: var(--fs-mono-xs);
+  letter-spacing: var(--ls-mono);
+}
+
+.project-metric {
+  font-size: var(--fs-mono-sm);
+  letter-spacing: var(--ls-body);
+}
+
+/* =====================================================
+   Marquee 跑马灯
+   ===================================================== */
+.marquee-main {
+  font-size: clamp(1.0625rem, 2vw, 1.125rem);
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+.marquee-meta {
+  font-size: var(--fs-mono-sm);
+  letter-spacing: var(--ls-mono-lg);
+}
+
+/* =====================================================
+   Skill 能力标签
+   ===================================================== */
+.skill-cat-name {
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono-lg);
+}
+
+.skill-tag {
+  font-size: var(--fs-xxs);
+  line-height: 1.45;
+  letter-spacing: var(--ls-body);
+}
+
+/* =====================================================
+   Award 奖项
+   ===================================================== */
+.award-name {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  letter-spacing: var(--ls-body);
+}
+
+.award-meta {
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-body);
+}
+
+/* =====================================================
+   Contact 联系区
+   ===================================================== */
+.contact-title {
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-h);
+}
+
+.contact-sub {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-loose);
+  letter-spacing: var(--ls-body);
+  margin-top: var(--space-4);
+}
+
+.contact-label {
+  font-size: var(--fs-mono-sm);
+  letter-spacing: var(--ls-mono-md);
+}
+
+.contact-value {
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-body);
+}
+
+/* =====================================================
+   Work (时间线展开卡片)
+   ===================================================== */
+.work-name {
+  font-size: var(--fs-body-lg);
+  line-height: 1.4;
+  letter-spacing: var(--ls-h-mild);
+  margin-bottom: var(--space-2);
+}
+
+.work-desc {
+  font-size: var(--fs-xs);
+  line-height: var(--lh-loose);
+  letter-spacing: var(--ls-body);
+}
+
+.work-tag {
+  font-size: var(--fs-mono-xs);
+  letter-spacing: var(--ls-mono);
+}
+
+.works-label {
+  font-size: var(--fs-mono-sm);
+  letter-spacing: var(--ls-mono);
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-3);
+}
+
+/* =====================================================
+   Now 现在
+   ===================================================== */
+.now-item dt {
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono-md);
+}
+
+.now-item dd {
+  font-size: var(--fs-body);
+  line-height: var(--lh-loose);
+  letter-spacing: var(--ls-body);
+  max-width: 62ch;
+}
+
+/* =====================================================
+   Uses 工具
+   ===================================================== */
+.uses-group-title {
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono-lg);
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.uses-group li {
+  font-size: var(--fs-body);
+  line-height: 1.9;
+  letter-spacing: var(--ls-body);
+}
+
+/* =====================================================
+   Principle 原则
+   ===================================================== */
+.principle-num {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  margin-bottom: var(--space-5);
+}
+
+.principle-title {
+  font-size: var(--fs-h4);
+  line-height: 1.35;
+  letter-spacing: var(--ls-h-mild);
+  margin-bottom: var(--space-2);
+}
+
+.principle-desc {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-loose);
+  letter-spacing: var(--ls-body);
+}
+
+/* =====================================================
+   JD Matcher
+   ===================================================== */
+.jd-label {
+  font-size: var(--fs-xxs);
+  letter-spacing: var(--ls-body);
+}
+
+.jd-textarea {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-loose);
+  letter-spacing: var(--ls-body);
+}
+
+.jd-sample {
+  font-size: var(--fs-mono-xs);
+  letter-spacing: var(--ls-mono);
+}
+
+/* =====================================================
+   Nav 导航
+   ===================================================== */
+.nav-logo {
+  font-size: 1.125rem;
+  letter-spacing: 0.06em;
+}
+
+.nav-links a {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-body);
+}
+
+.lang-toggle {
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono);
+}
+
+/* =====================================================
+   Footer
+   ===================================================== */
+footer {
+  font-size: var(--fs-xxs);
+  line-height: 1.45;
+  letter-spacing: var(--ls-body);
+}
+
+.footer-note {
+  font-size: var(--fs-xxs);
+  letter-spacing: var(--ls-body);
+}
+
+/* =====================================================
+   Colophon (由 app.js 动态插入)
+   ===================================================== */
+.colophon-title {
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono-lg);
+  margin-bottom: var(--space-6);
+}
+
+.colophon-p {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-loose);
+  letter-spacing: var(--ls-body);
+  max-width: 62ch;
+}
+
+.colophon-p + .colophon-p {
+  margin-top: var(--space-3);
+}
+
+.colophon-p2 {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-body);
+}
+
+/* =====================================================
+   栅格节奏：卡片类网格共享同一套间距（原为 16/24/32 各自为政）
+   ===================================================== */
+.project-grid,
+.skill-grid,
+.award-list,
+.uses-grid {
+  gap: var(--space-6);
+}
+
+.principle-grid {
+  gap: var(--space-8) var(--space-12);
+}
+
+.works-grid {
+  gap: var(--space-3);
+}
+
+/* 卡片内边距统一为 8px 基线倍数 */
+.project-card { padding: var(--space-8) var(--space-6); }
+.skill-category { padding: var(--space-6); }
+.award-item { padding: var(--space-5) var(--space-6); }
+.work-card { padding: var(--space-4) var(--space-5); }
+
+/* =====================================================
+   加分项：断行控制 + 光学对齐
+   ===================================================== */
+
+/* 标题避免末行只剩一个词（中英混排同样受益） */
+.section-head h2,
+.contact-title,
+.timeline-company,
+.project-name,
+.principle-title,
+.work-name,
+.about-lead {
+  text-wrap: balance;
+}
+
+/* 正文避免孤字 */
+.section-sub,
+.about-body,
+.hero-tagline,
+.hero-meta,
+.project-desc,
+.work-desc,
+.principle-desc,
+.contact-sub,
+.timeline-highlights li,
+.now-item dd,
+.colophon-p {
+  text-wrap: pretty;
+}
+
+/* 中文段首悬挂标点：开引号/括号不吃字符位（Safari 生效，其余静默降级） */
+.about-body,
+.hero-tagline,
+.section-sub,
+.project-desc {
+  hanging-punctuation: first allow-end;
+}
+
+/* 中文字体在小号标签下加一点字距，避免中文被挤成一团（CJK 不适用 -em 收紧） */
+.stat-label {
+  letter-spacing: 0.02em;
+}
+
+/* =====================================================
+   响应式：移动端
+   ===================================================== */
+@media (max-width: 640px) {
+  :root {
+    /* 移动端字号略微缩小基准，但保持比例 */
+    --fs-display: clamp(2.75rem, 12vw, 3.5rem);
+    --fs-h2: clamp(1.625rem, 7vw, 1.875rem);
+    --fs-h3: clamp(1.375rem, 5vw, 1.5rem);
+    --fs-h4: clamp(1.125rem, 4vw, 1.25rem);
+  }
+
+  .hero-tagline {
+    max-width: 38ch;
+  }
+
+  .section {
+    padding-top: clamp(3.5rem, 10vw, 5rem);
+    padding-bottom: clamp(3.5rem, 10vw, 5rem);
+  }
+
+  .section-head {
+    margin-bottom: var(--space-12);
+  }
+
+  .contact-title {
+    font-size: clamp(2.25rem, 10vw, 3rem);
+  }
+
+  /* 小屏下行长放宽一点 */
+  .timeline-highlights li {
+    max-width: none;
+  }
+}
+
+/* =====================================================
+   减少动效：保持排版不受影响
+   ===================================================== */
+@media (prefers-reduced-motion: reduce) {
+  /* 排版不受 reduced-motion 影响 */
+}

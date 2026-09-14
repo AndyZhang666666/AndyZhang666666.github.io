@@ -1,0 +1,286 @@
+/* ========================================
+   项目卡内嵌互动 - embed.css
+   只新增 .embed-* 相关样式，不改动现有类
+   ======================================== */
+
+/* 在此试用按钮 */
+.embed-try-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.625rem;
+  padding: 0.5rem 0.875rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.28s var(--ease);
+  letter-spacing: 0.02em;
+}
+
+.embed-try-btn:hover {
+  background: rgba(var(--accent-rgb), 0.14);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.embed-try-btn svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.28s var(--ease);
+}
+
+.embed-try-btn:hover svg {
+  transform: rotate(180deg);
+}
+
+.embed-try-btn.active svg {
+  transform: rotate(180deg);
+}
+
+/* iframe 容器（用 grid-template-rows 做高度动画，与 timeline-works 一致） */
+.embed-container {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s var(--ease);
+  margin-top: 0.875rem;
+}
+
+.embed-container.open {
+  grid-template-rows: 1fr;
+}
+
+.embed-container-inner {
+  overflow: hidden;
+}
+
+.embed-iframe-wrap {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 */
+  background: var(--bg-1);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-top: 0.75rem;
+}
+
+.embed-iframe-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* loading 态 */
+.embed-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: var(--bg-1);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s var(--ease);
+}
+
+.embed-loading.hide {
+  opacity: 0;
+}
+
+.embed-loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border-strong);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: embed-spin 0.8s linear infinite;
+}
+
+@keyframes embed-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* mini 交互组件容器 */
+.embed-mini {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: all 0.3s var(--ease);
+}
+
+.embed-mini:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-2);
+}
+
+.embed-mini-title {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+/* A/B 实验决策模拟器 mini 版 */
+.embed-ab-sim {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.embed-ab-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.embed-ab-label {
+  font-size: 0.8125rem;
+  color: var(--fg-muted);
+  font-weight: 500;
+}
+
+.embed-ab-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg-3);
+  outline: none;
+  transition: background 0.2s;
+}
+
+.embed-ab-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  transition: transform 0.2s var(--ease);
+}
+
+.embed-ab-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.embed-ab-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s var(--ease);
+}
+
+.embed-ab-slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+}
+
+.embed-ab-value {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--accent-bright);
+  font-weight: 600;
+}
+
+.embed-ab-result {
+  margin-top: 0.5rem;
+  padding: 0.875rem 1rem;
+  background: var(--bg-3);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--fg);
+}
+
+.embed-ab-result strong {
+  color: var(--accent-bright);
+  font-family: var(--font-mono);
+}
+
+/* 定价模拟器 mini 版 */
+.embed-pricing-sim {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.embed-pricing-chart {
+  width: 100%;
+  height: 160px;
+  border-radius: 6px;
+  background: var(--bg-2);
+}
+
+.embed-pricing-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.625rem;
+}
+
+.embed-pricing-metric {
+  padding: 0.625rem;
+  background: var(--bg-2);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.embed-pricing-metric-label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--fg-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.embed-pricing-metric-value {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  color: var(--accent-bright);
+  font-weight: 600;
+}
+
+/* 浅色主题微调 */
+[data-palette="frost"] .embed-iframe-wrap,
+[data-palette="mist"] .embed-iframe-wrap {
+  box-shadow: 0 2px 8px rgba(var(--shadow-rgb), 0.06);
+}
+
+[data-palette="frost"] .embed-mini:hover,
+[data-palette="mist"] .embed-mini:hover {
+  box-shadow: 0 2px 12px rgba(var(--shadow-rgb), 0.08);
+}
+
+/* 响应式 */
+@media (max-width: 640px) {
+  .embed-iframe-wrap {
+    padding-bottom: 75%; /* 更高一点，适配手机竖屏 */
+  }
+  
+  .embed-pricing-metrics {
+    grid-template-columns: 1fr;
+  }
+}
