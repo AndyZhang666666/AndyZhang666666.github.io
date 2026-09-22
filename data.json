@@ -318,6 +318,28 @@
   ],
   "projects": [
     {
+      "name": "有据 · 生活决策审议台",
+      "nameEn": "Grounded Choice",
+      "subtitle": "把多份经验，变成有证据、有取舍的决定",
+      "subtitleEn": "Turn scattered experiences into a decision with evidence and trade-offs",
+      "description": "从经验材料中辨认共识、分歧和适用条件，把方案的收益、代价、硬约束冲突及待核实信息放在同一条决策流程里。提供川西旅行与养猫家庭扫地机器人两个演示场景，最终由用户选择并导出决策卡。",
+      "descriptionEn": "A decision workflow that surfaces consensus, disagreement, applicability, trade-offs, hard-constraint conflicts and open questions. Includes two demo scenarios: a five-day western Sichuan trip and a robot vacuum for a cat-owning household. The user makes the final choice and can export a decision card.",
+      "url": "https://andyzhang666666.github.io/grounded-choice/",
+      "github": "https://github.com/AndyZhang666666/grounded-choice",
+      "metrics": ["2 个决策场景", "14 份模拟材料", "决策卡导出"],
+      "metricsEn": ["2 decision scenarios", "14 simulated sources", "Decision-card export"],
+      "tags": ["AI 产品", "决策体验", "交互设计"],
+      "context": "搜索和收藏能收集观点，却很难告诉人们哪些经验适用于自己、相反的意见该怎么权衡，以及最终选择违反了什么约束。",
+      "contextEn": "Search and bookmarks collect opinions but rarely clarify which experiences apply, how to weigh opposing views or what constraints a final choice would violate.",
+      "approach": ["保留共识与分歧，结论可回看模拟材料及其适用条件", "把硬约束、偏好和待确认信息分开，冲突方案明确标注", "推荐与用户选择分离，决定页保留反方意见和行动前核实清单"],
+      "approachEn": ["Keep consensus and disagreement visible, with conclusions traceable to simulated source material", "Separate hard constraints from preferences and open questions; flag conflicting options", "Keep the system recommendation separate from the user's choice, with counterarguments and a verification checklist"],
+      "result": "形成可交互的双场景演示：用户能删减材料、比较方案、调整条件并导出决策卡。当前使用原创模拟资料，不接入真实内容搜索或电商价格。",
+      "resultEn": "An interactive two-scenario demo lets users exclude sources, compare options, adjust conditions and export a decision card. It uses original simulated materials, not live content search or e-commerce prices.",
+      "demoNote": "先在首页选场景；推荐从未替用户自动做决定。扫地机器人场景的评论是演示样本，比价价格需手动输入。",
+      "demoNoteEn": "Choose either scenario on the homepage. Recommendations never make the final choice for the user. Product comments are simulated and comparison prices are entered manually.",
+      "featured": true
+    },
+    {
       "name": "LLM 效果评估体系（creative-eval）",
       "nameEn": "LLM Evaluation Framework (creative-eval)",
       "description": "短剧剧本质量的 LLM 打分裁判与可信度验证。五维评分 rubric，与人工标注 ±1 分一致率 93.1%，同输入连跑三次的加权标准差 0.074。",
