@@ -963,58 +963,50 @@
     "body3": "选 AI 方向，是因为这一轮技术把「能做什么」的边界推得比「该做什么」快得多。模型的能力是充裕的，稀缺的是把它放进一个真实场景、让它稳定解决一个具体问题的判断。这是产品经理的活，而且是现在最值得干的那一份。",
     "body3En": "I chose AI because this wave has pushed \"what can be built\" far ahead of \"what should be built\". Model capability is abundant. What is scarce is the judgement to put it into a real scenario and have it solve one concrete problem reliably. That is product work, and right now it is the product work most worth doing."
   },
-  "now": {
-    "updated": "2026.09",
-    "items": [
-      {
-        "k": "在想",
-        "kEn": "Thinking about",
-        "zh": "离线评测得到的分数，如何在线上被信任。评测体系与产品决策之间的这一段，目前仍是空白。",
-        "en": "How offline evaluation scores earn trust in production. The link between an evaluation system and a product decision is still largely missing."
-      }
-    ]
-  },
   "uses": {
     "groups": [
       {
-        "zh": "AI 工具",
-        "en": "AI tools",
+        "zh": "需求梳理与交互设计",
+        "en": "Requirements & interaction design",
+        "output": "需求文档 · 用户流程 · 交互原型",
+        "outputEn": "Requirements · User flows · Interaction prototypes",
         "items": [
-          "Claude / ChatGPT / Gemini",
-          "Claude Code",
-          "Cursor",
-          "Coze / Dify（Agent 编排）",
-          "OpenAI / Anthropic API"
+          { "name": "Figma", "zh": "画用户流程、线框与交互原型，检查入口、反馈和异常状态。", "en": "Map user flows and build wireframes and prototypes, including entry points, feedback and error states." },
+          { "name": "飞书 / 多维表格", "nameEn": "Feishu / Multidimensional Tables", "zh": "整理访谈与需求池，记录优先级、负责人和验收条件，跟进迭代。", "en": "Organise interviews and the backlog; track priorities, owners, acceptance criteria and delivery." },
+          { "name": "Notion", "zh": "归档竞品研究、产品决策与复盘，让结论能回到原始材料。", "en": "Keep competitor research, decisions and retrospectives connected to their source material." }
         ]
       },
       {
-        "zh": "写代码 / 做原型",
-        "en": "Code & prototyping",
+        "zh": "原型实现与快速验证",
+        "en": "Prototyping & quick validation",
+        "output": "可交互 Demo · 验证脚本 · 迭代记录",
+        "outputEn": "Interactive demos · Validation scripts · Change notes",
         "items": [
-          "Claude Code",
-          "Cursor",
-          "Python",
-          "SQL",
-          "HTML / CSS / JS"
+          { "name": "Claude Code / Cursor", "zh": "辅助实现原型、定位问题和修改代码；关键逻辑与完整流程自己检查。", "en": "Assist with implementation, debugging and iteration; review the key logic and the complete user flow myself." },
+          { "name": "HTML / CSS / JavaScript", "zh": "把方案做成浏览器里能操作的 Demo，验证状态、输入与反馈。", "en": "Turn a proposal into a browser demo to validate states, inputs and feedback." },
+          { "name": "Python", "zh": "处理样本与测试数据，编写模拟和校验脚本，检查方案的边界条件。", "en": "Prepare samples and test data, run simulations and write checks for edge cases." }
         ]
       },
       {
-        "zh": "数据 / 分析",
-        "en": "Data & analysis",
+        "zh": "AI 工作流与效果验证",
+        "en": "AI workflows & evaluation",
+        "output": "工作流原型 · Prompt 版本 · 评测记录",
+        "outputEn": "Workflow prototypes · Prompt versions · Evaluation records",
         "items": [
-          "Pandas",
-          "Excel 建模",
-          "Metabase",
-          "GA / 埋点"
+          { "name": "Claude / ChatGPT / Gemini", "zh": "辅助拆解问题、比较方案与检查反例；重要判断回到资料和数据验证。", "en": "Explore problems, compare options and examine counterexamples; verify important judgements against sources and data." },
+          { "name": "Coze / Dify", "zh": "搭建对话与多步工作流原型，检查节点输入输出、工具调用和人工确认点。", "en": "Prototype conversations and multi-step workflows; inspect node inputs and outputs, tool calls and human checkpoints." },
+          { "name": "OpenAI / Anthropic API", "zh": "连接模型，比较 Prompt 的输出与失败样例，关注效果、延迟和调用成本。", "en": "Connect models and compare prompt outputs and failure cases, considering quality, latency and API cost." }
         ]
       },
       {
-        "zh": "设计与协作",
-        "en": "Design & collab",
+        "zh": "数据分析与增长复盘",
+        "en": "Analytics & growth review",
+        "output": "漏斗分析 · 实验复盘 · 商业测算",
+        "outputEn": "Funnel analysis · Experiment reviews · Business models",
         "items": [
-          "Figma",
-          "飞书 / 多维表格",
-          "Notion"
+          { "name": "SQL / Pandas", "zh": "提取与清洗数据，拆转化漏斗、留存和用户分群，定位流失发生在哪一步。", "en": "Extract and clean data; analyse funnels, retention and segments to locate drop-off." },
+          { "name": "Excel", "zh": "做定价、收入与单位经济测算，用敏感性分析检查假设变化的影响。", "en": "Model pricing, revenue and unit economics, then check how outcomes change with assumptions." },
+          { "name": "Metabase / GA / 埋点", "nameEn": "Metabase / GA / Event tracking", "zh": "明确事件和指标口径，观察关键路径与实验结果，把异常带回复盘。", "en": "Define events and metrics, monitor key journeys and experiment results, and investigate anomalies." }
         ]
       }
     ]

@@ -14,7 +14,6 @@
     education: ['教育', 'Education'],
     projects:  ['项目', 'Projects'],
     awards:    ['奖项', 'Awards'],
-    now:       ['现在', 'Now'],
     uses:      ['工具', 'Uses'],
     skills:    ['能力', 'Skills'],
     jd:        ['匹配', 'Match'],

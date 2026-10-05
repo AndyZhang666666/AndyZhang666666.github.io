@@ -15,7 +15,7 @@ const hl = (s) => esc(s).replace(
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data.json?v=20261005a');
+    const res = await fetch('data.json?v=20261005b');
     data = await res.json();
     render();
     attachEventListeners();
@@ -42,7 +42,6 @@ function render() {
   renderEducation();
   renderProjects();
   renderAwards();
-  renderNow();
   renderUses();
   renderSkills();
   renderContact();
@@ -256,25 +255,6 @@ function renderAbout() {
   `).join('');
 }
 
-// ===== NOW =====
-function renderNow() {
-  const n = data.now;
-  if (!n) return;
-  
-  const upd = document.getElementById('nowUpdated');
-  upd.setAttribute('data-zh', `更新于 ${n.updated}`);
-  upd.setAttribute('data-en', `Updated ${n.updated}`);
-  upd.textContent = `更新于 ${n.updated}`;
-  
-  const grid = document.getElementById('nowGrid');
-  grid.innerHTML = (n.items || []).map((it, i) => `
-    <div class="now-item reveal" data-delay="${i * 80}">
-      <dt data-zh="${esc(it.k)}" data-en="${esc(it.kEn)}">${esc(it.k)}</dt>
-      <dd data-zh="${esc(it.zh)}" data-en="${esc(it.en)}">${esc(it.zh)}</dd>
-    </div>
-  `).join('');
-}
-
 // ===== USES =====
 function renderUses() {
   const u = data.uses;
@@ -282,12 +262,16 @@ function renderUses() {
   
   const grid = document.getElementById('usesGrid');
   grid.innerHTML = (u.groups || []).map((g, i) => `
-    <div class="uses-group reveal" data-delay="${i * 70}">
+    <article class="uses-group reveal" data-delay="${i * 70}">
+      <span class="uses-step" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
       <h3 class="uses-group-title" data-zh="${esc(g.zh)}" data-en="${esc(g.en)}">${esc(g.zh)}</h3>
-      <ul>
-        ${(g.items || []).map(it => `<li>${esc(it)}</li>`).join('')}
+      <ul class="uses-tools">
+        ${(g.items || []).map(it => typeof it === 'string'
+          ? `<li><span class="uses-tool-name">${esc(it)}</span></li>`
+          : `<li><span class="uses-tool-name" data-zh="${esc(it.name)}" data-en="${esc(it.nameEn || it.name)}">${esc(it.name)}</span><p class="uses-tool-desc" data-zh="${esc(it.zh)}" data-en="${esc(it.en)}">${esc(it.zh)}</p></li>`).join('')}
       </ul>
-    </div>
+      ${g.output ? `<p class="uses-output"><span data-zh="交付物" data-en="Outputs">交付物</span><span data-zh="${esc(g.output)}" data-en="${esc(g.outputEn || g.output)}">${esc(g.output)}</span></p>` : ''}
+    </article>
   `).join('');
 }
 
