@@ -135,6 +135,37 @@
 }
 
 /* ---- 4. 占位卡：虚线框、不可点、无位移 ---- */
+.project-details {
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.875rem;
+}
+.project-details > summary {
+  width: fit-content;
+  cursor: pointer;
+  color: var(--fg-muted);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+.project-details > summary:hover { color: var(--accent); }
+.project-details > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.project-details .case {
+  border-top: 0;
+  margin-bottom: 0;
+  grid-template-columns: 1fr;
+}
+.project-card.featured .project-details .case {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 900px) {
+  .project-card.featured .project-details .case {
+    grid-template-columns: 1fr 1.35fr 1fr;
+  }
+}
+
 .project-card.pg-ph {
   border: 1px dashed var(--border-strong);
   background: transparent;

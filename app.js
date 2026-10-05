@@ -15,7 +15,7 @@ const hl = (s) => esc(s).replace(
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data.json?v=20261005b');
+    const res = await fetch('data.json?v=20261005c');
     data = await res.json();
     render();
     attachEventListeners();
@@ -137,24 +137,27 @@ function renderProjects() {
         ).join('')}</div>`
       : '';
 
-    // featured 卡片展开成完整 case study
-    const story = (p.featured && p.approach) ? `
+    // 首页只显示简明介绍；方法与验证按需展开，不删除项目依据。
+    const story = (p.approach && p.approach.length) ? `
+      <details class="project-details">
+        <summary><span data-zh="方法与验证" data-en="Method & validation">方法与验证</span></summary>
       <div class="case">
         <div class="case-block">
-          <div class="case-label" data-zh="背景" data-en="Context">背景</div>
+          <div class="case-label" data-zh="问题" data-en="Problem">问题</div>
           <p class="case-text" data-zh="${esc(p.context)}" data-en="${esc(p.contextEn)}">${esc(p.context)}</p>
         </div>
         <div class="case-block">
-          <div class="case-label" data-zh="怎么做的" data-en="Approach">怎么做的</div>
+          <div class="case-label" data-zh="做法" data-en="Approach">做法</div>
           <ul class="case-list">
             ${p.approach.map((a, j) => `<li data-html-zh="${esc(hl(a))}" data-html-en="${esc(hl((p.approachEn || [])[j] || a))}">${hl(a)}</li>`).join('')}
           </ul>
         </div>
         <div class="case-block">
-          <div class="case-label" data-zh="结果" data-en="Result">结果</div>
+          <div class="case-label" data-zh="产出与边界" data-en="Outcome & scope">产出与边界</div>
           <p class="case-text" data-html-zh="${esc(hl(p.result))}" data-html-en="${esc(hl(p.resultEn))}">${hl(p.result)}</p>
         </div>
-      </div>` : '';
+      </div>
+      </details>` : '';
 
     const links = p.placeholder
       ? `<div class="project-links"><span class="project-soon" data-zh="内容待补充" data-en="Content coming">内容待补充</span></div>`
@@ -165,7 +168,7 @@ function renderProjects() {
           </a>` : ''}
           ${p.github ? `<a href="${esc(p.github)}" target="_blank" rel="noopener" class="project-link muted">
             <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" fill="currentColor"/></svg>
-            <span>源码</span>
+            <span data-zh="源码" data-en="Source">源码</span>
           </a>` : ''}
         </div>`;
 
@@ -177,9 +180,9 @@ function renderProjects() {
           ${p.subtitle ? `<div class="project-company" data-zh="${esc(p.subtitle)}" data-en="${esc(p.subtitleEn || p.subtitle)}">${esc(p.subtitle)}</div>` : ''}
           ${p.company ? `<div class="project-company" data-zh="${esc(p.company)}${p.period ? ' · ' + esc(p.period) : ''}" data-en="${esc(p.companyEn || p.company)}${p.period ? ' · ' + esc(p.period) : ''}">${esc(p.company)}${p.period ? ' · ' + esc(p.period) : ''}</div>` : ''}
           <p class="project-desc" data-zh="${esc(p.description)}" data-en="${esc(p.descriptionEn)}">${esc(p.description)}</p>
-          ${story}
           ${metrics}
           ${links}
+          ${story}
         </div>
       </article>`;
   }).join('');

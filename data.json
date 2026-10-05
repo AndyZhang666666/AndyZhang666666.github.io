@@ -17,7 +17,23 @@
       "degreeEn": "MSc Financial Engineering",
       "period": "2024.09 – 2026.01",
       "grade": "Distinction",
-      "link": "https://www.ucl.ac.uk/prospective-students/graduate/taught-degrees/financial-engineering-msc"
+      "link": "https://www.ucl.ac.uk/prospective-students/graduate/taught-degrees/financial-engineering-msc",
+      "thesis": {
+        "title": "基于订单流的标普 500 日内交易模型",
+        "titleEn": "Order-Flow-Based Intraday Trading for the S&P 500",
+        "summary": "以订单流（Order Flow）为核心研究输入，构建标普 500 相关市场的日内量化交易模型，探索订单流信息在短周期交易决策中的应用。",
+        "summaryEn": "Developed an intraday quantitative trading model for S&P 500-related markets, exploring how order-flow information can inform short-horizon trading decisions.",
+        "tags": [
+          "订单流",
+          "日内交易",
+          "量化建模"
+        ],
+        "tagsEn": [
+          "Order Flow",
+          "Intraday Trading",
+          "Quantitative Modeling"
+        ]
+      }
     },
     {
       "school": "布里斯托大学 (University of Bristol)",
@@ -26,7 +42,23 @@
       "degreeEn": "BEng Electronic and Electrical Engineering",
       "period": "2021.09 – 2024.07",
       "grade": "First Class Honours",
-      "link": "https://www.bristol.ac.uk/study/undergraduate/2026/electrical-electronic-engineering/beng-electrical-and-electronic-engineering/"
+      "link": "https://www.bristol.ac.uk/study/undergraduate/2026/electrical-electronic-engineering/beng-electrical-and-electronic-engineering/",
+      "thesis": {
+        "title": "面向运动场景的可穿戴姿态监测系统",
+        "titleEn": "Wearable Posture Monitoring for Exercise",
+        "summary": "面向健身等运动场景，设计人体工学可穿戴设备，利用机器学习分析多个设备的信号变化进行姿态监测，并配套手机端交互。",
+        "summaryEn": "Designed ergonomic wearables for fitness and other exercise settings, using machine learning to analyze signals from multiple devices for posture monitoring, alongside a mobile interface.",
+        "tags": [
+          "可穿戴设备",
+          "机器学习",
+          "移动端交互"
+        ],
+        "tagsEn": [
+          "Wearables",
+          "Machine Learning",
+          "Mobile Interaction"
+        ]
+      }
     }
   ],
   "experience": [
@@ -320,21 +352,39 @@
     {
       "name": "有据 · 生活决策审议台",
       "nameEn": "Grounded Choice",
-      "subtitle": "把多份经验，变成有证据、有取舍的决定",
-      "subtitleEn": "Turn scattered experiences into a decision with evidence and trade-offs",
-      "description": "从经验材料中辨认共识、分歧和适用条件，把方案的收益、代价、硬约束冲突及待核实信息放在同一条决策流程里。提供川西旅行与养猫家庭扫地机器人两个演示场景，最终由用户选择并导出决策卡。",
-      "descriptionEn": "A decision workflow that surfaces consensus, disagreement, applicability, trade-offs, hard-constraint conflicts and open questions. Includes two demo scenarios: a five-day western Sichuan trip and a robot vacuum for a cat-owning household. The user makes the final choice and can export a decision card.",
+      "subtitle": "从经验材料到可追溯的生活决策",
+      "subtitleEn": "From collected experience to traceable decisions",
+      "description": "识别经验中的共识、分歧与适用条件，结合个人约束比较方案，由用户选择并导出决策卡。",
+      "descriptionEn": "Compare options against personal constraints using consensus, disagreement and applicability from collected experiences; the user chooses and exports a decision card.",
       "url": "https://andyzhang666666.github.io/grounded-choice/",
       "github": "https://github.com/AndyZhang666666/grounded-choice",
-      "metrics": ["2 个决策场景", "14 份模拟材料", "决策卡导出"],
-      "metricsEn": ["2 decision scenarios", "14 simulated sources", "Decision-card export"],
-      "tags": ["AI 产品", "决策体验", "交互设计"],
-      "context": "搜索和收藏能收集观点，却很难告诉人们哪些经验适用于自己、相反的意见该怎么权衡，以及最终选择违反了什么约束。",
-      "contextEn": "Search and bookmarks collect opinions but rarely clarify which experiences apply, how to weigh opposing views or what constraints a final choice would violate.",
-      "approach": ["保留共识与分歧，结论可回看模拟材料及其适用条件", "把硬约束、偏好和待确认信息分开，冲突方案明确标注", "推荐与用户选择分离，决定页保留反方意见和行动前核实清单"],
-      "approachEn": ["Keep consensus and disagreement visible, with conclusions traceable to simulated source material", "Separate hard constraints from preferences and open questions; flag conflicting options", "Keep the system recommendation separate from the user's choice, with counterarguments and a verification checklist"],
-      "result": "形成可交互的双场景演示：用户能删减材料、比较方案、调整条件并导出决策卡。当前使用原创模拟资料，不接入真实内容搜索或电商价格。",
-      "resultEn": "An interactive two-scenario demo lets users exclude sources, compare options, adjust conditions and export a decision card. It uses original simulated materials, not live content search or e-commerce prices.",
+      "metrics": [
+        "2 个决策场景",
+        "14 份模拟材料",
+        "决策卡导出"
+      ],
+      "metricsEn": [
+        "2 decision scenarios",
+        "14 simulated sources",
+        "Decision-card export"
+      ],
+      "tags": [
+        "AI 产品",
+        "决策体验",
+        "交互设计"
+      ],
+      "context": "经验很多，但哪些适合自己、相反意见如何权衡，往往不清楚。",
+      "contextEn": "Collected experiences do not make it clear which advice fits or how conflicting views should be weighed.",
+      "approach": [
+        "区分硬约束、偏好与待核实信息，明确标出方案冲突",
+        "保留材料依据、反方意见与行动前核实清单"
+      ],
+      "approachEn": [
+        "Separate hard constraints, preferences and unknowns; flag conflicting options.",
+        "Keep supporting material, opposing views and a pre-action verification checklist."
+      ],
+      "result": "川西旅行与养猫家庭扫地机器人双场景 Demo；使用原创模拟资料，不接入实时搜索或电商价格。",
+      "resultEn": "Two demos: Western Sichuan travel and robot vacuums for cat-owning households. Uses original simulated material, not live search or e-commerce prices.",
       "demoNote": "先在首页选场景；推荐从未替用户自动做决定。扫地机器人场景的评论是演示样本，比价价格需手动输入。",
       "demoNoteEn": "Choose either scenario on the homepage. Recommendations never make the final choice for the user. Product comments are simulated and comparison prices are entered manually.",
       "featured": true
@@ -342,8 +392,8 @@
     {
       "name": "LLM 效果评估体系（creative-eval）",
       "nameEn": "LLM Evaluation Framework (creative-eval)",
-      "description": "短剧剧本质量的 LLM 打分裁判与可信度验证。五维评分 rubric，与人工标注 ±1 分一致率 93.1%，同输入连跑三次的加权标准差 0.074。",
-      "descriptionEn": "LLM-as-judge for short drama script quality. Five-dimension rubric, 93.1% ±1-point agreement with human labels, weighted std 0.074 across 3 runs.",
+      "description": "用评分锚点评估剧本质量，再以人工金标与重复评分检查裁判的一致性和稳定性。",
+      "descriptionEn": "Score scripts against anchored criteria, then check judge agreement and stability using human-labeled references and repeated runs.",
       "url": "https://andyzhang666666.github.io/llm-output-eval/",
       "github": "https://github.com/AndyZhang666666/creative-eval",
       "metrics": [
@@ -362,32 +412,30 @@
         "产品"
       ],
       "featured": true,
-      "subtitle": "让\"剧本好不好\"变成一个可以被反驳的数字",
-      "subtitleEn": "Turning \"is this script good\" into a falsifiable number",
-      "context": "短剧行业筛剧本靠制片人主观判断，同一个本子两个人能给出完全相反的结论，且无法复现。",
-      "contextEn": "Short-drama script screening relies on subjective judgment; two readers often reach opposite conclusions with no reproducibility.",
+      "subtitle": "短剧剧本的五维评分与裁判校验",
+      "subtitleEn": "Five-dimension script scoring and judge validation",
+      "context": "主观评审难以复现，也难以比较不同版本。",
+      "contextEn": "Subjective reviews are hard to reproduce or use for version comparison.",
       "approach": [
-        "拆出钩子强度、人物动机、冲突密度、节奏、爽点五个维度，每维写死分档锚点，消除\"感觉不错\"式打分",
-        "人工标注 40 条金标集做基线，用 ±1 分一致率检验 LLM 裁判是否可信",
-        "同一输入连跑三次算加权标准差，把\"随机性\"本身当成一个要压住的指标"
+        "为钩子、人物动机、冲突、节奏与爽点设置评分锚点",
+        "用人工金标和三次重复评分，分别检查一致性与稳定性"
       ],
       "approachEn": [
-        "Decomposed into 5 dimensions with fixed scoring anchors to eliminate vibe-based grading",
-        "Hand-labeled a 40-sample golden set as baseline; validated the judge via ±1-point agreement",
-        "Ran identical inputs 3x and tracked weighted std — treating variance itself as a target metric"
+        "Anchor scores for hook, motivation, conflict, pacing and payoff.",
+        "Check agreement against human labels and stability across three repeated runs."
       ],
-      "result": "一致率 93.1%，标准差 0.074。结论是：这套裁判可以replace初筛，但不能replace终审 —— 这个边界写在 README 第一段。",
-      "resultEn": "93.1% agreement, 0.074 std. Conclusion: the judge can replace first-pass screening but not final review — stated in the README opening.",
+      "result": "第一版评测体系；用于辅助筛选与版本比较，不替代人工终审。Demo 展示第二版 llm-output-eval。",
+      "resultEn": "The first evaluation framework supports screening and version comparison, not final human review. The demo presents its successor, llm-output-eval.",
       "demoNote": "Demo 以第二版 llm-output-eval 呈现",
       "demoNoteEn": "Demo served by v2 (llm-output-eval)"
     },
     {
       "name": "llm-output-eval",
       "nameEn": "llm-output-eval",
-      "subtitle": "给长文本生成结果打分，并证明打分器本身可信",
-      "subtitleEn": "Score long-form LLM output, and prove the scorer itself can be trusted",
-      "description": "creative-eval 的第二版，把裁判做成可日常使用的工具：两版 prompt 各连跑 N 次做对比、低分维度自动收进 Bad Case 导出 CSV、每个分数附从原文逐字抽出的证据句。自带 API Key 即可跑真实评测，key 只留在浏览器。",
-      "descriptionEn": "Second iteration of creative-eval, turned into a daily tool: run two prompt versions N times each for comparison, auto-collect low-scoring dimensions into an exportable Bad Case list, and attach a verbatim evidence sentence to every score. Bring your own API key; it never leaves the browser.",
+      "subtitle": "有原文证据的长文本评测与版本对比",
+      "subtitleEn": "Evidence-backed text evaluation and version comparison",
+      "description": "逐维评分并附原文证据，重复评测比较 Prompt 版本，将低分案例导出为 CSV。自带 API Key，可运行真实评测。",
+      "descriptionEn": "Score each dimension with source-text evidence, compare prompt versions across repeated runs, and export low-scoring cases to CSV. Bring an API key to run live evaluations.",
       "url": "https://andyzhang666666.github.io/llm-output-eval/",
       "github": "https://github.com/AndyZhang666666/llm-output-eval",
       "metrics": [
@@ -405,26 +453,24 @@
         "Eval",
         "工具"
       ],
-      "context": "做剧本创作 Agent 时，最难的不是让模型产出，而是判断「这一版比上一版好」。评审意见永远是「感觉不对」，没法量化、没法比较。但分数本身也会骗人——没校准的尺子量出来的数字看着像结论，其实是噪声。",
-      "contextEn": "Building a screenwriting agent, the hard part was never generation — it was judging whether this version beats the last. Review feedback was always 'feels off': unquantifiable, incomparable. But scores lie too; an uncalibrated ruler produces numbers that look like conclusions and are actually noise.",
+      "context": "需要比较生成版本的质量，同时确认打分器本身可靠。",
+      "contextEn": "Version comparison requires both useful quality scores and a calibrated judge.",
       "approach": [
-        "逐维打分而非总分：五个维度各写清 1–5 档的可观察行为，每个分数必须附原文逐字证据，非逐字的静默丢弃",
-        "版本对比：两版各独立连跑 N 次给均值 ± 极差，只有极差不重叠才敢说「更好」",
-        "裁判校验：30 条人工金标集跑三项检查，与人工标注的 Spearman ρ 0.93，MAE 0.26；同时如实记录 temperature 0 并不确定、pacing 维度最噪、以及三处差 2 分以上的原因（其中一处是作者自己标错）"
+        "每个分数附原文证据，并用人工金标校验裁判",
+        "重复运行两版 Prompt，比较均值与波动，汇总低分案例"
       ],
       "approachEn": [
-        "Per-dimension scoring, not a total: five dimensions with observable 1–5 anchors; every score must cite verbatim evidence, non-verbatim quotes are silently dropped",
-        "Version comparison: each version runs N times independently for mean ± range; 'better' is only claimed when ranges do not overlap",
-        "Judge validation: 30 hand-labelled samples through three checks — Spearman ρ 0.93 vs human, MAE 0.26 — while honestly recording that temperature 0 is not deterministic, pacing is the noisiest dimension, and the three ≥2-point gaps (one of which was the author's own labelling error)"
+        "Attach source-text evidence and calibrate the judge against human labels.",
+        "Run both prompt versions repeatedly, compare averages and variation, and collect low-scoring cases."
       ],
-      "result": "结论是：裁判给文本排的顺序和人一致，但不能稳定落到同一个整数上。对「V2 比 V1 好吗」够用，对「这段是 4 分」不够用。这条边界写在 README 里，不藏。",
-      "resultEn": "The verdict: the judge orders texts the way a human does, but does not land on the same integer reliably. Good enough for 'is V2 better than V1', not for 'this is a 4'. That boundary is stated in the README, not hidden."
+      "result": "适合辅助质量排序与版本比较；单次整数评分仍存在波动。API Key 仅保存在浏览器。",
+      "resultEn": "Supports quality ranking and version comparison; individual integer scores still vary. API keys remain in the browser."
     },
     {
       "name": "LLM 效果评估体系（filing-eval）",
       "nameEn": "LLM Evaluation Framework (filing-eval)",
-      "description": "公告摘要的事实核查评测。断言级比对，错误检出 11/11、误报 0/4、提示注入 5/5 守住。",
-      "descriptionEn": "Fact-checking eval for announcement summaries. Claim-level verification, 11/11 recall, 0/4 false positives, 5/5 prompt injection blocked.",
+      "description": "将摘要拆成原子断言，回原文核查支持、矛盾或无依据，并测试误报与提示注入。",
+      "descriptionEn": "Split summaries into atomic claims, check whether the source supports, contradicts or leaves them ungrounded, and test false positives and prompt injection.",
       "url": "",
       "github": "https://github.com/AndyZhang666666/filing-eval",
       "metrics": [
@@ -442,28 +488,26 @@
         "Eval",
         "产品"
       ],
-      "subtitle": "摘要是否忠于原文，逐条断言去对",
-      "subtitleEn": "Claim-level fact-checking for generated summaries",
-      "context": "模型给公告写摘要时会\"顺口\"加上原文没有的数字和因果，人工抽检成本高且抓不全。",
-      "contextEn": "Summarization models fabricate numbers and causal links absent from the source; manual spot checks are costly and incomplete.",
+      "subtitle": "逐条核查公告摘要的事实依据",
+      "subtitleEn": "Claim-level fact checking for filing summaries",
+      "context": "公告摘要可能添加原文没有的数字或因果关系。",
+      "contextEn": "Filing summaries can add numbers or causal claims absent from the source.",
       "approach": [
-        "把摘要切成原子断言，逐条回原文找证据，判定「支持 / 矛盾 / 无依据」",
-        "构造 4 条\"看起来像错但其实对\"的诱导样本，专门测误报",
-        "塞 5 条提示注入进原文，检验评测流程本身会不会被带跑"
+        "逐条断言回溯原文证据",
+        "用错误、正确与注入样本检查检出能力和误报"
       ],
       "approachEn": [
-        "Split summaries into atomic claims; verified each against the source as supported / contradicted / unsupported",
-        "Built 4 adversarial \"looks-wrong-but-correct\" cases to measure false positives",
-        "Injected 5 prompt-injection payloads into source docs to test harness robustness"
+        "Trace each claim to source evidence.",
+        "Test detection and false positives using erroneous, correct and injected samples."
       ],
-      "result": "错误检出 11/11，误报 0/4，注入 5/5 全部守住。误报为 0 这条比检出率更重要 —— 评测工具自己乱报警，就没人会用。",
-      "resultEn": "11/11 recall, 0/4 false positives, 5/5 injections blocked. Zero false positives matters more than recall — a noisy eval tool gets abandoned."
+      "result": "样本集检出 11/11，误报 0/4，注入防护 5/5；结果仅对应当前测试样本。",
+      "resultEn": "On the test set: 11/11 errors detected, 0/4 false positives and 5/5 injection defenses passed. Results apply to these samples only."
     },
     {
       "name": "百度文库命理馆",
       "nameEn": "Baidu Library AI Fortune Hall",
-      "description": "从 0 到 1 搭建 AI 命理产品，包含命理星盘、日运抽签、马年运势、缘分测算四大模块。DAU 破万、分享率 26%，通过数据埋点与 SQL 分析驱动迭代，模块 UV 提升 60%。",
-      "descriptionEn": "Built AI fortune-telling product from 0 to 1 with 4 modules (Astrology, Daily Fortune, Yearly Luck, Compatibility). Achieved 10k+ DAU, 26% share rate, lifted module UV by 60% via data-driven iteration.",
+      "description": "搭建星盘、日运、年度运势与缘分测算四类玩法，设计可分享的结果页，并通过埋点与 SQL 分析支持迭代。",
+      "descriptionEn": "Built chart, daily, annual and compatibility experiences, with shareable result pages and iterations informed by event tracking and SQL analysis.",
       "period": "2025.11 – 2026.05",
       "company": "百度",
       "companyEn": "Baidu",
@@ -483,28 +527,26 @@
         "数据驱动"
       ],
       "featured": true,
-      "subtitle": "0→1 做到 DAU 破万，26% 的人主动分享",
-      "subtitleEn": "0→1 to 10k+ DAU with a 26% share rate",
-      "context": "文库需要一个高频轻互动场景拉回访，命理是需求真实但供给极度同质化的品类。",
-      "contextEn": "Baidu Library needed a high-frequency light-interaction hook; fortune-telling had real demand but highly commoditized supply.",
+      "subtitle": "高频互动与结果分享的 AI 产品",
+      "subtitleEn": "An AI product for recurring interaction and sharing",
+      "context": "为文库提供兼顾深度体验与日常回访的轻互动场景。",
+      "contextEn": "Provide lightweight interaction that supports both deeper sessions and recurring visits.",
       "approach": [
-        "拆成命理星盘、日运抽签、马年运势、缘分测算四个模块，分别对应「一次性深度」和「每日轻回访」两种使用节奏",
-        "把结果做成可截图传播的视觉资产，而不是一段纯文字 —— 分享是这类产品最便宜的获客",
-        "全链路埋点后用 SQL 拆漏斗，发现入口曝光够但点击弱，改了入口文案与位置"
+        "按使用频率组织四类玩法，将结果转化为可分享的视觉内容",
+        "通过埋点与 SQL 拆解访问漏斗，支持入口与模块体验迭代"
       ],
       "approachEn": [
-        "Four modules split across two usage rhythms: one-shot depth vs. daily light return",
-        "Made results screenshot-shareable visual assets rather than plain text — sharing is the cheapest acquisition here",
-        "Instrumented the full funnel, used SQL to isolate a weak-click / strong-impression entry, then reworked copy and placement"
+        "Organize four experiences by usage frequency and make results visually shareable.",
+        "Use event tracking and SQL to analyze visit funnels and guide entry-point and module iterations."
       ],
-      "result": "DAU 破万，分享率 26%，改入口后模块 UV +60%。",
-      "resultEn": "10k+ DAU, 26% share rate, +60% module UV after the entry rework."
+      "result": "DAU 破万，分享率 26%，模块 UV 提升 60%。",
+      "resultEn": "DAU exceeded 10k, sharing reached 26%, and module UV increased 60%."
     },
     {
       "name": "AI 定制壁纸玩法",
       "nameEn": "AI Personalized Wallpaper",
-      "description": "基于用户年龄性别标签智能推荐动态/静态壁纸，将抽象运势转化为可传播的视觉资产，提升命理产品复访留存。支持多维度内容供给（全年开运、财运、事业运、爱情运）。",
-      "descriptionEn": "Smart wallpaper recommendation based on age/gender, turned abstract fortunes into shareable visual assets, improved retention. Multi-dimensional content (fortune, wealth, career, love).",
+      "description": "结合用户标签推荐动态或静态壁纸，覆盖全年、财运、事业与爱情四类内容，延伸结果页的使用场景。",
+      "descriptionEn": "Recommend dynamic or static wallpapers from user attributes across annual, wealth, career and relationship themes, extending the result-page experience.",
       "period": "2025.11 – 2026.05",
       "company": "百度",
       "companyEn": "Baidu",
@@ -523,28 +565,28 @@
         "用户增长",
         "产品"
       ],
-      "subtitle": "把抽象运势变成能带走的东西",
-      "subtitleEn": "Turning abstract fortunes into something you take with you",
-      "context": "命理结果看完就走，缺一个把用户留在产品里的载体。",
-      "contextEn": "Fortune results were read once and forgotten — no artifact kept users coming back.",
+      "subtitle": "把运势结果转化为个性化壁纸",
+      "subtitleEn": "Turn fortune results into personalized wallpapers",
+      "context": "结果页缺少可保存、持续使用的内容载体。",
+      "contextEn": "Result pages lack a format users can save and keep using.",
       "approach": [
-        "按年龄性别标签推荐动静态壁纸，避免所有人拿到同一张图",
-        "按全年开运 / 财运 / 事业 / 爱情四个维度切内容供给，覆盖不同诉求"
+        "结合年龄与性别标签推荐动静态壁纸",
+        "按四类运势组织内容供给"
       ],
       "approachEn": [
-        "Recommended static/dynamic wallpapers by age-gender tags so users don't all get the same image",
-        "Split supply across four intents: yearly fortune, wealth, career, love"
+        "Recommend wallpaper formats using age and gender attributes.",
+        "Organize content across four fortune themes."
       ],
-      "result": "成为命理馆的留存抓手，用户拿走壁纸即形成日常曝光。",
-      "resultEn": "Became the retention hook — a wallpaper on the home screen is daily passive exposure."
+      "result": "提供可保存的个性化视觉内容，作为命理馆复访体验的一部分。",
+      "resultEn": "Provides saveable personalized visuals as part of the product's return-visit experience."
     },
     {
       "name": "通勤方案比较器（commute-compare）",
       "nameEn": "Commute Compare",
-      "subtitle": "地图只说「预计 42 分钟」，不说迟到概率是多少",
-      "subtitleEn": "Maps say \"about 42 minutes\". They never say how likely you are to be late.",
-      "description": "每个方案填「最快 / 常见 / 最慢」三个时间和单程花费，用 PERT 分布 + 蒙特卡洛模拟 2000 个月，算出月总时间、月总花费、迟到概率，以及「几点出门才能把迟到概率压到可接受的水平」。到达时刻分布图上，上班时间线右侧的面积就是迟到概率。不接任何地图 API，四个城市预设只是演示 —— 任何人填自己的方案就能用。",
-      "descriptionEn": "Enter \"fastest / typical / slowest\" plus a one-way cost for each option; it runs a PERT distribution through 2,000 simulated months and returns monthly time, monthly cost, lateness probability, and the latest departure time that keeps lateness under a level you choose. On the arrival-time chart, the area to the right of the work-start line *is* the lateness probability. No map API involved — the four city presets are only demos; anyone can enter their own options.",
+      "subtitle": "比较通勤成本、耗时与迟到风险",
+      "subtitleEn": "Compare commute cost, duration and lateness risk",
+      "description": "输入各方案的最快、常见、最慢耗时及费用，用模拟比较月度成本与迟到概率，计算满足风险偏好的出门时间。",
+      "descriptionEn": "Enter best, typical and worst travel times plus cost; simulations compare monthly cost and lateness risk and calculate a departure time for your risk tolerance.",
       "url": "https://andyzhang666666.github.io/commute-compare/",
       "github": "https://github.com/AndyZhang666666/commute-compare",
       "metrics": [
@@ -571,8 +613,8 @@
     {
       "name": "德州扑克玩家类型测试",
       "nameEn": "Poker Player Type Quiz",
-      "description": "基于 VPIP（入池率）、激进程度和粘性三个维度的德州扑克玩家风格测试工具，支持专业模式（含底池、位置、筹码深度）和简单模式两种体验。",
-      "descriptionEn": "Poker player style quiz based on VPIP, aggression, and stickiness. Supports both professional mode (with pot, position, stack depth) and simple mode.",
+      "description": "通过入池率、激进度与粘性识别玩家风格；专业与简单双模式，兼顾有经验玩家和新手。",
+      "descriptionEn": "Identify player style through VPIP, aggression and stickiness, with professional and simple modes for experienced players and beginners.",
       "url": "https://www.pokertesting.online/?utm_source=redonote&utm_medium=social",
       "metrics": [
         "10 道题",
@@ -588,28 +630,28 @@
         "产品",
         "交互设计"
       ],
-      "subtitle": "自己上线的小工具，从想法到域名全流程",
-      "subtitleEn": "A self-shipped tool — idea to live domain, end to end",
-      "context": "牌桌上判断对手风格全靠感觉，新手连自己是什么打法都说不清。",
-      "contextEn": "Reading opponent styles is intuition-driven; beginners can't even articulate their own.",
+      "subtitle": "用十道题识别自己的扑克风格",
+      "subtitleEn": "Ten questions to identify your poker style",
+      "context": "新手难以描述自己的打法，专业术语又提高了测试门槛。",
+      "contextEn": "Beginners struggle to describe their style, while specialist terms raise the entry barrier.",
       "approach": [
-        "用 VPIP、激进度、粘性三个维度建模，这是扑克圈公认的判据而不是我自创的",
-        "分专业模式（带底池、位置、筹码深度）和简单模式，避免新手在第一题就被术语劝退"
+        "用三个行为维度组织十道题",
+        "提供专业与简单双模式，降低术语门槛"
       ],
       "approachEn": [
-        "Modeled on VPIP, aggression, and stickiness — the community-accepted axes, not invented ones",
-        "Pro mode (pot, position, stack depth) and simple mode, so beginners aren't bounced by jargon on question one"
+        "Organize ten questions around three behavioral dimensions.",
+        "Offer professional and simple modes to reduce jargon barriers."
       ],
-      "result": "已上线可直接玩，小红书导流验证真实用户是否愿意做完 10 题。",
-      "resultEn": "Live and playable; drove traffic from RED to test whether real users finish all 10 questions."
+      "result": "已上线，可直接完成测试并查看风格结果。",
+      "resultEn": "Live: complete the quiz and view a style profile."
     },
     {
       "name": "扑克筹码管理模拟器（poker-bankroll-sim）",
       "nameEn": "Poker Bankroll Simulator",
-      "subtitle": "「带 20 个买入」到底对应多少破产概率",
-      "subtitleEn": "What \"20 buy-ins\" actually means in bust probability",
-      "description": "输入起始资金、每次买入金额、胜率和方差，蒙特卡洛跑 100 / 500 / 1000 场，输出资金曲线（10 条模拟路径 + 中位数 + P10/P90 分位带）、破产概率、达标概率和最大回撤。三个预设场景可一键切换，另附一份解析解（连续布朗运动的首次穿越）与模拟结果交叉验证 —— 随机过程不能只靠模拟自证。",
-      "descriptionEn": "Give it a starting bankroll, a buy-in size, a win rate and a variance; it runs 100 / 500 / 1000 sessions of Monte Carlo and returns the bankroll curve (10 paths + median + P10/P90 band), bust probability, target-hit probability and max drawdown. Three presets ship with it, plus a closed-form solution (first-passage time of Brownian motion) to cross-check the simulation — a stochastic process should not be self-certified by simulation alone.",
+      "subtitle": "模拟资金路径，评估破产与回撤风险",
+      "subtitleEn": "Simulate bankroll paths and assess downside risk",
+      "description": "输入资金、买入、胜率与方差，模拟资金路径、破产概率和最大回撤；用解析解交叉检查模拟结果。",
+      "descriptionEn": "Enter bankroll, buy-in, win rate and variance to simulate bankroll paths, bust probability and drawdown; cross-check the simulation against an analytical solution.",
       "url": "https://andyzhang666666.github.io/poker-bankroll-sim/",
       "github": "https://github.com/AndyZhang666666/poker-bankroll-sim",
       "metrics": [
@@ -636,10 +678,10 @@
     {
       "name": "扑克期望值计算器（poker-ev-calculator）",
       "nameEn": "Poker EV Calculator",
-      "subtitle": "我该不该跟这一注",
-      "subtitleEn": "Should I call this bet",
-      "description": "用手牌强度 + 对手类型 + 对手动作三个可观测输入估出胜率，把弃牌 / 跟注 / 加注三个决策的期望收益并排比。169 种起手牌查表定价，逐条给出理由。关键修正：加注 EV 用的是「被跟注后的胜率」而不是原始胜率 —— 对手愿意跟你的加注，说明他的范围变强了，少了这层折价，加注会被系统性高估。附敏感性分析，扫出手牌强度 0→100 的 EV 交叉点，回答「至少多强才该跟」。",
-      "descriptionEn": "Estimates win rate from three observable inputs — hand strength, opponent type and opponent action — then puts fold / call / raise side by side by expected value. 169 starting hands are priced from a lookup table, each decision comes with a stated reason. The key correction: raise EV uses the win rate *after being called*, not the raw win rate — an opponent who calls your raise has a stronger range, and without that discount raises are systematically overvalued. A sensitivity tab sweeps hand strength 0→100 to find the EV crossover — how strong a hand must be before calling is right.",
+      "subtitle": "比较弃牌、跟注与加注的期望收益",
+      "subtitleEn": "Compare the expected value of folding, calling and raising",
+      "description": "结合手牌强度与对手行为比较三种行动的 EV；加注按被跟注后的胜率修正，并用敏感性分析找出决策切换点。",
+      "descriptionEn": "Compare action EVs using hand strength and opponent behavior; adjust raise EV for equity after being called and use sensitivity analysis to locate decision thresholds.",
       "url": "https://andyzhang666666.github.io/poker-ev-calculator/",
       "github": "https://github.com/AndyZhang666666/poker-ev-calculator",
       "metrics": [
@@ -666,10 +708,10 @@
     {
       "name": "Growth Experiment Lab",
       "nameEn": "Growth Experiment Lab",
-      "subtitle": "A/B 实验的决策模拟器：样本量够不够、什么时候能停、这个提升值不值得全量",
-      "subtitleEn": "A decision simulator for A/B tests: is the sample enough, when to stop, is the lift worth shipping",
-      "description": "把增长 PM 做实验时的三个判断做成可操作的工具。用蒙特卡洛模拟演示「每天偷看、一显著就停」会把假阳性率从 5% 推到 22.45%；结果解读器按置信区间下界折算最保守的月增量收入。",
-      "descriptionEn": "Turns the three judgement calls of running an A/B test into a hands-on tool. Monte Carlo shows how peeking daily inflates false positives from 5% to 22.45%; the interpreter converts the CI lower bound into a conservative monthly revenue estimate.",
+      "subtitle": "从实验设计到结果解读的决策工具",
+      "subtitleEn": "A decision tool from experiment design to interpretation",
+      "description": "计算 A/B 实验样本量，模拟提前停止带来的误判，并将结果区间折算为增量收入。全部计算在浏览器完成。",
+      "descriptionEn": "Calculate A/B test sample sizes, simulate errors from early stopping, and translate result intervals into incremental revenue. All calculations run in the browser.",
       "url": "https://andyzhang666666.github.io/growth-experiment-lab/",
       "github": "https://github.com/AndyZhang666666/growth-experiment-lab",
       "metrics": [
@@ -688,28 +730,26 @@
         "工具"
       ],
       "featured": true,
-      "context": "在美团做优惠券梯度的 A/B 验证时，难的不是跑实验，而是三件事：实验前算不清要多少样本；跑到一半看到数字好看想提前停；跑完了提升两个点，老板问这两个点值多少钱、置信不置信。这三件事都不是纯统计问题，而是统计结论如何变成当天的决策。",
-      "contextEn": "Running coupon A/B tests at Meituan, the hard part was never the test itself. It was three things: sizing the sample beforehand, resisting the urge to stop early when numbers looked good, and answering what a two-point lift is worth in money with what confidence. None of these are pure statistics — they are about turning a statistical result into a decision.",
+      "context": "实验前要确定样本量，实验中要控制误判，实验后要解释收益。",
+      "contextEn": "Determine sample size before a test, control errors during it, and interpret business value afterward.",
       "approach": [
-        "实验设计器：输入基线转化率、MDE、α、power、日流量，输出每组样本量与所需天数，并支持反推「只肯跑 7 天能检出多少」",
-        "偷看惩罚模拟器：在两组真实转化率完全相同的前提下，用蒙特卡洛跑四种检查策略，直接展示假阳性率的差异",
-        "结果解读器：给 p 值、置信区间和三档结论，再按区间上下界折算月增量收入，回答「最保守能拿多少」"
+        "计算样本量与实验时长，模拟不同检查策略的假阳性风险",
+        "输出置信区间，并折算保守与乐观的增量收入"
       ],
       "approachEn": [
-        "Designer: baseline rate, MDE, α, power and daily traffic in; per-arm sample size and duration out, plus a reverse mode — 'if I only run 7 days, what can I detect'",
-        "Peeking simulator: with identical true rates in both arms, Monte Carlo runs four checking strategies to show the false-positive gap directly",
-        "Interpreter: p-value, CI and a three-tier plain-language verdict, then monthly incremental revenue at both CI bounds"
+        "Calculate sample size and duration; simulate false-positive risk under different checking strategies.",
+        "Report confidence intervals and translate them into conservative and optimistic revenue estimates."
       ],
-      "result": "全部计算在浏览器完成，不上传数据。校验脚本确认「每日偷看」策略的假阳性率为 22.45%，与理论值一致。这是一个演示统计常识的工具，不是统计库。",
-      "resultEn": "Everything runs in the browser; nothing is uploaded. The validation script confirms a 22.45% false-positive rate for daily peeking, matching theory. It demonstrates statistical common sense; it is not a statistics library."
+      "result": "本地运行的实验决策 Demo，不上传数据；模拟结果用于说明统计风险，不代表业务实验收益。",
+      "resultEn": "A local experiment-decision demo that uploads no data. Simulation results illustrate statistical risk, not business experiment returns."
     },
     {
       "name": "Pricing Model Sim",
       "nameEn": "Pricing Model Sim",
-      "subtitle": "给一条留存曲线，算出单次解锁、包月订阅、混合三种付费机制 12 个月的 ARPU、LTV 与回本周期",
-      "subtitleEn": "Given a retention curve, compute 12-month ARPU, LTV and payback for pay-per-unlock, subscription and hybrid pricing",
-      "description": "付费机制模拟器。拖一条留存曲线、调几个价格参数，看三种机制的 LTV 曲线在哪个参数上换手。敏感性分析可以扫一遍月费或免费集数，找到最优机制的切换点。",
-      "descriptionEn": "A pricing-mechanism simulator. Drag a retention curve, tune a few price parameters, and see where the three LTV curves cross. Sensitivity analysis sweeps monthly fee or free episodes to find the switch-over point.",
+      "subtitle": "比较三种付费机制的 LTV 与回本周期",
+      "subtitleEn": "Compare LTV and payback across three pricing mechanisms",
+      "description": "调整留存与价格，比较单次解锁、订阅和混合机制的 12 个月收益，并通过敏感性分析找出机制切换点。",
+      "descriptionEn": "Adjust retention and pricing to compare 12-month returns from pay-per-unlock, subscription and hybrid models; use sensitivity analysis to identify switch-over points.",
       "url": "https://andyzhang666666.github.io/pricing-model-sim/",
       "github": "https://github.com/AndyZhang666666/pricing-model-sim",
       "metrics": [
@@ -727,28 +767,26 @@
         "订阅",
         "工具"
       ],
-      "context": "做海外短剧付费时遇到过收入下滑。团队的第一反应是加大买量，但问题未必在获客，也可能在付费机制——包月订阅市场的复购率比单集解锁市场高三倍多。最花时间的不是分析，是说服：要让所有人看见同一批用户换个付费机制，12 个月能差出多少收入。Excel 能算一两组参数，但要扫一遍「月费 25 到 40、免费集数 0 到 15」找换手点，手算做不到。",
-      "contextEn": "Revenue fell on an overseas short-drama product. The reflex was to buy more traffic, but the issue may sit in the pricing mechanism — subscription markets had over 3x the repurchase rate of pay-per-episode markets. The time sink was persuasion, not analysis: everyone needed to see how much 12-month revenue differs for the same users under a different mechanism. Excel handles a couple of parameter sets; sweeping fee 25–40 and free episodes 0–15 to find the crossover does not work by hand.",
+      "context": "不同付费机制的收益取决于留存、转化与价格，不能只比较收入总额。",
+      "contextEn": "Mechanism returns depend on retention, conversion and price, not just total revenue.",
       "approach": [
-        "留存曲线：拖 D1 / D7 / D30 / D90 / D180 五个锚点实时重拟合，或选短剧、工具、社交三类预设",
-        "三机制对比：调参数看 LTV 与回本月份，结论卡直接说明谁更优、为什么",
-        "敏感性分析：选一个参数（月费、免费集数、订阅转化率、切换摩擦、CAC、付费率）扫一遍，标出最优机制的换手点"
+        "用同一留存曲线比较三种机制的 LTV 与回本周期",
+        "扫描价格、转化等参数，找出最优机制变化的条件"
       ],
       "approachEn": [
-        "Retention curve: drag five anchors (D1 / D7 / D30 / D90 / D180) with live refit, or pick a preset for drama, tools or social",
-        "Mechanism comparison: tune parameters, read LTV and payback month, with a verdict card stating which wins and why",
-        "Sensitivity: sweep one parameter (fee, free episodes, sub conversion, switching friction, CAC, pay rate) and mark the switch-over point"
+        "Compare LTV and payback across three mechanisms using one retention curve.",
+        "Sweep pricing and conversion parameters to find where the preferred mechanism changes."
       ],
-      "result": "附手算校验与守恒检查脚本，4 个合成案例可一键载入。它回答的是「该选哪种机制」，不做定价寻优，也不接真实数据。",
-      "resultEn": "Ships with hand-calculation and conservation checks; four synthetic cases load in one click. It answers 'which mechanism' — it does not optimise price or connect to real data."
+      "result": "提供四个合成案例与校验脚本；用于机制比较，不接入真实业务数据。",
+      "resultEn": "Includes four synthetic cases and validation scripts; compares mechanisms without connecting to real business data."
     },
     {
       "name": "Bundle Lab",
       "nameEn": "Bundle Lab",
-      "subtitle": "从订单里找出值得做成套餐的商品组合，并把收益边界算清楚",
-      "subtitleEn": "Find product combinations worth bundling from order data, and quantify the profit boundary",
-      "description": "套餐机会发现器。传一份订单明细，看多人订单与单人订单的错位，挖出经常一起买的组合，调折扣与采纳率看客单和毛利的变化，导出「推给谁、推什么、什么情况别推」的建议。附校验脚本回答挖出的组合是不是噪声。",
-      "descriptionEn": "A bundle-opportunity finder. Upload order lines, see where group orders and single orders diverge, surface frequently co-bought combinations, tune discount and adoption to watch basket size and margin move, then export a who / what / when-not-to recommendation. Validation scripts check whether the findings are noise.",
+      "subtitle": "从订单共现中发现套餐机会",
+      "subtitleEn": "Discover bundle opportunities from co-purchased items",
+      "description": "从订单中识别常购组合，模拟折扣与采纳率对客单和毛利的影响，导出套餐建议及收益边界。",
+      "descriptionEn": "Identify frequently co-purchased items, simulate how discount and adoption affect basket size and margin, and export bundle recommendations and profit boundaries.",
       "url": "https://andyzhang666666.github.io/bundle-lab/",
       "github": "https://github.com/AndyZhang666666/bundle-lab",
       "metrics": [
@@ -766,26 +804,24 @@
         "数据分析",
         "工具"
       ],
-      "context": "在美团沙特市场做用户增长时发现，客单价低不是用户不想多买，而是商品结构与点单结构错位：很多是多人点单，但菜单以单人餐为主，凑不成套就放弃。后来推了家庭套餐专区。那次分析大部分靠人工拉 SQL 再拍脑袋定组合，定完也说不清为什么是这几个组合、打几折不亏。",
-      "contextEn": "Working on growth for Meituan's Saudi market, low basket size turned out to be a mismatch between menu and ordering: many orders were for groups, yet the menu was built around single meals, so people gave up. A family-bundle section followed. That analysis was mostly hand-written SQL and gut-feel combos, with no clear answer to why these combos or what discount stays profitable.",
+      "context": "商品经常一起购买，不等于组合成套餐后一定赚钱。",
+      "contextEn": "Frequently co-purchased items are not necessarily profitable as a discounted bundle.",
       "approach": [
-        "订单画像：对比多人订单与单人订单的商品分布，定位错位",
-        "组合发现：从共现频次挖出「经常一起买」的组合，附召回校验（植入已知组合看能否被找回）",
-        "收益推演：调折扣与采纳率，输出客单、毛利变化与盈亏平衡采纳率"
+        "对比订单结构，发现共购组合并进行召回校验",
+        "模拟折扣与采纳率，计算毛利变化和盈亏平衡点"
       ],
       "approachEn": [
-        "Order profile: compare item mix between group and single orders to locate the mismatch",
-        "Combo discovery: surface frequently co-bought sets from co-occurrence, with a recall check (plant known combos, see if they come back)",
-        "Profit projection: tune discount and adoption, output basket, margin and break-even adoption"
+        "Compare order profiles, discover co-purchased combinations and check recall.",
+        "Simulate discount and adoption to calculate margin changes and break-even points."
       ],
-      "result": "目标用户是没有算法团队的中小电商与餐饮运营——会看表格，不会写 SQL。全部计算在浏览器端。它是分析工具，不接平台 API、不做在线推荐、不做库存。",
-      "resultEn": "Built for small e-commerce and F&B operators without a data team — people who read spreadsheets but do not write SQL. Runs entirely in the browser. It is an analysis tool: no platform API, no live recommendation, no inventory."
+      "result": "浏览器端分析工具，使用合成数据演示；不接平台 API，不做在线推荐或库存管理。",
+      "resultEn": "A browser-based analysis tool demonstrated with synthetic data; no platform API, live recommendation or inventory management."
     },
     {
       "name": "留学咨询内容矩阵",
       "nameEn": "Study Abroad Content Matrix",
-      "description": "MCN 模式搭建 40+ 垂类账号矩阵，签约 50+ KOL，总粉丝量破 10 万+，月均获取高意向线索超 100 条，CPL 降低 30%。",
-      "descriptionEn": "MCN-style content matrix with 40+ accounts, 50+ KOLs, 100k+ followers, 100+ qualified leads/month, 30% CPL reduction.",
+      "description": "按国家、专业与预算组织垂类账号，通过 KOL 分发与咨询转化链路获取高意向线索。",
+      "descriptionEn": "Organize accounts by country, major and budget, using KOL distribution and consultation funnels to acquire high-intent leads.",
       "period": "2023.01 – 2025.01",
       "role": "联合创始人",
       "roleEn": "Co-Founder",
@@ -804,20 +840,20 @@
         "增长",
         "运营"
       ],
-      "subtitle": "两年，40+ 账号，把线索成本打下来 30%",
-      "subtitleEn": "Two years, 40+ accounts, 30% lower cost per lead",
-      "context": "留学咨询靠投流获客越来越贵，内容自然流量是唯一能复用的资产。",
-      "contextEn": "Paid acquisition in study-abroad consulting kept getting more expensive; organic content was the only reusable asset.",
+      "subtitle": "垂类内容矩阵与线索转化",
+      "subtitleEn": "Vertical content distribution and lead conversion",
+      "context": "留学咨询需要降低对付费流量的依赖。",
+      "contextEn": "Study-abroad consulting needs to reduce dependence on paid acquisition.",
       "approach": [
-        "按国家、专业、预算切垂类账号，而不是做一个大号 —— 垂类越窄，线索意向越高",
-        "签约 50+ KOL 做分发，自己只保留选题与转化链路"
+        "按用户需求拆分垂类账号，统一选题与转化链路",
+        "通过 KOL 合作扩大内容分发"
       ],
       "approachEn": [
-        "Built narrow vertical accounts by country / major / budget instead of one large account — narrower niche, higher lead intent",
-        "Signed 50+ KOLs for distribution, keeping topic selection and the conversion path in-house"
+        "Segment accounts by user needs, with coordinated topics and conversion funnels.",
+        "Expand distribution through KOL partnerships."
       ],
-      "result": "40+ 账号、10 万+ 粉丝，月均 100+ 高意向线索，CPL -30%。",
-      "resultEn": "40+ accounts, 100k+ followers, 100+ high-intent leads/month, CPL -30%."
+      "result": "40+ 账号、10 万+ 粉丝，月均 100+ 高意向线索，CPL 降低 30%。",
+      "resultEn": "40+ accounts, 100k+ followers, 100+ high-intent leads per month and 30% lower CPL."
     }
   ],
   "skills": {
@@ -971,9 +1007,22 @@
         "output": "需求文档 · 用户流程 · 交互原型",
         "outputEn": "Requirements · User flows · Interaction prototypes",
         "items": [
-          { "name": "Figma", "zh": "画用户流程、线框与交互原型，检查入口、反馈和异常状态。", "en": "Map user flows and build wireframes and prototypes, including entry points, feedback and error states." },
-          { "name": "飞书 / 多维表格", "nameEn": "Feishu / Multidimensional Tables", "zh": "整理访谈与需求池，记录优先级、负责人和验收条件，跟进迭代。", "en": "Organise interviews and the backlog; track priorities, owners, acceptance criteria and delivery." },
-          { "name": "Notion", "zh": "归档竞品研究、产品决策与复盘，让结论能回到原始材料。", "en": "Keep competitor research, decisions and retrospectives connected to their source material." }
+          {
+            "name": "Figma",
+            "zh": "画用户流程、线框与交互原型，检查入口、反馈和异常状态。",
+            "en": "Map user flows and build wireframes and prototypes, including entry points, feedback and error states."
+          },
+          {
+            "name": "飞书 / 多维表格",
+            "nameEn": "Feishu / Multidimensional Tables",
+            "zh": "整理访谈与需求池，记录优先级、负责人和验收条件，跟进迭代。",
+            "en": "Organise interviews and the backlog; track priorities, owners, acceptance criteria and delivery."
+          },
+          {
+            "name": "Notion",
+            "zh": "归档竞品研究、产品决策与复盘，让结论能回到原始材料。",
+            "en": "Keep competitor research, decisions and retrospectives connected to their source material."
+          }
         ]
       },
       {
@@ -982,9 +1031,21 @@
         "output": "可交互 Demo · 验证脚本 · 迭代记录",
         "outputEn": "Interactive demos · Validation scripts · Change notes",
         "items": [
-          { "name": "Claude Code / Cursor", "zh": "辅助实现原型、定位问题和修改代码；关键逻辑与完整流程自己检查。", "en": "Assist with implementation, debugging and iteration; review the key logic and the complete user flow myself." },
-          { "name": "HTML / CSS / JavaScript", "zh": "把方案做成浏览器里能操作的 Demo，验证状态、输入与反馈。", "en": "Turn a proposal into a browser demo to validate states, inputs and feedback." },
-          { "name": "Python", "zh": "处理样本与测试数据，编写模拟和校验脚本，检查方案的边界条件。", "en": "Prepare samples and test data, run simulations and write checks for edge cases." }
+          {
+            "name": "Claude Code / Cursor",
+            "zh": "辅助实现原型、定位问题和修改代码；关键逻辑与完整流程自己检查。",
+            "en": "Assist with implementation, debugging and iteration; review the key logic and the complete user flow myself."
+          },
+          {
+            "name": "HTML / CSS / JavaScript",
+            "zh": "把方案做成浏览器里能操作的 Demo，验证状态、输入与反馈。",
+            "en": "Turn a proposal into a browser demo to validate states, inputs and feedback."
+          },
+          {
+            "name": "Python",
+            "zh": "处理样本与测试数据，编写模拟和校验脚本，检查方案的边界条件。",
+            "en": "Prepare samples and test data, run simulations and write checks for edge cases."
+          }
         ]
       },
       {
@@ -993,9 +1054,21 @@
         "output": "工作流原型 · Prompt 版本 · 评测记录",
         "outputEn": "Workflow prototypes · Prompt versions · Evaluation records",
         "items": [
-          { "name": "Claude / ChatGPT / Gemini", "zh": "辅助拆解问题、比较方案与检查反例；重要判断回到资料和数据验证。", "en": "Explore problems, compare options and examine counterexamples; verify important judgements against sources and data." },
-          { "name": "Coze / Dify", "zh": "搭建对话与多步工作流原型，检查节点输入输出、工具调用和人工确认点。", "en": "Prototype conversations and multi-step workflows; inspect node inputs and outputs, tool calls and human checkpoints." },
-          { "name": "OpenAI / Anthropic API", "zh": "连接模型，比较 Prompt 的输出与失败样例，关注效果、延迟和调用成本。", "en": "Connect models and compare prompt outputs and failure cases, considering quality, latency and API cost." }
+          {
+            "name": "Claude / ChatGPT / Gemini",
+            "zh": "辅助拆解问题、比较方案与检查反例；重要判断回到资料和数据验证。",
+            "en": "Explore problems, compare options and examine counterexamples; verify important judgements against sources and data."
+          },
+          {
+            "name": "Coze / Dify",
+            "zh": "搭建对话与多步工作流原型，检查节点输入输出、工具调用和人工确认点。",
+            "en": "Prototype conversations and multi-step workflows; inspect node inputs and outputs, tool calls and human checkpoints."
+          },
+          {
+            "name": "OpenAI / Anthropic API",
+            "zh": "连接模型，比较 Prompt 的输出与失败样例，关注效果、延迟和调用成本。",
+            "en": "Connect models and compare prompt outputs and failure cases, considering quality, latency and API cost."
+          }
         ]
       },
       {
@@ -1004,9 +1077,22 @@
         "output": "漏斗分析 · 实验复盘 · 商业测算",
         "outputEn": "Funnel analysis · Experiment reviews · Business models",
         "items": [
-          { "name": "SQL / Pandas", "zh": "提取与清洗数据，拆转化漏斗、留存和用户分群，定位流失发生在哪一步。", "en": "Extract and clean data; analyse funnels, retention and segments to locate drop-off." },
-          { "name": "Excel", "zh": "做定价、收入与单位经济测算，用敏感性分析检查假设变化的影响。", "en": "Model pricing, revenue and unit economics, then check how outcomes change with assumptions." },
-          { "name": "Metabase / GA / 埋点", "nameEn": "Metabase / GA / Event tracking", "zh": "明确事件和指标口径，观察关键路径与实验结果，把异常带回复盘。", "en": "Define events and metrics, monitor key journeys and experiment results, and investigate anomalies." }
+          {
+            "name": "SQL / Pandas",
+            "zh": "提取与清洗数据，拆转化漏斗、留存和用户分群，定位流失发生在哪一步。",
+            "en": "Extract and clean data; analyse funnels, retention and segments to locate drop-off."
+          },
+          {
+            "name": "Excel",
+            "zh": "做定价、收入与单位经济测算，用敏感性分析检查假设变化的影响。",
+            "en": "Model pricing, revenue and unit economics, then check how outcomes change with assumptions."
+          },
+          {
+            "name": "Metabase / GA / 埋点",
+            "nameEn": "Metabase / GA / Event tracking",
+            "zh": "明确事件和指标口径，观察关键路径与实验结果，把异常带回复盘。",
+            "en": "Define events and metrics, monitor key journeys and experiment results, and investigate anomalies."
+          }
         ]
       }
     ]

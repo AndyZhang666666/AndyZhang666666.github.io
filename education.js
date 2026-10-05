@@ -2,20 +2,15 @@
    education.js — #education 板块扩展
    在 app.js 的 renderEducation() 渲染完时间线之后，
    在 #educationTimeline 之后插入三块：
-     1. 学校徽记（logo / 文字 monogram）
-     2. 研究与毕业设计（占位，等用户提供）
-     3. 荣誉奖项（占位，等用户提供）
-   不改动 app.js / data.json / style.css。
+     1. 研究与毕业设计（读取 data.education[].thesis）
+     2. 荣誉奖项（占位，等用户提供）
+   学校与学位由主时间线展示，不重复插入学校信息。
    ======================================== */
 (function () {
   'use strict';
 
   // ---------- 数据接口 ----------
-  // TODO: 等用户提供毕设内容后替换此处（不要编造）
-  var THESIS = {
-    master:   { title: '待补充', summary: '待补充', tags: [], result: '' },
-    bachelor: { title: '待补充', summary: '待补充', tags: [], result: '' }
-  };
+  var THESIS = { master: {}, bachelor: {} };
 
   // TODO: 等用户提供奖项后替换此处（不要编造）
   var AWARDS = [
@@ -86,10 +81,14 @@
 
   // ---------- 2. 研究与毕业设计 ----------
   function thesisItem(t, kickerZh, kickerEn, schoolAbbr, delay) {
-    var title = isPlaceholder(t.title) ? ph() : esc(t.title);
-    var summary = isPlaceholder(t.summary) ? ph() : esc(t.summary);
+    var title = isPlaceholder(t.title) ? ph() :
+      '<span data-zh="' + esc(t.title) + '" data-en="' + esc(t.titleEn || t.title) + '">' + esc(t.title) + '</span>';
+    var summary = isPlaceholder(t.summary) ? ph() :
+      '<span data-zh="' + esc(t.summary) + '" data-en="' + esc(t.summaryEn || t.summary) + '">' + esc(t.summary) + '</span>';
     var tags = (t.tags && t.tags.length)
-      ? t.tags.map(function (x) { return '<span class="thesis-tag">' + esc(x) + '</span>'; }).join('')
+      ? t.tags.map(function (x, i) {
+          return '<span class="thesis-tag" data-zh="' + esc(x) + '" data-en="' + esc((t.tagsEn || [])[i] || x) + '">' + esc(x) + '</span>';
+        }).join('')
       : '<span class="thesis-tag is-placeholder" data-zh="关键词待补充" data-en="Keywords TBA">关键词待补充</span>';
     var result = t.result ? '<div class="thesis-result">' + esc(t.result) + '</div>' : '';
     return '' +
@@ -105,11 +104,12 @@
   function renderThesis(education) {
     var master = education[0] || {};
     var bachelor = education[1] || {};
+    THESIS.master = master.thesis || {};
+    THESIS.bachelor = bachelor.thesis || {};
     return '' +
       '<div class="edu-block">' +
         '<div class="edu-block-head reveal" data-delay="0">' +
           '<div class="edu-block-title" data-zh="研究与毕业设计" data-en="Research &amp; Thesis">研究与毕业设计</div>' +
-          '<div class="edu-block-hint" data-zh="内容整理中" data-en="Content in progress">内容整理中</div>' +
         '</div>' +
         '<div class="thesis-grid">' +
           thesisItem(THESIS.master, '硕士毕业设计', 'MSc Thesis', monogram(master), 70) +
@@ -184,7 +184,7 @@
 
     var wrap = document.createElement('div');
     wrap.className = 'edu-extra';
-    wrap.innerHTML = renderLogos(education) + renderThesis(education) + renderAwards();
+    wrap.innerHTML = renderThesis(education) + renderAwards();
     tl.insertAdjacentElement('afterend', wrap);
 
     syncLang(wrap);
