@@ -15,7 +15,7 @@ const hl = (s) => esc(s).replace(
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data.json');
+    const res = await fetch('data.json?v=20261005a');
     data = await res.json();
     render();
     attachEventListeners();
@@ -189,7 +189,8 @@ function renderProjects() {
 function renderAwards() {
   const list = document.getElementById('awardList');
   const awards = data.awards && data.awards.length ? data.awards : [
-    { icon: '🎓', name: 'First Class Honours', nameEn: 'First Class Honours', meta: 'UCL · 布里斯托大学', metaEn: 'UCL · Univ. of Bristol' },
+    { icon: '🎓', name: 'Distinction', nameEn: 'Distinction', meta: 'UCL · 金融工程硕士', metaEn: 'UCL · MSc Financial Engineering' },
+    { icon: '🎓', name: 'First Class Honours', nameEn: 'First Class Honours', meta: '布里斯托大学 · 电子电气工程本科', metaEn: 'University of Bristol · BEng Electronic and Electrical Engineering' },
     { icon: '＋', name: '奖项待补充', nameEn: 'More to come', meta: '框架已就位，随时填', metaEn: 'Slot ready' }
   ];
   list.innerHTML = awards.map((a, i) => `
