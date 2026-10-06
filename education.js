@@ -80,7 +80,7 @@
   }
 
   // ---------- 2. 研究与毕业设计 ----------
-  function thesisItem(t, kickerZh, kickerEn, schoolAbbr, delay) {
+  function thesisItem(t, kickerZh, kickerEn, schoolAbbr, delay, type) {
     var title = isPlaceholder(t.title) ? ph() :
       '<span data-zh="' + esc(t.title) + '" data-en="' + esc(t.titleEn || t.title) + '">' + esc(t.title) + '</span>';
     var summary = isPlaceholder(t.summary) ? ph() :
@@ -94,6 +94,7 @@
     return '' +
       '<article class="thesis-item reveal" data-delay="' + delay + '">' +
         '<div class="thesis-kicker"><span data-zh="' + kickerZh + '" data-en="' + kickerEn + '">' + kickerZh + '</span><span class="sep">/</span>' + esc(schoolAbbr) + '</div>' +
+        (window.AcademicArt ? window.AcademicArt.figure(type) : '') +
         '<h3 class="thesis-title">' + title + '</h3>' +
         '<p class="thesis-summary">' + summary + '</p>' +
         '<div class="thesis-tags">' + tags + '</div>' +
@@ -110,10 +111,11 @@
       '<div class="edu-block">' +
         '<div class="edu-block-head reveal" data-delay="0">' +
           '<div class="edu-block-title" data-zh="研究与毕业设计" data-en="Research &amp; Thesis">研究与毕业设计</div>' +
+          '<button class="research-motion-toggle" type="button" aria-pressed="false"><i class="motion-symbol" aria-hidden="true"></i><span data-zh="暂停动效" data-en="Pause motion">暂停动效</span></button>' +
         '</div>' +
         '<div class="thesis-grid">' +
-          thesisItem(THESIS.master, '硕士毕业设计', 'MSc Thesis', monogram(master), 70) +
-          thesisItem(THESIS.bachelor, '本科毕业设计', 'BEng Final Project', monogram(bachelor), 140) +
+          thesisItem(THESIS.master, '硕士毕业设计', 'MSc Thesis', monogram(master), 70, 'master') +
+          thesisItem(THESIS.bachelor, '本科毕业设计', 'BEng Final Project', monogram(bachelor), 140, 'bachelor') +
         '</div>' +
       '</div>';
   }
@@ -189,6 +191,7 @@
 
     syncLang(wrap);
     observeReveal(wrap);
+    if (window.AcademicArt) window.AcademicArt.mount(wrap);
     return true;
   }
 

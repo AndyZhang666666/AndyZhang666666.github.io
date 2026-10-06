@@ -264,9 +264,15 @@ function renderUses() {
   if (!u) return;
   
   const grid = document.getElementById('usesGrid');
+  const symbols = [
+    '<rect x="5" y="6" width="21" height="17" rx="2"/><path d="M10 11h11M10 16h7M20 22l4 5M24 27l3-8"/>',
+    '<path d="M10 9l-6 7 6 7M22 9l6 7-6 7M18 5l-4 22"/>',
+    '<circle cx="16" cy="16" r="5"/><circle cx="6" cy="6" r="2"/><circle cx="26" cy="9" r="2"/><circle cx="24" cy="26" r="2"/><path d="M8 8l5 5M21 14l3-3M19 20l4 4M5 25l7-6"/>',
+    '<path d="M5 5v22h23M10 22v-7M17 22V9M24 22V12M8 11l8-6 9 3"/>'
+  ];
   grid.innerHTML = (u.groups || []).map((g, i) => `
     <article class="uses-group reveal" data-delay="${i * 70}">
-      <span class="uses-step" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
+      <div class="uses-group-head"><span class="uses-step" aria-hidden="true">${String(i + 1).padStart(2, '0')} / ${['DEFINE','BUILD','EVALUATE','LEARN'][i] || 'WORK'}</span><span class="uses-symbol" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">${symbols[i] || symbols[0]}</svg></span></div>
       <h3 class="uses-group-title" data-zh="${esc(g.zh)}" data-en="${esc(g.en)}">${esc(g.zh)}</h3>
       <ul class="uses-tools">
         ${(g.items || []).map(it => typeof it === 'string'
