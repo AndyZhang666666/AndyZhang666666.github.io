@@ -1,8 +1,8 @@
 {
   "name": "张千羽",
   "nameEn": "Qianyu Zhang (Andy)",
-  "tagline": "AI 产品经理，具备增长与商业化能力。能从业务场景出发设计 Agent 工作流、搭建效果评估体系，与算法团队把 AI 产品推到上线。习惯用 SQL 与 Python 自己看数据，靠 A/B 实验和漏斗归因找增长路径。做过订阅付费与海外市场，英语可作工作语言。",
-  "taglineEn": "AI product manager with growth and monetisation experience. Designs Agent workflows and evaluation systems from real business scenarios and ships AI products with algorithm teams. Runs data in SQL and Python, finds growth paths through A/B tests and funnel attribution. Has worked on subscription pricing and overseas markets. English is a working language.",
+  "tagline": "AI 产品经理，关注 Agent 工作流、模型评测与业务增长。做过内容创作工具和海外产品，也为企业交付 AI 应用；把需求做成能用的产品，再用数据验证效果。",
+  "taglineEn": "AI product manager working on Agent workflows, model evaluation and growth. I build content-creation tools, work on overseas products and deliver AI applications for businesses, then use data to test what works.",
   "contact": {
     "phone": "13149829129",
     "email": "andy_zzz@yeah.net",
@@ -15,8 +15,8 @@
       "schoolEn": "University College London",
       "degree": "金融工程 · 硕士",
       "degreeEn": "MSc Financial Engineering",
-      "period": "2024.09 – 2026.01",
-      "grade": "Distinction",
+      "period": "2024.09 – 2026.02",
+      "grade": "Distinction · Top 8%",
       "link": "https://www.ucl.ac.uk/prospective-students/graduate/taught-degrees/financial-engineering-msc",
       "thesis": {
         "title": "基于订单流的标普 500 日内交易模型",
@@ -41,7 +41,7 @@
       "degree": "电子电气工程 · 本科",
       "degreeEn": "BEng Electronic and Electrical Engineering",
       "period": "2021.09 – 2024.07",
-      "grade": "First Class Honours",
+      "grade": "First Class Honours · Top 5%",
       "link": "https://www.bristol.ac.uk/study/undergraduate/2026/electrical-electronic-engineering/beng-electrical-and-electronic-engineering/",
       "thesis": {
         "title": "面向运动场景的可穿戴姿态监测系统",
@@ -65,216 +65,186 @@
     {
       "company": "山海星辰",
       "companyEn": "Shanhai Xingchen",
-      "role": "AI 管培生（产品经理方向）",
-      "roleEn": "AI Management Trainee (Product Manager Track)",
-      "location": "杭州 · AI 内容出海",
-      "locationEn": "Hangzhou · AI Content Overseas",
+      "role": "AI 产品经理",
+      "roleEn": "AI Product Manager",
+      "location": "AI 内容创作与海外业务",
+      "locationEn": "AI content creation & overseas products",
       "period": "2026.06 – 至今",
       "periodEn": "2026.06 – Present",
       "highlights": [
-        "对话式 Agent 剧本创作工作流从 0 到 1，爆款拆解耗时从 2 小时压缩至 10 分钟",
-        "创作方法平台化与 Skill 治理，累计上架 38 个 Skill、128 个版本，编剧有效创作时间优化约 20%",
-        "AI 驱动的双线竞品监测体系，整理耗时由数天压缩至小时级"
+        "负责国内、海外双线 11 类创作能力，设计六阶段对话式 Agent 与可插拔 Skill；上线 38 个 Skill，单剧创作耗时缩短约 30%，工具月均调用 6000 次、编剧使用覆盖率 70%。",
+        "推动剧本拆解、资产生产与分镜生成链路化，定义角色一致性、风格统一及描述遵循度等评测口径；内测样本中单集制作耗时缩短约 30%。",
+        "负责一键视频转绘的需求定义、流程与上线迭代；初步估算人工处理耗时缩短约 20%，生成镜头可用率提升约 1 倍。",
+        "基于 Q2 海外收入下滑 11% 的归因分析设计订阅试点；试点月复购率提升约 20%，ARPU 提升 8%，订阅用户占比由 18% 提升至 35%。"
       ],
       "highlightsEn": [
-        "Built conversational Agent scriptwriting workflow from 0 to 1, reduced hit analysis time from 2 hours to 10 minutes",
-        "Platformized creative methods and Skill governance, shipped 38 Skills with 128 versions, optimized screenwriter productivity by ~20%",
-        "AI-driven competitive intelligence system, reduced analysis time from days to hours"
+        "Owned 11 creation capabilities across domestic and overseas products. Designed a six-stage conversational Agent and pluggable Skills: 38 Skills shipped, about 30% less creation time per title, 6,000 monthly tool calls and 70% screenwriter usage coverage.",
+        "Connected script breakdown, asset production and storyboard generation. Defined evaluation criteria for character consistency, style and description adherence; internal trial samples showed about 30% less production time per episode.",
+        "Defined and iterated one-click video restyling. Preliminary estimates showed about 20% less manual processing time and roughly twice the usable-shot rate.",
+        "Diagnosed an 11% Q2 overseas revenue decline and designed a subscription pilot. Pilot monthly repeat purchase rose about 20%, ARPU 8%, and subscriber share from 18% to 35%."
       ],
       "works": [
         {
-          "name": "对话式剧本创作 Agent",
-          "nameEn": "Conversational Script Agent",
-          "desc": "把编剧的爆款拆解流程拆成可对话的多步工作流：先结构化拆解参考剧集的钩子密度与情绪曲线，再生成分集大纲与台词初稿。上线后单集拆解耗时从 2 小时压到 10 分钟。",
-          "descEn": "Turned screenwriters' teardown routine into a multi-step conversational workflow: structure hooks and emotion curves from reference dramas first, then generate episode outlines and draft dialogue. Teardown time per episode dropped from 2 hours to 10 minutes.",
+          "name": "创作 Agent 与 Skill 资产",
+          "nameEn": "Creation Agent & Skill Assets",
+          "desc": "把拆解、提案、策划、MVP、全本、导出组织成可对话的主链路，在开放创作环节结合 ReAct 工具调用与 Agent 交叉校验，并保留人工确认。将 SOP、Prompt、知识与工具配置封装为 38 个 Skill，建立版本、效果对比和反馈机制。单剧创作耗时缩短约 30%。",
+          "descEn": "Designed a conversational flow from breakdown through proposal, planning, MVP, full draft and export. Used ReAct tool calls and Agent cross-checks in open-ended creation stages, with human checkpoints. Packaged SOPs, prompts, knowledge and tools into 38 Skills with versioning, output comparison and feedback; creation time per title fell about 30%.",
           "tags": [
-            "0→1",
-            "Agent 工作流"
+            "Agent",
+            "Skill",
+            "人工确认"
           ]
         },
         {
-          "name": "Skill 平台化与版本治理",
-          "nameEn": "Skill Platform & Version Governance",
-          "desc": "把散落在个人 prompt 里的创作方法收成平台资产：定义 Skill 的输入契约、评测标准与版本回滚机制，累计上架 38 个 Skill、128 个版本，编剧有效创作时间优化约 20%。",
-          "descEn": "Consolidated scattered personal prompts into platform assets: defined input contracts, eval criteria and version rollback for each Skill. 38 Skills and 128 versions shipped; ~20% more effective writing time.",
+          "name": "AIGC 制作链路与质量评测",
+          "nameEn": "AIGC Production & Quality Evaluation",
+          "desc": "区分项目全局提示词与镜头配置，把角色、场景和道具组织为可复用资产，支持跨项目引用与分镜一键关联。结合人工评审和 Bad Case 归因迭代资产引用、提示词与生成配置；内测样本中单集制作耗时缩短约 30%。",
+          "descEn": "Separated project-wide prompts from shot configurations and made characters, scenes and props reusable across projects. Used human reviews and failure-case analysis to iterate asset references, prompts and generation settings; internal trial samples showed about 30% less production time per episode.",
           "tags": [
-            "平台化",
-            "治理"
+            "资产复用",
+            "质量评测"
           ]
         },
         {
-          "name": "双线竞品监测体系",
-          "nameEn": "Dual-track Competitor Monitoring",
-          "desc": "内容侧盯对手上新剧集的题材与钩子结构，产品侧盯功能迭代与投放素材，两条线汇到同一张日更看板。人工整理从数天压缩到小时级。",
-          "descEn": "One track watches rivals' new titles and hook structures, the other tracks feature releases and ad creatives; both feed a daily dashboard. Manual compilation went from days to hours.",
+          "name": "一键视频转绘",
+          "nameEn": "One-click Video Restyling",
+          "desc": "串联原片上传、角色与场景解析、目标画风转换及分镜视频生成，围绕角色辨识度、画风一致性和节奏保留迭代。初步估算人工处理耗时缩短约 20%，生成镜头可用率提升约 1 倍。",
+          "descEn": "Connected upload, character and scene parsing, target-style conversion and shot generation. Iterated recognisability, style consistency and preservation of pacing. Preliminary estimates showed about 20% less manual processing time and roughly twice the usable-shot rate.",
           "tags": [
-            "竞品情报",
-            "自动化"
+            "视频转绘",
+            "效果迭代"
+          ]
+        },
+        {
+          "name": "海外订阅试点",
+          "nameEn": "Overseas Subscription Pilot",
+          "desc": "将收入拆为活跃用户、付费转化、付费频次与客单价，识别首购后持续付费不足。选择北美试点，设计包月档位与前三集免费组合，通过 A/B Test 验证后分阶段放大；试点月复购率提升约 20%，ARPU 提升 8%，订阅用户占比由 18% 提升至 35%。",
+          "descEn": "Decomposed revenue into active users, paid conversion, purchase frequency and order value, identifying weak repeat payment after first purchase. Piloted monthly tiers with the first three episodes free in North America, then scaled in stages after A/B tests. Pilot monthly repeat purchase rose about 20%, ARPU 8%, and subscriber share from 18% to 35%.",
+          "tags": [
+            "订阅商业化",
+            "A/B Test"
           ]
         }
       ]
     },
     {
-      "company": "百度",
-      "companyEn": "Baidu",
+      "company": "百度 · PSIG",
+      "companyEn": "Baidu · PSIG",
       "role": "AI 产品经理实习生",
       "roleEn": "AI Product Manager Intern",
-      "location": "北京 · 百度文库",
-      "locationEn": "Beijing · Baidu Library",
-      "period": "2025.11 – 2026.05",
+      "location": "百度文库",
+      "locationEn": "Baidu Library",
+      "period": "2026.01 – 2026.06",
+      "periodEn": "2026.01 – 2026.06",
       "highlights": [
-        "文库命理馆从 0 到 1：搭建命理星盘、日运抽签、马年运势、缘分测算四大模块，DAU 破万、分享率 26%",
-        "数据驱动产品迭代：搭建埋点体系（前端曝光/点击、后端调用/风控），通过 SQL 复盘识别 Tab 层级过深导致曝光折损 40%，推动跨模块引导设计，迭代后模块 UV 提升约 60%",
-        "AI 定制壁纸玩法：基于用户年龄性别标签智能推荐动态/静态壁纸，将抽象运势转化为可传播的视觉资产，提升复访留存",
-        "内容供给体系：搭建云盘、知识广场等内容基础设施，支撑 AI 生成内容的存储、检索与分发"
+        "负责 AI 命理功能 0→1，结合 GenFlow 个性化生成与 AI 壁纸玩法；上线两周日活破万，周回访率 35%，带动文库会员转化提升约 8%。",
+        "用埋点与 SQL 定位深层 Tab 导致曝光折损超 70%，推动主动弹窗与路径优化；弹窗拉动单日 UV 增长 10 倍，迭代后留存 UV 提升约 60%，分享率 26%。",
+        "重构知识库信息架构，落地多级文件夹并协同检索、渲染和模型上下文策略；知识库周均访问次数提升约 30%，AI 问答使用率提升约 25%。"
       ],
       "highlightsEn": [
-        "Launched AI Fortune Hall from 0 to 1: built 4 modules (Astrology, Daily Fortune, Yearly Luck, Compatibility), achieved 10k+ DAU and 26% share rate",
-        "Data-driven iteration: built event tracking (FE exposure/click, BE call/risk), identified 40% drop from tab depth via SQL, drove cross-module guidance, lifted UV by ~60%",
-        "AI wallpaper feature: smart recommendation based on age/gender, turned abstract fortunes into shareable visual assets, improved retention",
-        "Content infrastructure: built cloud drive & knowledge plaza to support AI content storage, retrieval and distribution"
+        "Launched AI fortune features from 0 to 1 with GenFlow personalisation and AI wallpapers. DAU exceeded 10,000 within two weeks, weekly return rate reached 35%, and Wenku membership conversion rose about 8%.",
+        "Used event tracking and SQL to locate over 70% exposure loss through deep tabs. Improved pop-up discovery and navigation: single-day UV increased tenfold, post-iteration retained UV rose about 60%, and sharing reached 26%.",
+        "Restructured the knowledge base with multi-level folders and coordinated retrieval, rendering and model-context changes. Weekly visits rose about 30% and AI Q&A usage about 25%."
       ],
       "works": [
         {
-          "name": "文库命理馆 0→1",
-          "nameEn": "Wenku Fortune Hall (0→1)",
-          "desc": "从零定义命理星盘、日运抽签、马年运势、缘分测算四个模块的玩法与分享钩子，跑通 AI 生成 + 内容风控链路。上线后 DAU 破万，分享率 26%。",
-          "descEn": "Defined four modules from scratch — natal chart, daily draw, Year-of-the-Horse fortune, compatibility test — including share hooks and the AI-generation plus moderation pipeline. Past 10k DAU with a 26% share rate.",
+          "name": "AI 命理馆与玩法复制",
+          "nameEn": "AI Fortune Hall & Reusable Experiences",
+          "desc": "定义每日运势、许愿抽签和八字、星盘等多维测算，依托 GenFlow 生成个性化报告，并将运势转化为可传播的 AI 壁纸。上线两周日活破万、周回访率 35%；模式复制至 AI 百宝箱的六款人格测试，新品上线周期缩短约 40%。",
+          "descEn": "Defined daily fortunes, wish draws and multidimensional readings using GenFlow-generated personalised reports and shareable AI wallpapers. DAU exceeded 10,000 within two weeks and weekly return rate reached 35%. Reused the approach in six personality experiences, shortening new-product launch cycles about 40%.",
           "tags": [
             "0→1",
             "AI 内容"
           ]
         },
         {
-          "name": "埋点体系与数据复盘",
-          "nameEn": "Tracking System & Funnel Review",
-          "desc": "自己搭前端曝光/点击、后端调用/风控四层埋点，用 SQL 复盘发现 Tab 层级过深导致曝光折损 40%，推动跨模块引导改版，迭代后模块 UV 提升约 60%。",
-          "descEn": "Built four layers of tracking (front-end impression/click, back-end call/moderation). SQL analysis surfaced a 40% impression loss from over-nested tabs; a cross-module entry redesign lifted module UV by ~60%.",
+          "name": "曝光归因与主动触达",
+          "nameEn": "Discovery Analysis & Proactive Reach",
+          "desc": "用 SQL 拆用户行为路径，识别深层 Tab 导致曝光折损超 70%。面向高活跃用户在首页与 Tab 页主动推荐入口，并优化路径引导；主动弹窗拉动单日 UV 增长 10 倍，迭代后留存 UV 提升约 60%，分享率 26%。",
+          "descEn": "Analysed user paths in SQL and identified over 70% exposure loss through deep tabs. Added proactive entry points on the home and tab pages for active users and simplified navigation. Pop-ups drove a tenfold single-day UV increase; retained UV rose about 60% after iteration, with 26% sharing.",
           "tags": [
-            "数据驱动",
-            "SQL"
+            "埋点归因",
+            "增长迭代"
           ]
         },
         {
-          "name": "AI 定制壁纸玩法",
-          "nameEn": "AI Wallpaper Personalization",
-          "desc": "把抽象运势文案转成能发朋友圈的视觉资产：按年龄性别标签推荐动态/静态壁纸，四种运势维度各配一套视觉语言，用来撑复访。",
-          "descEn": "Turned abstract fortune copy into shareable visual assets: dynamic or static wallpapers recommended by age and gender tags, with a distinct visual language per fortune dimension, to drive repeat visits.",
+          "name": "知识库与 AI 问答",
+          "nameEn": "Knowledge Base & AI Q&A",
+          "desc": "重构文库 App 知识库的信息架构，落地多级文件夹，协同优化检索、前端渲染与 GenFlow 上下文分配，串联资料管理、内容检索和 AI 问答。知识库周均访问次数提升约 30%，AI 问答使用率提升约 25%。",
+          "descEn": "Restructured Wenku’s knowledge base with multi-level folders and coordinated retrieval, rendering and GenFlow context allocation. Connected document management, retrieval and AI Q&A; weekly visits rose about 30% and AI Q&A usage about 25%.",
           "tags": [
-            "AI 生成",
-            "留存"
-          ]
-        },
-        {
-          "name": "知识广场 · 云盘 AI 能力",
-          "nameEn": "Knowledge Square & Cloud Drive AI",
-          "desc": "内容供给侧的两块基建：知识广场解决 AI 生成内容的分发与检索，云盘解决存储与二次调用。写了两份 PRD，串起从生成到复用的闭环。",
-          "descEn": "Two pieces of content-supply infrastructure: Knowledge Square handles distribution and retrieval of AI-generated content, Cloud Drive handles storage and reuse. Two PRDs closing the loop from generation to reuse.",
-          "tags": [
-            "基建",
-            "内容分发"
+            "知识库",
+            "信息架构"
           ]
         }
       ]
     },
     {
-      "company": "美团",
-      "companyEn": "Meituan",
+      "company": "美团 · Keeta",
+      "companyEn": "Meituan · Keeta",
       "role": "用户增长产品经理实习生",
       "roleEn": "Growth Product Manager Intern",
-      "location": "北京",
-      "locationEn": "Beijing",
+      "location": "沙特市场",
+      "locationEn": "Saudi Arabia",
       "period": "2025.09 – 2026.01",
+      "periodEn": "2025.09 – 2026.01",
       "highlights": [
-        "新用户激活漏斗优化：通过埋点分析识别首单转化卡点，设计引导策略，A/B 实验验证后首单转化率提升 12%",
-        "用户留存策略：搭建 Cohort 分析看板，定位高流失用户群体特征，推动个性化优惠券发放机制，次月留存率提升 8%",
-        "增长实验平台：参与搭建 A/B 实验配置后台，支持产品/运营快速验证增长假设，实验周期从 2 周压缩至 3 天"
+        "识别 3 人以上家庭聚餐需求占比 35% 与单人餐供给的错位，设计家庭套餐专区与多人份推荐；家庭套餐订单占比达到 22%，套餐客单价高于平台订单均值约 45%。",
+        "按城市阶段、留存与价格敏感度分层调整补贴，通过 A/B Test 比较获客及后续留存；新客获客成本降低 27%，新客月留存提升 8%。"
       ],
       "highlightsEn": [
-        "New user activation funnel: identified first-order conversion blockers via tracking, designed guidance flow, A/B test lifted conversion by 12%",
-        "Retention strategy: built cohort dashboard, located high-churn segments, drove personalized coupon mechanism, lifted D30 retention by 8%",
-        "Growth experiment platform: helped build A/B config console, enabled fast hypothesis validation, reduced cycle from 2 weeks to 3 days"
+        "Identified a mismatch between 35% demand for meals for three or more people and single-person supply. Designed family bundles and recommendations; bundles reached 22% of orders, with order value about 45% above the platform average.",
+        "Segmented subsidies by city stage, retention and price sensitivity, using A/B tests to compare acquisition and subsequent retention. New-customer acquisition cost fell 27% and new-customer monthly retention rose 8%."
       ],
       "works": [
         {
-          "name": "新用户激活漏斗优化",
-          "nameEn": "New-user Activation Funnel",
-          "desc": "拆首单转化的每一跳，用埋点定位到卡在券的可感知性上，重排引导顺序并做 A/B 验证，首单转化率提升 12%。",
-          "descEn": "Broke down every step to first order, traced the drop-off to coupon perceptibility, resequenced the onboarding prompts and validated via A/B — first-order conversion up 12%.",
+          "name": "家庭聚餐场景与商品供给",
+          "nameEn": "Family Dining & Assortment",
+          "desc": "从订单结构与流失路径识别家庭聚餐需求，联动商家补充多人份组合，并设计专区、商品规格和推荐策略。家庭套餐订单占比达到 22%，该类套餐客单价高于平台订单均值约 45%。",
+          "descEn": "Used order composition and drop-off paths to identify family dining demand, coordinated multi-person supply and designed the collection, specifications and recommendations. Family bundles reached 22% of orders and their order value was about 45% above the platform average.",
           "tags": [
-            "A/B 实验",
-            "增长"
+            "场景定义",
+            "供给策略"
           ]
         },
         {
-          "name": "Cohort 留存与券策略",
-          "nameEn": "Cohort Retention & Coupon Strategy",
-          "desc": "搭 Cohort 看板把流失切成群体特征，对高流失群做差异化券额度，次月留存提升 8%。",
-          "descEn": "Built a cohort dashboard to profile churn segments, then differentiated coupon values for high-churn groups — next-month retention up 8%.",
+          "name": "补贴效率与留存验证",
+          "nameEn": "Subsidy Efficiency & Retention",
+          "desc": "识别高补贴、低留存人群，差异化调整优惠券门槛、力度与覆盖范围，用 A/B Test 同时观察短期转化和后续留存。新客获客成本降低 27%，新客月留存提升 8%。",
+          "descEn": "Identified high-subsidy, low-retention segments, varied coupon thresholds, amounts and coverage, and used A/B tests to examine short-term conversion alongside subsequent retention. New-customer acquisition cost fell 27% and monthly retention rose 8%.",
           "tags": [
-            "留存",
-            "策略"
-          ]
-        },
-        {
-          "name": "增长实验配置后台",
-          "nameEn": "Growth Experiment Console",
-          "desc": "参与做实验配置后台，让产品运营自己开实验、自己看结果，实验周期从 2 周压到 3 天。",
-          "descEn": "Co-built an experiment console so PMs and ops could launch tests and read results themselves — cycle time from 2 weeks to 3 days.",
-          "tags": [
-            "工具",
-            "效率"
+            "A/B Test",
+            "获客与留存"
           ]
         }
       ]
     },
     {
-      "company": "理想汽车",
-      "companyEn": "Li Auto",
-      "role": "产品实习生（智能座舱）",
-      "roleEn": "Product Intern (Smart Cockpit)",
-      "location": "北京 · 产品部",
-      "locationEn": "Beijing · Product",
+      "company": "理想汽车 · 智能座舱",
+      "companyEn": "Li Auto · Intelligent Cockpit",
+      "role": "智能座舱产品实习生",
+      "roleEn": "Intelligent Cockpit Product Intern",
+      "location": "座舱场景与语音交互",
+      "locationEn": "Cockpit experiences & voice interaction",
       "period": "2024.05 – 2024.10",
+      "periodEn": "2024.05 – 2024.10",
       "highlights": [
-        "AI 座舱「小憩模式」场景迭代：从用户午休真实行为出发重定义触发条件与座椅/空调/音频联动，午休时段渗透率由 10% 提升至 30%",
-        "把 20+ 场用户访谈与门店走访沉淀成座舱功能的需求优先级矩阵，直接进入产品迭代排期",
-        "搭建竞品座舱功能追踪看板，周报进入管理层定价与配置讨论"
+        "结合埋点与 20+ 场门店走访，定义一键联动座椅、遮阳帘、空调、氛围灯和白噪音的“小憩模式”，支持自然语言泛化指令。",
+        "通过 A/B Test 确定 App 与车机双入口；上线后午休时段渗透率从 10% 提升至 30%，单次沉浸时长翻倍，语音唤醒占比 40%，功能 NPS 位列座舱场景类前三。"
       ],
       "highlightsEn": [
-        "Iterated the AI cockpit 'Nap Mode': redefined triggers and seat/climate/audio coordination from real midday behavior — nap-time penetration rose from 10% to 30%",
-        "Distilled 20+ user interviews and store visits into a cockpit feature priority matrix that fed straight into the product roadmap",
-        "Built a competitor cockpit-feature tracker whose weekly brief entered management pricing and trim discussions"
+        "Combined event data with 20+ store visits to define a rest mode linking seats, blinds, climate, lighting and white noise, with natural-language activation.",
+        "Used A/B tests to confirm app and in-car entry points. After launch, lunchtime penetration rose from 10% to 30%, session duration doubled, voice activation reached 40%, and NPS ranked in the top three cockpit scenarios."
       ],
       "works": [
         {
-          "name": "小憩模式场景迭代",
-          "nameEn": "Nap Mode Scenario Iteration",
-          "desc": "小憩模式原本只是个「把座椅放倒」的按钮。我从午休用户的真实动线出发，重定义触发时机、座椅倾角、空调风量与白噪音联动，让它变成一个完整场景。午休高频时段渗透率从 10% 提到 30%。",
-          "descEn": "Nap Mode used to be just a 'recline the seat' button. Starting from how people actually nap at lunch, I redefined trigger timing plus seat angle, airflow and white-noise coordination to make it a complete scenario. Penetration in the lunch window went from 10% to 30%.",
-          "tags": [
-            "场景设计",
-            "座舱"
-          ]
-        },
-        {
-          "name": "用户访谈 → 需求优先级矩阵",
-          "nameEn": "Interviews → Priority Matrix",
-          "desc": "20+ 场访谈和门店走访，不是写报告，而是把每条反馈打上频次、痛感和实现成本，压成一张座舱功能优先级矩阵，直接交给迭代排期。",
-          "descEn": "20+ interviews and store visits didn't end in a report — every piece of feedback was scored on frequency, pain and build cost and compressed into a cockpit priority matrix handed straight to sprint planning.",
+          "name": "从午休痛点到软硬件联动",
+          "nameEn": "From Rest Needs to Integrated Controls",
+          "desc": "识别午休需要手动调节 5—6 步、平均耗时超一分钟的问题，撰写 PRD 并打通座椅、遮阳帘、空调、氛围灯和白噪音。引入大模型意图识别，支持“我有点困了”等表达；上线后午休时段渗透率从 10% 提升至 30%。",
+          "descEn": "Found that preparing for a lunchtime rest required five or six manual steps and over a minute. Defined the PRD and integrated seats, blinds, climate, lighting and white noise with model-based intent recognition. Lunchtime penetration rose from 10% to 30% after launch.",
           "tags": [
             "用户研究",
-            "优先级"
-          ]
-        },
-        {
-          "name": "竞品座舱功能看板",
-          "nameEn": "Competitor Cockpit Tracker",
-          "desc": "追踪主要竞品每次 OTA 的座舱功能变化，做成周更看板。这份周报后来进了管理层的定价与配置讨论。",
-          "descEn": "Tracked cockpit feature changes across rivals' OTA releases in a weekly dashboard; the brief later entered management pricing and trim discussions.",
-          "tags": [
-            "竞品",
-            "OTA"
+            "软硬件联动"
           ]
         }
       ]
@@ -282,67 +252,39 @@
     {
       "company": "Revolut",
       "companyEn": "Revolut",
-      "role": "Product Intern (Growth & Monetization)",
+      "role": "产品实习生（增长与商业化）",
       "roleEn": "Product Intern (Growth & Monetization)",
-      "location": "伦敦 · 欧洲最大金融科技独角兽",
-      "locationEn": "London · Europe's Largest Fintech Unicorn",
+      "location": "订阅会员与智能预算",
+      "locationEn": "Subscriptions & smart budgeting",
       "period": "2023.06 – 2023.09",
+      "periodEn": "2023.06 – 2023.09",
       "highlights": [
-        "Premium 订阅增长实验，A/B 验证升级引导策略，订阅转化率提升超 15%",
-        "参与「智能预算」AI 功能迭代，基于模型纠错数据优化交互，模块点击率提升超 20%"
+        "参与 Premium 会员增长实验，围绕汇率优惠、消费返现等权益优化展示和升级引导，通过 A/B Test 验证方案，订阅转化率提升超 15%。",
+        "基于大模型纠错数据梳理智能预算功能的高频交互问题，推动预算信息呈现与操作引导优化，模块点击率提升超 20%。"
       ],
       "highlightsEn": [
-        "Premium subscription growth experiment, A/B tested upsell flow, lifted conversion by 15%+",
-        "Iterated 'Smart Budget' AI feature based on model correction data, increased click-through by 20%+"
+        "Contributed to Premium growth experiments, improving benefit presentation and upgrade prompts around exchange-rate and cashback benefits. A/B-tested changes lifted subscription conversion over 15%.",
+        "Used model-correction data to identify frequent smart-budget interaction problems and improve information presentation and guidance. Module click-through rose over 20%."
       ],
       "works": [
         {
-          "name": "Premium 订阅升级实验",
-          "nameEn": "Premium Upgrade Experiments",
-          "desc": "针对免费用户的升级引导做了三组 A/B：触发时机、权益展示顺序、价格锚点。胜出方案订阅转化率提升超 15%。",
-          "descEn": "Three A/B rounds on free-to-Premium prompts — trigger timing, benefit ordering, price anchoring. The winner lifted subscription conversion by 15%+.",
+          "name": "Premium 权益与升级引导",
+          "nameEn": "Premium Benefits & Upgrade Flow",
+          "desc": "结合用户使用场景与触达时机优化权益展示和升级引导，通过 A/B Test 比较方案，订阅转化率提升超 15%。",
+          "descEn": "Improved benefit presentation and upgrade guidance around users’ needs and timing. Compared approaches through A/B tests; subscription conversion rose over 15%.",
           "tags": [
-            "A/B 实验",
-            "变现"
+            "订阅转化",
+            "A/B Test"
           ]
         },
         {
-          "name": "智能预算 AI 功能迭代",
-          "nameEn": "Smart Budget AI Iteration",
-          "desc": "拿模型分类纠错数据反推交互：把用户高频改错的类目前置、允许一键批量修正。模块点击率提升超 20%。",
-          "descEn": "Used model-correction data to reshape the UI — surfaced frequently-corrected categories and added one-tap batch fixes. Module CTR up 20%+.",
+          "name": "智能预算交互迭代",
+          "nameEn": "Smart Budget Interaction",
+          "desc": "将大模型纠错数据中的高频问题转为产品需求，协同研发完善预算信息呈现与操作引导，模块点击率提升超 20%。",
+          "descEn": "Turned recurring model-correction issues into product requirements and worked with engineering on budget information and guidance. Module click-through rose over 20%.",
           "tags": [
             "AI 产品",
-            "交互"
-          ]
-        }
-      ]
-    },
-    {
-      "company": "中金公司",
-      "companyEn": "China International Capital Corporation",
-      "role": "研究部实习生",
-      "roleEn": "Research Intern",
-      "location": "北京",
-      "locationEn": "Beijing",
-      "period": "2022.06 – 2022.09",
-      "highlights": [
-        "覆盖互联网与 AI 应用赛道，跟踪 10+ 家上市公司季度财报",
-        "独立搭建可比公司估值表，参与撰写行业深度与业绩点评报告"
-      ],
-      "highlightsEn": [
-        "Covered internet & AI apps, tracked 10+ listed companies' quarterly earnings",
-        "Built comp valuation models, contributed to sector deep-dives and earnings notes"
-      ],
-      "works": [
-        {
-          "name": "互联网与 AI 应用赛道覆盖",
-          "nameEn": "Internet & AI Coverage",
-          "desc": "跟踪 10+ 家上市公司季度财报，独立搭可比公司估值表，参与撰写行业深度与业绩点评。这段让我习惯了用财务口径拆产品。",
-          "descEn": "Tracked quarterly results of 10+ listed companies, built the comps valuation sheet independently, co-wrote sector deep-dives and earnings notes. It taught me to read products through financial statements.",
-          "tags": [
-            "估值",
-            "行业研究"
+            "交互迭代"
           ]
         }
       ]
@@ -506,20 +448,20 @@
     {
       "name": "百度文库命理馆",
       "nameEn": "Baidu Library AI Fortune Hall",
-      "description": "搭建星盘、日运、年度运势与缘分测算四类玩法，设计可分享的结果页，并通过埋点与 SQL 分析支持迭代。",
-      "descriptionEn": "Built chart, daily, annual and compatibility experiences, with shareable result pages and iterations informed by event tracking and SQL analysis.",
-      "period": "2025.11 – 2026.05",
+      "description": "定义 AI 命理与分享玩法，用埋点和 SQL 改善发现路径，将验证后的产品模式复制到人格测试。",
+      "descriptionEn": "Designed AI fortune and sharing experiences, improved discovery with event data and SQL, and reused the validated approach in personality tests.",
+      "period": "2026.01 – 2026.06",
       "company": "百度",
       "companyEn": "Baidu",
       "metrics": [
-        "DAU 破万",
-        "分享率 26%",
-        "UV +60%"
+        "上线两周 DAU 破万",
+        "周回访率 35%",
+        "分享率 26%"
       ],
       "metricsEn": [
-        "10k+ DAU",
-        "26% share",
-        "UV +60%"
+        "10k+ DAU within 2 weeks",
+        "35% weekly return rate",
+        "26% sharing"
       ],
       "tags": [
         "0→1",
@@ -532,33 +474,33 @@
       "context": "为文库提供兼顾深度体验与日常回访的轻互动场景。",
       "contextEn": "Provide lightweight interaction that supports both deeper sessions and recurring visits.",
       "approach": [
-        "按使用频率组织四类玩法，将结果转化为可分享的视觉内容",
-        "通过埋点与 SQL 拆解访问漏斗，支持入口与模块体验迭代"
+        "通过 GenFlow 个性化生成报告，并将结果转化为可传播的 AI 壁纸",
+        "定位深层 Tab 导致曝光折损超 70%，通过主动触达优化访问路径"
       ],
       "approachEn": [
-        "Organize four experiences by usage frequency and make results visually shareable.",
-        "Use event tracking and SQL to analyze visit funnels and guide entry-point and module iterations."
+        "Generated personalised GenFlow reports and shareable AI wallpapers.",
+        "Identified over 70% exposure loss through deep tabs and improved discovery with proactive entry points."
       ],
-      "result": "DAU 破万，分享率 26%，模块 UV 提升 60%。",
-      "resultEn": "DAU exceeded 10k, sharing reached 26%, and module UV increased 60%."
+      "result": "上线两周日活破万，周回访率 35%，文库会员转化提升约 8%；主动触达迭代后留存 UV 提升约 60%，分享率 26%。",
+      "resultEn": "DAU exceeded 10,000 within two weeks, weekly return rate reached 35%, and membership conversion rose about 8%. After discovery iteration, retained UV rose about 60%, with 26% sharing."
     },
     {
       "name": "AI 定制壁纸玩法",
       "nameEn": "AI Personalized Wallpaper",
-      "description": "结合用户标签推荐动态或静态壁纸，覆盖全年、财运、事业与爱情四类内容，延伸结果页的使用场景。",
-      "descriptionEn": "Recommend dynamic or static wallpapers from user attributes across annual, wealth, career and relationship themes, extending the result-page experience.",
-      "period": "2025.11 – 2026.05",
+      "description": "结合 GenFlow AIGC 图像能力，把抽象运势转化为个性化、可保存和可传播的视觉内容。",
+      "descriptionEn": "Used GenFlow AIGC image capabilities to turn fortune outputs into personalised, saveable and shareable visual content.",
+      "period": "2026.01 – 2026.06",
       "company": "百度",
       "companyEn": "Baidu",
       "metrics": [
-        "4 种运势维度",
-        "动静态智能推荐",
-        "提升复访"
+        "个性化视觉内容",
+        "可保存与分享",
+        "命理体验延伸"
       ],
       "metricsEn": [
-        "4 fortune types",
-        "Smart recommendation",
-        "Retention lift"
+        "Personalised visuals",
+        "Save and share",
+        "Extended fortune experience"
       ],
       "tags": [
         "AI",
@@ -570,15 +512,95 @@
       "context": "结果页缺少可保存、持续使用的内容载体。",
       "contextEn": "Result pages lack a format users can save and keep using.",
       "approach": [
-        "结合年龄与性别标签推荐动静态壁纸",
-        "按四类运势组织内容供给"
+        "把生成结果转为用户可以带走的壁纸，衔接命理报告与视觉表达",
+        "结合用户反馈迭代内容呈现，与命理馆主流程一起验证"
       ],
       "approachEn": [
-        "Recommend wallpaper formats using age and gender attributes.",
-        "Organize content across four fortune themes."
+        "Turned generated results into wallpapers users can keep, connecting reports with visual expression.",
+        "Iterated presentation from feedback and evaluated it within the broader fortune experience."
       ],
-      "result": "提供可保存的个性化视觉内容，作为命理馆复访体验的一部分。",
-      "resultEn": "Provides saveable personalized visuals as part of the product's return-visit experience."
+      "result": "壁纸为命理馆整体玩法的一部分；简历中的回访与会员转化结果属于整体产品，不单独归因为壁纸。",
+      "resultEn": "Wallpapers formed part of the overall fortune experience. Return-visit and membership results describe the combined product, not an isolated wallpaper effect."
+    },
+    {
+      "name": "企业 AI 应用与轻量业务工具（FDE）",
+      "nameEn": "Enterprise AI & Lightweight Business Tools",
+      "subtitle": "把 AI 接入实际业务流程",
+      "subtitleEn": "AI integrated into business workflows",
+      "description": "为选品、知识问答、线索跟进和制造业 ERP/CRM 交付可操作工具，保留来源核验与关键人工确认。",
+      "descriptionEn": "Delivered tools for product selection, knowledge Q&A, lead follow-up and manufacturing ERP/CRM, with source checks and human confirmation.",
+      "period": "2026.05 – 至今",
+      "role": "企业 AI 应用实践",
+      "roleEn": "Enterprise AI Practice",
+      "metrics": [
+        "选品信息整理耗时 −40%",
+        "生产与库存汇总耗时 −20%",
+        "来源查询与人工确认"
+      ],
+      "metricsEn": [
+        "Selection research time −40%",
+        "Production/inventory reporting time −20%",
+        "Source checks & human confirmation"
+      ],
+      "tags": [
+        "AI 应用",
+        "业务交付",
+        "FDE"
+      ],
+      "context": "商家的信息收集、知识回复和业务记录分散，人工整理多，关键动态信息仍需要确认。",
+      "contextEn": "Research, knowledge replies and business records were fragmented, with repetitive manual organisation and changing facts requiring confirmation.",
+      "approach": [
+        "选品与测款：组织社媒及电商信息，支持同款识别、竞品比较和小规模测试，交付带实图、来源和核验状态的看板与 Skill",
+        "知识库与客服：整理商品资料和问答，支持回复草稿、来源查询与人工接管",
+        "获客与线索：设计筛选、个性化触达和跟进记录，关键价格与交付条件交由人工确认",
+        "ERP/CRM：梳理扫码出入库、库存盘点、生产状态与线索记录，将日常记录、盘点核对和汇总拆为独立模块"
+      ],
+      "approachEn": [
+        "Selection and testing: combined social and commerce information for product matching, comparison and small tests, with images, sources, verification status and reusable Skills.",
+        "Knowledge and service: organised product information for reply drafts, source lookup and human takeover.",
+        "Leads: designed screening, personalised contact and records, with human confirmation for pricing and delivery commitments.",
+        "ERP/CRM: organised scanning, inventory, production and leads into separate recording, reconciliation and reporting modules."
+      ],
+      "result": "工具辅助下，选品信息搜集与整理人工耗时减少约 40%；制造业工具的生产与库存信息汇总耗时降低约 20%。",
+      "resultEn": "Tool-assisted selection research and organisation took about 40% less manual time; production and inventory reporting time fell about 20%. These measure separate delivery modules."
+    },
+    {
+      "name": "个人智能投研 Agent 与量化研究工具",
+      "nameEn": "Personal Investment Research Agent & Quant Tools",
+      "subtitle": "从多源信息到可回查的研究记录",
+      "subtitleEn": "From multiple sources to traceable research records",
+      "description": "组织财报、新闻与情绪分析任务，生成盘后研究日报；另建量化研究看板，检查信号、风险与样本外表现。",
+      "descriptionEn": "Orchestrated filings, news and sentiment tasks into daily research reports, with a separate dashboard for signals, risk and out-of-sample analysis.",
+      "period": "2026.01 – 至今",
+      "metrics": [
+        "每日信息提炼：约 2 小时 → 20 分钟",
+        "3 类基准策略",
+        "交易成本与时序隔离"
+      ],
+      "metricsEn": [
+        "Daily research: ~2 hours → 20 minutes",
+        "3 benchmark strategies",
+        "Trading costs & temporal separation"
+      ],
+      "tags": [
+        "Agent",
+        "投研工作流",
+        "量化研究"
+      ],
+      "context": "个人投研存在信息过载与重复搜集，需要将资料获取、研究摘要和盘后复盘组织为可追溯任务。",
+      "contextEn": "Personal research involved information overload and repeated gathering, requiring traceable tasks from information collection to post-market review.",
+      "approach": [
+        "组织多源获取、内容结构化、情绪分析、研究摘要和盘后复盘，对接 IBKR API 及外部信息源",
+        "另建趋势、波动率与相对强弱研究模块，展示事件概率、20 日预期收益、下行风险、退出评分及主要多空因素",
+        "将策略与买入持有、均线退出、ATR 移动止损进行样本外对照，纳入交易成本与时间序列防泄漏设计"
+      ],
+      "approachEn": [
+        "Connected IBKR and external sources across gathering, structuring, sentiment, summary and post-market review tasks.",
+        "Built a separate module for trend, volatility and relative strength, showing event probabilities, 20-day expected returns, downside risk, exit scores and key factors.",
+        "Compared strategies out of sample with buy-and-hold, moving-average exits and ATR trailing stops, accounting for costs and temporal leakage."
+      ],
+      "result": "每日投研信息获取与提炼耗时由约 2 小时缩短至 20 分钟；量化研究模块纳入交易成本与时间序列隔离，支持历史表现与适用边界检查。",
+      "resultEn": "Daily information gathering and synthesis fell from about two hours to twenty minutes. The quantitative research module accounts for trading costs and temporal separation to examine historical behaviour and applicability."
     },
     {
       "name": "通勤方案比较器（commute-compare）",
@@ -820,8 +842,8 @@
     {
       "name": "留学咨询内容矩阵",
       "nameEn": "Study Abroad Content Matrix",
-      "description": "按国家、专业与预算组织垂类账号，通过 KOL 分发与咨询转化链路获取高意向线索。",
-      "descriptionEn": "Organize accounts by country, major and budget, using KOL distribution and consultation funnels to acquire high-intent leads.",
+      "description": "基于真人案例和垂类账号建立内容获客链路，贯通公域内容、私域咨询与线索跟进。",
+      "descriptionEn": "Built acquisition around first-hand stories and focused accounts, connecting public content, private consultation and lead follow-up.",
       "period": "2023.01 – 2025.01",
       "role": "联合创始人",
       "roleEn": "Co-Founder",
@@ -845,15 +867,15 @@
       "context": "留学咨询需要降低对付费流量的依赖。",
       "contextEn": "Study-abroad consulting needs to reduce dependence on paid acquisition.",
       "approach": [
-        "按用户需求拆分垂类账号，统一选题与转化链路",
-        "通过 KOL 合作扩大内容分发"
+        "围绕目标国家与预算段运营 40+ 垂类账号，合作 50+ 外部 KOL",
+        "比较具体案例复盘与经验分享的转化，沉淀选题和私域跟进 SOP"
       ],
       "approachEn": [
-        "Segment accounts by user needs, with coordinated topics and conversion funnels.",
-        "Expand distribution through KOL partnerships."
+        "Ran 40+ focused accounts by target country and budget with 50+ external KOL partners.",
+        "Compared case-led and general-advice content conversion and codified topic and follow-up workflows."
       ],
-      "result": "40+ 账号、10 万+ 粉丝，月均 100+ 高意向线索，CPL 降低 30%。",
-      "resultEn": "40+ accounts, 100k+ followers, 100+ high-intent leads per month and 30% lower CPL."
+      "result": "CPL 降低 30%，矩阵总粉丝破 10 万，月均高意向线索超 100 条；带领 8 人团队将方法沉淀为 SOP。",
+      "resultEn": "CPL fell 30%, total followers exceeded 100,000 and monthly high-intent leads exceeded 100. Led an eight-person team and codified the workflow."
     }
   ],
   "skills": {
@@ -882,28 +904,26 @@
       "Dashboards (Metabase / Tableau)"
     ],
     "ai": [
-      "Agent 工作流设计",
-      "Prompt 工程与资产管理",
-      "效果评估体系 (Eval)",
-      "LLM-as-judge",
-      "评测集构建与标注",
-      "RAG 与知识库",
-      "Function Calling / Tool Use",
-      "模型选型与成本测算",
-      "AI 产品 PRD",
-      "与算法团队协同"
+      "Agent 任务编排与模型路由",
+      "工具调用与 MCP",
+      "输入输出规范",
+      "Skill 封装与版本管理",
+      "人工确认与异常处理",
+      "知识分类与上下文组织",
+      "检索与引用",
+      "Rubric / LLM-as-Judge",
+      "Bad Case 归因与回归评测"
     ],
     "aiEn": [
-      "Agent Workflow Design",
-      "Prompt Engineering & Asset Mgmt",
-      "Evaluation Systems",
-      "LLM-as-judge",
-      "Eval Set Construction & Labelling",
-      "RAG & Knowledge Base",
-      "Function Calling / Tool Use",
-      "Model Selection & Cost Estimation",
-      "AI Product PRD",
-      "Algorithm Team Collaboration"
+      "Agent orchestration & model routing",
+      "Tool use & MCP",
+      "Input/output contracts",
+      "Skill packaging & versioning",
+      "Human checkpoints & error handling",
+      "Knowledge & context organisation",
+      "Retrieval & citations",
+      "Rubric / LLM-as-Judge",
+      "Failure analysis & regression evaluation"
     ],
     "product": [
       "0→1 产品孵化",
@@ -926,21 +946,21 @@
       "Cross-team Execution"
     ],
     "language": [
-      "英语（可作为工作语言，五年英国学习与工作）",
+      "雅思 7.5 · 英语可作为工作语言",
       "普通话"
     ],
     "languageEn": [
-      "English (working language; 5 years in the UK)",
+      "IELTS 7.5 · English as a working language",
       "Mandarin"
     ]
   },
   "about": {
     "lead": "张千羽，AI 产品经理。",
     "leadEn": "Andy Zhang, AI product manager.",
-    "body": "本科在布里斯托读电子电气工程，硕士在伦敦大学学院读金融工程。两段训练教的是同一件事：把模糊的问题变成可以计算的问题。",
-    "bodyEn": "I studied Electronic and Electrical Engineering at Bristol and Financial Engineering at UCL. Both taught the same skill: turning a vague question into a computable one.",
-    "body2": "但算清楚一个问题之后，我更想知道的是人会怎么用它。产品经理这个岗位吸引我的地方，是它站在「能做什么」和「有人需要什么」的交界处。工程给你手段，用户给你理由，而判断哪些理由值得被满足，是这份工作真正的内容。我喜欢自己的判断能被验证：定义一个问题，把方案推上线，看数据回来说它对不对。这个循环短的时候，人学得最快。",
-    "body2En": "But once a problem is worked out, what I want to know is how people will use it. What draws me to product is that it sits where \"what can be built\" meets \"what someone needs\". Engineering gives you the means, users give you the reasons, and deciding which reasons deserve to be met is the real substance of the job. I like having my judgement tested: define a problem, ship the solution, let the data say whether it was right. The shorter that loop, the faster you learn.",
+    "body": "本科在布里斯托读电子电气工程，硕士在 UCL 读金融工程。工程训练让我习惯把问题拆清楚，金融训练让我关注假设、风险和结果。",
+    "bodyEn": "I studied Electronic and Electrical Engineering at Bristol and Financial Engineering at UCL. Engineering taught me to break problems down; finance taught me to question assumptions, risk and results.",
+    "body2": "在内容生产里，我做创作 Agent、可复用资产和效果评测；在海外产品里，我拆转化与付费路径；为企业做工具时，我会先走进原有流程，找出值得改的那一步。",
+    "body2En": "In content production, I work on creation Agents, reusable assets and evaluation. In overseas products, I examine conversion and payment paths. When delivering business tools, I first walk the existing process and find the step worth changing.",
     "facts": [
       {
         "k": "MBTI",
@@ -957,8 +977,8 @@
       {
         "k": "工作语言",
         "kEn": "Languages",
-        "v": "中文 · 英语",
-        "vEn": "Chinese · English"
+        "v": "中文 · 英语（雅思 7.5）",
+        "vEn": "Chinese · English (IELTS 7.5)"
       },
       {
         "k": "关注方向",
@@ -996,8 +1016,8 @@
         "de": "Before writing a spec, walk the flow myself. Only then do I find which step is redundant and which sentence will be misread."
       }
     ],
-    "body3": "选 AI 方向，是因为这一轮技术把「能做什么」的边界推得比「该做什么」快得多。模型的能力是充裕的，稀缺的是把它放进一个真实场景、让它稳定解决一个具体问题的判断。这是产品经理的活，而且是现在最值得干的那一份。",
-    "body3En": "I chose AI because this wave has pushed \"what can be built\" far ahead of \"what should be built\". Model capability is abundant. What is scarce is the judgement to put it into a real scenario and have it solve one concrete problem reliably. That is product work, and right now it is the product work most worth doing."
+    "body3": "我喜欢先把想法做成能操作的版本，让用户用起来，再看反馈和数据。能否进入真实工作、哪些结果可以验证，是我判断一个 AI 产品是否有用的起点。",
+    "body3En": "I like making an idea usable, putting it in front of people and examining their feedback and the data. Whether it fits real work, and which outcomes can be verified, is where I start judging an AI product."
   },
   "uses": {
     "groups": [
@@ -1032,7 +1052,7 @@
         "outputEn": "Interactive demos · Validation scripts · Change notes",
         "items": [
           {
-            "name": "Claude Code / Cursor",
+            "name": "Codex / Claude Code / Cursor",
             "zh": "辅助实现原型、定位问题和修改代码；关键逻辑与完整流程自己检查。",
             "en": "Assist with implementation, debugging and iteration; review the key logic and the complete user flow myself."
           },
@@ -1055,19 +1075,19 @@
         "outputEn": "Workflow prototypes · Prompt versions · Evaluation records",
         "items": [
           {
-            "name": "Claude / ChatGPT / Gemini",
+            "name": "ChatGPT / Claude / WorkBuddy",
             "zh": "辅助拆解问题、比较方案与检查反例；重要判断回到资料和数据验证。",
             "en": "Explore problems, compare options and examine counterexamples; verify important judgements against sources and data."
           },
           {
-            "name": "Coze / Dify",
-            "zh": "搭建对话与多步工作流原型，检查节点输入输出、工具调用和人工确认点。",
-            "en": "Prototype conversations and multi-step workflows; inspect node inputs and outputs, tool calls and human checkpoints."
+            "name": "Dify / Coze / n8n",
+            "zh": "搭建对话、自动化与多步工作流，检查节点输入输出、工具调用和人工确认点。",
+            "en": "Build conversational and automated workflows; inspect node inputs and outputs, tool calls and human checkpoints."
           },
           {
-            "name": "OpenAI / Anthropic API",
-            "zh": "连接模型，比较 Prompt 的输出与失败样例，关注效果、延迟和调用成本。",
-            "en": "Connect models and compare prompt outputs and failure cases, considering quality, latency and API cost."
+            "name": "LangChain / LangGraph / MCP",
+            "zh": "组织模型、工具与上下文的连接，检查任务路由、状态传递和调用结果。",
+            "en": "Connect models, tools and context, checking task routing, state propagation and tool results."
           }
         ]
       },
@@ -1096,12 +1116,6 @@
         ]
       }
     ]
-  },
-  "colophon": {
-    "zh": "这个站是手写的：一个 index.html、一个 style.css、一个 app.js，加一份 data.json 当数据层。没有框架、没有构建步骤、没有依赖——改一行字就是改一行字。四个配色主题是真的四套 CSS 变量，不是滤镜。",
-    "en": "This site is hand-written: one index.html, one style.css, one app.js, plus a data.json as the data layer. No framework, no build step, no dependencies — a text change is a text change. The four themes are four real sets of CSS variables, not a filter.",
-    "zh2": "字体用了 Inter / Noto Serif SC / JetBrains Mono。动画尽量用 CSS 而不是 JS，能省一帧是一帧。",
-    "en2": "Type is set in Inter, Noto Serif SC and JetBrains Mono. Animations prefer CSS over JS — one frame saved is one frame saved."
   },
   "aiViews": {
     "items": [
@@ -1146,5 +1160,209 @@
   "stats": {
     "kickerZh": "做过的事，留下的数字",
     "kickerEn": "What the work left behind"
+  },
+  "awards": [
+    {
+      "name": "Dean’s List",
+      "nameEn": "Dean’s List",
+      "meta": "布里斯托大学 · 院系荣誉榜",
+      "metaEn": "University of Bristol · Departmental honours"
+    },
+    {
+      "name": "James Dyson Award 地区赛亚军",
+      "nameEn": "James Dyson Award · Regional Runner-up",
+      "meta": "布里斯托大学学习期间",
+      "metaEn": "During undergraduate study at Bristol"
+    },
+    {
+      "name": "UCL Business Game 策略挑战赛亚军",
+      "nameEn": "UCL Business Game · Strategy Challenge Runner-up",
+      "meta": "伦敦大学学院",
+      "metaEn": "University College London"
+    },
+    {
+      "name": "Bloomberg Global Trading Challenge",
+      "nameEn": "Bloomberg Global Trading Challenge",
+      "meta": "参赛经历",
+      "metaEn": "Competition participation"
+    }
+  ],
+  "evidenceCatalog": {
+    "agent": {
+      "co": "山海星辰",
+      "text": "设计六阶段创作 Agent，在开放创作环节结合工具调用、交叉校验与人工确认，封装可复用 Skill",
+      "metric": "38 个 Skill · 月均调用 6000 次 · 使用覆盖率 70% · 单剧创作耗时约 −30%"
+    },
+    "production": {
+      "co": "山海星辰",
+      "text": "串联剧本、资产与分镜，制定角色一致性、风格统一及描述遵循度口径，结合人工评审与 Bad Case 迭代",
+      "metric": "内测样本单集制作耗时约 −30%"
+    },
+    "fortune": {
+      "co": "百度 · PSIG",
+      "text": "AI 命理功能 0→1，结合 GenFlow 个性化报告与壁纸，并将模式复制到六款人格测试",
+      "metric": "上线两周 DAU 破万 · 周回访率 35% · 会员转化约 +8%"
+    },
+    "exposure": {
+      "co": "百度 · PSIG",
+      "text": "通过埋点与 SQL 定位深层 Tab 的曝光折损超 70%，设计主动触达与路径优化",
+      "metric": "单日 UV 增长 10 倍 · 留存 UV 约 +60% · 分享率 26%"
+    },
+    "knowledge": {
+      "co": "百度 · PSIG",
+      "text": "重构知识库信息架构，协同检索、前端渲染和 GenFlow 上下文分配",
+      "metric": "周均访问次数约 +30% · AI 问答使用率约 +25%"
+    },
+    "subscription": {
+      "co": "山海星辰",
+      "text": "拆解 Q2 海外收入下滑 11% 的原因，设计北美包月与前三集免费试点，通过 A/B Test 验证",
+      "metric": "试点月复购率约 +20% · ARPU +8% · 订阅占比 18% → 35%"
+    },
+    "family": {
+      "co": "美团 · Keeta",
+      "text": "识别 35% 的多人家庭聚餐需求，设计专区、多人份供给与推荐策略",
+      "metric": "家庭套餐订单占比 22% · 套餐客单价高于平台均值约 45%"
+    },
+    "subsidy": {
+      "co": "美团 · Keeta",
+      "text": "按城市阶段、留存与价格敏感度调整补贴，用 A/B Test 同时检验获客与后续留存",
+      "metric": "新客获客成本 −27% · 新客月留存 +8%"
+    },
+    "cockpit": {
+      "co": "理想汽车",
+      "text": "结合埋点及 20+ 场门店走访定义小憩模式，联动软硬件并支持自然语言唤醒，以 A/B Test 确定双入口",
+      "metric": "午休时段渗透率 10% → 30% · 语音唤醒占比 40% · 场景 NPS 前三"
+    },
+    "revolut": {
+      "co": "Revolut",
+      "text": "围绕 Premium 权益的场景与触达时机迭代展示和升级引导，用 A/B Test 比较方案",
+      "metric": "订阅转化率提升超 15%"
+    },
+    "enterprise": {
+      "co": "企业 AI 应用实践",
+      "text": "交付选品与测款、知识库客服、线索跟进和制造业 ERP/CRM 工具，保留来源核验与人工确认",
+      "metric": "选品信息整理人工耗时约 −40% · 生产与库存汇总耗时约 −20%"
+    },
+    "investment": {
+      "co": "个人投研项目",
+      "text": "编排财报、新闻、情绪分析与盘后复盘任务，对接 IBKR API 和外部信息源；另建含样本外对照的量化研究模块",
+      "metric": "每日信息获取与提炼：约 2 小时 → 20 分钟"
+    },
+    "eval": {
+      "co": "独立评测工具",
+      "text": "构建创意输出与财报摘要评测工具，提供评分维度、原文依据和可复现报告",
+      "metric": "在线 Demo 与源码可查看"
+    },
+    "content": {
+      "co": "内容增长项目",
+      "text": "构建 40+ 垂类账号与 50+ KOL 合作的公域到私域链路，带领 8 人团队沉淀 SOP",
+      "metric": "CPL −30% · 粉丝 10 万+ · 月均高意向线索超 100 条"
+    },
+    "msc": {
+      "co": "教育背景",
+      "text": "UCL 金融工程硕士 · 2024.09 – 2026.02",
+      "metric": "Distinction · Top 8%"
+    },
+    "bachelor": {
+      "co": "教育背景",
+      "text": "University of Bristol 电子电气工程本科 · 2021.09 – 2024.07",
+      "metric": "First Class Honours · Top 5%"
+    },
+    "english": {
+      "co": "语言能力",
+      "text": "英语可作为工作语言",
+      "metric": "雅思 7.5"
+    }
+  },
+  "jdEvidence": {
+    "llm-product": [
+      "agent",
+      "fortune",
+      "enterprise"
+    ],
+    "agent-workflow": [
+      "agent",
+      "knowledge",
+      "investment"
+    ],
+    "prompt-eval": [
+      "production",
+      "eval"
+    ],
+    "data-analysis": [
+      "exposure",
+      "subscription",
+      "family"
+    ],
+    "ab-test": [
+      "revolut",
+      "subsidy",
+      "cockpit"
+    ],
+    "growth": [
+      "subsidy",
+      "exposure",
+      "content"
+    ],
+    "monetization": [
+      "subscription",
+      "revolut",
+      "family"
+    ],
+    "user-research": [
+      "cockpit",
+      "content"
+    ],
+    "prd": [
+      "cockpit",
+      "knowledge",
+      "enterprise"
+    ],
+    "cross-team": [
+      "knowledge",
+      "cockpit",
+      "content"
+    ],
+    "toc": [
+      "fortune",
+      "family",
+      "subscription"
+    ],
+    "content-ops": [
+      "content"
+    ],
+    "overseas": [
+      "subscription",
+      "family",
+      "english"
+    ],
+    "tech": [
+      "bachelor",
+      "investment",
+      "enterprise"
+    ],
+    "finance": [
+      "investment",
+      "revolut",
+      "msc"
+    ],
+    "hardware": [
+      "cockpit"
+    ],
+    "edu-bg": [
+      "msc",
+      "bachelor"
+    ],
+    "tob-saas": [
+      "enterprise",
+      "agent"
+    ],
+    "ecommerce": [
+      "enterprise",
+      "family"
+    ],
+    "team-mgmt": [
+      "content"
+    ]
   }
 }

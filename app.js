@@ -15,8 +15,10 @@ const hl = (s) => esc(s).replace(
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data.json?v=20261005c');
+    const res = await fetch('data.json?v=20261022a');
+    if (!res.ok) throw new Error('Profile data could not be loaded');
     data = await res.json();
+    if (typeof applyResumeEvidence === 'function') applyResumeEvidence(data);
     render();
     attachEventListeners();
     initScrollAnimations();
@@ -35,6 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function render() {
   if (!data) return;
+  renderProfileIntro();
   renderAbout();
   renderAiViews();
   renderMarquee();
@@ -45,8 +48,26 @@ function render() {
   renderUses();
   renderSkills();
   renderContact();
-  renderColophon();
   updateLanguage();
+}
+
+function renderProfileIntro() {
+  const intro = document.querySelector('.hero-tagline');
+  if (intro) {
+    intro.dataset.zh = data.tagline;
+    intro.dataset.en = data.taglineEn;
+    intro.textContent = data.tagline;
+  }
+  const qualifications = document.querySelectorAll('.hero-meta > span:not(.dot)');
+  (data.education || []).forEach((edu, i) => {
+    const node = qualifications[i];
+    if (!node) return;
+    const schoolZh = edu.schoolEn === 'University College London' ? 'UCL' : edu.school.replace(/\s*\(.*\)/, '');
+    const schoolEn = edu.schoolEn === 'University College London' ? 'UCL' : edu.schoolEn;
+    node.dataset.zh = `${schoolZh} ${edu.degree.replace(' · ', ' ')} · ${edu.grade}`;
+    node.dataset.en = `${edu.degreeEn}, ${schoolEn} · ${edu.grade}`;
+    node.textContent = node.dataset.zh;
+  });
 }
 
 // ===== RAILROAD TIMELINE（每段可点开，展开该段做过的东西） =====
@@ -178,7 +199,7 @@ function renderProjects() {
           ${tags ? `<div class="project-tags">${tags}</div>` : ''}
           <h3 class="project-name" data-zh="${esc(p.name)}" data-en="${esc(p.nameEn)}">${esc(p.name)}</h3>
           ${p.subtitle ? `<div class="project-company" data-zh="${esc(p.subtitle)}" data-en="${esc(p.subtitleEn || p.subtitle)}">${esc(p.subtitle)}</div>` : ''}
-          ${p.company ? `<div class="project-company" data-zh="${esc(p.company)}${p.period ? ' · ' + esc(p.period) : ''}" data-en="${esc(p.companyEn || p.company)}${p.period ? ' · ' + esc(p.period) : ''}">${esc(p.company)}${p.period ? ' · ' + esc(p.period) : ''}</div>` : ''}
+          ${p.company || p.period ? `<div class="project-company" data-zh="${esc([p.company, p.period].filter(Boolean).join(' · '))}" data-en="${esc([p.companyEn || p.company, p.periodEn || (p.period || '').replace('至今', 'Present')].filter(Boolean).join(' · '))}">${esc([p.company, p.period].filter(Boolean).join(' · '))}</div>` : ''}
           <p class="project-desc" data-zh="${esc(p.description)}" data-en="${esc(p.descriptionEn)}">${esc(p.description)}</p>
           ${metrics}
           ${links}
@@ -282,34 +303,6 @@ function renderUses() {
       ${g.output ? `<p class="uses-output"><span data-zh="交付物" data-en="Outputs">交付物</span><span data-zh="${esc(g.output)}" data-en="${esc(g.outputEn || g.output)}">${esc(g.output)}</span></p>` : ''}
     </article>
   `).join('');
-}
-
-// ===== COLOPHON =====
-function renderColophon() {
-  return; // 站点说明板块已按要求移除（2026-09-14）
-
-  const c = data.colophon;
-  if (!c) return;
-  
-  // footer 后追加 colophon section（如果不存在）
-  let sec = document.getElementById('colophon');
-  if (!sec) {
-    sec = document.createElement('section');
-    sec.id = 'colophon';
-    sec.className = 'section colophon';
-    sec.innerHTML = `
-      <div class="reveal">
-        <h2 class="colophon-title" data-zh="站点说明" data-en="Colophon">站点说明</h2>
-        <p class="colophon-p" data-zh="" data-en=""></p>
-        <p class="colophon-p colophon-p2" data-zh="" data-en=""></p>
-      </div>
-    `;
-    document.querySelector('footer').insertAdjacentElement('beforebegin', sec);
-  }
-  
-  const ps = sec.querySelectorAll('.colophon-p');
-  if (ps[0]) { ps[0].setAttribute('data-zh', c.zh); ps[0].setAttribute('data-en', c.en); ps[0].textContent = c.zh; }
-  if (ps[1]) { ps[1].setAttribute('data-zh', c.zh2); ps[1].setAttribute('data-en', c.en2); ps[1].textContent = c.zh2; }
 }
 
 function renderContact() {

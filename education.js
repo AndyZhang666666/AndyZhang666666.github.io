@@ -186,7 +186,8 @@
 
     var wrap = document.createElement('div');
     wrap.className = 'edu-extra';
-    wrap.innerHTML = renderThesis(education) + renderAwards();
+    // Honors now use the confirmed resume entries in the main awards section.
+    wrap.innerHTML = renderThesis(education);
     tl.insertAdjacentElement('afterend', wrap);
 
     syncLang(wrap);

@@ -90,6 +90,11 @@
 
   function render(text) {
     const out = $('#jdResult');
+    if (!JD_GRAPH.resumeReady) {
+      out.innerHTML = '<p class="jd-empty">个人资料仍在加载，请稍后重试。</p>';
+      out.hidden = false;
+      return;
+    }
     const hits = matchDims(text);
 
     if (!hits.length) {
