@@ -376,8 +376,8 @@
       "nameEn": "llm-output-eval",
       "subtitle": "有原文证据的长文本评测与版本对比",
       "subtitleEn": "Evidence-backed text evaluation and version comparison",
-      "description": "逐维评分并附原文证据，重复评测比较 Prompt 版本，将低分案例导出为 CSV。自带 API Key，可运行真实评测。",
-      "descriptionEn": "Score each dimension with source-text evidence, compare prompt versions across repeated runs, and export low-scoring cases to CSV. Bring an API key to run live evaluations.",
+      "description": "无需 Key 浏览历史评测：逐句证据、截断稿与完整稿对照、低分案例导出及裁判校验。保留自行配置接口的真实评测能力。",
+      "descriptionEn": "Explore recorded evaluations without a key: source evidence, truncated/full-text comparison, bad-case export and judge validation. Optional BYO-key live evaluation remains available.",
       "url": "https://andyzhang666666.github.io/llm-output-eval/",
       "github": "https://github.com/AndyZhang666666/llm-output-eval",
       "metrics": [
@@ -405,8 +405,10 @@
         "Attach source-text evidence and calibrate the judge against human labels.",
         "Run both prompt versions repeatedly, compare averages and variation, and collect low-scoring cases."
       ],
-      "result": "适合辅助质量排序与版本比较；单次整数评分仍存在波动。API Key 仅保存在浏览器。",
-      "resultEn": "Supports quality ranking and version comparison; individual integer scores still vary. API keys remain in the browser."
+      "result": "免 Key 回放 6 个样本的 18 次历史评分，不调用模型；校验指标仍对应原有 30 条作者标注集，并非本轮新评测。",
+      "resultEn": "Replay 18 recorded runs across 6 samples without model calls. Validation metrics refer to the original 30 author-labeled samples, not a new evaluation.",
+      "demoNote": "直接打开即可体验；版本对照与低分案例均可浏览，无需中转站。历史回放与真实运行记录隔离。",
+      "demoNoteEn": "Open directly, no proxy or key required. Recorded examples and live-run records are kept separate."
     },
     {
       "name": "LLM 效果评估体系（filing-eval）",
@@ -732,8 +734,8 @@
       "nameEn": "Growth Experiment Lab",
       "subtitle": "从实验设计到结果解读的决策工具",
       "subtitleEn": "A decision tool from experiment design to interpretation",
-      "description": "计算 A/B 实验样本量，模拟提前停止带来的误判，并将结果区间折算为增量收入。全部计算在浏览器完成。",
-      "descriptionEn": "Calculate A/B test sample sizes, simulate errors from early stopping, and translate result intervals into incremental revenue. All calculations run in the browser.",
+      "description": "计算 A/B 样本量与提前停止风险，解释提升区间和收入情景，把统计证据与实际全量条件分开判断。全部本地计算。",
+      "descriptionEn": "Calculate A/B sample sizes and early-stopping risk, explain effect intervals and revenue scenarios, and separate statistical evidence from rollout requirements. Runs locally.",
       "url": "https://andyzhang666666.github.io/growth-experiment-lab/",
       "github": "https://github.com/AndyZhang666666/growth-experiment-lab",
       "metrics": [
@@ -756,11 +758,11 @@
       "contextEn": "Determine sample size before a test, control errors during it, and interpret business value afterward.",
       "approach": [
         "计算样本量与实验时长，模拟不同检查策略的假阳性风险",
-        "输出置信区间，并折算保守与乐观的增量收入"
+      "输出置信区间与条件化收入情景，明确护栏、成本和实验有效性仍需核对"
       ],
       "approachEn": [
         "Calculate sample size and duration; simulate false-positive risk under different checking strategies.",
-        "Report confidence intervals and translate them into conservative and optimistic revenue estimates."
+      "Report effect intervals and conditional revenue scenarios, with guardrails, costs and experiment validity checked separately."
       ],
       "result": "本地运行的实验决策 Demo，不上传数据；模拟结果用于说明统计风险，不代表业务实验收益。",
       "resultEn": "A local experiment-decision demo that uploads no data. Simulation results illustrate statistical risk, not business experiment returns."
@@ -770,8 +772,8 @@
       "nameEn": "Pricing Model Sim",
       "subtitle": "比较三种付费机制的 LTV 与回本周期",
       "subtitleEn": "Compare LTV and payback across three pricing mechanisms",
-      "description": "调整留存与价格，比较单次解锁、订阅和混合机制的 12 个月收益，并通过敏感性分析找出机制切换点。",
-      "descriptionEn": "Adjust retention and pricing to compare 12-month returns from pay-per-unlock, subscription and hybrid models; use sensitivity analysis to identify switch-over points.",
+      "description": "在同组留存、价格和转化假设下比较三种付费机制，统一人均 LTV 与回本口径，通过敏感性分析寻找排序变化条件。",
+      "descriptionEn": "Compare three pricing mechanisms under explicit retention, price and conversion assumptions, with consistent per-user LTV and payback metrics and sensitivity-based ranking changes.",
       "url": "https://andyzhang666666.github.io/pricing-model-sim/",
       "github": "https://github.com/AndyZhang666666/pricing-model-sim",
       "metrics": [
@@ -799,16 +801,16 @@
         "Compare LTV and payback across three mechanisms using one retention curve.",
         "Sweep pricing and conversion parameters to find where the preferred mechanism changes."
       ],
-      "result": "提供四个合成案例与校验脚本；用于机制比较，不接入真实业务数据。",
-      "resultEn": "Includes four synthetic cases and validation scripts; compares mechanisms without connecting to real business data."
+      "result": "提供四个合成案例与校验脚本；结论和表格使用同一机制口径，未校准价格弹性，不作为真实最优定价建议。",
+      "resultEn": "Four synthetic cases and validation scripts. Conclusions use the same mechanism metrics as the table; uncalibrated price elasticity prevents claims of an optimal real-world price."
     },
     {
       "name": "Bundle Lab",
       "nameEn": "Bundle Lab",
       "subtitle": "从订单共现中发现套餐机会",
       "subtitleEn": "Discover bundle opportunities from co-purchased items",
-      "description": "从订单中识别常购组合，模拟折扣与采纳率对客单和毛利的影响，导出套餐建议及收益边界。",
-      "descriptionEn": "Identify frequently co-purchased items, simulate how discount and adoption affect basket size and margin, and export bundle recommendations and profit boundaries.",
+      "description": "从合成订单发现共购组合与待验证机会，模拟折扣和采纳率对客单、毛利的影响，区分观察信号与因果结论。",
+      "descriptionEn": "Discover co-purchase patterns and hypotheses from synthetic orders; simulate discount and adoption effects on basket size and margin without confusing observations with causal evidence.",
       "url": "https://andyzhang666666.github.io/bundle-lab/",
       "github": "https://github.com/AndyZhang666666/bundle-lab",
       "metrics": [
