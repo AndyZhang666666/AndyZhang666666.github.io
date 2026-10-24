@@ -906,3 +906,83 @@ form button:hover {
     height: 35px;
   }
 }
+
+/* A small working sheet, not another full-page onboarding screen. */
+.workspace { align-items: start; }
+.trace { flex: none; }
+@media(min-width: 1100px) {
+  .brain { position: sticky; top: 16px; }
+}
+@media(min-width: 651px) and (max-width: 1099px) {
+  .workspace { grid-template-columns: minmax(0,1fr); }
+  .brain { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 22px; }
+  .brain-heading, .contexts, .context-note, .brain-foot { grid-column: 1/-1; }
+  .memory-area { grid-column: 1; grid-row: 4/7; max-height: 390px; }
+  .trace { margin-top: 0; }
+  .takeaway { margin-top: 0; }
+}
+.comparison-panel {
+  border: 1px solid #b9ccbf;
+  border-radius: 10px;
+  background: #f4f8f4;
+  padding: 20px;
+  margin: 20px 0;
+  scroll-margin-top: 20px;
+}
+.comparison-panel h2 { font-size: 19px; line-height: 1.4; }
+.comparison-panel .hint { margin: 10px 0 16px; }
+.comparison-panel > label { font-size: 14px; margin-right: 12px; }
+.comparison-panel select { min-height: 42px; padding: 8px 14px; background: white; border: 1px solid #9caea2; border-radius: 6px; color: inherit; }
+.comparison-variants { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; margin: 18px 0 14px; }
+.comparison-variant { min-width: 0; }
+.comparison-variant .poster { height: 265px; max-width: none; padding: 15px; transition: none; }
+.comparison-variant .poster[data-density="balanced"] { padding: 20px; }
+.comparison-variant .poster[data-density="airy"] { padding: 25px; }
+.comparison-variant .poster h3 { font-size: 30px; line-height: 1.25; letter-spacing: -.6px; margin: 14px 0; }
+.comparison-variant .poster .poster-body { padding-top: 8px; }
+.comparison-variant .poster[data-density="airy"] .poster-body { padding-top: 18px; }
+.comparison-variant .poster-meta, .comparison-variant .poster-footer, .comparison-variant .poster-tagline { font-size: 11px; }
+.comparison-variant .poster-body p { font-size: 11px; }
+.comparison-variant .poster-art { opacity: .3; bottom: 8px; }
+.comparison-variant .poster-art i { width: 21px; height: 38px; }
+.comparison-variant .poster[data-decor="minimal_lines"] .poster-art i { width: 2px; }
+.comparison-variant > button { width: 100%; margin-top: 9px; min-height: 44px; font-size: 14px; }
+.comparison-variant > button[aria-pressed="true"] { background: #225a44; color: white; border-color: #225a44; }
+.comparison-decision { border-top: 1px solid #cbd7ce; margin-top: 18px; padding-top: 8px; font-size: 14px; line-height: 1.7; }
+.comparison-decision .resolution { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); }
+.comparison-decision .resolution button { width: 100%; font-size: 13px; min-height: 66px; }
+.comparison-decision small { display: block; font-size: 12px; margin-top: 3px; }
+.direct-adjustment { border-top: 1px solid #dce3dc; margin-top: 16px; padding-top: 14px; }
+.direct-adjustment summary { cursor: pointer; font-size: 14px; }
+.direct-adjustment > div { display: flex; align-items: end; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.direct-adjustment label { display: flex; flex: 1; flex-direction: column; gap: 5px; font-size: 13px; min-width: 120px; }
+.direct-adjustment select { width: 100%; min-height: 42px; border: 1px solid #a5b5aa; border-radius: 6px; background: white; color: inherit; padding: 8px; }
+.takeaway { margin-top: 20px; padding-top: 18px; border-top: 1px solid #cdd9cf; }
+.takeaway h3 { font-size: 16px; margin: 0 0 8px; }
+.takeaway p { font-size: 13px; line-height: 1.7; color: #4e6054; }
+.takeaway-actions { display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+.takeaway-actions button { min-height: 42px; font-size: 14px; text-align: left; }
+.hint, .context-note, .brain-foot, .canvas-caption { font-size: 13px; line-height: 1.65; }
+.transport button, .feedback-chips button { font-size: 13px; min-height: 42px; }
+.transport button:last-child { margin-left: 0; border-color: #225a44; color: #225a44; }
+.memory small, .memory-actions button, .memory-actions select { font-size: 12px; }
+button:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid #799f87; outline-offset: 3px; }
+@media(max-width: 650px) {
+  .comparison-panel { padding: 14px; }
+  .comparison-panel .section-heading { align-items: start; flex-direction: column; gap: 8px; }
+  .comparison-panel .section-heading button { min-height: 44px; }
+  .comparison-variants { gap: 10px; }
+  .comparison-variant .poster { height: 300px; padding: 10px; }
+  .comparison-variant .poster[data-density="balanced"] { padding: 14px; }
+  .comparison-variant .poster[data-density="airy"] { padding: 18px; }
+  .comparison-variant .poster h3 { font-size: 20px; letter-spacing: -.4px; margin-top: 12px; }
+  .comparison-variant .poster-art { bottom: 0; }
+  .comparison-variant .poster-art i { height: 24px; width: 14px; }
+  .comparison-variant .poster-meta, .comparison-variant .poster-footer { flex-direction: column; gap: 2px; }
+  .comparison-variant .poster-body p { font-size: 11px; }
+  .comparison-variant .poster-tagline { display: none; }
+  .comparison-decision .resolution { grid-template-columns: 1fr; }
+  .direct-adjustment > div > button { min-height: 44px; width: 100%; }
+  .takeaway-actions button, #skipComparison { min-height: 44px; }
+  .memory-actions button, .memory-actions select, header button { min-height: 44px; }
+}

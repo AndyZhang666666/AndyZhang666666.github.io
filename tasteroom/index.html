@@ -88,7 +88,16 @@
               ><button id="undo">撤回上一步</button
               ><button id="redo">重做</button
               ><button id="newContent">换一套新内容 ↗</button>
+              <button id="startComparison">拆开验证偏爱</button>
             </div>
+            <section id="comparisonPanel" class="comparison-panel" aria-label="单变量偏好实验" hidden>
+              <div class="section-heading"><h2>只变一项，看看真正喜欢什么</h2><button id="closeComparison">关闭对照</button></div>
+              <p class="hint">初次海报混合了多种特征，不能据此确定原因。这里保持内容和其余参数相同；选完仍需你决定记在哪。</p>
+              <label for="comparisonDimension">这次只比较</label><select id="comparisonDimension"><option value="typography">字体</option><option value="layoutDensity">留白</option><option value="colorMood">色彩</option><option value="alignment">对齐</option><option value="decorElements">装饰</option></select>
+              <div id="comparisonVariants" class="comparison-variants"></div>
+              <button id="skipComparison">两张都不选，不记住偏好</button>
+              <div id="comparisonDecision" class="comparison-decision" hidden><p id="comparisonChoice"></p><div class="resolution"><button data-comparison-scope="once">只试这一次<small>不进入长期记忆</small></button><button data-comparison-scope="current">记在当前场景<small>不改变其他场景</small></button><button data-comparison-scope="global">修正为全局规则<small>覆盖这一维旧规则</small></button></div></div>
+            </section>
             <p id="reply" role="status" aria-live="polite">
               我会逐步调整。你可以随时打断。
             </p>
@@ -107,6 +116,7 @@
               <button id="cancelConflict">取消这次纠偏</button>
             </div>
             <div id="feedback">
+              <details class="direct-adjustment"><summary>直接选参数，不用猜关键词</summary><div class="direct-fields"><label>调整哪一项<select id="directDimension"></select></label><label>希望怎么改<select id="directValue"></select></label><button id="applyDirect" type="button">只调整这一项</button></div></details>
               <div class="feedback-chips">
                 <button
                   data-feedback="工作汇报要利落无衬线，平时看书才喜欢衬线"
@@ -149,12 +159,13 @@
             <h3>偏爱推测 <span id="implicitCount">0</span></h3>
             <div id="implicitMemories"></div>
           </div>
-          <details class="trace" open>
+          <details class="trace">
             <summary>工具调用轨迹 <span id="logCount">0</span></summary>
             <div id="logs" aria-label="真实状态机操作记录"></div>
           </details>
+          <section class="takeaway"><h3>把偏爱带走，而不是锁在这里</h3><p>说明书分开列出线索、明确规则与场景；海报按当前参数导出矢量版，不是生图。</p><div class="takeaway-actions"><button id="exportBrief">导出偏好说明书</button><button id="exportPoster">导出风格海报 SVG</button><button id="undoMemory" disabled>撤回上次记忆操作</button></div></section>
           <p class="brain-foot">
-            置信度为启发式权重，不是准确率。选择不等于永久授权。
+            喜欢整张，不等于喜欢每个参数。先保留线索，再由你验证、决定记忆范围。
           </p>
         </aside>
       </div>

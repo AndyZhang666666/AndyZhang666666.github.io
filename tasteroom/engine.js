@@ -306,6 +306,8 @@ export class Room {
       this.context = ["global", "personal", "work"].includes(s.context)
         ? s.context
         : "personal";
+      this.content = Number.isInteger(s.content) && s.content >= 0 && s.content <= 100000 ? s.content : 0;
+      this.pending = null;
       this.reconcile();
       return true;
     } catch {
@@ -315,16 +317,21 @@ export class Room {
   save() {
     return JSON.stringify({
       version: 1,
-      memories: this.memories
-        .filter((m) => !m.id.startsWith("once_"))
-        .slice(-150),
+      memories: [
+        ...this.memories.filter(m=>m.status==='overridden'&&!m.id.startsWith('once_')).slice(-135),
+        ...this.memories.filter(m=>m.status==='active'&&!m.id.startsWith('once_')),
+      ],
       round: this.round,
       context: this.context,
+      content: this.content,
     });
   }
 }
 export function parseFeedback(text) {
   const t = text.trim();
+  // A negation is not permission to choose an arbitrary alternative.
+  if(/(?:不要|别|不喜欢|不想).{0,6}(?:居中|暖色|撞色|等宽|网格|几何)/.test(t))return null;
+  if(/紧凑.*留白|留白.*紧凑/.test(t) && !/不要.*留白/.test(t))return null;
   const specs = [
     ["typography", "rational_sans", /无衬线|利落|不要衬线|别.*衬线|sans/i],
     ["typography", "mono_tech", /等宽|mono/i],
@@ -341,7 +348,9 @@ export function parseFeedback(text) {
     ["decorElements", "minimal_lines", /细线/],
     ["decorElements", "bold_shapes", /几何/],
   ];
-  const hit = specs.find((x) => x[2].test(t));
+  const matched = specs.filter(x=>x[2].test(t));
+  if(new Set(matched.map(x=>x[0])).size>1)return null;
+  const hit = matched[0];
   return hit
     ? { dimension: hit[0], value: hit[1], reason: t.slice(0, 400) }
     : null;

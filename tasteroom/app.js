@@ -1,4 +1,5 @@
 import { Room, OPTIONS, parseFeedback, validChoice } from "./engine.js";
+import { createComparison, applyComparison, comparisonIsCurrent, briefMarkdown, posterSvg, DIMENSIONS } from './experiments.js';
 const $ = (s) => document.querySelector(s),
   $$ = (s) => [...document.querySelectorAll(s)];
 const room = new Room();
@@ -9,6 +10,7 @@ let timer,
   queue = [],
   storageOK = true;
 let mode = "mock";
+let comparison=null,comparisonSide=null,memoryUndo=null;
 fetch("./mode.json")
   .then((r) => r.json())
   .then((c) => {
@@ -101,7 +103,7 @@ function renderMemories() {
       ? list
           .map(
             (m) =>
-              `<article class="memory ${room.focus === m.id ? "focused" : ""}"><div class="memory-title"><b>${esc(OPTIONS[m.dimension][m.preference])}</b><span>${type === "explicit" ? "明确锁定" : Math.round(m.confidence * 100) + "% 推测"}</span></div><p>${esc(m.sourceReason)}</p><div class="memory-actions"><select aria-label="${esc(names[m.dimension])}记忆的场景" data-memory-context="${m.id}">${Object.entries(
+              `<article class="memory ${room.focus === m.id ? "focused" : ""}"><div class="memory-title"><b>${esc(OPTIONS[m.dimension][m.preference])}</b><span>${type === "explicit" ? "本人明确规则" : "待验证线索"}</span></div><p>${esc(m.sourceReason)}</p><div class="memory-actions"><select aria-label="${esc(names[m.dimension])}记忆的场景" data-memory-context="${m.id}">${Object.entries(
                 ctx,
               )
                 .map(
@@ -126,6 +128,8 @@ function renderLogs() {
     ask_conflict_resolution: "发现冲突，暂停并请求仲裁",
     resolve_conflict: "应用你的仲裁",
     manage_memory: "用户直接管理记忆",
+    confirm_comparison: "单变量对照后，由本人确认适用范围",
+    skip_comparison: "两张都不选，没有推断偏好",
   };
   $("#logCount").textContent = room.logs.length;
   $("#logs").innerHTML =
@@ -185,6 +189,10 @@ function render() {
   $("#redo").disabled = !room.history.some((s) => !s.active) || !!room.pending;
   $("#newContent").disabled = !!room.pending;
   $("#pause").disabled = !!room.pending;
+  $('#startComparison').disabled=!!room.pending;
+  $('#exportBrief').disabled=!ready||!!room.pending||running;
+  $('#exportPoster').disabled=!ready||!!room.pending||running;
+  $('#undoMemory').disabled=!memoryUndo||!!room.pending||running;
   $$(".phases li").forEach((el, i) =>
     el.classList.toggle(
       "current",
@@ -196,10 +204,31 @@ function render() {
           : 0),
     ),
   );
+  renderComparison();
   persist();
+}
+function renderComparison(){
+  if(comparison&&!comparisonIsCurrent(room,comparison)){comparison=null;comparisonSide=null;}
+  $('#comparisonPanel').hidden=!comparison;
+  if(!comparison)return;
+  $('#comparisonDimension').value=comparison.dimension;
+  const container=$('#comparisonVariants');container.replaceChildren();
+  comparison.variants.forEach((variant,i)=>{
+    const wrap=document.createElement('div');wrap.className='comparison-variant';
+    const poster=$('#poster').cloneNode(true);poster.removeAttribute('id');poster.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));
+    Object.entries({density:'layoutDensity',typography:'typography',alignment:'alignment',color:'colorMood',decor:'decorElements'}).forEach(([attribute,d])=>poster.dataset[attribute]=variant[d]);
+    poster.setAttribute('aria-label',`${i===0?'A':'B'} 方案：${OPTIONS[comparison.dimension][variant[comparison.dimension]]}`);
+    const button=document.createElement('button');button.type='button';button.dataset.comparisonSide=i===0?'a':'b';button.textContent=`选 ${i===0?'A':'B'} · ${OPTIONS[comparison.dimension][variant[comparison.dimension]]}`;
+    button.setAttribute('aria-pressed',String(comparisonSide===button.dataset.comparisonSide));wrap.append(poster,button);container.append(wrap);
+  });
+  $('#comparisonDecision').hidden=!comparisonSide;
+  $('[data-comparison-scope="current"]').disabled=room.context==='global';
+  $('[data-comparison-scope="current"] small').textContent=room.context==='global'?'请先切到日常或工作':'不改变其他场景';
+  if(comparisonSide){const v=comparison.variants[comparisonSide==='a'?0:1][comparison.dimension];$('#comparisonChoice').textContent=`你选择了「${OPTIONS[comparison.dimension][v]}」。这里只记录${DIMENSIONS[comparison.dimension]}，不推断其他偏好。应用前，请决定范围：`;}
 }
 function organize() {
   stop();
+  comparison=null;comparisonSide=null;memoryUndo=null;
   if (room.pending) return;
   room.base = { ...room.base };
   queue = room
@@ -233,6 +262,7 @@ function organize() {
 }
 async function submitFeedback(text) {
   stop();
+  comparison=null;comparisonSide=null;memoryUndo=null;
   const requestEpoch = epoch;
   let parsed;
   let parserLabel = mode === "model" ? "模型解析" : "本地规则";
@@ -257,7 +287,7 @@ async function submitFeedback(text) {
   if (requestEpoch !== epoch) return;
   if (!parsed || !validChoice(parsed.dimension, parsed.value)) {
     speak(
-      "本地规则暂时没理解这句话。试试“多留白”“用无衬线”“单色”“居中”或快捷反馈；不会写入猜测记忆。",
+      "本地规则暂时没理解这句话，或其中包含多项/否定要求。可展开“直接选参数”逐项调整；不会只取半句擅自写入记忆。",
     );
     render();
     return;
@@ -287,6 +317,7 @@ document.addEventListener("click", (e) => {
   if (b.dataset.feedback) submitFeedback(b.dataset.feedback);
   if (b.dataset.resolve) {
     stop();
+    comparison=null;memoryUndo=null;
     room.resolve(b.dataset.resolve);
     speak(
       b.dataset.resolve === "once"
@@ -299,6 +330,7 @@ document.addEventListener("click", (e) => {
   }
   if (b.dataset.context) {
     stop();
+    comparison=null;memoryUndo=null;
     room.switchContext(b.dataset.context);
     speak("已调用「" + ctx[room.context] + "」的有效记忆重新排版。");
     render();
@@ -316,6 +348,7 @@ document.addEventListener("click", (e) => {
   ])
     if (b.dataset[key]) {
       stop();
+      comparison=null;memoryUndo=room.save();
       room.manage(b.dataset[key], action);
       speak("记忆已更新，画布按剩余有效规则重新生成。");
       render();
@@ -331,6 +364,7 @@ document.addEventListener("change", (e) => {
   const id = e.target.dataset.memoryContext;
   if (id) {
     stop();
+    comparison=null;memoryUndo=room.save();
     room.manage(id, "context", e.target.value);
     speak("记忆已迁移，当前画布只使用此场景内有效规则。");
     render();
@@ -365,6 +399,7 @@ $("#redo").onclick = () => {
 };
 $("#newContent").onclick = () => {
   stop();
+  comparison=null;memoryUndo=null;
   room.content++;
   room.reconcile();
   speak("换了新内容；所有排版工具已重新读取当前场景的记忆。本次例外已结束。");
@@ -377,6 +412,7 @@ $("#cancelConflict").onclick = () => {
 };
 $("#reset").onclick = () => {
   stop();
+  comparison=null;comparisonSide=null;memoryUndo=null;
   room.reset();
   try {
     localStorage.removeItem(STORE);
@@ -391,4 +427,23 @@ function showBrain(on) {
 }
 $("#showCanvas").onclick = () => showBrain(false);
 $("#showBrain").onclick = () => showBrain(true);
+$('#startComparison').onclick=()=>{
+  stop();comparison=createComparison(room,$('#comparisonDimension').value);comparisonSide=null;render();
+  $('#comparisonPanel').scrollIntoView({block:'nearest'});speak('现在只比较一项；选择不会立即写入记忆。');
+};
+$('#comparisonDimension').onchange=()=>{comparison=createComparison(room,$('#comparisonDimension').value);comparisonSide=null;render();};
+$('#closeComparison').onclick=()=>{comparison=null;comparisonSide=null;render();speak('已关闭对照；尚未确认的选择不会被记住。');};
+$('#skipComparison').onclick=()=>{try{applyComparison(room,comparison,'skip');comparison=null;comparisonSide=null;render();speak('两张都不选，没有新增或修改任何偏好。');}catch(e){speak(e.message);}};
+document.addEventListener('click',e=>{
+  const side=e.target.closest('[data-comparison-side]');if(side){comparisonSide=side.dataset.comparisonSide;render();return;}
+  const scope=e.target.closest('[data-comparison-scope]');if(scope){try{stop();memoryUndo=null;applyComparison(room,comparison,comparisonSide,scope.dataset.comparisonScope);comparison=null;comparisonSide=null;render();speak('只更新了本次对照的维度和你授权的范围。换内容或场景，继续验证是否适用。');}catch(err){speak(err.message);}}
+});
+$('#directDimension').innerHTML=Object.entries(DIMENSIONS).map(([d,label])=>`<option value="${d}">${label}</option>`).join('');
+function directValues(){const d=$('#directDimension').value;$('#directValue').innerHTML=Object.entries(OPTIONS[d]).map(([v,label])=>`<option value="${v}">${label}</option>`).join('');$('#directValue').value=room.canvas[d];}
+$('#directDimension').onchange=directValues;directValues();
+$('#applyDirect').onclick=()=>{stop();comparison=null;memoryUndo=null;const d=$('#directDimension').value,v=$('#directValue').value;const status=room.feedback(d,v,`本人通过参数控件明确选择${OPTIONS[d][v]}`);render();speak(status==='conflict'?'先选择记忆范围，不会直接覆盖旧规则。':'已只调整这一项，并记在当前场景。');};
+$('#undoMemory').onclick=()=>{if(!memoryUndo)return;stop();const snapshot=memoryUndo;memoryUndo=null;room.restore(snapshot);comparison=null;render();speak('上次删除、锁定或迁移已撤回；画布按恢复后的记忆重新生成。');};
+function download(name,type,text){const url=URL.createObjectURL(new Blob([text],{type})),link=document.createElement('a');link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('#exportBrief').onclick=()=>{if(room.pending||running)return;download('偏爱实验室-偏好说明书.md','text/markdown;charset=utf-8',briefMarkdown(room));speak('说明书已导出，线索和明确规则分开列出；其中可能包含你输入的反馈，请自行保管。');};
+$('#exportPoster').onclick=()=>{if(room.pending||running)return;download('偏爱实验室-风格海报.svg','image/svg+xml;charset=utf-8',posterSvg(room,content[room.content%content.length]));speak('已导出按当前风格重排的矢量海报；没有调用生图服务。');};
 render();

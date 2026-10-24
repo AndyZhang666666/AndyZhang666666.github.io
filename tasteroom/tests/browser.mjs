@@ -1,4 +1,4 @@
-import { chromium } from "playwright";
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
 import { mkdirSync, writeFileSync } from "node:fs";
 const browser = await chromium.launch({
   headless: true,
