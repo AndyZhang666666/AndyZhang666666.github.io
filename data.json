@@ -332,100 +332,62 @@
       "featured": true
     },
     {
-      "name": "LLM 效果评估体系（creative-eval）",
-      "nameEn": "LLM Evaluation Framework (creative-eval)",
-      "description": "用评分锚点评估剧本质量，再以人工金标与重复评分检查裁判的一致性和稳定性。",
-      "descriptionEn": "Score scripts against anchored criteria, then check judge agreement and stability using human-labeled references and repeated runs.",
-      "url": "https://andyzhang666666.github.io/llm-output-eval/",
-      "github": "https://github.com/AndyZhang666666/creative-eval",
-      "metrics": [
-        "93.1% 一致率",
-        "0.074 标准差",
-        "40 条金标集"
-      ],
-      "metricsEn": [
-        "93.1% agreement",
-        "0.074 std dev",
-        "40 golden samples"
-      ],
-      "tags": [
-        "AI",
-        "Eval",
-        "产品"
-      ],
-      "featured": true,
-      "subtitle": "短剧剧本的五维评分与裁判校验",
-      "subtitleEn": "Five-dimension script scoring and judge validation",
-      "context": "主观评审难以复现，也难以比较不同版本。",
-      "contextEn": "Subjective reviews are hard to reproduce or use for version comparison.",
-      "approach": [
-        "为钩子、人物动机、冲突、节奏与爽点设置评分锚点",
-        "用人工金标和三次重复评分，分别检查一致性与稳定性"
-      ],
-      "approachEn": [
-        "Anchor scores for hook, motivation, conflict, pacing and payoff.",
-        "Check agreement against human labels and stability across three repeated runs."
-      ],
-      "result": "第一版评测体系；用于辅助筛选与版本比较，不替代人工终审。Demo 展示第二版 llm-output-eval。",
-      "resultEn": "The first evaluation framework supports screening and version comparison, not final human review. The demo presents its successor, llm-output-eval.",
-      "demoNote": "Demo 以第二版 llm-output-eval 呈现",
-      "demoNoteEn": "Demo served by v2 (llm-output-eval)"
-    },
-    {
-      "name": "llm-output-eval",
-      "nameEn": "llm-output-eval",
-      "subtitle": "有原文证据的长文本评测与版本对比",
-      "subtitleEn": "Evidence-backed text evaluation and version comparison",
-      "description": "无需 Key 浏览历史评测：逐句证据、截断稿与完整稿对照、低分案例导出及裁判校验。保留自行配置接口的真实评测能力。",
-      "descriptionEn": "Explore recorded evaluations without a key: source evidence, truncated/full-text comparison, bad-case export and judge validation. Optional BYO-key live evaluation remains available.",
+      "name": "文本评测工作台 · Eval Lab",
+      "nameEn": "Text Evaluation Workbench · Eval Lab",
+      "subtitle": "从评分锚点，到有证据的版本评审",
+      "subtitleEn": "From scoring anchors to evidence-backed version review",
+      "description": "一个项目的两轮迭代：先校准评分规则，再做原文证据、版本对照和低分复查。无需 Key 浏览历史回放。",
+      "descriptionEn": "One project across two iterations: calibrate scoring rules, then inspect evidence, compare versions and review weak outputs. Explore historical runs without a key.",
       "url": "https://andyzhang666666.github.io/llm-output-eval/",
       "github": "https://github.com/AndyZhang666666/llm-output-eval",
       "metrics": [
-        "Spearman ρ 0.93",
-        "±1 分一致率 90–100%",
-        "30 条金标集"
+        "原文证据回溯",
+        "历史版本对照",
+        "裁判一致性检查"
       ],
       "metricsEn": [
-        "Spearman ρ 0.93",
-        "±1 agreement 90–100%",
-        "30 gold samples"
+        "Traceable text evidence",
+        "Recorded version comparison",
+        "Judge validation"
       ],
       "tags": [
         "AI",
         "Eval",
         "工具"
       ],
-      "context": "需要比较生成版本的质量，同时确认打分器本身可靠。",
-      "contextEn": "Version comparison requires both useful quality scores and a calibrated judge.",
+      "context": "生成内容难以稳定比较；裁判自己的偏差和波动也需要检查。",
+      "contextEn": "Generated text is hard to compare consistently, and the judge itself needs checks for bias and variation.",
       "approach": [
-        "每个分数附原文证据，并用人工金标校验裁判",
-        "重复运行两版 Prompt，比较均值与波动，汇总低分案例"
+        "V1 creative-eval 建立五维评分锚点与校准流程；V2 将其发展为评审工作台",
+        "单篇证据、重复版本对照、低分导出与裁判校验形成闭环；两版样本和统计口径分开保留"
       ],
       "approachEn": [
-        "Attach source-text evidence and calibrate the judge against human labels.",
-        "Run both prompt versions repeatedly, compare averages and variation, and collect low-scoring cases."
+        "V1 creative-eval established anchored scoring and calibration; V2 developed the review workbench.",
+        "Inspect evidence, compare repeated runs, export weak cases and check the judge; retain each version’s separate dataset and metrics."
       ],
-      "result": "免 Key 回放 6 个样本的 18 次历史评分，不调用模型；校验指标仍对应原有 30 条作者标注集，并非本轮新评测。",
-      "resultEn": "Replay 18 recorded runs across 6 samples without model calls. Validation metrics refer to the original 30 author-labeled samples, not a new evaluation.",
+      "result": "V1 为 40 条构造样本（32 条带作者标注）；V2 校验为另一套 30 条作者标注样本，免 Key 回放其中 6 条的 18 次历史输出。不同口径不混算，不宣称已证明代际提升。",
+      "resultEn": "V1 used 40 constructed cases (32 author-labeled); V2 validation used a separate 30 author-labeled cases. Replay 18 stored runs for 6 V2 examples. Different datasets are not pooled or treated as proof of improvement.",
       "demoNote": "直接打开即可体验；版本对照与低分案例均可浏览，无需中转站。历史回放与真实运行记录隔离。",
-      "demoNoteEn": "Open directly, no proxy or key required. Recorded examples and live-run records are kept separate."
+      "demoNoteEn": "Open directly, no proxy or key required. Recorded examples and live-run records are kept separate.",
+      "featured": true,
+      "iterationUrl": "https://andyzhang666666.github.io/llm-output-eval/iteration/"
     },
     {
-      "name": "LLM 效果评估体系（filing-eval）",
-      "nameEn": "LLM Evaluation Framework (filing-eval)",
-      "description": "将摘要拆成原子断言，回原文核查支持、矛盾或无依据，并测试误报与提示注入。",
-      "descriptionEn": "Split summaries into atomic claims, check whether the source supports, contradicts or leaves them ungrounded, and test false positives and prompt injection.",
-      "url": "",
+      "name": "公告摘要核验台 · Filing Eval",
+      "nameEn": "Filing Summary Evidence Desk",
+      "description": "从摘要断言回到原文，检查写错、无据、遗漏与主体争议；留下可导出的本地复核记录。",
+      "descriptionEn": "Trace summary claims to source text, inspect contradictions, unsupported claims, omissions and scope disputes, then export local review notes.",
+      "url": "https://andyzhang666666.github.io/demos/filing-eval/",
       "github": "https://github.com/AndyZhang666666/filing-eval",
       "metrics": [
-        "11/11 检出",
-        "0/4 误报",
-        "5/5 防注入"
+        "原文与断言联动",
+        "遗漏 / 争议分开核验",
+        "无需 Key 的历史回放"
       ],
       "metricsEn": [
-        "11/11 recall",
-        "0/4 FP",
-        "5/5 injection blocked"
+        "Claim-to-source inspection",
+        "Separate omissions and disputes",
+        "No-key historical replay"
       ],
       "tags": [
         "AI",
@@ -437,92 +399,17 @@
       "context": "公告摘要可能添加原文没有的数字或因果关系。",
       "contextEn": "Filing summaries can add numbers or causal claims absent from the source.",
       "approach": [
-        "逐条断言回溯原文证据",
-        "用错误、正确与注入样本检查检出能力和误报"
+        "按样本 ID 对齐 28 条模拟公告及历史输出，断言可定位原文引句，无法定位时明确提示",
+        "支持同意、修正与保留争议的本地复核；导出保留原判和复核依据，不修改金标"
       ],
       "approachEn": [
-        "Trace each claim to source evidence.",
-        "Test detection and false positives using erroneous, correct and injected samples."
+        "Join 28 synthetic cases with recorded outputs by ID; locate quoted evidence and flag missing matches.",
+        "Record agreement, corrections or disputes locally; export original judgments and review notes without changing gold labels."
       ],
-      "result": "样本集检出 11/11，误报 0/4，注入防护 5/5；结果仅对应当前测试样本。",
-      "resultEn": "On the test set: 11/11 errors detected, 0/4 false positives and 5/5 injection defenses passed. Results apply to these samples only."
-    },
-    {
-      "name": "百度文库命理馆",
-      "nameEn": "Baidu Library AI Fortune Hall",
-      "description": "定义 AI 命理与分享玩法，用埋点和 SQL 改善发现路径，将验证后的产品模式复制到人格测试。",
-      "descriptionEn": "Designed AI fortune and sharing experiences, improved discovery with event data and SQL, and reused the validated approach in personality tests.",
-      "period": "2026.01 – 2026.06",
-      "company": "百度",
-      "companyEn": "Baidu",
-      "metrics": [
-        "上线两周 DAU 破万",
-        "周回访率 35%",
-        "分享率 26%"
-      ],
-      "metricsEn": [
-        "10k+ DAU within 2 weeks",
-        "35% weekly return rate",
-        "26% sharing"
-      ],
-      "tags": [
-        "0→1",
-        "AI",
-        "数据驱动"
-      ],
-      "featured": true,
-      "subtitle": "高频互动与结果分享的 AI 产品",
-      "subtitleEn": "An AI product for recurring interaction and sharing",
-      "context": "为文库提供兼顾深度体验与日常回访的轻互动场景。",
-      "contextEn": "Provide lightweight interaction that supports both deeper sessions and recurring visits.",
-      "approach": [
-        "通过 GenFlow 个性化生成报告，并将结果转化为可传播的 AI 壁纸",
-        "定位深层 Tab 导致曝光折损超 70%，通过主动触达优化访问路径"
-      ],
-      "approachEn": [
-        "Generated personalised GenFlow reports and shareable AI wallpapers.",
-        "Identified over 70% exposure loss through deep tabs and improved discovery with proactive entry points."
-      ],
-      "result": "上线两周日活破万，周回访率 35%，文库会员转化提升约 8%；主动触达迭代后留存 UV 提升约 60%，分享率 26%。",
-      "resultEn": "DAU exceeded 10,000 within two weeks, weekly return rate reached 35%, and membership conversion rose about 8%. After discovery iteration, retained UV rose about 60%, with 26% sharing."
-    },
-    {
-      "name": "AI 定制壁纸玩法",
-      "nameEn": "AI Personalized Wallpaper",
-      "description": "结合 GenFlow AIGC 图像能力，把抽象运势转化为个性化、可保存和可传播的视觉内容。",
-      "descriptionEn": "Used GenFlow AIGC image capabilities to turn fortune outputs into personalised, saveable and shareable visual content.",
-      "period": "2026.01 – 2026.06",
-      "company": "百度",
-      "companyEn": "Baidu",
-      "metrics": [
-        "个性化视觉内容",
-        "可保存与分享",
-        "命理体验延伸"
-      ],
-      "metricsEn": [
-        "Personalised visuals",
-        "Save and share",
-        "Extended fortune experience"
-      ],
-      "tags": [
-        "AI",
-        "用户增长",
-        "产品"
-      ],
-      "subtitle": "把运势结果转化为个性化壁纸",
-      "subtitleEn": "Turn fortune results into personalized wallpapers",
-      "context": "结果页缺少可保存、持续使用的内容载体。",
-      "contextEn": "Result pages lack a format users can save and keep using.",
-      "approach": [
-        "把生成结果转为用户可以带走的壁纸，衔接命理报告与视觉表达",
-        "结合用户反馈迭代内容呈现，与命理馆主流程一起验证"
-      ],
-      "approachEn": [
-        "Turned generated results into wallpapers users can keep, connecting reports with visual expression.",
-        "Iterated presentation from feedback and evaluated it within the broader fortune experience."
-      ],
-      "result": "壁纸为命理馆整体玩法的一部分；简历中的回访与会员转化结果属于整体产品，不单独归因为壁纸。",
-      "resultEn": "Wallpapers formed part of the overall fortune experience. Return-visit and membership results describe the combined product, not an isolated wallpaper effect."
+      "result": "历史构造主集检出 11/11、误报 0/4，困难集另报并排除争议 h05；原标签未完成独立人工复核。新增 6 条候选留出样本未运行模型，不计入成绩。",
+      "resultEn": "Historical constructed main set: 11/11 errors detected, 0/4 false positives. Hard cases are separate, excluding disputed h05. Labels lack independent human review; 6 new holdout candidates remain unrun and uncounted.",
+      "demoNote": "默认历史回放，不评估任意新文本；访客复核只存本机、不上传。",
+      "demoNoteEn": "Recorded replay, not live evaluation of new text. Visitor review notes stay in the browser."
     },
     {
       "name": "企业 AI 应用与轻量业务工具（FDE）",
@@ -609,19 +496,19 @@
       "nameEn": "Commute Compare",
       "subtitle": "比较通勤成本、耗时与迟到风险",
       "subtitleEn": "Compare commute cost, duration and lateness risk",
-      "description": "输入各方案的最快、常见、最慢耗时及费用，用模拟比较月度成本与迟到概率，计算满足风险偏好的出门时间。",
-      "descriptionEn": "Enter best, typical and worst travel times plus cost; simulations compare monthly cost and lateness risk and calculate a departure time for your risk tolerance.",
+      "description": "先填常见耗时与费用快速比较，再用自己的门到门记录校准。比较出门时间、月度成本，并看清样本不足。",
+      "descriptionEn": "Start with typical time and cost, then calibrate with your own door-to-door records. Compare departure times and monthly trade-offs with visible evidence limits.",
       "url": "https://andyzhang666666.github.io/commute-compare/",
       "github": "https://github.com/AndyZhang666666/commute-compare",
       "metrics": [
-        "杭州地铁：08:32 出门，迟到 3.53%",
-        "打车月省 7.5 小时，却要更早出门",
-        "稳定性 10.89 vs 18.56 分钟"
+        "快速估算 → 实际记录",
+        "按方案显示数据来源",
+        "决策与依据可导出"
       ],
       "metricsEn": [
-        "Hangzhou metro: leave 08:32, 3.53% late",
-        "Taxi saves 7.5h/month but needs an earlier start",
-        "Stability 10.89 vs 18.56 min"
+        "Quick estimates → personal records",
+        "Per-route data provenance",
+        "Export decision and evidence"
       ],
       "tags": [
         "决策分析",
@@ -632,7 +519,19 @@
         "Decision Analysis",
         "Monte Carlo",
         "Product"
-      ]
+      ],
+      "context": "通勤者想知道多花多少钱换多少时间，但通常无法准确估计最慢情况。",
+      "contextEn": "Commuters need time/cost trade-offs but rarely know the tail of their journey time distribution.",
+      "approach": [
+        "默认两个方案，常见耗时与费用即可开始；高级三点参数与城市预设继续保留",
+        "实际耗时直接经验重采样；展示样本量、观测迟到区间和尾部不足提示，不把模拟次数当可靠性"
+      ],
+      "approachEn": [
+        "Start with two routes and typical time/cost; retain advanced three-point inputs and city presets.",
+        "Resample observed durations directly; show sample size, observed-rate intervals and tail limitations, not simulation volume as reliability."
+      ],
+      "result": "无需地图或模型接口；记录与草稿只存本机。月度比较假设往返同分布；建议时间及尾部比例受输入限制，不保证未来准点率。",
+      "resultEn": "No map or model API. Records and drafts remain local. Monthly comparisons assume matching outbound/return distributions; departure suggestions do not guarantee future punctuality."
     },
     {
       "name": "德州扑克玩家类型测试",
@@ -758,11 +657,11 @@
       "contextEn": "Determine sample size before a test, control errors during it, and interpret business value afterward.",
       "approach": [
         "计算样本量与实验时长，模拟不同检查策略的假阳性风险",
-      "输出置信区间与条件化收入情景，明确护栏、成本和实验有效性仍需核对"
+        "输出置信区间与条件化收入情景，明确护栏、成本和实验有效性仍需核对"
       ],
       "approachEn": [
         "Calculate sample size and duration; simulate false-positive risk under different checking strategies.",
-      "Report effect intervals and conditional revenue scenarios, with guardrails, costs and experiment validity checked separately."
+        "Report effect intervals and conditional revenue scenarios, with guardrails, costs and experiment validity checked separately."
       ],
       "result": "本地运行的实验决策 Demo，不上传数据；模拟结果用于说明统计风险，不代表业务实验收益。",
       "resultEn": "A local experiment-decision demo that uploads no data. Simulation results illustrate statistical risk, not business experiment returns."
