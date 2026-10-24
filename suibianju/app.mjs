@@ -1,5 +1,5 @@
-import {createSession,blank,simulateUnderstanding,submit,recommend,vote,decision,toggleMember,updateCandidate,addCandidate,addMember,restore} from './engine.mjs';
-import {voluntaryPlans,prepareVoluntaryDraft,previewConditions,informationGaps,buildDecision,decisionText} from './product.mjs';
+import {createSession,blank,simulateUnderstanding,submit,recommend,vote,decision,toggleMember,updateCandidate,addCandidate,addMember,restore} from './engine.mjs?v=20261024-v2';
+import {voluntaryPlans,prepareVoluntaryDraft,previewConditions,informationGaps,buildDecision,decisionText} from './product.mjs?v=20261024-v2';
 const KEY='suibianju-demo-v1';
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

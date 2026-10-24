@@ -1,4 +1,4 @@
-import { OPTIONS, validChoice } from './engine.js';
+import { OPTIONS, validChoice } from './engine.js?v=20261024-v2';
 export const DIMENSIONS = { layoutDensity:'留白',typography:'字体',alignment:'对齐',colorMood:'色彩',decorElements:'装饰' };
 const copy=x=>JSON.parse(JSON.stringify(x));
 const fingerprint=room=>JSON.stringify({context:room.context,content:room.content,canvas:room.canvas,memories:room.memories});

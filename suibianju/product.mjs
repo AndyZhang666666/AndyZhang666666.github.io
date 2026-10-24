@@ -1,4 +1,4 @@
-import { recommend, submit, decision, normalize } from './engine.mjs';
+import { recommend, submit, decision, normalize } from './engine.mjs?v=20261024-v2';
 
 // A proposal is not an action: only known budget-only blockers are negotiable here.
 // Dietary restrictions, excluded cuisines and location are never silently relaxed.

@@ -294,10 +294,10 @@
     {
       "name": "TasteRoom · 偏爱实验室",
       "nameEn": "TasteRoom · A preference experiment",
-      "subtitle": "生活审美里的可解释记忆 Agent",
-      "subtitleEn": "Inspectable memory for everyday aesthetic preferences",
-      "description": "选两张喜欢的海报，看 Agent 整理画布；随时打断，决定这次例外、全局纠偏，还是区分工作与日常。",
-      "descriptionEn": "Pick two posters, watch the canvas adapt, then interrupt to choose a one-time exception, a global correction or a separate work context.",
+      "subtitle": "喜欢整张，不代表喜欢每个参数",
+      "subtitleEn": "Liking a poster is not a preference for every parameter",
+      "description": "先用海报表达直觉，再只改变一个变量验证偏爱。由你决定记在哪个场景，换内容验证，导出自己的偏好说明书与海报。",
+      "descriptionEn": "Start with intuition, compare one variable at a time, choose what may be remembered, test it on new content and export a style brief and poster.",
       "url": "https://andyzhang666666.github.io/tasteroom/",
       "github": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/tasteroom",
       "tags": [
@@ -306,24 +306,24 @@
         "生活审美"
       ],
       "metrics": [
-        "可解释记忆",
-        "实时工具调用",
+        "单变量对照与范围授权",
+        "偏好说明书 / SVG 导出",
         "本地规则模拟"
       ],
       "metricsEn": [
-        "Inspectable memory",
-        "Live tool execution",
+        "Controlled comparisons & consent",
+        "Style brief / SVG export",
         "Local rule simulation"
       ],
-      "context": "喜欢一种海报风格，不代表每个场景都适用；系统不应把几次选择当成永久指令。",
-      "contextEn": "Liking a poster does not make its style appropriate for every context.",
+      "context": "整张海报含混合特征，无法直接归因；同一种偏爱也不一定适合日常和工作。",
+      "contextEn": "A whole-poster choice mixes several signals, and a preference may not transfer between personal and work contexts.",
       "approach": [
-        "两轮直觉探测，分开保存推测和明确指令，为每步画布修改绑定记忆依据",
-        "支持暂停、撤回、记忆管理与三种冲突仲裁，切换场景或新内容验证记忆"
+        "同内容、同其余参数的五维单变量对照；都不选不写偏好，确认适用范围后只记这一维",
+        "区分线索与明确规则，保留冲突仲裁与记忆撤回；换内容验证，导出说明书和自包含 SVG"
       ],
       "approachEn": [
-        "Separate inferred preferences from explicit instructions and trace canvas changes to memory.",
-        "Pause, undo, manage memories and resolve conflicts, then validate on another context or content."
+        "Hold content and four parameters constant; compare the fifth, allow neither, and require scope consent before writing one preference.",
+        "Separate clues from explicit rules, resolve conflicts, undo memory edits and export a brief and self-contained SVG after cross-content validation."
       ],
       "result": "已实现纯前端交互 Demo，公开版使用明确标注的本地规则模拟；提供可选服务端模型适配器，未启用真实模型。",
       "resultEn": "A working frontend demo with labelled local rules. Optional server model adapter included; live model service is not enabled.",
@@ -339,8 +339,8 @@
       "nameEn": "Suibianju · Dinner Together",
       "subtitle": "把「随便」说清楚",
       "subtitleEn": "Make “anything is fine” actionable",
-      "description": "从日常约饭难题出发，让朋友表达条件、发现冲突并共同确认方案。可直接体验完整的单人模拟流程。",
-      "descriptionEn": "Express dinner constraints, surface conflicts and reach a shared decision. Try the complete single-person simulation.",
+      "description": "让「随便」变成可确认的条件：无交集时预演自愿调整，全员同版接受后带走决定。不用多数票替少数人拍板。",
+      "descriptionEn": "Make constraints explicit, preview voluntary changes when nothing fits, and export a decision only after unanimous agreement—not a majority override.",
       "url": "https://andyzhang666666.github.io/suibianju/",
       "github": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/suibianju",
       "demoLabel": "立即体验",
@@ -353,27 +353,27 @@
         "独立项目"
       ],
       "metrics": [
-        "条件确认 → 冲突调整 → 共同确认",
-        "单人模拟 · 无需 Key"
+        "自愿建议 → 预演 → 共同决定",
+        "3–5 位虚构角色 · 无需 Key"
       ],
       "metricsEn": [
-        "Constraints → negotiation → agreement",
-        "Single-person simulation · No key"
+        "Opt-in proposal → preview → agreement",
+        "3–5 simulated roles · No key"
       ],
       "context": "大家说随便却不断否决：待验证假设是限制没有被充分表达，而不只是缺少推荐。",
       "contextEn": "Repeated vetoes may come from unspoken constraints rather than missing recommendations. This is a product hypothesis.",
       "approach": [
-        "模糊表达先形成可编辑草稿，由本人确认；程序严格过滤硬条件",
-        "条件、候选或成员变化后旧表态失效，全员接受同一方案才显示已确定"
+        "仅本人预算变化能解锁候选时给出自愿建议；先填草稿和预演，不降低忌口、位置与排除条件",
+        "条件、候选或成员变化使旧表态失效；3–5 位有效模拟成员共同接受才可导出公共决定单"
       ],
       "approachEn": [
-        "Review editable drafts before confirmation; deterministic rules enforce hard constraints.",
-        "Changes invalidate prior responses; agreement requires every active member to accept the same option."
+        "Offer budget-only, opt-in changes only when they unlock a candidate; preview drafts without weakening dietary, location or exclusion constraints.",
+        "Invalidate old responses after changes; export a public receipt only when all 3–5 active simulated members accept the same option."
       ],
       "result": "已实现静态快速体验和功能测试。人物与餐厅均为虚构，整理由本地规则模拟；真实多人、权限接口与真实模型调用未开放，没有真实用户效果数据。",
       "resultEn": "Static quick demo with functional tests. Fictional people and restaurants; local rules simulate interpretation. Live rooms, authorization APIs and model calls are not implemented. No real user impact claims.",
-      "demoNote": "这是单人模拟。先确认小林的条件，再切换虚构角色逐人表态；可体验无交集并自愿调整。",
-      "demoNoteEn": "Single-person simulation: confirm constraints, switch fictional roles and respond. Try the conflict scenario and adjust voluntarily.",
+      "demoNote": "单人模拟。确认小林条件后，可体验无交集 → 建议填入草稿 → 预演 → 本人确认 → 逐人接受 → 下载决定单。",
+      "demoNoteEn": "Single-person simulation: confirm constraints, try no-overlap, preview a voluntary draft, confirm, switch roles for unanimous acceptance and download a receipt.",
       "featured": true
     },
     {

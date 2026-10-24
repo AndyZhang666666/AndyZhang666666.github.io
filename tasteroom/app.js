@@ -1,5 +1,5 @@
-import { Room, OPTIONS, parseFeedback, validChoice } from "./engine.js";
-import { createComparison, applyComparison, comparisonIsCurrent, briefMarkdown, posterSvg, DIMENSIONS } from './experiments.js';
+import { Room, OPTIONS, parseFeedback, validChoice } from "./engine.js?v=20261024-v2";
+import { createComparison, applyComparison, comparisonIsCurrent, briefMarkdown, posterSvg, DIMENSIONS } from './experiments.js?v=20261024-v2';
 const $ = (s) => document.querySelector(s),
   $$ = (s) => [...document.querySelectorAll(s)];
 const room = new Room();
