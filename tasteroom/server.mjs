@@ -8,7 +8,7 @@ const root=fileURLToPath(new URL('.',import.meta.url));const port=Number(process
 const json=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
 export const server=http.createServer(async(req,res)=>{try{
  const url=new URL(req.url,'http://localhost');const path=url.pathname.replace(/^\/tasteroom/,'');
- if(path==='/api/config')return json(res,200,{mode:key?'model':'mock'});
+ if((path==='/api/config'||path==='/mode.json'))return json(res,200,{mode:key?'model':'mock'});
  if(path==='/api/feedback'){
   if(req.method!=='POST')return json(res,405,{error:'POST required'});
   if(!key)return json(res,503,{error:'Model not configured'});
@@ -20,6 +20,6 @@ export const server=http.createServer(async(req,res)=>{try{
   if(!upstream.ok)return json(res,502,{error:'Model unavailable'});const result=await upstream.json();let parsed;try{parsed=JSON.parse(result.choices?.[0]?.message?.content);}catch{return json(res,502,{error:'Invalid model response'});}if(!OPTIONS[parsed.dimension]?.[parsed.value])return json(res,422,{error:'Unsupported model result'});return json(res,200,{dimension:parsed.dimension,value:parsed.value});
  }
  if(req.method!=='GET'&&req.method!=='HEAD'){res.writeHead(405);return res.end();}
- const relative=decodeURIComponent(path==='/'?'/index.html':path);const file=resolve(root,'.'+relative);const allowed=new Set(['.html','.css','.js','.png']);if(!file.startsWith(root))throw Error('path');if(!allowed.has(extname(file))||relative.split('/').some(x=>x.startsWith('.'))||relative.includes('/tests/')||relative.includes('/docs/')){res.writeHead(404);return res.end();}const data=await readFile(file);res.writeHead(200,{'Content-Type':({'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.json':'application/json','.png':'image/png','.md':'text/plain; charset=utf-8'})[extname(file)],'X-Content-Type-Options':'nosniff','Cache-Control':'no-store'});res.end(req.method==='HEAD'?undefined:data);
+ const relative=decodeURIComponent(path==='/'?'/index.html':path);const file=resolve(root,'.'+relative);const allowed=new Set(['.html','.css','.js','.png','.ttf']);if(!file.startsWith(root))throw Error('path');if(!allowed.has(extname(file))||relative.split('/').some(x=>x.startsWith('.'))||relative.includes('/tests/')||relative.includes('/docs/')){res.writeHead(404);return res.end();}const data=await readFile(file);res.writeHead(200,{'Content-Type':({'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.json':'application/json','.ttf':'font/ttf','.png':'image/png','.md':'text/plain; charset=utf-8'})[extname(file)],'X-Content-Type-Options':'nosniff','Cache-Control':'no-store'});res.end(req.method==='HEAD'?undefined:data);
  }catch{json(res,502,{error:'Resource or model unavailable'});}});
 if(process.env.NODE_ENV!=='test')server.listen(port,'127.0.0.1',()=>console.log(`TasteRoom http://127.0.0.1:${port}/ · ${key?'server model':'local mock'} mode`));
