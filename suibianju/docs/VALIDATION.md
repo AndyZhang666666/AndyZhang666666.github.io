@@ -21,4 +21,9 @@
 - 未进行完整 WCAG、屏幕阅读器、Lighthouse 或性能审计。
 
 ## 发布检查
-发布前本地验证已完成。远端推送、Pages 部署状态和线上实测记录将在发布后追加；本段不代表已上线。
+- 远端 `main` 和 `feat/suibianju-demo` 均已核实收到功能发布提交 `2b8a5858d62df465604e4c94e1adaa8a53a8faa9`；普通推送，无强推，保留并行官网提交 c2f783d。
+- [Pages 工作流 40066143916](https://github.com/AndyZhang666666/AndyZhang666666.github.io/actions/runs/40066143916)：completed / success，head SHA 与上述发布提交一致；公开 deployment 7294512610 状态为 success。
+- [线上体验](https://andyzhang666666.github.io/suibianju/) HTTP 200；返回 HTML 与本地发布文件逐字节一致；[源码目录](https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/suibianju) HTTP 200。
+- 将 `BASE_URL` 改为真实官网后，`tests/browser.cjs` **全流程再次通过**：在线完成条件确认→共同接受→修改失效→冲突→调整恢复，并覆盖刷新、模型整理模拟失败后的手动恢复、成员变化、候选编辑、删除/过期、手机布局。体验页无页面脚本错误、无外部请求。
+- 同样以真实官网运行 `tests/homepage.cjs` **通过**：14 张卡片（最新 main 的 13 张 + 本项目），体验/源码入口、站内试用、中英文、四主题、桌面/平板/手机无横向溢出；无页面脚本错误。
+- 本次记录作为随后独立的文档提交保存；仅更新验证记录与 CHANGELOG，不改已测功能。
