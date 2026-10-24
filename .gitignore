@@ -18,3 +18,5 @@ assets/gen/*
 *.bak-*
 *.v[0-9]
 *.backup
+**/.taste-skill/
+**/node_modules/

@@ -60,6 +60,7 @@ export function recommend(s) {
 function invalidate(s,now) {
   const hadVotes=Object.keys(s.votes).length>0;
   s.version++;s.votes={};s.invalidated=hadVotes;
+  s.completedAt=null;
   s.startedAt=s.members.filter(m=>m.active).every(m=>m.confirmed)?now:null;
 }
 export function submit(s,id,input,now=Date.now()) {
@@ -72,6 +73,14 @@ export function submit(s,id,input,now=Date.now()) {
 export function toggleMember(s,id,now=Date.now()) {
   const m=s.members.find(m=>m.id===id);if(!m)throw Error('成员不存在');
   m.active=!m.active;if(m.active)m.confirmed=false;invalidate(s,now);
+}
+export function addMember(s,name,now=Date.now()) {
+  if(s.members.length>=5)throw Error('本地演示最多 5 位成员；退出的角色可重新加入。');
+  const clean=String(name||'').trim().slice(0,20);
+  if(!clean)throw Error('请给模拟朋友起一个名字。');
+  const id=`p${s.members.length+1}`;
+  s.members.push({id,name:clean,active:true,confirmed:false,raw:'',draft:blank(),conditions:blank()});
+  invalidate(s,now);return id;
 }
 export function editCandidate(s,id,max,now=Date.now()) {
   const r=s.candidates.find(r=>r.id===id);if(!r)throw Error('候选不存在');
