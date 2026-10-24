@@ -656,21 +656,21 @@
     {
       "name": "扑克筹码管理模拟器（poker-bankroll-sim）",
       "nameEn": "Poker Bankroll Simulator",
-      "subtitle": "模拟资金路径，评估破产与回撤风险",
-      "subtitleEn": "Simulate bankroll paths and assess downside risk",
-      "description": "输入资金、买入、胜率与方差，模拟资金路径、破产概率和最大回撤；用解析解交叉检查模拟结果。",
-      "descriptionEn": "Enter bankroll, buy-in, win rate and variance to simulate bankroll paths, bust probability and drawdown; cross-check the simulation against an analytical solution.",
+      "subtitle": "观察停止、曾经达标与最终达标的差异",
+      "subtitleEn": "Separate stopping, reaching a goal and finishing above it",
+      "description": "用固定种子的合成模型观察波动、回撤与目标结果；停止后保留余额，一次只改一个假设，并导出带参数、种子和局限的比较记录。",
+      "descriptionEn": "Explore volatility, drawdown and goal outcomes in a seeded synthetic model. Retain balances after stopping, vary one assumption at a time, and export inputs, seed and limitations.",
       "url": "https://andyzhang666666.github.io/poker-bankroll-sim/",
       "github": "https://github.com/AndyZhang666666/poker-bankroll-sim",
       "metrics": [
-        "破产率 2.6% / 29.6% / 42.7%",
-        "胜率 52%→55%，破产率 29.6%→7.6%",
-        "10,000 次模拟 · 固定种子"
+        "停止不等于余额归零",
+        "曾经达标 ≠ 最终达标",
+        "固定种子 · 可导出比较"
       ],
       "metricsEn": [
-        "Bust rate 2.6% / 29.6% / 42.7%",
-        "Win rate 52%→55% cuts bust rate 29.6%→7.6%",
-        "10,000 sims, fixed seed"
+        "Stopping is not a zero balance",
+        "Ever reached vs finished above target",
+        "Reproducible seed and export"
       ],
       "tags": [
         "德州扑克",
@@ -686,21 +686,21 @@
     {
       "name": "扑克期望值计算器（poker-ev-calculator）",
       "nameEn": "Poker EV Calculator",
-      "subtitle": "比较弃牌、跟注与加注的期望收益",
-      "subtitleEn": "Compare the expected value of folding, calling and raising",
-      "description": "结合手牌强度与对手行为比较三种行动的 EV；加注按被跟注后的胜率修正，并用敏感性分析找出决策切换点。",
-      "descriptionEn": "Compare action EVs using hand strength and opponent behavior; adjust raise EV for equity after being called and use sensitivity analysis to locate decision thresholds.",
+      "subtitle": "不只比较收益，也检查估错时结论会不会变",
+      "subtitleEn": "Compare outcomes and test whether a mistaken assumption changes the decision",
+      "description": "按有效筹码统一赔率与 EV，比较强度假设变化时的行动切换；导出输入、模型版本与边界。单轮学习沙盘，不是 GTO 或真实下注建议。",
+      "descriptionEn": "Use effective stakes consistently for pot odds and EV, test action changes across strength assumptions, and export a versioned record. A single-street learning sandbox, not GTO or betting advice.",
       "url": "https://andyzhang666666.github.io/poker-ev-calculator/",
       "github": "https://github.com/AndyZhang666666/poker-ev-calculator",
       "metrics": [
-        "8/8 经典案例与预期一致",
-        "AA 加注 EV +42.50 最优",
-        "平衡强度 50：高于它加注都成立"
+        "有效底池口径一致",
+        "强度误差逐点检查",
+        "版本化决策记录"
       ],
       "metricsEn": [
-        "8/8 classic cases match expectation",
-        "AA raise EV +42.50, the best line",
-        "Break-even strength 50"
+        "Consistent effective-pot math",
+        "Discrete assumption stress check",
+        "Versioned decision export"
       ],
       "tags": [
         "德州扑克",
@@ -718,19 +718,19 @@
       "nameEn": "Growth Experiment Lab",
       "subtitle": "从实验设计到结果解读的决策工具",
       "subtitleEn": "A decision tool from experiment design to interpretation",
-      "description": "计算 A/B 样本量与提前停止风险，解释提升区间和收入情景，把统计证据与实际全量条件分开判断。全部本地计算。",
-      "descriptionEn": "Calculate A/B sample sizes and early-stopping risk, explain effect intervals and revenue scenarios, and separate statistical evidence from rollout requirements. Runs locally.",
+      "description": "规划样本、运行可取消的偷看模拟，把统计证据、最低业务效应和人工护栏核对分开；导出设计计划与决策记录，不把不显著等同于无效。",
+      "descriptionEn": "Plan samples, run cancellable peeking simulations, and separate statistical evidence, business thresholds and manual guardrail checks. Export plans and readouts without equating non-significance with no effect.",
       "url": "https://andyzhang666666.github.io/growth-experiment-lab/",
       "github": "https://github.com/AndyZhang666666/growth-experiment-lab",
       "metrics": [
-        "4 个页签",
-        "假阳性 5% → 22.45%",
-        "本地计算"
+        "显著不等于自动全量",
+        "可取消模拟 · 参数溯源",
+        "计划与决策记录可导出"
       ],
       "metricsEn": [
-        "4 tabs",
-        "FPR 5% → 22.45%",
-        "Runs locally"
+        "Evidence is not rollout permission",
+        "Cancellable, traceable simulation",
+        "Export plans and decisions"
       ],
       "tags": [
         "增长",
