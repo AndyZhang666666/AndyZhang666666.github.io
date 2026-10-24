@@ -292,6 +292,48 @@
   ],
   "projects": [
     {
+      "name": "TasteRoom · 偏爱实验室",
+      "nameEn": "TasteRoom · A preference experiment",
+      "subtitle": "生活审美里的可解释记忆 Agent",
+      "subtitleEn": "Inspectable memory for everyday aesthetic preferences",
+      "description": "选两张喜欢的海报，看 Agent 整理画布；随时打断，决定这次例外、全局纠偏，还是区分工作与日常。",
+      "descriptionEn": "Pick two posters, watch the canvas adapt, then interrupt to choose a one-time exception, a global correction or a separate work context.",
+      "url": "https://andyzhang666666.github.io/tasteroom/",
+      "github": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/tasteroom",
+      "tags": [
+        "独立项目",
+        "Agent 记忆",
+        "生活审美"
+      ],
+      "metrics": [
+        "可解释记忆",
+        "实时工具调用",
+        "本地规则模拟"
+      ],
+      "metricsEn": [
+        "Inspectable memory",
+        "Live tool execution",
+        "Local rule simulation"
+      ],
+      "context": "喜欢一种海报风格，不代表每个场景都适用；系统不应把几次选择当成永久指令。",
+      "contextEn": "Liking a poster does not make its style appropriate for every context.",
+      "approach": [
+        "两轮直觉探测，分开保存推测和明确指令，为每步画布修改绑定记忆依据",
+        "支持暂停、撤回、记忆管理与三种冲突仲裁，切换场景或新内容验证记忆"
+      ],
+      "approachEn": [
+        "Separate inferred preferences from explicit instructions and trace canvas changes to memory.",
+        "Pause, undo, manage memories and resolve conflicts, then validate on another context or content."
+      ],
+      "result": "已实现纯前端交互 Demo，公开版使用明确标注的本地规则模拟；提供可选服务端模型适配器，未启用真实模型。",
+      "resultEn": "A working frontend demo with labelled local rules. Optional server model adapter included; live model service is not enabled.",
+      "featured": true,
+      "demoLabel": "立即体验",
+      "demoLabelEn": "Try it now",
+      "sourceLabel": "查看源码",
+      "sourceLabelEn": "View source"
+    },
+    {
       "name": "有据 · 生活决策审议台",
       "nameEn": "Grounded Choice",
       "subtitle": "从经验材料到可追溯的生活决策",

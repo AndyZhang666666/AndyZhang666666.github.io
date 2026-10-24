@@ -1,0 +1,22 @@
+{
+  "url": "http://127.0.0.1:8798/",
+  "passed": [
+    "two rounds",
+    "pause cancellation",
+    "traceable canvas updates",
+    "conflict suspension",
+    "branch isolation",
+    "new content",
+    "unknown input",
+    "injection safety",
+    "persistence",
+    "once expiration",
+    "global correction",
+    "undo redo",
+    "1440/768/390 no overflow",
+    "mobile panes",
+    "reduced motion",
+    "reset async cancellation"
+  ],
+  "errors": []
+}
