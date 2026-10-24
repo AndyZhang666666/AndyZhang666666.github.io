@@ -14,3 +14,16 @@
 未做：真实模型连通和效果评测、真实用户计时测试、全浏览器兼容、完整 WCAG/Lighthouse 审计。线上发布与复验另见最终交付记录，不把本地验证等同于上线。
 
 发布前已合并 origin/main 的 2b8a585（随便局并发发布），数据对比证明除新增 TasteRoom 外所有条目和字段完全保留。整站 Chrome 验证 15 张项目卡片，TasteRoom 体验／源码链接正确，1440 与 390px 无横向溢出，零页面脚本异常。
+
+## 线上发布与复验
+
+2026-10-24：功能分支与 main 普通推送，远端均确认收到 `64750dad1a54190e5457a32e0a35989e37957092`。GitHub Pages deployment `7294560095` 的状态为 `success`。
+
+- 体验 URL：`https://andyzhang666666.github.io/tasteroom/` 返回 200。
+- 源码 URL：`https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/tasteroom` 返回 200。
+- 线上 index.html 与本地完全相同，SHA-256 为 `3a049c7b58dc1c84eee2f6e41dd8a568e7143ba6e532bfa8221df42047d7839c`。
+- 在线 Chrome 完整运行上述核心闭环，包含三种仲裁、场景验证、持久化、暂停、撤回重做、未知输入及重置；结果通过，零 pageerror。见 `browser-results.json`。
+- 官网实际显示 15 个项目，TasteRoom「立即体验／查看源码」均指向正确地址；1440 / 390px 无横向溢出，零页面脚本异常。其他项目的数据字段与合并前完全相同。
+- 公开端 `mode.json` 为 mock；未部署或调用真实模型服务。
+
+线上发布耗时期间短暂 404，待 Pages 构建成功后重新验证通过，不计为最终可用状态。
