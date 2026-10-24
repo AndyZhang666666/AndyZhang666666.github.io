@@ -16,7 +16,7 @@
 
 ## 本地运行
 在仓库根目录运行 `python3 -m http.server 8794`，打开 http://localhost:8794/suibianju/ 。无需安装依赖、环境变量、模型 Key。
-规则测试：`node --test suibianju/tests/engine.test.mjs`（Node 20+）。浏览器测试见 tests/browser.py（需 Python Playwright 和 Chromium）。
+规则测试：`node --test suibianju/tests/engine.test.mjs`（Node 20+）。浏览器测试见 tests/browser.cjs（需 JavaScript Playwright 和 Chrome；本机 Python 未提供 Playwright，因此使用已提供的 JavaScript 版本）。
 
 ## 发布与回滚
 沿用 main 根目录 GitHub Pages 发布。部署前确认 origin/main 没有新变更，禁止强推。使用 `git push origin feat/suibianju-demo` 并 `git ls-remote` 核实；在 main 快进本分支后普通 push。公开 deployments/statuses 验证部署 SHA，线上测试核心链路与 390px 布局。

@@ -58,7 +58,8 @@ export function recommend(s) {
   return {ready:true,feasible:feasible.slice(0,3),blocked,message:feasible.length?'可协商':'没有共同可行候选'};
 }
 function invalidate(s,now) {
-  s.version++;s.votes={};s.invalidated=true;
+  const hadVotes=Object.keys(s.votes).length>0;
+  s.version++;s.votes={};s.invalidated=hadVotes;
   s.startedAt=s.members.filter(m=>m.active).every(m=>m.confirmed)?now:null;
 }
 export function submit(s,id,input,now=Date.now()) {
@@ -74,10 +75,18 @@ export function toggleMember(s,id,now=Date.now()) {
 }
 export function editCandidate(s,id,max,now=Date.now()) {
   const r=s.candidates.find(r=>r.id===id);if(!r)throw Error('候选不存在');
-  const value=max===''?null:Number(max);
-  if(value!==null&&(!Number.isFinite(value)||value<1||value>10000||(r.min!==null&&value<r.min)))throw Error('最高人均须不低于最低值，且不超过 10000；未知请留空。');
-  if(r.max===value)return false;
-  r.max=value;invalidate(s,now);return true;
+  return updateCandidate(s,id,{...r,max},now);
+}
+export function updateCandidate(s,id,input,now=Date.now()) {
+  const r=s.candidates.find(r=>r.id===id);if(!r)throw Error('候选不存在');
+  const number=v=>v===''||v==null?null:Number(v);
+  const min=number(input.min),max=number(input.max);
+  if(![min,max].every(v=>v===null||(Number.isFinite(v)&&v>=1&&v<=10000))||(min!==null&&max!==null&&max<min))throw Error('最高人均须不低于最低值，且不超过 10000；未知请留空。');
+  if(!String(input.name||'').trim())throw Error('请给虚构候选起个名字。');
+  if(![null,true,false].includes(input.noSpicy))throw Error('请选择已知的无辣情况，或保留未知。');
+  const next={id:r.id,name:String(input.name).trim().slice(0,40),cuisine:String(input.cuisine||'').trim().slice(0,30)||null,min,max,district:String(input.district||'').trim().slice(0,40)||null,noSpicy:input.noSpicy};
+  if(JSON.stringify(r)===JSON.stringify(next))return false;
+  Object.assign(r,next);invalidate(s,now);return true;
 }
 export function addCandidate(s,now=Date.now()) {
   if(s.candidates.length>=8)throw Error('轻量演示最多 8 个候选，请先重新开始。');
@@ -104,7 +113,19 @@ export function restore(serialized,now=Date.now()) {
     const s=JSON.parse(serialized);
     if(s.schema!==1||!Number.isFinite(s.expiresAt)||s.expiresAt>now+TTL||!Array.isArray(s.members)||!Array.isArray(s.candidates)||s.members.length<3||s.members.length>5||!s.votes||!s.metrics||!Number.isInteger(s.version))throw Error();
     if(s.expiresAt<=now)return {session:null,reason:'expired'};
-    const ids=new Set();for(const m of s.members){if(ids.has(m.id)||typeof m.name!=='string'||typeof m.raw!=='string'||typeof m.active!=='boolean'||typeof m.confirmed!=='boolean')throw Error();ids.add(m.id);normalize(m.draft);normalize(m.conditions);}
+    if(s.candidates.length>8||Object.values(s.metrics).some(v=>!Number.isFinite(v)||v<0))throw Error();
+    const ids=new Set();for(const m of s.members){
+      if(!/^[a-z][a-z0-9]{0,20}$/.test(m.id)||ids.has(m.id)||typeof m.name!=='string'||typeof m.raw!=='string'||typeof m.active!=='boolean'||typeof m.confirmed!=='boolean'||!m.draft)throw Error();
+      ids.add(m.id);m.conditions=normalize(m.conditions);
+      if(!['string','number','object'].includes(typeof m.draft.budget)||typeof m.draft.district!=='string'||typeof m.draft.exclude!=='string'||typeof m.draft.prefer!=='string')throw Error();
+    }
+    const candidateIds=new Set();for(const r of s.candidates){
+      if(!/^r[0-9]+$/.test(r.id)||candidateIds.has(r.id)||typeof r.name!=='string'||![r.min,r.max].every(v=>v===null||(Number.isFinite(v)&&v>=1&&v<=10000))||![null,true,false].includes(r.noSpicy))throw Error();
+      candidateIds.add(r.id);
+      if(r.max!==null&&r.min!==null&&r.max<r.min)throw Error();
+    }
+    if(!['recommendations','rejections','changes'].every(k=>Number.isFinite(s.metrics[k])))throw Error();
+    if(s.startedAt!==null&&!Number.isFinite(s.startedAt))throw Error();
     recommend(s);return {session:s,reason:'restored'};
   }catch{return {session:null,reason:'corrupt'};}
 }
