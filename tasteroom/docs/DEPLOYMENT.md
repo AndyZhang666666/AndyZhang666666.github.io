@@ -2,7 +2,7 @@
 
 ## 已核实的环境
 
-仓库：`AndyZhang666666/AndyZhang666666.github.io`，公开，默认分支 `main`。2026-10-24 初次拉取起点 fd5bbd0，线上首页哈希与该版本一致；开发期间远端增加 c2f783d（官网及 filing-eval 更新），已将本项目分支 rebase 到它之上并保留全部改动。
+仓库：`AndyZhang666666/AndyZhang666666.github.io`，公开，默认分支 `main`。2026-10-24 初次拉取起点 fd5bbd0，线上首页哈希与该版本一致；开发期间远端增加 c2f783d（官网及 filing-eval 更新），已将本项目分支 rebase 到它之上并保留全部改动。随后合并 2b8a585，保留随便局并发发布与所有官网数据。
 
 公开 GitHub deployments API 记录显示 environment 为 `github-pages`、ref 为 `main`，由 GitHub Pages App 执行。仓库没有自定义 Actions workflow 或构建依赖，根目录是可直接托管的 HTML/CSS/JS。本项目沿用已有发布链路，在根目录新增 `tasteroom/`，无需新建公开仓库或服务。
 

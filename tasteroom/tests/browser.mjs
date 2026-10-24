@@ -1,11 +1,168 @@
-import {chromium} from 'playwright';
-import {mkdirSync,writeFileSync} from 'node:fs';
-const browser=await chromium.launch({headless:true,...(process.env.CHROME_CHANNEL?{channel:process.env.CHROME_CHANNEL}:{})});const page=await browser.newPage({viewport:{width:1440,height:900}});const errors=[];page.on('pageerror',e=>errors.push(e.message));const url=process.env.TEST_URL||'http://127.0.0.1:8798/';const out=process.env.EVIDENCE_DIR||new URL('../docs/media/',import.meta.url).pathname;mkdirSync(out,{recursive:true});
-const assert=(v,m)=>{if(!v)throw Error(m);};
-await page.goto(url);await page.waitForLoadState('networkidle');await page.locator('#reset').click();await page.screenshot({path:out+'tasteroom-start.png',fullPage:true});
-await page.locator('[data-choice="b"]').click();await page.locator('[data-choice="b"]').click();await page.waitForTimeout(720);await page.locator('#pause').click();const calls=await page.locator('.log').count();await page.waitForTimeout(1500);assert(await page.locator('.log').count()===calls,'pause cancels future calls');await page.locator('#pause').click();await page.waitForTimeout(2300);assert(await page.locator('#poster').getAttribute('data-typography')==='editorial_serif','implicit serif applied');await page.screenshot({path:out+'tasteroom-canvas.png',fullPage:true});
-await page.locator('[data-feedback]').first().click();await page.locator('#conflict').waitFor({state:'visible'});await page.screenshot({path:out+'tasteroom-conflict.png',fullPage:true});await page.locator('[data-resolve="branch"]').click();assert(await page.locator('#poster').getAttribute('data-typography')==='rational_sans','work correction');await page.locator('[data-context="personal"]').click();assert(await page.locator('#poster').getAttribute('data-typography')==='editorial_serif','personal retained');await page.locator('[data-context="work"]').click();await page.locator('#newContent').click();assert(await page.locator('#poster').getAttribute('data-typography')==='rational_sans','new content remembers work');
-await page.locator('#input').fill('<img src=x onerror=alert(1)>');await page.locator('#feedbackForm button').click();await page.waitForTimeout(200);assert((await page.locator('#reply').innerText()).includes('暂时没理解'),'unknown feedback honest');assert(await page.locator('#reply img').count()===0,'no injection');await page.reload();await page.waitForLoadState('networkidle');assert(await page.locator('#poster').getAttribute('data-typography')==='rational_sans','persisted work memory');
-await page.locator('[data-context="personal"]').click();await page.locator('[data-feedback]').first().click();await page.locator('[data-resolve="once"]').click();assert(await page.locator('#poster').getAttribute('data-typography')==='rational_sans','one time correction');await page.locator('#newContent').click();assert(await page.locator('#poster').getAttribute('data-typography')==='editorial_serif','one time expires');await page.locator('[data-feedback]').first().click();await page.locator('[data-resolve="global"]').click();await page.locator('[data-context="personal"]').click();assert(await page.locator('#poster').getAttribute('data-typography')==='rational_sans','global applied');await page.locator('#undo').click();await page.locator('#redo').click();
-for(const width of [1440,768,390]){await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'no horizontal overflow '+width);if(width===390){await page.screenshot({path:out+'tasteroom-mobile.png',fullPage:true});await page.locator('#showBrain').click();assert(await page.locator('.brain').isVisible(),'mobile brain');await page.screenshot({path:out+'tasteroom-mobile-memory.png',fullPage:true});await page.locator('#showCanvas').click();}}
-await page.emulateMedia({reducedMotion:'reduce'});await page.locator('#reset').click();assert(await page.locator('#choices').isVisible(),'reset');await page.locator('[data-choice="b"]').click();await page.locator('[data-choice="b"]').click();await page.locator('[data-feedback]').first().click();await page.locator('#reset').click();await page.waitForTimeout(1200);assert(await page.locator('#choices').isVisible(),'reset cancels delayed operations');assert(errors.length===0,'no JS errors: '+errors.join());writeFileSync(out+'browser-results.json',JSON.stringify({url,passed:['two rounds','pause cancellation','traceable canvas updates','conflict suspension','branch isolation','new content','unknown input','injection safety','persistence','once expiration','global correction','undo redo','1440/768/390 no overflow','mobile panes','reduced motion','reset async cancellation'],errors},null,2));await browser.close();console.log('PASS browser flows; screenshots saved to outputs');
+import { chromium } from "playwright";
+import { mkdirSync, writeFileSync } from "node:fs";
+const browser = await chromium.launch({
+  headless: true,
+  ...(process.env.CHROME_CHANNEL
+    ? { channel: process.env.CHROME_CHANNEL }
+    : {}),
+});
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+const errors = [];
+page.on("pageerror", (e) => errors.push(e.message));
+const url = process.env.TEST_URL || "http://127.0.0.1:8798/";
+const out =
+  process.env.EVIDENCE_DIR ||
+  new URL("../docs/media/", import.meta.url).pathname;
+mkdirSync(out, { recursive: true });
+const assert = (v, m) => {
+  if (!v) throw Error(m);
+};
+await page.goto(url);
+await page.waitForLoadState("networkidle");
+await page.locator("#reset").click();
+await page.screenshot({ path: out + "tasteroom-start.png", fullPage: true });
+await page.locator('[data-choice="b"]').click();
+await page.locator('[data-choice="b"]').click();
+await page.waitForTimeout(720);
+await page.locator("#pause").click();
+const calls = await page.locator(".log").count();
+await page.waitForTimeout(1500);
+assert(
+  (await page.locator(".log").count()) === calls,
+  "pause cancels future calls",
+);
+await page.locator("#pause").click();
+await page.waitForTimeout(2300);
+assert(
+  (await page.locator("#poster").getAttribute("data-typography")) ===
+    "editorial_serif",
+  "implicit serif applied",
+);
+await page.screenshot({ path: out + "tasteroom-canvas.png", fullPage: true });
+await page.locator("[data-feedback]").first().click();
+await page.locator("#conflict").waitFor({ state: "visible" });
+await page.screenshot({ path: out + "tasteroom-conflict.png", fullPage: true });
+await page.locator('[data-resolve="branch"]').click();
+assert(
+  (await page.locator("#poster").getAttribute("data-typography")) ===
+    "rational_sans",
+  "work correction",
+);
+await page.locator('[data-context="personal"]').click();
+assert(
+  (await page.locator("#poster").getAttribute("data-typography")) ===
+    "editorial_serif",
+  "personal retained",
+);
+await page.locator('[data-context="work"]').click();
+await page.locator("#newContent").click();
+assert(
+  (await page.locator("#poster").getAttribute("data-typography")) ===
+    "rational_sans",
+  "new content remembers work",
+);
+await page.locator("#input").fill("<img src=x onerror=alert(1)>");
+await page.locator("#feedbackForm button").click();
+await page.waitForTimeout(200);
+assert(
+  (await page.locator("#reply").innerText()).includes("暂时没理解"),
+  "unknown feedback honest",
+);
+assert((await page.locator("#reply img").count()) === 0, "no injection");
+await page.reload();
+await page.waitForLoadState("networkidle");
+assert(
+  (await page.locator("#poster").getAttribute("data-typography")) ===
+    "rational_sans",
+  "persisted work memory",
+);
+await page.locator('[data-context="personal"]').click();
+await page.locator("[data-feedback]").first().click();
+await page.locator('[data-resolve="once"]').click();
+assert(
+  (await page.locator("#poster").getAttribute("data-typography")) ===
+    "rational_sans",
+  "one time correction",
+);
+await page.locator("#newContent").click();
+assert(
+  (await page.locator("#poster").getAttribute("data-typography")) ===
+    "editorial_serif",
+  "one time expires",
+);
+await page.locator("[data-feedback]").first().click();
+await page.locator('[data-resolve="global"]').click();
+await page.locator('[data-context="personal"]').click();
+assert(
+  (await page.locator("#poster").getAttribute("data-typography")) ===
+    "rational_sans",
+  "global applied",
+);
+await page.locator("#undo").click();
+await page.locator("#redo").click();
+for (const width of [1440, 768, 390]) {
+  await page.setViewportSize({ width, height: 900 });
+  assert(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+    "no horizontal overflow " + width,
+  );
+  if (width === 390) {
+    await page.screenshot({
+      path: out + "tasteroom-mobile.png",
+      fullPage: true,
+    });
+    await page.locator("#showBrain").click();
+    assert(await page.locator(".brain").isVisible(), "mobile brain");
+    await page.screenshot({
+      path: out + "tasteroom-mobile-memory.png",
+      fullPage: true,
+    });
+    await page.locator("#showCanvas").click();
+  }
+}
+await page.emulateMedia({ reducedMotion: "reduce" });
+await page.locator("#reset").click();
+assert(await page.locator("#choices").isVisible(), "reset");
+await page.locator('[data-choice="b"]').click();
+await page.locator('[data-choice="b"]').click();
+await page.locator("[data-feedback]").first().click();
+await page.locator("#reset").click();
+await page.waitForTimeout(1200);
+assert(
+  await page.locator("#choices").isVisible(),
+  "reset cancels delayed operations",
+);
+assert(errors.length === 0, "no JS errors: " + errors.join());
+writeFileSync(
+  out + "browser-results.json",
+  JSON.stringify(
+    {
+      url,
+      passed: [
+        "two rounds",
+        "pause cancellation",
+        "traceable canvas updates",
+        "conflict suspension",
+        "branch isolation",
+        "new content",
+        "unknown input",
+        "injection safety",
+        "persistence",
+        "once expiration",
+        "global correction",
+        "undo redo",
+        "1440/768/390 no overflow",
+        "mobile panes",
+        "reduced motion",
+        "reset async cancellation",
+      ],
+      errors,
+    },
+    null,
+    2,
+  ),
+);
+await browser.close();
+console.log("PASS browser flows; screenshots saved to outputs");

@@ -1,24 +1,66 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import http from 'node:http';
-process.env.NODE_ENV='test';
-process.env.LLM_API_KEY='test-placeholder-not-a-real-key';
-let responseMode='valid';let received;
-const fakeProvider=http.createServer(async(req,res)=>{let raw='';for await(const c of req)raw+=c;received={headers:req.headers,body:JSON.parse(raw)};res.setHeader('Content-Type','application/json');if(responseMode==='error'){res.writeHead(503);return res.end('{}');}const content=responseMode==='invalid'?'not json':JSON.stringify({dimension:'typography',value:'rational_sans'});res.end(JSON.stringify({choices:[{message:{content}}]}));});
-await new Promise(r=>fakeProvider.listen(0,'127.0.0.1',r));
-process.env.LLM_URL=`http://127.0.0.1:${fakeProvider.address().port}/chat/completions`;
-process.env.LLM_MODEL='local-test-model';
-const {server}=await import('../server.mjs');await new Promise(r=>server.listen(0,'127.0.0.1',r));
-const base=`http://127.0.0.1:${server.address().port}`;
-const post=(body,headers={})=>fetch(base+'/api/feedback',{method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify(body)});
-test('server model contract, validation, safe errors and rate limits using local fake provider',async()=>{
- assert.equal((await(await fetch(base+'/mode.json')).json()).mode,'model');
- assert.equal((await post({text:'无衬线'},{Origin:'https://untrusted.invalid'})).status,403);
- assert.equal((await post({text:'x'.repeat(401)})).status,400);
- const result=await post({text:'无衬线'});assert.equal(result.status,200);assert.deepEqual(await result.json(),{dimension:'typography',value:'rational_sans'});assert.equal(received.headers.authorization,'Bearer test-placeholder-not-a-real-key');assert.equal(received.body.messages[1].content,'无衬线');
- responseMode='invalid';assert.equal((await post({text:'无衬线'})).status,502);
- responseMode='error';const error=await post({text:'无衬线'});assert.equal(error.status,502);assert.ok(!(await error.text()).includes('test-placeholder'));
- for(let i=0;i<6;i++)await post({text:'无衬线'});
- assert.equal((await post({text:'无衬线'})).status,429);
+import test from "node:test";
+import assert from "node:assert/strict";
+import http from "node:http";
+process.env.NODE_ENV = "test";
+process.env.LLM_API_KEY = "test-placeholder-not-a-real-key";
+let responseMode = "valid";
+let received;
+const fakeProvider = http.createServer(async (req, res) => {
+  let raw = "";
+  for await (const c of req) raw += c;
+  received = { headers: req.headers, body: JSON.parse(raw) };
+  res.setHeader("Content-Type", "application/json");
+  if (responseMode === "error") {
+    res.writeHead(503);
+    return res.end("{}");
+  }
+  const content =
+    responseMode === "invalid"
+      ? "not json"
+      : JSON.stringify({ dimension: "typography", value: "rational_sans" });
+  res.end(JSON.stringify({ choices: [{ message: { content } }] }));
 });
-test.after(async()=>{await new Promise(r=>server.close(r));await new Promise(r=>fakeProvider.close(r));});
+await new Promise((r) => fakeProvider.listen(0, "127.0.0.1", r));
+process.env.LLM_URL = `http://127.0.0.1:${fakeProvider.address().port}/chat/completions`;
+process.env.LLM_MODEL = "local-test-model";
+const { server } = await import("../server.mjs");
+await new Promise((r) => server.listen(0, "127.0.0.1", r));
+const base = `http://127.0.0.1:${server.address().port}`;
+const post = (body, headers = {}) =>
+  fetch(base + "/api/feedback", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...headers },
+    body: JSON.stringify(body),
+  });
+test("server model contract, validation, safe errors and rate limits using local fake provider", async () => {
+  assert.equal((await (await fetch(base + "/mode.json")).json()).mode, "model");
+  assert.equal(
+    (await post({ text: "无衬线" }, { Origin: "https://untrusted.invalid" }))
+      .status,
+    403,
+  );
+  assert.equal((await post({ text: "x".repeat(401) })).status, 400);
+  const result = await post({ text: "无衬线" });
+  assert.equal(result.status, 200);
+  assert.deepEqual(await result.json(), {
+    dimension: "typography",
+    value: "rational_sans",
+  });
+  assert.equal(
+    received.headers.authorization,
+    "Bearer test-placeholder-not-a-real-key",
+  );
+  assert.equal(received.body.messages[1].content, "无衬线");
+  responseMode = "invalid";
+  assert.equal((await post({ text: "无衬线" })).status, 502);
+  responseMode = "error";
+  const error = await post({ text: "无衬线" });
+  assert.equal(error.status, 502);
+  assert.ok(!(await error.text()).includes("test-placeholder"));
+  for (let i = 0; i < 6; i++) await post({ text: "无衬线" });
+  assert.equal((await post({ text: "无衬线" })).status, 429);
+});
+test.after(async () => {
+  await new Promise((r) => server.close(r));
+  await new Promise((r) => fakeProvider.close(r));
+});
