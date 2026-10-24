@@ -8,7 +8,7 @@ const browser=await chromium.launch({headless:true,channel:process.env.CHROME_CH
 const page=await browser.newPage({viewport:{width:1440,height:1000},acceptDownloads:true});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 const state=key=>page.evaluate(key=>JSON.parse(localStorage.getItem(key)),key);
-const screenshot=async(name)=>{await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));return page.screenshot({path:`${out}/${name}.png`,fullPage:true});};
+const screenshot=async(name)=>{await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));return page.screenshot({path:`${out}/${name}.png`,fullPage:true,animations:'disabled'});};
 const download=async(selector,name)=>{
   const pending=page.waitForEvent('download');await page.locator(selector).click();
   const file=await pending;await file.saveAs(`${out}/${name}`);return readFileSync(`${out}/${name}`,'utf8');
@@ -44,6 +44,11 @@ try{
   await page.locator('.group-settings summary').click();await page.locator('#new-member').fill('小舟');await page.locator('[data-action="add-member"]').click();
   await page.locator('.group-settings summary').click();assert.ok(await page.locator('[data-action="add-member"]').isDisabled());
   await page.locator('[data-action="submit"]').click();
+  for(let i=0;i<5;i++){
+    await page.locator('[data-candidate="r1"] [data-choice="yes"]').click();
+    if(i<4)await page.locator('[data-candidate="r1"] [data-action="next-voter"]').click();
+  }
+  assert.match(await page.locator('.decision-receipt').innerText(),/5 位模拟成员明确接受/);
   for(const width of [1440,768,390,360]){
     await page.setViewportSize({width,height:900});
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`suibianju overflow ${width}`);
