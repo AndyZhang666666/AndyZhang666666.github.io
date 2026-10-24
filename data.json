@@ -334,6 +334,49 @@
       "sourceLabelEn": "View source"
     },
     {
+      "id": "suibianju",
+      "name": "随便局 · 聚餐协商小工具",
+      "nameEn": "Suibianju · Dinner Together",
+      "subtitle": "把「随便」说清楚",
+      "subtitleEn": "Make “anything is fine” actionable",
+      "description": "从日常约饭难题出发，让朋友表达条件、发现冲突并共同确认方案。可直接体验完整的单人模拟流程。",
+      "descriptionEn": "Express dinner constraints, surface conflicts and reach a shared decision. Try the complete single-person simulation.",
+      "url": "https://andyzhang666666.github.io/suibianju/",
+      "github": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/suibianju",
+      "demoLabel": "立即体验",
+      "demoLabelEn": "Try it now",
+      "sourceLabel": "查看源码",
+      "sourceLabelEn": "View source",
+      "tags": [
+        "生活 AI",
+        "协商机制",
+        "独立项目"
+      ],
+      "metrics": [
+        "条件确认 → 冲突调整 → 共同确认",
+        "单人模拟 · 无需 Key"
+      ],
+      "metricsEn": [
+        "Constraints → negotiation → agreement",
+        "Single-person simulation · No key"
+      ],
+      "context": "大家说随便却不断否决：待验证假设是限制没有被充分表达，而不只是缺少推荐。",
+      "contextEn": "Repeated vetoes may come from unspoken constraints rather than missing recommendations. This is a product hypothesis.",
+      "approach": [
+        "模糊表达先形成可编辑草稿，由本人确认；程序严格过滤硬条件",
+        "条件、候选或成员变化后旧表态失效，全员接受同一方案才显示已确定"
+      ],
+      "approachEn": [
+        "Review editable drafts before confirmation; deterministic rules enforce hard constraints.",
+        "Changes invalidate prior responses; agreement requires every active member to accept the same option."
+      ],
+      "result": "已实现静态快速体验和功能测试。人物与餐厅均为虚构，整理由本地规则模拟；真实多人、权限接口与真实模型调用未开放，没有真实用户效果数据。",
+      "resultEn": "Static quick demo with functional tests. Fictional people and restaurants; local rules simulate interpretation. Live rooms, authorization APIs and model calls are not implemented. No real user impact claims.",
+      "demoNote": "这是单人模拟。先确认小林的条件，再切换虚构角色逐人表态；可体验无交集并自愿调整。",
+      "demoNoteEn": "Single-person simulation: confirm constraints, switch fictional roles and respond. Try the conflict scenario and adjust voluntarily.",
+      "featured": true
+    },
+    {
       "name": "有据 · 生活决策审议台",
       "nameEn": "Grounded Choice",
       "subtitle": "从经验材料到可追溯的生活决策",

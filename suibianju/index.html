@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="随便局：把随便说清楚。一个聚餐协商的单人模拟体验，表达条件、发现冲突、共同确认。">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>随便局 · 把「随便」说清楚</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到体验</a>
+  <header class="nav"><a href="../">Andy Zhang / 小作品</a><a href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/suibianju" target="_blank" rel="noopener">查看源码 ↗</a></header>
+  <main id="main">
+    <section class="intro">
+      <div><h1>随便局 <span>把「随便」说清楚。</span></h1><p>不替朋友拍板，先找到大家都能接受的一餐。</p></div>
+      <div class="mode"><button id="quick" class="primary" type="button">开始快速体验</button><button id="real" type="button" aria-expanded="false" aria-controls="real-info">创建真实饭局</button></div>
+    </section>
+    <p class="notice"><strong>单人模拟体验</strong> · 三位人物和全部餐厅均为虚构。你可切换角色体验协商，<strong>不是真实多人在线</strong>；整理使用本地规则，未调用 AI 模型。</p>
+    <section id="real-info" class="notice" hidden><h2>真实饭局还没开放</h2><p>目前官网只有静态托管，尚无跨设备房间、成员权限接口或私密数据存储。此版本不生成邀请链接。需要后端、24 小时房间清理/删除和越权测试完成后才能开放；不需要在这里填写任何密钥。</p></section>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <div id="app"></div>
+    <section class="boundary"><h2>让条件做主，也把边界说清楚。</h2><p>未知价格、排队、营业状态、距离都不会被补写。硬条件必须全部满足；没有交集时，请成员自愿调整，系统不会偷偷放宽。</p><p>本演示把内容保存在当前浏览器，24 小时到期，页面打开时会检查并清除，也可立即删除。同机使用者及同源脚本可能读到内容，请只用虚构信息。真实多人需要接口权限保护，小群体仍可能推断部分偏好，不承诺绝对匿名。</p><div class="actions"><button id="delete" type="button">删除本地演示</button><a href="./docs/PRD.md">阅读精简 PRD</a></div></section>
+  </main>
+  <footer>随便说，认真听。<span>一个仍在验证产品假设的个人项目。</span></footer>
+  <script type="module" src="app.mjs"></script>
+</body></html>
