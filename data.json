@@ -756,8 +756,8 @@
       "nameEn": "Pricing Model Sim",
       "subtitle": "比较三种付费机制的 LTV 与回本周期",
       "subtitleEn": "Compare LTV and payback across three pricing mechanisms",
-      "description": "在同组留存、价格和转化假设下比较三种付费机制，统一人均 LTV 与回本口径，通过敏感性分析寻找排序变化条件。",
-      "descriptionEn": "Compare three pricing mechanisms under explicit retention, price and conversion assumptions, with consistent per-user LTV and payback metrics and sensitivity-based ranking changes.",
+      "description": "比较三种付费机制，核对每名新增用户的收入与逐月去向；扫描只改变一个假设，导出可复现的比较。结论受未校准的留存和转化限制。",
+      "descriptionEn": "Compare three pricing mechanisms with per-new-user revenue and monthly cohort traces. Sweep one assumption at a time and export a reproducible comparison; retention and conversion remain uncalibrated.",
       "url": "https://andyzhang666666.github.io/pricing-model-sim/",
       "github": "https://github.com/AndyZhang666666/pricing-model-sim",
       "metrics": [
@@ -778,15 +778,15 @@
       "context": "不同付费机制的收益取决于留存、转化与价格，不能只比较收入总额。",
       "contextEn": "Mechanism returns depend on retention, conversion and price, not just total revenue.",
       "approach": [
-        "用同一留存曲线比较三种机制的 LTV 与回本周期",
-        "扫描价格、转化等参数，找出最优机制变化的条件"
+        "用同一分母与折现口径比较 LTV 和回本，公开解锁、订阅与流失的逐月状态",
+        "保留其他输入做单字段扫描，支持零值、并列、本机草稿和比较导出"
       ],
       "approachEn": [
-        "Compare LTV and payback across three mechanisms using one retention curve.",
-        "Sweep pricing and conversion parameters to find where the preferred mechanism changes."
+        "Use one denominator and discounted sequence for LTV and payback, with monthly unlock, subscription and exit traces.",
+        "Sweep one field while preserving other inputs; support zeros, ties, local drafts and comparison export."
       ],
-      "result": "提供四个合成案例与校验脚本；结论和表格使用同一机制口径，未校准价格弹性，不作为真实最优定价建议。",
-      "resultEn": "Four synthetic cases and validation scripts. Conclusions use the same mechanism metrics as the table; uncalibrated price elasticity prevents claims of an optimal real-world price."
+      "result": "四个合成案例；修正重复分流与零价格计数，通过手算、守恒、边界及线上操作验收。不是实际业务收益或最优定价证明。",
+      "resultEn": "Four synthetic cases. Fixed repeated cohort exits and zero-price counts, verified through hand checks, invariants, boundaries and live browser flows. This is not evidence of business returns or optimal pricing."
     },
     {
       "name": "Bundle Lab",
