@@ -421,19 +421,19 @@
       "nameEn": "Text Evaluation Workbench · Eval Lab",
       "subtitle": "从评分锚点，到有证据的版本评审",
       "subtitleEn": "From scoring anchors to evidence-backed version review",
-      "description": "一个项目的两轮迭代：先校准评分规则，再做原文证据、版本对照和低分复查。无需 Key 浏览历史回放。",
-      "descriptionEn": "One project across two iterations: calibrate scoring rules, then inspect evidence, compare versions and review weak outputs. Explore historical runs without a key.",
+      "description": "从低分引用定位原文，记录自己的复核判断并导出。支持历史运行切换和版本对照，无需 Key 走完评审流程。",
+      "descriptionEn": "Locate source passages from low-score evidence, record human review and export the trail. Explore historical runs and comparisons without a key.",
       "url": "https://andyzhang666666.github.io/llm-output-eval/",
       "github": "https://github.com/AndyZhang666666/llm-output-eval",
       "metrics": [
-        "原文证据回溯",
-        "历史版本对照",
-        "裁判一致性检查"
+        "引用定位原文",
+        "逐维人工复核与导出",
+        "历史运行独立溯源"
       ],
       "metricsEn": [
-        "Traceable text evidence",
-        "Recorded version comparison",
-        "Judge validation"
+        "Quote-to-source location",
+        "Human review and export",
+        "Separate historical runs"
       ],
       "tags": [
         "AI",
@@ -444,24 +444,24 @@
       "contextEn": "Generated text is hard to compare consistently, and the judge itself needs checks for bias and variation.",
       "approach": [
         "V1 creative-eval 建立五维评分锚点与校准流程；V2 将其发展为评审工作台",
-        "单篇证据、重复版本对照、低分导出与裁判校验形成闭环；两版样本和统计口径分开保留"
+        "点击引用定位原文，按具体运行隔离复核；导出保留原始分数。版本比较仅描述本组均值和极差，不代替显著性判断"
       ],
       "approachEn": [
         "V1 creative-eval established anchored scoring and calibration; V2 developed the review workbench.",
-        "Inspect evidence, compare repeated runs, export weak cases and check the judge; retain each version’s separate dataset and metrics."
+        "Locate quotes, isolate review by run and export unchanged original scores. Comparison describes this sample’s means and ranges, not statistical significance."
       ],
       "result": "V1 为 40 条构造样本（32 条带作者标注）；V2 校验为另一套 30 条作者标注样本，免 Key 回放其中 6 条的 18 次历史输出。不同口径不混算，不宣称已证明代际提升。",
       "resultEn": "V1 used 40 constructed cases (32 author-labeled); V2 validation used a separate 30 author-labeled cases. Replay 18 stored runs for 6 V2 examples. Different datasets are not pooled or treated as proof of improvement.",
-      "demoNote": "直接打开即可体验；版本对照与低分案例均可浏览，无需中转站。历史回放与真实运行记录隔离。",
-      "demoNoteEn": "Open directly, no proxy or key required. Recorded examples and live-run records are kept separate.",
+      "demoNote": "无需中转站体验历史回放和人工复核。可选接口仅按点击运行，Key 不持久保存；本轮未调用真实模型或重跑历史指标。",
+      "demoNoteEn": "No relay needed for replay and human review. Optional API runs require a click; keys are not persisted. No real models or historical benchmarks were rerun this round.",
       "featured": true,
       "iterationUrl": "https://andyzhang666666.github.io/llm-output-eval/iteration/"
     },
     {
       "name": "公告摘要核验台 · Filing Eval",
       "nameEn": "Filing Summary Evidence Desk",
-      "description": "从摘要断言回到原文，检查写错、无据、遗漏与主体争议；留下可导出的本地复核记录。",
-      "descriptionEn": "Trace summary claims to source text, inspect contradictions, unsupported claims, omissions and scope disputes, then export local review notes.",
+      "description": "把摘要断言与关键遗漏分开复核，不默认同意历史裁判；导出原文、摘要、原始判断和人工依据。",
+      "descriptionEn": "Review claims and important omissions separately, with no default agreement. Export source, summary, original judgments and human reasoning.",
       "url": "https://andyzhang666666.github.io/demos/filing-eval/",
       "github": "https://github.com/AndyZhang666666/filing-eval",
       "metrics": [
@@ -485,16 +485,16 @@
       "contextEn": "Filing summaries can add numbers or causal claims absent from the source.",
       "approach": [
         "按样本 ID 对齐 28 条模拟公告及历史输出，断言可定位原文引句，无法定位时明确提示",
-        "支持同意、修正与保留争议的本地复核；导出保留原判和复核依据，不修改金标"
+        "断言与覆盖判断独立复核，继续未复核项可直达下一目标；导出带完整原文和摘要，不修改金标或历史成绩"
       ],
       "approachEn": [
         "Join 28 synthetic cases with recorded outputs by ID; locate quoted evidence and flag missing matches.",
-        "Record agreement, corrections or disputes locally; export original judgments and review notes without changing gold labels."
+        "Review claims and coverage separately, continue to the next pending item, and export full source context without changing gold labels or historical results."
       ],
       "result": "历史构造主集检出 11/11、误报 0/4，困难集另报并排除争议 h05；原标签未完成独立人工复核。新增 6 条候选留出样本未运行模型，不计入成绩。",
       "resultEn": "Historical constructed main set: 11/11 errors detected, 0/4 false positives. Hard cases are separate, excluding disputed h05. Labels lack independent human review; 6 new holdout candidates remain unrun and uncounted.",
-      "demoNote": "默认历史回放，不评估任意新文本；访客复核只存本机、不上传。",
-      "demoNoteEn": "Recorded replay, not live evaluation of new text. Visitor review notes stay in the browser."
+      "demoNote": "28条模拟公告历史回放，不评估任意新文本；复核只存本机，损坏记录不计入进度，未保存草稿不冒充已审核。",
+      "demoNoteEn": "Replay of 28 synthetic filings, not live evaluation of arbitrary text. Reviews stay local; invalid records and unsaved drafts do not count as reviewed."
     },
     {
       "name": "企业 AI 应用与轻量业务工具（FDE）",
