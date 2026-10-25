@@ -793,19 +793,19 @@
       "nameEn": "Bundle Lab",
       "subtitle": "从订单共现中发现套餐机会",
       "subtitleEn": "Discover bundle opportunities from co-purchased items",
-      "description": "从合成订单发现共购组合与待验证机会，模拟折扣和采纳率对客单、毛利的影响，区分观察信号与因果结论。",
-      "descriptionEn": "Discover co-purchase patterns and hypotheses from synthetic orders; simulate discount and adoption effects on basket size and margin without confusing observations with causal evidence.",
+      "description": "从合成订单发现套餐候选，分开核算新增购买与既有顾客领折扣的影响；推演假设贯穿建议和导出，留下可验证的下一步。",
+      "descriptionEn": "Discover bundle candidates from synthetic orders, separate new-purchase margin from discounts to existing customers, and carry scenario assumptions into recommendations, exports and a validation plan.",
       "url": "https://andyzhang666666.github.io/bundle-lab/",
       "github": "https://github.com/AndyZhang666666/bundle-lab",
       "metrics": [
-        "6 个页面",
-        "召回校验",
-        "合成数据可复现"
+        "两类人群核算",
+        "当前假设导出",
+        "合成订单演示"
       ],
       "metricsEn": [
-        "6 pages",
-        "Recall check",
-        "Reproducible synthetic data"
+        "Two-population accounting",
+        "Scenario-linked exports",
+        "Synthetic orders"
       ],
       "tags": [
         "增长",
@@ -815,15 +815,15 @@
       "context": "商品经常一起购买，不等于组合成套餐后一定赚钱。",
       "contextEn": "Frequently co-purchased items are not necessarily profitable as a discounted bundle.",
       "approach": [
-        "对比订单结构，发现共购组合并进行召回校验",
-        "模拟折扣与采纳率，计算毛利变化和盈亏平衡点"
+        "发现全部候选，分开计算未买齐者增量与既有整套者让利，收益与平衡点同源",
+        "按当前毛利假设筛选建议，支持空结果、本机恢复、依据导出和后续实验计划"
       ],
       "approachEn": [
-        "Compare order profiles, discover co-purchased combinations and check recall.",
-        "Simulate discount and adoption to calculate margin changes and break-even points."
+        "Explore all candidates and reconcile partial-basket gains with discounts to full-basket customers using one margin and break-even model.",
+        "Generate recommendations under current assumptions, with empty states, local recovery, evidence export and a follow-up experiment plan."
       ],
-      "result": "浏览器端分析工具，使用合成数据演示；不接平台 API，不做在线推荐或库存管理。",
-      "resultEn": "A browser-based analysis tool demonstrated with synthetic data; no platform API, live recommendation or inventory management."
+      "result": "手算、收益边界与线上六页流程已验收。相关性只产生待验证假设，毛利不是净利润；模型润色独立标记为未核对草稿。",
+      "resultEn": "Verified hand calculations, economic boundaries and six-route live workflows. Co-purchase is a hypothesis, margin is not profit, and optional model polish remains an unverified draft."
     },
     {
       "name": "留学咨询内容矩阵",
