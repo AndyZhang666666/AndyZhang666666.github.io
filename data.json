@@ -581,19 +581,19 @@
       "nameEn": "Commute Compare",
       "subtitle": "比较通勤成本、耗时与迟到风险",
       "subtitleEn": "Compare commute cost, duration and lateness risk",
-      "description": "先填常见耗时与费用快速比较，再用自己的门到门记录校准。比较出门时间、月度成本，并看清样本不足。",
-      "descriptionEn": "Start with typical time and cost, then calibrate with your own door-to-door records. Compare departure times and monthly trade-offs with visible evidence limits.",
+      "description": "用自己的通勤记录比较耗时与费用，调节出门阈值；每条建议都保留来源、样本量和适用限制。",
+      "descriptionEn": "Compare time and cost using your commute records, adjust departure thresholds, and keep each suggestion’s source, sample size and limits visible.",
       "url": "https://andyzhang666666.github.io/commute-compare/",
       "github": "https://github.com/AndyZhang666666/commute-compare",
       "metrics": [
         "快速估算 → 实际记录",
-        "按方案显示数据来源",
-        "决策与依据可导出"
+        "删改方案，其他结果不漂移",
+        "确认输入与依据导出"
       ],
       "metricsEn": [
         "Quick estimates → personal records",
-        "Per-route data provenance",
-        "Export decision and evidence"
+        "Stable results for retained routes",
+        "Confirmed inputs and evidence export"
       ],
       "tags": [
         "决策分析",
@@ -609,11 +609,11 @@
       "contextEn": "Commuters need time/cost trade-offs but rarely know the tail of their journey time distribution.",
       "approach": [
         "默认两个方案，常见耗时与费用即可开始；高级三点参数与城市预设继续保留",
-        "实际耗时直接经验重采样；展示样本量、观测迟到区间和尾部不足提示，不把模拟次数当可靠性"
+        "实际记录按经验分布抽样，显示样本不足；数字确认后再计算，拖动松开才提交，损坏草稿不自动覆盖，导出只用当前已确认输入"
       ],
       "approachEn": [
         "Start with two routes and typical time/cost; retain advanced three-point inputs and city presets.",
-        "Resample observed durations directly; show sample size, observed-rate intervals and tail limitations, not simulation volume as reliability."
+        "Resample observations with visible sample limits. Confirm numeric edits, preview drag changes before committing, preserve invalid saved drafts, and export only results bound to confirmed inputs."
       ],
       "result": "无需地图或模型接口；记录与草稿只存本机。月度比较假设往返同分布；建议时间及尾部比例受输入限制，不保证未来准点率。",
       "resultEn": "No map or model API. Records and drafts remain local. Monthly comparisons assume matching outbound/return distributions; departure suggestions do not guarantee future punctuality."
