@@ -1,4 +1,4 @@
-import { OPTIONS, validChoice } from './engine.js?v=20261024-v2';
+import { OPTIONS, validChoice } from './engine.js?v=20261027-studio1';
 import { directionSvg, balancedLines, fit } from './directions.js';
 export const DIMENSIONS = { artDirection:'设计方向',layoutDensity:'留白',typography:'字体',alignment:'对齐',colorMood:'色彩',decorElements:'装饰' };
 const copy=x=>JSON.parse(JSON.stringify(x));

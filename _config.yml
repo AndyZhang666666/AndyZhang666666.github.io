@@ -1,0 +1,14 @@
+# Local comparison and development aids remain in Git, outside the published website.
+exclude:
+  - README.md
+  - CHANGELOG.md
+  - LOCAL-REVIEW.md
+  - review.html
+  - 打开本地预览.command
+  - scripts/preview.mjs
+  - scripts/test-delivery.mjs
+  - scripts/capture-work.mjs
+  - scripts/verify-original.mjs
+  - scripts/update-content.mjs
+  - docs/FRONTEND-REVIEW-20261027.md
+  - docs/LOCAL-VALIDATION-20261027.md

@@ -2,6 +2,8 @@
 import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {identity,projects,studies} from '../content/editorial.mjs';
+const localReview=process.argv.includes('--local');
+const releaseVersion='20261027-master1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
@@ -40,11 +42,12 @@ words('粘贴一段岗位描述，按有直接证据、部分相关、暂无经�
 words('开始匹配','Match','查找相关证据','Find evidence');
 html=html.replace('<a href="#contact" class="btn btn-ghost" data-zh="联系我" data-en="Contact">联系我</a>','<a href="/assets/resume.pdf" class="btn btn-ghost" download data-zh="下载简历" data-en="Download CV">下载简历</a>');
 words('AI 产品、增长、评测体系，或者德州扑克，都可以聊。','AI products, growth, evaluation — or poker. Happy to talk.','AI 应用、Agent，或一个值得重新想想的产品。','An AI application, an Agent, or a product worth thinking through.');
-// Metadata is not a visual change. This remains a private local review build.
-html=html.replace('<meta charset="UTF-8">','<meta charset="UTF-8">\n<meta name="robots" content="noindex,nofollow">');
+// The public master is indexable; --local is available for a private review build.
+if(localReview)html=html.replace('<meta charset="UTF-8">','<meta charset="UTF-8">\n<meta name="robots" content="noindex,nofollow">');
+html=html.replace(/src="app\.js\?v=[^"]*"/,`src="app.js?v=${releaseVersion}"`).replace(/src="jd\.js\?v=[^"]*"/,`src="jd.js?v=${releaseVersion}"`);
 fs.writeFileSync('index.html',html);
 let app=original('app.js');
-app=app.replace('data.json?v=20261025-demo-suite-3','data.json?v=20261027-content');
+app=app.replace('data.json?v=20261025-demo-suite-3',`data.json?v=${releaseVersion}`);
 app=app.replace('<span data-zh="迭代与校验" data-en="Iterations & validation">迭代与校验</span>','<span data-zh="${esc(p.caseLabel || \'迭代与校验\')}" data-en="${esc(p.caseLabelEn || \'Iterations & validation\')}">${esc(p.caseLabel || \'迭代与校验\')}</span>');
 fs.writeFileSync('app.js',app);
 
@@ -62,6 +65,6 @@ for(const study of studies){
  section('mechanism','把判断变成机制','Making the decision work',`<div class="principle-grid">${study.decisions.map(d=>`<article class="principle-card">${pair('h3','principle-title',d.title)}${pair('p','principle-desc',d.text)}</article>`).join('')}</div>${image(study.secondaryImage,study.artifact.zh)}`)+
  section('evidence','验证、代价与下一步','Evidence, limitations and next steps',pair('p','about-body',study.proof)+pair('p','about-body',study.tradeoff)+pair('p','about-body',study.next));
  fs.mkdirSync(`cases/${study.id}`,{recursive:true});
- fs.writeFileSync(`cases/${study.id}/index.html`,`<!doctype html><html lang="zh-CN" data-palette="frost">${head.replace(/<title>.*?<\/title>/,`<title>${esc(p.name)} · 产品判断</title>`)}<body><div class="grain"></div><div class="glow glow-1"></div><div class="glow glow-2"></div>${nav}<main>${body}</main><footer>© 2026 张千羽 · 本地内容评审</footer><script src="/scripts/case-reader.js"></script></body></html>`);
+ fs.writeFileSync(`cases/${study.id}/index.html`,`<!doctype html><html lang="zh-CN" data-palette="frost">${head.replace(/<title>.*?<\/title>/,`<title>${esc(p.name)} · 产品判断</title>`)}<body><div class="grain"></div><div class="glow glow-1"></div><div class="glow glow-2"></div>${nav}<main>${body}</main><footer>© 2026 张千羽 · ${localReview?'本地内容评审':'产品判断与验证'}</footer><script src="/scripts/case-reader.js"></script></body></html>`);
 }
 console.log('Updated original layout with edited content and four case pages. No home CSS or visual-effect script changed.');

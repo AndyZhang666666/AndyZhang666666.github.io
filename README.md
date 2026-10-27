@@ -1,10 +1,17 @@
 # Andy Zhang · 个人官网
 
-> 2026-10-27 本地评审副本，新增内容和 Demo 前端尚未上传。请从 [本地交付说明](LOCAL-REVIEW.md) 打开预览；以下线上链接仍指向已发布的旧版本。
+2026-10-27 官网主版本更新：保留原版布局、主题与动效，精简个人与项目说明，增加四篇产品设计案例，打磨五个 Demo 的操作界面。「关于 AI」保留原版四条判断与来源。开发记录见 [CHANGELOG](CHANGELOG.md)。
 
 线上站点：[andyzhang666666.github.io](https://andyzhang666666.github.io/)。当前为根目录静态站点，通过 `main` 的 GitHub Pages 发布，无需构建。
 
-本地运行：在仓库根目录执行 `python3 -m http.server 8794 --bind 127.0.0.1`，打开 http://127.0.0.1:8794/ 。主要内容来自 `data.json`，由 `app.js` 渲染；新增项目保持现有布局、主题与中英文机制。
+主要内容来自 `data.json`，由 `app.js` 渲染。内容更新可运行 `node scripts/update-content.mjs`；仅本地评审时可加 `--local`。当前机器的完整本地预览使用 `打开本地预览.command`，相关说明见 [LOCAL-REVIEW](LOCAL-REVIEW.md)。本地对照页和辅助脚本保留在源码仓库，不作为公开网站页面发布。
+
+## 产品设计案例
+
+- [AI 输出如何被信任](https://andyzhang666666.github.io/cases/trust/)：评分、证据定位与独立人工复核。
+- [AI 如何理解个人偏好](https://andyzhang666666.github.io/cases/taste/)：单变量比较、授权范围与可撤回记忆。
+- [AI 如何参与共同决策](https://andyzhang666666.github.io/cases/shared-choice/)：条件确认、无副作用预演与同版共同接受。
+- [套餐值得上线吗](https://andyzhang666666.github.io/cases/bundles/)：分开计算增量贡献与既有顾客让利。
 
 ## 独立生活产品
 
