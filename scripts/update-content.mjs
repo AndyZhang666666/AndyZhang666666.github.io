@@ -1,7 +1,7 @@
 // Content migration only. Home CSS, layout, and visual-effect scripts stay byte-identical.
 import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
-import {identity,projects,studies,viewpoints} from '../content/editorial.mjs';
+import {identity,projects,studies} from '../content/editorial.mjs';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
@@ -11,9 +11,8 @@ data.taglineEn=identity.short.en+' '+identity.intro.en;
 data.about.lead=identity.title.zh;data.about.leadEn=identity.title.en;
 data.about.body=data.about.body.split('。').slice(1).join('。');
 data.about.bodyEn=data.about.bodyEn.split('. ').slice(1).join('. ');
-// The original four-card rhythm is retained. The fourth is the bundle case's judgement.
-data.aiViews.items=[...viewpoints.map((v,i)=>({n:String(i+1).padStart(2,'0'),zh:v.title.zh,en:v.title.en,dz:v.body.zh,de:v.body.en})),
- {n:'04',zh:'先算新增，再算让利。',en:'Separate new value from discounts.',dz:studies.find(s=>s.id==='bundles').insight.zh,de:studies.find(s=>s.id==='bundles').insight.en}];
+// Keep the original four AI views, bilingual copy and reference links intact.
+// Project-specific observations remain in the separate case-study pages.
 for(const p of projects){
  const entry=data.projects[p.index],s=studies.find(s=>s.id===p.caseId);
  entry.name=p.name.zh;entry.nameEn=p.name.en;
@@ -33,7 +32,6 @@ let html=original('index.html');
 function words(zh,en,newZh,newEn){html=html.replaceAll(esc(zh),esc(newZh)).replaceAll(esc(en),esc(newEn));}
 const old=JSON.parse(original('data.json'));
 words(old.tagline,old.taglineEn,data.tagline,data.taglineEn);
-words('四条判断，关于这一轮技术和做产品的人。','Four views on this wave of technology and the people who build with it.','每条判断，都能回到一个实际作品。','Each judgement connects to work you can inspect.');
 html=html.replace('data-zh="工具" data-en="Uses">工具','data-zh="我的工作方式" data-en="How I work">我的工作方式');
 words('从需求梳理、原型验证到数据复盘，我怎样把工具用在产品工作里。','How I use tools across requirements, prototyping, AI validation and product analysis.','工具跟着任务走，最后留下可以检查的产物。','Tools follow the task. The output should be something we can inspect.');
 words('JD 匹配器','JD Matcher','按岗位找证据','Find the evidence');

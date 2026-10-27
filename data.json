@@ -1141,31 +1141,39 @@
     "items": [
       {
         "n": "01",
-        "zh": "对人的理解，应该允许人修正。",
-        "en": "Let people correct AI’s assumptions.",
-        "dz": "在偏爱实验室里，我把一次选择留作线索，确认后才变成有范围的规则。这样多了一步，但人能知道它为什么记住，也能让它忘掉。",
-        "de": "In TasteRoom, a choice starts as a clue and becomes a scoped rule only after confirmation. It takes an extra step, but the person can see the source and undo the memory."
+        "zh": "能力过剩，判断稀缺",
+        "en": "Capability is abundant, judgement is scarce",
+        "dz": "模型能做的事已经远多于产品里用上的事。今天多数 AI 产品的瓶颈不在模型，在有没有人把它放进一个真实场景，定义清楚它要解决的具体问题。这是产品的活，不是算法的活。",
+        "de": "Models can already do far more than products make use of. The bottleneck in most AI products today is not the model. It is whether someone has placed it in a real scenario and defined the specific problem it must solve. That is product work, not algorithm work.",
+        "refLabel": "YouTube · Andrej Karpathy, Software in the Era of AI (2025)",
+        "refUrl": "https://www.youtube.com/watch?v=LCEmiRjPEtQ"
       },
       {
         "n": "02",
-        "zh": "有解释，还要有可核对的依据。",
-        "en": "Explanations need evidence.",
-        "dz": "评测工作台保留原始裁判结果，把引句和人工判断分开。引用能定位，不代表推理成立；没有把握时，保留争议比补出一个确定分数更有用。",
-        "de": "The review tools keep the original judge output and separate quotations from human judgement. A located quote does not prove the reasoning; uncertainty should remain reviewable."
+        "zh": "评测是产品，不是测试",
+        "en": "Evaluation is product, not QA",
+        "dz": "一个 AI 功能「好不好」，不能靠感觉。我倾向于先把评测标准建出来再谈效果。标准本身就是产品的一部分，它决定了团队朝哪个方向优化，也决定了上线之后谁来说「够了」。",
+        "de": "Whether an AI feature is \"good\" cannot rest on feel. I prefer to build the evaluation standard before discussing results. The standard is part of the product: it decides which direction the team optimises toward, and who gets to say \"enough\" after launch.",
+        "refLabel": "eugeneyan · LLM-as-judge 评测实践",
+        "refUrl": "https://eugeneyan.com/writing/llm-evaluators/"
       },
       {
         "n": "03",
-        "zh": "自动化到哪里，要看错了的代价。",
-        "en": "Errors set the automation boundary.",
-        "dz": "随便局可以整理条件、预演调整，但不能替一个人放宽忌口，也不能把预演当成同意。创作 Agent 则在开放生成与人工确认之间分配任务。",
-        "de": "Suibianju can organise constraints and preview changes, but cannot relax someone’s dietary limits or treat a preview as consent. Creative Agents similarly divide generation from human checkpoints."
+        "zh": "接下来十年是 Agent 的十年，不是 Agent 的一年",
+        "en": "The decade of agents, not the year",
+        "dz": "自动驾驶从演示到落地用了十几年，Agent 也一样。真正有价值的不是全自动的炫技，是让人能调节自主程度、在关键节点快速验证的「半自动」产品。做这类产品，交互设计和验证效率比模型能力更重要。",
+        "de": "Self-driving took over a decade from demo to deployment, and agents will follow the same arc. The value is not in fully autonomous showpieces but in \"partially autonomous\" products where people can dial autonomy up or down and verify quickly at key points. For such products, interaction design and verification speed matter more than raw model capability.",
+        "refLabel": "Hamel Husain · Your AI Product Needs Evals",
+        "refUrl": "https://hamel.dev/blog/posts/evals/"
       },
       {
         "n": "04",
-        "zh": "先算新增，再算让利。",
-        "en": "Separate new value from discounts.",
-        "dz": "一个相关性很强的套餐，也可能不值得上线。",
-        "de": "A strongly associated bundle can still be a poor launch decision."
+        "zh": "To C 看留存，To B 看替换成本",
+        "en": "Consumer AI is about retention, enterprise AI is about switching cost",
+        "dz": "消费端的 AI 产品，新鲜感过后拼的还是留存：用户愿不愿意每天回来。企业端的关键是替换成本：AI 方案比旧流程好多少，才值得客户承担切换的代价。两边都不是「有 AI」就赢，是「AI 让哪个数字变了」才赢。",
+        "de": "Once novelty fades, consumer AI competes on retention: will people come back every day. On the enterprise side the question is switching cost: how much better than the old process must the AI solution be for a customer to bear the cost of change. Neither side wins by \"having AI\". They win by \"which number AI moved\".",
+        "refLabel": "Lenny's Newsletter · Product sense",
+        "refUrl": "https://www.lennysnewsletter.com/p/product-sense"
       }
     ]
   },
