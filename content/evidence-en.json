@@ -1,0 +1,453 @@
+{
+  "dims": [
+    {
+      "id": "agent",
+      "name": "Agents & tool workflows",
+      "words": [
+        "agent",
+        "智能体",
+        "工作流",
+        "workflow",
+        "工具调用",
+        "mcp",
+        "skill",
+        "编排",
+        "orchestration"
+      ],
+      "keys": [
+        "agent",
+        "knowledge"
+      ],
+      "projects": [
+        {
+          "id": "eval",
+          "name": "Eval Lab",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/trust/"
+        },
+        {
+          "id": "suibianju",
+          "name": "Suibianju",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/shared-choice/"
+        },
+        {
+          "id": "research-agent",
+          "name": "Research Agent & quantitative tools",
+          "url": "/#projects",
+          "caseUrl": null
+        }
+      ],
+      "evidence": [
+        {
+          "key": "agent",
+          "co": "Shanhai Xingchen",
+          "text": "Owned 11 creation capabilities across domestic and overseas products. Designed a six-stage conversational Agent and pluggable Skills: 38 Skills shipped, about 30% less creation time per title, 6,000 monthly tool calls and 70% screenwriter usage coverage.",
+          "metric": ""
+        },
+        {
+          "key": "knowledge",
+          "co": "Baidu · PSIG",
+          "text": "Restructured the knowledge base with multi-level folders and coordinated retrieval, rendering and model-context changes. Weekly visits rose about 30% and AI Q&A usage about 25%.",
+          "metric": ""
+        }
+      ]
+    },
+    {
+      "id": "eval",
+      "name": "Evaluation & quality",
+      "words": [
+        "评测",
+        "评估",
+        "eval",
+        "evaluation",
+        "rubric",
+        "judge",
+        "幻觉",
+        "质量",
+        "prompt",
+        "提示词"
+      ],
+      "keys": [
+        "production",
+        "eval"
+      ],
+      "projects": [
+        {
+          "id": "eval",
+          "name": "Eval Lab",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/trust/"
+        },
+        {
+          "id": "filing",
+          "name": "Filing Eval",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/trust/"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "production",
+          "co": "Shanhai Xingchen",
+          "text": "Connected script breakdown, asset production and storyboard generation. Defined evaluation criteria for character consistency, style and description adherence; internal trial samples showed about 30% less production time per episode.",
+          "metric": ""
+        },
+        {
+          "key": "eval",
+          "co": "Text Evaluation Workbench · Eval Lab",
+          "text": "Locate source passages from low-score evidence, record human review and export the trail. Explore historical runs and comparisons without a key.",
+          "metric": ""
+        }
+      ]
+    },
+    {
+      "id": "innovation",
+      "name": "Everyday scenarios & innovation",
+      "words": [
+        "创新",
+        "ai native",
+        "ai-native",
+        "生活",
+        "审美",
+        "用户洞察",
+        "用户研究",
+        "用户体验",
+        "innovation",
+        "user research"
+      ],
+      "keys": [
+        "cockpit",
+        "prd"
+      ],
+      "projects": [
+        {
+          "id": "taste",
+          "name": "TasteRoom",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/taste/"
+        },
+        {
+          "id": "suibianju",
+          "name": "Suibianju",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/shared-choice/"
+        },
+        {
+          "id": "grounded",
+          "name": "Grounded Choice",
+          "url": "/#projects",
+          "caseUrl": null
+        }
+      ],
+      "evidence": [
+        {
+          "key": "cockpit",
+          "co": "Li Auto · Intelligent Cockpit",
+          "text": "Combined event data with 20+ store visits to define a rest mode linking seats, blinds, climate, lighting and white noise, with natural-language activation.",
+          "metric": ""
+        }
+      ]
+    },
+    {
+      "id": "growth",
+      "name": "Growth, experiments & analysis",
+      "words": [
+        "增长",
+        "growth",
+        "a/b",
+        "ab test",
+        "实验",
+        "数据分析",
+        "sql",
+        "留存",
+        "retention",
+        "转化",
+        "conversion",
+        "漏斗",
+        "funnel"
+      ],
+      "keys": [
+        "subsidy",
+        "exposure"
+      ],
+      "projects": [
+        {
+          "id": "growth",
+          "name": "Growth Experiment Lab",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/bundles/"
+        },
+        {
+          "id": "bundle",
+          "name": "Bundle Lab",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/bundles/"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "subsidy",
+          "co": "Meituan · Keeta",
+          "text": "Segmented subsidies by city stage, retention and price sensitivity, using A/B tests to compare acquisition and subsequent retention. New-customer acquisition cost fell 27% and new-customer monthly retention rose 8%.",
+          "metric": ""
+        },
+        {
+          "key": "exposure",
+          "co": "Baidu · PSIG",
+          "text": "Used event tracking and SQL to locate over 70% exposure loss through deep tabs. Improved pop-up discovery and navigation: single-day UV increased tenfold, post-iteration retained UV rose about 60%, and sharing reached 26%.",
+          "metric": ""
+        }
+      ]
+    },
+    {
+      "id": "revenue",
+      "name": "Subscriptions & monetisation",
+      "words": [
+        "商业化",
+        "定价",
+        "订阅",
+        "revenue",
+        "pricing",
+        "monetization",
+        "monetisation",
+        "ltv",
+        "cac",
+        "arpu",
+        "付费"
+      ],
+      "keys": [
+        "subscription",
+        "revolut"
+      ],
+      "projects": [
+        {
+          "id": "pricing",
+          "name": "Pricing Model Sim",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/bundles/"
+        },
+        {
+          "id": "bundle",
+          "name": "Bundle Lab",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/bundles/"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "subscription",
+          "co": "Shanhai Xingchen",
+          "text": "Diagnosed an 11% Q2 overseas revenue decline and designed a subscription pilot. Pilot monthly repeat purchase rose about 20%, ARPU 8%, and subscriber share from 18% to 35%.",
+          "metric": ""
+        },
+        {
+          "key": "revolut",
+          "co": "Revolut",
+          "text": "Contributed to Premium growth experiments, improving benefit presentation and upgrade prompts around exchange-rate and cashback benefits. A/B-tested changes lifted subscription conversion over 15%.",
+          "metric": ""
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "name": "Enterprise workflows & delivery",
+      "words": [
+        "fde",
+        "企业",
+        "交付",
+        "b端",
+        "to b",
+        "tob",
+        "saas",
+        "crm",
+        "erp",
+        "客户",
+        "enterprise",
+        "delivery",
+        "知识库",
+        "rag"
+      ],
+      "keys": [
+        "enterprise",
+        "knowledge"
+      ],
+      "projects": [
+        {
+          "id": "fde",
+          "name": "Enterprise AI & business tools",
+          "url": "/#projects",
+          "caseUrl": null
+        },
+        {
+          "id": "filing",
+          "name": "Filing Eval",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/trust/"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "enterprise",
+          "co": "Enterprise AI & Lightweight Business Tools",
+          "text": "Delivered tools for product selection, knowledge Q&A, lead follow-up and manufacturing ERP/CRM, with source checks and human confirmation.",
+          "metric": ""
+        },
+        {
+          "key": "knowledge",
+          "co": "Baidu · PSIG",
+          "text": "Restructured the knowledge base with multi-level folders and coordinated retrieval, rendering and model-context changes. Weekly visits rose about 30% and AI Q&A usage about 25%.",
+          "metric": ""
+        }
+      ]
+    },
+    {
+      "id": "finance",
+      "name": "Finance & research tools",
+      "words": [
+        "金融",
+        "finance",
+        "量化",
+        "quant",
+        "交易",
+        "trading",
+        "投研",
+        "investment",
+        "订单流",
+        "order flow"
+      ],
+      "keys": [
+        "investment",
+        "msc"
+      ],
+      "projects": [
+        {
+          "id": "research-agent",
+          "name": "Research Agent & quantitative tools",
+          "url": "/#projects",
+          "caseUrl": null
+        },
+        {
+          "id": "filing",
+          "name": "Filing Eval",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/trust/"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "investment",
+          "co": "Personal Investment Research Agent & Quant Tools",
+          "text": "Orchestrated filings, news and sentiment tasks into daily research reports, with a separate dashboard for signals, risk and out-of-sample analysis.",
+          "metric": ""
+        },
+        {
+          "key": "msc",
+          "co": "University College London",
+          "text": "MSc Financial Engineering",
+          "metric": "Distinction · Top 8%"
+        }
+      ]
+    },
+    {
+      "id": "hardware",
+      "name": "Hardware & cross-device experiences",
+      "words": [
+        "硬件",
+        "汽车",
+        "座舱",
+        "hardware",
+        "wearable",
+        "可穿戴",
+        "cross-device"
+      ],
+      "keys": [
+        "cockpit",
+        "bachelor"
+      ],
+      "projects": [
+        {
+          "id": "commute",
+          "name": "Commute Compare",
+          "url": "/#projects",
+          "caseUrl": null
+        }
+      ],
+      "anchor": "education",
+      "evidence": [
+        {
+          "key": "cockpit",
+          "co": "Li Auto · Intelligent Cockpit",
+          "text": "Combined event data with 20+ store visits to define a rest mode linking seats, blinds, climate, lighting and white noise, with natural-language activation.",
+          "metric": ""
+        },
+        {
+          "key": "bachelor",
+          "co": "University of Bristol",
+          "text": "BEng Electronic and Electrical Engineering",
+          "metric": "First Class Honours · Top 5%"
+        }
+      ]
+    },
+    {
+      "id": "overseas",
+      "name": "Overseas products & working language",
+      "words": [
+        "海外",
+        "英语",
+        "英文",
+        "英语",
+        "overseas",
+        "english",
+        "international",
+        "出海"
+      ],
+      "keys": [
+        "subscription",
+        "family",
+        "english"
+      ],
+      "projects": [
+        {
+          "id": "pricing",
+          "name": "Pricing Model Sim",
+          "url": "/#projects",
+          "caseUrl": "/en/cases/bundles/"
+        },
+        {
+          "id": "content",
+          "name": "Study-abroad content business",
+          "url": "/#projects",
+          "caseUrl": null
+        }
+      ],
+      "evidence": [
+        {
+          "key": "subscription",
+          "co": "Shanhai Xingchen",
+          "text": "Diagnosed an 11% Q2 overseas revenue decline and designed a subscription pilot. Pilot monthly repeat purchase rose about 20%, ARPU 8%, and subscriber share from 18% to 35%.",
+          "metric": ""
+        },
+        {
+          "key": "family",
+          "co": "Meituan · Keeta",
+          "text": "Identified a mismatch between 35% demand for meals for three or more people and single-person supply. Designed family bundles and recommendations; bundles reached 22% of orders, with order value about 45% above the platform average.",
+          "metric": ""
+        },
+        {
+          "key": "english",
+          "co": "Working language",
+          "text": "English as a working language",
+          "metric": "IELTS 7.5"
+        }
+      ]
+    }
+  ],
+  "lang": "en",
+  "home": "/en/",
+  "samples": [
+    "Own AI / Agent products from discovery to launch, design tool workflows and human review, establish evaluation and analyse user retention.",
+    "Explore AI-native everyday products through user research, aesthetics and innovation; build prototypes and validate product hypotheses.",
+    "Own growth and monetisation, design A/B tests and subscription pricing, and use SQL to analyse conversion funnels, retention and LTV / CAC."
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "name": "张千羽",
   "nameEn": "Qianyu Zhang (Andy)",
-  "tagline": "AI 产品经理，关注 Agent 工作流、模型评测与业务增长。做过内容创作工具和海外产品，也为企业交付 AI 应用；把需求做成能用的产品，再用数据验证效果。",
-  "taglineEn": "AI product manager working on Agent workflows, model evaluation and growth. I build content-creation tools, work on overseas products and deliver AI applications for businesses, then use data to test what works.",
+  "tagline": "AI 产品经理，做 Agent、评测与商业增长。 从创作 Agent、效果评测，到生活里的新体验。先判断用户需要什么，再决定哪些步骤交给 AI，以及怎样验证它是否有效。",
+  "taglineEn": "AI product manager working across Agents, evaluation and growth. From creative Agents and evaluation to everyday experiments. I start with the user’s task, decide what AI should handle, then define how to tell whether it works.",
   "contact": {
     "phone": "13149829129",
     "email": "andy_zzz@yeah.net",
@@ -292,13 +292,13 @@
   ],
   "projects": [
     {
-      "name": "TasteRoom · 偏爱实验室",
-      "nameEn": "TasteRoom · A preference experiment",
+      "name": "偏爱实验室",
+      "nameEn": "TasteRoom",
       "subtitle": "喜欢整张，不代表喜欢每个参数",
       "subtitleEn": "Liking a poster is not a preference for every parameter",
-      "description": "先用海报表达直觉，再只改变一个变量验证偏爱。由你决定记在哪个场景，换内容验证，导出自己的偏好说明书与海报。",
-      "descriptionEn": "Start with intuition, compare one variable at a time, choose what may be remembered, test it on new content and export a style brief and poster.",
-      "url": "https://andyzhang666666.github.io/tasteroom/",
+      "description": "一张海报里有字体、留白和色彩。先拆开比较，再由用户决定这条偏爱该记在哪个场景。",
+      "descriptionEn": "A poster mixes type, spacing and colour. Compare one variable at a time, then let the person decide where that preference belongs.",
+      "url": "/tasteroom/?direction=swiss",
       "github": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/tasteroom",
       "tags": [
         "独立项目",
@@ -315,33 +315,38 @@
         "Style brief / SVG export",
         "Local rule simulation"
       ],
-      "context": "整张海报含混合特征，无法直接归因；同一种偏爱也不一定适合日常和工作。",
-      "contextEn": "A whole-poster choice mixes several signals, and a preference may not transfer between personal and work contexts.",
+      "context": "整张海报同时改变多种特征，单次选择无法说明原因。把它直接当成稳定偏好，还可能让工作和日常的需求互相干扰。",
+      "contextEn": "A choice between posters with several differences cannot isolate the cause. Treating it as a stable preference can also mix up work and everyday needs.",
       "approach": [
-        "同内容、同其余参数的五维单变量对照；都不选不写偏好，确认适用范围后只记这一维",
-        "区分线索与明确规则，保留冲突仲裁与记忆撤回；换内容验证，导出说明书和自包含 SVG"
+        "选择原因先作为线索：初次选择只留下待验证线索。拆开对照时保持内容和其余参数不变；两张都不选也不会被记成偏好。",
+        "记忆有范围，也能撤回：区分全局、日常审美与工作汇报。明确规则优先于推测，保留依据、冲突提示和撤回入口。",
+        "换内容，检查是否还成立：同一组参数可以应用到另一套海报内容。用户能带走偏好说明书与 SVG，而不是只能留在对话里。"
       ],
       "approachEn": [
-        "Hold content and four parameters constant; compare the fifth, allow neither, and require scope consent before writing one preference.",
-        "Separate clues from explicit rules, resolve conflicts, undo memory edits and export a brief and self-contained SVG after cross-content validation."
+        "Treat an inferred reason as a clue: Initial choices create tentative clues. Comparisons hold the content and other settings constant; rejecting both does not create a preference.",
+        "Make memory scoped and reversible: Separate global, everyday and work contexts. Explicit rules take priority over guesses, with sources, conflicts and undo available.",
+        "Test it on different content: Apply the settings to different poster content. Export the preference brief and SVG so the result can leave the conversation."
       ],
-      "result": "已实现纯前端交互 Demo，公开版使用明确标注的本地规则模拟；提供可选服务端模型适配器，未启用真实模型。",
-      "resultEn": "A working frontend demo with labelled local rules. Optional server model adapter included; live model service is not enabled.",
+      "result": "目前证明的是单变量对照、范围授权、冲突纠偏和撤回流程可以操作。没有真实用户研究，也没有证明这些画布参数足以代表一个人的审美。 多一次验证会增加操作，但能减少“你怎么又替我记住了”的负担。直接参数入口仍保留，避免用户被迫猜关键词。",
+      "resultEn": "The implemented flow demonstrates controlled comparison, scoped consent, correction and undo. It does not establish real-user value or that these canvas settings capture someone’s taste. An extra check adds friction but reduces the cost of unwanted memory. Direct parameter controls remain available, so people need not guess the right wording.",
       "featured": true,
       "demoLabel": "立即体验",
       "demoLabelEn": "Try it now",
       "sourceLabel": "查看源码",
-      "sourceLabelEn": "View source"
+      "sourceLabelEn": "View source",
+      "iterationUrl": "/cases/taste/",
+      "caseLabel": "设计过程",
+      "caseLabelEn": "Case study"
     },
     {
       "id": "suibianju",
-      "name": "随便局 · 聚餐协商小工具",
-      "nameEn": "Suibianju · Dinner Together",
+      "name": "随便局",
+      "nameEn": "Suibianju",
       "subtitle": "把「随便」说清楚",
       "subtitleEn": "Make “anything is fine” actionable",
-      "description": "让「随便」变成可确认的条件：无交集时预演自愿调整，全员同版接受后带走决定。不用多数票替少数人拍板。",
-      "descriptionEn": "Make constraints explicit, preview voluntary changes when nothing fits, and export a decision only after unanimous agreement—not a majority override.",
-      "url": "https://andyzhang666666.github.io/suibianju/",
+      "description": "“随便”之后总有人否决。把预算、距离和忌口变成各自可确认的条件；无交集时先预演，不替任何人妥协。",
+      "descriptionEn": "“Anything is fine” often ends in a veto. Make budget, distance and dietary needs explicit; preview voluntary changes when there is no overlap.",
+      "url": "/suibianju/",
       "github": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/suibianju",
       "demoLabel": "立即体验",
       "demoLabelEn": "Try it now",
@@ -360,30 +365,35 @@
         "Opt-in proposal → preview → agreement",
         "3–5 simulated roles · No key"
       ],
-      "context": "大家说随便却不断否决：待验证假设是限制没有被充分表达，而不只是缺少推荐。",
-      "contextEn": "Repeated vetoes may come from unspoken constraints rather than missing recommendations. This is a product hypothesis.",
+      "context": "聚餐难题不只是候选餐厅少。一个人说“随便”，可能仍有预算或忌口；多数票会把少数人的限制当成可忽略的意见。",
+      "contextEn": "The problem is not simply a lack of restaurants. “Anything” can conceal budget or dietary limits, while majority voting may ignore a minority constraint.",
       "approach": [
-        "仅本人预算变化能解锁候选时给出自愿建议；先填草稿和预演，不降低忌口、位置与排除条件",
-        "条件、候选或成员变化使旧表态失效；3–5 位有效模拟成员共同接受才可导出公共决定单"
+        "硬条件不能被推荐抹掉：忌口、位置与明确排除条件保留。预算建议只有在本人调整能解锁候选时才出现，仍要由本人应用。",
+        "预演不等于同意：预演只显示可能的候选变化，不修改条件或表态。真正应用后，旧版本的接受状态失效。",
+        "最后带走的是共同决定：有效模拟成员都接受同一版本后才能形成决定单。公共导出不附带每个人未公开的私人输入。"
       ],
       "approachEn": [
-        "Offer budget-only, opt-in changes only when they unlock a candidate; preview drafts without weakening dietary, location or exclusion constraints.",
-        "Invalidate old responses after changes; export a public receipt only when all 3–5 active simulated members accept the same option."
+        "Recommendations cannot erase constraints: Dietary, location and excluded-option constraints remain. Budget suggestions appear only when a member’s own change unlocks an option, and still require application.",
+        "A preview is not consent: Preview shows possible changes without modifying constraints or votes. Applying a change invalidates acceptance of the old version.",
+        "Export a shared decision: A decision requires all active simulated members to accept the same version. Public exports omit private inputs that were not shared."
       ],
-      "result": "已实现静态快速体验和功能测试。人物与餐厅均为虚构，整理由本地规则模拟；真实多人、权限接口与真实模型调用未开放，没有真实用户效果数据。",
-      "resultEn": "Static quick demo with functional tests. Fictional people and restaurants; local rules simulate interpretation. Live rooms, authorization APIs and model calls are not implemented. No real user impact claims.",
+      "result": "当前是可操作的单人模拟，成员与餐厅均虚构。能检查变更、确认与导出的状态关系，尚未验证真实多人使用、权限和真实商家信息。 共同确认比多数票慢。这个版本优先保护明确条件与决定权，是否会增加真实聚餐中的社交负担，需要真人任务验证。",
+      "resultEn": "This is an interactive single-user simulation with fictional people and restaurants. It demonstrates change, consent and export states, not real multiplayer, permissions or merchant coverage. Shared confirmation is slower than majority voting. This version prioritises explicit constraints and agency; whether it adds social friction needs real-user testing.",
       "demoNote": "单人模拟。确认小林条件后，可体验无交集 → 建议填入草稿 → 预演 → 本人确认 → 逐人接受 → 下载决定单。",
       "demoNoteEn": "Single-person simulation: confirm constraints, try no-overlap, preview a voluntary draft, confirm, switch roles for unanimous acceptance and download a receipt.",
-      "featured": true
+      "featured": true,
+      "iterationUrl": "/cases/shared-choice/",
+      "caseLabel": "设计过程",
+      "caseLabelEn": "Case study"
     },
     {
-      "name": "有据 · 生活决策审议台",
+      "name": "有据",
       "nameEn": "Grounded Choice",
       "subtitle": "从经验材料到可追溯的生活决策",
       "subtitleEn": "From collected experience to traceable decisions",
-      "description": "识别经验中的共识、分歧与适用条件，结合个人约束比较方案，由用户选择并导出决策卡。",
-      "descriptionEn": "Compare options against personal constraints using consensus, disagreement and applicability from collected experiences; the user chooses and exports a decision card.",
-      "url": "https://andyzhang666666.github.io/grounded-choice/",
+      "description": "从相反经验中，找到适合自己的决定",
+      "descriptionEn": "Make a choice with conflicting experiences",
+      "url": "/grounded-choice/",
       "github": "https://github.com/AndyZhang666666/grounded-choice",
       "metrics": [
         "2 个决策场景",
@@ -417,13 +427,13 @@
       "featured": true
     },
     {
-      "name": "文本评测工作台 · Eval Lab",
-      "nameEn": "Text Evaluation Workbench · Eval Lab",
+      "name": "Eval Lab",
+      "nameEn": "Eval Lab",
       "subtitle": "从评分锚点，到有证据的版本评审",
       "subtitleEn": "From scoring anchors to evidence-backed version review",
-      "description": "从低分引用定位原文，记录自己的复核判断并导出。支持历史运行切换和版本对照，无需 Key 走完评审流程。",
-      "descriptionEn": "Locate source passages from low-score evidence, record human review and export the trail. Explore historical runs and comparisons without a key.",
-      "url": "https://andyzhang666666.github.io/llm-output-eval/",
+      "description": "把低分、引句和原文放在一起。用独立的人工判断检查裁判，而不是让一个总分替人作决定。",
+      "descriptionEn": "Bring low scores, quotations and source text together. Let people review the judge instead of outsourcing the decision to one score.",
+      "url": "/llm-output-eval/",
       "github": "https://github.com/AndyZhang666666/llm-output-eval",
       "metrics": [
         "引用定位原文",
@@ -440,29 +450,33 @@
         "Eval",
         "工具"
       ],
-      "context": "生成内容难以稳定比较；裁判自己的偏差和波动也需要检查。",
-      "contextEn": "Generated text is hard to compare consistently, and the judge itself needs checks for bias and variation.",
+      "context": "创意文本很难稳定比较，摘要又可能写错事实或漏掉重点。把不同问题压成一个总分，既难以解释，也不利于改进。",
+      "contextEn": "Creative text is hard to compare consistently; a summary can add false claims or omit essential facts. One score obscures both the reason and the next action.",
       "approach": [
-        "V1 creative-eval 建立五维评分锚点与校准流程；V2 将其发展为评审工作台",
-        "点击引用定位原文，按具体运行隔离复核；导出保留原始分数。版本比较仅描述本组均值和极差，不代替显著性判断"
+        "不让人工意见覆盖历史：按样本、模型和具体运行隔离复核。记录不同意或待补充的依据，导出时同时保留原文、原始结果和人工判断。",
+        "事实错误与信息遗漏分开：Filing Eval 独立检查断言与关键事实覆盖。摘要没有写错，也可能漏掉会改变决定的信息。",
+        "没有证据，就保留争议：引句无法定位时明确提示；复核默认不选结论。历史标签和复核意见不能互相替代。"
       ],
       "approachEn": [
-        "V1 creative-eval established anchored scoring and calibration; V2 developed the review workbench.",
-        "Locate quotes, isolate review by run and export unchanged original scores. Comparison describes this sample’s means and ranges, not statistical significance."
+        "Keep the original record: Review is scoped to a sample, model and run. Exports retain source text, original results and the reviewer’s reasoning together.",
+        "Separate error from omission: Filing Eval reviews claims and coverage separately. A summary can be factually correct yet omit information that changes the decision.",
+        "Leave uncertainty visible: Unlocated quotes are flagged, and review starts with no selected verdict. Saved labels and human opinions serve different purposes."
       ],
-      "result": "V1 为 40 条构造样本（32 条带作者标注）；V2 校验为另一套 30 条作者标注样本，免 Key 回放其中 6 条的 18 次历史输出。不同口径不混算，不宣称已证明代际提升。",
-      "resultEn": "V1 used 40 constructed cases (32 author-labeled); V2 validation used a separate 30 author-labeled cases. Replay 18 stored runs for 6 V2 examples. Different datasets are not pooled or treated as proof of improvement.",
+      "result": "Eval Lab 的免 Key 回放包含 6 条样本的 18 次历史输出。Filing Eval 展示 28 条构造公告；原始结果、困难集与未运行的候选留出集分开说明。界面与回归已检查，不等于生产准确率已被证明。 复核比看总分慢。我的取舍是把人的注意力优先放在低分、错误和争议上，而不是要求逐字读完所有输出。",
+      "resultEn": "Eval Lab replays 18 saved outputs across six samples. Filing Eval contains 28 constructed notices, with original results, hard cases and unrun holdout candidates reported separately. Interface and regression checks do not establish production accuracy. Review costs more time than reading a score. The tradeoff is to direct attention to low scores, errors and disputes rather than requiring an exhaustive read of every output.",
       "demoNote": "无需中转站体验历史回放和人工复核。可选接口仅按点击运行，Key 不持久保存；本轮未调用真实模型或重跑历史指标。",
       "demoNoteEn": "No relay needed for replay and human review. Optional API runs require a click; keys are not persisted. No real models or historical benchmarks were rerun this round.",
       "featured": true,
-      "iterationUrl": "https://andyzhang666666.github.io/llm-output-eval/iteration/"
+      "iterationUrl": "/cases/trust/",
+      "caseLabel": "设计过程",
+      "caseLabelEn": "Case study"
     },
     {
-      "name": "公告摘要核验台 · Filing Eval",
-      "nameEn": "Filing Summary Evidence Desk",
-      "description": "把摘要断言与关键遗漏分开复核，不默认同意历史裁判；导出原文、摘要、原始判断和人工依据。",
-      "descriptionEn": "Review claims and important omissions separately, with no default agreement. Export source, summary, original judgments and human reasoning.",
-      "url": "https://andyzhang666666.github.io/demos/filing-eval/",
+      "name": "Filing Eval",
+      "nameEn": "Filing Eval",
+      "description": "错句与遗漏，分别回到原文核验",
+      "descriptionEn": "Review false claims and omissions separately",
+      "url": "/demos/filing-eval/",
       "github": "https://github.com/AndyZhang666666/filing-eval",
       "metrics": [
         "原文与断言联动",
@@ -481,28 +495,33 @@
       ],
       "subtitle": "逐条核查公告摘要的事实依据",
       "subtitleEn": "Claim-level fact checking for filing summaries",
-      "context": "公告摘要可能添加原文没有的数字或因果关系。",
-      "contextEn": "Filing summaries can add numbers or causal claims absent from the source.",
+      "context": "创意文本很难稳定比较，摘要又可能写错事实或漏掉重点。把不同问题压成一个总分，既难以解释，也不利于改进。",
+      "contextEn": "Creative text is hard to compare consistently; a summary can add false claims or omit essential facts. One score obscures both the reason and the next action.",
       "approach": [
-        "按样本 ID 对齐 28 条模拟公告及历史输出，断言可定位原文引句，无法定位时明确提示",
-        "断言与覆盖判断独立复核，继续未复核项可直达下一目标；导出带完整原文和摘要，不修改金标或历史成绩"
+        "不让人工意见覆盖历史：按样本、模型和具体运行隔离复核。记录不同意或待补充的依据，导出时同时保留原文、原始结果和人工判断。",
+        "事实错误与信息遗漏分开：Filing Eval 独立检查断言与关键事实覆盖。摘要没有写错，也可能漏掉会改变决定的信息。",
+        "没有证据，就保留争议：引句无法定位时明确提示；复核默认不选结论。历史标签和复核意见不能互相替代。"
       ],
       "approachEn": [
-        "Join 28 synthetic cases with recorded outputs by ID; locate quoted evidence and flag missing matches.",
-        "Review claims and coverage separately, continue to the next pending item, and export full source context without changing gold labels or historical results."
+        "Keep the original record: Review is scoped to a sample, model and run. Exports retain source text, original results and the reviewer’s reasoning together.",
+        "Separate error from omission: Filing Eval reviews claims and coverage separately. A summary can be factually correct yet omit information that changes the decision.",
+        "Leave uncertainty visible: Unlocated quotes are flagged, and review starts with no selected verdict. Saved labels and human opinions serve different purposes."
       ],
-      "result": "历史构造主集检出 11/11、误报 0/4，困难集另报并排除争议 h05；原标签未完成独立人工复核。新增 6 条候选留出样本未运行模型，不计入成绩。",
-      "resultEn": "Historical constructed main set: 11/11 errors detected, 0/4 false positives. Hard cases are separate, excluding disputed h05. Labels lack independent human review; 6 new holdout candidates remain unrun and uncounted.",
+      "result": "Eval Lab 的免 Key 回放包含 6 条样本的 18 次历史输出。Filing Eval 展示 28 条构造公告；原始结果、困难集与未运行的候选留出集分开说明。界面与回归已检查，不等于生产准确率已被证明。 复核比看总分慢。我的取舍是把人的注意力优先放在低分、错误和争议上，而不是要求逐字读完所有输出。",
+      "resultEn": "Eval Lab replays 18 saved outputs across six samples. Filing Eval contains 28 constructed notices, with original results, hard cases and unrun holdout candidates reported separately. Interface and regression checks do not establish production accuracy. Review costs more time than reading a score. The tradeoff is to direct attention to low scores, errors and disputes rather than requiring an exhaustive read of every output.",
       "demoNote": "28条模拟公告历史回放，不评估任意新文本；复核只存本机，损坏记录不计入进度，未保存草稿不冒充已审核。",
-      "demoNoteEn": "Replay of 28 synthetic filings, not live evaluation of arbitrary text. Reviews stay local; invalid records and unsaved drafts do not count as reviewed."
+      "demoNoteEn": "Replay of 28 synthetic filings, not live evaluation of arbitrary text. Reviews stay local; invalid records and unsaved drafts do not count as reviewed.",
+      "iterationUrl": "/cases/trust/",
+      "caseLabel": "设计过程",
+      "caseLabelEn": "Case study"
     },
     {
-      "name": "企业 AI 应用与轻量业务工具（FDE）",
-      "nameEn": "Enterprise AI & Lightweight Business Tools",
+      "name": "企业 AI 与轻量业务工具",
+      "nameEn": "Enterprise AI & business tools",
       "subtitle": "把 AI 接入实际业务流程",
       "subtitleEn": "AI integrated into business workflows",
-      "description": "为选品、知识问答、线索跟进和制造业 ERP/CRM 交付可操作工具，保留来源核验与关键人工确认。",
-      "descriptionEn": "Delivered tools for product selection, knowledge Q&A, lead follow-up and manufacturing ERP/CRM, with source checks and human confirmation.",
+      "description": "选品、问答、线索与生产记录的流程交付",
+      "descriptionEn": "Workflow delivery for research, support and operations",
       "period": "2026.05 – 至今",
       "role": "企业 AI 应用实践",
       "roleEn": "Enterprise AI Practice",
@@ -539,12 +558,12 @@
       "resultEn": "Tool-assisted selection research and organisation took about 40% less manual time; production and inventory reporting time fell about 20%. These measure separate delivery modules."
     },
     {
-      "name": "个人智能投研 Agent 与量化研究工具",
-      "nameEn": "Personal Investment Research Agent & Quant Tools",
+      "name": "个人投研 Agent 与量化研究",
+      "nameEn": "Research Agent & quantitative tools",
       "subtitle": "从多源信息到可回查的研究记录",
       "subtitleEn": "From multiple sources to traceable research records",
-      "description": "组织财报、新闻与情绪分析任务，生成盘后研究日报；另建量化研究看板，检查信号、风险与样本外表现。",
-      "descriptionEn": "Orchestrated filings, news and sentiment tasks into daily research reports, with a separate dashboard for signals, risk and out-of-sample analysis.",
+      "description": "多源研究、盘后复盘与样本外对照",
+      "descriptionEn": "Multi-source research and out-of-sample comparison",
       "period": "2026.01 – 至今",
       "metrics": [
         "每日信息提炼：约 2 小时 → 20 分钟",
@@ -577,13 +596,13 @@
       "resultEn": "Daily information gathering and synthesis fell from about two hours to twenty minutes. The quantitative research module accounts for trading costs and temporal separation to examine historical behaviour and applicability."
     },
     {
-      "name": "通勤方案比较器（commute-compare）",
+      "name": "通勤方案比较器",
       "nameEn": "Commute Compare",
       "subtitle": "比较通勤成本、耗时与迟到风险",
       "subtitleEn": "Compare commute cost, duration and lateness risk",
-      "description": "用自己的通勤记录比较耗时与费用，调节出门阈值；每条建议都保留来源、样本量和适用限制。",
-      "descriptionEn": "Compare time and cost using your commute records, adjust departure thresholds, and keep each suggestion’s source, sample size and limits visible.",
-      "url": "https://andyzhang666666.github.io/commute-compare/",
+      "description": "多花多少钱，换多少时间与迟到风险",
+      "descriptionEn": "Compare cost, travel time and late-arrival risk",
+      "url": "/commute-compare/",
       "github": "https://github.com/AndyZhang666666/commute-compare",
       "metrics": [
         "快速估算 → 实际记录",
@@ -619,10 +638,10 @@
       "resultEn": "No map or model API. Records and drafts remain local. Monthly comparisons assume matching outbound/return distributions; departure suggestions do not guarantee future punctuality."
     },
     {
-      "name": "德州扑克玩家类型测试",
-      "nameEn": "Poker Player Type Quiz",
-      "description": "通过入池率、激进度与粘性识别玩家风格；专业与简单双模式，兼顾有经验玩家和新手。",
-      "descriptionEn": "Identify player style through VPIP, aggression and stickiness, with professional and simple modes for experienced players and beginners.",
+      "name": "扑克玩家类型测试",
+      "nameEn": "Poker Style Quiz",
+      "description": "用十道题描述自己的打法",
+      "descriptionEn": "Describe your playing style in ten questions",
       "url": "https://www.pokertesting.online/?utm_source=redonote&utm_medium=social",
       "metrics": [
         "10 道题",
@@ -654,13 +673,13 @@
       "resultEn": "Live: complete the quiz and view a style profile."
     },
     {
-      "name": "扑克筹码管理模拟器（poker-bankroll-sim）",
-      "nameEn": "Poker Bankroll Simulator",
+      "name": "扑克筹码管理模拟器",
+      "nameEn": "Bankroll Simulator",
       "subtitle": "观察停止、曾经达标与最终达标的差异",
       "subtitleEn": "Separate stopping, reaching a goal and finishing above it",
-      "description": "用固定种子的合成模型观察波动、回撤与目标结果；停止后保留余额，一次只改一个假设，并导出带参数、种子和局限的比较记录。",
-      "descriptionEn": "Explore volatility, drawdown and goal outcomes in a seeded synthetic model. Retain balances after stopping, vary one assumption at a time, and export inputs, seed and limitations.",
-      "url": "https://andyzhang666666.github.io/poker-bankroll-sim/",
+      "description": "分开看停止、曾经达标与最终达标",
+      "descriptionEn": "Separate stopping, reaching and finishing above target",
+      "url": "/poker-bankroll-sim/",
       "github": "https://github.com/AndyZhang666666/poker-bankroll-sim",
       "metrics": [
         "停止不等于余额归零",
@@ -684,13 +703,13 @@
       ]
     },
     {
-      "name": "扑克期望值计算器（poker-ev-calculator）",
+      "name": "扑克期望值计算器",
       "nameEn": "Poker EV Calculator",
       "subtitle": "不只比较收益，也检查估错时结论会不会变",
       "subtitleEn": "Compare outcomes and test whether a mistaken assumption changes the decision",
-      "description": "按有效筹码统一赔率与 EV，比较强度假设变化时的行动切换；导出输入、模型版本与边界。单轮学习沙盘，不是 GTO 或真实下注建议。",
-      "descriptionEn": "Use effective stakes consistently for pot odds and EV, test action changes across strength assumptions, and export a versioned record. A single-street learning sandbox, not GTO or betting advice.",
-      "url": "https://andyzhang666666.github.io/poker-ev-calculator/",
+      "description": "检查假设估错时，决策会不会改变",
+      "descriptionEn": "Check whether a decision survives a mistaken estimate",
+      "url": "/poker-ev-calculator/",
       "github": "https://github.com/AndyZhang666666/poker-ev-calculator",
       "metrics": [
         "有效底池口径一致",
@@ -718,9 +737,9 @@
       "nameEn": "Growth Experiment Lab",
       "subtitle": "从实验设计到结果解读的决策工具",
       "subtitleEn": "A decision tool from experiment design to interpretation",
-      "description": "规划样本、运行可取消的偷看模拟，把统计证据、最低业务效应和人工护栏核对分开；导出设计计划与决策记录，不把不显著等同于无效。",
-      "descriptionEn": "Plan samples, run cancellable peeking simulations, and separate statistical evidence, business thresholds and manual guardrail checks. Export plans and readouts without equating non-significance with no effect.",
-      "url": "https://andyzhang666666.github.io/growth-experiment-lab/",
+      "description": "把统计证据与上线决策分开",
+      "descriptionEn": "Separate statistical evidence from rollout decisions",
+      "url": "/growth-experiment-lab/",
       "github": "https://github.com/AndyZhang666666/growth-experiment-lab",
       "metrics": [
         "显著不等于自动全量",
@@ -738,27 +757,32 @@
         "工具"
       ],
       "featured": true,
-      "context": "实验前要确定样本量，实验中要控制误判，实验后要解释收益。",
-      "contextEn": "Determine sample size before a test, control errors during it, and interpret business value afterward.",
+      "context": "从订单共现直接跳到“做套餐”，容易把相关性当成效果。更高的客单也不等于更高收益，需要核对新增购买、让利、毛利与采纳假设。",
+      "contextEn": "Jumping from co-occurrence to a bundle confuses association with impact. Higher order value does not establish better contribution; adoption, margin and discount leakage matter.",
       "approach": [
-        "计算样本量与实验时长，模拟不同检查策略的假阳性风险",
-        "输出置信区间与条件化收入情景，明确护栏、成本和实验有效性仍需核对"
+        "结构差异先提出问题：多人订单人均商品数少，也可能因为共享大份菜。先核对份量与人数口径，不直接称为凑单流失。",
+        "同一账本允许否定建议：模型算例：原价 20、套餐价 18，原有平均消费 12；20% 已经买齐、食材成本率 40%、既有顾客全领折扣。未买齐者采纳 50% 时，新增贡献 1.60 减让利 0.40，净增 1.20；采纳 5% 时净增 −0.24。",
+        "建议之后接验证计划：Growth 将统计证据、业务最小效应和人工护栏分开；Pricing 用守恒人群检查不同付费机制。工具辅助判断，不自动宣布全量上线。"
       ],
       "approachEn": [
-        "Calculate sample size and duration; simulate false-positive risk under different checking strategies.",
-        "Report effect intervals and conditional revenue scenarios, with guardrails, costs and experiment validity checked separately."
+        "Use patterns to ask a question: Fewer items per person may reflect shared portions. Check portion size and party-size definitions before blaming a missing bundle.",
+        "Let the ledger reject an idea: Model example: list price 20, bundle price 18, original average spend 12; 20% already buy the full basket, cost ratio 40%, all existing buyers redeem. At 50% adoption among incomplete buyers, gain 1.60 minus discount cost 0.40 gives 1.20; at 5%, the result is −0.24.",
+        "Follow advice with a test plan: Growth separates statistical evidence, minimum business effect and manual guardrails. Pricing compares payment mechanisms on conserved cohorts. These support a decision without automatically authorising rollout."
       ],
-      "result": "本地运行的实验决策 Demo，不上传数据；模拟结果用于说明统计风险，不代表业务实验收益。",
-      "resultEn": "A local experiment-decision demo that uploads no data. Simulation results illustrate statistical risk, not business experiment returns."
+      "result": "有 4,000 条合成订单和可检查的候选、账本与导出。手算及边界用于验证实现；不能把候选毛利为正或模拟结果写成真实增长。 两类人群仍是简化模型，采纳率、重复购买与商家成本都未被真实订单实验校准。多一个小数位不能补上这些信息。",
+      "resultEn": "The demo contains 4,000 synthetic orders with inspectable candidates, ledgers and exports. Hand calculations and edge checks verify implementation, not actual growth. Two populations are still a simplification. Adoption, repeat purchases and merchant costs have not been calibrated against a live experiment; more decimal places do not fix that.",
+      "iterationUrl": "/cases/bundles/",
+      "caseLabel": "设计过程",
+      "caseLabelEn": "Case study"
     },
     {
       "name": "Pricing Model Sim",
       "nameEn": "Pricing Model Sim",
       "subtitle": "比较三种付费机制的 LTV 与回本周期",
       "subtitleEn": "Compare LTV and payback across three pricing mechanisms",
-      "description": "比较三种付费机制，核对每名新增用户的收入与逐月去向；扫描只改变一个假设，导出可复现的比较。结论受未校准的留存和转化限制。",
-      "descriptionEn": "Compare three pricing mechanisms with per-new-user revenue and monthly cohort traces. Sweep one assumption at a time and export a reproducible comparison; retention and conversion remain uncalibrated.",
-      "url": "https://andyzhang666666.github.io/pricing-model-sim/",
+      "description": "同一付费人群口径下比较机制与回本",
+      "descriptionEn": "Compare payment models on a conserved cohort",
+      "url": "/pricing-model-sim/",
       "github": "https://github.com/AndyZhang666666/pricing-model-sim",
       "metrics": [
         "3 种机制",
@@ -775,27 +799,32 @@
         "订阅",
         "工具"
       ],
-      "context": "不同付费机制的收益取决于留存、转化与价格，不能只比较收入总额。",
-      "contextEn": "Mechanism returns depend on retention, conversion and price, not just total revenue.",
+      "context": "从订单共现直接跳到“做套餐”，容易把相关性当成效果。更高的客单也不等于更高收益，需要核对新增购买、让利、毛利与采纳假设。",
+      "contextEn": "Jumping from co-occurrence to a bundle confuses association with impact. Higher order value does not establish better contribution; adoption, margin and discount leakage matter.",
       "approach": [
-        "用同一分母与折现口径比较 LTV 和回本，公开解锁、订阅与流失的逐月状态",
-        "保留其他输入做单字段扫描，支持零值、并列、本机草稿和比较导出"
+        "结构差异先提出问题：多人订单人均商品数少，也可能因为共享大份菜。先核对份量与人数口径，不直接称为凑单流失。",
+        "同一账本允许否定建议：模型算例：原价 20、套餐价 18，原有平均消费 12；20% 已经买齐、食材成本率 40%、既有顾客全领折扣。未买齐者采纳 50% 时，新增贡献 1.60 减让利 0.40，净增 1.20；采纳 5% 时净增 −0.24。",
+        "建议之后接验证计划：Growth 将统计证据、业务最小效应和人工护栏分开；Pricing 用守恒人群检查不同付费机制。工具辅助判断，不自动宣布全量上线。"
       ],
       "approachEn": [
-        "Use one denominator and discounted sequence for LTV and payback, with monthly unlock, subscription and exit traces.",
-        "Sweep one field while preserving other inputs; support zeros, ties, local drafts and comparison export."
+        "Use patterns to ask a question: Fewer items per person may reflect shared portions. Check portion size and party-size definitions before blaming a missing bundle.",
+        "Let the ledger reject an idea: Model example: list price 20, bundle price 18, original average spend 12; 20% already buy the full basket, cost ratio 40%, all existing buyers redeem. At 50% adoption among incomplete buyers, gain 1.60 minus discount cost 0.40 gives 1.20; at 5%, the result is −0.24.",
+        "Follow advice with a test plan: Growth separates statistical evidence, minimum business effect and manual guardrails. Pricing compares payment mechanisms on conserved cohorts. These support a decision without automatically authorising rollout."
       ],
-      "result": "四个合成案例；修正重复分流与零价格计数，通过手算、守恒、边界及线上操作验收。不是实际业务收益或最优定价证明。",
-      "resultEn": "Four synthetic cases. Fixed repeated cohort exits and zero-price counts, verified through hand checks, invariants, boundaries and live browser flows. This is not evidence of business returns or optimal pricing."
+      "result": "有 4,000 条合成订单和可检查的候选、账本与导出。手算及边界用于验证实现；不能把候选毛利为正或模拟结果写成真实增长。 两类人群仍是简化模型，采纳率、重复购买与商家成本都未被真实订单实验校准。多一个小数位不能补上这些信息。",
+      "resultEn": "The demo contains 4,000 synthetic orders with inspectable candidates, ledgers and exports. Hand calculations and edge checks verify implementation, not actual growth. Two populations are still a simplification. Adoption, repeat purchases and merchant costs have not been calibrated against a live experiment; more decimal places do not fix that.",
+      "iterationUrl": "/cases/bundles/",
+      "caseLabel": "设计过程",
+      "caseLabelEn": "Case study"
     },
     {
       "name": "Bundle Lab",
       "nameEn": "Bundle Lab",
       "subtitle": "从订单共现中发现套餐机会",
       "subtitleEn": "Discover bundle opportunities from co-purchased items",
-      "description": "从合成订单发现套餐候选，分开核算新增购买与既有顾客领折扣的影响；推演假设贯穿建议和导出，留下可验证的下一步。",
-      "descriptionEn": "Discover bundle candidates from synthetic orders, separate new-purchase margin from discounts to existing customers, and carry scenario assumptions into recommendations, exports and a validation plan.",
-      "url": "https://andyzhang666666.github.io/bundle-lab/",
+      "description": "经常一起买，只能提出套餐假设。分开计算新增购买与既有顾客领折扣的成本，再决定值不值得试。",
+      "descriptionEn": "Co-purchases suggest a bundle hypothesis. Separate incremental purchases from discounts to existing buyers before deciding what to test.",
+      "url": "/bundle-lab/",
       "github": "https://github.com/AndyZhang666666/bundle-lab",
       "metrics": [
         "两类人群核算",
@@ -812,24 +841,29 @@
         "数据分析",
         "工具"
       ],
-      "context": "商品经常一起购买，不等于组合成套餐后一定赚钱。",
-      "contextEn": "Frequently co-purchased items are not necessarily profitable as a discounted bundle.",
+      "context": "从订单共现直接跳到“做套餐”，容易把相关性当成效果。更高的客单也不等于更高收益，需要核对新增购买、让利、毛利与采纳假设。",
+      "contextEn": "Jumping from co-occurrence to a bundle confuses association with impact. Higher order value does not establish better contribution; adoption, margin and discount leakage matter.",
       "approach": [
-        "发现全部候选，分开计算未买齐者增量与既有整套者让利，收益与平衡点同源",
-        "按当前毛利假设筛选建议，支持空结果、本机恢复、依据导出和后续实验计划"
+        "结构差异先提出问题：多人订单人均商品数少，也可能因为共享大份菜。先核对份量与人数口径，不直接称为凑单流失。",
+        "同一账本允许否定建议：模型算例：原价 20、套餐价 18，原有平均消费 12；20% 已经买齐、食材成本率 40%、既有顾客全领折扣。未买齐者采纳 50% 时，新增贡献 1.60 减让利 0.40，净增 1.20；采纳 5% 时净增 −0.24。",
+        "建议之后接验证计划：Growth 将统计证据、业务最小效应和人工护栏分开；Pricing 用守恒人群检查不同付费机制。工具辅助判断，不自动宣布全量上线。"
       ],
       "approachEn": [
-        "Explore all candidates and reconcile partial-basket gains with discounts to full-basket customers using one margin and break-even model.",
-        "Generate recommendations under current assumptions, with empty states, local recovery, evidence export and a follow-up experiment plan."
+        "Use patterns to ask a question: Fewer items per person may reflect shared portions. Check portion size and party-size definitions before blaming a missing bundle.",
+        "Let the ledger reject an idea: Model example: list price 20, bundle price 18, original average spend 12; 20% already buy the full basket, cost ratio 40%, all existing buyers redeem. At 50% adoption among incomplete buyers, gain 1.60 minus discount cost 0.40 gives 1.20; at 5%, the result is −0.24.",
+        "Follow advice with a test plan: Growth separates statistical evidence, minimum business effect and manual guardrails. Pricing compares payment mechanisms on conserved cohorts. These support a decision without automatically authorising rollout."
       ],
-      "result": "手算、收益边界与线上六页流程已验收。相关性只产生待验证假设，毛利不是净利润；模型润色独立标记为未核对草稿。",
-      "resultEn": "Verified hand calculations, economic boundaries and six-route live workflows. Co-purchase is a hypothesis, margin is not profit, and optional model polish remains an unverified draft."
+      "result": "有 4,000 条合成订单和可检查的候选、账本与导出。手算及边界用于验证实现；不能把候选毛利为正或模拟结果写成真实增长。 两类人群仍是简化模型，采纳率、重复购买与商家成本都未被真实订单实验校准。多一个小数位不能补上这些信息。",
+      "resultEn": "The demo contains 4,000 synthetic orders with inspectable candidates, ledgers and exports. Hand calculations and edge checks verify implementation, not actual growth. Two populations are still a simplification. Adoption, repeat purchases and merchant costs have not been calibrated against a live experiment; more decimal places do not fix that.",
+      "iterationUrl": "/cases/bundles/",
+      "caseLabel": "设计过程",
+      "caseLabelEn": "Case study"
     },
     {
       "name": "留学咨询内容矩阵",
-      "nameEn": "Study Abroad Content Matrix",
-      "description": "基于真人案例和垂类账号建立内容获客链路，贯通公域内容、私域咨询与线索跟进。",
-      "descriptionEn": "Built acquisition around first-hand stories and focused accounts, connecting public content, private consultation and lead follow-up.",
+      "nameEn": "Study-abroad content business",
+      "description": "从内容、私域咨询到线索跟进",
+      "descriptionEn": "From content to consultation and lead follow-up",
       "period": "2023.01 – 2025.01",
       "role": "联合创始人",
       "roleEn": "Co-Founder",
@@ -941,10 +975,10 @@
     ]
   },
   "about": {
-    "lead": "张千羽，AI 产品经理。",
-    "leadEn": "Andy Zhang, AI product manager.",
-    "body": "本科在布里斯托读电子电气工程，硕士在 UCL 读金融工程。工程训练让我习惯把问题拆清楚，金融训练让我关注假设、风险和结果。",
-    "bodyEn": "I studied Electronic and Electrical Engineering at Bristol and Financial Engineering at UCL. Engineering taught me to break problems down; finance taught me to question assumptions, risk and results.",
+    "lead": "我做 AI 应用，也关注它如何进入真实生活与业务。",
+    "leadEn": "I build AI products for real life and real work.",
+    "body": "工程训练让我习惯把问题拆清楚，金融训练让我关注假设、风险和结果。",
+    "bodyEn": "Engineering taught me to break problems down; finance taught me to question assumptions, risk and results.",
     "body2": "在内容生产里，我做创作 Agent、可复用资产和效果评测；在海外产品里，我拆转化与付费路径；为企业做工具时，我会先走进原有流程，找出值得改的那一步。",
     "body2En": "In content production, I work on creation Agents, reusable assets and evaluation. In overseas products, I examine conversion and payment paths. When delivering business tools, I first walk the existing process and find the step worth changing.",
     "facts": [
@@ -1107,39 +1141,31 @@
     "items": [
       {
         "n": "01",
-        "zh": "能力过剩，判断稀缺",
-        "en": "Capability is abundant, judgement is scarce",
-        "dz": "模型能做的事已经远多于产品里用上的事。今天多数 AI 产品的瓶颈不在模型，在有没有人把它放进一个真实场景，定义清楚它要解决的具体问题。这是产品的活，不是算法的活。",
-        "de": "Models can already do far more than products make use of. The bottleneck in most AI products today is not the model. It is whether someone has placed it in a real scenario and defined the specific problem it must solve. That is product work, not algorithm work.",
-        "refLabel": "YouTube · Andrej Karpathy, Software in the Era of AI (2025)",
-        "refUrl": "https://www.youtube.com/watch?v=LCEmiRjPEtQ"
+        "zh": "对人的理解，应该允许人修正。",
+        "en": "Let people correct AI’s assumptions.",
+        "dz": "在偏爱实验室里，我把一次选择留作线索，确认后才变成有范围的规则。这样多了一步，但人能知道它为什么记住，也能让它忘掉。",
+        "de": "In TasteRoom, a choice starts as a clue and becomes a scoped rule only after confirmation. It takes an extra step, but the person can see the source and undo the memory."
       },
       {
         "n": "02",
-        "zh": "评测是产品，不是测试",
-        "en": "Evaluation is product, not QA",
-        "dz": "一个 AI 功能「好不好」，不能靠感觉。我倾向于先把评测标准建出来再谈效果。标准本身就是产品的一部分，它决定了团队朝哪个方向优化，也决定了上线之后谁来说「够了」。",
-        "de": "Whether an AI feature is \"good\" cannot rest on feel. I prefer to build the evaluation standard before discussing results. The standard is part of the product: it decides which direction the team optimises toward, and who gets to say \"enough\" after launch.",
-        "refLabel": "eugeneyan · LLM-as-judge 评测实践",
-        "refUrl": "https://eugeneyan.com/writing/llm-evaluators/"
+        "zh": "有解释，还要有可核对的依据。",
+        "en": "Explanations need evidence.",
+        "dz": "评测工作台保留原始裁判结果，把引句和人工判断分开。引用能定位，不代表推理成立；没有把握时，保留争议比补出一个确定分数更有用。",
+        "de": "The review tools keep the original judge output and separate quotations from human judgement. A located quote does not prove the reasoning; uncertainty should remain reviewable."
       },
       {
         "n": "03",
-        "zh": "接下来十年是 Agent 的十年，不是 Agent 的一年",
-        "en": "The decade of agents, not the year",
-        "dz": "自动驾驶从演示到落地用了十几年，Agent 也一样。真正有价值的不是全自动的炫技，是让人能调节自主程度、在关键节点快速验证的「半自动」产品。做这类产品，交互设计和验证效率比模型能力更重要。",
-        "de": "Self-driving took over a decade from demo to deployment, and agents will follow the same arc. The value is not in fully autonomous showpieces but in \"partially autonomous\" products where people can dial autonomy up or down and verify quickly at key points. For such products, interaction design and verification speed matter more than raw model capability.",
-        "refLabel": "Hamel Husain · Your AI Product Needs Evals",
-        "refUrl": "https://hamel.dev/blog/posts/evals/"
+        "zh": "自动化到哪里，要看错了的代价。",
+        "en": "Errors set the automation boundary.",
+        "dz": "随便局可以整理条件、预演调整，但不能替一个人放宽忌口，也不能把预演当成同意。创作 Agent 则在开放生成与人工确认之间分配任务。",
+        "de": "Suibianju can organise constraints and preview changes, but cannot relax someone’s dietary limits or treat a preview as consent. Creative Agents similarly divide generation from human checkpoints."
       },
       {
         "n": "04",
-        "zh": "To C 看留存，To B 看替换成本",
-        "en": "Consumer AI is about retention, enterprise AI is about switching cost",
-        "dz": "消费端的 AI 产品，新鲜感过后拼的还是留存：用户愿不愿意每天回来。企业端的关键是替换成本：AI 方案比旧流程好多少，才值得客户承担切换的代价。两边都不是「有 AI」就赢，是「AI 让哪个数字变了」才赢。",
-        "de": "Once novelty fades, consumer AI competes on retention: will people come back every day. On the enterprise side the question is switching cost: how much better than the old process must the AI solution be for a customer to bear the cost of change. Neither side wins by \"having AI\". They win by \"which number AI moved\".",
-        "refLabel": "Lenny's Newsletter · Product sense",
-        "refUrl": "https://www.lennysnewsletter.com/p/product-sense"
+        "zh": "先算新增，再算让利。",
+        "en": "Separate new value from discounts.",
+        "dz": "一个相关性很强的套餐，也可能不值得上线。",
+        "de": "A strongly associated bundle can still be a poor launch decision."
       }
     ]
   },

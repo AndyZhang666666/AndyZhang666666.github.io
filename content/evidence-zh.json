@@ -1,0 +1,453 @@
+{
+  "dims": [
+    {
+      "id": "agent",
+      "name": "Agent 与工具工作流",
+      "words": [
+        "agent",
+        "智能体",
+        "工作流",
+        "workflow",
+        "工具调用",
+        "mcp",
+        "skill",
+        "编排",
+        "orchestration"
+      ],
+      "keys": [
+        "agent",
+        "knowledge"
+      ],
+      "projects": [
+        {
+          "id": "eval",
+          "name": "Eval Lab",
+          "url": "/#projects",
+          "caseUrl": "/cases/trust/"
+        },
+        {
+          "id": "suibianju",
+          "name": "随便局",
+          "url": "/#projects",
+          "caseUrl": "/cases/shared-choice/"
+        },
+        {
+          "id": "research-agent",
+          "name": "个人投研 Agent 与量化研究",
+          "url": "/#projects",
+          "caseUrl": null
+        }
+      ],
+      "evidence": [
+        {
+          "key": "agent",
+          "co": "山海星辰",
+          "text": "设计六阶段创作 Agent，在开放创作环节结合工具调用、交叉校验与人工确认，封装可复用 Skill",
+          "metric": "38 个 Skill · 月均调用 6000 次 · 使用覆盖率 70% · 单剧创作耗时约 −30%"
+        },
+        {
+          "key": "knowledge",
+          "co": "百度 · PSIG",
+          "text": "重构知识库信息架构，协同检索、前端渲染和 GenFlow 上下文分配",
+          "metric": "周均访问次数约 +30% · AI 问答使用率约 +25%"
+        }
+      ]
+    },
+    {
+      "id": "eval",
+      "name": "效果评测与质量判断",
+      "words": [
+        "评测",
+        "评估",
+        "eval",
+        "evaluation",
+        "rubric",
+        "judge",
+        "幻觉",
+        "质量",
+        "prompt",
+        "提示词"
+      ],
+      "keys": [
+        "production",
+        "eval"
+      ],
+      "projects": [
+        {
+          "id": "eval",
+          "name": "Eval Lab",
+          "url": "/#projects",
+          "caseUrl": "/cases/trust/"
+        },
+        {
+          "id": "filing",
+          "name": "Filing Eval",
+          "url": "/#projects",
+          "caseUrl": "/cases/trust/"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "production",
+          "co": "山海星辰",
+          "text": "串联剧本、资产与分镜，制定角色一致性、风格统一及描述遵循度口径，结合人工评审与 Bad Case 迭代",
+          "metric": "内测样本单集制作耗时约 −30%"
+        },
+        {
+          "key": "eval",
+          "co": "独立评测工具",
+          "text": "构建创意输出与财报摘要评测工具，提供评分维度、原文依据和可复现报告",
+          "metric": "在线 Demo 与源码可查看"
+        }
+      ]
+    },
+    {
+      "id": "innovation",
+      "name": "生活场景与产品探索",
+      "words": [
+        "创新",
+        "ai native",
+        "ai-native",
+        "生活",
+        "审美",
+        "用户洞察",
+        "用户研究",
+        "用户体验",
+        "innovation",
+        "user research"
+      ],
+      "keys": [
+        "cockpit",
+        "prd"
+      ],
+      "projects": [
+        {
+          "id": "taste",
+          "name": "偏爱实验室",
+          "url": "/#projects",
+          "caseUrl": "/cases/taste/"
+        },
+        {
+          "id": "suibianju",
+          "name": "随便局",
+          "url": "/#projects",
+          "caseUrl": "/cases/shared-choice/"
+        },
+        {
+          "id": "grounded",
+          "name": "有据",
+          "url": "/#projects",
+          "caseUrl": null
+        }
+      ],
+      "evidence": [
+        {
+          "key": "cockpit",
+          "co": "理想汽车",
+          "text": "结合埋点及 20+ 场门店走访定义小憩模式，联动软硬件并支持自然语言唤醒，以 A/B Test 确定双入口",
+          "metric": "午休时段渗透率 10% → 30% · 语音唤醒占比 40% · 场景 NPS 前三"
+        }
+      ]
+    },
+    {
+      "id": "growth",
+      "name": "增长、实验与数据分析",
+      "words": [
+        "增长",
+        "growth",
+        "a/b",
+        "ab test",
+        "实验",
+        "数据分析",
+        "sql",
+        "留存",
+        "retention",
+        "转化",
+        "conversion",
+        "漏斗",
+        "funnel"
+      ],
+      "keys": [
+        "subsidy",
+        "exposure"
+      ],
+      "projects": [
+        {
+          "id": "growth",
+          "name": "Growth Experiment Lab",
+          "url": "/#projects",
+          "caseUrl": "/cases/bundles/"
+        },
+        {
+          "id": "bundle",
+          "name": "Bundle Lab",
+          "url": "/#projects",
+          "caseUrl": "/cases/bundles/"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "subsidy",
+          "co": "美团 · Keeta",
+          "text": "按城市阶段、留存与价格敏感度调整补贴，用 A/B Test 同时检验获客与后续留存",
+          "metric": "新客获客成本 −27% · 新客月留存 +8%"
+        },
+        {
+          "key": "exposure",
+          "co": "百度 · PSIG",
+          "text": "通过埋点与 SQL 定位深层 Tab 的曝光折损超 70%，设计主动触达与路径优化",
+          "metric": "单日 UV 增长 10 倍 · 留存 UV 约 +60% · 分享率 26%"
+        }
+      ]
+    },
+    {
+      "id": "revenue",
+      "name": "订阅与商业化",
+      "words": [
+        "商业化",
+        "定价",
+        "订阅",
+        "revenue",
+        "pricing",
+        "monetization",
+        "monetisation",
+        "ltv",
+        "cac",
+        "arpu",
+        "付费"
+      ],
+      "keys": [
+        "subscription",
+        "revolut"
+      ],
+      "projects": [
+        {
+          "id": "pricing",
+          "name": "Pricing Model Sim",
+          "url": "/#projects",
+          "caseUrl": "/cases/bundles/"
+        },
+        {
+          "id": "bundle",
+          "name": "Bundle Lab",
+          "url": "/#projects",
+          "caseUrl": "/cases/bundles/"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "subscription",
+          "co": "山海星辰",
+          "text": "拆解 Q2 海外收入下滑 11% 的原因，设计北美包月与前三集免费试点，通过 A/B Test 验证",
+          "metric": "试点月复购率约 +20% · ARPU +8% · 订阅占比 18% → 35%"
+        },
+        {
+          "key": "revolut",
+          "co": "Revolut",
+          "text": "围绕 Premium 权益的场景与触达时机迭代展示和升级引导，用 A/B Test 比较方案",
+          "metric": "订阅转化率提升超 15%"
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "name": "企业流程与交付",
+      "words": [
+        "fde",
+        "企业",
+        "交付",
+        "b端",
+        "to b",
+        "tob",
+        "saas",
+        "crm",
+        "erp",
+        "客户",
+        "enterprise",
+        "delivery",
+        "知识库",
+        "rag"
+      ],
+      "keys": [
+        "enterprise",
+        "knowledge"
+      ],
+      "projects": [
+        {
+          "id": "fde",
+          "name": "企业 AI 与轻量业务工具",
+          "url": "/#projects",
+          "caseUrl": null
+        },
+        {
+          "id": "filing",
+          "name": "Filing Eval",
+          "url": "/#projects",
+          "caseUrl": "/cases/trust/"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "enterprise",
+          "co": "企业 AI 应用实践",
+          "text": "交付选品与测款、知识库客服、线索跟进和制造业 ERP/CRM 工具，保留来源核验与人工确认",
+          "metric": "选品信息整理人工耗时约 −40% · 生产与库存汇总耗时约 −20%"
+        },
+        {
+          "key": "knowledge",
+          "co": "百度 · PSIG",
+          "text": "重构知识库信息架构，协同检索、前端渲染和 GenFlow 上下文分配",
+          "metric": "周均访问次数约 +30% · AI 问答使用率约 +25%"
+        }
+      ]
+    },
+    {
+      "id": "finance",
+      "name": "金融与研究工具",
+      "words": [
+        "金融",
+        "finance",
+        "量化",
+        "quant",
+        "交易",
+        "trading",
+        "投研",
+        "investment",
+        "订单流",
+        "order flow"
+      ],
+      "keys": [
+        "investment",
+        "msc"
+      ],
+      "projects": [
+        {
+          "id": "research-agent",
+          "name": "个人投研 Agent 与量化研究",
+          "url": "/#projects",
+          "caseUrl": null
+        },
+        {
+          "id": "filing",
+          "name": "Filing Eval",
+          "url": "/#projects",
+          "caseUrl": "/cases/trust/"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "investment",
+          "co": "个人投研项目",
+          "text": "编排财报、新闻、情绪分析与盘后复盘任务，对接 IBKR API 和外部信息源；另建含样本外对照的量化研究模块",
+          "metric": "每日信息获取与提炼：约 2 小时 → 20 分钟"
+        },
+        {
+          "key": "msc",
+          "co": "教育背景",
+          "text": "UCL 金融工程硕士 · 2024.09 – 2026.02",
+          "metric": "Distinction · Top 8%"
+        }
+      ]
+    },
+    {
+      "id": "hardware",
+      "name": "硬件与跨端体验",
+      "words": [
+        "硬件",
+        "汽车",
+        "座舱",
+        "hardware",
+        "wearable",
+        "可穿戴",
+        "cross-device"
+      ],
+      "keys": [
+        "cockpit",
+        "bachelor"
+      ],
+      "projects": [
+        {
+          "id": "commute",
+          "name": "通勤方案比较器",
+          "url": "/#projects",
+          "caseUrl": null
+        }
+      ],
+      "anchor": "education",
+      "evidence": [
+        {
+          "key": "cockpit",
+          "co": "理想汽车",
+          "text": "结合埋点及 20+ 场门店走访定义小憩模式，联动软硬件并支持自然语言唤醒，以 A/B Test 确定双入口",
+          "metric": "午休时段渗透率 10% → 30% · 语音唤醒占比 40% · 场景 NPS 前三"
+        },
+        {
+          "key": "bachelor",
+          "co": "教育背景",
+          "text": "University of Bristol 电子电气工程本科 · 2021.09 – 2024.07",
+          "metric": "First Class Honours · Top 5%"
+        }
+      ]
+    },
+    {
+      "id": "overseas",
+      "name": "海外与工作语言",
+      "words": [
+        "海外",
+        "英语",
+        "英文",
+        "英语",
+        "overseas",
+        "english",
+        "international",
+        "出海"
+      ],
+      "keys": [
+        "subscription",
+        "family",
+        "english"
+      ],
+      "projects": [
+        {
+          "id": "pricing",
+          "name": "Pricing Model Sim",
+          "url": "/#projects",
+          "caseUrl": "/cases/bundles/"
+        },
+        {
+          "id": "content",
+          "name": "留学咨询内容矩阵",
+          "url": "/#projects",
+          "caseUrl": null
+        }
+      ],
+      "evidence": [
+        {
+          "key": "subscription",
+          "co": "山海星辰",
+          "text": "拆解 Q2 海外收入下滑 11% 的原因，设计北美包月与前三集免费试点，通过 A/B Test 验证",
+          "metric": "试点月复购率约 +20% · ARPU +8% · 订阅占比 18% → 35%"
+        },
+        {
+          "key": "family",
+          "co": "美团 · Keeta",
+          "text": "识别 35% 的多人家庭聚餐需求，设计专区、多人份供给与推荐策略",
+          "metric": "家庭套餐订单占比 22% · 套餐客单价高于平台均值约 45%"
+        },
+        {
+          "key": "english",
+          "co": "语言能力",
+          "text": "英语可作为工作语言",
+          "metric": "雅思 7.5"
+        }
+      ]
+    }
+  ],
+  "lang": "zh",
+  "home": "/",
+  "samples": [
+    "负责 AI / Agent 产品从需求到上线，设计工具工作流与人工确认；建立效果评测，分析用户反馈与留存。",
+    "探索 AI Native 生活产品，关注用户研究、审美与创新体验，能够亲手制作原型并验证产品假设。",
+    "负责增长与商业化，设计 A/B 实验、订阅与定价策略；使用 SQL 分析转化漏斗、留存和 LTV / CAC。"
+  ]
+}
