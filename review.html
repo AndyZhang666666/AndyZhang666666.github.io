@@ -1,8 +1,79 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>原版与更新版 · 本地对照</title><style>
-*{box-sizing:border-box}body{margin:0;font:14px/1.5 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;color:#232624;background:#f0f1ed}header{min-height:64px;padding:10px 20px;display:flex;gap:8px;align-items:center}strong{margin-right:auto}small{font-weight:400;color:#61635e;margin-left:12px}button,a,select{font:inherit;color:inherit}button,select{min-height:40px;padding:6px 14px;border:1px solid #bfc5b9;background:transparent;border-radius:2px}button{cursor:pointer}button[aria-pressed=true]{background:#262a27;color:#fff;border-color:#262a27}a{margin-left:12px;text-underline-offset:4px}:focus-visible{outline:2px solid #245544;outline-offset:3px}iframe{width:100%;height:calc(100dvh - 64px);border:0;display:block}label{display:flex;align-items:center;gap:8px;font-size:12px}@media(max-width:700px){header{padding:8px 12px;gap:6px;flex-wrap:wrap}strong{font-size:12px}small{display:none}label{margin-left:auto}label span{display:none}select{max-width:155px}button{padding:6px 12px}a{margin-left:auto;font-size:12px}iframe{height:calc(100dvh - 104px)}}
-</style></head>
-<body><header><strong>本地对照<small>官网原版设计保留 · 未上传</small></strong><label><span>查看</span><select id="project" aria-label="选择对照项目"><option value="/">个人官网</option><option value="/llm-output-eval/">Eval Lab</option><option value="/tasteroom/">偏爱实验室</option><option value="/demos/filing-eval/">Filing Eval</option><option value="/suibianju/">随便局</option><option value="/bundle-lab/">Bundle Lab</option></select></label><button data-version="new" aria-pressed="true">更新版</button><button data-version="original" aria-pressed="false">原版</button><a id="open" href="/" target="_blank" rel="noopener">单独打开 ↗</a></header><iframe src="/" title="原版与更新版对照"></iframe><script>
-let version='new';function update(){const path=document.querySelector('#project').value;const src=version==='original'?'http://127.0.0.1:8812'+path:path+(path==='/tasteroom/'?'?direction=swiss':'');document.querySelector('iframe').src=src;document.querySelector('#open').href=src;document.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.version===version)))}document.querySelector('#project').onchange=update;document.querySelectorAll('button').forEach(b=>b.onclick=()=>{version=b.dataset.version;update()});
-</script></body></html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>官网主版本与当前线上 · 对照</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;height:100dvh;display:flex;flex-direction:column;font:14px/1.5 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;color:#232624;background:#f0f1ed}
+    .toolbar{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding:12px 20px;border-bottom:1px solid #c9cec4}
+    .toolbar h1{font-size:16px;line-height:1.4;margin:0;font-weight:600}
+    .toolbar p{font-size:12px;color:#5c635a;margin:3px 0 0}
+    .project-picker{display:flex;align-items:center;gap:8px;margin-left:auto;font-size:13px}
+    button,select,a{font:inherit;color:inherit}
+    button,select{min-height:44px;border:1px solid #bac2b3;border-radius:2px;padding:8px 12px;background:transparent}
+    button{cursor:pointer;transition:background .15s,color .15s}
+    button:hover{background:#e4e8de}
+    button[aria-pressed=true]{background:#263e29;color:#fff;border-color:#263e29}
+    button:active{transform:translateY(1px)}
+    :focus-visible{outline:2px solid #245544;outline-offset:3px}
+    .view-switch{display:flex;gap:5px;flex-wrap:wrap}
+    .compare{flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:minmax(0,1fr);gap:1px;background:#c9cec4}
+    .pane{display:flex;flex-direction:column;min-width:0;min-height:0;background:#fff}
+    .pane-head{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid #d9ddd5}
+    .pane-head h2{font-size:14px;font-weight:600;line-height:1.4;margin:0}
+    .pane-head p{font-size:12px;color:#5c635a;overflow-wrap:anywhere;margin:4px 0 0}
+    .pane-head a{flex-shrink:0;min-height:44px;display:flex;align-items:center;text-underline-offset:4px;font-size:13px}
+    iframe{display:block;width:100%;flex:1;min-height:0;border:0;background:#f5f4ef}
+    .compare[data-view=local],.compare[data-view=live]{grid-template-columns:minmax(0,1fr)}
+    .compare[data-view=local] .pane-live,.compare[data-view=live] .pane-local{display:none}
+    @media(max-width:1000px){.toolbar{padding:10px 12px;gap:10px 16px}.toolbar h1{font-size:15px}.view-switch{width:100%}.view-switch button{flex:1;padding-inline:9px;font-size:13px}.compare[data-view=split]{grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(2,minmax(0,1fr))}.pane-head{padding:8px 12px}.pane-head a{font-size:12px}}
+    @media(max-width:520px){.project-picker{margin-left:0}.project-picker span{display:none}.project-picker select{max-width:145px}.toolbar{justify-content:space-between}.toolbar p{font-size:11px}.pane-head h2{font-size:13px}.pane-head p{font-size:11px}}
+    @media(prefers-reduced-motion:reduce){button{transition:none}button:active{transform:none}}
+  </style>
+</head>
+<body>
+  <header class="toolbar">
+    <div><h1>官网主版本 / 当前线上</h1><p>主版本尚未上传 · 两边分别滚动</p></div>
+    <label class="project-picker"><span>查看</span><select id="project" aria-label="选择对照项目"><option value="/">个人官网</option><option value="/llm-output-eval/">Eval Lab</option><option value="/tasteroom/">偏爱实验室</option><option value="/demos/filing-eval/">Filing Eval</option><option value="/suibianju/">随便局</option><option value="/bundle-lab/">Bundle Lab</option></select></label>
+    <div class="view-switch" role="group" aria-label="对照视图">
+      <button type="button" data-view="split" aria-pressed="false">并排对照</button>
+      <button type="button" data-view="local" aria-pressed="true">只看主版本</button>
+      <button type="button" data-view="live" aria-pressed="false">只看线上</button>
+    </div>
+  </header>
+  <main class="compare" id="comparison" data-view="local" aria-label="官网主版本与当前线上网站对照">
+    <section class="pane pane-local" aria-label="官网主版本，本地未上传">
+      <header class="pane-head"><div><h2>官网主版本 · 本地未上传</h2><p id="localSource">127.0.0.1:8811/</p></div><a id="openLocal" href="/" target="_blank" rel="noopener">单独打开 ↗</a></header>
+      <iframe id="localFrame" src="/" title="官网主版本（本地，尚未上传）"></iframe>
+    </section>
+    <section class="pane pane-live" aria-label="当前线上版本，直接加载 GitHub Pages">
+      <header class="pane-head"><div><h2>当前线上版本 · GitHub Pages</h2><p id="liveSource">andyzhang666666.github.io/</p></div><a id="openLive" href="https://andyzhang666666.github.io/" target="_blank" rel="noopener">单独打开 ↗</a></header>
+      <iframe id="liveFrame" src="https://andyzhang666666.github.io/" title="当前线上版本（直接来自 GitHub Pages）" referrerpolicy="no-referrer"></iframe>
+    </section>
+  </main>
+  <script>
+    const comparison=document.querySelector('#comparison');
+    function changeView(view){
+      comparison.dataset.view=view;
+      document.querySelectorAll('[data-view]').forEach(button=>{if(button.tagName==='BUTTON')button.setAttribute('aria-pressed',String(button.dataset.view===view))});
+    }
+    function changeProject(){
+      const path=document.querySelector('#project').value;
+      const local=path+(path==='/tasteroom/'?'?direction=swiss':'');
+      const live=new URL(path,'https://andyzhang666666.github.io/').href;
+      document.querySelector('#localFrame').src=local;
+      document.querySelector('#liveFrame').src=live;
+      document.querySelector('#openLocal').href=local;
+      document.querySelector('#openLive').href=live;
+      document.querySelector('#localSource').textContent='127.0.0.1:8811'+local;
+      document.querySelector('#liveSource').textContent=live.replace('https://','');
+    }
+    document.querySelector('#project').addEventListener('change',changeProject);
+    document.querySelectorAll('button[data-view]').forEach(button=>button.addEventListener('click',()=>changeView(button.dataset.view)));
+    changeView(matchMedia('(min-width:1001px)').matches?'split':'local');
+  </script>
+</body>
+</html>

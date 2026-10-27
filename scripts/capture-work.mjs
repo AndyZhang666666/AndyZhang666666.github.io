@@ -36,7 +36,7 @@ try{
 
  await go('/bundle-lab/simulate/');await capture('bundle-ledger.jpg');await go('/bundle-lab/bundles/');await capture('bundle-candidates.jpg');
  await go('/cases/taste/');await page.locator('#langToggle').click();assert.equal(await page.locator('h1').innerText(),'Find what you liked.');
- await go('/review.html');await page.locator('#project').selectOption('/llm-output-eval/');await page.getByRole('button',{name:'原版',exact:true}).click();assert.equal(await page.locator('iframe').getAttribute('src'),'http://127.0.0.1:8812/llm-output-eval/');await page.getByRole('button',{name:'更新版',exact:true}).click();assert.equal(await page.locator('iframe').getAttribute('src'),'/llm-output-eval/');
+ await go('/review.html');await page.locator('#project').selectOption('/llm-output-eval/');await page.getByRole('button',{name:'只看线上',exact:true}).click();assert.equal(await page.locator('#liveFrame').getAttribute('src'),'https://andyzhang666666.github.io/llm-output-eval/');await page.getByRole('button',{name:'只看主版本',exact:true}).click();assert.equal(await page.locator('#localFrame').getAttribute('src'),'/llm-output-eval/');
  for(const width of [1440,768,390]){await page.setViewportSize({width,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'comparison overflow '+width);}
  assert.deepEqual(errors,[]);
 

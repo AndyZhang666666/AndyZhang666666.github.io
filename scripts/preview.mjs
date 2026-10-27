@@ -11,7 +11,9 @@ function serve(req,res,originalHost=false){try{
  else if(parts[0]==='grounded-choice'){base=path.join(suite,'grounded-choice','docs');relative=parts.slice(1).join('/')}
  let file=path.resolve(base,relative);if(file!==base&&!file.startsWith(base+path.sep))throw Error('path');if(fs.statSync(file).isDirectory())file=path.join(file,'index.html');
  res.setHeader('Cache-Control','no-store');res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');
- if(['.html','.json'].includes(path.extname(file))){let value=fs.readFileSync(file,'utf8').replaceAll('https://andyzhang666666.github.io',`http://127.0.0.1:${originalHost?8812:port}${old&&!originalHost?'/original':''}`);
+ if(['.html','.json'].includes(path.extname(file))){let value=fs.readFileSync(file,'utf8');
+  // review.html deliberately embeds the live public site, so its public origin must survive.
+  if(file!==path.join(root,'review.html'))value=value.replaceAll('https://andyzhang666666.github.io',`http://127.0.0.1:${originalHost?8812:port}${old&&!originalHost?'/original':''}`);
   // Isolate original exports' absolute resource/route references while keeping their bytes on disk intact.
   if(old&&!originalHost&&base!==path.join(suite,'site'))value=value.replace(/((?:href|src)=")\/(?!\/|original\/)/g,'$1/original/');
   res.end(value);
