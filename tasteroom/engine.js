@@ -1,4 +1,5 @@
 export const OPTIONS = {
+  artDirection: { free: "自由参数", swiss: "瑞士现代主义", deconstructed: "解构主义" },
   layoutDensity: { compact: "紧凑", balanced: "均衡", airy: "大留白" },
   typography: {
     rational_sans: "利落无衬线",
@@ -27,6 +28,7 @@ export const validChoice = (dimension, value) =>
   Object.hasOwn(OPTIONS, dimension) &&
   Object.hasOwn(OPTIONS[dimension], value);
 export const BASE = {
+  artDirection: "free",
   layoutDensity: "compact",
   typography: "rational_sans",
   alignment: "strict_grid",
@@ -48,6 +50,7 @@ export class Room {
     this.pending = null;
     this.round = 0;
     this.content = 0;
+    this.draftContent = null;
     this.seq = 0;
     this.focus = null;
   }
@@ -307,6 +310,7 @@ export class Room {
         ? s.context
         : "personal";
       this.content = Number.isInteger(s.content) && s.content >= 0 && s.content <= 100000 ? s.content : 0;
+      this.draftContent = Array.isArray(s.draftContent) && s.draftContent.length === 4 && s.draftContent.every(v=>typeof v==='string'&&v.length<=180) ? s.draftContent : null;
       this.pending = null;
       this.reconcile();
       return true;
@@ -324,6 +328,7 @@ export class Room {
       round: this.round,
       context: this.context,
       content: this.content,
+      draftContent: this.draftContent,
     });
   }
 }
@@ -333,6 +338,8 @@ export function parseFeedback(text) {
   if(/(?:不要|别|不喜欢|不想).{0,6}(?:居中|暖色|撞色|等宽|网格|几何)/.test(t))return null;
   if(/紧凑.*留白|留白.*紧凑/.test(t) && !/不要.*留白/.test(t))return null;
   const specs = [
+    ["artDirection", "swiss", /瑞士|swiss/i],
+    ["artDirection", "deconstructed", /解构|deconstruct/i],
     ["typography", "rational_sans", /无衬线|利落|不要衬线|别.*衬线|sans/i],
     ["typography", "mono_tech", /等宽|mono/i],
     ["typography", "editorial_serif", /衬线|书刊|serif/i],

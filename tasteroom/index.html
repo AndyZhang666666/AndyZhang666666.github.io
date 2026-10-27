@@ -9,6 +9,7 @@
     />
     <title>TasteRoom · 偏爱实验室</title>
     <link rel="stylesheet" href="style.css?v=20261024-v2" />
+    <link rel="stylesheet" href="studio.css?v=20261027" />
   </head>
   <body>
     <header>
@@ -27,7 +28,7 @@
         ><button id="reset">重新开始</button>
       </nav>
     </header>
-    <main data-ui>
+    <main>
       <div class="intro">
         <p>审美可以猜，偏爱由你定义。</p>
         <span>本地规则模拟 · 无模型调用 · 数据仅留在此浏览器</span>
@@ -40,10 +41,16 @@
       </div>
       <div class="workspace">
         <section class="studio" aria-label="审美实验画布">
+          <section class="design-directions" aria-label="选择设计方向">
+            <div><h2>先选一种构图。</h2><p>先试画布，喜欢后再决定是否记住。</p></div>
+            <div class="direction-options" role="group" aria-label="原创设计方案"><button type="button" data-direction="swiss" aria-pressed="false"><strong>瑞士现代主义</strong><span>网格 / 清晰层级</span></button><button type="button" data-direction="deconstructed" aria-pressed="false"><strong>解构主义</strong><span>错位 / 结构张力</span></button><button type="button" data-direction="free" aria-pressed="true"><strong>自由参数</strong><span>五项参数 / 自由组合</span></button></div>
+            <p id="directionStatus" class="hint">也可以完成下面两次直觉选择，再拆开验证偏爱。</p>
+            <button type="button" id="rememberDirection" hidden>记住当前场景的设计方向</button>
+          </section>
           <ol class="phases">
-            <li id="phase1" class="current">直觉选择</li>
-            <li id="phase2">观察与打断</li>
-            <li id="phase3">纠偏与验证</li>
+            <li id="phase1" class="current">选择起点</li>
+            <li id="phase2">试用与调整</li>
+            <li id="phase3">验证偏爱</li>
           </ol>
           <div id="probe">
             <div class="section-heading">
@@ -59,6 +66,7 @@
               <span id="runState">等待整理</span>
             </div>
             <div class="artboard">
+              <div id="directionPreview" class="direction-preview" aria-label="当前原创海报预览" hidden></div>
               <article id="poster" class="poster" aria-label="实时海报">
                 <div class="poster-meta">
                   <span id="posterCategory">周末灵感计划</span
@@ -90,10 +98,11 @@
               ><button id="newContent">换一套新内容 ↗</button>
               <button id="startComparison">拆开验证偏爱</button>
             </div>
+            <details class="poster-content-editor"><summary>编辑这张海报的内容</summary><form id="posterContentForm"><label>活动类别<input id="editCategory" maxlength="32" required></label><label>标题（最多两行）<textarea id="editTitle" maxlength="36" rows="2" required></textarea></label><label>副文案（最多两行）<textarea id="editSubtitle" maxlength="100" rows="2" required></textarea></label><label>落款<input id="editFooter" maxlength="40" required></label><button type="submit" id="updateContent">更新画布</button><p id="contentStatus" role="status">只改本张内容，不从文案推断你的偏好。</p></form></details>
             <section id="comparisonPanel" class="comparison-panel" aria-label="单变量偏好实验" hidden>
               <div class="section-heading"><h2>只变一项，看看真正喜欢什么</h2><button id="closeComparison">关闭对照</button></div>
               <p class="hint">初次海报混合了多种特征，不能据此确定原因。这里保持内容和其余参数相同；选完仍需你决定记在哪。</p>
-              <label for="comparisonDimension">这次只比较</label><select id="comparisonDimension"><option value="typography">字体</option><option value="layoutDensity">留白</option><option value="colorMood">色彩</option><option value="alignment">对齐</option><option value="decorElements">装饰</option></select>
+              <label for="comparisonDimension">这次只比较</label><select id="comparisonDimension"><option value="typography">字体</option><option value="artDirection">设计方向</option><option value="layoutDensity">留白</option><option value="colorMood">色彩</option><option value="alignment">对齐</option><option value="decorElements">装饰</option></select>
               <div id="comparisonVariants" class="comparison-variants"></div>
               <button id="skipComparison">两张都不选，不记住偏好</button>
               <div id="comparisonDecision" class="comparison-decision" hidden><p id="comparisonChoice"></p><div class="resolution"><button data-comparison-scope="once">只试这一次<small>不进入长期记忆</small></button><button data-comparison-scope="current">记在当前场景<small>不改变其他场景</small></button><button data-comparison-scope="global">修正为全局规则<small>覆盖这一维旧规则</small></button></div></div>

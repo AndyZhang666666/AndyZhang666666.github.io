@@ -11,6 +11,7 @@ let timer,
   storageOK = true;
 let mode = "mock";
 let comparison=null,comparisonSide=null,memoryUndo=null;
+let artworkFingerprint='';
 fetch("./mode.json")
   .then((r) => r.json())
   .then((c) => {
@@ -34,6 +35,7 @@ try {
   storageOK = false;
 }
 const names = {
+  artDirection: "设计方向",
   layoutDensity: "留白",
   typography: "字体",
   alignment: "对齐",
@@ -155,11 +157,21 @@ function render() {
     color: "colorMood",
     decor: "decorElements",
   }).forEach(([k, v]) => (p.dataset[k] = room.canvas[v]));
-  const c = content[room.content % content.length];
+  const c = room.draftContent || content[room.content % content.length];
   $("#posterCategory").textContent = c[0];
-  $("#posterHeading").innerHTML = c[1];
-  $("#posterSub").innerHTML = c[2];
+  $("#posterHeading").innerHTML = c[1].split(/<br\s*\/?\s*>|\n/i).map(esc).join('<br>');
+  $("#posterSub").innerHTML = c[2].split(/<br\s*\/?\s*>|\n/i).map(esc).join('<br>');
   $("#posterFooter").textContent = c[3];
+  const direction=room.canvas.artDirection||'free',visual=$('#directionPreview');
+  $('#canvasTitle').textContent=direction==='free'?'自由参数 · 当前画布':OPTIONS.artDirection[direction]+' · 当前画布';
+  visual.hidden=direction==='free';p.hidden=direction!=='free';
+  const stamp=JSON.stringify([room.canvas,c]);
+  if(stamp!==artworkFingerprint){artworkFingerprint=stamp;if(direction!=='free')visual.innerHTML=posterSvg(room,c);const object=direction==='free'?p:visual;object.getAnimations().forEach(a=>a.cancel());if(!matchMedia('(prefers-reduced-motion:reduce)').matches)object.animate([{opacity:.65,transform:'translateY(5px)'},{opacity:1,transform:'none'}],{duration:240,easing:'cubic-bezier(.16,1,.3,1)'});}
+  $$('[data-direction]').forEach(b=>{b.setAttribute('aria-pressed',String(b.dataset.direction===direction));b.disabled=!!room.pending});
+  const directionRule=room.effective().find(m=>m.dimension==='artDirection'&&m.preference===direction&&m.type==='explicit');
+  $('#rememberDirection').hidden=!ready||direction==='free';$('#rememberDirection').disabled=!!room.pending||running||directionRule?.context===room.context;
+  $('#directionStatus').textContent=ready?(directionRule?`「${OPTIONS.artDirection[direction]}」已按你授权的${ctx[directionRule.context]}规则应用。`:`正在试用「${OPTIONS.artDirection[direction]}」；这次试用不会新增长期记忆。`):'也可以先完成两次直觉选择，再拆开验证偏爱。';
+  $('#updateContent').disabled=!!room.pending||running;
   $$("[data-context]").forEach((b) => {
     b.setAttribute("aria-pressed", b.dataset.context === room.context);
     b.disabled = !!room.pending;
@@ -215,7 +227,8 @@ function renderComparison(){
   const container=$('#comparisonVariants');container.replaceChildren();
   comparison.variants.forEach((variant,i)=>{
     const wrap=document.createElement('div');wrap.className='comparison-variant';
-    const poster=$('#poster').cloneNode(true);poster.removeAttribute('id');poster.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));
+    const poster=variant.artDirection&&variant.artDirection!=='free'?document.createElement('div'):$('#poster').cloneNode(true);poster.hidden=false;poster.removeAttribute('id');poster.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));
+    if(variant.artDirection&&variant.artDirection!=='free'){poster.className='direction-preview';poster.innerHTML=posterSvg({...room,canvas:variant},room.draftContent||content[room.content%content.length]);}
     Object.entries({density:'layoutDensity',typography:'typography',alignment:'alignment',color:'colorMood',decor:'decorElements'}).forEach(([attribute,d])=>poster.dataset[attribute]=variant[d]);
     poster.setAttribute('aria-label',`${i===0?'A':'B'} 方案：${OPTIONS[comparison.dimension][variant[comparison.dimension]]}`);
     const button=document.createElement('button');button.type='button';button.dataset.comparisonSide=i===0?'a':'b';button.textContent=`选 ${i===0?'A':'B'} · ${OPTIONS[comparison.dimension][variant[comparison.dimension]]}`;
@@ -306,6 +319,13 @@ async function submitFeedback(text) {
 document.addEventListener("click", (e) => {
   const b = e.target.closest("button");
   if (!b) return;
+  if(b.dataset.direction){
+    stop();comparison=null;comparisonSide=null;room.round=2;
+    const value=b.dataset.direction;if(!validChoice('artDirection',value))return;
+    const m={id:'once_'+ ++room.seq,dimension:'artDirection',preference:value,type:'explicit',context:room.context,confidence:1,sourceReason:'本人选择试用原创构图；尚未授权长期记忆',status:'overridden',order:room.seq};
+    room.memories.push(m);room.update('artDirection',value,m.id);room.log('preview_direction',{direction:value,persisted:false});
+    render();speak('只切换本张构图，其他参数和长期记忆没有变化。可以继续改文案、对照参数或导出。');syncContentEditor();return;
+  }
   if (b.dataset.choice) {
     room.choose(b.dataset.choice);
     render();
@@ -401,14 +421,17 @@ $("#newContent").onclick = () => {
   stop();
   comparison=null;memoryUndo=null;
   room.content++;
+  room.draftContent=null;
   room.reconcile();
   speak("换了新内容；所有排版工具已重新读取当前场景的记忆。本次例外已结束。");
   render();
+  syncContentEditor();
 };
 $("#cancelConflict").onclick = () => {
   room.pending = null;
   speak("已取消这次纠偏，保留原画布和记忆。");
   render();
+  syncContentEditor();
 };
 $("#reset").onclick = () => {
   stop();
@@ -419,6 +442,7 @@ $("#reset").onclick = () => {
   } catch {}
   showBrain(false);
   render();
+  syncContentEditor();
 };
 function showBrain(on) {
   document.body.classList.toggle("brain-open", on);
@@ -445,5 +469,12 @@ $('#applyDirect').onclick=()=>{stop();comparison=null;memoryUndo=null;const d=$(
 $('#undoMemory').onclick=()=>{if(!memoryUndo)return;stop();const snapshot=memoryUndo;memoryUndo=null;room.restore(snapshot);comparison=null;render();speak('上次删除、锁定或迁移已撤回；画布按恢复后的记忆重新生成。');};
 function download(name,type,text){const url=URL.createObjectURL(new Blob([text],{type})),link=document.createElement('a');link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 $('#exportBrief').onclick=()=>{if(room.pending||running)return;download('偏爱实验室-偏好说明书.md','text/markdown;charset=utf-8',briefMarkdown(room));speak('说明书已导出，线索和明确规则分开列出；其中可能包含你输入的反馈，请自行保管。');};
-$('#exportPoster').onclick=()=>{if(room.pending||running)return;download('偏爱实验室-风格海报.svg','image/svg+xml;charset=utf-8',posterSvg(room,content[room.content%content.length]));speak('已导出按当前风格重排的矢量海报；没有调用生图服务。');};
+$('#exportPoster').onclick=()=>{if(room.pending||running)return;download('偏爱实验室-风格海报.svg','image/svg+xml;charset=utf-8',posterSvg(room,room.draftContent||content[room.content%content.length]));speak('已导出与当前构图一致的矢量海报；没有调用生图服务。');};
+$('#rememberDirection').onclick=()=>{stop();comparison=null;const direction=room.canvas.artDirection;const result=room.feedback('artDirection',direction,'本人点击“记住当前场景的设计方向”，明确授权这一构图偏好');render();speak(result==='conflict'?'这与已有构图规则不同，请选择记忆范围。':'已只记住这个场景的设计方向，其他维度不作推断。');};
+function syncContentEditor(){const c=room.draftContent||content[room.content%content.length];['editCategory','editTitle','editSubtitle','editFooter'].forEach((id,i)=>$('#'+id).value=c[i].replace(/<br\s*\/?\s*>/gi,'\n'));}
+$('#posterContentForm').onsubmit=e=>{e.preventDefault();if(room.pending||running)return;const values=['editCategory','editTitle','editSubtitle','editFooter'].map(id=>$('#'+id).value.trim());if(values.some(v=>!v)||values[1].split('\n').length>2||values[2].split('\n').length>2){$('#contentStatus').textContent='请补全内容，标题和副文案最多两行。';return;}stop();comparison=null;comparisonSide=null;room.draftContent=values;room.log('edit_poster_content',{fields:['category','title','subtitle','footer'],preference_inferred:false});render();$('#contentStatus').textContent='画布已更新；没有写入任何偏好，导出会使用这份内容。';};
 render();
+syncContentEditor();
+// A portfolio link may open a composition directly; this is a preview, never consent to memory.
+const linkedDirection=new URLSearchParams(location.search).get('direction');
+if(linkedDirection&&validChoice('artDirection',linkedDirection))$(`[data-direction="${linkedDirection}"]`)?.click();

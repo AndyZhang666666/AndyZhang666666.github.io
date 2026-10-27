@@ -1,13 +1,14 @@
 import { OPTIONS, validChoice } from './engine.js?v=20261024-v2';
-export const DIMENSIONS = { layoutDensity:'留白',typography:'字体',alignment:'对齐',colorMood:'色彩',decorElements:'装饰' };
+import { directionSvg, balancedLines, fit } from './directions.js';
+export const DIMENSIONS = { artDirection:'设计方向',layoutDensity:'留白',typography:'字体',alignment:'对齐',colorMood:'色彩',decorElements:'装饰' };
 const copy=x=>JSON.parse(JSON.stringify(x));
-const fingerprint=room=>JSON.stringify({context:room.context,content:room.content,canvas:room.canvas,memories:room.memories});
+const fingerprint=room=>JSON.stringify({context:room.context,content:room.content,draftContent:room.draftContent,canvas:room.canvas,memories:room.memories});
 export const comparisonIsCurrent=(room,comparison)=>!!comparison && !room.pending && comparison.fingerprint===fingerprint(room);
 
 export function createComparison(room, dimension) {
   if (!Object.hasOwn(OPTIONS,dimension) || room.pending || room.round!==2) throw Error('请先完成直觉选择，并处理当前冲突。');
   const values=Object.keys(OPTIONS[dimension]), current=room.canvas[dimension];
-  const alternate=values.find(v=>v!==current);
+  const alternate=dimension==='artDirection'&&current!=='free'?values.find(v=>v!==current&&v!=='free'):values.find(v=>v!==current);
   const a=copy(room.canvas),b={...a,[dimension]:alternate};
   return {dimension,context:room.context,content:room.content, fingerprint:fingerprint(room), variants:[a,b],
     question:`同一内容、同一其余参数，只比较${DIMENSIONS[dimension]}。`};
@@ -42,7 +43,7 @@ export function applyComparison(room, comparison, side, scope) {
 
 export function styleBrief(room) {
   return {format:'tasteroom-style-brief-v1', context:room.context, canvas:copy(room.canvas),
-    content:room.content, exportedAt:new Date().toISOString(),
+    content:room.content,draftContent:copy(room.draftContent), exportedAt:new Date().toISOString(),
     rules:room.memories.filter(m=>m.status==='active'&&!m.id.startsWith('once_')).map(m=>({
       dimension:m.dimension,value:m.preference,scope:m.context,status:m.type==='explicit'?'本人明确规则':'待验证线索',
       reason:m.sourceReason,evidence:m.evidence||null})),
@@ -59,14 +60,17 @@ export function briefMarkdown(room) {
 
 const xml=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
 export function posterSvg(room, content) {
+  content=room.draftContent||content;
+  if(room.canvas.artDirection && room.canvas.artDirection!=='free')return directionSvg(room,content);
   const c=room.canvas,pad={compact:76,balanced:100,airy:128}[c.layoutDensity];
   const palette={monochrome:['#f4f3ed','#25332b'],muted_warm:['#eadfd0','#3a3e32'],high_contrast:['#1f42cb','#eeff88']}[c.colorMood];
   const family={rational_sans:'sans-serif',editorial_serif:'serif',mono_tech:'monospace'}[c.typography];
   const center=c.alignment==='centered',x=center?450:c.alignment==='asymmetric'?pad+100:pad,anchor=center?'middle':'start';
-  const lines=String(content[1]).split(/<br\s*\/?\s*>/i),sub=String(content[2]).split(/<br\s*\/?\s*>/i);
+  const lines=balancedLines(content[1],14),sub=balancedLines(content[2],28),available=center?900-2*pad:900-pad-x;
+  const titleSize=Math.min(82,...lines.map(s=>fit(s,82,available))),subSize=Math.min(27,...sub.map(s=>fit(s,27,available)));
   const shapes=c.decorElements==='none'?'':c.decorElements==='minimal_lines'
     ? '<path d="M600 800v160 M640 800v160 M680 800v160" fill="none" stroke="currentColor" stroke-width="3"/>'
     : '<path d="M570 800h90l65 160h-90z M680 800h45l65 160h-45z" fill="currentColor" opacity=".75"/>';
   const metadata={format:'tasteroom-poster-v1',context:room.context,canvas:room.canvas,content:room.content};
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200" role="img"><title>${xml(lines.join(' '))}</title><desc>偏爱实验室根据当前五维参数排版的矢量海报；原创虚构活动，不含外部资源。</desc><metadata>${xml(JSON.stringify(metadata))}</metadata><rect width="900" height="1200" fill="${palette[0]}"/><g fill="${palette[1]}" color="${palette[1]}" font-family="${family}"><text x="${pad}" y="100" font-size="24">${xml(content[0])}</text><text x="${900-pad}" y="100" text-anchor="end" font-size="20">TasteRoom</text>${lines.map((line,i)=>`<text x="${x}" y="${320+i*105}" text-anchor="${anchor}" font-size="82">${xml(line)}</text>`).join('')}${sub.map((line,i)=>`<text x="${x}" y="${590+i*42}" text-anchor="${anchor}" font-size="27">${xml(line)}</text>`).join('')}${shapes}<text x="${pad}" y="${1200-pad}" font-size="22">${xml(content[3])}</text></g></svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200" role="img"><title>${xml(lines.join(' '))}</title><desc>偏爱实验室根据当前画布参数排版的矢量海报；原创虚构活动，不含外部资源。</desc><metadata>${xml(JSON.stringify(metadata))}</metadata><rect width="900" height="1200" fill="${palette[0]}"/><g fill="${palette[1]}" color="${palette[1]}" font-family="${family}"><text x="${pad}" y="100" font-size="${fit(content[0],24,900-2*pad-150)}">${xml(content[0])}</text><text x="${900-pad}" y="100" text-anchor="end" font-size="20">TasteRoom</text>${lines.map((line,i)=>`<text x="${x}" y="${320+i*105}" text-anchor="${anchor}" font-size="${titleSize}">${xml(line)}</text>`).join('')}${sub.map((line,i)=>`<text x="${x}" y="${590+i*42}" text-anchor="${anchor}" font-size="${subSize}">${xml(line)}</text>`).join('')}${shapes}<text x="${pad}" y="${1200-pad}" font-size="${fit(content[3],22,900-2*pad)}">${xml(content[3])}</text></g></svg>`;
 }
