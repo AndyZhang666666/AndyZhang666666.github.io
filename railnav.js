@@ -8,6 +8,7 @@
 
   var LABELS = {
     top:       ['首页', 'Top'],
+    selected:  ['精选', 'Selected'],
     about:     ['关于', 'About'],
     ai:        ['观点', 'On AI'],
     work:      ['经历', 'Work'],

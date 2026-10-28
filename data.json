@@ -334,9 +334,29 @@
       "demoLabelEn": "Try it now",
       "sourceLabel": "查看源码",
       "sourceLabelEn": "View source",
+      "id": "taste",
+      "category": "life",
+      "group": "main",
       "iterationUrl": "/cases/taste/",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study"
+      "caseLabelEn": "Case study",
+      "presentation": {
+        "question": {
+          "zh": "喜欢一张海报，能说明喜欢什么吗？",
+          "en": "What did you like about that poster?"
+        },
+        "decision": {
+          "zh": "把构图、字体和留白拆开比较，再确认记忆范围。",
+          "en": "Compare design variables before deciding what to remember."
+        },
+        "image": "/assets/work/showcase/taste.jpg",
+        "caption": {
+          "zh": "偏爱实验室 · 真实构图与单变量对照",
+          "en": "TasteRoom · Real compositions and single-variable comparison"
+        },
+        "kind": "demo",
+        "thumbnail": "/assets/work/showcase/taste-crop.jpg"
+      }
     },
     {
       "id": "suibianju",
@@ -382,9 +402,28 @@
       "demoNote": "单人模拟。确认小林条件后，可体验无交集 → 建议填入草稿 → 预演 → 本人确认 → 逐人接受 → 下载决定单。",
       "demoNoteEn": "Single-person simulation: confirm constraints, try no-overlap, preview a voluntary draft, confirm, switch roles for unanimous acceptance and download a receipt.",
       "featured": true,
+      "category": "life",
+      "group": "main",
       "iterationUrl": "/cases/shared-choice/",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study"
+      "caseLabelEn": "Case study",
+      "presentation": {
+        "question": {
+          "zh": "大家都说随便，为什么还是选不出来？",
+          "en": "Why is a group decision still so difficult?"
+        },
+        "decision": {
+          "zh": "先收集硬条件；没有交集时预演，不替成员让步。",
+          "en": "Collect constraints, then preview a change without making it for someone."
+        },
+        "image": "/assets/work/showcase/suibianju.jpg",
+        "caption": {
+          "zh": "随便局 · 条件收集与共同候选",
+          "en": "Suibianju · Conditions and shared candidates"
+        },
+        "kind": "demo",
+        "thumbnail": "/assets/work/showcase/suibianju-crop.jpg"
+      }
     },
     {
       "name": "有据",
@@ -424,7 +463,27 @@
       "resultEn": "Two demos: Western Sichuan travel and robot vacuums for cat-owning households. Uses original simulated material, not live search or e-commerce prices.",
       "demoNote": "先在首页选场景；推荐从未替用户自动做决定。扫地机器人场景的评论是演示样本，比价价格需手动输入。",
       "demoNoteEn": "Choose either scenario on the homepage. Recommendations never make the final choice for the user. Product comments are simulated and comparison prices are entered manually.",
-      "featured": true
+      "featured": true,
+      "id": "grounded",
+      "category": "life",
+      "group": "main",
+      "presentation": {
+        "question": {
+          "zh": "经验互相矛盾，该相信哪一条？",
+          "en": "Which advice applies when experiences conflict?"
+        },
+        "decision": {
+          "zh": "对照来源、适用条件与自己的约束，再比较方案。",
+          "en": "Compare sources, applicability and personal constraints."
+        },
+        "image": "/assets/work/showcase/grounded.jpg",
+        "caption": {
+          "zh": "有据 · 经验材料与决策链路",
+          "en": "Grounded Choice · Experience sources and decision flow"
+        },
+        "kind": "demo",
+        "thumbnail": "/assets/work/showcase/grounded-crop.jpg"
+      }
     },
     {
       "name": "Eval Lab",
@@ -468,8 +527,28 @@
       "demoNoteEn": "No relay needed for replay and human review. Optional API runs require a click; keys are not persisted. No real models or historical benchmarks were rerun this round.",
       "featured": true,
       "iterationUrl": "/cases/trust/",
+      "id": "eval",
+      "category": "ai",
+      "group": "main",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study"
+      "caseLabelEn": "Case study",
+      "presentation": {
+        "question": {
+          "zh": "裁判给了低分，依据能经得起复核吗？",
+          "en": "Does the evidence support the judge’s low score?"
+        },
+        "decision": {
+          "zh": "原文、引句和评语放在一起，人工判断另行记录。",
+          "en": "Review source, quotation and comment without overwriting the original score."
+        },
+        "image": "/assets/work/showcase/eval.jpg",
+        "caption": {
+          "zh": "Eval Lab · 历史评分、引句与人工复核",
+          "en": "Eval Lab · Saved scores, quotations and human review"
+        },
+        "kind": "demo",
+        "thumbnail": "/assets/work/showcase/eval-crop.jpg"
+      }
     },
     {
       "name": "Filing Eval",
@@ -511,9 +590,29 @@
       "resultEn": "Eval Lab replays 18 saved outputs across six samples. Filing Eval contains 28 constructed notices, with original results, hard cases and unrun holdout candidates reported separately. Interface and regression checks do not establish production accuracy. Review costs more time than reading a score. The tradeoff is to direct attention to low scores, errors and disputes rather than requiring an exhaustive read of every output.",
       "demoNote": "28条模拟公告历史回放，不评估任意新文本；复核只存本机，损坏记录不计入进度，未保存草稿不冒充已审核。",
       "demoNoteEn": "Replay of 28 synthetic filings, not live evaluation of arbitrary text. Reviews stay local; invalid records and unsaved drafts do not count as reviewed.",
+      "id": "filing",
+      "category": "ai",
+      "group": "main",
       "iterationUrl": "/cases/trust/",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study"
+      "caseLabelEn": "Case study",
+      "presentation": {
+        "question": {
+          "zh": "摘要没有写错，就足够完整吗？",
+          "en": "Can a correct summary still miss something important?"
+        },
+        "decision": {
+          "zh": "断言错误与关键信息遗漏分别核验，回到原文查证。",
+          "en": "Check false claims and missing facts separately against the source."
+        },
+        "image": "/assets/work/showcase/filing.jpg",
+        "caption": {
+          "zh": "Filing Eval · 公告原文与断言复核",
+          "en": "Filing Eval · Source notice and claim review"
+        },
+        "kind": "demo",
+        "thumbnail": "/assets/work/showcase/filing-crop.jpg"
+      }
     },
     {
       "name": "企业 AI 与轻量业务工具",
@@ -555,7 +654,21 @@
         "ERP/CRM: organised scanning, inventory, production and leads into separate recording, reconciliation and reporting modules."
       ],
       "result": "工具辅助下，选品信息搜集与整理人工耗时减少约 40%；制造业工具的生产与库存信息汇总耗时降低约 20%。",
-      "resultEn": "Tool-assisted selection research and organisation took about 40% less manual time; production and inventory reporting time fell about 20%. These measure separate delivery modules."
+      "resultEn": "Tool-assisted selection research and organisation took about 40% less manual time; production and inventory reporting time fell about 20%. These measure separate delivery modules.",
+      "id": "fde",
+      "category": "delivery",
+      "group": "cases",
+      "presentation": {
+        "question": {
+          "zh": "业务流程里，哪一步值得先交给 AI？",
+          "en": "Which part of a business workflow should AI handle first?"
+        },
+        "decision": {
+          "zh": "从选品、问答与记录等具体任务切入，保留人工确认。",
+          "en": "Start with a concrete task and retain human confirmation."
+        },
+        "kind": "case"
+      }
     },
     {
       "name": "个人投研 Agent 与量化研究",
@@ -593,7 +706,21 @@
         "Compared strategies out of sample with buy-and-hold, moving-average exits and ATR trailing stops, accounting for costs and temporal leakage."
       ],
       "result": "每日投研信息获取与提炼耗时由约 2 小时缩短至 20 分钟；量化研究模块纳入交易成本与时间序列隔离，支持历史表现与适用边界检查。",
-      "resultEn": "Daily information gathering and synthesis fell from about two hours to twenty minutes. The quantitative research module accounts for trading costs and temporal separation to examine historical behaviour and applicability."
+      "resultEn": "Daily information gathering and synthesis fell from about two hours to twenty minutes. The quantitative research module accounts for trading costs and temporal separation to examine historical behaviour and applicability.",
+      "id": "research-agent",
+      "category": "delivery",
+      "group": "cases",
+      "presentation": {
+        "question": {
+          "zh": "一份研究结论，怎样回到它的依据？",
+          "en": "Can a research conclusion be traced to its sources?"
+        },
+        "decision": {
+          "zh": "多源材料、研究记录与样本外对照分开组织。",
+          "en": "Keep source material, research records and out-of-sample comparisons distinct."
+        },
+        "kind": "case"
+      }
     },
     {
       "name": "通勤方案比较器",
@@ -635,7 +762,27 @@
         "Resample observations with visible sample limits. Confirm numeric edits, preview drag changes before committing, preserve invalid saved drafts, and export only results bound to confirmed inputs."
       ],
       "result": "无需地图或模型接口；记录与草稿只存本机。月度比较假设往返同分布；建议时间及尾部比例受输入限制，不保证未来准点率。",
-      "resultEn": "No map or model API. Records and drafts remain local. Monthly comparisons assume matching outbound/return distributions; departure suggestions do not guarantee future punctuality."
+      "resultEn": "No map or model API. Records and drafts remain local. Monthly comparisons assume matching outbound/return distributions; departure suggestions do not guarantee future punctuality.",
+      "id": "commute",
+      "category": "personal",
+      "group": "main",
+      "presentation": {
+        "question": {
+          "zh": "多花一点钱，能换回多少可靠时间？",
+          "en": "How much reliable travel time does a higher fare buy?"
+        },
+        "decision": {
+          "zh": "一起比较耗时、成本和迟到风险，保留输入与结果。",
+          "en": "Compare time, cost and lateness risk while preserving assumptions."
+        },
+        "image": "/assets/work/showcase/commute.jpg",
+        "caption": {
+          "zh": "通勤方案比较器 · 成本与到达风险",
+          "en": "Commute Compare · Cost and arrival risk"
+        },
+        "kind": "demo",
+        "thumbnail": "/assets/work/showcase/commute-crop.jpg"
+      }
     },
     {
       "name": "扑克玩家类型测试",
@@ -670,7 +817,13 @@
         "Offer professional and simple modes to reduce jargon barriers."
       ],
       "result": "已上线，可直接完成测试并查看风格结果。",
-      "resultEn": "Live: complete the quiz and view a style profile."
+      "resultEn": "Live: complete the quiz and view a style profile.",
+      "id": "poker-quiz",
+      "category": "personal",
+      "group": "poker",
+      "presentation": {
+        "kind": "external"
+      }
     },
     {
       "name": "扑克筹码管理模拟器",
@@ -700,7 +853,13 @@
         "Poker",
         "Monte Carlo",
         "Risk"
-      ]
+      ],
+      "id": "bankroll",
+      "category": "personal",
+      "group": "poker",
+      "presentation": {
+        "kind": "demo"
+      }
     },
     {
       "name": "扑克期望值计算器",
@@ -730,7 +889,13 @@
         "Poker",
         "Expected Value",
         "Decision Analysis"
-      ]
+      ],
+      "id": "poker-ev",
+      "category": "personal",
+      "group": "poker",
+      "presentation": {
+        "kind": "demo"
+      }
     },
     {
       "name": "Growth Experiment Lab",
@@ -771,9 +936,29 @@
       ],
       "result": "有 4,000 条合成订单和可检查的候选、账本与导出。手算及边界用于验证实现；不能把候选毛利为正或模拟结果写成真实增长。 两类人群仍是简化模型，采纳率、重复购买与商家成本都未被真实订单实验校准。多一个小数位不能补上这些信息。",
       "resultEn": "The demo contains 4,000 synthetic orders with inspectable candidates, ledgers and exports. Hand calculations and edge checks verify implementation, not actual growth. Two populations are still a simplification. Adoption, repeat purchases and merchant costs have not been calibrated against a live experiment; more decimal places do not fix that.",
+      "id": "growth",
+      "category": "growth",
+      "group": "main",
       "iterationUrl": "/cases/bundles/",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study"
+      "caseLabelEn": "Case study",
+      "presentation": {
+        "question": {
+          "zh": "实验显著，就应该全量上线吗？",
+          "en": "Does statistical significance justify a full rollout?"
+        },
+        "decision": {
+          "zh": "分开看统计证据、业务收益与护栏，再留下决策记录。",
+          "en": "Separate statistical evidence, business value and guardrails."
+        },
+        "image": "/assets/work/showcase/growth.jpg",
+        "caption": {
+          "zh": "Growth Experiment Lab · 实验结果与上线判断",
+          "en": "Growth Experiment Lab · Evidence and rollout decisions"
+        },
+        "kind": "demo",
+        "thumbnail": "/assets/work/showcase/growth-crop.jpg"
+      }
     },
     {
       "name": "Pricing Model Sim",
@@ -813,9 +998,29 @@
       ],
       "result": "有 4,000 条合成订单和可检查的候选、账本与导出。手算及边界用于验证实现；不能把候选毛利为正或模拟结果写成真实增长。 两类人群仍是简化模型，采纳率、重复购买与商家成本都未被真实订单实验校准。多一个小数位不能补上这些信息。",
       "resultEn": "The demo contains 4,000 synthetic orders with inspectable candidates, ledgers and exports. Hand calculations and edge checks verify implementation, not actual growth. Two populations are still a simplification. Adoption, repeat purchases and merchant costs have not been calibrated against a live experiment; more decimal places do not fix that.",
+      "id": "pricing",
+      "category": "growth",
+      "group": "main",
       "iterationUrl": "/cases/bundles/",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study"
+      "caseLabelEn": "Case study",
+      "presentation": {
+        "question": {
+          "zh": "付费机制变了，比较口径还一致吗？",
+          "en": "Are payment models being compared on the same cohort?"
+        },
+        "decision": {
+          "zh": "固定人群口径，核对留存、解锁、成本与回本。",
+          "en": "Conserve the cohort while checking retention, unlocks, costs and payback."
+        },
+        "image": "/assets/work/showcase/pricing.jpg",
+        "caption": {
+          "zh": "Pricing Model Sim · 同口径机制推演",
+          "en": "Pricing Model Sim · Conserved-cohort scenarios"
+        },
+        "kind": "demo",
+        "thumbnail": "/assets/work/showcase/pricing-crop.jpg"
+      }
     },
     {
       "name": "Bundle Lab",
@@ -855,9 +1060,29 @@
       ],
       "result": "有 4,000 条合成订单和可检查的候选、账本与导出。手算及边界用于验证实现；不能把候选毛利为正或模拟结果写成真实增长。 两类人群仍是简化模型，采纳率、重复购买与商家成本都未被真实订单实验校准。多一个小数位不能补上这些信息。",
       "resultEn": "The demo contains 4,000 synthetic orders with inspectable candidates, ledgers and exports. Hand calculations and edge checks verify implementation, not actual growth. Two populations are still a simplification. Adoption, repeat purchases and merchant costs have not been calibrated against a live experiment; more decimal places do not fix that.",
+      "id": "bundle",
+      "category": "growth",
+      "group": "main",
       "iterationUrl": "/cases/bundles/",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study"
+      "caseLabelEn": "Case study",
+      "presentation": {
+        "question": {
+          "zh": "套餐卖得更多，为什么反而少赚了？",
+          "en": "Why can a bundle sell more and still earn less?"
+        },
+        "decision": {
+          "zh": "把新增购买的贡献和既有顾客的让利分开计算。",
+          "en": "Separate incremental contribution from discounts to existing buyers."
+        },
+        "image": "/assets/work/showcase/bundle.jpg",
+        "caption": {
+          "zh": "Bundle Lab · 两类人群的收益账本",
+          "en": "Bundle Lab · Two-population contribution ledger"
+        },
+        "kind": "demo",
+        "thumbnail": "/assets/work/showcase/bundle-crop.jpg"
+      }
     },
     {
       "name": "留学咨询内容矩阵",
@@ -895,7 +1120,21 @@
         "Compared case-led and general-advice content conversion and codified topic and follow-up workflows."
       ],
       "result": "CPL 降低 30%，矩阵总粉丝破 10 万，月均高意向线索超 100 条；带领 8 人团队将方法沉淀为 SOP。",
-      "resultEn": "CPL fell 30%, total followers exceeded 100,000 and monthly high-intent leads exceeded 100. Led an eight-person team and codified the workflow."
+      "resultEn": "CPL fell 30%, total followers exceeded 100,000 and monthly high-intent leads exceeded 100. Led an eight-person team and codified the workflow.",
+      "id": "content",
+      "category": "delivery",
+      "group": "cases",
+      "presentation": {
+        "question": {
+          "zh": "内容带来的关注，怎样变成有效咨询？",
+          "en": "How does an audience become a qualified consultation?"
+        },
+        "decision": {
+          "zh": "把内容、私域咨询和线索跟进连成可复盘的流程。",
+          "en": "Connect content, consultation and lead follow-up in one reviewable flow."
+        },
+        "kind": "case"
+      }
     }
   ],
   "skills": {

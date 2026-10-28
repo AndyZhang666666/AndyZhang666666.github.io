@@ -1,0 +1,18 @@
+{
+  "sampleId": "e06",
+  "label": "病历悬念 · 截断稿",
+  "text": "“你确定要看？”护士把病历递过来的时候，眼神有点躲闪。\n赵成接过来，翻到第三页，停住了。\n手术签字栏上的名字不是他妻子的。\n是他自己的。\n日期是三年前。\n他从来没有做过手术。\n护士已经走了。走廊尽头，一个穿白大褂的男人正在看他，见他抬头，转身进了电梯。\n赵成追过去，电梯门合上的一瞬间，他看清了那人胸牌上的",
+  "runIndex": 0,
+  "model": "gemini-2.5-flash",
+  "recordedAt": "2026-09-12T17:03:42.249Z",
+  "overall": 2.8,
+  "dimension": {
+    "id": "structure",
+    "score": 2,
+    "comment": "The piece functions purely as an opening hook and cuts off mid-sentence, lacking a true beginning-middle-end arc.",
+    "evidence": [
+      "赵成追过去，电梯门合上的一瞬间，他看清了那人胸牌上的"
+    ]
+  },
+  "quoteOffset": 127
+}

@@ -10,5 +10,9 @@ exclude:
   - scripts/capture-work.mjs
   - scripts/verify-original.mjs
   - scripts/update-content.mjs
+  - scripts/capture-showcase.mjs
+  - scripts/sync-showcase-sources.mjs
+  - scripts/test-showcase.mjs
+  - docs/DEMO-SHOWCASE-20261028.md
   - docs/FRONTEND-REVIEW-20261027.md
   - docs/LOCAL-VALIDATION-20261027.md

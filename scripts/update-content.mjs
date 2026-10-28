@@ -1,9 +1,12 @@
-// Content migration only. Home CSS, layout, and visual-effect scripts stay byte-identical.
+// The original shell stays intact. Scoped showcase/library presentation is generated here.
 import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {identity,projects,studies} from '../content/editorial.mjs';
+import {presentationFor} from '../content/project-presentation.mjs';
+import {renderProjectCards} from '../assets/project-cards.mjs';
+import {renderSelected} from '../content/showcase.mjs';
 const localReview=process.argv.includes('--local');
-const releaseVersion='20261027-master1';
+const releaseVersion='20261027-showcase1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
@@ -17,6 +20,8 @@ data.about.bodyEn=data.about.bodyEn.split('. ').slice(1).join('. ');
 // Project-specific observations remain in the separate case-study pages.
 for(const p of projects){
  const entry=data.projects[p.index],s=studies.find(s=>s.id===p.caseId);
+ entry.id=p.id;entry.category=p.category;
+ entry.group=['poker-quiz','bankroll','poker-ev'].includes(p.id)?'poker':!entry.url?'cases':'main';
  entry.name=p.name.zh;entry.nameEn=p.name.en;
  entry.description=s?.project===p.id?s.summary.zh:p.description.zh;
  entry.descriptionEn=s?.project===p.id?s.summary.en:p.description.en;
@@ -28,6 +33,7 @@ for(const p of projects){
  }
  if(entry.url?.startsWith('https://andyzhang666666.github.io'))entry.url=entry.url.slice('https://andyzhang666666.github.io'.length)||'/';
  if(p.id==='taste')entry.url='/tasteroom/?direction=swiss';
+ entry.presentation=presentationFor(entry);
 }
 fs.writeFileSync('data.json',JSON.stringify(data,null,2)+'\n');
 let html=original('index.html');
@@ -42,6 +48,17 @@ words('粘贴一段岗位描述，按有直接证据、部分相关、暂无经�
 words('开始匹配','Match','查找相关证据','Find evidence');
 html=html.replace('<a href="#contact" class="btn btn-ghost" data-zh="联系我" data-en="Contact">联系我</a>','<a href="/assets/resume.pdf" class="btn btn-ghost" download data-zh="下载简历" data-en="Download CV">下载简历</a>');
 words('AI 产品、增长、评测体系，或者德州扑克，都可以聊。','AI products, growth, evaluation — or poker. Happy to talk.','AI 应用、Agent，或一个值得重新想想的产品。','An AI application, an Agent, or a product worth thinking through.');
+// The original hero's composition is unchanged; its work link now points to selected work.
+html=html.replaceAll('href="#projects"','href="#selected"');
+html=html.replace('<!-- ============ ABOUT ============ -->',`${renderSelected(data)}\n\n<!-- ============ ABOUT ============ -->`);
+html=html.replace('id="projects" class="section"','id="projects" class="section project-library"');
+html=html.replace('<div id="projectGrid" class="project-grid"></div>',`<div id="projectGrid" class="project-grid">${renderProjectCards(data.projects)}</div>`);
+html=html.replace('</head>',`<link rel="stylesheet" href="assets/demo-showcase.css?v=${releaseVersion}">\n</head>`);
+// Small native previews replace whole-app iframes and the old parallel calculators.
+html=html.replace(/<script src="embed\.js[^\"]*"><\/script>\n?/,'');
+html=html.replace('<script src="app.js',`<script type="module" src="assets/demo-showcase.mjs?v=${releaseVersion}"></script>\n<script src="app.js`);
+html=html.replace(/src="railnav\.js\?v=[^"]*"/,`src="railnav.js?v=${releaseVersion}"`);
+html=html.replace(/src="projects-split\.js\?v=[^"]*"/,`src="projects-split.js?v=${releaseVersion}"`);
 // The public master is indexable; --local is available for a private review build.
 if(localReview)html=html.replace('<meta charset="UTF-8">','<meta charset="UTF-8">\n<meta name="robots" content="noindex,nofollow">');
 html=html.replace(/src="app\.js\?v=[^"]*"/,`src="app.js?v=${releaseVersion}"`).replace(/src="jd\.js\?v=[^"]*"/,`src="jd.js?v=${releaseVersion}"`);
@@ -49,6 +66,7 @@ fs.writeFileSync('index.html',html);
 let app=original('app.js');
 app=app.replace('data.json?v=20261025-demo-suite-3',`data.json?v=${releaseVersion}`);
 app=app.replace('<span data-zh="迭代与校验" data-en="Iterations & validation">迭代与校验</span>','<span data-zh="${esc(p.caseLabel || \'迭代与校验\')}" data-en="${esc(p.caseLabelEn || \'Iterations & validation\')}">${esc(p.caseLabel || \'迭代与校验\')}</span>');
+app=app.replace(/function renderProjects\(\) \{[\s\S]*?\n\}\n\nfunction renderAwards/,`function renderProjects() {\n  // Static cards are also present without JavaScript. URLs are bound by project ID.\n  if (typeof window.refreshProjectLibrary === 'function') window.refreshProjectLibrary(data.projects);\n}\n\nfunction renderAwards`);
 fs.writeFileSync('app.js',app);
 
 // New reading pages use the original site's CSS and vocabulary, not the fusion skin.
@@ -67,4 +85,4 @@ for(const study of studies){
  fs.mkdirSync(`cases/${study.id}`,{recursive:true});
  fs.writeFileSync(`cases/${study.id}/index.html`,`<!doctype html><html lang="zh-CN" data-palette="frost">${head.replace(/<title>.*?<\/title>/,`<title>${esc(p.name)} · 产品判断</title>`)}<body><div class="grain"></div><div class="glow glow-1"></div><div class="glow glow-2"></div>${nav}<main>${body}</main><footer>© 2026 张千羽 · ${localReview?'本地内容评审':'产品判断与验证'}</footer><script src="/scripts/case-reader.js"></script></body></html>`);
 }
-console.log('Updated original layout with edited content and four case pages. No home CSS or visual-effect script changed.');
+console.log('Updated the original shell, four native selected previews, explicit project cards and four case pages.');

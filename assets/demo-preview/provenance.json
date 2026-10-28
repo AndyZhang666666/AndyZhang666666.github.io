@@ -1,0 +1,25 @@
+{
+  "format": 1,
+  "sources": [
+    {
+      "repo": "bundle-lab",
+      "revision": "55448e1b6c0ea623afd39d3230e1a3332e311f1e",
+      "source": "lib/simulate.js",
+      "target": "assets/demo-preview/bundle-model.mjs",
+      "url": "https://github.com/AndyZhang666666/bundle-lab/blob/55448e1b6c0ea623afd39d3230e1a3332e311f1e/lib/simulate.js",
+      "sourceSha256": "0021819b10aff396334e57fd230a7a117dbe7e434656d83eafddc788db581e65",
+      "outputSha256": "0021819b10aff396334e57fd230a7a117dbe7e434656d83eafddc788db581e65",
+      "use": "Byte-identical pure calculation module"
+    },
+    {
+      "repo": "llm-output-eval",
+      "revision": "7cbf20fcfd81767a641b0a830312e6293ea5307a",
+      "source": "src/data/replay.json",
+      "target": "assets/demo-preview/eval-sample.json",
+      "url": "https://github.com/AndyZhang666666/llm-output-eval/blob/7cbf20fcfd81767a641b0a830312e6293ea5307a/src/data/replay.json",
+      "sourceSha256": "9d58427733b16883375fcfbebfed9ee2ca95a4193b5e5f4a938bf5095b307c6b",
+      "outputSha256": "65846b01015917fedb3682c9b792be6965355e46193d11d9f39e4d525ee1d01d",
+      "use": "Read-only e06 / run 0 / structure excerpt; no new model call"
+    }
+  ]
+}

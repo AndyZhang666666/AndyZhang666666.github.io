@@ -12,15 +12,16 @@
   'use strict';
 
   var GRID_ID = 'projectGrid';
-  var ORDER = ['main', 'poker'];
+  var ORDER = ['main', 'cases', 'poker'];
   var GROUPS = {
     main:  { key: 'main',  zh: 'AI 产品与增长', en: 'AI Product & Growth' },
+    cases: { key: 'cases', zh: '交付与研究案例', en: 'Delivery & Research Cases' },
     poker: { key: 'poker', zh: '德州扑克',       en: "Texas Hold'em" }
   };
   /* 每组保底的占位卡数量：数据里已有的 .placeholder 会先计入，不足才补。
      扑克 ×2 与通勤三个项目已全部上线，占位卡不再补 —— 机制留着，
      以后要预告新项目时把对应数字调回 1 即可。 */
-  var TARGET_PH = { main: 0, poker: 0 };
+  var TARGET_PH = { main: 0, cases: 0, poker: 0 };
 
   var POKER_RE = /德州|扑克|poker|hold'?em/i;
   /* 「牌」单独判断，先剔除「品牌 / 招牌 / 牌照 / 门牌」这类误命中 */
@@ -46,6 +47,7 @@
 
   /* ---- 1. 分组规则：name 或 tags 含 德州 / 扑克 / poker / 牌 ---- */
   function isPoker(card) {
+    if (card.dataset.projectGroup) return card.dataset.projectGroup === 'poker';
     var name = textOf(card.querySelector('.project-name'));
     var tags = Array.prototype.map.call(
       card.querySelectorAll('.project-tag'),
@@ -158,7 +160,7 @@
       ORDER.forEach(function (k) { groups[k] = ensureGroup(root, k); });
 
       Array.prototype.forEach.call(stray, function (card) {
-        var key = isPoker(card) ? 'poker' : 'main';
+        var key = card.dataset.projectGroup === 'cases' ? 'cases' : isPoker(card) ? 'poker' : 'main';
         groups[key].querySelector('.pgroup-grid').appendChild(card);
       });
 
