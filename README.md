@@ -1,10 +1,12 @@
 # Andy Zhang · 个人官网
 
+2026-10-28 待审更新：前置四项可操作精选，替换九个工具的真实缩略图，十五项作品按工具、案例、扑克分组。本轮先同步 GitHub 待审分支，尚未替换线上；[实现、来源与验证](docs/DEMO-SHOWCASE-20261028.md)。
+
 2026-10-27 官网主版本更新：保留原版布局、主题与动效，精简个人与项目说明，增加四篇产品设计案例，打磨五个 Demo 的操作界面。「关于 AI」保留原版四条判断与来源。开发记录见 [CHANGELOG](CHANGELOG.md)。
 
 线上站点：[andyzhang666666.github.io](https://andyzhang666666.github.io/)。当前为根目录静态站点，通过 `main` 的 GitHub Pages 发布，无需构建。
 
-主要内容来自 `data.json`，由 `app.js` 渲染。内容更新可运行 `node scripts/update-content.mjs`；仅本地评审时可加 `--local`。当前机器的完整本地预览使用 `打开本地预览.command`，相关说明见 [LOCAL-REVIEW](LOCAL-REVIEW.md)。本地对照页和辅助脚本保留在源码仓库，不作为公开网站页面发布。
+主要内容来自 `data.json`；精选内容和完整项目卡直接生成在 HTML 中，交互按需增强，其他板块沿用 `app.js`。内容更新可运行 `node scripts/update-content.mjs`；仅本地评审时可加 `--local`。当前机器的完整本地预览使用 `打开本地预览.command`，相关说明见 [LOCAL-REVIEW](LOCAL-REVIEW.md)。本地对照页和辅助脚本保留在源码仓库，不作为公开网站页面发布。
 
 ## 产品设计案例
 
