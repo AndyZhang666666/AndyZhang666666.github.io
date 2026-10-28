@@ -1,5 +1,6 @@
 import {renderProjectCards} from './project-cards.mjs';
 import {createShowcaseMotion} from './showcase-motion.mjs';
+import {renderProductPrinciples,initProductPrinciples} from './product-principles.mjs';
 
 // The page owns only ephemeral previews. Full tools keep their own state and storage.
 const root=document.getElementById('selected');
@@ -10,6 +11,12 @@ const translate=node=>node.querySelectorAll('[data-zh]').forEach(el=>{el.textCon
 const feedback=node=>{if(node?.animate&&!reduced())node.animate([{opacity:.6,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:220,easing:'cubic-bezier(.16,1,.3,1)'});};
 const press=(buttons,picked)=>buttons.forEach(button=>button.setAttribute('aria-pressed',String(button===picked)));
 const fixture=id=>JSON.parse(document.getElementById(id).textContent);
+
+window.refreshProductPrinciples=principles=>{
+ const grid=document.getElementById('principleGrid');if(!grid)return;
+ if(grid.querySelectorAll('[data-principle]').length!==principles.length){grid.innerHTML=renderProductPrinciples(principles);delete grid.dataset.practiceReady;initProductPrinciples(grid);translate(grid);}
+};
+initProductPrinciples(document.getElementById('principleGrid'));
 
 window.refreshProjectLibrary=projects=>{
  const grid=document.getElementById('projectGrid');if(!grid)return;

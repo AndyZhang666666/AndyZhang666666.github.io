@@ -1,6 +1,8 @@
 # Demo 展示区改版 · 2026-10-28
 
-本轮在现有官网主版本上增加可试玩的精选区，更新作品卡和截图。没有复制新的官网，没有修改各 Demo 的业务功能。代码先同步至 `feat/demo-showcase-20261027` 待审分支，线上 `main` 暂不替换。
+本轮在现有官网主版本上增加可试玩的精选区，更新作品卡和截图。没有复制新的官网，没有修改各 Demo 的业务功能。开发阶段保留在 `feat/demo-showcase-20261027` 的真实提交中；用户最新要求为直接发布到 `main`。正式版本以 GitHub Pages 实际部署为准，早期待审状态见更新记录。
+
+原则区补充整理：三条原文不变，改为一张主卡与两张辅助卡，分别用问题收敛、验收边界、动手验证的矢量图形解释，并链接随便局、Eval Lab 与偏爱实验室。图形在进入视口时绘制一次，卡片有轻微悬停反馈；不循环干扰阅读，减少动态效果模式中关闭。该区域静态生成，未加载脚本时仍可阅读和打开作品。
 
 后续按本轮审阅意见调整：精选区移到「关于我」之后；材质复用原版的玻璃、内凹和阴影变量。选中玻璃层沿卡片位置移动，预览面板有轻微滚动错层与桌面指针偏移，切换可被下一次操作打断，点击有短促回弹。触控使用自然页面滚动；减少动态效果模式停止空间移动，保留实际操作和状态反馈。
 
@@ -45,6 +47,7 @@ node scripts/update-content.mjs
 node scripts/verify-original.mjs
 node scripts/test-showcase.mjs
 node scripts/test-showcase-motion.mjs
+node scripts/test-product-principles.mjs
 ```
 
 浏览器脚本使用本机已安装的 `playwright` 与 Chrome；如 Playwright 位于共享运行时，可用 `PLAYWRIGHT_MODULE` 指定模块入口。需要先在 `http://127.0.0.1:8811` 启动完整本地预览；也可通过 `SHOWCASE_BASE_URL` 指向等价预览服务。

@@ -15,7 +15,7 @@ const hl = (s) => esc(s).replace(
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data.json?v=20261028-glass1');
+    const res = await fetch('data.json?v=20261028-practice1');
     if (!res.ok) throw new Error('Profile data could not be loaded');
     data = await res.json();
     if (typeof applyResumeEvidence === 'function') applyResumeEvidence(data);
@@ -207,13 +207,8 @@ function renderAbout() {
     </div>
   `).join('');
   
-  const pg = document.getElementById('principleGrid');
-  pg.innerHTML = (a.principles || []).map((p, i) => `
-    <div class="principle-card reveal" data-delay="${i * 90}">
-      <h3 class="principle-title" data-zh="${esc(p.zh)}" data-en="${esc(p.en)}">${esc(p.zh)}</h3>
-      <p class="principle-desc" data-zh="${esc(p.dz)}" data-en="${esc(p.de)}">${esc(p.dz)}</p>
-    </div>
-  `).join('');
+  // Keep the static, evidence-linked principles and their material interactions.
+  if (typeof window.refreshProductPrinciples === 'function') window.refreshProductPrinciples(a.principles || []);
 }
 
 // ===== USES =====

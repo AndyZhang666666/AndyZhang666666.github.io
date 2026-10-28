@@ -36,7 +36,7 @@
 </head>
 <body>
   <header class="toolbar">
-    <div><h1>官网主版本 / 当前线上</h1><p>本轮 Demo 展示改版 · 待审，线上未替换</p></div>
+    <div><h1>本地主版本 / 线上官网</h1><p>同一官网的本地与线上对照 · 发布后两边显示同版</p></div>
     <label class="project-picker"><span>查看</span><select id="project" aria-label="选择对照项目"><option value="/">个人官网</option><option value="/#selected">精选互动（本轮新增）</option><option value="/#projects">完整作品库</option><option value="/llm-output-eval/">Eval Lab</option><option value="/tasteroom/">偏爱实验室</option><option value="/demos/filing-eval/">Filing Eval</option><option value="/suibianju/">随便局</option><option value="/bundle-lab/">Bundle Lab</option></select></label>
     <div class="view-switch" role="group" aria-label="对照视图">
       <button type="button" data-view="split" aria-pressed="false">并排对照</button>
@@ -45,9 +45,9 @@
     </div>
   </header>
   <main class="compare" id="comparison" data-view="local" aria-label="官网主版本与当前线上网站对照">
-    <section class="pane pane-local" aria-label="官网主版本，本轮待审改版">
-      <header class="pane-head"><div><h2>官网主版本 · 本轮待审改版</h2><p id="localSource">127.0.0.1:8811/</p></div><a id="openLocal" href="/" target="_blank" rel="noopener">单独打开 ↗</a></header>
-      <iframe id="localFrame" src="/" title="官网主版本（本轮待审改版，线上未替换）"></iframe>
+    <section class="pane pane-local" aria-label="官网主版本，当前本地工作目录">
+      <header class="pane-head"><div><h2>本地主版本 · 当前工作目录</h2><p id="localSource">127.0.0.1:8811/</p></div><a id="openLocal" href="/" target="_blank" rel="noopener">单独打开 ↗</a></header>
+      <iframe id="localFrame" src="/" title="官网主版本（当前本地工作目录）"></iframe>
     </section>
     <section class="pane pane-live" aria-label="当前线上版本，直接加载 GitHub Pages">
       <header class="pane-head"><div><h2>当前线上版本 · GitHub Pages</h2><p id="liveSource">andyzhang666666.github.io/</p></div><a id="openLive" href="https://andyzhang666666.github.io/" target="_blank" rel="noopener">单独打开 ↗</a></header>
@@ -63,8 +63,7 @@
     function changeProject(){
       const path=document.querySelector('#project').value;
       const local=path+(path==='/tasteroom/'?'?direction=swiss':'');
-      // The public master has no selected section yet: compare against its current library.
-      const live=new URL(path==='/#selected'?'/#projects':path,'https://andyzhang666666.github.io/').href;
+      const live=new URL(path,'https://andyzhang666666.github.io/').href;
       document.querySelector('#localFrame').src=local;
       document.querySelector('#liveFrame').src=live;
       document.querySelector('#openLocal').href=local;

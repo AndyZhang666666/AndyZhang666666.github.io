@@ -110,7 +110,7 @@ try{
  record('Blocked enhancement and missing thumbnails/full images retain real destinations and recoverable messages');
  await page.goto(base+'/review.html?section=selected',{waitUntil:'domcontentloaded'});
  assert.equal(await page.locator('#localFrame').getAttribute('src'),'/#selected');
- assert.equal(await page.locator('#liveFrame').getAttribute('src'),'https://andyzhang666666.github.io/#projects');
+ assert.equal(await page.locator('#liveFrame').getAttribute('src'),'https://andyzhang666666.github.io/#selected');
  record('Existing comparison page points to this master and the actual public site');
  assert.deepEqual(errors,[]);assert.deepEqual(badResponses,[]);
  await fs.writeFile(out+'/report.json',JSON.stringify({passed:true,at:new Date().toISOString(),checks,layoutChecks:metrics,consoleErrors:errors,failedLocalResponses:badResponses},null,2));

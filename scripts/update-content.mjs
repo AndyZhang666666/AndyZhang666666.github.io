@@ -5,8 +5,9 @@ import {identity,projects,studies} from '../content/editorial.mjs';
 import {presentationFor} from '../content/project-presentation.mjs';
 import {renderProjectCards} from '../assets/project-cards.mjs';
 import {renderSelected} from '../content/showcase.mjs';
+import {renderProductPrinciples} from '../assets/product-principles.mjs';
 const localReview=process.argv.includes('--local');
-const releaseVersion='20261028-glass1';
+const releaseVersion='20261028-practice1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
@@ -54,9 +55,11 @@ html=html.replaceAll('href="#projects"','href="#selected"');
 html=html.replace(/(<section id="about"[\s\S]*?<\/section>)/,`$1\n\n${renderSelected(data)}`);
 // Section/view indexes are presentation, not ordered process steps or factual numbers.
 html=html.replace(/\sdata-num="[^"]*"/g,'').replace(/^[ \t]*<span class="section-num">[^<]*<\/span>\n?/gm,'');
+html=html.replace('<div class="principle-grid" id="principleGrid"></div>',`<div class="principle-grid" id="principleGrid" aria-label="产品原则与实践">${renderProductPrinciples(data.about.principles)}</div>`);
 html=html.replace('id="projects" class="section"','id="projects" class="section project-library"');
 html=html.replace('<div id="projectGrid" class="project-grid"></div>',`<div id="projectGrid" class="project-grid">${renderProjectCards(data.projects)}</div>`);
 html=html.replace('</head>',`<link rel="stylesheet" href="assets/demo-showcase.css?v=${releaseVersion}">\n</head>`);
+html=html.replace('</head>',`<link rel="stylesheet" href="assets/product-principles.css?v=${releaseVersion}">\n</head>`);
 // Small native previews replace whole-app iframes and the old parallel calculators.
 html=html.replace(/<script src="embed\.js[^\"]*"><\/script>\n?/,'');
 html=html.replace('<script src="app.js',`<script type="module" src="assets/demo-showcase.mjs?v=${releaseVersion}"></script>\n<script src="app.js`);
@@ -68,6 +71,7 @@ html=html.replace(/src="app\.js\?v=[^"]*"/,`src="app.js?v=${releaseVersion}"`).r
 fs.writeFileSync('index.html',html);
 let app=original('app.js');
 app=app.replace(/^[ \t]*<div class="(?:principle-num|ai-view-num)">[^\n]*<\/div>\n/gm,'');
+app=app.replace(/  const pg = document.getElementById\('principleGrid'\);[\s\S]*?  `\)\.join\(''\);/,"  // Keep the static, evidence-linked principles and their material interactions.\n  if (typeof window.refreshProductPrinciples === 'function') window.refreshProductPrinciples(a.principles || []);");
 app=app.replace('data.json?v=20261025-demo-suite-3',`data.json?v=${releaseVersion}`);
 app=app.replace('<span data-zh="迭代与校验" data-en="Iterations & validation">迭代与校验</span>','<span data-zh="${esc(p.caseLabel || \'迭代与校验\')}" data-en="${esc(p.caseLabelEn || \'Iterations & validation\')}">${esc(p.caseLabel || \'迭代与校验\')}</span>');
 app=app.replace(/function renderProjects\(\) \{[\s\S]*?\n\}\n\nfunction renderAwards/,`function renderProjects() {\n  // Static cards are also present without JavaScript. URLs are bound by project ID.\n  if (typeof window.refreshProjectLibrary === 'function') window.refreshProjectLibrary(data.projects);\n}\n\nfunction renderAwards`);

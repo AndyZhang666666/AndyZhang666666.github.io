@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import {execFileSync} from 'node:child_process';
+import {renderProductPrinciples} from '../assets/product-principles.mjs';
 // Last published master. Approved changes: selected work, presentation and decorative indexes.
 const baseline='05f4e98bed60a8a7188aea2423b483c3f6dadc2b';
 const old=file=>execFileSync('git',['show',`${baseline}:${file}`],{maxBuffer:64*1024*1024});
@@ -19,13 +20,15 @@ const splitExpected=old('projects-split.js').toString()
 assert.equal(fs.readFileSync('projects-split.js','utf8'),splitExpected,'Only the case group and explicit grouping by stable ID are allowed');
 for(const file of ['assets/gen/portrait-dark.png','assets/gen/portrait-light.png','assets/resume.pdf'])assert.equal(hash(fs.readFileSync(file)),hash(old(file)),`Supplied asset changed: ${file}`);
 const beforeHtml=old('index.html').toString(),afterHtml=fs.readFileSync('index.html','utf8');
+const approvedPrinciples=`<div class="principle-grid" id="principleGrid" aria-label="产品原则与实践">${renderProductPrinciples(JSON.parse(old('data.json')).about.principles)}</div>`;
+assert.ok(afterHtml.includes(approvedPrinciples),'Principle redesign must preserve the original three statements and approved evidence links');
 const withoutIndexes=value=>value.replace(/\sdata-num="[^"]*"/g,'').replace(/^[ \t]*<span class="section-num">[^<]*<\/span>\n?/gm,'');
 for(const id of ['top','about','ai','work','education','awards','uses','skills','jd','contact']){
- const section=html=>withoutIndexes(html.match(new RegExp(`<section id="${id}"[\\s\\S]*?<\\/section>`))?.[0]||'').replaceAll('href="#selected"','href="#projects"');
+ const section=html=>withoutIndexes(html.replace(approvedPrinciples,'<div class="principle-grid" id="principleGrid"></div>').match(new RegExp(`<section id="${id}"[\\s\\S]*?<\\/section>`))?.[0]||'').replaceAll('href="#selected"','href="#projects"');
  assert.ok(section(beforeHtml),`Missing protected section: ${id}`);
  assert.equal(section(afterHtml),section(beforeHtml),`Protected section changed: ${id}`);
 }
-const normalizedApp=value=>value.replace(/^[ \t]*<div class="(?:principle-num|ai-view-num)">[^\n]*<\/div>\n/gm,'').replace(/data\.json\?v=[^']+/,'data.json?v=VERSION').replace(/function renderProjects\(\) \{[\s\S]*?\n\}\n\nfunction renderAwards/,'function renderAwards');
+const normalizedApp=value=>value.replace(/^[ \t]*<div class="(?:principle-num|ai-view-num)">[^\n]*<\/div>\n/gm,'').replace(/  const pg = document.getElementById\('principleGrid'\);[\s\S]*?  `\)\.join\(''\);/,"  // Keep the static, evidence-linked principles and their material interactions.\n  if (typeof window.refreshProductPrinciples === 'function') window.refreshProductPrinciples(a.principles || []);").replace(/data\.json\?v=[^']+/,'data.json?v=VERSION').replace(/function renderProjects\(\) \{[\s\S]*?\n\}\n\nfunction renderAwards/,'function renderAwards');
 assert.equal(normalizedApp(fs.readFileSync('app.js','utf8')),normalizedApp(old('app.js').toString()),'Only project rendering, presentation indexes and the data cache version may change');
 assert.ok(afterHtml.indexOf('<section id="about"')<afterHtml.indexOf('<section id="selected"'),'Selected work must follow About');
 assert.ok(afterHtml.indexOf('<section id="selected"')<afterHtml.indexOf('<section class="stats"'),'Selected work must immediately follow the About section');
