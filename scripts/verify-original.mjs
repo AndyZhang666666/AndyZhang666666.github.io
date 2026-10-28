@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import {execFileSync} from 'node:child_process';
-// Last published master. Only selected work and project presentation are in scope.
+// Last published master. Approved changes: selected work, presentation and decorative indexes.
 const baseline='05f4e98bed60a8a7188aea2423b483c3f6dadc2b';
 const old=file=>execFileSync('git',['show',`${baseline}:${file}`],{maxBuffer:64*1024*1024});
 const hash=value=>crypto.createHash('sha256').update(value).digest('hex');
@@ -19,13 +19,17 @@ const splitExpected=old('projects-split.js').toString()
 assert.equal(fs.readFileSync('projects-split.js','utf8'),splitExpected,'Only the case group and explicit grouping by stable ID are allowed');
 for(const file of ['assets/gen/portrait-dark.png','assets/gen/portrait-light.png','assets/resume.pdf'])assert.equal(hash(fs.readFileSync(file)),hash(old(file)),`Supplied asset changed: ${file}`);
 const beforeHtml=old('index.html').toString(),afterHtml=fs.readFileSync('index.html','utf8');
+const withoutIndexes=value=>value.replace(/\sdata-num="[^"]*"/g,'').replace(/^[ \t]*<span class="section-num">[^<]*<\/span>\n?/gm,'');
 for(const id of ['top','about','ai','work','education','awards','uses','skills','jd','contact']){
- const section=html=>html.match(new RegExp(`<section id="${id}"[\\s\\S]*?<\\/section>`))?.[0].replaceAll('href="#selected"','href="#projects"');
+ const section=html=>withoutIndexes(html.match(new RegExp(`<section id="${id}"[\\s\\S]*?<\\/section>`))?.[0]||'').replaceAll('href="#selected"','href="#projects"');
  assert.ok(section(beforeHtml),`Missing protected section: ${id}`);
  assert.equal(section(afterHtml),section(beforeHtml),`Protected section changed: ${id}`);
 }
-const normalizedApp=value=>value.replace(/data\.json\?v=[^']+/,'data.json?v=VERSION').replace(/function renderProjects\(\) \{[\s\S]*?\n\}\n\nfunction renderAwards/,'function renderAwards');
-assert.equal(normalizedApp(fs.readFileSync('app.js','utf8')),normalizedApp(old('app.js').toString()),'Only project rendering and the data cache version may change');
+const normalizedApp=value=>value.replace(/^[ \t]*<div class="(?:principle-num|ai-view-num)">[^\n]*<\/div>\n/gm,'').replace(/data\.json\?v=[^']+/,'data.json?v=VERSION').replace(/function renderProjects\(\) \{[\s\S]*?\n\}\n\nfunction renderAwards/,'function renderAwards');
+assert.equal(normalizedApp(fs.readFileSync('app.js','utf8')),normalizedApp(old('app.js').toString()),'Only project rendering, presentation indexes and the data cache version may change');
+assert.ok(afterHtml.indexOf('<section id="about"')<afterHtml.indexOf('<section id="selected"'),'Selected work must follow About');
+assert.ok(afterHtml.indexOf('<section id="selected"')<afterHtml.indexOf('<section class="stats"'),'Selected work must immediately follow the About section');
+assert.ok(!/class="section-num"|\sdata-num=/.test(afterHtml),'Decorative section indexes must be removed');
 const before=JSON.parse(old('data.json')),after=JSON.parse(fs.readFileSync('data.json'));
 for(const key of Object.keys(before).filter(k=>k!=='projects'))assert.deepEqual(after[key],before[key],`Unrequested content changed: ${key}`);
 assert.equal(after.projects.length,15);assert.equal(new Set(after.projects.map(p=>p.id)).size,15);

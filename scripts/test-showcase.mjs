@@ -31,6 +31,8 @@ try{
  await page.goto(base+'/#selected',{waitUntil:'networkidle'});
  await page.locator('[data-eval-locate]:not(:disabled)').waitFor();
  assert.equal(await page.locator('.project-card').count(),15);
+ assert.deepEqual(await page.locator('main>section[id]').evaluateAll(nodes=>nodes.slice(0,3).map(n=>n.id)),['top','about','selected']);
+ assert.equal(await page.locator('.section-num,[data-num],.ai-view-num,.principle-num').count(),0);
  assert.equal(await page.locator('.pgroup-main .project-card').count(),9);
  assert.equal(await page.locator('.pgroup-cases .project-card').count(),3);
  assert.equal(await page.locator('.pgroup-poker .project-card').count(),3);

@@ -1,4 +1,5 @@
 /* Scoped to selected work and the library. All original site tokens/effects are retained. */
+.section-head:not([data-num])::before{content:none}
 .showcase{scroll-margin-top:96px}
 .showcase-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}
 .showcase .showcase-heading h2{font-family:var(--font-serif);font-size:clamp(30px,3.1vw,46px);line-height:1.2;letter-spacing:-.025em;margin:0 0 14px}
@@ -22,7 +23,7 @@
 .showcase-stage{position:relative;min-width:0;background:rgba(var(--bg-rgb),.67);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border-strong);border-radius:16px;padding:28px}
 .showcase-panel[hidden]{display:none}
 .showcase-panel>header{margin-bottom:23px}
-.showcase .showcase-panel h3{font-family:var(--font-serif);font-size:clamp(23px,2vw,29px);line-height:1.3;font-weight:600;letter-spacing:-.02em;margin:0 0 10px}
+.showcase .showcase-panel h3{font-family:var(--font-serif);font-size:clamp(23px,2vw,29px);line-height:1.3;font-weight:600;letter-spacing:-.02em;margin:0 0 10px;text-wrap:balance}
 .showcase-judgement{font-size:15px;line-height:1.7;color:var(--fg-muted);margin:0;max-width:56ch}
 .showcase-panel-footer{margin-top:20px}
 .showcase-links{display:flex;gap:19px;align-items:center;flex-wrap:wrap}
@@ -142,3 +143,24 @@ html:not(.showcase-enhanced) .project-library .reveal{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.showcase *,.project-library .project-preview *{animation:none!important;transition:none!important;scroll-behavior:auto!important}.showcase-choice:hover,.project-preview:hover img{transform:none}.showcase button:active{transform:none}}
 @media(max-width:900px){.project-library .pgroup-cases .pgroup-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.project-library .pgroup-cases .pgroup-grid{grid-template-columns:minmax(0,1fr)}.project-library .pgroup-cases .project-name{min-height:0}}
+
+/* The same floating material and depth tokens used by the original site's controls. */
+.showcase-heading{transform:translate3d(0,var(--material-heading-y,0px),0)}
+.showcase-choices{position:relative;isolation:isolate;transform:translate3d(0,var(--material-choices-y,0px),0)}
+.showcase-choices::before{content:"";position:absolute;left:0;top:0;width:var(--pick-w,100%);height:var(--pick-h,98px);pointer-events:none;border-radius:10px;background:var(--glass-bg);backdrop-filter:blur(22px) saturate(145%);-webkit-backdrop-filter:blur(22px) saturate(145%);border:1px solid var(--glass-border);box-shadow:var(--elev-2),var(--edge-highlight-strong);transform:translate3d(var(--pick-x,0px),var(--pick-y,0px),0);opacity:0;transition:transform .42s cubic-bezier(.22,1,.36,1),opacity .18s;z-index:0}
+.showcase-material-ready .showcase-choices::before{opacity:1}
+.showcase-choice{z-index:1;transition:transform .28s var(--ease-enter,var(--ease)),color .2s,background .2s}
+.showcase-material-ready .showcase-choice[aria-selected=true],.showcase-material-ready .showcase-choice[aria-selected=true]:hover{background:transparent;border-color:transparent}
+.showcase-choice:hover{transform:translate3d(4px,-2px,0);background:rgba(var(--fg-rgb),.025)}
+.showcase-stage{isolation:isolate;background:var(--glass-bg);border-color:var(--glass-border);box-shadow:var(--elev-2),var(--edge-highlight-strong);backdrop-filter:blur(24px) saturate(145%);-webkit-backdrop-filter:blur(24px) saturate(145%);transform:perspective(1400px) translate3d(0,var(--material-stage-y,0px),0) rotateX(var(--material-rotate-x,0deg)) rotateY(var(--material-rotate-y,0deg));transition:transform .32s var(--ease-enter,var(--ease)),box-shadow .3s var(--ease);transform-origin:50% 35%}
+.showcase-stage::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at var(--material-light-x,50%) var(--material-light-y,35%),rgba(var(--fg-rgb),.045),transparent 64%);opacity:.35;transition:opacity .3s}
+.showcase-stage.has-material-pointer{box-shadow:var(--elev-3),var(--edge-highlight-strong)}
+.showcase-stage.has-material-pointer::after{opacity:1}
+.showcase-material-visible .showcase-stage,.showcase-material-visible .showcase-choices{will-change:transform}
+.showcase .preview-segment button,.showcase .preview-quote{transition:background .2s,color .2s,box-shadow .2s,border-color .2s;box-shadow:var(--inset-1)}
+.showcase .preview-segment button[aria-pressed=true],.showcase .preview-quote[aria-pressed=true]{box-shadow:var(--elev-1),var(--edge-highlight)}
+.showcase button:active{transform:none}
+@media(max-width:900px){.showcase-choice:hover{transform:translate3d(0,-2px,0)}.showcase-stage{backdrop-filter:blur(18px) saturate(135%);-webkit-backdrop-filter:blur(18px) saturate(135%)}}
+@media(hover:none){.showcase-choice:hover{transform:none;background:transparent}}
+@media(prefers-reduced-motion:reduce){.showcase-heading,.showcase-choices,.showcase-stage,.showcase-choice:hover{transform:none!important}.showcase-choices::before{transition:none}.showcase-stage::after{transition:none}.showcase-material-visible .showcase-stage,.showcase-material-visible .showcase-choices{will-change:auto}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.showcase-stage{background:var(--bg-1)}.showcase-choices::before{background:var(--bg-2)}}

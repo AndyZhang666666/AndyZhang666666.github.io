@@ -15,7 +15,7 @@ const hl = (s) => esc(s).replace(
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data.json?v=20261027-showcase1');
+    const res = await fetch('data.json?v=20261028-glass1');
     if (!res.ok) throw new Error('Profile data could not be loaded');
     data = await res.json();
     if (typeof applyResumeEvidence === 'function') applyResumeEvidence(data);
@@ -210,7 +210,6 @@ function renderAbout() {
   const pg = document.getElementById('principleGrid');
   pg.innerHTML = (a.principles || []).map((p, i) => `
     <div class="principle-card reveal" data-delay="${i * 90}">
-      <div class="principle-num">${esc(p.n)}</div>
       <h3 class="principle-title" data-zh="${esc(p.zh)}" data-en="${esc(p.en)}">${esc(p.zh)}</h3>
       <p class="principle-desc" data-zh="${esc(p.dz)}" data-en="${esc(p.de)}">${esc(p.dz)}</p>
     </div>
@@ -549,7 +548,6 @@ function renderAiViews() {
   if (!grid || !v || !v.items) return;
   grid.innerHTML = v.items.map((it, i) => `
     <article class="ai-view reveal" data-delay="${i * 90}">
-      <div class="ai-view-num">${esc(it.n)}</div>
       <h3 class="ai-view-title" data-zh="${esc(it.zh)}" data-en="${esc(it.en)}">${esc(it.zh)}</h3>
       <p class="ai-view-desc" data-zh="${esc(it.dz)}" data-en="${esc(it.de)}">${esc(it.dz)}</p>
     </article>

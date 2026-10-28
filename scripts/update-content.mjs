@@ -6,7 +6,7 @@ import {presentationFor} from '../content/project-presentation.mjs';
 import {renderProjectCards} from '../assets/project-cards.mjs';
 import {renderSelected} from '../content/showcase.mjs';
 const localReview=process.argv.includes('--local');
-const releaseVersion='20261027-showcase1';
+const releaseVersion='20261028-glass1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
@@ -50,7 +50,10 @@ html=html.replace('<a href="#contact" class="btn btn-ghost" data-zh="联系我" 
 words('AI 产品、增长、评测体系，或者德州扑克，都可以聊。','AI products, growth, evaluation — or poker. Happy to talk.','AI 应用、Agent，或一个值得重新想想的产品。','An AI application, an Agent, or a product worth thinking through.');
 // The original hero's composition is unchanged; its work link now points to selected work.
 html=html.replaceAll('href="#projects"','href="#selected"');
-html=html.replace('<!-- ============ ABOUT ============ -->',`${renderSelected(data)}\n\n<!-- ============ ABOUT ============ -->`);
+// Read the person first, then try their work. Do not move the other existing sections.
+html=html.replace(/(<section id="about"[\s\S]*?<\/section>)/,`$1\n\n${renderSelected(data)}`);
+// Section/view indexes are presentation, not ordered process steps or factual numbers.
+html=html.replace(/\sdata-num="[^"]*"/g,'').replace(/^[ \t]*<span class="section-num">[^<]*<\/span>\n?/gm,'');
 html=html.replace('id="projects" class="section"','id="projects" class="section project-library"');
 html=html.replace('<div id="projectGrid" class="project-grid"></div>',`<div id="projectGrid" class="project-grid">${renderProjectCards(data.projects)}</div>`);
 html=html.replace('</head>',`<link rel="stylesheet" href="assets/demo-showcase.css?v=${releaseVersion}">\n</head>`);
@@ -64,6 +67,7 @@ if(localReview)html=html.replace('<meta charset="UTF-8">','<meta charset="UTF-8"
 html=html.replace(/src="app\.js\?v=[^"]*"/,`src="app.js?v=${releaseVersion}"`).replace(/src="jd\.js\?v=[^"]*"/,`src="jd.js?v=${releaseVersion}"`);
 fs.writeFileSync('index.html',html);
 let app=original('app.js');
+app=app.replace(/^[ \t]*<div class="(?:principle-num|ai-view-num)">[^\n]*<\/div>\n/gm,'');
 app=app.replace('data.json?v=20261025-demo-suite-3',`data.json?v=${releaseVersion}`);
 app=app.replace('<span data-zh="迭代与校验" data-en="Iterations & validation">迭代与校验</span>','<span data-zh="${esc(p.caseLabel || \'迭代与校验\')}" data-en="${esc(p.caseLabelEn || \'Iterations & validation\')}">${esc(p.caseLabel || \'迭代与校验\')}</span>');
 app=app.replace(/function renderProjects\(\) \{[\s\S]*?\n\}\n\nfunction renderAwards/,`function renderProjects() {\n  // Static cards are also present without JavaScript. URLs are bound by project ID.\n  if (typeof window.refreshProjectLibrary === 'function') window.refreshProjectLibrary(data.projects);\n}\n\nfunction renderAwards`);

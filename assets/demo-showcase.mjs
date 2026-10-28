@@ -1,4 +1,5 @@
 import {renderProjectCards} from './project-cards.mjs';
+import {createShowcaseMotion} from './showcase-motion.mjs';
 
 // The page owns only ephemeral previews. Full tools keep their own state and storage.
 const root=document.getElementById('selected');
@@ -75,13 +76,16 @@ async function initBundle(panel){
 if(root){
  const direction=root.querySelector('#showcaseDirection'),tabs=root.querySelector('.showcase-choices');
  const allTabs=[...tabs.querySelectorAll('[data-selected-id]')],panels=[...root.querySelectorAll('[data-preview]')];
+ const material=createShowcaseMotion(root);
  const pending=new Map(),loaders={'trust':initEval,'taste':initTaste,'shared-choice':initShared,'bundles':initBundle};
  function activate(id,announce=true){
   const tab=allTabs.find(tab=>tab.dataset.selectedId===id);if(!tab)return;
+  const previous=allTabs.find(item=>item.getAttribute('aria-selected')==='true')?.dataset.selectedId;
   allTabs.forEach(item=>{const active=item===tab;item.setAttribute('aria-selected',String(active));item.tabIndex=active?0:-1;});
   panels.forEach(panel=>panel.hidden=panel.dataset.preview!==id);
   const panel=panels.find(panel=>panel.dataset.preview===id);
-  if(announce){words(root.querySelector('#showcaseStatus'),`已展示 ${tab.querySelector('strong').dataset.zh}`,`Showing ${tab.querySelector('strong').dataset.en}`);feedback(panel);}
+  material.sync();
+  if(announce){words(root.querySelector('#showcaseStatus'),`已展示 ${tab.querySelector('strong').dataset.zh}`,`Showing ${tab.querySelector('strong').dataset.en}`);if(previous!==id)material.enter(panel,previous);}
   if(!pending.has(id))pending.set(id,Promise.resolve().then(()=>loaders[id](panel)).catch(()=>{
    // Static examples and real destinations still work when an enhancement cannot load.
    pending.delete(id);words(panel.querySelector('.preview-outcome'),'互动暂时不可用；可以打开下方完整 Demo 继续体验。','This preview could not load. Open the full demo below to continue.');
