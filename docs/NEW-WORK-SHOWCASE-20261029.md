@@ -37,7 +37,7 @@ Eval 每个方向都保留。Agent 展示外部动作与故障恢复；Eval 展�
 
 - `node scripts/test-showcase.mjs`：五个预览候选、每方向四项、Eval 保留、真实结果一致、无持久写入、懒加载、17 个作品入口、10 个案例页、图片与无脚本降级、中英文、键盘；三种屏宽 × 四种主题。
 - `node scripts/test-showcase-motion.mjs`：原玻璃材质、指针反馈、有限滚动错层、触屏与减少动态效果。
-- `node scripts/verify-original.mjs`：30 份原视觉 / 交互文件、9 个保留章节、四条 AI 观点正文、个人事实、头像、简历、应用运行代码及资料不变。唯一应用目录内改动为 RAG 历史集成测试的参照范围。
+- `node scripts/verify-original.mjs`：30 份原视觉 / 交互文件、9 个保留章节、四条 AI 观点正文、个人事实、头像、简历、应用运行代码及资料不变。本轮仅调整 RAG 历史集成测试的参照范围；并行主分支的双语文档一并保留，不改变应用运行代码。
 - `node --test rag-lab/tests/integration.test.mjs`：增量集成与保留独立项目；历史发布与当前官网分别校验。
 
 本地验证记录保存在 `.taste-skill/new-work-20261029/`；[可公开的验收摘要](verification/new-work-20261029.json)保留实际检查项与来源哈希。正式上线还需确认远端 main、Pages 完成以及公开页面实际交互，不能仅凭 push 成功判断。
@@ -46,4 +46,13 @@ Eval 每个方向都保留。Agent 展示外部动作与故障恢复；Eval 展�
 
 ## 发布状态
 
-开发记录、正式提交与公开页面核验在发布后补充。本文不会把待发布的本地结果写成线上事实。
+已正常推送到主分支与原开发分支，未强制覆盖。
+
+- 功能：`3cc7a12`；验收：`632776d`；说明：`c72d632`。
+- 合并最新双语文档后发布：`3ffbc9e6e2abb1e668d21773795cfc131e1667ba`，保留 `20b4d5a` 的并行修改。
+- [GitHub Pages 部署](https://github.com/AndyZhang666666/AndyZhang666666.github.io/actions/runs/40892174760)：completed / success。
+- [RAG 自动检查](https://github.com/AndyZhang666666/AndyZhang666666.github.io/actions/runs/40892177102)：completed / success。
+- 公开网站六项轻量发布检查通过，桌面与手机可操作；八份关键资源与当前代码字节一致，17 项作品与新项目入口正常，本地后端及管理资料路径保持 404。未调用模型，也没有写入真实记录。
+- 本文后续的说明提交只记录已验证的界面发布，不改变已验收的网站资产。
+
+[查看官网](https://andyzhang666666.github.io/#selected) · [完整验收摘要](verification/new-work-20261029.json)

@@ -117,7 +117,7 @@
   },
   "fidelity": {
     "baseline": "6816b6d0d324f3c33acbdd6ae8310d1a0a0e4e66",
-    "verifiedAt": "2026-10-29T14:08:42.696Z",
+    "verifiedAt": "2026-10-29T14:27:36.098Z",
     "unchangedDesignFiles": [
       "academic-art.js",
       "academic-workflow.css",
@@ -162,6 +162,13 @@
     "projectOwnedCases": 10,
     "pinnedSources": 3,
     "newWorkSources": 3,
+    "parallelDocsRevision": "20b4d5af94c74275ed0360c29c83b4047c8180ea",
+    "parallelDocs": [
+      "agent-bench/README.md",
+      "rag-lab/README.md",
+      "suibianju/README.md",
+      "tasteroom/README.md"
+    ],
     "permittedTestChange": "RAG historical integration assertions now inspect their pinned release; app runtime and corpus unchanged"
   },
   "releaseSmoke": {
@@ -288,7 +295,73 @@
     }
   ],
   "publication": {
-    "status": "not-yet-pushed",
-    "note": "Only a later successful deployment and live smoke record establish publication."
+    "status": "deployed-and-live-verified",
+    "sourceCommit": "3ffbc9e6e2abb1e668d21773795cfc131e1667ba",
+    "pages": {
+      "id": 40892174760,
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/actions/runs/40892174760"
+    },
+    "ci": {
+      "id": 40892177102,
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/actions/runs/40892177102"
+    },
+    "liveVerifiedAt": "2026-10-29T14:40:14.389Z",
+    "website": "https://andyzhang666666.github.io/#selected",
+    "parallelDocsPreserved": "20b4d5af94c74275ed0360c29c83b4047c8180ea",
+    "note": "The following documentation-only commit records this successful source release; it does not change website assets."
+  },
+  "live": {
+    "passed": true,
+    "at": "2026-10-29T14:40:14.389Z",
+    "base": "https://andyzhang666666.github.io",
+    "sourceCommit": "3ffbc9e6e2abb1e668d21773795cfc131e1667ba",
+    "checks": [
+      "Published assets and data match the reviewed checkout byte-for-byte",
+      "Both widths: four role-specific items, Eval always available, Agent reconciliation and RAG 30/10/14-day retrieval with stale-answer gating",
+      "Keyboard skips hidden items; previews send no writes and change no local storage",
+      "Role evidence lookup links to both new project-owned cases",
+      "All 17 projects remain, both complete apps and their own case pages are reachable",
+      "Local backend and private corpus paths remain excluded from Pages"
+    ],
+    "resources": [
+      {
+        "path": "assets/new-work-previews.mjs",
+        "sha256": "b0d26b1c964f47561e6b4942a1ee3a210501e19d39c77a8ebc1b9e233b982f41"
+      },
+      {
+        "path": "assets/demo-showcase.mjs",
+        "sha256": "68c45fae4b2f64b6ed83023ea6d6560a34d17d3d69d32baf1aad24ad6ba0c389"
+      },
+      {
+        "path": "assets/demo-showcase.css",
+        "sha256": "68dd6278ba70053a91655785bc898f985753614c933e11b734ccd8e9eabda089"
+      },
+      {
+        "path": "data.json",
+        "sha256": "816751ebbfa373805b9ca2a22a9cc0dbb67296520418e075b39cc01c40a5b9f5"
+      },
+      {
+        "path": "content/evidence-zh.json",
+        "sha256": "7879e969a7d5a3ed80cfef499a49d376b485d79295cdb8b512b53a566dae5ac7"
+      },
+      {
+        "path": "rag-lab/engine.mjs",
+        "sha256": "fd02091c24c0ef78a44eca4179b1fbfdbf078748b84e57ee4c49d99d989d6632"
+      },
+      {
+        "path": "rag-lab/public-corpus.json",
+        "sha256": "76ab931e9d031f10f8d94e0f589f5fe1b592475a399e0dbe407050055397baaf"
+      },
+      {
+        "path": "agent-bench/samples/timeout-hardened.json",
+        "sha256": "feb4e7612a40d9fb3e1c3636eb9648a9fa463f4dca6c0abac871052f8e8750e0"
+      }
+    ],
+    "errors": [],
+    "writes": []
   }
 }
