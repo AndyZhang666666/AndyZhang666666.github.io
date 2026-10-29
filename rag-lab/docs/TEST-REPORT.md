@@ -1,6 +1,6 @@
 # 本次测试报告
 
-执行日期：2026-10-29（Asia/Shanghai）。这是开发后的实际检查记录，不是 PRD 中的目标值。初始源码基线为 `35ea8da`；最终接入基线为 `1a786531586fc078d424a662cbf319bf20bc9ff5`（已包含 Agent Bench）；本功能在独立 clone / `feat/trustworthy-rag-lab` 开发。实际提交见 Git 历史，没有修改提交日期或伪造运行。
+执行日期：2026-10-29（Asia/Shanghai）。这是开发后的实际检查记录，不是 PRD 中的目标值。初始源码基线为 `35ea8da`；最终接入基线为 `b74a5e4db66bb84be23a51cf191dec6e74b58086`（已包含 Agent Bench）；本功能在独立 clone / `feat/trustworthy-rag-lab` 开发。实际提交见 Git 历史，没有修改提交日期或伪造运行。
 
 ## 结果与适用范围
 

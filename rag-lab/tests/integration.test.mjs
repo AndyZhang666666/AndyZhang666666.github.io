@@ -48,7 +48,7 @@ test('a historical generator cannot erase a parallel custom project/card', async
 test('actual site addition preserves all 16 existing projects including Agent Bench and changes only its own card/count', async () => {
   const root = new URL('../../', import.meta.url);
   const cwd = new URL('../../', import.meta.url).pathname;
-  const base = '1a786531586fc078d424a662cbf319bf20bc9ff5';
+  const base = 'b74a5e4db66bb84be23a51cf191dec6e74b58086';
   const previousData = JSON.parse(execFileSync('git', ['show', `${base}:data.json`], {cwd, encoding: 'utf8'}));
   const currentData = JSON.parse(await readFile(new URL('data.json', root), 'utf8'));
   assert.deepEqual(currentData.projects.filter(p => p.id !== 'rag-lab'), previousData.projects);
