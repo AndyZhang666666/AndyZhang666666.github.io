@@ -1,0 +1,294 @@
+{
+  "scope": "Portfolio presentation only; Agent/RAG runtime and public corpus preserved",
+  "at": "2026-10-29T14:17:27.763Z",
+  "featureCommit": "3cc7a12",
+  "testCommit": "632776d",
+  "browser": {
+    "passed": true,
+    "at": "2026-10-29T13:54:07.373Z",
+    "checks": [
+      "17 project cards including both parallel additions, stable direct selected hash, original poker group, explicit destinations and lazy native previews",
+      "Agent preview reveals the saved post-commit timeout record: one committed effect, one note, ticket open; no tool execution",
+      "Exact source, expandable full text and original comment; independent review and clearing never overwrite the saved score",
+      "Canonical one-variable comparison, explicit once/work/global consent, revoke, choice invalidation and skip without persistent memory",
+      "RAG preview reuses canonical retrieval: scope changes retain a stale result until search; 30/10/14 days and citations match public sources",
+      "Pinned mined candidate flows to the canonical ledger and current test plan; all five previews write no storage and call no model",
+      "Four role orders, default active item and keyboard roving selection",
+      "Ten project-owned case pages, four opinion-to-practice links and public Agent/FDE workflow evidence without fabricated production traces",
+      "Nine internal apps, external quiz label, case-only entries and all real image resources",
+      "Native image enlargement, Escape dismissal and focus return",
+      "Full-demo action is above the fold after the actual navigation click at 1280×720 for all four previews",
+      "Keyboard selection, explicit scope and withdrawal work in the new preference flow",
+      "Three widths × four themes × five preview candidates, English controls and reduced motion",
+      "All ten reading pages at desktop/tablet/phone; correct headline hierarchy, project-specific copy, no undefined destinations or overflow",
+      "No-JavaScript static selected links and all seventeen existing cards",
+      "Blocked enhancement and missing thumbnails/full images retain real destinations and recoverable messages",
+      "Existing comparison page points to this master and the actual public site"
+    ],
+    "layoutChecks": [
+      {
+        "width": 1440,
+        "palette": "frost",
+        "previews": 5,
+        "noOverflow": true
+      },
+      {
+        "width": 1440,
+        "palette": "copper",
+        "previews": 5,
+        "noOverflow": true
+      },
+      {
+        "width": 1440,
+        "palette": "mist",
+        "previews": 5,
+        "noOverflow": true
+      },
+      {
+        "width": 1440,
+        "palette": "indigo",
+        "previews": 5,
+        "noOverflow": true
+      },
+      {
+        "width": 768,
+        "palette": "frost",
+        "previews": 5,
+        "noOverflow": true
+      },
+      {
+        "width": 768,
+        "palette": "copper",
+        "previews": 5,
+        "noOverflow": true
+      },
+      {
+        "width": 768,
+        "palette": "mist",
+        "previews": 5,
+        "noOverflow": true
+      },
+      {
+        "width": 768,
+        "palette": "indigo",
+        "previews": 5,
+        "noOverflow": true
+      },
+      {
+        "width": 390,
+        "palette": "frost",
+        "previews": 5,
+        "noOverflow": true
+      },
+      {
+        "width": 390,
+        "palette": "copper",
+        "previews": 5,
+        "noOverflow": true
+      },
+      {
+        "width": 390,
+        "palette": "mist",
+        "previews": 5,
+        "noOverflow": true
+      },
+      {
+        "width": 390,
+        "palette": "indigo",
+        "previews": 5,
+        "noOverflow": true
+      }
+    ],
+    "consoleErrors": [],
+    "failedLocalResponses": []
+  },
+  "motion": {
+    "passed": true,
+    "at": "2026-10-29T13:58:06.903Z",
+    "checks": [
+      "Translucent blurred material; selected work follows About; decorative indexes removed",
+      "Shared glass marker moves between selections; rapid switching retains exactly one correct panel",
+      "Pointer depth and bounded scroll offset respond to real input",
+      "Pointer press creates short physical compression and release",
+      "Reduced motion stops spatial animation while keeping evidence feedback usable",
+      "Touch selection and execution-record preview work at 390px without horizontal overflow"
+    ],
+    "errors": []
+  },
+  "fidelity": {
+    "baseline": "6816b6d0d324f3c33acbdd6ae8310d1a0a0e4e66",
+    "verifiedAt": "2026-10-29T14:08:42.696Z",
+    "unchangedDesignFiles": [
+      "academic-art.js",
+      "academic-workflow.css",
+      "ai-views.css",
+      "bg-layers.css",
+      "bg-layers.js",
+      "depth.css",
+      "education.css",
+      "education.js",
+      "embed.css",
+      "embed.js",
+      "enhance.css",
+      "fixes.css",
+      "hero-portrait.css",
+      "interactions.css",
+      "jd-graph.js",
+      "jd.css",
+      "jd.js",
+      "motion.css",
+      "motion.js",
+      "poker-showcase.css",
+      "poker-showcase.js",
+      "poker.css",
+      "poker.js",
+      "projects-split.css",
+      "projects-split.js",
+      "railnav.css",
+      "railnav.js",
+      "sections.css",
+      "style.css",
+      "typography.css"
+    ],
+    "protectedSections": 9,
+    "originalAiOpinionsPreserved": true,
+    "portraitsAndCvUnchanged": true,
+    "originalFactsUnchanged": true,
+    "projectIds": 17,
+    "parallelProjectsPreserved": [
+      "agent-bench",
+      "rag-lab"
+    ],
+    "projectOwnedCases": 10,
+    "pinnedSources": 3,
+    "newWorkSources": 3,
+    "permittedTestChange": "RAG historical integration assertions now inspect their pinned release; app runtime and corpus unchanged"
+  },
+  "releaseSmoke": {
+    "passed": true,
+    "at": "2026-10-29T14:12:41.053Z",
+    "base": "http://127.0.0.1:8811",
+    "sourceCommit": "632776dc9b8cc5f6e709dbfa34f0b519047d5e61",
+    "checks": [
+      "Published assets and data match the reviewed checkout byte-for-byte",
+      "Both widths: four role-specific items, Eval always available, Agent reconciliation and RAG 30/10/14-day retrieval with stale-answer gating",
+      "Keyboard skips hidden items; previews send no writes and change no local storage",
+      "Role evidence lookup links to both new project-owned cases",
+      "All 17 projects remain, both complete apps and their own case pages are reachable"
+    ],
+    "resources": [
+      {
+        "path": "assets/new-work-previews.mjs",
+        "sha256": "b0d26b1c964f47561e6b4942a1ee3a210501e19d39c77a8ebc1b9e233b982f41"
+      },
+      {
+        "path": "assets/demo-showcase.mjs",
+        "sha256": "68c45fae4b2f64b6ed83023ea6d6560a34d17d3d69d32baf1aad24ad6ba0c389"
+      },
+      {
+        "path": "assets/demo-showcase.css",
+        "sha256": "68dd6278ba70053a91655785bc898f985753614c933e11b734ccd8e9eabda089"
+      },
+      {
+        "path": "data.json",
+        "sha256": "816751ebbfa373805b9ca2a22a9cc0dbb67296520418e075b39cc01c40a5b9f5"
+      },
+      {
+        "path": "content/evidence-zh.json",
+        "sha256": "7879e969a7d5a3ed80cfef499a49d376b485d79295cdb8b512b53a566dae5ac7"
+      },
+      {
+        "path": "rag-lab/engine.mjs",
+        "sha256": "fd02091c24c0ef78a44eca4179b1fbfdbf078748b84e57ee4c49d99d989d6632"
+      },
+      {
+        "path": "rag-lab/public-corpus.json",
+        "sha256": "76ab931e9d031f10f8d94e0f589f5fe1b592475a399e0dbe407050055397baaf"
+      },
+      {
+        "path": "agent-bench/samples/timeout-hardened.json",
+        "sha256": "feb4e7612a40d9fb3e1c3636eb9648a9fa463f4dca6c0abac871052f8e8750e0"
+      }
+    ],
+    "errors": [],
+    "writes": []
+  },
+  "integration": {
+    "command": "node --test rag-lab/tests/integration.test.mjs",
+    "passed": 3,
+    "failed": 0
+  },
+  "repeatability": {
+    "generatedHtmlDataEvidence": true,
+    "careerEvidenceStatementsUnchanged": true,
+    "projectOwnedLinks": true
+  },
+  "newWorkProvenance": {
+    "sourceRevision": "6816b6d0d324f3c33acbdd6ae8310d1a0a0e4e66",
+    "use": {
+      "agent": "Projection of saved program-run records. No model/tool call or ticket write.",
+      "rag": "Canonical engine and public corpus; real BM25 with rule extraction. No model or admin corpus."
+    },
+    "dependencies": [
+      {
+        "path": "agent-bench/samples/examples.json",
+        "sha256": "b75cd6413cd3a67c5b2e0720178ad9dcaa70646494127430d107d5638c223ffb",
+        "url": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/blob/6816b6d0d324f3c33acbdd6ae8310d1a0a0e4e66/agent-bench/samples/examples.json"
+      },
+      {
+        "path": "rag-lab/engine.mjs",
+        "sha256": "fd02091c24c0ef78a44eca4179b1fbfdbf078748b84e57ee4c49d99d989d6632",
+        "url": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/blob/6816b6d0d324f3c33acbdd6ae8310d1a0a0e4e66/rag-lab/engine.mjs"
+      },
+      {
+        "path": "rag-lab/public-corpus.json",
+        "sha256": "76ab931e9d031f10f8d94e0f589f5fe1b592475a399e0dbe407050055397baaf",
+        "url": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/blob/6816b6d0d324f3c33acbdd6ae8310d1a0a0e4e66/rag-lab/public-corpus.json"
+      }
+    ]
+  },
+  "captures": [
+    {
+      "id": "agent-bench",
+      "route": "/agent-bench/",
+      "full": "assets/work/showcase/agent-bench.jpg",
+      "crop": "assets/work/showcase/agent-bench-crop.jpg",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "capturedAt": "2026-10-29T13:45:13.517Z",
+      "state": "Saved program records for timeout after commit: baseline unknown versus reconciled recovery. Actual final ticket state and grader verdict; no new tool execution or model call.",
+      "fullPage": true,
+      "cropSize": {
+        "width": 1056,
+        "height": 654
+      },
+      "fullSha256": "5d1c93eeb7526271d14b56453f47da5a24976183e2070a68786d35731845e5b1",
+      "cropSha256": "070d053fd988ec58761a67f1f11cabb81481c05f1cab6d50cf9d1db9e215b261"
+    },
+    {
+      "id": "rag-lab",
+      "route": "/rag-lab/",
+      "full": "assets/work/showcase/rag-lab.jpg",
+      "crop": "assets/work/showcase/rag-lab-crop.jpg",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "capturedAt": "2026-10-29T13:45:15.262Z",
+      "state": "Public fictional corpus, actual BM25 retrieval and rule extraction for 2026-10-28 / baseline: 14-day rule with version 2.0 and source paragraph. No model call.",
+      "fullPage": true,
+      "cropSize": {
+        "width": 1112,
+        "height": 408
+      },
+      "fullSha256": "2b9f2037e4eb91dc8bfe66ac205267851231f74d3da832f30bd8bd31af32eca3",
+      "cropSha256": "b3ef444bf76ab0abe17b446d552562853b7a545a5a6df55baccddb110118ee55"
+    }
+  ],
+  "publication": {
+    "status": "not-yet-pushed",
+    "note": "Only a later successful deployment and live smoke record establish publication."
+  }
+}

@@ -4,7 +4,7 @@ import crypto from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {renderAiViews} from '../assets/ai-views.mjs';
 import {aiPractices,studies} from '../content/editorial.mjs';
-// Last published master, before this decision-preview iteration.
+// Approved local master before the Agent / RAG showcase update.
 const baseline='6816b6d0d324f3c33acbdd6ae8310d1a0a0e4e66';
 const old=file=>execFileSync('git',['show',`${baseline}:${file}`],{maxBuffer:64*1024*1024});
 const hash=value=>crypto.createHash('sha256').update(value).digest('hex');
