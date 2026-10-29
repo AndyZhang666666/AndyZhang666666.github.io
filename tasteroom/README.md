@@ -1,5 +1,7 @@
 # TasteRoom · 偏爱实验室
 
+[English](README.en.md) · [返回项目索引](../README.md)
+
 2026-10-27 设计工作台更新：增加瑞士现代主义与解构主义原创构图、文案编辑、单变量设计方向对照及 SVG 导出。[直接试用瑞士构图](https://andyzhang666666.github.io/tasteroom/?direction=swiss)。
 
 **你喜欢的风格，不一定适合每个场景。** TasteRoom 是一个可实际体验的生活审美 Agent Demo：从两次直觉选择开始，让系统猜你的偏爱，再通过打断和纠偏，决定哪些偏爱值得记住、应该记在哪个场景。
