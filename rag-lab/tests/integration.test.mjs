@@ -65,4 +65,8 @@ test('recorded RAG release preserves its 16 predecessors; later homepage editing
   const app = execFileSync('git', ['show', `${release}:app.js`], {cwd, encoding: 'utf8'});
   assert.equal(app.replace(/data\.json\?v=[\w.-]+/g, previousApp.match(/data\.json\?v=[\w.-]+/)[0]), previousApp);
   assert.equal(execFileSync('git', ['diff', base, release, '--', 'agent-bench', '.github/workflows/agent-bench.yml'], {cwd, encoding: 'utf8'}), '', 'Parallel module was unchanged in the recorded RAG release');
+  // Preserve the newer bilingual entry docs while protecting the live runtime.
+  const protectedAgentPaths = ['agent-bench', '.github/workflows/agent-bench.yml',
+    ':(exclude)agent-bench/README.md', ':(exclude)agent-bench/README.en.md'];
+  assert.equal(execFileSync('git', ['diff', base, '--', ...protectedAgentPaths], {cwd, encoding: 'utf8'}), '', 'Parallel runtime, fixtures and workflow must remain byte-for-byte unchanged');
 });

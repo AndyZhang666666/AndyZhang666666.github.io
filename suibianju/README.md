@@ -1,5 +1,7 @@
 # 随便局
 
+[English](README.en.md) · [返回项目索引](../README.md)
+
 **把「随便」说清楚。** 一个帮助朋友表达聚餐条件、发现冲突、协商调整并共同确认的轻量生活 AI 产品原型。
 
 [立即体验](https://andyzhang666666.github.io/suibianju/) · [精简 PRD](docs/PRD.md) · [实施与部署](docs/IMPLEMENTATION.md)

@@ -37,7 +37,8 @@ for(const [i,p]of before.projects.entries())for(const key of Object.keys(p)){
  assert.deepEqual(after.projects.find(item=>item.id===p.id)[key],p[key],`Original project fact changed: ${p.id}/${key}`);
 }
 for(const p of after.projects.filter(p=>p.iterationUrl))assert.equal(studies.find(s=>`/cases/${s.id}/`===p.iterationUrl)?.project,p.id,'Case evidence must not be assigned to another project');
-for(const file of files.filter(f=>/^(tasteroom|suibianju|demos\/filing-eval|grounded-choice|agent-bench|rag-lab)\//.test(f)&&f!=='rag-lab/tests/integration.test.mjs'))assert.equal(hash(fs.readFileSync(file)),hash(old(file)),`Full app changed outside scope: ${file}`);
+const parallelDocs=new Set(['agent-bench/README.md','rag-lab/README.md','suibianju/README.md','tasteroom/README.md']);
+for(const file of files.filter(f=>/^(tasteroom|suibianju|demos\/filing-eval|grounded-choice|agent-bench|rag-lab)\//.test(f)&&f!=='rag-lab/tests/integration.test.mjs'&&!parallelDocs.has(f)))assert.equal(hash(fs.readFileSync(file)),hash(old(file)),`Full app changed outside scope: ${file}`);
 for(const id of ['agent-bench','rag-lab']){
  const prior=before.projects.find(p=>p.id===id),current=after.projects.find(p=>p.id===id);
  for(const field of ['id','url','github','metrics','metricsEn'])assert.deepEqual(current[field],prior[field],id+'/'+field+' must preserve the real app and its evidence');
@@ -47,6 +48,6 @@ const provenance=JSON.parse(fs.readFileSync('assets/demo-preview/provenance.json
 for(const source of provenance.sources)assert.equal(hash(fs.readFileSync(source.target)),source.outputSha256,`Pinned source drifted: ${source.target}`);
 const newWork=JSON.parse(fs.readFileSync('assets/demo-preview/new-work-provenance.json'));
 for(const source of newWork.dependencies)assert.equal(hash(fs.readFileSync(source.path)),source.sha256,`New preview source drifted: ${source.path}`);
-const report={baseline,verifiedAt:new Date().toISOString(),unchangedDesignFiles:effects,protectedSections:9,originalAiOpinionsPreserved:true,portraitsAndCvUnchanged:true,originalFactsUnchanged:true,projectIds:after.projects.length,parallelProjectsPreserved:['agent-bench','rag-lab'],projectOwnedCases:studies.length,pinnedSources:provenance.sources.length,newWorkSources:newWork.dependencies.length,permittedTestChange:'RAG historical integration assertions now inspect their pinned release; app runtime and corpus unchanged'};
+const report={baseline,verifiedAt:new Date().toISOString(),unchangedDesignFiles:effects,protectedSections:9,originalAiOpinionsPreserved:true,portraitsAndCvUnchanged:true,originalFactsUnchanged:true,projectIds:after.projects.length,parallelProjectsPreserved:['agent-bench','rag-lab'],projectOwnedCases:studies.length,pinnedSources:provenance.sources.length,newWorkSources:newWork.dependencies.length,parallelDocsRevision:'20b4d5af94c74275ed0360c29c83b4047c8180ea',parallelDocs:[...parallelDocs],permittedTestChange:'RAG historical integration assertions now inspect their pinned release; app runtime and corpus unchanged'};
 fs.mkdirSync('.taste-skill/new-work-20261029',{recursive:true});fs.writeFileSync('.taste-skill/new-work-20261029/fidelity.json',JSON.stringify(report,null,2));
 console.log(`PASS: ${effects.length} original design/effect files, 9 protected sections, four AI opinions, personal facts, portraits/CV and full apps unchanged; 10 project-owned cases and pinned sources verified.`);

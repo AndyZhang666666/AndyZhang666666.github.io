@@ -1,5 +1,7 @@
 # Agent 执行评测台
 
+[English](README.en.md) · [返回项目索引](../README.md)
+
 Agent 说“完成了”，不代表工单真的改对了。这个小项目把**工具请求、SQLite 最终状态、故障恢复**放在同一次运行中核对。
 
 [公开体验](https://andyzhang666666.github.io/agent-bench/) · [PRD](docs/PRD.md) · [交互与恢复约定](docs/INTERACTION.md) · [测试报告](docs/TEST-REPORT.md)

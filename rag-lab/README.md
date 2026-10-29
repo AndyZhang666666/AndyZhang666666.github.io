@@ -1,5 +1,7 @@
 # 可信 RAG 实验台
 
+[English](README.en.md) · [返回项目索引](../README.md)
+
 从虚构的设备规则里找到答案，并解释依据为什么在当前身份、业务日期与资料快照下可用。
 
 [免 Key 体验](https://andyzhang666666.github.io/rag-lab/) · [PRD](docs/PRD.md) · [测试报告](docs/TEST-REPORT.md) · [交互约定](docs/UX-CONTRACT.md)
