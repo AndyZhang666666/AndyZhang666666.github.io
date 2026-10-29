@@ -63,5 +63,9 @@ test('actual site addition preserves all 16 existing projects including Agent Be
   const previousApp = execFileSync('git', ['show', `${base}:app.js`], {cwd, encoding: 'utf8'});
   const app = await readFile(new URL('app.js', root), 'utf8');
   assert.equal(app.replace(/data\.json\?v=[\w.-]+/g, previousApp.match(/data\.json\?v=[\w.-]+/)[0]), previousApp);
-  assert.equal(execFileSync('git', ['diff', base, '--', 'agent-bench', '.github/workflows/agent-bench.yml'], {cwd, encoding: 'utf8'}), '', 'Parallel module must remain byte-for-byte unchanged');
+  // The bilingual portfolio update explicitly changes these two entry documents.
+  // Keep the runtime, fixtures, all other module files and its workflow protected.
+  const protectedAgentPaths = ['agent-bench', '.github/workflows/agent-bench.yml',
+    ':(exclude)agent-bench/README.md', ':(exclude)agent-bench/README.en.md'];
+  assert.equal(execFileSync('git', ['diff', base, '--', ...protectedAgentPaths], {cwd, encoding: 'utf8'}), '', 'Parallel runtime, fixtures and workflow must remain byte-for-byte unchanged');
 });
