@@ -16,5 +16,6 @@ exclude:
   - scripts/test-showcase-motion.mjs
   - scripts/test-product-principles.mjs
   - docs/DEMO-SHOWCASE-20261028.md
+  - docs/SHOWCASE-DECISIONS-20261029.md
   - docs/FRONTEND-REVIEW-20261027.md
   - docs/LOCAL-VALIDATION-20261027.md
