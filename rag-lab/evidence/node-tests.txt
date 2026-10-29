@@ -1,0 +1,42 @@
+✔ real HTTP auth, role spoofing, and employee data boundary (43.110792ms)
+✔ source and export endpoints isolate sessions and immutable snapshot records (27.642458ms)
+✔ limits, impossible dates, JSON errors, origin and static file isolation (8.012084ms)
+✔ missing model is a visible generation failure, not fake success (3.060875ms)
+✔ protocol fixture checks actual authorized context and injection data; NOT a real LLM eval (6.072625ms)
+✔ unanswerable evidence never calls the model; ordinary denied context remains empty of secrets (4.85675ms)
+✔ wrong facts with a valid citation fail validation and preserve rejected raw output only in owner export (3.518625ms)
+✔ upstream failure and malformed JSON are explicit failures (7.185083ms)
+✔ model timeout abort is handled without an extractive success fallback (7.256625ms)
+✔ retrieval failure identifies the failed stage (1.98875ms)
+✔ expired sessions and rate caps require explicit recovery (4.396417ms)
+✔ process-wide model call ceiling is enforced (4.997375ms)
+✔ redaction keeps measurable usage, strips credentials and masks common personal strings (0.151792ms)
+✔ fixed fixture: current (27.568333ms)
+✔ fixed fixture: historical (0.468958ms)
+✔ fixed fixture: denied (0.225083ms)
+✔ fixed fixture: admin (3.342375ms)
+✔ fixed fixture: distractor (0.443375ms)
+✔ fixed fixture: no-answer (0.263625ms)
+✔ fixed fixture: conflict (0.379583ms)
+✔ fixed fixture: injection (0.40825ms)
+✔ fixed fixture: snapshot (0.333083ms)
+✔ fixed fixture: renew (0.314917ms)
+✔ fixed fixture: laptop (0.620458ms)
+✔ fixed fixture: clarify (0.179375ms)
+✔ half-open effective date boundary and snapshot activation (0.153833ms)
+✔ no applicable date produces no fabricated current rule (0.312792ms)
+✔ stable source binding survives subsequent snapshot run (0.559708ms)
+✔ input validation rejects impossible dates, object tricks and auth parameters (0.245208ms)
+✔ citation existence is distinct from fact correctness (0.452458ms)
+✔ publication contains no admin-only metadata or text (6.983125ms)
+✔ incremental site integration is idempotent and preserves unrelated data/cards (16.14ms)
+✔ a historical generator cannot erase a parallel custom project/card (3.350333ms)
+✔ actual site addition preserves all 16 existing projects including Agent Bench and changes only its own card/count (67.822917ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 233.098917

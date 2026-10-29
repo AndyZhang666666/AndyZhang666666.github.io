@@ -1,0 +1,40 @@
+{
+  "createdAt": "2026-10-29T00:36:04.241Z",
+  "mode": "offline-extractive",
+  "versions": {
+    "index": "zh-bigram-bm25-v1",
+    "prompt": "grounded-json-v1",
+    "judge": "equipment-facts-v1",
+    "corpus": "qingyu-20261028-v1"
+  },
+  "fixedBusinessDate": "2026-10-28 (historical fixture explicitly 2026-06-30)",
+  "sampleCount": 12,
+  "relevantEvidenceDenominator": 10,
+  "recalledEvidence": 10,
+  "retrievalCaseCount": 9,
+  "keyFactChecks": 8,
+  "keyFactsCorrect": 8,
+  "citationChecks": 9,
+  "citationsSupported": 9,
+  "noAnswerCases": 2,
+  "unsupportedAnswers": 0,
+  "answerableCases": 8,
+  "overRefusals": 0,
+  "unauthorizedSupplied": 0,
+  "runFailures": 0,
+  "statusCorrect": 12,
+  "elapsedMs": {
+    "min": 0.09,
+    "max": 8.79,
+    "mean": 0.96
+  },
+  "modelCalls": 0,
+  "modelUsage": null,
+  "liveModelValidation": "pending: no project model configuration",
+  "limitations": [
+    "12 authored fixtures, not production accuracy",
+    "No semantic LLM grading",
+    "Permission denominator contains only relevant evidence allowed for this role/date/snapshot",
+    "Protocol fixtures in unit tests do not count as LLM runs"
+  ]
+}

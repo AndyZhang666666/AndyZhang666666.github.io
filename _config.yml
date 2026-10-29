@@ -19,3 +19,21 @@ exclude:
   - docs/SHOWCASE-DECISIONS-20261029.md
   - docs/FRONTEND-REVIEW-20261027.md
   - docs/LOCAL-VALIDATION-20261027.md
+  # RAG Lab: publish only the explicit public example, never the local API/corpus.
+  - rag-lab/server
+  - rag-lab/corpus
+  - rag-lab/tests
+  - rag-lab/scripts
+  - rag-lab/package.json
+  - rag-lab/project.mjs
+  - rag-lab/evidence/offline-records.json
+  - rag-lab/evidence/local-admin.png
+  - agent-bench/backend
+  - agent-bench/tests
+  - agent-bench/docs
+  - agent-bench/PRODUCT.md
+  - agent-bench/DESIGN.md
+  - agent-bench/.impeccable
+  - agent-bench/README.md
+  - agent-bench/requirements.txt
+  - agent-bench/requirements-dev.lock

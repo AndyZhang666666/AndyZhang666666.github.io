@@ -1,0 +1,150 @@
+{
+  "createdAt": "2026-10-29T14:04:47+0800",
+  "browser": "156.0.8078.49",
+  "engine": "Chrome/Chromium headless",
+  "modes": [
+    "original-example",
+    "local-extractive",
+    "local-model-failed"
+  ],
+  "liveModelCalls": 0,
+  "checks": [
+    {
+      "name": "static example: actual search yields current 14 days",
+      "passed": true,
+      "elapsedMs": 34
+    },
+    {
+      "name": "citation button focuses exact original paragraph",
+      "passed": true,
+      "elapsedMs": 43
+    },
+    {
+      "name": "no-answer preset does not invent a deposit rule",
+      "passed": true,
+      "elapsedMs": 35
+    },
+    {
+      "name": "answerable control does not over-refuse",
+      "passed": true,
+      "elapsedMs": 46
+    },
+    {
+      "name": "snapshot change keeps old answer until a fresh retrieval",
+      "passed": true,
+      "elapsedMs": 38
+    },
+    {
+      "name": "run history restores original snapshot and sources",
+      "passed": true,
+      "elapsedMs": 31
+    },
+    {
+      "name": "historical date uses the then-effective 30-day rule",
+      "passed": true,
+      "elapsedMs": 33
+    },
+    {
+      "name": "conflict preserves both authorized sources",
+      "passed": true,
+      "elapsedMs": 52
+    },
+    {
+      "name": "retrieved instruction stays data",
+      "passed": true,
+      "elapsedMs": 32
+    },
+    {
+      "name": "technical detail exposes real ranked fragments without restricted metadata",
+      "passed": true,
+      "elapsedMs": 34
+    },
+    {
+      "name": "download is a version-bound, redacted actual example record",
+      "passed": true,
+      "elapsedMs": 85
+    },
+    {
+      "name": "public administrator switch does not bundle management originals",
+      "passed": true,
+      "elapsedMs": 49
+    },
+    {
+      "name": "360px: no horizontal overflow and answer visible",
+      "passed": true,
+      "elapsedMs": 21
+    },
+    {
+      "name": "390px: no horizontal overflow and answer visible",
+      "passed": true,
+      "elapsedMs": 30
+    },
+    {
+      "name": "768px: no horizontal overflow and answer visible",
+      "passed": true,
+      "elapsedMs": 30
+    },
+    {
+      "name": "1440px: no horizontal overflow and answer visible",
+      "passed": true,
+      "elapsedMs": 30
+    },
+    {
+      "name": "reduced motion preserves source navigation",
+      "passed": true,
+      "elapsedMs": 35
+    },
+    {
+      "name": "keyboard focus moves through native controls",
+      "passed": true
+    },
+    {
+      "name": "local API performs real retrieval as employee",
+      "passed": true,
+      "elapsedMs": 4
+    },
+    {
+      "name": "administrator UI cannot elevate without independent server credential",
+      "passed": true,
+      "elapsedMs": 70
+    },
+    {
+      "name": "valid independent management session can retrieve management evidence",
+      "passed": true,
+      "elapsedMs": 64
+    },
+    {
+      "name": "leaving privileged scope clears previous answer, trace and history",
+      "passed": true,
+      "elapsedMs": 58
+    },
+    {
+      "name": "unconfigured model is explicitly pending, never fake generation",
+      "passed": true,
+      "elapsedMs": 71
+    },
+    {
+      "name": "retry after failure succeeds in clearly labelled extractive mode",
+      "passed": true,
+      "elapsedMs": 1
+    },
+    {
+      "name": "network failure retains input and allows recovery",
+      "passed": true,
+      "elapsedMs": 133
+    }
+  ],
+  "passed": 25,
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+    "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+    "Failed to load resource: net::ERR_FAILED"
+  ],
+  "notes": [
+    "No real users or production authentication tested",
+    "Protocol fixtures are not model-generation evidence"
+  ]
+}

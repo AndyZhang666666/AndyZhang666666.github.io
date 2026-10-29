@@ -1,0 +1,16 @@
+.local/
+__pycache__/
+*.pyc
+.venv/
+.impeccable/*
+!.impeccable/design.json
+.env
+test-artifacts/
+!screenshots/
+screenshots/*
+!screenshots/desktop.png
+!screenshots/mobile.png
+!screenshots/desktop-ready.png
+!screenshots/desktop-approval.png
+!screenshots/mobile-approval.png
+!screenshots/browser-results.json

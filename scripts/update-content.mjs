@@ -12,6 +12,11 @@ const releaseVersion='20261029-decisions1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
+// Preserve later isolated projects and their custom cards before rebuilding the original 15.
+const {captureExtensions,restoreExtensions,integrateSite}=await import('../rag-lab/scripts/integrate-site.mjs');
+const isolatedExtensions=await captureExtensions(projects.map(project=>project.id));
+const previousProjectOrder=JSON.parse(fs.readFileSync('data.json','utf8')).projects.map(project=>project.id);
+const previousCardOrder=[...fs.readFileSync('index.html','utf8').matchAll(/<article id="project-([^\"]+)/g)].map(match=>match[1]);
 const captures=JSON.parse(fs.readFileSync('assets/work/showcase/captures.json','utf8')).records;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 data.tagline=identity.short.zh+' '+identity.intro.zh;
@@ -107,3 +112,15 @@ for(const study of studies){
  fs.writeFileSync(`cases/${study.id}/index.html`,`<!doctype html><html lang="zh-CN" data-palette="frost">${head.replace(/<title>.*?<\/title>/,`<title>${esc(p.name)} · 产品判断</title>`).replace('</head>','<link rel="stylesheet" href="/assets/case-studies.css?v='+releaseVersion+'"></head>')}<body class="case-page"><div class="grain"></div><div class="glow glow-1"></div><div class="glow glow-2"></div>${nav}<main>${body}</main><footer>© 2026 张千羽 · ${localReview?'本地内容评审':'产品判断与验证'}</footer><script src="/scripts/case-reader.js"></script></body></html>`);
 }
 console.log(`Updated the original shell, four selected previews, explicit project cards and ${studies.length} project-owned case pages.`);
+await restoreExtensions(isolatedExtensions);
+// Keep both published data order and custom-card order (they can intentionally differ).
+const restored=JSON.parse(fs.readFileSync('data.json','utf8'));
+restored.projects.sort((a,b)=>previousProjectOrder.indexOf(a.id)-previousProjectOrder.indexOf(b.id));
+fs.writeFileSync('data.json',JSON.stringify(restored,null,2)+'\n');
+let restoredHtml=fs.readFileSync('index.html','utf8');
+const cards=[...restoredHtml.matchAll(/<article id="project-([^\"]+)"[^]*?<\/article>/g)];
+const cardMap=new Map(cards.map(match=>[match[1],match[0]]));
+const orderedCards=[...previousCardOrder.filter(id=>cardMap.has(id)),...cards.map(match=>match[1]).filter(id=>!previousCardOrder.includes(id))].map(id=>cardMap.get(id));
+restoredHtml=restoredHtml.replace(/<article id="project-[^]*?<\/article>/g,()=>orderedCards.shift());
+fs.writeFileSync('index.html',restoredHtml);
+await integrateSite();

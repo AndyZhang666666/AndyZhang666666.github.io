@@ -8,6 +8,8 @@ import {previewConditions} from '../suibianju/product.mjs';
 import {studies,projects} from '../content/editorial.mjs';
 import {createTastePreview,chooseTaste,authorizeTaste,revokeTaste,tasteSummary} from '../assets/demo-preview/taste-session.mjs';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
+const expectedProjects=JSON.parse(await fs.readFile('data.json')).projects;
+const expectedMain=expectedProjects.filter(p=>!['poker','cases'].includes(p.group)).length;
 
 const base=process.env.SHOWCASE_BASE_URL||'http://127.0.0.1:8811',out='.taste-skill/decisions-20261029/verified';
 await fs.mkdir(out,{recursive:true});
@@ -37,15 +39,15 @@ try{
  await page.goto(base+'/#selected',{waitUntil:'networkidle'});
  await page.locator('[data-eval-locate]:not(:disabled)').waitFor();
  await page.waitForFunction(()=>{const top=document.getElementById('selected').getBoundingClientRect().top;return top>0&&top<150;});
- assert.equal(await page.locator('.project-card').count(),15);
+ assert.equal(await page.locator('.project-card').count(),expectedProjects.length);
  assert.deepEqual(await page.locator('main>section[id]').evaluateAll(nodes=>nodes.slice(0,3).map(n=>n.id)),['top','about','selected']);
  assert.equal(await page.locator('.section-num,[data-num],.ai-view-num,.principle-num').count(),0);
- assert.equal(await page.locator('.pgroup-main .project-card').count(),9);
+ assert.equal(await page.locator('.pgroup-main .project-card').count(),expectedMain);
  assert.equal(await page.locator('.pgroup-cases .project-card').count(),3);
  assert.equal(await page.locator('.pgroup-poker .project-card').count(),3);
  assert.equal(await page.locator('#projects iframe,.embed-try-btn,.mini-interactive').count(),0);
  assert.ok(!calls.some(path=>/bundle-model|tasteroom\/directions|suibianju\/product/.test(path)),'Other previews must load only on demand');
- record('15 project cards, stable direct selected hash after async content, original poker group, explicit destinations and lazy native previews');
+ record(`${expectedProjects.length} project cards including both parallel additions, stable direct selected hash, original poker group, explicit destinations and lazy native previews`);
  const storageBefore=await page.evaluate(()=>JSON.stringify(Object.entries(localStorage).sort()));
  await page.locator('[data-eval-locate]').click();
  assert.equal(await page.locator('[data-eval-source-quote] mark').innerText(),sample.dimension.evidence[0]);
@@ -107,7 +109,7 @@ try{
   if(project.url){assert.equal(await card.locator('[data-link-kind=demo]').getAttribute('href'),project.url);assert.equal(await card.locator('[data-link-kind=demo]').getAttribute('target'),'_blank');}
   else assert.equal(await card.locator('[data-link-kind=demo]').count(),0);
   if(project.url?.startsWith('/'))assert.ok((await page.request.get(base+project.url)).ok(),project.id+' must open the actual app');
-  if(project.presentation.image){for(const path of [project.presentation.image,project.presentation.thumbnail])assert.ok((await page.request.get(base+path)).ok(),path);}
+  if(project.presentation?.image){for(const path of [project.presentation.image,project.presentation.thumbnail])assert.ok((await page.request.get(base+path)).ok(),path);}
  }
  record('Nine internal apps, external quiz label, case-only entries and all real image resources');
  const imageLink=page.locator('#project-taste [data-preview-image]');await imageLink.click();await page.locator('dialog[open] img').waitFor();await page.waitForFunction(()=>document.querySelector('dialog img').naturalWidth>0);
@@ -143,8 +145,8 @@ try{
   for(const study of studies){await page.goto(base+`/cases/${study.id}/`,{waitUntil:'networkidle'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,`case overflow: ${study.id}/${width}`);assert.equal(await page.locator('a[href="undefined"],a[href="null"]').count(),0);assert.equal(await page.locator('h1').innerText(),study.title.zh);assert.ok(await page.locator('h1').evaluate(el=>parseFloat(getComputedStyle(el).fontSize))>await page.locator('.case-summary').evaluate(el=>parseFloat(getComputedStyle(el).fontSize)));}
  }
  record('All eight reading pages at desktop/tablet/phone; correct headline hierarchy, project-specific copy, no undefined destinations or overflow');
- const nojs=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}}),fallback=await nojs.newPage();await fallback.goto(base+'/#selected');assert.equal(await fallback.locator('[data-selected-id][href]').count(),4);assert.equal(await fallback.locator('[data-project-id]').count(),15);assert.ok(await fallback.locator('#selectedTitle').isVisible());assert.equal(await fallback.locator('#project-poker-quiz').evaluate(el=>getComputedStyle(el).opacity),'1');await nojs.close();
- record('No-JavaScript static selected links and all fifteen cards');
+ const nojs=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}}),fallback=await nojs.newPage();await fallback.goto(base+'/#selected');assert.equal(await fallback.locator('[data-selected-id][href]').count(),4);assert.equal(await fallback.locator('[data-project-id]').count(),expectedProjects.length);assert.ok(await fallback.locator('#selectedTitle').isVisible());assert.equal(await fallback.locator('#project-poker-quiz').evaluate(el=>getComputedStyle(el).opacity),'1');await nojs.close();
+ record('No-JavaScript static selected links and all seventeen existing cards');
  const failure=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});await failure.route('**/bundle-model.mjs',route=>route.abort());await failure.route('**/taste-crop.jpg',route=>route.abort());await failure.route('**/taste.jpg',route=>route.abort());
  const broken=await failure.newPage();await broken.goto(base+'/#selected',{waitUntil:'networkidle'});await broken.locator('[data-selected-id=bundles]').click();await broken.locator('[data-bundle-status]').filter({hasText:'暂时不可用'}).waitFor();assert.equal(await broken.locator('[data-selected-demo=bundle]').getAttribute('href'),'/bundle-lab/');
  await broken.locator('#project-taste').scrollIntoViewIfNeeded();await broken.locator('#project-taste .preview-image-failed').waitFor();await broken.locator('#project-taste [data-preview-image]').click();await broken.locator('.project-image-error:not([hidden])').waitFor();await broken.keyboard.press('Escape');await failure.close();
