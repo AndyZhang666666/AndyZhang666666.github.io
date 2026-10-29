@@ -5,6 +5,7 @@ import {createTastePreview,posterContent} from '../assets/demo-preview/taste-ses
 import {createSession,submit} from '../suibianju/engine.mjs';
 import {previewConditions} from '../suibianju/product.mjs';
 import {simulateOne} from '../assets/demo-preview/bundle-model.mjs';
+import {execution,rag} from './new-work-previews.mjs';
 const text=(tag,cls,zh,en)=>`<${tag} class="${cls}" data-zh="${e(zh)}" data-en="${e(en)}">${e(zh)}</${tag}>`;
 const button=(attrs,zh,en)=>`<button type="button" ${attrs} disabled>${text('span','',zh,en)}</button>`;
 const fixture=(id,value)=>`<script type="application/json" id="${id}">${JSON.stringify(value).replace(/</g,'\\u003c')}</script>`;
@@ -62,4 +63,4 @@ function bundle(){
  <details class="preview-test-plan" data-bundle-plan><summary>${text('span','','下一步：怎样验证这个候选？','Next: how should this candidate be tested?')}</summary><div><p data-bundle-plan-result>${text('span','',`当前假设净增 ${money(r.marginLift)} / 覆盖订单。先核对口径，不能据此宣布上线。`,`The scenario gives ${money(r.marginLift)} per covered order. Verify definitions before considering rollout.`)}</p><ol><li data-zh="先核对份量、覆盖人群与商品成本。" data-en="Verify portions, covered populations and costs.">先核对份量、覆盖人群与商品成本。</li><li data-zh="用小流量对照，区分新增购买与老顾客领折扣。" data-en="Use a small controlled test to separate new purchases from existing-buyer discounts.">用小流量对照，区分新增购买与老顾客领折扣。</li><li data-zh="预先约定贡献毛利、退款与复购的判断条件。" data-en="Predefine contribution, refund and repeat-purchase criteria.">预先约定贡献毛利、退款与复购的判断条件。</li></ol><a href="/growth-experiment-lab/" target="_blank" rel="noopener" data-zh="进入实验设计工具 ↗" data-en="Open experiment planning ↗">进入实验设计工具 ↗</a></div></details></div>
  <p class="preview-outcome" data-bundle-status role="status">${text('span','',`新增贡献不足以覆盖让利；当前假设下，每个覆盖订单少赚 ¥${Math.abs(r.marginLift).toFixed(3)}。`,`Incremental contribution does not cover the discount: ¥${Math.abs(r.marginLift).toFixed(3)} less per covered order under these assumptions.`)}</p>${fixture('bundlePreviewInput',c)}`;
 }
-export const previewRenderers={trust:evaluation,taste,'shared-choice':shared,bundles:bundle};
+export const previewRenderers={trust:evaluation,taste,'shared-choice':shared,bundles:bundle,execution,rag};

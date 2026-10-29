@@ -285,3 +285,66 @@ html:not(.showcase-enhanced) .project-library .reveal{opacity:1;transform:none}
  .preview-discovery{padding:12px}.showcase .preview-discovery>summary{align-items:start;gap:9px}.preview-discovery>summary strong{font-size:21px}.preview-discovery>summary>span:last-child{font-size:11px;max-width:5em;white-space:normal}.preview-discovery-facts{gap:10px}.preview-discovery-facts strong{font-size:20px}.preview-bundle .preview-budget{flex-direction:column;align-items:start}.preview-bundle .preview-ledger-row{gap:14px}.preview-bundle .preview-ledger-row dt{font-size:12px}.preview-bundle .preview-ledger-row dd{font-size:17px}.preview-bundle .preview-ledger-total dd{font-size:31px}.preview-test-plan>div{font-size:14px}
 }
 @media(prefers-reduced-motion:reduce){.preview-poster-option:hover{transform:none}.preview-poster-option{transition:none}}
+
+/* The two new previews borrow each product's evidence structure, within the site's material. */
+.showcase-choice[hidden],.execution-recovery[hidden]{display:none!important}
+.showcase-direction-note{margin:0 0 0 auto;font-size:12px;line-height:1.65;max-width:35ch}
+.preview-execution,.preview-rag{background:var(--bg-1);border-radius:9px;overflow:hidden;color:var(--fg)}
+.execution-task{padding:18px 20px;background:var(--bg-2)}
+.execution-task .preview-record{margin:0}
+.execution-task p:not(.preview-record){margin:8px 0 0;font-size:14px;line-height:1.7}
+.execution-response{padding:17px 20px;display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid var(--border)}
+.execution-response code{color:var(--accent);font-size:13px;white-space:nowrap}
+.execution-response p{font-size:12px;line-height:1.7;margin:0;color:var(--fg-muted);max-width:25ch}
+.execution-fork{display:grid;grid-template-columns:1fr 1.2fr;gap:20px;padding:18px 20px}
+.execution-fork>div{min-width:0}
+.execution-fork .preview-record{display:block;margin:0 0 10px}
+.execution-fork strong{display:block;font-family:var(--font-mono);font-size:20px;font-weight:500}
+.execution-fork p{font-size:12px;line-height:1.7;margin:7px 0 0;color:var(--fg-muted)}
+.execution-fork button,.rag-search-row button{min-height:44px;font:inherit;font-size:13px;line-height:1.4;border:1px solid var(--border-strong);border-radius:6px;padding:10px 13px;background:var(--fg);color:var(--bg-0);text-align:left}
+.execution-fork button:hover,.rag-search-row button:not(:disabled):hover{background:var(--accent);color:var(--bg-0);border-color:var(--accent)}
+.execution-recovery{padding:18px 20px 20px;background:rgba(var(--second-rgb),.075);border-top:1px solid var(--border)}
+.execution-commit{display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:11px;line-height:1.6;color:var(--fg-muted);flex-wrap:wrap}
+.execution-commit code{color:var(--second);font-size:12px}
+.execution-final{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:18px 0}
+.execution-final dt{font-size:11px;line-height:1.5;color:var(--fg-muted)}
+.execution-final dd{margin:5px 0 0;font-size:27px;line-height:1.15;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.execution-final>div:last-child dd{font-family:var(--font-mono);font-size:24px}
+.execution-recovery>p{font-size:13px;line-height:1.8;margin:15px 0}
+.execution-recovery details{font-size:11px;line-height:1.8;color:var(--fg-muted)}
+.execution-recovery summary{cursor:pointer;min-height:36px;display:list-item;align-content:center}
+.execution-recovery details code{overflow-wrap:anywhere}
+.execution-recovery details p{margin:8px 0}
+.execution-recovery details a{display:inline-block;min-height:36px;padding-top:8px;text-decoration:underline;text-underline-offset:4px}
+.preview-rag{padding:20px}
+.rag-question{font-size:20px;font-family:var(--font-serif);line-height:1.4;margin:0 0 16px}
+.rag-conditions{gap:7px}
+.rag-search-row{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:14px 0 17px}
+.rag-search-row p{font-size:11px;line-height:1.7;color:var(--fg-muted);max-width:31ch;margin:0}
+.rag-search-row button{flex-shrink:0}
+.rag-search-row button:disabled{cursor:default}
+.rag-answer{background:var(--bg-0);border:1px solid var(--border);padding:18px;border-radius:6px;transition:border-color .2s}
+.rag-answer[data-stale=true]{border-color:var(--accent);border-style:dashed}
+.rag-answer-scope{font-size:11px;line-height:1.6;font-family:var(--font-mono);color:var(--fg-muted);margin:0 0 12px;overflow-wrap:anywhere}
+.rag-answer-head{display:flex;align-items:baseline;gap:16px}
+.rag-answer-head>strong{font-size:43px;line-height:1.1;letter-spacing:-.04em;font-variant-numeric:tabular-nums;font-weight:500}
+.rag-answer-head>strong>span{font-size:16px;letter-spacing:0;margin-left:5px}
+.rag-answer-head>span{font-size:12px;color:var(--fg-muted)}
+.rag-answer>p:not(.rag-answer-scope){font-size:13px;line-height:1.8;margin:13px 0}
+.rag-evidence{font-size:12px;line-height:1.8;border-top:1px solid var(--border);padding-top:5px}
+.rag-evidence summary{cursor:pointer;min-height:44px;align-content:center}
+.rag-evidence summary code{font-size:11px;margin-left:12px;color:var(--fg-muted);overflow-wrap:anywhere}
+.rag-evidence blockquote{margin:8px 0 10px;padding-left:14px;border-left:2px solid var(--accent)}
+.rag-evidence>p{color:var(--fg-muted);font-size:11px;margin:0}
+@media(max-width:1100px){.showcase-direction{flex-wrap:wrap}.showcase-direction-note{max-width:none;margin-left:0;flex-basis:100%}}
+@media(max-width:600px){
+ .execution-task,.execution-response,.execution-fork,.execution-recovery,.preview-rag{padding:16px}
+ .execution-response{align-items:start;flex-direction:column;gap:6px}.execution-response p{max-width:none}
+ .execution-fork{grid-template-columns:1fr;gap:16px}.execution-fork>div+div{border-top:1px solid var(--border);padding-top:15px}
+ .execution-commit{gap:5px}.execution-final{gap:9px}.execution-final dd{font-size:24px}
+ .execution-final>div:last-child dd{font-size:21px}
+ .rag-search-row{align-items:start;flex-direction:column;gap:10px}.rag-search-row p{max-width:none}
+ .rag-answer{padding:14px}.rag-answer-head>strong{font-size:38px}
+ .rag-evidence summary code{margin-left:7px;font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){.rag-answer{transition:none}}

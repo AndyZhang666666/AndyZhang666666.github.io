@@ -1,0 +1,63 @@
+const L=(zh,en)=>({zh,en});
+export const newWorkStudies=[
+ {
+  id:'execution',project:'agent-bench',related:['eval','rag-lab'],
+  name:L('Agent 执行与失败恢复','Agent execution and recovery'),
+  title:L('说完成了，还要查它真的做了什么。','Check what actually happened.'),
+  summary:L('用十个原创工单场景，把工具回执、数据库状态和最终回复放在一起检查。超时后核对原操作，避免重复写入。','Ten original ticket cases reconcile tool receipts, database state and final replies. Look up the original operation after a timeout to avoid duplicate writes.'),
+  image:'showcase/agent-bench.jpg',secondaryImage:'showcase/agent-bench.jpg',caption:L('Agent 执行评测台 · 程序策略对照，写入后超时的恢复记录','Agent Bench · Program strategies compared on timeout-after-commit records'),
+  status:L('公开为程序执行记录回放；本地 API / SQLite 可复现，真实模型需另行配置与验证','Public program-record replay; reproducible local API / SQLite. A live model requires configuration and separate validation.'),
+  question:L('工具没有返回成功，是否应该再提交一次？','If a tool does not return success, should the agent submit again?'),
+  problem:L('写入可能已经成功，只是回执丢失。只看回复文本，会把“说完成”当成完成，或者在结果未知时重复提交。批准也必须对应具体参数，不能成为任意写入的通行证。','A write may commit even when its receipt is lost. Text-only evaluation can accept false completion or overlook duplicate effects. Approval must bind to concrete parameters rather than permit arbitrary writes.'),
+  role:L('独立设计任务、工具权限、批准流程、幂等操作与状态检查；实现 Python API、SQLite 记录、程序策略对照和前端回放，AI 辅助开发。公开材料均为原创虚构工单。','Independently designed tasks, tool permissions, approval, idempotency and state checks; implemented a Python API, SQLite records, program-strategy comparison and replay UI with AI-assisted development. All public tickets are original fictional examples.'),
+  insight:L('回执、业务效果和回复是三份不同的证据。','Receipts, business effects and replies are separate evidence.'),
+  choices:[
+   [L('只评最终回复','Grade the final reply'),L('容易忽略实际没有执行、重复执行或越权的情况。','Can miss absent, duplicate or unauthorised effects.')],
+   [L('超时就重新提交','Resubmit after every timeout'),L('不知道原操作是否已提交，重复动作可能带来第二次业务效果。','An unknown commit may already have applied; another action can duplicate it.')],
+   [L('核对状态后再恢复','Reconcile before recovery'),L('采用的做法：保留原操作标识，查最终状态，再决定是否需要重试或接管。','Implemented: retain the operation ID, inspect final state, then decide on retry or handoff.')],
+  ],
+  decisions:[
+   {title:L('批准绑定具体变更','Bind approval to the exact change'),text:L('服务端检查角色、目标工单、参数与预期版本。批准后换参数，不能沿用原来的授权。','The server checks role, ticket, parameters and expected version. Changing the action cannot reuse approval for a different payload.')},
+   {title:L('结果未知，先查原操作','Unknown result: inspect the original operation'),text:L('写入后超时场景中，恢复策略查询同一 operation_id，发现已提交后不再重复写入。公开首页展开的是已有程序记录。','After a post-commit timeout, the recovery strategy queries the same operation_id and does not repeat an already committed write. The homepage reveals this saved program record.')},
+   {title:L('把完成判定落到最终状态','Ground completion in final state'),text:L('判定同时检查处理组、工单状态、记录数、权限事件和回复。基础策略在超时后停在 unknown；它的数据库也已写入，差异在于是否完成核对。','Grade group, ticket status, note count, permission events and reply together. The baseline stops at unknown after timeout even though its database changed; reconciliation is the distinction.')},
+  ],
+  proof:L('公开可回放十个虚构场景的基础 / 恢复策略记录，并查看事件与最终数据。写入后超时样例保留一次业务提交、一条新增记录，工单仍打开；这是程序运行的结果，不是大模型测评成绩。','Public replay includes baseline and recovery records across ten fictional scenarios, with events and final data. The post-commit timeout sample has one commit, one note and an open ticket. These are program-run results, not model evaluation scores.'),
+  tradeoff:L('公开回放方便免配置查看，但不能替代重新执行。本地 API 可复现工具效果；真实模型适配器仍需配置和实测，不能把程序策略差异写成模型能力提升。','Replay is easy to inspect but is not a fresh execution. The local API reproduces tool effects; the model adapter requires configuration and testing. Program-strategy differences do not establish model improvements.'),
+  next:L('先用独立用例覆盖重试、重复请求、取消与批准参数变化，再在同一权限和工具条件下接入模型，核对失败类型、成本与接管率。','Add independent cases for retry, duplicate requests, cancellation and changed approval payloads. Then test models under identical permissions and tools, recording failures, cost and handoffs.'),
+  artifact:L('事件轨迹、最终数据库状态与可导出的执行记录','Event traces, final database state and exportable run records'),
+  evidenceLinks:[
+   {href:'/agent-bench/samples/timeout-hardened.json',label:L('写入后超时的完整记录','Complete post-commit timeout record')},
+   {href:'https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/agent-bench',label:L('API、判定逻辑与复现说明','API, grading logic and reproduction guide')},
+  ],
+ },
+ {
+  id:'rag',project:'rag-lab',related:['eval','agent-bench'],
+  name:L('RAG 依据与适用条件','RAG evidence and applicability'),
+  title:L('找到一句话，还要知道它何时适用。','A source needs a scope.'),
+  summary:L('对原创制度资料做真实检索，先限定日期、版本和可访问范围，再检查答案与引文。换条件后，旧答案明确待重新检索。','Retrieve original policy material after setting date, version and access scope. Inspect the answer and citation; mark old results stale when conditions change.'),
+  image:'showcase/rag-lab.jpg',secondaryImage:'showcase/rag-lab.jpg',caption:L('可信 RAG 实验台 · 日期 / 版本条件、规则摘录与原文','Trustworthy RAG Lab · Date and version scope, extracted rule and source text'),
+  status:L('公开为 BM25 检索与规则摘录，无模型调用；本地 API 的模型接口待真实联调','Public BM25 retrieval and rule extraction without model calls; local model integration awaits live validation.'),
+  question:L('资料里确实有这句话，为什么引用它仍可能答错？','Why can a real quotation still support the wrong answer?'),
+  problem:L('旧版本、未来规则或无权访问的资料都可能包含相近语句。只让回答带引用，不足以证明这份资料对当前问题、日期和身份适用。','Older versions, future rules and inaccessible material can all contain similar language. Attaching a citation does not prove its applicability to the current question, date and role.'),
+  role:L('独立设计并实现中文 BM25 检索、生效版本选择、资料不足与冲突处理、引用展开及导出；实现本地会话与服务端范围检查，AI 辅助开发。示例资料为原创虚构内容。','Independently designed and implemented Chinese BM25 retrieval, effective-version selection, missing/conflicting-evidence handling, citations and export, plus local sessions and server-side scope checks, with AI-assisted development. All example policies are original fictional material.'),
+  insight:L('先判断资料能不能用，再判断回答有没有依据。','Check whether a source applies before judging its support.'),
+  choices:[
+   [L('检索后直接生成','Retrieve, then generate'),L('相似段落可能来自失效版本，引用存在也可能误用。','Similar paragraphs may be obsolete; a citation can still be misapplied.')],
+   [L('生成后再隐藏资料','Hide sources after generation'),L('敏感材料已经进入上下文，前端隐藏并不构成权限隔离。','Material has already entered context; hiding it in the interface does not enforce access.')],
+   [L('先限定范围，再检索','Scope first, then retrieve'),L('采用的做法：选择适用资料后再检索，证据不足或冲突时保留未解决状态。','Implemented: select eligible sources before retrieval and retain unresolved gaps or conflicts.')],
+  ],
+  decisions:[
+   {title:L('把日期与版本作为输入','Make date and version explicit inputs'),text:L('同一显示器问题，在原始快照的 2026-06-30 查到 30 天，在 2026-10-28 查到 14 天；演示修订快照为 10 天。每个结果都有对应版本和原文。','The same monitor question yields 30 days on 2026-06-30 and 14 days on 2026-10-28 in the baseline snapshot; the demonstration revision yields 10. Each result has its own version and source.')},
+   {title:L('条件改变，不沿用旧结论','A changed scope invalidates an old conclusion'),text:L('首页预览先标明旧答案待更新，用户重新查找后才替换结果。它复用完整工具的检索引擎与公开资料，不另写答案映射表。','The homepage marks the old answer stale and updates it only after a new search. It reuses the full tool’s retrieval engine and public corpus, rather than a hardcoded answer table.')},
+   {title:L('公开演示与服务端能力分开','Separate public demonstration from server enforcement'),text:L('公开包只含十二份公开虚构资料。身份切换用于体验，不能证明生产鉴权；本地 API 在检索前执行范围检查，管理侧测试资料不会进入公开预览。','The public corpus contains twelve fictional public documents. Role switching demonstrates a scenario, not production authentication. The local API enforces scope before retrieval, and admin-only test documents are excluded from public previews.')},
+  ],
+  proof:L('浏览器可真实执行 BM25 检索、版本选择与规则摘录，并展开引用段落。条件算例的 30 / 14 / 10 天分别来自对应原文；引用定位与关键事实检查不冒充模型语义评估。','The browser performs actual BM25 retrieval, version selection and rule extraction with inspectable sources. The 30 / 14 / 10 day examples come from their respective paragraphs; citation and extracted-fact checks are not model semantic evaluations.'),
+  tradeoff:L('规则摘录方便核对，但适用范围比自由生成窄。身份模拟不能替代真实服务端鉴权，构造资料上的检索检查也不能证明真实企业知识库的效果。','Rule extraction is inspectable but narrower than free generation. Role simulation cannot replace server authentication, and constructed-corpus checks do not establish performance on an enterprise knowledge base.'),
+  next:L('冻结资料与问题集，分别检查召回、答案事实、引用适用性和拒答；接入真实模型后独立标注语义支持，记录错误与成本。','Freeze the corpus and questions; inspect retrieval, answer facts, citation applicability and abstention separately. After connecting a model, independently label semantic support, errors and cost.'),
+  artifact:L('带条件、版本、引用与检查状态的检索记录','Retrieval records with scope, versions, citations and checks'),
+  evidenceLinks:[
+   {href:'/rag-lab/public-corpus.json',label:L('公开原创资料','Original public corpus')},
+   {href:'https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/rag-lab',label:L('检索引擎与本地 API 说明','Retrieval engine and local API guide')},
+  ],
+ },
+];

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-29T00:30:50.901Z",
+  "updatedAt": "2026-10-29T13:45:15.288Z",
   "source": "http://127.0.0.1:8811",
   "method": "Actual product screenshots in isolated empty contexts; per-product result states and regions. No model calls or real user state. Existing untouched captures retain their own timestamps.",
   "records": [
@@ -173,6 +173,44 @@
       "fullSha256": "21d0c8116065ca6cfe4b28a9746749a307f69c1ea837f589a34ff49e69630645",
       "cropSha256": "29558c587ad13e2891853b6a53f9bcfc3ba5a7ae792ecae0a662a38122b1ec45",
       "capturedAt": "2026-10-28T03:29:39.908Z"
+    },
+    {
+      "id": "agent-bench",
+      "route": "/agent-bench/",
+      "full": "assets/work/showcase/agent-bench.jpg",
+      "crop": "assets/work/showcase/agent-bench-crop.jpg",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "capturedAt": "2026-10-29T13:45:13.517Z",
+      "state": "Saved program records for timeout after commit: baseline unknown versus reconciled recovery. Actual final ticket state and grader verdict; no new tool execution or model call.",
+      "fullPage": true,
+      "cropSize": {
+        "width": 1056,
+        "height": 654
+      },
+      "fullSha256": "5d1c93eeb7526271d14b56453f47da5a24976183e2070a68786d35731845e5b1",
+      "cropSha256": "070d053fd988ec58761a67f1f11cabb81481c05f1cab6d50cf9d1db9e215b261"
+    },
+    {
+      "id": "rag-lab",
+      "route": "/rag-lab/",
+      "full": "assets/work/showcase/rag-lab.jpg",
+      "crop": "assets/work/showcase/rag-lab-crop.jpg",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "capturedAt": "2026-10-29T13:45:15.262Z",
+      "state": "Public fictional corpus, actual BM25 retrieval and rule extraction for 2026-10-28 / baseline: 14-day rule with version 2.0 and source paragraph. No model call.",
+      "fullPage": true,
+      "cropSize": {
+        "width": 1112,
+        "height": 408
+      },
+      "fullSha256": "2b9f2037e4eb91dc8bfe66ac205267851231f74d3da832f30bd8bd31af32eca3",
+      "cropSha256": "b3ef444bf76ab0abe17b446d552562853b7a545a5a6df55baccddb110118ee55"
     }
   ]
 }

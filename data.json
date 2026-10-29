@@ -297,8 +297,8 @@
       "nameEn": "Agent Execution Bench",
       "subtitle": "说完成了，真的完成了吗？",
       "subtitleEn": "Did the agent actually complete the task?",
-      "description": "十个虚构工单案例，检查工具执行、SQLite 最终状态与失败恢复。公开为原创程序策略示例；真实模型需本地配置。",
-      "descriptionEn": "Ten fictional ticket cases check tool execution, SQLite final state and recovery. Public examples are program strategies; live models require local configuration.",
+      "description": "用十个原创工单场景，把工具回执、数据库状态和最终回复放在一起检查。超时后核对原操作，避免重复写入。",
+      "descriptionEn": "Ten original ticket cases reconcile tool receipts, database state and final replies. Look up the original operation after a timeout to avoid duplicate writes.",
       "url": "/agent-bench/",
       "github": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/agent-bench",
       "tags": [
@@ -315,7 +315,47 @@
         "Ten original ticket cases",
         "Reproducible API / SQLite",
         "Public program examples"
-      ]
+      ],
+      "category": "ai",
+      "group": "main",
+      "iterationUrl": "/cases/execution/",
+      "caseLabel": "设计过程",
+      "caseLabelEn": "Design process",
+      "context": "写入可能已经成功，只是回执丢失。只看回复文本，会把“说完成”当成完成，或者在结果未知时重复提交。批准也必须对应具体参数，不能成为任意写入的通行证。",
+      "contextEn": "A write may commit even when its receipt is lost. Text-only evaluation can accept false completion or overlook duplicate effects. Approval must bind to concrete parameters rather than permit arbitrary writes.",
+      "approach": [
+        "批准绑定具体变更：服务端检查角色、目标工单、参数与预期版本。批准后换参数，不能沿用原来的授权。",
+        "结果未知，先查原操作：写入后超时场景中，恢复策略查询同一 operation_id，发现已提交后不再重复写入。公开首页展开的是已有程序记录。",
+        "把完成判定落到最终状态：判定同时检查处理组、工单状态、记录数、权限事件和回复。基础策略在超时后停在 unknown；它的数据库也已写入，差异在于是否完成核对。"
+      ],
+      "approachEn": [
+        "Bind approval to the exact change: The server checks role, ticket, parameters and expected version. Changing the action cannot reuse approval for a different payload.",
+        "Unknown result: inspect the original operation: After a post-commit timeout, the recovery strategy queries the same operation_id and does not repeat an already committed write. The homepage reveals this saved program record.",
+        "Ground completion in final state: Grade group, ticket status, note count, permission events and reply together. The baseline stops at unknown after timeout even though its database changed; reconciliation is the distinction."
+      ],
+      "result": "公开可回放十个虚构场景的基础 / 恢复策略记录，并查看事件与最终数据。写入后超时样例保留一次业务提交、一条新增记录，工单仍打开；这是程序运行的结果，不是大模型测评成绩。 公开回放方便免配置查看，但不能替代重新执行。本地 API 可复现工具效果；真实模型适配器仍需配置和实测，不能把程序策略差异写成模型能力提升。",
+      "resultEn": "Public replay includes baseline and recovery records across ten fictional scenarios, with events and final data. The post-commit timeout sample has one commit, one note and an open ticket. These are program-run results, not model evaluation scores. Replay is easy to inspect but is not a fresh execution. The local API reproduces tool effects; the model adapter requires configuration and testing. Program-strategy differences do not establish model improvements.",
+      "presentation": {
+        "question": {
+          "zh": "提交超时了，工单真的没改吗？",
+          "en": "The submission timed out. Did the ticket change?"
+        },
+        "decision": {
+          "zh": "核对原操作与最终状态，避免重复写入；批准只对具体变更生效。",
+          "en": "Reconcile the same operation and final state; approval is bound to the specific change."
+        },
+        "image": "/assets/work/showcase/agent-bench.jpg",
+        "caption": {
+          "zh": "Agent 执行评测台 · 写入后超时：程序策略对照与最终状态核对",
+          "en": "Agent Bench · Timeout after commit: program strategies and final-state reconciliation"
+        },
+        "kind": "demo",
+        "thumbnail": "/assets/work/showcase/agent-bench-crop.jpg",
+        "coverSize": {
+          "width": 1056,
+          "height": 654
+        }
+      }
     },
     {
       "name": "偏爱实验室",
@@ -1187,8 +1227,8 @@
       "group": "main",
       "subtitle": "答案依据从哪里来，为什么可以用",
       "subtitleEn": "Where evidence comes from and why it applies",
-      "description": "选问题、看回答、打开依据，再改日期或身份。检索、版本、访问范围与无答案处理分别可检查。",
-      "descriptionEn": "Ask, inspect the answer and source, then change the conditions. Examine retrieval, effective versions, access scope and missing evidence separately.",
+      "description": "对原创制度资料做真实检索，先限定日期、版本和可访问范围，再检查答案与引文。换条件后，旧答案明确待重新检索。",
+      "descriptionEn": "Retrieve original policy material after setting date, version and access scope. Inspect the answer and citation; mark old results stale when conditions change.",
       "url": "/rag-lab/",
       "github": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/rag-lab",
       "tags": [
@@ -1206,37 +1246,44 @@
         "Server-side scope checks",
         "Original example / local API"
       ],
-      "context": "同一问题会因制度版本、查询日期和可访问范围而改变。引用能定位，也不代表结论成立。",
-      "contextEn": "The applicable answer changes with policy versions, query date and access scope. A locatable quotation alone does not establish correctness.",
+      "context": "旧版本、未来规则或无权访问的资料都可能包含相近语句。只让回答带引用，不足以证明这份资料对当前问题、日期和身份适用。",
+      "contextEn": "Older versions, future rules and inaccessible material can all contain similar language. Attaching a citation does not prove its applicability to the current question, date and role.",
       "approach": [
-        "先在服务端限定角色、日期与快照，再检索段落。",
-        "展示引用原文与适用原因，冲突或资料不足时不补造规则。",
-        "固定题分别复核召回、关键事实和引用；原始记录可导出。"
+        "把日期与版本作为输入：同一显示器问题，在原始快照的 2026-06-30 查到 30 天，在 2026-10-28 查到 14 天；演示修订快照为 10 天。每个结果都有对应版本和原文。",
+        "条件改变，不沿用旧结论：首页预览先标明旧答案待更新，用户重新查找后才替换结果。它复用完整工具的检索引擎与公开资料，不另写答案映射表。",
+        "公开演示与服务端能力分开：公开包只含十二份公开虚构资料。身份切换用于体验，不能证明生产鉴权；本地 API 在检索前执行范围检查，管理侧测试资料不会进入公开预览。"
       ],
       "approachEn": [
-        "Restrict role, date and snapshot before server-side retrieval.",
-        "Show supporting paragraphs and applicability; retain conflicts and evidence gaps.",
-        "Check retrieval, key facts and citations separately on fixed fixtures, with exportable records."
+        "Make date and version explicit inputs: The same monitor question yields 30 days on 2026-06-30 and 14 days on 2026-10-28 in the baseline snapshot; the demonstration revision yields 10. Each result has its own version and source.",
+        "A changed scope invalidates an old conclusion: The homepage marks the old answer stale and updates it only after a new search. It reuses the full tool’s retrieval engine and public corpus, rather than a hardcoded answer table.",
+        "Separate public demonstration from server enforcement: The public corpus contains twelve fictional public documents. Role switching demonstrates a scenario, not production authentication. The local API enforces scope before retrieval, and admin-only test documents are excluded from public previews."
       ],
-      "result": "官网运行原创虚构资料的浏览器检索与规则摘录，无模型调用。本地 API 提供独立会话、真实检索和可配置模型接口；本次真实模型联调待验证。示例身份切换不是生产鉴权。",
-      "resultEn": "The public example searches original fictional text in the browser and extracts rules without calling a model. A local API provides independent sessions, real retrieval and a configurable model adapter. Live-model validation is pending; demo roles are not production authentication.",
+      "result": "浏览器可真实执行 BM25 检索、版本选择与规则摘录，并展开引用段落。条件算例的 30 / 14 / 10 天分别来自对应原文；引用定位与关键事实检查不冒充模型语义评估。 规则摘录方便核对，但适用范围比自由生成窄。身份模拟不能替代真实服务端鉴权，构造资料上的检索检查也不能证明真实企业知识库的效果。",
+      "resultEn": "The browser performs actual BM25 retrieval, version selection and rule extraction with inspectable sources. The 30 / 14 / 10 day examples come from their respective paragraphs; citation and extracted-fact checks are not model semantic evaluations. Rule extraction is inspectable but narrower than free generation. Role simulation cannot replace server authentication, and constructed-corpus checks do not establish performance on an enterprise knowledge base.",
       "presentation": {
-        "kind": "demo",
         "question": {
-          "zh": "同一个问题，为什么换个条件就不能这样答？",
-          "en": "Why does the same question need a different answer under different conditions?"
+          "zh": "引用同一份资料，为什么答案仍可能错？",
+          "en": "Why can a cited answer still be wrong?"
         },
         "decision": {
-          "zh": "先检查资料的范围与生效版本，再看答案和引用是否成立。",
-          "en": "Check source scope and effective versions before judging the answer and its citations."
+          "zh": "先限定日期、版本与可访问范围；条件改变后重新检索。",
+          "en": "Set date, version and access scope before retrieval; search again when conditions change."
         },
-        "image": "/rag-lab/evidence/answer-preview.png",
-        "thumbnail": "/rag-lab/evidence/answer-preview.png",
+        "image": "/assets/work/showcase/rag-lab.jpg",
         "caption": {
-          "zh": "可信 RAG 实验台 · 当前规则与原文段落，原创示例模式",
-          "en": "Trustworthy RAG Lab · Applicable rule and source paragraph, original example mode"
+          "zh": "可信 RAG 实验台 · 生效版本、检索答案与对应原文",
+          "en": "Trustworthy RAG Lab · Effective version, retrieved answer and source paragraph"
+        },
+        "kind": "demo",
+        "thumbnail": "/assets/work/showcase/rag-lab-crop.jpg",
+        "coverSize": {
+          "width": 1112,
+          "height": 408
         }
-      }
+      },
+      "iterationUrl": "/cases/rag/",
+      "caseLabel": "设计过程",
+      "caseLabelEn": "Design process"
     }
   ],
   "skills": {
@@ -1489,14 +1536,14 @@
         "refLabel": "YouTube · Andrej Karpathy, Software in the Era of AI (2025)",
         "refUrl": "https://www.youtube.com/watch?v=LCEmiRjPEtQ",
         "practice": {
-          "study": "taste",
+          "study": "rag",
           "text": {
-            "zh": "在偏爱实验室，一次选择只留下线索；确认范围后才形成规则。",
-            "en": "In TasteRoom, one choice is a clue; only a scoped confirmation creates a rule."
+            "zh": "在 RAG 实验台，引用之前先检查日期和资料版本；条件变化后，旧答案必须重新检索。",
+            "en": "RAG Lab checks dates and source versions before citations. A change in scope requires a fresh search."
           },
           "link": {
-            "zh": "看偏好如何被验证",
-            "en": "See how a preference is tested"
+            "zh": "看答案的适用条件",
+            "en": "See why a source applies"
           }
         }
       },
@@ -1529,14 +1576,14 @@
         "refLabel": "Hamel Husain · Your AI Product Needs Evals",
         "refUrl": "https://hamel.dev/blog/posts/evals/",
         "practice": {
-          "study": "shared-choice",
+          "study": "execution",
           "text": {
-            "zh": "随便局可以预演预算，但不能替成员放宽条件，也不能把预演当同意。",
-            "en": "Suibianju previews a budget change without changing a person’s conditions or treating it as consent."
+            "zh": "Agent 执行台把批准、写入与最终状态分开。超时先查原操作，不把“没收到回执”当成失败。",
+            "en": "Agent Bench separates approval, writes and final state. A timeout calls for reconciliation, not an assumption that the write failed."
           },
           "link": {
-            "zh": "看预演与决定权",
-            "en": "See preview and decision rights"
+            "zh": "看失败后的恢复机制",
+            "en": "See recovery after a timeout"
           }
         }
       },
@@ -1549,14 +1596,14 @@
         "refLabel": "Lenny's Newsletter · Product sense",
         "refUrl": "https://www.lennysnewsletter.com/p/product-sense",
         "practice": {
-          "study": "agent-workflow",
+          "study": "bundles",
           "text": {
-            "zh": "业务交付中，整理和查询交给工具；价格、交付承诺与关键异常保留人工确认。",
-            "en": "Delegate organisation and lookup; retain human confirmation for prices, commitments and critical exceptions."
+            "zh": "Bundle Lab 把新增贡献与既有顾客让利分开；销量变多，净收益仍可能变少。",
+            "en": "Bundle Lab separates new contribution from discounts to existing buyers. More sales may still mean less profit."
           },
           "link": {
-            "zh": "看任务流与人工接管",
-            "en": "See the workflow and human handoff"
+            "zh": "看收益判断的完整账本",
+            "en": "See the full contribution ledger"
           }
         }
       }

@@ -1,21 +1,23 @@
 // The original shell stays intact. Scoped showcase/library presentation is generated here.
 import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
-import {identity,projects,studies,aiPractices} from '../content/editorial.mjs';
+import {identity,projects,studies,aiPractices,evidenceDims} from '../content/editorial.mjs';
 import {presentationFor} from '../content/project-presentation.mjs';
 import {renderProjectCards} from '../assets/project-cards.mjs';
 import {renderSelected} from '../content/showcase.mjs';
 import {renderProductPrinciples} from '../assets/product-principles.mjs';
 import {renderAiViews} from '../assets/ai-views.mjs';
 const localReview=process.argv.includes('--local');
-const releaseVersion='20261029-decisions1';
+const releaseVersion='20261029-new-work1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
-// Preserve later isolated projects and their custom cards before rebuilding the original 15.
+// Explicit descriptors now cover the original 15 plus Agent Bench and RAG Lab.
+// Preserve any later, unrelated extensions instead of silently dropping them.
 const {captureExtensions,restoreExtensions,integrateSite}=await import('../rag-lab/scripts/integrate-site.mjs');
 const isolatedExtensions=await captureExtensions(projects.map(project=>project.id));
-const previousProjectOrder=JSON.parse(fs.readFileSync('data.json','utf8')).projects.map(project=>project.id);
+const previousProjects=JSON.parse(fs.readFileSync('data.json','utf8')).projects;
+const previousProjectOrder=previousProjects.map(project=>project.id);
 const previousCardOrder=[...fs.readFileSync('index.html','utf8').matchAll(/<article id="project-([^\"]+)/g)].map(match=>match[1]);
 const captures=JSON.parse(fs.readFileSync('assets/work/showcase/captures.json','utf8')).records;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -27,7 +29,9 @@ data.about.bodyEn=data.about.bodyEn.split('. ').slice(1).join('. ');
 // Keep the original views; connect each to its own inspectable design decision.
 data.aiViews.items.forEach((item,index)=>item.practice=aiPractices[index]);
 for(const p of projects){
- const entry=data.projects[p.index],s=studies.find(s=>s.id===p.caseId);
+ const entry=data.projects[p.index]??structuredClone(previousProjects.find(project=>project.id===p.id)),s=studies.find(s=>s.id===p.caseId);
+ if(!entry)throw Error(`Missing source metadata for ${p.id}`);
+ data.projects[p.index]=entry;
  entry.id=p.id;entry.category=p.category;
  entry.group=['poker-quiz','bankroll','poker-ev'].includes(p.id)?'poker':!entry.url?'cases':'main';
  entry.name=p.name.zh;entry.nameEn=p.name.en;
@@ -48,6 +52,15 @@ for(const p of projects){
  if(cover?.cropSize)entry.presentation.coverSize=cover.cropSize;
 }
 fs.writeFileSync('data.json',JSON.stringify(data,null,2)+'\n');
+// Refresh related work, preserving every supplied career-evidence statement and number.
+for(const lang of ['zh','en']){
+ const file=`content/evidence-${lang}.json`,library=JSON.parse(fs.readFileSync(file,'utf8'));
+ for(const dim of library.dims){
+  const spec=evidenceDims.find(item=>item.id===dim.id);if(!spec)continue;
+  dim.projects=spec.projects.map(id=>data.projects.find(project=>project.id===id)).filter(Boolean).map(project=>({id:project.id,name:lang==='zh'?project.name:project.nameEn,url:`/#project-${project.id}`,caseUrl:project.iterationUrl||null}));
+ }
+ fs.writeFileSync(file,JSON.stringify(library,null,2)+'\n');
+}
 let html=original('index.html');
 function words(zh,en,newZh,newEn){html=html.replaceAll(esc(zh),esc(newZh)).replaceAll(esc(en),esc(newEn));}
 const old=JSON.parse(original('data.json'));

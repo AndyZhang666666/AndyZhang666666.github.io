@@ -1,5 +1,6 @@
 // Resume and project facts live in data.json. This file contains presentation and product analysis.
 import {specificStudies} from './specific-studies.mjs';
+import {newWorkStudies} from './new-work-studies.mjs';
 const L = (zh, en) => ({ zh, en });
 
 export const identity = {
@@ -9,10 +10,10 @@ export const identity = {
 };
 
 export const directions = [
-  { id:'all', label:L('全部精选','Selected work'), order:['trust','taste','shared-choice','bundles'] },
-  { id:'ai', label:L('AI / Agent','AI / Agents'), order:['trust','shared-choice','taste','bundles'] },
-  { id:'life', label:L('生活与创新','Life & innovation'), order:['taste','shared-choice','trust','bundles'] },
-  { id:'growth', label:L('增长与商业化','Growth & monetisation'), order:['bundles','trust','shared-choice','taste'] },
+  { id:'all', label:L('综合推荐','Overview'), order:['execution','trust','taste','bundles'] },
+  { id:'ai', label:L('AI / Agent','AI / Agents'), order:['execution','trust','rag','taste'] },
+  { id:'life', label:L('生活与创新','Life & innovation'), order:['taste','execution','trust','bundles'] },
+  { id:'growth', label:L('增长与商业化','Growth & monetisation'), order:['bundles','trust','execution','taste'] },
 ];
 
 export const projects = [
@@ -31,6 +32,8 @@ export const projects = [
   ['pricing','growth',L('Pricing Model Sim','Pricing Model Sim'),L('同一付费人群口径下比较机制与回本','Compare payment models on a conserved cohort'),'pricing'],
   ['bundle','growth',L('Bundle Lab','Bundle Lab'),L('共购关系之外，核对新增与让利','Account for incremental sales and discounts to existing buyers'),'bundles'],
   ['content','delivery',L('留学咨询内容矩阵','Study-abroad content business'),L('从内容、私域咨询到线索跟进','From content to consultation and lead follow-up'),null],
+  ['agent-bench','ai',L('Agent 执行评测台','Agent Execution Bench'),L('超时之后，核对真实状态再决定如何恢复','Reconcile actual state after a timeout before recovering'),'execution'],
+  ['rag-lab','ai',L('可信 RAG 实验台','Trustworthy RAG Lab'),L('先限定资料范围与生效版本，再回答','Set source scope and effective versions before answering'),'rag'],
 ].map(([id,category,name,description,caseId],index)=>({id,category,name,description,caseId,index}));
 
 export const categories = [
@@ -162,14 +165,14 @@ export const studies = [
   },
 ];
 
-studies.push(...specificStudies);
+studies.push(...specificStudies,...newWorkStudies);
 
 // Existing four opinions stay intact. Each now points to a concrete design decision.
 export const aiPractices=[
- {study:'taste',text:L('在偏爱实验室，一次选择只留下线索；确认范围后才形成规则。','In TasteRoom, one choice is a clue; only a scoped confirmation creates a rule.'),link:L('看偏好如何被验证','See how a preference is tested')},
+ {study:'rag',text:L('在 RAG 实验台，引用之前先检查日期和资料版本；条件变化后，旧答案必须重新检索。','RAG Lab checks dates and source versions before citations. A change in scope requires a fresh search.'),link:L('看答案的适用条件','See why a source applies')},
  {study:'trust',text:L('Eval 保留裁判原分；人的不同判断另记，不回写成更好看的分数。','Eval retains the original score and records human disagreement separately.'),link:L('看评分之后的复核','See the review after the score')},
- {study:'shared-choice',text:L('随便局可以预演预算，但不能替成员放宽条件，也不能把预演当同意。','Suibianju previews a budget change without changing a person’s conditions or treating it as consent.'),link:L('看预演与决定权','See preview and decision rights')},
- {study:'agent-workflow',text:L('业务交付中，整理和查询交给工具；价格、交付承诺与关键异常保留人工确认。','Delegate organisation and lookup; retain human confirmation for prices, commitments and critical exceptions.'),link:L('看任务流与人工接管','See the workflow and human handoff')},
+ {study:'execution',text:L('Agent 执行台把批准、写入与最终状态分开。超时先查原操作，不把“没收到回执”当成失败。','Agent Bench separates approval, writes and final state. A timeout calls for reconciliation, not an assumption that the write failed.'),link:L('看失败后的恢复机制','See recovery after a timeout')},
+ {study:'bundles',text:L('Bundle Lab 把新增贡献与既有顾客让利分开；销量变多，净收益仍可能变少。','Bundle Lab separates new contribution from discounts to existing buyers. More sales may still mean less profit.'),link:L('看收益判断的完整账本','See the full contribution ledger')},
 ];
 
 export const viewpoints = [
@@ -181,12 +184,12 @@ export const viewpoints = [
 export const workLinks = ['trust','trust','bundles','shared-choice','bundles'];
 
 export const evidenceDims = [
-  {id:'agent',name:L('Agent 与工具工作流','Agents & tool workflows'),words:['agent','智能体','工作流','workflow','工具调用','mcp','skill','编排','orchestration'],keys:['agent','knowledge'],projects:['eval','suibianju','research-agent']},
+  {id:'agent',name:L('Agent 与工具工作流','Agents & tool workflows'),words:['agent','智能体','工作流','workflow','工具调用','mcp','skill','编排','orchestration'],keys:['agent','knowledge'],projects:['agent-bench','eval','suibianju','research-agent']},
   {id:'eval',name:L('效果评测与质量判断','Evaluation & quality'),words:['评测','评估','eval','evaluation','rubric','judge','幻觉','质量','prompt','提示词'],keys:['production','eval'],projects:['eval','filing']},
   {id:'innovation',name:L('生活场景与产品探索','Everyday scenarios & innovation'),words:['创新','ai native','ai-native','生活','审美','用户洞察','用户研究','用户体验','innovation','user research'],keys:['cockpit','prd'],projects:['taste','suibianju','grounded']},
   {id:'growth',name:L('增长、实验与数据分析','Growth, experiments & analysis'),words:['增长','growth','a/b','ab test','实验','数据分析','sql','留存','retention','转化','conversion','漏斗','funnel'],keys:['subsidy','exposure'],projects:['growth','bundle']},
   {id:'revenue',name:L('订阅与商业化','Subscriptions & monetisation'),words:['商业化','定价','订阅','revenue','pricing','monetization','monetisation','ltv','cac','arpu','付费'],keys:['subscription','revolut'],projects:['pricing','bundle']},
-  {id:'delivery',name:L('企业流程与交付','Enterprise workflows & delivery'),words:['fde','企业','交付','b端','to b','tob','saas','crm','erp','客户','enterprise','delivery','知识库','rag'],keys:['enterprise','knowledge'],projects:['fde','filing']},
+  {id:'delivery',name:L('企业流程与交付','Enterprise workflows & delivery'),words:['fde','企业','交付','b端','to b','tob','saas','crm','erp','客户','enterprise','delivery','知识库','rag'],keys:['enterprise','knowledge'],projects:['rag-lab','agent-bench','fde','filing']},
   {id:'finance',name:L('金融与研究工具','Finance & research tools'),words:['金融','finance','量化','quant','交易','trading','投研','investment','订单流','order flow'],keys:['investment','msc'],projects:['research-agent','filing']},
   {id:'hardware',name:L('硬件与跨端体验','Hardware & cross-device experiences'),words:['硬件','汽车','座舱','hardware','wearable','可穿戴','cross-device'],keys:['cockpit','bachelor'],projects:['commute'],anchor:'education'},
   {id:'overseas',name:L('海外与工作语言','Overseas products & working language'),words:['海外','英语','英文','英语','overseas','english','international','出海'],keys:['subscription','family','english'],projects:['pricing','content']},

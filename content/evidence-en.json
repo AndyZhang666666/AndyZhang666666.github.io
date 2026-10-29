@@ -20,21 +20,27 @@
       ],
       "projects": [
         {
+          "id": "agent-bench",
+          "name": "Agent Execution Bench",
+          "url": "/#project-agent-bench",
+          "caseUrl": "/cases/execution/"
+        },
+        {
           "id": "eval",
           "name": "Eval Lab",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/trust/"
+          "url": "/#project-eval",
+          "caseUrl": "/cases/trust/"
         },
         {
           "id": "suibianju",
           "name": "Suibianju",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/shared-choice/"
+          "url": "/#project-suibianju",
+          "caseUrl": "/cases/shared-choice/"
         },
         {
           "id": "research-agent",
           "name": "Research Agent & quantitative tools",
-          "url": "/#projects",
+          "url": "/#project-research-agent",
           "caseUrl": null
         }
       ],
@@ -76,14 +82,14 @@
         {
           "id": "eval",
           "name": "Eval Lab",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/trust/"
+          "url": "/#project-eval",
+          "caseUrl": "/cases/trust/"
         },
         {
           "id": "filing",
           "name": "Filing Eval",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/trust/"
+          "url": "/#project-filing",
+          "caseUrl": "/cases/filing/"
         }
       ],
       "evidence": [
@@ -124,19 +130,19 @@
         {
           "id": "taste",
           "name": "TasteRoom",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/taste/"
+          "url": "/#project-taste",
+          "caseUrl": "/cases/taste/"
         },
         {
           "id": "suibianju",
           "name": "Suibianju",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/shared-choice/"
+          "url": "/#project-suibianju",
+          "caseUrl": "/cases/shared-choice/"
         },
         {
           "id": "grounded",
           "name": "Grounded Choice",
-          "url": "/#projects",
+          "url": "/#project-grounded",
           "caseUrl": null
         }
       ],
@@ -175,14 +181,14 @@
         {
           "id": "growth",
           "name": "Growth Experiment Lab",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/bundles/"
+          "url": "/#project-growth",
+          "caseUrl": "/cases/growth/"
         },
         {
           "id": "bundle",
           "name": "Bundle Lab",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/bundles/"
+          "url": "/#project-bundle",
+          "caseUrl": "/cases/bundles/"
         }
       ],
       "evidence": [
@@ -224,14 +230,14 @@
         {
           "id": "pricing",
           "name": "Pricing Model Sim",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/bundles/"
+          "url": "/#project-pricing",
+          "caseUrl": "/cases/pricing/"
         },
         {
           "id": "bundle",
           "name": "Bundle Lab",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/bundles/"
+          "url": "/#project-bundle",
+          "caseUrl": "/cases/bundles/"
         }
       ],
       "evidence": [
@@ -274,16 +280,28 @@
       ],
       "projects": [
         {
+          "id": "rag-lab",
+          "name": "Trustworthy RAG Lab",
+          "url": "/#project-rag-lab",
+          "caseUrl": "/cases/rag/"
+        },
+        {
+          "id": "agent-bench",
+          "name": "Agent Execution Bench",
+          "url": "/#project-agent-bench",
+          "caseUrl": "/cases/execution/"
+        },
+        {
           "id": "fde",
           "name": "Enterprise AI & business tools",
-          "url": "/#projects",
-          "caseUrl": null
+          "url": "/#project-fde",
+          "caseUrl": "/cases/agent-workflow/"
         },
         {
           "id": "filing",
           "name": "Filing Eval",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/trust/"
+          "url": "/#project-filing",
+          "caseUrl": "/cases/filing/"
         }
       ],
       "evidence": [
@@ -324,14 +342,14 @@
         {
           "id": "research-agent",
           "name": "Research Agent & quantitative tools",
-          "url": "/#projects",
+          "url": "/#project-research-agent",
           "caseUrl": null
         },
         {
           "id": "filing",
           "name": "Filing Eval",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/trust/"
+          "url": "/#project-filing",
+          "caseUrl": "/cases/filing/"
         }
       ],
       "evidence": [
@@ -369,7 +387,7 @@
         {
           "id": "commute",
           "name": "Commute Compare",
-          "url": "/#projects",
+          "url": "/#project-commute",
           "caseUrl": null
         }
       ],
@@ -411,13 +429,13 @@
         {
           "id": "pricing",
           "name": "Pricing Model Sim",
-          "url": "/#projects",
-          "caseUrl": "/en/cases/bundles/"
+          "url": "/#project-pricing",
+          "caseUrl": "/cases/pricing/"
         },
         {
           "id": "content",
           "name": "Study-abroad content business",
-          "url": "/#projects",
+          "url": "/#project-content",
           "caseUrl": null
         }
       ],

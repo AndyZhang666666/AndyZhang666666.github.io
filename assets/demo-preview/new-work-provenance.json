@@ -1,0 +1,24 @@
+{
+  "sourceRevision": "6816b6d0d324f3c33acbdd6ae8310d1a0a0e4e66",
+  "use": {
+    "agent": "Projection of saved program-run records. No model/tool call or ticket write.",
+    "rag": "Canonical engine and public corpus; real BM25 with rule extraction. No model or admin corpus."
+  },
+  "dependencies": [
+    {
+      "path": "agent-bench/samples/examples.json",
+      "sha256": "b75cd6413cd3a67c5b2e0720178ad9dcaa70646494127430d107d5638c223ffb",
+      "url": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/blob/6816b6d0d324f3c33acbdd6ae8310d1a0a0e4e66/agent-bench/samples/examples.json"
+    },
+    {
+      "path": "rag-lab/engine.mjs",
+      "sha256": "fd02091c24c0ef78a44eca4179b1fbfdbf078748b84e57ee4c49d99d989d6632",
+      "url": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/blob/6816b6d0d324f3c33acbdd6ae8310d1a0a0e4e66/rag-lab/engine.mjs"
+    },
+    {
+      "path": "rag-lab/public-corpus.json",
+      "sha256": "76ab931e9d031f10f8d94e0f589f5fe1b592475a399e0dbe407050055397baaf",
+      "url": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/blob/6816b6d0d324f3c33acbdd6ae8310d1a0a0e4e66/rag-lab/public-corpus.json"
+    }
+  ]
+}

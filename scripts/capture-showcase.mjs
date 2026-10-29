@@ -11,7 +11,7 @@ const hash=value=>crypto.createHash('sha256').update(value).digest('hex');
 try{
  for(const id of (process.argv.slice(2).length?process.argv.slice(2):['eval','taste','suibianju','bundle'])){
   const context=await browser.newContext({viewport:{width:1280,height:1000},reducedMotion:'reduce'}),page=await context.newPage();
-  const route={eval:'/llm-output-eval/',taste:'/tasteroom/?direction=swiss',suibianju:'/suibianju/',bundle:'/bundle-lab/simulate/'}[id];
+  const route={eval:'/llm-output-eval/',taste:'/tasteroom/?direction=swiss',suibianju:'/suibianju/',bundle:'/bundle-lab/simulate/','agent-bench':'/agent-bench/','rag-lab':'/rag-lab/'}[id];
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
   const response=await page.goto(base+route,{waitUntil:'networkidle'});if(!response?.ok())throw Error(route+' did not load');
   await page.evaluate(()=>document.fonts.ready);
@@ -39,6 +39,18 @@ try{
    const scroll=await page.evaluate(()=>({x:scrollX,y:scrollY}));
    region={clip:{x:editor.x+scroll.x,y:summary.y+scroll.y-10,width:editor.width,height:draft.y+draft.height-summary.y+20}};
    state='No-intersection scenario; voluntary budget proposal fills a draft. Confirmed conditions unchanged, shared acceptance still pending.';
+  }else if(id==='agent-bench'){
+   await page.locator('#watch:not(:disabled)').click();
+   await page.locator('#verdict:not([hidden])').waitFor();
+   const comparison=await page.locator('#comparison').boundingBox(),verdict=await page.locator('#verdict').boundingBox(),scroll=await page.evaluate(()=>({x:scrollX,y:scrollY}));
+   if(!comparison||!verdict)throw Error('Agent comparison and final verdict must be visible');
+   region={clip:{x:comparison.x+scroll.x,y:comparison.y+scroll.y,width:comparison.width,height:verdict.y+verdict.height-comparison.y}};
+   state='Saved program records for timeout after commit: baseline unknown versus reconciled recovery. Actual final ticket state and grader verdict; no new tool execution or model call.';
+  }else if(id==='rag-lab'){
+   await page.waitForFunction(()=>document.getElementById('answerHeadline').textContent.includes('14'));
+   await page.locator('#citationLinks button').first().click();
+   region=page.locator('#result');
+   state='Public fictional corpus, actual BM25 retrieval and rule extraction for 2026-10-28 / baseline: 14-day rule with version 2.0 and source paragraph. No model call.';
   }else{
    await page.locator('#picked').selectOption('可乐 + 鸡腿饭');
    await page.locator('#scenario-result').waitFor();region=page.locator('#scenario-result');

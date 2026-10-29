@@ -2,6 +2,7 @@ import {renderProjectCards} from './project-cards.mjs';
 import {createShowcaseMotion} from './showcase-motion.mjs';
 import {renderProductPrinciples,initProductPrinciples} from './product-principles.mjs';
 import {renderAiViews} from './ai-views.mjs';
+import {initExecution,initRag} from './new-work-previews.mjs';
 
 // The page owns only ephemeral previews. Full tools keep their own state and storage.
 const root=document.getElementById('selected');
@@ -128,9 +129,9 @@ if(root){
  const direction=root.querySelector('#showcaseDirection'),tabs=root.querySelector('.showcase-choices');
  const allTabs=[...tabs.querySelectorAll('[data-selected-id]')],panels=[...root.querySelectorAll('[data-preview]')];
  const material=createShowcaseMotion(root);
- const pending=new Map(),loaders={'trust':initEval,'taste':initTaste,'shared-choice':initShared,'bundles':initBundle};
+ const pending=new Map(),loaders={'trust':initEval,'taste':initTaste,'shared-choice':initShared,'bundles':initBundle,'execution':initExecution,'rag':initRag};
  function activate(id,announce=true){
-  const tab=allTabs.find(tab=>tab.dataset.selectedId===id);if(!tab)return;
+  const tab=allTabs.find(tab=>tab.dataset.selectedId===id);if(!tab||tab.hidden)return;
   const previous=allTabs.find(item=>item.getAttribute('aria-selected')==='true')?.dataset.selectedId;
   allTabs.forEach(item=>{const active=item===tab;item.setAttribute('aria-selected',String(active));item.tabIndex=active?0:-1;});
   panels.forEach(panel=>panel.hidden=panel.dataset.preview!==id);
@@ -145,16 +146,21 @@ if(root){
  allTabs.forEach(tab=>{
   tab.addEventListener('click',event=>{if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();activate(tab.dataset.selectedId);});
   tab.addEventListener('keydown',event=>{
-   const ordered=[...tabs.children],index=ordered.indexOf(tab),mobile=matchMedia('(max-width: 900px)').matches;
+   const ordered=[...tabs.children].filter(item=>!item.hidden&&item.matches('[data-selected-id]')),index=ordered.indexOf(tab),mobile=matchMedia('(max-width: 900px)').matches;
    const delta={ArrowRight:1,ArrowLeft:-1,ArrowDown:mobile?2:1,ArrowUp:mobile?-2:-1}[event.key];
    let next;if(event.key==='Home')next=ordered[0];else if(event.key==='End')next=ordered.at(-1);else if(delta)next=ordered[(index+delta+ordered.length)%ordered.length];
    if(next){event.preventDefault();activate(next.dataset.selectedId);next.focus({preventScroll:true});}
    if(event.key===' '){event.preventDefault();activate(tab.dataset.selectedId);}
   });
  });
- direction.addEventListener('change',()=>{const order=direction.selectedOptions[0].dataset.order.split(',');order.forEach(id=>tabs.append(allTabs.find(tab=>tab.dataset.selectedId===id)));activate(order[0]);});
+ direction.addEventListener('change',()=>{
+  const order=direction.selectedOptions[0].dataset.order.split(',');
+  allTabs.forEach(tab=>{tab.hidden=!order.includes(tab.dataset.selectedId);});
+  order.forEach(id=>tabs.append(allTabs.find(tab=>tab.dataset.selectedId===id)));
+  activate(order[0]);
+ });
  const syncOrientation=()=>tabs.setAttribute('aria-orientation',matchMedia('(max-width: 900px)').matches?'horizontal':'vertical');
- matchMedia('(max-width: 900px)').addEventListener('change',syncOrientation);syncOrientation();activate('trust',false);
+ matchMedia('(max-width: 900px)').addEventListener('change',syncOrientation);syncOrientation();activate(direction.selectedOptions[0].dataset.order.split(',')[0],false);
 }
 
 // One shared, native dialog; original image links remain useful without JavaScript.

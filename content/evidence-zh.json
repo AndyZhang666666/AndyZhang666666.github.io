@@ -20,21 +20,27 @@
       ],
       "projects": [
         {
+          "id": "agent-bench",
+          "name": "Agent 执行评测台",
+          "url": "/#project-agent-bench",
+          "caseUrl": "/cases/execution/"
+        },
+        {
           "id": "eval",
           "name": "Eval Lab",
-          "url": "/#projects",
+          "url": "/#project-eval",
           "caseUrl": "/cases/trust/"
         },
         {
           "id": "suibianju",
           "name": "随便局",
-          "url": "/#projects",
+          "url": "/#project-suibianju",
           "caseUrl": "/cases/shared-choice/"
         },
         {
           "id": "research-agent",
           "name": "个人投研 Agent 与量化研究",
-          "url": "/#projects",
+          "url": "/#project-research-agent",
           "caseUrl": null
         }
       ],
@@ -76,14 +82,14 @@
         {
           "id": "eval",
           "name": "Eval Lab",
-          "url": "/#projects",
+          "url": "/#project-eval",
           "caseUrl": "/cases/trust/"
         },
         {
           "id": "filing",
           "name": "Filing Eval",
-          "url": "/#projects",
-          "caseUrl": "/cases/trust/"
+          "url": "/#project-filing",
+          "caseUrl": "/cases/filing/"
         }
       ],
       "evidence": [
@@ -124,19 +130,19 @@
         {
           "id": "taste",
           "name": "偏爱实验室",
-          "url": "/#projects",
+          "url": "/#project-taste",
           "caseUrl": "/cases/taste/"
         },
         {
           "id": "suibianju",
           "name": "随便局",
-          "url": "/#projects",
+          "url": "/#project-suibianju",
           "caseUrl": "/cases/shared-choice/"
         },
         {
           "id": "grounded",
           "name": "有据",
-          "url": "/#projects",
+          "url": "/#project-grounded",
           "caseUrl": null
         }
       ],
@@ -175,13 +181,13 @@
         {
           "id": "growth",
           "name": "Growth Experiment Lab",
-          "url": "/#projects",
-          "caseUrl": "/cases/bundles/"
+          "url": "/#project-growth",
+          "caseUrl": "/cases/growth/"
         },
         {
           "id": "bundle",
           "name": "Bundle Lab",
-          "url": "/#projects",
+          "url": "/#project-bundle",
           "caseUrl": "/cases/bundles/"
         }
       ],
@@ -224,13 +230,13 @@
         {
           "id": "pricing",
           "name": "Pricing Model Sim",
-          "url": "/#projects",
-          "caseUrl": "/cases/bundles/"
+          "url": "/#project-pricing",
+          "caseUrl": "/cases/pricing/"
         },
         {
           "id": "bundle",
           "name": "Bundle Lab",
-          "url": "/#projects",
+          "url": "/#project-bundle",
           "caseUrl": "/cases/bundles/"
         }
       ],
@@ -274,16 +280,28 @@
       ],
       "projects": [
         {
+          "id": "rag-lab",
+          "name": "可信 RAG 实验台",
+          "url": "/#project-rag-lab",
+          "caseUrl": "/cases/rag/"
+        },
+        {
+          "id": "agent-bench",
+          "name": "Agent 执行评测台",
+          "url": "/#project-agent-bench",
+          "caseUrl": "/cases/execution/"
+        },
+        {
           "id": "fde",
           "name": "企业 AI 与轻量业务工具",
-          "url": "/#projects",
-          "caseUrl": null
+          "url": "/#project-fde",
+          "caseUrl": "/cases/agent-workflow/"
         },
         {
           "id": "filing",
           "name": "Filing Eval",
-          "url": "/#projects",
-          "caseUrl": "/cases/trust/"
+          "url": "/#project-filing",
+          "caseUrl": "/cases/filing/"
         }
       ],
       "evidence": [
@@ -324,14 +342,14 @@
         {
           "id": "research-agent",
           "name": "个人投研 Agent 与量化研究",
-          "url": "/#projects",
+          "url": "/#project-research-agent",
           "caseUrl": null
         },
         {
           "id": "filing",
           "name": "Filing Eval",
-          "url": "/#projects",
-          "caseUrl": "/cases/trust/"
+          "url": "/#project-filing",
+          "caseUrl": "/cases/filing/"
         }
       ],
       "evidence": [
@@ -369,7 +387,7 @@
         {
           "id": "commute",
           "name": "通勤方案比较器",
-          "url": "/#projects",
+          "url": "/#project-commute",
           "caseUrl": null
         }
       ],
@@ -411,13 +429,13 @@
         {
           "id": "pricing",
           "name": "Pricing Model Sim",
-          "url": "/#projects",
-          "caseUrl": "/cases/bundles/"
+          "url": "/#project-pricing",
+          "caseUrl": "/cases/pricing/"
         },
         {
           "id": "content",
           "name": "留学咨询内容矩阵",
-          "url": "/#projects",
+          "url": "/#project-content",
           "caseUrl": null
         }
       ],
