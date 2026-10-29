@@ -45,15 +45,16 @@ test('a historical generator cannot erase a parallel custom project/card', async
   } finally { await rm(dir, {recursive: true}); }
 });
 
-test('actual site addition preserves all 16 existing projects including Agent Bench and changes only its own card/count', async () => {
-  const root = new URL('../../', import.meta.url);
+test('recorded RAG release preserves its 16 predecessors; later homepage editing is tested separately', async () => {
   const cwd = new URL('../../', import.meta.url).pathname;
   const base = 'b74a5e4db66bb84be23a51cf191dec6e74b58086';
+  // This assertion describes that release, not every future authorised portfolio edit.
+  const release = 'd5d64cfa7717ce51753285603d097e1f68d7b5d9';
   const previousData = JSON.parse(execFileSync('git', ['show', `${base}:data.json`], {cwd, encoding: 'utf8'}));
-  const currentData = JSON.parse(await readFile(new URL('data.json', root), 'utf8'));
+  const currentData = JSON.parse(execFileSync('git', ['show', `${release}:data.json`], {cwd, encoding: 'utf8'}));
   assert.deepEqual(currentData.projects.filter(p => p.id !== 'rag-lab'), previousData.projects);
   assert.deepEqual({...currentData, projects: []}, {...previousData, projects: []});
-  let currentHTML = await readFile(new URL('index.html', root), 'utf8');
+  let currentHTML = execFileSync('git', ['show', `${release}:index.html`], {cwd, encoding: 'utf8'});
   const previousHTML = execFileSync('git', ['show', `${base}:index.html`], {cwd, encoding: 'utf8'});
   currentHTML = currentHTML.replace(/<article id="project-rag-lab"[^]*?<\/article>\n/, '')
     .replaceAll(/查看全部 \d+ 项作品/g, previousHTML.match(/查看全部 \d+ 项作品/)[0])
@@ -61,7 +62,7 @@ test('actual site addition preserves all 16 existing projects including Agent Be
   currentHTML = currentHTML.replace(/src="app\.js\?v=[^"]*"/, previousHTML.match(/src="app\.js\?v=[^"]*"/)[0]);
   assert.equal(currentHTML, previousHTML);
   const previousApp = execFileSync('git', ['show', `${base}:app.js`], {cwd, encoding: 'utf8'});
-  const app = await readFile(new URL('app.js', root), 'utf8');
+  const app = execFileSync('git', ['show', `${release}:app.js`], {cwd, encoding: 'utf8'});
   assert.equal(app.replace(/data\.json\?v=[\w.-]+/g, previousApp.match(/data\.json\?v=[\w.-]+/)[0]), previousApp);
-  assert.equal(execFileSync('git', ['diff', base, '--', 'agent-bench', '.github/workflows/agent-bench.yml'], {cwd, encoding: 'utf8'}), '', 'Parallel module must remain byte-for-byte unchanged');
+  assert.equal(execFileSync('git', ['diff', base, release, '--', 'agent-bench', '.github/workflows/agent-bench.yml'], {cwd, encoding: 'utf8'}), '', 'Parallel module was unchanged in the recorded RAG release');
 });

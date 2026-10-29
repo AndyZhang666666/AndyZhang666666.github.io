@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
-const base=process.env.SHOWCASE_BASE_URL||'http://127.0.0.1:8811',out='.taste-skill/showcase/material';
+const base=process.env.SHOWCASE_BASE_URL||'http://127.0.0.1:8811',out='.taste-skill/new-work-20261029/material';
 await fs.mkdir(out,{recursive:true});
 const browser=await chromium.launch({channel:'chrome',headless:true});
 const checks=[],errors=[];
@@ -18,7 +18,7 @@ try{
  await p.locator('[data-selected-id=taste]').click();
  await p.waitForFunction(()=>parseFloat(document.querySelector('.showcase-choices').style.getPropertyValue('--pick-y'))>80);
  assert.equal(await p.locator('.showcase-panel:not([hidden])').getAttribute('data-preview'),'taste');
- for(const id of ['trust','shared-choice','bundles'])await p.locator(`[data-selected-id="${id}"]`).click();
+ for(const id of ['trust','execution','bundles'])await p.locator(`[data-selected-id="${id}"]`).click();
  assert.equal(await p.locator('.showcase-panel:not([hidden])').count(),1);
  assert.equal(await p.locator('.showcase-panel:not([hidden])').getAttribute('data-preview'),'bundles');
  await p.locator('[data-bundle-adoption="0.5"]:not(:disabled)').waitFor();
@@ -44,12 +44,12 @@ try{
  checks.push('Reduced motion stops spatial animation while keeping evidence feedback usable');
  const touch=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,reducedMotion:'no-preference'}),mobile=await touch.newPage();
  mobile.on('pageerror',error=>errors.push(error.message));
- await mobile.goto(base+'/#selected',{waitUntil:'networkidle'});await mobile.locator('[data-selected-id=shared-choice]').tap();
- await mobile.locator('[data-shared-budget="85"]:not(:disabled)').waitFor();await mobile.locator('[data-shared-budget="85"]').tap();assert.equal(await mobile.locator('[data-shared-count]').innerText(),'1');
+ await mobile.goto(base+'/#selected',{waitUntil:'networkidle'});await mobile.locator('[data-selected-id=execution]').tap();
+ await mobile.locator('[data-agent-check]:not(:disabled)').waitFor();await mobile.locator('[data-agent-check]').tap();assert.equal(await mobile.locator('[data-agent-result]').isVisible(),true);
  assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
  await mobile.locator('#selected').evaluate(el=>Promise.all(el.getAnimations({subtree:true}).map(animation=>animation.finished.catch(()=>{}))));
  await mobile.locator('#selected').screenshot({path:out+'/glass-touch.png'});await touch.close();
- checks.push('Touch selection and budget preview work at 390px without horizontal overflow');
+ checks.push('Touch selection and execution-record preview work at 390px without horizontal overflow');
  assert.deepEqual(errors,[]);
  await fs.writeFile(out+'/report.json',JSON.stringify({passed:true,at:new Date().toISOString(),checks,errors},null,2));
  console.log('PASS: '+checks.length+' material/motion checks, desktop pointer, touch and reduced motion.');
