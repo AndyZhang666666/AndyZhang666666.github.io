@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="从虚构设备规则中查找依据，观察生效版本、访问范围和资料缺口如何影响回答。免密钥原创示例，本地真实检索 API。">
+  <title>可信 RAG 实验台 · Andy Zhang</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#question">跳到问题输入</a>
+  <header class="topbar">
+    <a href="../" class="back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 4-6 6 6 6M4 10h12"/></svg>Andy 的作品</a>
+    <span class="brand">可信 RAG 实验台</span>
+    <a class="source-link" href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/rag-lab" target="_blank" rel="noopener">源码与运行说明 <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <div class="intro">
+      <h1>答案，要有可用的依据。</h1>
+      <p>显示器能借多久？换一个日期或身份，看看答案为什么变化。</p>
+    </div>
+    <div class="mode-banner"><span class="mode-dot" aria-hidden="true"></span><strong id="modeLabel">原创示例模式</strong><span id="modeDescription">浏览器文本检索 · 规则摘录 · 无模型调用</span></div>
+
+    <section class="query-panel" aria-labelledby="queryTitle">
+      <div class="section-title"><h2 id="queryTitle">先问一个具体问题</h2><span class="quiet">青屿工作室 · 原创虚构规则</span></div>
+      <div class="presets" aria-label="预设问题">
+        <button type="button" data-question="显示器最长能借多久？" aria-pressed="true"><strong>借用时长</strong><span>新旧版本怎么选</span></button>
+        <button type="button" data-question="显示器押金是多少？" aria-pressed="false"><strong>资料不足</strong><span>有相关内容也不能猜</span></button>
+        <button type="button" data-question="应急备用机有多少台？" aria-pressed="false"><strong>权限限制</strong><span>哪些依据可以使用</span></button>
+      </div>
+      <form id="queryForm">
+        <label class="sr-only" for="question">设备借用问题</label>
+        <div class="question-line"><textarea id="question" rows="2" maxlength="300" required aria-describedby="inputHint">显示器最长能借多久？</textarea><button class="primary" id="runButton" type="submit">查找依据<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg></button></div>
+        <p id="inputHint" class="field-hint">也可以问续借、归还地点，或试试「无人机最长能借多久」。一次问一项规则。</p>
+        <div class="conditions">
+          <label>示例身份<select id="role"><option value="employee">普通员工</option><option value="admin">设备管理员</option></select></label>
+          <label>业务日期<input id="date" type="date" value="2026-10-28" min="2000-01-01" max="2099-12-31" required></label>
+          <label>资料快照<select id="snapshot"><option value="baseline">原始快照 · 14 天规则</option><option value="revised">演示修订 · 10 天规则</option></select></label>
+          <button type="button" class="text-button" id="historical">试试历史日期</button>
+        </div>
+        <p class="field-hint" id="scopeHint">日期固定，不随电脑时钟变化。快照是两份独立的虚构资料版本。</p>
+        <details id="runtimeSettings" class="runtime-settings">
+          <summary>运行方式与演示边界</summary>
+          <div class="runtime-body">
+            <label for="runtime">运行方式</label>
+            <select id="runtime"><option value="example">原创示例 · 浏览器检索 / 规则摘录</option><option value="api" disabled>本地 API · 真实检索 / 规则摘录</option><option value="model" disabled>本地 API · 真实模型调用</option></select>
+            <p id="apiHint">公开站由 GitHub Pages 托管，没有在线后端。无需 API Key；本地启动方式见源码 README。</p>
+            <div id="adminSettings" hidden><label for="adminCredential">本地管理会话凭据</label><input type="password" id="adminCredential" autocomplete="off" placeholder="本项目 RAG_ADMIN_TOKEN" aria-describedby="adminHint"><p id="adminHint">仅发送到当前本机 API；不会写入浏览器存储或导出记录。</p></div>
+            <p>身份切换只演示虚构场景，不等于生产鉴权。公开包不含管理原文；本地管理会话需独立凭据。公开 GitHub 中的虚构测试资料不应被当作保密存储。</p>
+            <p>本地模型只接收服务端允许的片段。引用能定位，不代表所有语义都正确；少量关键事实另作检查，真实模型结果仍需人工复核。</p>
+          </div>
+        </details>
+      </form>
+    </section>
+
+    <div id="error" role="alert" hidden></div>
+    <div id="stale" role="status" hidden>条件已更改。下面仍是上一次结果，请重新查找。</div>
+    <div id="liveStatus" class="sr-only" role="status" aria-live="polite"></div>
+    <section class="reading-area" id="result" aria-label="本次回答与来源" aria-busy="true">
+      <article class="answer-panel">
+        <div class="section-title"><h2>得到的回答</h2><span id="answerStatus" class="status-label">准备查找</span></div>
+        <p id="runScope" class="run-scope">普通员工 · 2026-10-28 · 原始快照</p>
+        <h3 id="answerHeadline" tabindex="-1">正在读取示例资料…</h3>
+        <p id="answerText">随后可点击引用，直接查看支持结论的段落。</p>
+        <div id="citationLinks" class="citation-links"></div>
+        <p class="answer-note" id="answerNote"></p>
+        <div class="answer-footer"><span id="runMode">原创示例 · 无模型调用</span><button id="exportButton" class="text-button" type="button" disabled>导出脱敏记录</button></div>
+      </article>
+      <aside class="evidence-panel" aria-labelledby="evidenceTitle"><div class="section-title"><h2 id="evidenceTitle">这次使用的依据</h2><span id="evidenceCount" class="quiet"></span></div><div id="sources"><p class="empty-evidence">正在查找适用段落。</p></div></aside>
+    </section>
+    <details class="technical" id="technical"><summary>技术详情：找到哪些片段，做了哪些检查</summary><div class="technical-body"><div id="process"></div><dl id="runDetails"></dl><p class="field-hint">下方为本次实际召回结果，包含未用于回答的相似内容。只有当前范围内的片段会出现在这里；BM25 分数不是答案正确率。</p><div id="retrieval"></div></div></details>
+    <section class="history" aria-labelledby="historyTitle"><h2 id="historyTitle">本次浏览的运行记录</h2><div id="historyList"></div><p class="field-hint">仅留内存，最多五次；每次保留各自的日期和快照。刷新清除。</p></section>
+    <footer><span>查不到，也是一种需要说明的结果。</span><a href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/blob/main/rag-lab/docs/TEST-REPORT.md" target="_blank" rel="noopener">测试范围与已知限制 ↗</a></footer>
+    <noscript><p>此体验需要 JavaScript。可在 GitHub 阅读全部原创资料、检索实现及测试报告。</p></noscript>
+  </main>
+</body>
+</html>
