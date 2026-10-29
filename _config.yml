@@ -18,3 +18,11 @@ exclude:
   - docs/DEMO-SHOWCASE-20261028.md
   - docs/FRONTEND-REVIEW-20261027.md
   - docs/LOCAL-VALIDATION-20261027.md
+  - agent-bench/backend
+  - agent-bench/tests
+  - agent-bench/docs
+  - agent-bench/PRODUCT.md
+  - agent-bench/DESIGN.md
+  - agent-bench/README.md
+  - agent-bench/requirements.txt
+  - agent-bench/requirements-dev.lock
