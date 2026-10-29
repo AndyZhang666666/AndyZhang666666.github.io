@@ -59,3 +59,11 @@
 真实模型联调、模型语义/注入评测、生产账户与租户鉴权、安全在线托管均未完成。向量、混合检索、rerank、PDF、通用后台、多 Agent 不在首版范围。公开管理员切换仍不会取得管理原文，真正角色差异在本地 API 验证。
 
 推送、合并、Pages 部署和线上验收是独立状态，详见 [交付与部署记录](DELIVERY.md)。不能从本地通过推断已经上线。
+
+## 已部署的线上验收
+
+功能版本 `604ec87` 已正常推送并快进接入 main，GitHub RAG 检查和 Pages 部署均成功，随后在真实官网执行 13 项浏览器验收，0 个页面脚本异常。检查涵盖当前/历史/修订规则、来源焦点定位、资料不足、冲突、公开管理范围边界、390px 手机操作、17 项官网入口和另一位 Agent 的超时对照样例。
+
+线上 `index.html`、`app.mjs`、`engine.mjs` 和 `public-corpus.json` 四个资源逐字 SHA-256 与本地一致。已验证 Pages 的后端/corpus/测试/管理记录路径返回 404；未将静态网页宣称为在线后端。真实模型调用仍为 0。
+
+[线上原始记录](../evidence/online-browser-results.json) · [部署 API 证据](../evidence/deployment-functional.json) · [线上桌面截图](../evidence/online-desktop.png) · [线上手机截图](../evidence/online-mobile.png)。完整阶段与提交见 DELIVERY.md。

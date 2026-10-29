@@ -3,4 +3,5 @@
 !.env.example
 runs/
 node_modules/
+.venv/
 *.log

@@ -1,0 +1,44 @@
+{
+  "createdAt": "2026-10-29T06:09:27.425910+00:00",
+  "base": "https://andyzhang666666.github.io",
+  "browser": "156.0.8078.49",
+  "checks": [
+    "Deployed /rag-lab/ serves interactive original example and retrieves 14-day current rule",
+    "Online citation locates exact current original paragraph",
+    "Online historical date chooses 30-day version",
+    "Online snapshot reruns retrieval; old result remains bound until rerun",
+    "Online missing deposit evidence does not invent an answer",
+    "Online contradictory rules retain both sources",
+    "Public role switch contains no management original and performs no API/model requests",
+    "Live HTML, JavaScript, retrieval engine and public corpus match local SHA-256 bytes",
+    "Pages excludes backend, restricted corpus, tests and management run artifacts; no hosted API",
+    "Deployed 390px layout supports condition change and source navigation without overflow",
+    "Deployed homepage includes all 17 projects and both RAG/Agent Bench entries",
+    "Deployed parallel Agent Bench timeout comparison remains operable",
+    "Existing TasteRoom, Suibianju, Filing Eval and trust case return HTTP 200"
+  ],
+  "passed": 13,
+  "pageErrors": [],
+  "sha256": {
+    "index.html": "da8284e51e2cfb4305e5bcc1d905b95571ad4db91dca1cde078f7f86a2922794",
+    "app.mjs": "e25e6382684a49d73d0d5608d634f268e027c152b212368ec7e3a5b7575bce70",
+    "engine.mjs": "fd02091c24c0ef78a44eca4179b1fbfdbf078748b84e57ee4c49d99d989d6632",
+    "public-corpus.json": "76ab931e9d031f10f8d94e0f589f5fe1b592475a399e0dbe407050055397baaf"
+  },
+  "excludedPaths": {
+    "/rag-lab/corpus/ADM-RES-1.md": 404,
+    "/rag-lab/server/server.mjs": 404,
+    "/rag-lab/tests/cases.json": 404,
+    "/rag-lab/evidence/offline-records.json": 404,
+    "/rag-lab/evidence/local-admin.png": 404,
+    "/api/health": 404
+  },
+  "existingPages": {
+    "/tasteroom/": 200,
+    "/suibianju/": 200,
+    "/demos/filing-eval/": 200,
+    "/cases/trust/": 200
+  },
+  "modelCalls": 0,
+  "liveBackend": "not deployed; local API only"
+}

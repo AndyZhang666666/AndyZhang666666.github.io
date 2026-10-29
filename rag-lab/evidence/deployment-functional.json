@@ -1,0 +1,44 @@
+{
+  "main": "604ec879894c56cb53c8f2c5f9f37c869fb166bc",
+  "feature": "604ec879894c56cb53c8f2c5f9f37c869fb166bc",
+  "runs": [
+    {
+      "id": 40827382206,
+      "name": "RAG Lab checks",
+      "head_sha": "604ec879894c56cb53c8f2c5f9f37c869fb166bc",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/actions/runs/40827382206"
+    },
+    {
+      "id": 40827382069,
+      "name": "pages build and deployment",
+      "head_sha": "604ec879894c56cb53c8f2c5f9f37c869fb166bc",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/actions/runs/40827382069"
+    },
+    {
+      "id": 40827204533,
+      "name": "RAG Lab checks",
+      "head_sha": "604ec879894c56cb53c8f2c5f9f37c869fb166bc",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/actions/runs/40827204533"
+    }
+  ],
+  "deployments": [
+    {
+      "id": 7405385098,
+      "sha": "604ec879894c56cb53c8f2c5f9f37c869fb166bc",
+      "environment": "github-pages",
+      "statuses_url": "https://api.github.com/repos/AndyZhang666666/AndyZhang666666.github.io/deployments/7405385098/statuses",
+      "latestStatus": {
+        "state": "success",
+        "environment_url": "https://andyzhang666666.github.io/",
+        "log_url": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/actions/runs/40827382069/job/123293591228",
+        "created_at": "2026-10-29T06:08:51Z"
+      }
+    }
+  ]
+}
