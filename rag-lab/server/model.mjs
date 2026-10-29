@@ -57,7 +57,7 @@ export async function generate(run, config, {fetchImpl = fetch, timeoutMs = 1200
   try { output = JSON.parse(raw); } catch { throw new ModelError('model_invalid_json', '模型回答格式无效，未展示为有效答案。', raw.slice(0, 12000)); }
   const result = checkModelAnswer(output, {facts: run.facts}, run.retrieved);
   if (!result.ok) throw new ModelError('model_validation', `回答未通过检查：${result.reason}。可重试或查看规则摘录。`, raw.slice(0, 12000));
-  return {...run, answer: output.answer, rawAnswer: raw, mode: 'local-model', model: config.name,
+  return {...run, answer: output.answer, rawAnswer: raw, mode: 'local-model', model: data.model ?? config.name, requestedModel: config.name,
     usage: data.usage ? {inputTokens: data.usage.input_tokens ?? null, outputTokens: data.usage.output_tokens ?? null, totalTokens: data.usage.total_tokens ?? null} : null,
     citations: output.citations.map(c => ({...run.retrieved.find(r => r.id === c.chunkId), quote: c.quote})),
     checks: {citation: 'matched', keyFacts: 'matched', semantic: 'human-review-required'},

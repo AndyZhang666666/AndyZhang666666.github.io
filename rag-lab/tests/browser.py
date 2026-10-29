@@ -47,6 +47,7 @@ with sync_playwright() as p:
     record('static example: actual search yields current 14 days', lambda: headline(page, '单次最长 14天'))
     expect(page.locator('#modeLabel')).to_have_text('原创示例模式')
     page.screenshot(path=str(OUT/'desktop.png'), full_page=True)
+    page.locator('#result').screenshot(path=str(OUT/'answer-preview.png'))
 
     def source_focus():
         page.locator('[data-citation="MON-2:p1"]').click()

@@ -1,0 +1,41 @@
+✔ real HTTP auth, role spoofing, and employee data boundary (43.895958ms)
+✔ source and export endpoints isolate sessions and immutable snapshot records (24.118084ms)
+✔ limits, impossible dates, JSON errors, origin and static file isolation (8.017666ms)
+✔ missing model is a visible generation failure, not fake success (3.367916ms)
+✔ protocol fixture checks actual authorized context and injection data; NOT a real LLM eval (4.608208ms)
+✔ unanswerable evidence never calls the model; ordinary denied context remains empty of secrets (4.940458ms)
+✔ wrong facts with a valid citation fail validation and preserve rejected raw output only in owner export (3.673875ms)
+✔ upstream failure and malformed JSON are explicit failures (6.627833ms)
+✔ model timeout abort is handled without an extractive success fallback (7.203292ms)
+✔ retrieval failure identifies the failed stage (2.494292ms)
+✔ expired sessions and rate caps require explicit recovery (4.761625ms)
+✔ process-wide model call ceiling is enforced (4.57375ms)
+✔ redaction keeps measurable usage, strips credentials and masks common personal strings (0.172667ms)
+✔ fixed fixture: current (27.576458ms)
+✔ fixed fixture: historical (0.570916ms)
+✔ fixed fixture: denied (0.238209ms)
+✔ fixed fixture: admin (3.123375ms)
+✔ fixed fixture: distractor (0.40625ms)
+✔ fixed fixture: no-answer (0.256333ms)
+✔ fixed fixture: conflict (0.280375ms)
+✔ fixed fixture: injection (0.380125ms)
+✔ fixed fixture: snapshot (0.291ms)
+✔ fixed fixture: renew (0.310834ms)
+✔ fixed fixture: laptop (0.711375ms)
+✔ fixed fixture: clarify (0.204458ms)
+✔ half-open effective date boundary and snapshot activation (0.269791ms)
+✔ no applicable date produces no fabricated current rule (0.128667ms)
+✔ stable source binding survives subsequent snapshot run (0.46225ms)
+✔ input validation rejects impossible dates, object tricks and auth parameters (0.243875ms)
+✔ citation existence is distinct from fact correctness (0.499542ms)
+✔ publication contains no admin-only metadata or text (6.346958ms)
+✔ incremental site integration is idempotent and preserves unrelated data/cards (11.8745ms)
+✔ actual site addition preserves all 15 original projects and changes only its own card/count (52.775208ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 240.440041

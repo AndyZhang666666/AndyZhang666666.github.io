@@ -1,0 +1,18 @@
+{
+  "base": "http://127.0.0.1:4319",
+  "projectCount": 16,
+  "checks": [
+    "All original project links retained; one RAG card with real screenshot and correct destination",
+    "Existing evidence, taste, shared-choice and bundle previews remain operable",
+    "Homepage remains without horizontal overflow at 390/768/1440px",
+    "/tasteroom/ loads and executes without page exceptions",
+    "/suibianju/ loads and executes without page exceptions",
+    "/demos/filing-eval/ loads and executes without page exceptions",
+    "/cases/trust/ loads and executes without page exceptions",
+    "/cases/taste/ loads and executes without page exceptions",
+    "/cases/shared-choice/ loads and executes without page exceptions",
+    "/cases/bundles/ loads and executes without page exceptions"
+  ],
+  "pageErrors": [],
+  "scope": "Repo-owned pages and homepage previews, not third-party apps"
+}

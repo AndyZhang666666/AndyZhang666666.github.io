@@ -61,7 +61,7 @@ function markStale() {
 function setBusy(value) {
   busy = value;
   $('runButton').disabled = value;
-  $('runButton').firstChild.textContent = value ? '正在查找…' : '查找依据';
+  $('runButton').firstChild.textContent = value ? ($('runtime').value === 'model' ? '检索与生成…' : '正在查找…') : '查找依据';
   $('result').setAttribute('aria-busy', String(value));
   // Keep the run's conditions fixed while a response is in flight.
   for (const id of ['question', 'role', 'date', 'snapshot', 'runtime', 'adminCredential', 'historical']) $(id).disabled = value;
@@ -120,7 +120,7 @@ async function run({focus = true} = {}) {
     if (focus) $('answerHeadline').focus({preventScroll: true});
     $('liveStatus').textContent = `${labels[result.status]}。${result.facts?.[0]?.value ?? ''}`;
   } catch (error) {
-    showError(['AbortError', 'TimeoutError'].includes(error.name) ? '本次请求超时，输入和条件已保留。请重试。' : error.message || '读取失败，输入和条件已保留。请重试。');
+    showError(['AbortError', 'TimeoutError'].includes(error.name) ? '本次请求超时，输入和条件已保留。请重试。' : error instanceof TypeError ? '本地接口连接失败，输入和条件已保留。请确认服务仍在运行后重试。' : error.message || '读取失败，输入和条件已保留。请重试。');
     $('stale').hidden = !currentRun;
   } finally { setBusy(false); }
 }
@@ -155,6 +155,7 @@ function render(run) {
     '只说明本次范围下缺少依据，不断言其他范围一定存在规则，也不泄露不可访问资料的标题或内容。';
 
   $('citationLinks').replaceChildren(); $('sources').replaceChildren();
+  $('evidenceTitle').textContent = run.status === 'failed' ? '本次找到的依据' : '这次使用的依据';
   $('evidenceCount').textContent = run.citations.length ? `${run.citations.length} 个段落` : '无支持段落';
   if (!run.citations.length) $('sources').append(node('p', '没有找到足以支持结论的段落。相似的资料仍可在下方技术详情中检查。', 'empty-evidence'));
   run.citations.forEach((source, index) => {
@@ -163,14 +164,14 @@ function render(run) {
     button.addEventListener('click', () => locateSource(index)); $('citationLinks').append(button);
     const article = node('article', undefined, 'source'); article.id = `source-${index}`; article.tabIndex = -1;
     article.append(node('h3', `[${index + 1}] ${source.title}`));
-    article.append(node('p', `v${source.version} · 自 ${source.effectiveFrom} 生效 · ${source.id}`, 'source-meta'));
+    article.append(node('p', `v${source.version} · 自 ${source.effectiveFrom} 生效${source.effectiveTo ? `，至 ${source.effectiveTo} 前有效` : ''} · ${source.id}`, 'source-meta'));
     const quote = node('blockquote');
     const position = source.text.indexOf(source.quote);
     if (position >= 0) {
       quote.append(document.createTextNode(source.text.slice(0, position)), node('mark', source.quote), document.createTextNode(source.text.slice(position + source.quote.length)));
     } else quote.textContent = source.text;
     article.append(quote);
-    article.append(node('p', `为什么可用：${roleName(run.role)}可访问；在 ${run.date} 生效；属于「${SNAPSHOTS[run.snapshot]}」的本次检索。`, 'source-reason'));
+    article.append(node('p', `为什么可用：${roleName(run.role)}可访问；截至 ${run.date} 适用；属于「${SNAPSHOTS[run.snapshot]}」的本次检索。`, 'source-reason'));
     $('sources').append(article);
   });
   const process = node('ol', undefined, 'process'); run.stages.forEach(s => process.append(node('li', s))); $('process').replaceChildren(process);
@@ -178,7 +179,7 @@ function render(run) {
   const rows = [
     ['运行模式', modeNames[run.mode]], ['可用资料', `${run.eligibleDocuments} 份（先限制范围，再建立本次索引）`],
     ['检索片段', `${run.retrieved.length} 个 · BM25 / 中文二元词`], ['数据 / 索引', `${run.versions.corpus} / ${run.versions.index}`],
-    ['Prompt / 检查', `${run.versions.prompt} / ${run.versions.judge}`], ['引用检查', run.checks.citation === 'matched' ? '引用存在，引文与原文匹配' : '不适用'],
+    ['Prompt / 检查', `${run.versions.prompt} / ${run.versions.judge}`], ['引用检查', run.status === 'failed' ? '找到的依据可定位；模型引用未通过 / 未完成验证' : run.checks.citation === 'matched' ? '引用存在，引文与原文匹配' : '不适用'],
     ['关键事实', run.checks.keyFacts === 'matched' ? '已按固定业务事实检查；其他语义待复核' : run.checks.keyFacts === 'extractive' ? '按适用原文摘录；没有生成质量分数' : run.checks.keyFacts === 'not-passed' ? '模型检查未通过 / 未运行' : '不适用'],
     ['模型 / 用量', run.model ? `${run.model} / ${run.usage ? JSON.stringify(run.usage) : '未取得用量'}` : '未调用 · 用量不适用'],
     ['本次耗时', `${run.elapsedMs} ms（当前设备，不代表在线模型延迟）`], ['记录编号', run.id],
