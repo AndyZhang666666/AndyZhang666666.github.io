@@ -23,6 +23,7 @@ with sync_playwright() as p:
     expect(page.locator('#project-rag-lab [data-link-kind="demo"]')).to_have_attribute('href','/rag-lab/')
     expect(page.locator('#project-rag-lab img')).to_be_visible()
     assert page.locator('#project-rag-lab img').evaluate('(el)=>el.complete && el.naturalWidth>0')
+    page.wait_for_function('getComputedStyle(document.querySelector("#project-rag-lab .project-preview-fallback")).display === "none" && getComputedStyle(document.querySelector("#project-rag-lab .project-preview")).aspectRatio === "8 / 5"')
     page.locator('#project-rag-lab').screenshot(path=str(OUT/'homepage-card.png'))
     results.append('All original project links retained; one RAG card with real screenshot and correct destination')
 

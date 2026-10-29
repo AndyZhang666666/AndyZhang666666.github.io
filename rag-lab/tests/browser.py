@@ -47,7 +47,10 @@ with sync_playwright() as p:
     record('static example: actual search yields current 14 days', lambda: headline(page, '单次最长 14天'))
     expect(page.locator('#modeLabel')).to_have_text('原创示例模式')
     page.screenshot(path=str(OUT/'desktop.png'), full_page=True)
+    # Capture an actual intermediate-width layout that fits the site's existing 8:5 preview.
+    page.set_viewport_size({'width':768,'height':1024})
     page.locator('#result').screenshot(path=str(OUT/'answer-preview.png'))
+    page.set_viewport_size({'width':1440,'height':1050})
 
     def source_focus():
         page.locator('[data-citation="MON-2:p1"]').click()
