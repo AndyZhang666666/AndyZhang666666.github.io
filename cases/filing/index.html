@@ -1,0 +1,45 @@
+<!doctype html><html lang="zh-CN" data-palette="frost"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filing Eval · 产品判断</title>
+<meta name="description" content="张千羽 Andy Zhang，AI 产品经理。关注 Agent 工作流、模型评测与业务增长，提供内容创作、海外产品与企业 AI 应用的项目实践。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css?v=20260913d">
+<link rel="stylesheet" href="/poker.css?v=20260913e">
+<link rel="stylesheet" href="/hero-portrait.css?v=20260913d">
+<link rel="stylesheet" href="/sections.css?v=20261005b">
+<link rel="stylesheet" href="/enhance.css?v=20260913e">
+<link rel="stylesheet" href="/interactions.css?v=20260913e">
+<link rel="stylesheet" href="/jd.css?v=20260913b">
+<link rel="stylesheet" href="/embed.css?v=20260914r">
+<link rel="stylesheet" href="/railnav.css?v=20260914r">
+<link rel="stylesheet" href="/typography.css?v=20260914r">
+<link rel="stylesheet" href="/motion.css?v=20260914r">
+<link rel="stylesheet" href="/depth.css?v=20260914r">
+<link rel="stylesheet" href="/education.css?v=20260914r">
+<link rel="stylesheet" href="/bg-layers.css?v=20260914r">
+<link rel="stylesheet" href="/ai-views.css?v=20260914r">
+<link rel="stylesheet" href="/fixes.css?v=20260914r">
+<link rel="stylesheet" href="/projects-split.css?v=20261005c">
+<link rel="stylesheet" href="/poker-showcase.css?v=20260914r">
+<link rel="stylesheet" href="/academic-workflow.css?v=20261006a">
+<script>
+  // 在 CSS 生效前恢复上次选的配色，避免闪一下默认色
+  try { var p = localStorage.getItem('palette'); if (p) document.documentElement.setAttribute('data-palette', p); } catch (e) {}
+</script>
+<link rel="stylesheet" href="/assets/demo-showcase.css?v=20261029-decisions1">
+<link rel="stylesheet" href="/assets/product-principles.css?v=20261029-decisions1">
+<link rel="stylesheet" href="/assets/case-studies.css?v=20261029-decisions1"></head><body class="case-page"><div class="grain"></div><div class="glow glow-1"></div><div class="glow glow-2"></div><nav id="nav">
+  <a href="/#top" class="nav-logo">张千羽</a>
+  <div class="nav-links">
+    <a href="/#about">关于</a>
+    <a href="/#work">经历</a>
+    <a href="/#education">教育</a>
+    <a href="/#selected">项目</a>
+    <a href="/#awards">奖项</a>
+    <a href="/#contact">联系</a>
+  </div>
+  <button id="langToggle" class="lang-toggle" aria-label="切换语言">EN</button>
+</nav><main><section class="section case-intro"><div class="section-head"><h1 class="" data-zh="没有写错，也可能漏掉重点。" data-en="Correct can still be incomplete.">没有写错，也可能漏掉重点。</h1></div><p class="case-summary" data-zh="把摘要拆成可核对的断言，再单独检查关键信息覆盖。原文、历史结果与人工复核各自保留。" data-en="Review individual claims and essential coverage separately. Preserve the source, saved results and human review.">把摘要拆成可核对的断言，再单独检查关键信息覆盖。原文、历史结果与人工复核各自保留。</p><div class="project-links"><a class="project-link" href="/demos/filing-eval/" data-zh="体验 Demo ↗" data-en="Try the demo ↗">体验 Demo ↗</a><a class="project-link" href="/#projects" data-zh="返回作品集" data-en="Back to work">返回作品集</a></div><p class="case-text" data-zh="28 条构造公告的历史回放" data-en="Historical replay of 28 constructed notices">28 条构造公告的历史回放</p><figure class="case-figure"><a href="/assets/work/showcase/filing.jpg" target="_blank" rel="noopener"><img src="/assets/work/showcase/filing.jpg" width="1440" height="1000" alt="Filing Eval · 断言与原文联动" loading="lazy"></a><figcaption>Filing Eval · 断言与原文联动</figcaption></figure></section><section id="problem" class="section"><div class="section-head"><h2 class="" data-zh="要解决的问题" data-en="The problem">要解决的问题</h2></div><p class="about-lead" data-zh="摘要每句话都正确，为什么仍可能影响判断？" data-en="Why can an accurate summary still change a decision?">摘要每句话都正确，为什么仍可能影响判断？</p><p class="about-body" data-zh="只找错误会漏掉另一类风险：摘要省略了金额口径、限制条件或关键事件。一个总分难以说明问题出在哪一句，或者是哪句话根本没写。" data-en="Error checks miss absent conditions, amounts and events. A single score cannot identify either a false sentence or a missing one.">只找错误会漏掉另一类风险：摘要省略了金额口径、限制条件或关键事件。一个总分难以说明问题出在哪一句，或者是哪句话根本没写。</p><p class="about-body" data-zh="独立设计并实现原文联动、断言检查、遗漏核对和本机复核；公开演示使用构造材料，不接入真实披露数据。" data-en="Independently designed source linking, claim and omission review, and local review records using constructed material.">独立设计并实现原文联动、断言检查、遗漏核对和本机复核；公开演示使用构造材料，不接入真实披露数据。</p></section><section id="approach" class="section"><div class="section-head"><h2 class="" data-zh="方案与取舍" data-en="Options and tradeoffs">方案与取舍</h2></div><p class="about-lead" data-zh="事实错误和关键遗漏，需要两张检查表。" data-en="False claims and missing facts need different checks.">事实错误和关键遗漏，需要两张检查表。</p><div class="principle-grid"><article class="principle-card"><h3 class="principle-title" data-zh="只读摘要总分" data-en="Read the overall score">只读摘要总分</h3><p class="principle-desc" data-zh="速度快，但无法判断具体风险。" data-en="Fast, but hides the actual risk.">速度快，但无法判断具体风险。</p></article><article class="principle-card"><h3 class="principle-title" data-zh="逐句查错" data-en="Check each sentence">逐句查错</h3><p class="principle-desc" data-zh="能发现错误，不能保证没有遗漏。" data-en="Finds errors without proving completeness.">能发现错误，不能保证没有遗漏。</p></article><article class="principle-card"><h3 class="principle-title" data-zh="断言与覆盖分别核验" data-en="Review claims and coverage">断言与覆盖分别核验</h3><p class="principle-desc" data-zh="采用的做法：逐条回到原文，复核状态单独保存。" data-en="Implemented: return to the source and keep review state separate.">采用的做法：逐条回到原文，复核状态单独保存。</p></article></div></section><section id="mechanism" class="section"><div class="section-head"><h2 class="" data-zh="把判断变成机制" data-en="Making the decision work">把判断变成机制</h2></div><ol class="case-mechanism"><li><h3 class="principle-title" data-zh="能回到原文" data-en="Return to the source">能回到原文</h3><p class="principle-desc" data-zh="把具体断言与引用放在一起，定位失败时保留提示，不补造依据。" data-en="Link claims and quotations; keep failed locations visible rather than inventing evidence.">把具体断言与引用放在一起，定位失败时保留提示，不补造依据。</p></li><li><h3 class="principle-title" data-zh="未保存不算已复核" data-en="Drafts are not reviews">未保存不算已复核</h3><p class="principle-desc" data-zh="复核结论和备注明确保存；未保存草稿与损坏记录不计入完成状态。" data-en="Save the verdict and note explicitly. Unsaved drafts and invalid records do not count as completed review.">复核结论和备注明确保存；未保存草稿与损坏记录不计入完成状态。</p></li><li><h3 class="principle-title" data-zh="运行状态分开" data-en="Separate run status">运行状态分开</h3><p class="principle-desc" data-zh="历史结果、困难样本与尚未运行的候选留出集分别呈现。" data-en="Distinguish saved results, hard cases and unrun holdout candidates.">历史结果、困难样本与尚未运行的候选留出集分别呈现。</p></li></ol><figure class="case-figure"><a href="/assets/work/filing-review.jpg" target="_blank" rel="noopener"><img src="/assets/work/filing-review.jpg" width="1440" height="1000" alt="原文、断言与独立复核记录" loading="lazy"></a><figcaption>原文、断言与独立复核记录</figcaption></figure></section><section id="evidence" class="section"><div class="section-head"><h2 class="" data-zh="验证、代价与下一步" data-en="Evidence, limitations and next steps">验证、代价与下一步</h2></div><p class="about-body" data-zh="公开工具可回放 28 条构造公告，并核对原文与断言、记录和导出本机复核。" data-en="The public tool replays 28 constructed notices with source inspection and local review export.">公开工具可回放 28 条构造公告，并核对原文与断言、记录和导出本机复核。</p><p class="about-body" data-zh="构造材料便于检查边界，不能据此声称真实公告上的准确率或泛化能力。" data-en="Constructed material helps inspect boundaries; it does not establish accuracy on real filings.">构造材料便于检查边界，不能据此声称真实公告上的准确率或泛化能力。</p><p class="about-body" data-zh="独立核对标签后，再用未参与规则调整的公告比较漏报、误报和复核时间。" data-en="Review labels independently, then measure missed errors, false alarms and review time on unseen notices.">独立核对标签后，再用未参与规则调整的公告比较漏报、误报和复核时间。</p></section><aside class="case-related"><h2 class="" data-zh="关联工具" data-en="Related tools">关联工具</h2><a href="/llm-output-eval/"><span class="" data-zh="Eval Lab" data-en="Eval Lab">Eval Lab</span> ↗</a></aside></main><footer>© 2026 张千羽 · 产品判断与验证</footer><script src="/scripts/case-reader.js"></script></body></html>

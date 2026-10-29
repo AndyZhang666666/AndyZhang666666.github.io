@@ -1,0 +1,65 @@
+import fs from 'node:fs';
+import {escapeHtml as e} from '../assets/project-cards.mjs';
+import {directionSvg} from '../tasteroom/directions.js';
+import {createTastePreview,posterContent} from '../assets/demo-preview/taste-session.mjs';
+import {createSession,submit} from '../suibianju/engine.mjs';
+import {previewConditions} from '../suibianju/product.mjs';
+import {simulateOne} from '../assets/demo-preview/bundle-model.mjs';
+const text=(tag,cls,zh,en)=>`<${tag} class="${cls}" data-zh="${e(zh)}" data-en="${e(en)}">${e(zh)}</${tag}>`;
+const button=(attrs,zh,en)=>`<button type="button" ${attrs} disabled>${text('span','',zh,en)}</button>`;
+const fixture=(id,value)=>`<script type="application/json" id="${id}">${JSON.stringify(value).replace(/</g,'\\u003c')}</script>`;
+const path=steps=>`<ol class="preview-path">${steps.map(([zh,en])=>`<li>${text('span','',zh,en)}</li>`).join('')}</ol>`;
+const money=n=>(n<0?'−':'+')+'¥'+Math.abs(n).toFixed(3);
+export const bundleFixture=JSON.parse(fs.readFileSync(new URL('../assets/demo-preview/bundle-candidate.json',import.meta.url),'utf8'));
+export function sharedFixture(){const session=createSession(0);submit(session,'a',{...session.members[0].conditions,noSpicy:true},0);submit(session,'c',{...session.members[2].conditions,budget:40},0);return session;}
+
+function evaluation(){
+ const s=JSON.parse(fs.readFileSync(new URL('../assets/demo-preview/eval-sample.json',import.meta.url),'utf8')),quote=s.dimension.evidence[0];
+ return `${path([['看原始评分','Read the score'],['回到具体证据','Find the evidence'],['留下独立判断','Make your judgement']])}
+ <div class="preview-eval" data-ui>
+  <section class="preview-judge"><div class="preview-source-head">${text('h4','','原始裁判 · 结构维度','Original judge · Structure')}<span>e06</span></div>
+   <div class="preview-score">${text('span','','历史评分','Saved score')}<strong>${s.dimension.score}<small> / 5</small></strong></div>
+   ${text('p','preview-comment','评语释义：这段只有开篇悬念，并在句中截断，缺少完整的起承转合。','The judge sees an opening hook ending mid-sentence rather than a complete story arc.')}
+   <details class="preview-original-comment"><summary>${text('span','','查看原始英文评语','Read the original comment')}</summary><p lang="en">${e(s.dimension.comment)}</p></details>
+   <p class="preview-record">${e(s.model)} · ${e(s.recordedAt.slice(0,10))}</p></section>
+  <section class="preview-source"><div class="preview-source-head">${text('h4','','这条评语引用了什么','The cited evidence')}${button('class="preview-quote" data-eval-locate aria-pressed="false"','定位原文','Locate quote')}</div>
+   <blockquote class="preview-evidence" data-eval-source-quote>${e(quote)}</blockquote>
+   <details class="preview-full-source"><summary>${text('span','','展开完整原文','Expand the full source')}</summary><p class="preview-source-text">${e(s.text.slice(0,s.quoteOffset))}<span data-eval-full-quote>${e(quote)}</span></p></details>
+   ${text('p','preview-evidence-boundary','引句存在 ≠ 评语成立','A quote exists ≠ the judgement is justified')}</section>
+ </div>
+ <div class="preview-human-review" data-ui><div><h4 data-zh="你的复核判断" data-en="Your independent review">你的复核判断</h4>${text('p','','试选一个结论；原始 2 分不会被改写。','Try a verdict. The original score stays at 2.')}</div>
+  <div class="preview-segment" role="group" aria-label="人工复核">${[['supported','支持判断','Supported'],['unsupported','评语存疑','Questionable'],['needs_context','需更多上下文','More context']].map(([id,zh,en])=>button(`data-eval-review="${id}" aria-pressed="false"`,zh,en)).join('')}</div>
+  <p class="preview-review-record">${text('span','','本页试用记录','Preview review')}<strong data-eval-verdict data-zh="尚未复核" data-en="Unreviewed">尚未复核</strong>${button('class="preview-reset" data-eval-clear','清除判断','Clear review')}</p></div>
+ <p class="preview-outcome" data-eval-status role="status">${text('span','','先定位引用，再判断它是否支持这条评语。','Locate the quotation, then judge whether it supports the comment.')}</p>`;
+}
+function taste(){
+ const p=createTastePreview();
+ return `${path([['只改变一项','Change one variable'],['选择更偏爱的','Choose a preference'],['本人限定范围','Set its scope']])}
+ <div class="preview-taste" data-ui><div class="preview-taste-toolbar"><div class="preview-segment" role="group" aria-label="构图方向">${button('data-taste-direction="swiss" aria-pressed="true"','瑞士现代主义','Swiss modernism')}${button('data-taste-direction="deconstructed" aria-pressed="false"','解构主义','Deconstructivism')}</div>${text('span','','内容、构图、色彩相同；只变字体','Same copy, layout and colour; only type changes')}</div>
+ <div class="preview-taste-desk"><div class="preview-poster-pair">${p.comparison.variants.map((canvas,i)=>`<button type="button" class="preview-poster-option" data-taste-choice="${i?'b':'a'}" aria-pressed="false" disabled><span class="preview-poster" data-taste-poster="${i?'b':'a'}">${directionSvg({...p.room,canvas},posterContent)}</span><span class="preview-poster-caption">${text('span','',i?'B · 书刊衬线':'A · 利落无衬线',i?'B · Editorial serif':'A · Rational sans')}<span class="preview-choice-mark" aria-hidden="true">✓</span></span></button>`).join('')}</div>
+ <aside class="preview-taste-memory"><h4 data-zh="这次选择，可以说明什么？" data-en="What can this choice tell us?">这次选择，可以说明什么？</h4><p data-taste-reason data-zh="还没选择。不会推断你喜欢整张海报的所有特征。" data-en="Nothing chosen. No preference is inferred for every feature.">还没选择。不会推断你喜欢整张海报的所有特征。</p>
+ <fieldset class="preview-scope"><legend data-zh="允许用在哪里？（本页模拟）" data-en="Where may it apply? (Preview only)">允许用在哪里？（本页模拟）</legend><div class="preview-segment">${[['once','仅本次','This time'],['current','工作场景','Work only'],['global','全部场景','All contexts']].map(([id,zh,en])=>button(`data-taste-scope="${id}" aria-pressed="false"`,zh,en)).join('')}</div></fieldset>
+ <div class="preview-memory-slip">${text('span','','授权状态','Consent state')}<strong data-taste-memory data-zh="未授权" data-en="Not authorised">未授权</strong><span data-taste-scope-note data-zh="不会写入完整工具或浏览器记忆" data-en="Nothing is stored in the full tool or browser">不会写入完整工具或浏览器记忆</span></div>
+ <div class="preview-taste-actions">${button('class="preview-reset" data-taste-revoke','撤回模拟授权','Undo consent')}${button('class="preview-reset" data-taste-skip','两张都不选','Choose neither')}</div></aside></div></div>
+ <p class="preview-outcome" data-taste-status role="status">${text('span','','一次点击先是线索，选择范围才是授权；所有操作只在本页试用。','A click is a clue. A scope is consent. All actions stay in this preview.')}</p>`;
+}
+function shared(){
+ const session=sharedFixture(),initial=previewConditions(session,'c',session.members[2].conditions);
+ return `${path([['条件没有交集','No shared option'],['本人先预演','Preview a change'],['再确认同一版本','Confirm the same version']])}
+ <div class="preview-shared" data-ui><div class="preview-shared-columns"><section class="preview-confirmed"><h4 data-zh="已确认的条件" data-en="Confirmed conditions">已确认的条件</h4><ul class="preview-members">${[['林','小林','不能吃辣','No spicy food'],['禾','阿禾','排除烤肉','No barbecue'],['满','小满','中山路 · 预算 ¥40','Zhongshan Road · Budget ¥40']].map(([initial,name,zh,en])=>`<li><span class="preview-avatar" aria-hidden="true">${initial}</span><div><strong>${name}</strong>${text('span','',zh,en)}</div></li>`).join('')}</ul><p class="preview-confirmed-budget">${text('span','','小满确认的预算','Xiaoman confirmed')}<strong>¥40</strong></p></section>
+ <section class="preview-draft"><div class="preview-source-head"><h4 data-zh="假设小满愿意调整" data-en="If Xiaoman chose to change">假设小满愿意调整</h4>${text('span','','草稿','Draft')}</div>${text('p','','试一个预算，看看能多出什么选择。','Try a budget to see which options become possible.')}<div class="preview-segment" role="group" aria-label="预算预演">${[40,85,110].map(n=>button(`data-shared-budget="${n}" aria-pressed="${n===40}"`,`¥${n}`,`¥${n}`)).join('')}</div><div class="preview-draft-budget">${text('span','','正在预演','Previewing')}<strong data-shared-draft>¥40</strong>${text('span','','未应用','Not applied')}</div></section></div>
+ <div class="preview-shared-result"><p class="preview-shared-count"><strong data-shared-count>${initial.after.length}</strong>${text('span','','个满足已知硬条件的选项','options meet known hard constraints')}</p><ul class="preview-candidates">${session.candidates.slice(0,2).map(r=>`<li data-candidate="${r.id}" data-feasible="false"><div><strong>${e(r.name)}</strong><span>¥${r.min}–${r.max} / ${text('span','','人','person')}</span></div><span data-candidate-status data-zh="超出预演预算" data-en="Over the preview budget">超出预演预算</span></li>`).join('')}</ul></div>
+ <div class="preview-consent-chain">${text('span','','待小满本人确认','Xiaoman must confirm')}<span aria-hidden="true">→</span>${text('span','','待全员接受同一版本','Everyone must accept the same version')}${text('strong','','尚未形成决定','No decision yet')}</div></div>
+ <p class="preview-outcome" data-shared-status role="status">${text('span','','没有共同选项。预算预演不改变已确认条件，也不产生投票。','No shared option. A preview changes neither confirmed conditions nor votes.')}</p>${fixture('sharedPreviewInput',session)}`;
+}
+function bundle(){
+ const c=bundleFixture.candidate,r=simulateOne({...c,adoption:.05}),scale=simulateOne({...c,adoption:.5}).addedMargin;
+ return `${path([['从订单找候选','Discover a candidate'],['算清新增与让利','Account for gains and discounts'],['提出验证计划','Plan a test']])}
+ <div class="preview-bundle" data-ui><details class="preview-discovery"><summary><span>${text('span','','合成订单里的一个候选','One candidate from synthetic orders')}<strong>${e(c.items.join(' + '))}</strong></span>${text('span','','查看发现依据','Inspect the evidence')}</summary><div class="preview-discovery-facts">${[['全部合成订单','Synthetic orders',bundleFixture.orderCount],['原本已买全','Already bought both',c.hitCount],['含至少一件的订单','Orders containing either',c.matchedCount]].map(([zh,en,n])=>`<p>${text('span','',zh,en)}<strong>${n.toLocaleString('en-US')}</strong></p>`).join('')}</div>${text('p','','选这个常见组合演示让利风险；它不是收益最高的候选。共购说明相关，不证明打折会带来新增。','A familiar pair chosen to show discount leakage, not the highest-return candidate. Co-purchase is association, not proof of new demand.')}</details>
+ <div class="preview-budget">${text('span','','未买全者的新增采纳率（假设）','Adoption among previous partial buyers (assumption)')}<div class="preview-segment" role="group" aria-label="新增采纳率">${button('data-bundle-adoption="0.05" aria-pressed="true"','5%','5%')}${button('data-bundle-adoption="0.5" aria-pressed="false"','50%','50%')}</div></div>${text('p','preview-unit','每个覆盖订单的平均贡献变化 · 元，保留三位','Mean contribution change per covered order · CNY, 3 decimals')}
+ <dl class="preview-ledger"><div class="preview-ledger-row"><dt>${text('span','','未买全者：新增购买贡献','Previous partial buyers: new contribution')}<span class="preview-ledger-track"><span data-bundle-bar style="transform:scaleX(${r.addedMargin/scale})"></span></span></dt><dd data-bundle-added>${money(r.addedMargin)}</dd></div><div class="preview-ledger-row"><dt>${text('span','','原本买全者：折扣让利','Previous full buyers: discount cost')}<span class="preview-ledger-track is-loss"><span data-bundle-loss-bar style="transform:scaleX(${r.existingLoss/scale})"></span></span></dt><dd data-bundle-loss>−¥${r.existingLoss.toFixed(3)}</dd></div><div class="preview-ledger-total" data-bundle-sign="negative">${text('dt','','净增贡献','Net contribution change')}<dd data-bundle-net>${money(r.marginLift)}</dd></div></dl>
+ <details class="preview-assumptions"><summary>${text('span','','查看价格、人群与成本假设','Prices, populations and cost assumptions')}</summary><p>${text('span','',`原价 ¥${c.listPrice.toFixed(2)}，套餐 ¥${c.bundleP.toFixed(2)}；覆盖订单原平均支出 ¥${c.partialSpend.toFixed(2)}，其中 ${(c.hitRate*100).toFixed(1)}% 原本买全；成本率 ${(c.costRatio*100).toFixed(0)}%，既有整套顾客全部领折扣。`,`List ¥${c.listPrice.toFixed(2)}, bundle ¥${c.bundleP.toFixed(2)}; previous spend ¥${c.partialSpend.toFixed(2)} per covered order, ${(c.hitRate*100).toFixed(1)}% already bought both; ${(c.costRatio*100).toFixed(0)}% cost ratio, all previous full buyers redeem.`)}</p></details>
+ <details class="preview-test-plan" data-bundle-plan><summary>${text('span','','下一步：怎样验证这个候选？','Next: how should this candidate be tested?')}</summary><div><p data-bundle-plan-result>${text('span','',`当前假设净增 ${money(r.marginLift)} / 覆盖订单。先核对口径，不能据此宣布上线。`,`The scenario gives ${money(r.marginLift)} per covered order. Verify definitions before considering rollout.`)}</p><ol><li data-zh="先核对份量、覆盖人群与商品成本。" data-en="Verify portions, covered populations and costs.">先核对份量、覆盖人群与商品成本。</li><li data-zh="用小流量对照，区分新增购买与老顾客领折扣。" data-en="Use a small controlled test to separate new purchases from existing-buyer discounts.">用小流量对照，区分新增购买与老顾客领折扣。</li><li data-zh="预先约定贡献毛利、退款与复购的判断条件。" data-en="Predefine contribution, refund and repeat-purchase criteria.">预先约定贡献毛利、退款与复购的判断条件。</li></ol><a href="/growth-experiment-lab/" target="_blank" rel="noopener" data-zh="进入实验设计工具 ↗" data-en="Open experiment planning ↗">进入实验设计工具 ↗</a></div></details></div>
+ <p class="preview-outcome" data-bundle-status role="status">${text('span','',`新增贡献不足以覆盖让利；当前假设下，每个覆盖订单少赚 ¥${Math.abs(r.marginLift).toFixed(3)}。`,`Incremental contribution does not cover the discount: ¥${Math.abs(r.marginLift).toFixed(3)} less per covered order under these assumptions.`)}</p>${fixture('bundlePreviewInput',c)}`;
+}
+export const previewRenderers={trust:evaluation,taste,'shared-choice':shared,bundles:bundle};

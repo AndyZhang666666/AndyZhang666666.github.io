@@ -1,24 +1,26 @@
 // The original shell stays intact. Scoped showcase/library presentation is generated here.
 import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
-import {identity,projects,studies} from '../content/editorial.mjs';
+import {identity,projects,studies,aiPractices} from '../content/editorial.mjs';
 import {presentationFor} from '../content/project-presentation.mjs';
 import {renderProjectCards} from '../assets/project-cards.mjs';
 import {renderSelected} from '../content/showcase.mjs';
 import {renderProductPrinciples} from '../assets/product-principles.mjs';
+import {renderAiViews} from '../assets/ai-views.mjs';
 const localReview=process.argv.includes('--local');
-const releaseVersion='20261028-practice1';
+const releaseVersion='20261029-decisions1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
+const captures=JSON.parse(fs.readFileSync('assets/work/showcase/captures.json','utf8')).records;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 data.tagline=identity.short.zh+' '+identity.intro.zh;
 data.taglineEn=identity.short.en+' '+identity.intro.en;
 data.about.lead=identity.title.zh;data.about.leadEn=identity.title.en;
 data.about.body=data.about.body.split('。').slice(1).join('。');
 data.about.bodyEn=data.about.bodyEn.split('. ').slice(1).join('. ');
-// Keep the original four AI views, bilingual copy and reference links intact.
-// Project-specific observations remain in the separate case-study pages.
+// Keep the original views; connect each to its own inspectable design decision.
+data.aiViews.items.forEach((item,index)=>item.practice=aiPractices[index]);
 for(const p of projects){
  const entry=data.projects[p.index],s=studies.find(s=>s.id===p.caseId);
  entry.id=p.id;entry.category=p.category;
@@ -26,7 +28,9 @@ for(const p of projects){
  entry.name=p.name.zh;entry.nameEn=p.name.en;
  entry.description=s?.project===p.id?s.summary.zh:p.description.zh;
  entry.descriptionEn=s?.project===p.id?s.summary.en:p.description.en;
- if(s){entry.iterationUrl=`/cases/${s.id}/`;entry.caseLabel='设计过程';entry.caseLabelEn='Case study';
+ if(s){entry.iterationUrl=`/cases/${s.id}/`;entry.caseLabel=s.project===p.id?'设计过程':'关联案例';entry.caseLabelEn=s.project===p.id?'Design process':'Related case';}
+ // A shared case is a reference, never permission to overwrite another project's facts.
+ if(s?.project===p.id){
   entry.context=s.problem.zh;entry.contextEn=s.problem.en;
   entry.approach=s.decisions.map(d=>`${d.title.zh}：${d.text.zh}`);
   entry.approachEn=s.decisions.map(d=>`${d.title.en}: ${d.text.en}`);
@@ -35,6 +39,8 @@ for(const p of projects){
  if(entry.url?.startsWith('https://andyzhang666666.github.io'))entry.url=entry.url.slice('https://andyzhang666666.github.io'.length)||'/';
  if(p.id==='taste')entry.url='/tasteroom/?direction=swiss';
  entry.presentation=presentationFor(entry);
+ const cover=captures.find(record=>record.id===entry.presentation.image?.split('/').pop().replace('.jpg',''));
+ if(cover?.cropSize)entry.presentation.coverSize=cover.cropSize;
 }
 fs.writeFileSync('data.json',JSON.stringify(data,null,2)+'\n');
 let html=original('index.html');
@@ -56,6 +62,7 @@ html=html.replace(/(<section id="about"[\s\S]*?<\/section>)/,`$1\n\n${renderSele
 // Section/view indexes are presentation, not ordered process steps or factual numbers.
 html=html.replace(/\sdata-num="[^"]*"/g,'').replace(/^[ \t]*<span class="section-num">[^<]*<\/span>\n?/gm,'');
 html=html.replace('<div class="principle-grid" id="principleGrid"></div>',`<div class="principle-grid" id="principleGrid" aria-label="产品原则与实践">${renderProductPrinciples(data.about.principles)}</div>`);
+html=html.replace('<div id="aiViewsGrid" class="ai-views-grid"></div>',`<div class="ai-views-grid" id="aiViewsGrid">${renderAiViews(data.aiViews.items)}</div>`);
 html=html.replace('id="projects" class="section"','id="projects" class="section project-library"');
 html=html.replace('<div id="projectGrid" class="project-grid"></div>',`<div id="projectGrid" class="project-grid">${renderProjectCards(data.projects)}</div>`);
 html=html.replace('</head>',`<link rel="stylesheet" href="assets/demo-showcase.css?v=${releaseVersion}">\n</head>`);
@@ -75,6 +82,8 @@ app=app.replace(/  const pg = document.getElementById\('principleGrid'\);[\s\S]*
 app=app.replace('data.json?v=20261025-demo-suite-3',`data.json?v=${releaseVersion}`);
 app=app.replace('<span data-zh="迭代与校验" data-en="Iterations & validation">迭代与校验</span>','<span data-zh="${esc(p.caseLabel || \'迭代与校验\')}" data-en="${esc(p.caseLabelEn || \'Iterations & validation\')}">${esc(p.caseLabel || \'迭代与校验\')}</span>');
 app=app.replace(/function renderProjects\(\) \{[\s\S]*?\n\}\n\nfunction renderAwards/,`function renderProjects() {\n  // Static cards are also present without JavaScript. URLs are bound by project ID.\n  if (typeof window.refreshProjectLibrary === 'function') window.refreshProjectLibrary(data.projects);\n}\n\nfunction renderAwards`);
+app=app.replace(/function renderAiViews\(\) \{[\s\S]*?\n\}/,`function renderAiViews() {\n  // Keep the statically rendered opinions, own examples and reference links.\n  if (typeof window.refreshAiViews === 'function') window.refreshAiViews(data.aiViews?.items || []);\n}`);
+app=app.replace('    initMagnetic();','    initMagnetic();\n    document.dispatchEvent(new Event(\'portfolio:ready\'));');
 fs.writeFileSync('app.js',app);
 
 // New reading pages use the original site's CSS and vocabulary, not the fusion skin.
@@ -83,14 +92,18 @@ const nav=html.slice(html.indexOf('<nav id="nav">'),html.indexOf('</nav>')+6).re
 const pair=(tag,cls,v)=>`<${tag} class="${cls}" data-zh="${esc(v.zh)}" data-en="${esc(v.en)}">${esc(v.zh)}</${tag}>`;
 for(const study of studies){
  const section=(id,title,en,body)=>`<section id="${id}" class="section"><div class="section-head">${pair('h2','', {zh:title,en})}</div>${body}</section>`;
- const image=(file,caption)=>`<a href="/assets/work/${file}" target="_blank" rel="noopener"><img src="/assets/work/${file}" width="1440" height="1000" style="max-width:100%;height:auto" alt="${esc(caption)}"></a>`;
+ const image=(file,caption)=>file?`<figure class="case-figure"><a href="/assets/work/${file}" target="_blank" rel="noopener"><img src="/assets/work/${file}" width="1440" height="1000" alt="${esc(caption)}" loading="lazy"></a><figcaption>${esc(caption)}</figcaption></figure>`:'';
  const meta=projects.find(p=>p.id===study.project),p=data.projects[meta.index];
- const body=`<section class="section"><div class="section-head">${pair('h1','',study.title)}</div>${pair('p','about-lead',study.summary)}<div class="project-links"><a class="project-link" href="${esc(p.url)}" data-zh="体验 Demo ↗" data-en="Try the demo ↗">体验 Demo ↗</a><a class="project-link" href="/#projects" data-zh="返回作品集" data-en="Back to work">返回作品集</a></div>${pair('p','case-text',study.status)}${image(study.image,study.caption.zh)}</section>`+
+ const primary=p.url?`<a class="project-link" href="${esc(p.url)}" data-zh="体验 Demo ↗" data-en="Try the demo ↗">体验 Demo ↗</a>`:'<a class="project-link" href="#mechanism" data-zh="查看任务流 ↓" data-en="See the workflow ↓">查看任务流 ↓</a>';
+ const evidenceLinks=study.evidenceLinks?`<div class="case-evidence-links">${study.evidenceLinks.map(link=>`<a class="project-link" href="${esc(link.href)}"${link.href.startsWith('http')?' target="_blank" rel="noopener"':''}>${pair('span','',link.label)} ↗</a>`).join('')}</div>`:'';
+ const related=(study.related||[]).map(id=>data.projects.find(p=>p.id===id)).filter(Boolean);
+ const relatedLinks=related.length?`<aside class="case-related">${pair('h2','',{zh:'关联工具',en:'Related tools'})}${related.map(p=>`<a href="${esc(p.url||p.iterationUrl)}">${pair('span','',{zh:p.name,en:p.nameEn})} ↗</a>`).join('')}</aside>`:'';
+ const body=`<section class="section case-intro"><div class="section-head">${pair('h1','',study.title)}</div>${pair('p','case-summary',study.summary)}<div class="project-links">${primary}<a class="project-link" href="/#projects" data-zh="返回作品集" data-en="Back to work">返回作品集</a></div>${pair('p','case-text',study.status)}${image(study.image,study.caption?.zh)}</section>`+
  section('problem','要解决的问题','The problem',pair('p','about-lead',study.question)+pair('p','about-body',study.problem)+pair('p','about-body',study.role))+
  section('approach','方案与取舍','Options and tradeoffs',pair('p','about-lead',study.insight)+`<div class="principle-grid">${study.choices.map(([a,b])=>`<article class="principle-card">${pair('h3','principle-title',a)}${pair('p','principle-desc',b)}</article>`).join('')}</div>`)+
- section('mechanism','把判断变成机制','Making the decision work',`<div class="principle-grid">${study.decisions.map(d=>`<article class="principle-card">${pair('h3','principle-title',d.title)}${pair('p','principle-desc',d.text)}</article>`).join('')}</div>${image(study.secondaryImage,study.artifact.zh)}`)+
- section('evidence','验证、代价与下一步','Evidence, limitations and next steps',pair('p','about-body',study.proof)+pair('p','about-body',study.tradeoff)+pair('p','about-body',study.next));
+ section('mechanism','把判断变成机制','Making the decision work',`<ol class="case-mechanism">${study.decisions.map(d=>`<li>${pair('h3','principle-title',d.title)}${pair('p','principle-desc',d.text)}</li>`).join('')}</ol>${evidenceLinks}${study.secondaryImage!==study.image?image(study.secondaryImage,study.artifact.zh):''}`)+
+ section('evidence','验证、代价与下一步','Evidence, limitations and next steps',pair('p','about-body',study.proof)+pair('p','about-body',study.tradeoff)+pair('p','about-body',study.next))+relatedLinks;
  fs.mkdirSync(`cases/${study.id}`,{recursive:true});
- fs.writeFileSync(`cases/${study.id}/index.html`,`<!doctype html><html lang="zh-CN" data-palette="frost">${head.replace(/<title>.*?<\/title>/,`<title>${esc(p.name)} · 产品判断</title>`)}<body><div class="grain"></div><div class="glow glow-1"></div><div class="glow glow-2"></div>${nav}<main>${body}</main><footer>© 2026 张千羽 · ${localReview?'本地内容评审':'产品判断与验证'}</footer><script src="/scripts/case-reader.js"></script></body></html>`);
+ fs.writeFileSync(`cases/${study.id}/index.html`,`<!doctype html><html lang="zh-CN" data-palette="frost">${head.replace(/<title>.*?<\/title>/,`<title>${esc(p.name)} · 产品判断</title>`).replace('</head>','<link rel="stylesheet" href="/assets/case-studies.css?v='+releaseVersion+'"></head>')}<body class="case-page"><div class="grain"></div><div class="glow glow-1"></div><div class="glow glow-2"></div>${nav}<main>${body}</main><footer>© 2026 张千羽 · ${localReview?'本地内容评审':'产品判断与验证'}</footer><script src="/scripts/case-reader.js"></script></body></html>`);
 }
-console.log('Updated the original shell, four native selected previews, explicit project cards and four case pages.');
+console.log(`Updated the original shell, four selected previews, explicit project cards and ${studies.length} project-owned case pages.`);

@@ -15,7 +15,7 @@ const hl = (s) => esc(s).replace(
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data.json?v=20261028-practice1');
+    const res = await fetch('data.json?v=20261029-decisions1');
     if (!res.ok) throw new Error('Profile data could not be loaded');
     data = await res.json();
     if (typeof applyResumeEvidence === 'function') applyResumeEvidence(data);
@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initHeroFade();
     initPalette();
     initMagnetic();
+    document.dispatchEvent(new Event('portfolio:ready'));
   } catch (err) {
     console.error('Failed to load data:', err);
   }
@@ -538,13 +539,6 @@ function initMagnetic() {
 
 // ===== 关于 AI：四条判断 =====
 function renderAiViews() {
-  const grid = document.getElementById('aiViewsGrid');
-  const v = data.aiViews;
-  if (!grid || !v || !v.items) return;
-  grid.innerHTML = v.items.map((it, i) => `
-    <article class="ai-view reveal" data-delay="${i * 90}">
-      <h3 class="ai-view-title" data-zh="${esc(it.zh)}" data-en="${esc(it.en)}">${esc(it.zh)}</h3>
-      <p class="ai-view-desc" data-zh="${esc(it.dz)}" data-en="${esc(it.de)}">${esc(it.dz)}</p>
-    </article>
-  `).join('');
+  // Keep the statically rendered opinions, own examples and reference links.
+  if (typeof window.refreshAiViews === 'function') window.refreshAiViews(data.aiViews?.items || []);
 }

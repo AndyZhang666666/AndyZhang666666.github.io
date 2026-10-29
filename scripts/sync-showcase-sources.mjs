@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {execFileSync} from 'node:child_process';
+import {pathToFileURL} from 'node:url';
 const root=path.resolve(import.meta.dirname,'..');
 const sourceRoot=path.resolve(process.argv[2]||path.join(root,'../demo-polish-2026-10-27'));
 const hash=value=>crypto.createHash('sha256').update(value).digest('hex');
@@ -25,5 +26,26 @@ for(const entry of pinned){
   const target=path.join(root,entry.target);fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,output);
   manifest.sources.push({...entry,url:`https://github.com/AndyZhang666666/${entry.repo}/blob/${entry.revision}/${entry.source}`,sourceSha256:hash(value),outputSha256:hash(output),use:entry.repo==='bundle-lab'?'Byte-identical pure calculation module':'Read-only e06 / run 0 / structure excerpt; no new model call'});
 }
+// Read a real mined candidate from the same pinned synthetic order corpus.
+// Mining stays at build time. The browser reuses the original pure contribution model.
+const bundleRevision=pinned[0].revision,bundleRoot=path.join(sourceRoot,'bundle-lab');
+const dependencyPaths=['lib/orders.js','lib/rules.js','data/orders.csv'];
+const inputs=dependencyPaths.map(file=>{
+ const value=execFileSync('git',['show',`${bundleRevision}:${file}`],{cwd:bundleRoot});
+ if(hash(fs.readFileSync(path.join(bundleRoot,file)))!==hash(value))throw Error('Pinned candidate dependency drift: '+file);
+ return {source:file,sha256:hash(value)};
+});
+const {parseCSV,groupOrders,priceTable}=await import(pathToFileURL(path.join(bundleRoot,'lib/orders.js')));
+const {toTransactions,mineBundles}=await import(pathToFileURL(path.join(bundleRoot,'lib/rules.js')));
+const {compareBundles}=await import(pathToFileURL(path.join(root,'assets/demo-preview/bundle-model.mjs')));
+const parsed=parseCSV(fs.readFileSync(path.join(bundleRoot,'data/orders.csv'),'utf8'));
+if(parsed.error)throw Error(parsed.error);
+const transactions=toTransactions(groupOrders(parsed.rows));
+const candidates=mineBundles(transactions,{limit:Infinity});
+const candidate=compareBundles(candidates,{transactions,priceOf:priceTable(parsed.rows)}).find(b=>b.key==='可乐 + 鸡腿饭');
+if(!candidate)throw Error('The named example must exist in canonical mined candidates');
+const output=JSON.stringify({source:'Built-in synthetic orders',selection:'A familiar two-item example that exposes discount leakage; not the highest-return candidate',orderCount:transactions.length,candidateCount:candidates.length,candidate},null,2)+'\n';
+fs.writeFileSync(path.join(root,'assets/demo-preview/bundle-candidate.json'),output);
+manifest.sources.push({repo:'bundle-lab',revision:bundleRevision,target:'assets/demo-preview/bundle-candidate.json',inputs,outputSha256:hash(output),use:'Deterministic mining of pinned synthetic orders with canonical rules and contribution model; not live trading data'});
 fs.writeFileSync(path.join(root,'assets/demo-preview/provenance.json'),JSON.stringify(manifest,null,2)+'\n');
-console.log('Synced the pinned Bundle calculation and one original Eval replay; provenance recorded.');
+console.log('Synced the pinned Bundle model, mined candidate and original Eval replay; provenance recorded.');

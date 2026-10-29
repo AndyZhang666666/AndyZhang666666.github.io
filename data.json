@@ -339,7 +339,7 @@
       "group": "main",
       "iterationUrl": "/cases/taste/",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study",
+      "caseLabelEn": "Design process",
       "presentation": {
         "question": {
           "zh": "喜欢一张海报，能说明喜欢什么吗？",
@@ -351,11 +351,15 @@
         },
         "image": "/assets/work/showcase/taste.jpg",
         "caption": {
-          "zh": "偏爱实验室 · 真实构图与单变量对照",
-          "en": "TasteRoom · Real compositions and single-variable comparison"
+          "zh": "偏爱实验室 · 同内容只变字体；选 B 后仍待授权范围",
+          "en": "TasteRoom · Same content, only type changes; choosing B still requires scope consent"
         },
         "kind": "demo",
-        "thumbnail": "/assets/work/showcase/taste-crop.jpg"
+        "thumbnail": "/assets/work/showcase/taste-crop.jpg",
+        "coverSize": {
+          "width": 802,
+          "height": 577
+        }
       }
     },
     {
@@ -406,7 +410,7 @@
       "group": "main",
       "iterationUrl": "/cases/shared-choice/",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study",
+      "caseLabelEn": "Design process",
       "presentation": {
         "question": {
           "zh": "大家都说随便，为什么还是选不出来？",
@@ -418,11 +422,15 @@
         },
         "image": "/assets/work/showcase/suibianju.jpg",
         "caption": {
-          "zh": "随便局 · 条件收集与共同候选",
-          "en": "Suibianju · Conditions and shared candidates"
+          "zh": "随便局 · 预算调整填入草稿，已确认条件与表态未变",
+          "en": "Suibianju · Budget draft preview; confirmed conditions and consent unchanged"
         },
         "kind": "demo",
-        "thumbnail": "/assets/work/showcase/suibianju-crop.jpg"
+        "thumbnail": "/assets/work/showcase/suibianju-crop.jpg",
+        "coverSize": {
+          "width": 462,
+          "height": 409
+        }
       }
     },
     {
@@ -531,7 +539,7 @@
       "category": "ai",
       "group": "main",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study",
+      "caseLabelEn": "Design process",
       "presentation": {
         "question": {
           "zh": "裁判给了低分，依据能经得起复核吗？",
@@ -547,14 +555,18 @@
           "en": "Eval Lab · Saved scores, quotations and human review"
         },
         "kind": "demo",
-        "thumbnail": "/assets/work/showcase/eval-crop.jpg"
+        "thumbnail": "/assets/work/showcase/eval-crop.jpg",
+        "coverSize": {
+          "width": 489,
+          "height": 513
+        }
       }
     },
     {
       "name": "Filing Eval",
       "nameEn": "Filing Eval",
-      "description": "错句与遗漏，分别回到原文核验",
-      "descriptionEn": "Review false claims and omissions separately",
+      "description": "把摘要拆成可核对的断言，再单独检查关键信息覆盖。原文、历史结果与人工复核各自保留。",
+      "descriptionEn": "Review individual claims and essential coverage separately. Preserve the source, saved results and human review.",
       "url": "/demos/filing-eval/",
       "github": "https://github.com/AndyZhang666666/filing-eval",
       "metrics": [
@@ -574,28 +586,28 @@
       ],
       "subtitle": "逐条核查公告摘要的事实依据",
       "subtitleEn": "Claim-level fact checking for filing summaries",
-      "context": "创意文本很难稳定比较，摘要又可能写错事实或漏掉重点。把不同问题压成一个总分，既难以解释，也不利于改进。",
-      "contextEn": "Creative text is hard to compare consistently; a summary can add false claims or omit essential facts. One score obscures both the reason and the next action.",
+      "context": "只找错误会漏掉另一类风险：摘要省略了金额口径、限制条件或关键事件。一个总分难以说明问题出在哪一句，或者是哪句话根本没写。",
+      "contextEn": "Error checks miss absent conditions, amounts and events. A single score cannot identify either a false sentence or a missing one.",
       "approach": [
-        "不让人工意见覆盖历史：按样本、模型和具体运行隔离复核。记录不同意或待补充的依据，导出时同时保留原文、原始结果和人工判断。",
-        "事实错误与信息遗漏分开：Filing Eval 独立检查断言与关键事实覆盖。摘要没有写错，也可能漏掉会改变决定的信息。",
-        "没有证据，就保留争议：引句无法定位时明确提示；复核默认不选结论。历史标签和复核意见不能互相替代。"
+        "能回到原文：把具体断言与引用放在一起，定位失败时保留提示，不补造依据。",
+        "未保存不算已复核：复核结论和备注明确保存；未保存草稿与损坏记录不计入完成状态。",
+        "运行状态分开：历史结果、困难样本与尚未运行的候选留出集分别呈现。"
       ],
       "approachEn": [
-        "Keep the original record: Review is scoped to a sample, model and run. Exports retain source text, original results and the reviewer’s reasoning together.",
-        "Separate error from omission: Filing Eval reviews claims and coverage separately. A summary can be factually correct yet omit information that changes the decision.",
-        "Leave uncertainty visible: Unlocated quotes are flagged, and review starts with no selected verdict. Saved labels and human opinions serve different purposes."
+        "Return to the source: Link claims and quotations; keep failed locations visible rather than inventing evidence.",
+        "Drafts are not reviews: Save the verdict and note explicitly. Unsaved drafts and invalid records do not count as completed review.",
+        "Separate run status: Distinguish saved results, hard cases and unrun holdout candidates."
       ],
-      "result": "Eval Lab 的免 Key 回放包含 6 条样本的 18 次历史输出。Filing Eval 展示 28 条构造公告；原始结果、困难集与未运行的候选留出集分开说明。界面与回归已检查，不等于生产准确率已被证明。 复核比看总分慢。我的取舍是把人的注意力优先放在低分、错误和争议上，而不是要求逐字读完所有输出。",
-      "resultEn": "Eval Lab replays 18 saved outputs across six samples. Filing Eval contains 28 constructed notices, with original results, hard cases and unrun holdout candidates reported separately. Interface and regression checks do not establish production accuracy. Review costs more time than reading a score. The tradeoff is to direct attention to low scores, errors and disputes rather than requiring an exhaustive read of every output.",
+      "result": "公开工具可回放 28 条构造公告，并核对原文与断言、记录和导出本机复核。 构造材料便于检查边界，不能据此声称真实公告上的准确率或泛化能力。",
+      "resultEn": "The public tool replays 28 constructed notices with source inspection and local review export. Constructed material helps inspect boundaries; it does not establish accuracy on real filings.",
       "demoNote": "28条模拟公告历史回放，不评估任意新文本；复核只存本机，损坏记录不计入进度，未保存草稿不冒充已审核。",
       "demoNoteEn": "Replay of 28 synthetic filings, not live evaluation of arbitrary text. Reviews stay local; invalid records and unsaved drafts do not count as reviewed.",
       "id": "filing",
       "category": "ai",
       "group": "main",
-      "iterationUrl": "/cases/trust/",
+      "iterationUrl": "/cases/filing/",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study",
+      "caseLabelEn": "Design process",
       "presentation": {
         "question": {
           "zh": "摘要没有写错，就足够完整吗？",
@@ -619,8 +631,8 @@
       "nameEn": "Enterprise AI & business tools",
       "subtitle": "把 AI 接入实际业务流程",
       "subtitleEn": "AI integrated into business workflows",
-      "description": "选品、问答、线索与生产记录的流程交付",
-      "descriptionEn": "Workflow delivery for research, support and operations",
+      "description": "从选品、问答和业务记录里的具体任务切入。拆开输入、工具输出与人的承诺，给缺失信息和失败留出退路。",
+      "descriptionEn": "Start with a concrete research, support or operations task. Separate input, tool output and human commitments, with recovery for gaps and failures.",
       "period": "2026.05 – 至今",
       "role": "企业 AI 应用实践",
       "roleEn": "Enterprise AI Practice",
@@ -639,25 +651,26 @@
         "业务交付",
         "FDE"
       ],
-      "context": "商家的信息收集、知识回复和业务记录分散，人工整理多，关键动态信息仍需要确认。",
-      "contextEn": "Research, knowledge replies and business records were fragmented, with repetitive manual organisation and changing facts requiring confirmation.",
+      "context": "业务输入分散，价格、库存与交付条件会变。没有来源、确认和回退，自动化越快也可能越快传播错误。",
+      "contextEn": "Business inputs are fragmented and prices, stock and commitments change. Without sources, confirmation and recovery, automation can spread mistakes faster.",
       "approach": [
-        "选品与测款：组织社媒及电商信息，支持同款识别、竞品比较和小规模测试，交付带实图、来源和核验状态的看板与 Skill",
-        "知识库与客服：整理商品资料和问答，支持回复草稿、来源查询与人工接管",
-        "获客与线索：设计筛选、个性化触达和跟进记录，关键价格与交付条件交由人工确认",
-        "ERP/CRM：梳理扫码出入库、库存盘点、生产状态与线索记录，将日常记录、盘点核对和汇总拆为独立模块"
+        "输入：任务与证据范围：明确要整理什么、依据来自哪里、哪些字段还未知。动态字段保留核验状态。",
+        "工具：结构化结果与出处：将候选、引用和操作记录拆开。没有来源的字段留空或待核验，不用流畅回答补齐。",
+        "接管：确认、退回与重新核对：价格与交付承诺交由人确认；输入不足或工具失败时，保留已完成部分并返回缺失项。条件变化后重新检查，不沿用旧同意。"
       ],
       "approachEn": [
-        "Selection and testing: combined social and commerce information for product matching, comparison and small tests, with images, sources, verification status and reusable Skills.",
-        "Knowledge and service: organised product information for reply drafts, source lookup and human takeover.",
-        "Leads: designed screening, personalised contact and records, with human confirmation for pricing and delivery commitments.",
-        "ERP/CRM: organised scanning, inventory, production and leads into separate recording, reconciliation and reporting modules."
+        "Input: task and evidence scope: Define the task, sources and unknown fields, retaining verification status for changing information.",
+        "Tools: structured output and sources: Separate candidates, citations and actions. Leave unsupported fields unknown rather than filling them with fluent prose.",
+        "Handoff: confirm, return and recheck: People confirm prices and commitments. Missing input or failed tools return explicit gaps. Changed conditions require rechecking rather than reusing old consent."
       ],
-      "result": "工具辅助下，选品信息搜集与整理人工耗时减少约 40%；制造业工具的生产与库存信息汇总耗时降低约 20%。",
-      "resultEn": "Tool-assisted selection research and organisation took about 40% less manual time; production and inventory reporting time fell about 20%. These measure separate delivery modules.",
+      "result": "可公开检查的实现包括 Eval 的独立证据复核、随便局的无副作用条件预演和同版确认。上方链接直接进入这些机制与固定版本的源码。 这些公开 Demo 使用历史结果或本地规则，展示交互与状态机制。企业系统连接、客户采纳与效率收益需要在交付材料中分别核验。",
+      "resultEn": "Public implementations include independent evidence review in Eval and side-effect-free previews with versioned consent in Suibianju. The links above open the mechanisms and pinned source revisions. These public demos use saved outputs or local rules to demonstrate interaction and state mechanisms. Enterprise integrations, adoption and efficiency outcomes require separate delivery evidence.",
       "id": "fde",
       "category": "delivery",
       "group": "cases",
+      "iterationUrl": "/cases/agent-workflow/",
+      "caseLabel": "设计过程",
+      "caseLabelEn": "Design process",
       "presentation": {
         "question": {
           "zh": "业务流程里，哪一步值得先交给 AI？",
@@ -902,8 +915,8 @@
       "nameEn": "Growth Experiment Lab",
       "subtitle": "从实验设计到结果解读的决策工具",
       "subtitleEn": "A decision tool from experiment design to interpretation",
-      "description": "把统计证据与上线决策分开",
-      "descriptionEn": "Separate statistical evidence from rollout decisions",
+      "description": "把统计证据、业务最小效应和护栏分开。工具提供计算与计划，发布判断由人留下理由。",
+      "descriptionEn": "Separate statistical evidence, practical effect and guardrails. The tool calculates; a person records the decision.",
       "url": "/growth-experiment-lab/",
       "github": "https://github.com/AndyZhang666666/growth-experiment-lab",
       "metrics": [
@@ -922,26 +935,26 @@
         "工具"
       ],
       "featured": true,
-      "context": "从订单共现直接跳到“做套餐”，容易把相关性当成效果。更高的客单也不等于更高收益，需要核对新增购买、让利、毛利与采纳假设。",
-      "contextEn": "Jumping from co-occurrence to a bundle confuses association with impact. Higher order value does not establish better contribution; adoption, margin and discount leakage matter.",
+      "context": "样本量足够时，很小的差异也可能显著；只看主指标，还可能忽略成本与护栏。计算证据和授权上线是不同的任务。",
+      "contextEn": "Small effects can become significant with enough data, while costs and guardrails remain unresolved. Evidence and rollout permission are different tasks.",
       "approach": [
-        "结构差异先提出问题：多人订单人均商品数少，也可能因为共享大份菜。先核对份量与人数口径，不直接称为凑单流失。",
-        "同一账本允许否定建议：模型算例：原价 20、套餐价 18，原有平均消费 12；20% 已经买齐、食材成本率 40%、既有顾客全领折扣。未买齐者采纳 50% 时，新增贡献 1.60 减让利 0.40，净增 1.20；采纳 5% 时净增 −0.24。",
-        "建议之后接验证计划：Growth 将统计证据、业务最小效应和人工护栏分开；Pricing 用守恒人群检查不同付费机制。工具辅助判断，不自动宣布全量上线。"
+        "先约定判断条件：区分基线、最小效应、样本和实验计划，避免看到结果后再改目标。",
+        "展示反复查看的代价：窥视模拟可以取消，参数与结果一起保留；模拟风险不冒充已发生的实验事故。",
+        "导出可追溯的判断：把计算结论、业务收益、护栏与决策理由放在同一份记录中，不自动批准上线。"
       ],
       "approachEn": [
-        "Use patterns to ask a question: Fewer items per person may reflect shared portions. Check portion size and party-size definitions before blaming a missing bundle.",
-        "Let the ledger reject an idea: Model example: list price 20, bundle price 18, original average spend 12; 20% already buy the full basket, cost ratio 40%, all existing buyers redeem. At 50% adoption among incomplete buyers, gain 1.60 minus discount cost 0.40 gives 1.20; at 5%, the result is −0.24.",
-        "Follow advice with a test plan: Growth separates statistical evidence, minimum business effect and manual guardrails. Pricing compares payment mechanisms on conserved cohorts. These support a decision without automatically authorising rollout."
+        "Define the decision criteria first: Keep baseline, minimum effect, sample and plan explicit instead of changing the target after seeing results.",
+        "Show the cost of peeking: Peeking simulation is cancellable and retains inputs. Simulated risk is not described as a real experiment incident.",
+        "Export a traceable decision: Export calculation, practical value, guardrails and reasoning without automatically authorising rollout."
       ],
-      "result": "有 4,000 条合成订单和可检查的候选、账本与导出。手算及边界用于验证实现；不能把候选毛利为正或模拟结果写成真实增长。 两类人群仍是简化模型，采纳率、重复购买与商家成本都未被真实订单实验校准。多一个小数位不能补上这些信息。",
-      "resultEn": "The demo contains 4,000 synthetic orders with inspectable candidates, ledgers and exports. Hand calculations and edge checks verify implementation, not actual growth. Two populations are still a simplification. Adoption, repeat purchases and merchant costs have not been calibrated against a live experiment; more decimal places do not fix that.",
+      "result": "可运行的设计与解读工具、模拟，以及计划和决策导出均可在浏览器检查。 假设检验依赖抽样与分流条件，当前演示没有接入真实流量，不能报告业务提升。",
+      "resultEn": "Planning, interpretation, simulation and plan/decision exports can be inspected in the browser. Inference depends on sampling and allocation assumptions. The demo has no live traffic and establishes no business uplift.",
       "id": "growth",
       "category": "growth",
       "group": "main",
-      "iterationUrl": "/cases/bundles/",
+      "iterationUrl": "/cases/growth/",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study",
+      "caseLabelEn": "Design process",
       "presentation": {
         "question": {
           "zh": "实验显著，就应该全量上线吗？",
@@ -965,8 +978,8 @@
       "nameEn": "Pricing Model Sim",
       "subtitle": "比较三种付费机制的 LTV 与回本周期",
       "subtitleEn": "Compare LTV and payback across three pricing mechanisms",
-      "description": "同一付费人群口径下比较机制与回本",
-      "descriptionEn": "Compare payment models on a conserved cohort",
+      "description": "订阅、解锁和混合机制放在同一人群口径下。一起检查收入、服务成本、留存与回本。",
+      "descriptionEn": "Compare subscription, unlock and hybrid mechanisms on a conserved cohort, including cost, retention and payback.",
       "url": "/pricing-model-sim/",
       "github": "https://github.com/AndyZhang666666/pricing-model-sim",
       "metrics": [
@@ -984,26 +997,26 @@
         "订阅",
         "工具"
       ],
-      "context": "从订单共现直接跳到“做套餐”，容易把相关性当成效果。更高的客单也不等于更高收益，需要核对新增购买、让利、毛利与采纳假设。",
-      "contextEn": "Jumping from co-occurrence to a bundle confuses association with impact. Higher order value does not establish better contribution; adoption, margin and discount leakage matter.",
+      "context": "付费率、留存、解锁频次和成本如果分别使用不同口径，模型看起来精细，比较却失去意义。",
+      "contextEn": "Inconsistent conversion, retention, unlock and cost denominators can make a detailed comparison meaningless.",
       "approach": [
-        "结构差异先提出问题：多人订单人均商品数少，也可能因为共享大份菜。先核对份量与人数口径，不直接称为凑单流失。",
-        "同一账本允许否定建议：模型算例：原价 20、套餐价 18，原有平均消费 12；20% 已经买齐、食材成本率 40%、既有顾客全领折扣。未买齐者采纳 50% 时，新增贡献 1.60 减让利 0.40，净增 1.20；采纳 5% 时净增 −0.24。",
-        "建议之后接验证计划：Growth 将统计证据、业务最小效应和人工护栏分开；Pricing 用守恒人群检查不同付费机制。工具辅助判断，不自动宣布全量上线。"
+        "付费人群守恒：分别核对各机制人数和事件次数，不能把同一人重复算成新增付费者。",
+        "收益和成本一起推演：把留存、解锁与服务成本放在同一时间窗口下，回本不可达时明确显示。",
+        "结论随假设变化：比较不同情景与敏感参数，导出保留口径，不把单一默认值写成定价建议。"
       ],
       "approachEn": [
-        "Use patterns to ask a question: Fewer items per person may reflect shared portions. Check portion size and party-size definitions before blaming a missing bundle.",
-        "Let the ledger reject an idea: Model example: list price 20, bundle price 18, original average spend 12; 20% already buy the full basket, cost ratio 40%, all existing buyers redeem. At 50% adoption among incomplete buyers, gain 1.60 minus discount cost 0.40 gives 1.20; at 5%, the result is −0.24.",
-        "Follow advice with a test plan: Growth separates statistical evidence, minimum business effect and manual guardrails. Pricing compares payment mechanisms on conserved cohorts. These support a decision without automatically authorising rollout."
+        "Conserve paid populations: Check people and events separately without counting a person repeatedly as a new payer.",
+        "Model revenue and cost together: Keep retention, unlocks and service cost on one time horizon, showing unreachable payback explicitly.",
+        "Expose assumption sensitivity: Compare scenarios and sensitive assumptions, retaining definitions in exports rather than treating defaults as advice."
       ],
-      "result": "有 4,000 条合成订单和可检查的候选、账本与导出。手算及边界用于验证实现；不能把候选毛利为正或模拟结果写成真实增长。 两类人群仍是简化模型，采纳率、重复购买与商家成本都未被真实订单实验校准。多一个小数位不能补上这些信息。",
-      "resultEn": "The demo contains 4,000 synthetic orders with inspectable candidates, ledgers and exports. Hand calculations and edge checks verify implementation, not actual growth. Two populations are still a simplification. Adoption, repeat purchases and merchant costs have not been calibrated against a live experiment; more decimal places do not fix that.",
+      "result": "可检查三类机制、12 个月时间窗口及合成案例下的口径、账本和敏感性。 模型没有真实付费与留存校准，不能预测用户会接受哪个价格。",
+      "resultEn": "Inspect three mechanisms over 12 months using synthetic scenarios, ledgers and sensitivity analysis. The model is not calibrated on live payments or retention and cannot predict price acceptance.",
       "id": "pricing",
       "category": "growth",
       "group": "main",
-      "iterationUrl": "/cases/bundles/",
+      "iterationUrl": "/cases/pricing/",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study",
+      "caseLabelEn": "Design process",
       "presentation": {
         "question": {
           "zh": "付费机制变了，比较口径还一致吗？",
@@ -1065,7 +1078,7 @@
       "group": "main",
       "iterationUrl": "/cases/bundles/",
       "caseLabel": "设计过程",
-      "caseLabelEn": "Case study",
+      "caseLabelEn": "Design process",
       "presentation": {
         "question": {
           "zh": "套餐卖得更多，为什么反而少赚了？",
@@ -1081,7 +1094,11 @@
           "en": "Bundle Lab · Two-population contribution ledger"
         },
         "kind": "demo",
-        "thumbnail": "/assets/work/showcase/bundle-crop.jpg"
+        "thumbnail": "/assets/work/showcase/bundle-crop.jpg",
+        "coverSize": {
+          "width": 594,
+          "height": 598
+        }
       }
     },
     {
@@ -1385,7 +1402,18 @@
         "dz": "模型能做的事已经远多于产品里用上的事。今天多数 AI 产品的瓶颈不在模型，在有没有人把它放进一个真实场景，定义清楚它要解决的具体问题。这是产品的活，不是算法的活。",
         "de": "Models can already do far more than products make use of. The bottleneck in most AI products today is not the model. It is whether someone has placed it in a real scenario and defined the specific problem it must solve. That is product work, not algorithm work.",
         "refLabel": "YouTube · Andrej Karpathy, Software in the Era of AI (2025)",
-        "refUrl": "https://www.youtube.com/watch?v=LCEmiRjPEtQ"
+        "refUrl": "https://www.youtube.com/watch?v=LCEmiRjPEtQ",
+        "practice": {
+          "study": "taste",
+          "text": {
+            "zh": "在偏爱实验室，一次选择只留下线索；确认范围后才形成规则。",
+            "en": "In TasteRoom, one choice is a clue; only a scoped confirmation creates a rule."
+          },
+          "link": {
+            "zh": "看偏好如何被验证",
+            "en": "See how a preference is tested"
+          }
+        }
       },
       {
         "n": "02",
@@ -1394,7 +1422,18 @@
         "dz": "一个 AI 功能「好不好」，不能靠感觉。我倾向于先把评测标准建出来再谈效果。标准本身就是产品的一部分，它决定了团队朝哪个方向优化，也决定了上线之后谁来说「够了」。",
         "de": "Whether an AI feature is \"good\" cannot rest on feel. I prefer to build the evaluation standard before discussing results. The standard is part of the product: it decides which direction the team optimises toward, and who gets to say \"enough\" after launch.",
         "refLabel": "eugeneyan · LLM-as-judge 评测实践",
-        "refUrl": "https://eugeneyan.com/writing/llm-evaluators/"
+        "refUrl": "https://eugeneyan.com/writing/llm-evaluators/",
+        "practice": {
+          "study": "trust",
+          "text": {
+            "zh": "Eval 保留裁判原分；人的不同判断另记，不回写成更好看的分数。",
+            "en": "Eval retains the original score and records human disagreement separately."
+          },
+          "link": {
+            "zh": "看评分之后的复核",
+            "en": "See the review after the score"
+          }
+        }
       },
       {
         "n": "03",
@@ -1403,7 +1442,18 @@
         "dz": "自动驾驶从演示到落地用了十几年，Agent 也一样。真正有价值的不是全自动的炫技，是让人能调节自主程度、在关键节点快速验证的「半自动」产品。做这类产品，交互设计和验证效率比模型能力更重要。",
         "de": "Self-driving took over a decade from demo to deployment, and agents will follow the same arc. The value is not in fully autonomous showpieces but in \"partially autonomous\" products where people can dial autonomy up or down and verify quickly at key points. For such products, interaction design and verification speed matter more than raw model capability.",
         "refLabel": "Hamel Husain · Your AI Product Needs Evals",
-        "refUrl": "https://hamel.dev/blog/posts/evals/"
+        "refUrl": "https://hamel.dev/blog/posts/evals/",
+        "practice": {
+          "study": "shared-choice",
+          "text": {
+            "zh": "随便局可以预演预算，但不能替成员放宽条件，也不能把预演当同意。",
+            "en": "Suibianju previews a budget change without changing a person’s conditions or treating it as consent."
+          },
+          "link": {
+            "zh": "看预演与决定权",
+            "en": "See preview and decision rights"
+          }
+        }
       },
       {
         "n": "04",
@@ -1412,7 +1462,18 @@
         "dz": "消费端的 AI 产品，新鲜感过后拼的还是留存：用户愿不愿意每天回来。企业端的关键是替换成本：AI 方案比旧流程好多少，才值得客户承担切换的代价。两边都不是「有 AI」就赢，是「AI 让哪个数字变了」才赢。",
         "de": "Once novelty fades, consumer AI competes on retention: will people come back every day. On the enterprise side the question is switching cost: how much better than the old process must the AI solution be for a customer to bear the cost of change. Neither side wins by \"having AI\". They win by \"which number AI moved\".",
         "refLabel": "Lenny's Newsletter · Product sense",
-        "refUrl": "https://www.lennysnewsletter.com/p/product-sense"
+        "refUrl": "https://www.lennysnewsletter.com/p/product-sense",
+        "practice": {
+          "study": "agent-workflow",
+          "text": {
+            "zh": "业务交付中，整理和查询交给工具；价格、交付承诺与关键异常保留人工确认。",
+            "en": "Delegate organisation and lookup; retain human confirmation for prices, commitments and critical exceptions."
+          },
+          "link": {
+            "zh": "看任务流与人工接管",
+            "en": "See the workflow and human handoff"
+          }
+        }
       }
     ]
   },

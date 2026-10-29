@@ -20,6 +20,27 @@
       "sourceSha256": "9d58427733b16883375fcfbebfed9ee2ca95a4193b5e5f4a938bf5095b307c6b",
       "outputSha256": "65846b01015917fedb3682c9b792be6965355e46193d11d9f39e4d525ee1d01d",
       "use": "Read-only e06 / run 0 / structure excerpt; no new model call"
+    },
+    {
+      "repo": "bundle-lab",
+      "revision": "55448e1b6c0ea623afd39d3230e1a3332e311f1e",
+      "target": "assets/demo-preview/bundle-candidate.json",
+      "inputs": [
+        {
+          "source": "lib/orders.js",
+          "sha256": "75820d1dacf0072037daf73c02f0c3f1ed2e06f8dc3e60bb4ccb0b5c23f0b6ac"
+        },
+        {
+          "source": "lib/rules.js",
+          "sha256": "39990bbc70ee5f65a52172d9c519cd1300875b6a0b5ab63e3003ec8e0bfaa31d"
+        },
+        {
+          "source": "data/orders.csv",
+          "sha256": "4cb6b0e00600371a6602596c1db2a45473338b643108daa51e7c79149ec828a3"
+        }
+      ],
+      "outputSha256": "2a56a1ecfc32dc6b601a21ced1415e2f203dc17ac4ae4954eff9c3f0be0e1d4f",
+      "use": "Deterministic mining of pinned synthetic orders with canonical rules and contribution model; not live trading data"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
-  "capturedAt": "2026-10-28T03:29:39.908Z",
+  "updatedAt": "2026-10-29T00:30:50.901Z",
   "source": "http://127.0.0.1:8811",
-  "method": "Browser captures of the locally served, current app builds. Isolated empty browser context; no model calls, saved reviews or preference memories.",
+  "method": "Actual product screenshots in isolated empty contexts; per-product result states and regions. No model calls or real user state. Existing untouched captures retain their own timestamps.",
   "records": [
     {
       "id": "eval",
@@ -9,17 +9,18 @@
       "full": "assets/work/showcase/eval.jpg",
       "crop": "assets/work/showcase/eval-crop.jpg",
       "viewport": {
-        "width": 1440,
+        "width": 1280,
         "height": 1000
       },
-      "clip": {
-        "x": 24,
-        "y": 100,
-        "width": 1392,
-        "height": 870
+      "capturedAt": "2026-10-29T00:30:50.873Z",
+      "state": "Historical structure score, located quotation, independent needs-context review. Review is made only in this disposable capture context.",
+      "fullPage": true,
+      "cropSize": {
+        "width": 489,
+        "height": 513
       },
-      "fullSha256": "1386444b4af5a267130532129e6ef4c501c1f78e4b71f2cf3af5f450fe26a0fb",
-      "cropSha256": "05394ca9708ab2bb5c06e6ce4a575758fa57650f573dbead98dff7e63653e642"
+      "fullSha256": "e882aa531349716519aa2e118a2c521643d84754631362bcd8886e97d88f4cd2",
+      "cropSha256": "f79e82a794edaca66322bfdb85bae20189c02ea7f5ecf27edbc868d161a43818"
     },
     {
       "id": "taste",
@@ -27,17 +28,18 @@
       "full": "assets/work/showcase/taste.jpg",
       "crop": "assets/work/showcase/taste-crop.jpg",
       "viewport": {
-        "width": 1440,
+        "width": 1280,
         "height": 1000
       },
-      "clip": {
-        "x": 24,
-        "y": 100,
-        "width": 1392,
-        "height": 870
+      "capturedAt": "2026-10-29T00:29:36.415Z",
+      "state": "Canonical single-variable typography comparison; B chosen, scope not yet authorised. Full image also shows the explicit scope options.",
+      "fullPage": true,
+      "cropSize": {
+        "width": 802,
+        "height": 577
       },
-      "fullSha256": "a6cd9d772caebb8481f526b3e42919b2babf4af9a92ad1b87ee1e00f671fe5ef",
-      "cropSha256": "470481b14f9fa3fcf204ffcaaa0604b08f7012f1d62696f3cc38d4fe18d50507"
+      "fullSha256": "877b651716aa408ab59899465b4eb56c284159bd29ecb635986bf7db03417c78",
+      "cropSha256": "388046871587501629ad74c8d859c4f39bdbbdc179e4c6d4f9c647675a60120b"
     },
     {
       "id": "suibianju",
@@ -45,17 +47,18 @@
       "full": "assets/work/showcase/suibianju.jpg",
       "crop": "assets/work/showcase/suibianju-crop.jpg",
       "viewport": {
-        "width": 1440,
+        "width": 1280,
         "height": 1000
       },
-      "clip": {
-        "x": 24,
-        "y": 100,
-        "width": 1392,
-        "height": 870
+      "capturedAt": "2026-10-29T00:29:37.699Z",
+      "state": "No-intersection scenario; voluntary budget proposal fills a draft. Confirmed conditions unchanged, shared acceptance still pending.",
+      "fullPage": true,
+      "cropSize": {
+        "width": 462,
+        "height": 409
       },
-      "fullSha256": "af6815ca8f9fca379d90ed841728539b35ef91c147a994e5a03965fee2ae28aa",
-      "cropSha256": "66d6123a14f79747efe5639a3c2786fa4ec89d1118ee531cc9011fd521edc7f4"
+      "fullSha256": "47aa152123bf1bf6293d58a227edfde5115c2b6f0c0a3c451045f759fb521d38",
+      "cropSha256": "3e20883c27dc8e3f8c9efb2efe8a28b09950d5baa0674d6f43d3695ba30354e9"
     },
     {
       "id": "bundle",
@@ -63,17 +66,18 @@
       "full": "assets/work/showcase/bundle.jpg",
       "crop": "assets/work/showcase/bundle-crop.jpg",
       "viewport": {
-        "width": 1440,
+        "width": 1280,
         "height": 1000
       },
-      "clip": {
-        "x": 24,
-        "y": 100,
-        "width": 1392,
-        "height": 870
+      "capturedAt": "2026-10-29T00:29:38.748Z",
+      "state": "Actual cola + chicken rice candidate, default canonical assumptions; negative middle-case contribution, two-population ledger and break-even gate.",
+      "fullPage": true,
+      "cropSize": {
+        "width": 594,
+        "height": 598
       },
-      "fullSha256": "df16871ac0cbd01ca7e664380e3778a3c972791fbbd24055e6025cb8aa23b6e4",
-      "cropSha256": "017f03db575207aa9536d3e2d6257e9617e19ca76473a1b0d4b546045a82466d"
+      "fullSha256": "2adcd813e20a73aaa87c90811bdd82aed03bb159d1f458b8257ee4283225e4f2",
+      "cropSha256": "bb4187b8242d94bb60c64708c386961379e313a74e045b8fe4dca3da236f6704"
     },
     {
       "id": "filing",
@@ -91,7 +95,8 @@
         "height": 870
       },
       "fullSha256": "5b31646dfdc3c9718b0daa4aee519999cc30f64716eb744af71fe1b62b17e7f3",
-      "cropSha256": "2df6429be62dbe1e0c257f7b3cf0d945376c15a35ff5a80661de621d470390bb"
+      "cropSha256": "2df6429be62dbe1e0c257f7b3cf0d945376c15a35ff5a80661de621d470390bb",
+      "capturedAt": "2026-10-28T03:29:39.908Z"
     },
     {
       "id": "grounded",
@@ -109,7 +114,8 @@
         "height": 870
       },
       "fullSha256": "9c3ee03f23c2aef20361a97eb69ca8afcb5d67c2d42c84f2453e7ee474c50e01",
-      "cropSha256": "d5c9ba8229dd6736dc0e73782495af85430770979f4a131f2e46912f7fbc6ec1"
+      "cropSha256": "d5c9ba8229dd6736dc0e73782495af85430770979f4a131f2e46912f7fbc6ec1",
+      "capturedAt": "2026-10-28T03:29:39.908Z"
     },
     {
       "id": "growth",
@@ -127,7 +133,8 @@
         "height": 870
       },
       "fullSha256": "9989b51e6ac493e1d80297695982b5f7559ba749c962155ae4bd5dd3796e6228",
-      "cropSha256": "e1acd11203e4ff6a3f17b82da75985f219213b1a886fb553806839c27ca3a142"
+      "cropSha256": "e1acd11203e4ff6a3f17b82da75985f219213b1a886fb553806839c27ca3a142",
+      "capturedAt": "2026-10-28T03:29:39.908Z"
     },
     {
       "id": "pricing",
@@ -145,7 +152,8 @@
         "height": 870
       },
       "fullSha256": "adc9611b8fe7e4458b2707d9602144cd2141276e83a24658106c825a8f5c2ff2",
-      "cropSha256": "4ab259bab35dda3c7ad8543bcd84c669ba3ab664b3b0ea571fb83c86f21618fe"
+      "cropSha256": "4ab259bab35dda3c7ad8543bcd84c669ba3ab664b3b0ea571fb83c86f21618fe",
+      "capturedAt": "2026-10-28T03:29:39.908Z"
     },
     {
       "id": "commute",
@@ -163,7 +171,8 @@
         "height": 870
       },
       "fullSha256": "21d0c8116065ca6cfe4b28a9746749a307f69c1ea837f589a34ff49e69630645",
-      "cropSha256": "29558c587ad13e2891853b6a53f9bcfc3ba5a7ae792ecae0a662a38122b1ec45"
+      "cropSha256": "29558c587ad13e2891853b6a53f9bcfc3ba5a7ae792ecae0a662a38122b1ec45",
+      "capturedAt": "2026-10-28T03:29:39.908Z"
     }
   ]
 }

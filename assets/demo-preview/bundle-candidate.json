@@ -1,0 +1,96 @@
+{
+  "source": "Built-in synthetic orders",
+  "selection": "A familiar two-item example that exposes discount leakage; not the highest-return candidate",
+  "orderCount": 4000,
+  "candidateCount": 58,
+  "candidate": {
+    "key": "可乐 + 鸡腿饭",
+    "items": [
+      "可乐",
+      "鸡腿饭"
+    ],
+    "size": 2,
+    "support": 0.0555,
+    "count": 222,
+    "confidence": 0.4344422700587084,
+    "lift": 3.3483026594120107,
+    "antecedent": [
+      "鸡腿饭"
+    ],
+    "consequent": [
+      "可乐"
+    ],
+    "hitOrders": 222,
+    "matchedOrders": 808,
+    "hitAOV": 66.79729729729729,
+    "overallAOV": 65.9665,
+    "aovDelta": 0.8307972972972948,
+    "groupShare": 0.40540540540540543,
+    "dominantDaypart": "lunch",
+    "dominantDaypartShare": 0.4954954954954955,
+    "score": 18.104847622277468,
+    "matchedCount": 808,
+    "matchedShare": 0.202,
+    "matchedAOV": 67.10643564356435,
+    "partialSpend": 18.389851485148515,
+    "hitCount": 222,
+    "hitRate": 0.2747524752475248,
+    "listPrice": 29,
+    "modelVersion": "two-population-v2-2026-10-25",
+    "bundleP": 25.52,
+    "bundlePrice": 25.52,
+    "discount": 0.12,
+    "discountAmount": 3.48,
+    "costRatio": 0.4,
+    "existingRedemption": 1,
+    "scenarios": {
+      "conservative": {
+        "adoption": 0.05,
+        "aovLift": -0.5518242574257428,
+        "aovLiftPct": -0.030006999125109374,
+        "marginLift": -0.7640272277227725,
+        "marginLiftPct": -0.06924355609394982,
+        "baseMargin": 11.033910891089109,
+        "bundleMargin": 13.919999999999998,
+        "incompleteSpend": 14.370307167235495,
+        "addedRevenue": 0.4043143564356435,
+        "addedMargin": 0.19211138613861375,
+        "existingLoss": 0.9561386138613863
+      },
+      "neutral": {
+        "adoption": 0.12,
+        "aovLift": 0.014215841584158118,
+        "aovLiftPct": 0.0007730264486169835,
+        "marginLift": -0.4950712871287133,
+        "marginLiftPct": -0.044868160710680435,
+        "baseMargin": 11.033910891089109,
+        "bundleMargin": 13.919999999999998,
+        "incompleteSpend": 14.370307167235495,
+        "addedRevenue": 0.9703544554455444,
+        "addedMargin": 0.46106732673267303,
+        "existingLoss": 0.9561386138613863
+      },
+      "optimistic": {
+        "adoption": 0.25,
+        "aovLift": 1.0654331683168312,
+        "aovLiftPct": 0.05793593108553736,
+        "marginLift": 0.004418316831682478,
+        "marginLiftPct": 0.0004004307153912828,
+        "baseMargin": 11.033910891089109,
+        "bundleMargin": 13.919999999999998,
+        "incompleteSpend": 14.370307167235495,
+        "addedRevenue": 2.0215717821782175,
+        "addedMargin": 0.9605569306930688,
+        "existingLoss": 0.9561386138613863
+      }
+    },
+    "breakEven": {
+      "rate": 0.24885006377797553,
+      "requiredRate": 0.24885006377797553,
+      "incrementalMargin": 5.297815699658701,
+      "giveaway": 3.4800000000000004,
+      "reason": null
+    },
+    "expectedValue": -400.01760000000036
+  }
+}

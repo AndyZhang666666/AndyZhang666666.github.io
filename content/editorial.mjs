@@ -1,4 +1,5 @@
 // Resume and project facts live in data.json. This file contains presentation and product analysis.
+import {specificStudies} from './specific-studies.mjs';
 const L = (zh, en) => ({ zh, en });
 
 export const identity = {
@@ -19,15 +20,15 @@ export const projects = [
   ['suibianju','life',L('随便局','Suibianju'),L('把聚餐中的“随便”变成可确认的条件','Turn “anything is fine” into agreed conditions'),'shared-choice'],
   ['grounded','life',L('有据','Grounded Choice'),L('从相反经验中，找到适合自己的决定','Make a choice with conflicting experiences'),null],
   ['eval','ai',L('Eval Lab','Eval Lab'),L('从评分到有证据的版本评审','From scores to evidence-based review'),'trust'],
-  ['filing','ai',L('Filing Eval','Filing Eval'),L('错句与遗漏，分别回到原文核验','Review false claims and omissions separately'),'trust'],
-  ['fde','delivery',L('企业 AI 与轻量业务工具','Enterprise AI & business tools'),L('选品、问答、线索与生产记录的流程交付','Workflow delivery for research, support and operations'),null],
+  ['filing','ai',L('Filing Eval','Filing Eval'),L('错句与遗漏，分别回到原文核验','Review false claims and omissions separately'),'filing'],
+  ['fde','delivery',L('企业 AI 与轻量业务工具','Enterprise AI & business tools'),L('选品、问答、线索与生产记录的流程交付','Workflow delivery for research, support and operations'),'agent-workflow'],
   ['research-agent','delivery',L('个人投研 Agent 与量化研究','Research Agent & quantitative tools'),L('多源研究、盘后复盘与样本外对照','Multi-source research and out-of-sample comparison'),null],
   ['commute','personal',L('通勤方案比较器','Commute Compare'),L('多花多少钱，换多少时间与迟到风险','Compare cost, travel time and late-arrival risk'),null],
   ['poker-quiz','personal',L('扑克玩家类型测试','Poker Style Quiz'),L('用十道题描述自己的打法','Describe your playing style in ten questions'),null],
   ['bankroll','personal',L('扑克筹码管理模拟器','Bankroll Simulator'),L('分开看停止、曾经达标与最终达标','Separate stopping, reaching and finishing above target'),null],
   ['poker-ev','personal',L('扑克期望值计算器','Poker EV Calculator'),L('检查假设估错时，决策会不会改变','Check whether a decision survives a mistaken estimate'),null],
-  ['growth','growth',L('Growth Experiment Lab','Growth Experiment Lab'),L('把统计证据与上线决策分开','Separate statistical evidence from rollout decisions'),'bundles'],
-  ['pricing','growth',L('Pricing Model Sim','Pricing Model Sim'),L('同一付费人群口径下比较机制与回本','Compare payment models on a conserved cohort'),'bundles'],
+  ['growth','growth',L('Growth Experiment Lab','Growth Experiment Lab'),L('把统计证据与上线决策分开','Separate statistical evidence from rollout decisions'),'growth'],
+  ['pricing','growth',L('Pricing Model Sim','Pricing Model Sim'),L('同一付费人群口径下比较机制与回本','Compare payment models on a conserved cohort'),'pricing'],
   ['bundle','growth',L('Bundle Lab','Bundle Lab'),L('共购关系之外，核对新增与让利','Account for incremental sales and discounts to existing buyers'),'bundles'],
   ['content','delivery',L('留学咨询内容矩阵','Study-abroad content business'),L('从内容、私域咨询到线索跟进','From content to consultation and lead follow-up'),null],
 ].map(([id,category,name,description,caseId],index)=>({id,category,name,description,caseId,index}));
@@ -159,6 +160,16 @@ export const studies = [
     next:L('先核对商品份量和人群口径，再做小流量对照。预先约定贡献毛利、退款和复购的判断条件，区分新购买与原有整套购买的折扣成本。','Validate portion and segment definitions, then run a small controlled test. Predefine contribution, refund and repeat-purchase conditions, separating new purchases from discounts to existing full-basket buyers.'),
     artifact:L('带当前假设的收益推演与下一步实验计划。','A contribution comparison and test plan with current assumptions attached.'),
   },
+];
+
+studies.push(...specificStudies);
+
+// Existing four opinions stay intact. Each now points to a concrete design decision.
+export const aiPractices=[
+ {study:'taste',text:L('在偏爱实验室，一次选择只留下线索；确认范围后才形成规则。','In TasteRoom, one choice is a clue; only a scoped confirmation creates a rule.'),link:L('看偏好如何被验证','See how a preference is tested')},
+ {study:'trust',text:L('Eval 保留裁判原分；人的不同判断另记，不回写成更好看的分数。','Eval retains the original score and records human disagreement separately.'),link:L('看评分之后的复核','See the review after the score')},
+ {study:'shared-choice',text:L('随便局可以预演预算，但不能替成员放宽条件，也不能把预演当同意。','Suibianju previews a budget change without changing a person’s conditions or treating it as consent.'),link:L('看预演与决定权','See preview and decision rights')},
+ {study:'agent-workflow',text:L('业务交付中，整理和查询交给工具；价格、交付承诺与关键异常保留人工确认。','Delegate organisation and lookup; retain human confirmation for prices, commitments and critical exceptions.'),link:L('看任务流与人工接管','See the workflow and human handoff')},
 ];
 
 export const viewpoints = [
