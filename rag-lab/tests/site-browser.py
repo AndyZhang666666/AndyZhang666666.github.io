@@ -45,13 +45,21 @@ with sync_playwright() as p:
         assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),str(width)
     results.append('Homepage remains without horizontal overflow at 390/768/1440px')
 
-    for route in ['/tasteroom/','/suibianju/','/demos/filing-eval/','/cases/trust/','/cases/taste/','/cases/shared-choice/','/cases/bundles/']:
+    for route in ['/tasteroom/','/suibianju/','/demos/filing-eval/','/cases/trust/','/cases/taste/','/cases/shared-choice/','/cases/bundles/','/agent-bench/']:
         target=ROOT/route.strip('/')/'index.html'
         if not target.exists(): continue
         response=page.goto(BASE+route);page.wait_for_load_state('networkidle')
         assert response.ok,route
         assert len(page.locator('body').inner_text())>100,route
         results.append(route+' loads and executes without page exceptions')
+    expect(page.locator('#case-select option')).to_have_count(10)
+    page.locator('#case-select').select_option('timeout')
+    page.locator('#watch').click()
+    expect(page.locator('#play-status')).to_contain_text('播放结束')
+    expect(page.locator('#verdict')).to_be_visible()
+    expect(page.locator('.result')).to_have_count(2)
+    expect(page.locator('[data-policy=baseline] .state')).to_have_text('结果未知')
+    results.append('Parallel Agent Bench timeout example retains two-policy comparison and unknown-receipt state')
     assert not errors,errors
     (OUT/'site-browser-results.json').write_text(json.dumps({'base':BASE,'projectCount':len(data['projects']),'checks':results,'pageErrors':errors,'scope':'Repo-owned pages and homepage previews, not third-party apps'},ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'checks':len(results),'pageErrors':errors},ensure_ascii=False))

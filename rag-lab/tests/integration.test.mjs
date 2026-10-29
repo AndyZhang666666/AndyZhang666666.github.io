@@ -5,7 +5,7 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
-import {integrateSite} from '../scripts/integrate-site.mjs';
+import {integrateSite, captureExtensions, restoreExtensions} from '../scripts/integrate-site.mjs';
 
 test('incremental site integration is idempotent and preserves unrelated data/cards', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'rag-integration-'));
@@ -27,10 +27,28 @@ test('incremental site integration is idempotent and preserves unrelated data/ca
   } finally { await rm(dir, {recursive: true}); }
 });
 
-test('actual site addition preserves all 15 original projects and changes only its own card/count', async () => {
+test('a historical generator cannot erase a parallel custom project/card', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'rag-extension-'));
+  const root = pathToFileURL(dir + '/');
+  const entry = {id: 'agent-bench', name: 'Parallel project', custom: {preserve: true}};
+  const marker = '<div id="projectGrid" class="project-grid">';
+  const card = '<article id="project-agent-bench" class="custom-card"><p>EXACT CUSTOM CONTENT</p></article>';
+  try {
+    await writeFile(new URL('data.json', root), JSON.stringify({projects: [{id: 'old'}, entry]}));
+    await writeFile(new URL('index.html', root), marker + card + '</div>');
+    const captured = await captureExtensions(['old'], root);
+    await writeFile(new URL('data.json', root), JSON.stringify({projects: [{id: 'old'}]}));
+    await writeFile(new URL('index.html', root), marker + '</div>');
+    await restoreExtensions(captured, root);
+    assert.deepEqual(JSON.parse(await readFile(new URL('data.json', root), 'utf8')).projects[1], entry);
+    assert.ok((await readFile(new URL('index.html', root), 'utf8')).includes(card));
+  } finally { await rm(dir, {recursive: true}); }
+});
+
+test('actual site addition preserves all 16 existing projects including Agent Bench and changes only its own card/count', async () => {
   const root = new URL('../../', import.meta.url);
   const cwd = new URL('../../', import.meta.url).pathname;
-  const base = '35ea8dab812227a2a68f6c5a793198f773f2ced3';
+  const base = '1a786531586fc078d424a662cbf319bf20bc9ff5';
   const previousData = JSON.parse(execFileSync('git', ['show', `${base}:data.json`], {cwd, encoding: 'utf8'}));
   const currentData = JSON.parse(await readFile(new URL('data.json', root), 'utf8'));
   assert.deepEqual(currentData.projects.filter(p => p.id !== 'rag-lab'), previousData.projects);
@@ -38,10 +56,12 @@ test('actual site addition preserves all 15 original projects and changes only i
   let currentHTML = await readFile(new URL('index.html', root), 'utf8');
   const previousHTML = execFileSync('git', ['show', `${base}:index.html`], {cwd, encoding: 'utf8'});
   currentHTML = currentHTML.replace(/<article id="project-rag-lab"[^]*?<\/article>\n/, '')
-    .replaceAll('查看全部 16 项作品', '查看全部 15 项作品').replaceAll('Explore all 16 projects', 'Explore all 15 projects');
+    .replaceAll(/查看全部 \d+ 项作品/g, previousHTML.match(/查看全部 \d+ 项作品/)[0])
+    .replaceAll(/Explore all \d+ projects/g, previousHTML.match(/Explore all \d+ projects/)[0]);
   currentHTML = currentHTML.replace(/src="app\.js\?v=[^"]*"/, previousHTML.match(/src="app\.js\?v=[^"]*"/)[0]);
   assert.equal(currentHTML, previousHTML);
   const previousApp = execFileSync('git', ['show', `${base}:app.js`], {cwd, encoding: 'utf8'});
   const app = await readFile(new URL('app.js', root), 'utf8');
   assert.equal(app.replace(/data\.json\?v=[\w.-]+/g, previousApp.match(/data\.json\?v=[\w.-]+/)[0]), previousApp);
+  assert.equal(execFileSync('git', ['diff', base, '--', 'agent-bench', '.github/workflows/agent-bench.yml'], {cwd, encoding: 'utf8'}), '', 'Parallel module must remain byte-for-byte unchanged');
 });

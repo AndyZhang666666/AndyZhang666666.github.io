@@ -11,6 +11,9 @@ const releaseVersion='20261028-practice1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
+// Preserve isolated projects added after the generator's historical base, including Agent Bench.
+const {captureExtensions,restoreExtensions}=await import('../rag-lab/scripts/integrate-site.mjs');
+const isolatedExtensions=await captureExtensions(data.projects.map(p=>p.id));
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 data.tagline=identity.short.zh+' '+identity.intro.zh;
 data.taglineEn=identity.short.en+' '+identity.intro.en;
@@ -96,4 +99,5 @@ for(const study of studies){
 console.log('Updated the original shell, four native selected previews, explicit project cards and four case pages.');
 
 // Reapply the isolated RAG addition after the existing generator; preserve its own source.
+await restoreExtensions(isolatedExtensions);
 await (await import('../rag-lab/scripts/integrate-site.mjs')).integrateSite();

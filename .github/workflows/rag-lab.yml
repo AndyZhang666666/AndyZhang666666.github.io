@@ -1,0 +1,32 @@
+name: RAG Lab checks
+on:
+  push:
+    branches: [main, feat/trustworthy-rag-lab]
+    paths: ['rag-lab/**', '.github/workflows/rag-lab.yml', 'index.html', 'data.json', 'app.js', '_config.yml', 'scripts/update-content.mjs']
+  pull_request:
+    paths: ['rag-lab/**', '.github/workflows/rag-lab.yml', 'index.html', 'data.json', 'app.js', '_config.yml', 'scripts/update-content.mjs']
+permissions:
+  contents: read
+jobs:
+  retrieval-and-api:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Rebuild public employee-only corpus
+        run: |
+          node rag-lab/scripts/build-public.mjs
+          git diff --exit-code -- rag-lab/public-corpus.json
+      - name: Retrieval, actual HTTP sessions, citations and incremental site tests
+        run: node --test rag-lab/tests/*.test.mjs
+      - name: Fixed original fixtures (extractive; no model calls)
+        run: node rag-lab/scripts/evaluate.mjs
+      - name: JavaScript syntax
+        run: |
+          node --check rag-lab/app.mjs
+          node --check rag-lab/server/server.mjs
