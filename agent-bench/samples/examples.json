@@ -1,0 +1,5092 @@
+{
+  "schema": "agent-bench-examples-v1",
+  "cases": [
+    {
+      "id": "normal",
+      "title": "正常执行",
+      "condition": "工具正常，身份有修改权限。",
+      "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+      "ticket_id": "T102",
+      "group": "售后组",
+      "note": "已联系客户，等待补充照片",
+      "fault": "",
+      "expected": "write",
+      "role": "editor"
+    },
+    {
+      "id": "timeout",
+      "title": "写入后超时",
+      "condition": "数据库已提交，但工具响应丢失。",
+      "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+      "ticket_id": "T102",
+      "group": "售后组",
+      "note": "已联系客户，等待补充照片",
+      "fault": "timeout",
+      "expected": "write",
+      "role": "editor"
+    },
+    {
+      "id": "missing",
+      "title": "缺少目标组",
+      "condition": "任务没有说明要转到哪个组。",
+      "task": "给 T102 添加「已联系客户，等待补充照片」，转给目标处理组，不要关闭工单。",
+      "ticket_id": "T102",
+      "group": null,
+      "note": "已联系客户，等待补充照片",
+      "fault": "",
+      "expected": "needs_input",
+      "role": "editor"
+    },
+    {
+      "id": "permission",
+      "title": "权限不足",
+      "condition": "当前身份只能查看，不能修改。",
+      "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+      "ticket_id": "T102",
+      "group": "售后组",
+      "note": "已联系客户，等待补充照片",
+      "fault": "",
+      "expected": "denied",
+      "role": "viewer"
+    },
+    {
+      "id": "transient",
+      "title": "查询短暂失败",
+      "condition": "第一次查询失败，第二次恢复。",
+      "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+      "ticket_id": "T102",
+      "group": "售后组",
+      "note": "已联系客户，等待补充照片",
+      "fault": "transient",
+      "expected": "write",
+      "role": "editor"
+    },
+    {
+      "id": "unavailable",
+      "title": "查询持续失败",
+      "condition": "查询一直失败，必须在有限次数内停止。",
+      "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+      "ticket_id": "T102",
+      "group": "售后组",
+      "note": "已联系客户，等待补充照片",
+      "fault": "unavailable",
+      "expected": "failed",
+      "role": "editor"
+    },
+    {
+      "id": "duplicate",
+      "title": "重复提交",
+      "condition": "同一操作被重复投递，不能多加记录。",
+      "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+      "ticket_id": "T102",
+      "group": "售后组",
+      "note": "已联系客户，等待补充照片",
+      "fault": "duplicate",
+      "expected": "write",
+      "role": "editor"
+    },
+    {
+      "id": "cancel",
+      "title": "写入前取消",
+      "condition": "确认前选择取消，不应产生业务变更。",
+      "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+      "ticket_id": "T102",
+      "group": "售后组",
+      "note": "已联系客户，等待补充照片",
+      "fault": "",
+      "expected": "cancelled",
+      "role": "editor"
+    },
+    {
+      "id": "conflict",
+      "title": "确认后版本变化",
+      "condition": "确认后其他处理人更新了工单，旧批准失效。",
+      "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+      "ticket_id": "T102",
+      "group": "售后组",
+      "note": "已联系客户，等待补充照片",
+      "fault": "conflict",
+      "expected": "write",
+      "role": "editor"
+    },
+    {
+      "id": "interrupted",
+      "title": "执行中断恢复",
+      "condition": "提交后执行器中断，需从持久化状态恢复。",
+      "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+      "ticket_id": "T102",
+      "group": "售后组",
+      "note": "已联系客户，等待补充照片",
+      "fault": "interrupted",
+      "expected": "write",
+      "role": "editor"
+    }
+  ],
+  "versions": {
+    "app": "1.0.0",
+    "cases": "tickets-v1",
+    "tools": "tickets-v1",
+    "grader": "state-events-v1",
+    "baseline": "direct-v1",
+    "hardened": "recover-v1"
+  },
+  "pairs": {
+    "normal": [
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "工具正常，身份有修改权限。",
+            "expected": "write",
+            "fault": "",
+            "group": "售后组",
+            "id": "normal",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "正常执行"
+          },
+          "created_at": 1793233597.3253078,
+          "elapsed_ms": 15,
+          "fault_used": false,
+          "id": "955dfd124a814453b48877924db9ad94",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "645cf371599543cabe29ee04634a6bde",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "645cf371599543cabe29ee04634a6bde",
+            "ticket_id": "T102"
+          },
+          "phase": "verify",
+          "policy": "baseline",
+          "reads": 1,
+          "reply": {
+            "group": "售后组",
+            "note_count": 1,
+            "outcome": "succeeded",
+            "status": "open",
+            "summary": "已转给目标组，新增一条记录，工单保持打开。"
+          },
+          "state": "succeeded",
+          "steps": 3,
+          "updated_at": 1793233597.339808,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "售后组",
+          "id": "T102",
+          "notes": [
+            "已联系客户，等待补充照片"
+          ],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 2
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.3253918,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 1
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.329108,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.023,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 3
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "645cf371599543cabe29ee04634a6bde",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.3291469,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 4
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "645cf371599543cabe29ee04634a6bde",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.332269,
+            "kind": "human",
+            "name": "confirm",
+            "result": {
+              "message": "已批准这组具体参数和版本"
+            },
+            "seq": 5
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "645cf371599543cabe29ee04634a6bde",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.3361459,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "deduplicated": false,
+              "duration_ms": 0.155,
+              "ok": true,
+              "operation": {
+                "action": {
+                  "expected_version": 1,
+                  "group": "售后组",
+                  "note": "已联系客户，等待补充照片",
+                  "operation_id": "645cf371599543cabe29ee04634a6bde",
+                  "ticket_id": "T102"
+                },
+                "actor": "editor",
+                "committed_at": 1793233597.336094,
+                "id": "645cf371599543cabe29ee04634a6bde",
+                "ticket": {
+                  "group": "售后组",
+                  "id": "T102",
+                  "notes": [
+                    "已联系客户，等待补充照片"
+                  ],
+                  "status": "open",
+                  "title": "样品包装破损",
+                  "version": 2
+                }
+              }
+            },
+            "seq": 6
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.339766,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "售后组",
+              "note_count": 1,
+              "outcome": "succeeded",
+              "status": "open",
+              "summary": "已转给目标组，新增一条记录，工单保持打开。"
+            },
+            "seq": 7
+          }
+        ],
+        "operations": [
+          {
+            "action": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "645cf371599543cabe29ee04634a6bde",
+              "ticket_id": "T102"
+            },
+            "actor": "editor",
+            "committed_at": 1793233597.336094,
+            "id": "645cf371599543cabe29ee04634a6bde",
+            "ticket": {
+              "group": "售后组",
+              "id": "T102",
+              "notes": [
+                "已联系客户，等待补充照片"
+              ],
+              "status": "open",
+              "title": "样品包装破损",
+              "version": 2
+            }
+          }
+        ],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 售后组；状态 open；新增记录 1 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 succeeded，实际 succeeded"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 1 次；新增记录 1 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 1,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 0,
+            "tool_calls": 2,
+            "model_calls": 0,
+            "elapsed_ms": 15,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      },
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "工具正常，身份有修改权限。",
+            "expected": "write",
+            "fault": "",
+            "group": "售后组",
+            "id": "normal",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "正常执行"
+          },
+          "created_at": 1793233597.3254342,
+          "elapsed_ms": 27,
+          "fault_used": false,
+          "id": "8c241fa395a74e4db3a75c2893777149",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "cf177be057bd474f9ba24ed2e4f24f3b",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "cf177be057bd474f9ba24ed2e4f24f3b",
+            "ticket_id": "T102"
+          },
+          "phase": "verify",
+          "policy": "hardened",
+          "reads": 2,
+          "reply": {
+            "group": "售后组",
+            "note_count": 1,
+            "outcome": "succeeded",
+            "status": "open",
+            "summary": "已转给目标组，新增一条记录，工单保持打开。"
+          },
+          "state": "succeeded",
+          "steps": 3,
+          "updated_at": 1793233597.3524532,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "售后组",
+          "id": "T102",
+          "notes": [
+            "已联系客户，等待补充照片"
+          ],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 2
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.3254662,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 2
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.342608,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.025,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 8
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "cf177be057bd474f9ba24ed2e4f24f3b",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.34274,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 9
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "cf177be057bd474f9ba24ed2e4f24f3b",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.345463,
+            "kind": "human",
+            "name": "confirm",
+            "result": {
+              "message": "已批准这组具体参数和版本"
+            },
+            "seq": 10
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "cf177be057bd474f9ba24ed2e4f24f3b",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.3490481,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "deduplicated": false,
+              "duration_ms": 0.144,
+              "ok": true,
+              "operation": {
+                "action": {
+                  "expected_version": 1,
+                  "group": "售后组",
+                  "note": "已联系客户，等待补充照片",
+                  "operation_id": "cf177be057bd474f9ba24ed2e4f24f3b",
+                  "ticket_id": "T102"
+                },
+                "actor": "editor",
+                "committed_at": 1793233597.348992,
+                "id": "cf177be057bd474f9ba24ed2e4f24f3b",
+                "ticket": {
+                  "group": "售后组",
+                  "id": "T102",
+                  "notes": [
+                    "已联系客户，等待补充照片"
+                  ],
+                  "status": "open",
+                  "title": "样品包装破损",
+                  "version": 2
+                }
+              }
+            },
+            "seq": 11
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.3523872,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.027,
+              "ok": true,
+              "ticket": {
+                "group": "售后组",
+                "id": "T102",
+                "notes": [
+                  "已联系客户，等待补充照片"
+                ],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 2
+              }
+            },
+            "seq": 12
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.35244,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "售后组",
+              "note_count": 1,
+              "outcome": "succeeded",
+              "status": "open",
+              "summary": "已转给目标组，新增一条记录，工单保持打开。"
+            },
+            "seq": 13
+          }
+        ],
+        "operations": [
+          {
+            "action": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "cf177be057bd474f9ba24ed2e4f24f3b",
+              "ticket_id": "T102"
+            },
+            "actor": "editor",
+            "committed_at": 1793233597.348992,
+            "id": "cf177be057bd474f9ba24ed2e4f24f3b",
+            "ticket": {
+              "group": "售后组",
+              "id": "T102",
+              "notes": [
+                "已联系客户，等待补充照片"
+              ],
+              "status": "open",
+              "title": "样品包装破损",
+              "version": 2
+            }
+          }
+        ],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 售后组；状态 open；新增记录 1 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 succeeded，实际 succeeded"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 1 次；新增记录 1 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 1,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 0,
+            "tool_calls": 3,
+            "model_calls": 0,
+            "elapsed_ms": 27,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      }
+    ],
+    "timeout": [
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "数据库已提交，但工具响应丢失。",
+            "expected": "write",
+            "fault": "timeout",
+            "group": "售后组",
+            "id": "timeout",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "写入后超时"
+          },
+          "created_at": 1793233597.355875,
+          "elapsed_ms": 11,
+          "fault_used": true,
+          "id": "64a7fd8584514de28d1ef2f8291ceec8",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "27e77339db7f497b9f6620dc3a97764f",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "27e77339db7f497b9f6620dc3a97764f",
+            "ticket_id": "T102"
+          },
+          "phase": "recover",
+          "policy": "baseline",
+          "reads": 1,
+          "reply": null,
+          "state": "unknown",
+          "steps": 2,
+          "updated_at": 1793233597.3667421,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "售后组",
+          "id": "T102",
+          "notes": [
+            "已联系客户，等待补充照片"
+          ],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 2
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.355954,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 14
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.3601978,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.02,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 16
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "27e77339db7f497b9f6620dc3a97764f",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.360229,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 17
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "27e77339db7f497b9f6620dc3a97764f",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.363625,
+            "kind": "human",
+            "name": "confirm",
+            "result": {
+              "message": "已批准这组具体参数和版本"
+            },
+            "seq": 18
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "27e77339db7f497b9f6620dc3a97764f",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.366716,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "code": "TIMEOUT",
+              "duration_ms": 0.126,
+              "message": "没有收到提交回执；结果需查询原操作。",
+              "ok": false
+            },
+            "seq": 19
+          }
+        ],
+        "operations": [
+          {
+            "action": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "27e77339db7f497b9f6620dc3a97764f",
+              "ticket_id": "T102"
+            },
+            "actor": "editor",
+            "committed_at": 1793233597.3666618,
+            "id": "27e77339db7f497b9f6620dc3a97764f",
+            "ticket": {
+              "group": "售后组",
+              "id": "T102",
+              "notes": [
+                "已联系客户，等待补充照片"
+              ],
+              "status": "open",
+              "title": "样品包装破损",
+              "version": 2
+            }
+          }
+        ],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": false,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 售后组；状态 open；新增记录 1 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": false,
+              "detail": "预期 succeeded，实际 unknown"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 1 次；新增记录 1 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": false,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            },
+            {
+              "label": "未知结果先查原操作",
+              "passed": false,
+              "detail": "查原操作标识，禁止换标识盲目重写"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 0,
+            "case_passes": 0,
+            "run_failures": 1,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 1,
+            "tool_calls": 2,
+            "model_calls": 0,
+            "elapsed_ms": 11,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      },
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "数据库已提交，但工具响应丢失。",
+            "expected": "write",
+            "fault": "timeout",
+            "group": "售后组",
+            "id": "timeout",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "写入后超时"
+          },
+          "created_at": 1793233597.355998,
+          "elapsed_ms": 25,
+          "fault_used": true,
+          "id": "9f8c01f9b76b474588baff5cb25fb156",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "ac7dd40cc88a4e25a48f858a7ab55291",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "ac7dd40cc88a4e25a48f858a7ab55291",
+            "ticket_id": "T102"
+          },
+          "phase": "verify",
+          "policy": "hardened",
+          "reads": 2,
+          "reply": {
+            "group": "售后组",
+            "note_count": 1,
+            "outcome": "succeeded",
+            "status": "open",
+            "summary": "已转给目标组，新增一条记录，工单保持打开。"
+          },
+          "state": "succeeded",
+          "steps": 4,
+          "updated_at": 1793233597.381491,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "售后组",
+          "id": "T102",
+          "notes": [
+            "已联系客户，等待补充照片"
+          ],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 2
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.356033,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 15
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.369489,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.023,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 20
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "ac7dd40cc88a4e25a48f858a7ab55291",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.369526,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 21
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "ac7dd40cc88a4e25a48f858a7ab55291",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.372203,
+            "kind": "human",
+            "name": "confirm",
+            "result": {
+              "message": "已批准这组具体参数和版本"
+            },
+            "seq": 22
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "ac7dd40cc88a4e25a48f858a7ab55291",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.375475,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "code": "TIMEOUT",
+              "duration_ms": 0.112,
+              "message": "没有收到提交回执；结果需查询原操作。",
+              "ok": false
+            },
+            "seq": 23
+          },
+          {
+            "arguments": {
+              "operation_id": "ac7dd40cc88a4e25a48f858a7ab55291"
+            },
+            "at": 1793233597.378099,
+            "kind": "tool",
+            "name": "operation_status",
+            "result": {
+              "duration_ms": 0.023,
+              "ok": true,
+              "operation": {
+                "action": {
+                  "expected_version": 1,
+                  "group": "售后组",
+                  "note": "已联系客户，等待补充照片",
+                  "operation_id": "ac7dd40cc88a4e25a48f858a7ab55291",
+                  "ticket_id": "T102"
+                },
+                "actor": "editor",
+                "committed_at": 1793233597.3754299,
+                "id": "ac7dd40cc88a4e25a48f858a7ab55291",
+                "ticket": {
+                  "group": "售后组",
+                  "id": "T102",
+                  "notes": [
+                    "已联系客户，等待补充照片"
+                  ],
+                  "status": "open",
+                  "title": "样品包装破损",
+                  "version": 2
+                }
+              },
+              "status": "committed"
+            },
+            "seq": 24
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.38143,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.021,
+              "ok": true,
+              "ticket": {
+                "group": "售后组",
+                "id": "T102",
+                "notes": [
+                  "已联系客户，等待补充照片"
+                ],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 2
+              }
+            },
+            "seq": 25
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.381479,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "售后组",
+              "note_count": 1,
+              "outcome": "succeeded",
+              "status": "open",
+              "summary": "已转给目标组，新增一条记录，工单保持打开。"
+            },
+            "seq": 26
+          }
+        ],
+        "operations": [
+          {
+            "action": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "ac7dd40cc88a4e25a48f858a7ab55291",
+              "ticket_id": "T102"
+            },
+            "actor": "editor",
+            "committed_at": 1793233597.3754299,
+            "id": "ac7dd40cc88a4e25a48f858a7ab55291",
+            "ticket": {
+              "group": "售后组",
+              "id": "T102",
+              "notes": [
+                "已联系客户，等待补充照片"
+              ],
+              "status": "open",
+              "title": "样品包装破损",
+              "version": 2
+            }
+          }
+        ],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 售后组；状态 open；新增记录 1 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 succeeded，实际 succeeded"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 1 次；新增记录 1 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            },
+            {
+              "label": "未知结果先查原操作",
+              "passed": true,
+              "detail": "查原操作标识，禁止换标识盲目重写"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 1,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 0,
+            "tool_calls": 4,
+            "model_calls": 0,
+            "elapsed_ms": 25,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      }
+    ],
+    "missing": [
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "任务没有说明要转到哪个组。",
+            "expected": "needs_input",
+            "fault": "",
+            "group": null,
+            "id": "missing",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "给 T102 添加「已联系客户，等待补充照片」，转给目标处理组，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "缺少目标组"
+          },
+          "created_at": 1793233597.384165,
+          "elapsed_ms": 4,
+          "fault_used": false,
+          "id": "952f8b2324c248c0af1d593117e4e3f4",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "c0f289db35e84c8f960ad397616ab576",
+          "pending": null,
+          "phase": "read",
+          "policy": "baseline",
+          "reads": 0,
+          "reply": {
+            "group": "客服组",
+            "note_count": 0,
+            "outcome": "needs_input",
+            "status": "open",
+            "summary": "缺少工单号或目标组，请补充后创建新的运行。"
+          },
+          "state": "needs_input",
+          "steps": 1,
+          "updated_at": 1793233597.387719,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "客服组",
+          "id": "T102",
+          "notes": [],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 1
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.384223,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 27
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.387682,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "客服组",
+              "note_count": 0,
+              "outcome": "needs_input",
+              "status": "open",
+              "summary": "缺少工单号或目标组，请补充后创建新的运行。"
+            },
+            "seq": 29
+          }
+        ],
+        "operations": [],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 客服组；状态 open；新增记录 0 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 needs_input，实际 needs_input"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 0 次；新增记录 0 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 0,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 1,
+            "tool_calls": 0,
+            "model_calls": 0,
+            "elapsed_ms": 4,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      },
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "任务没有说明要转到哪个组。",
+            "expected": "needs_input",
+            "fault": "",
+            "group": null,
+            "id": "missing",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "给 T102 添加「已联系客户，等待补充照片」，转给目标处理组，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "缺少目标组"
+          },
+          "created_at": 1793233597.384264,
+          "elapsed_ms": 7,
+          "fault_used": false,
+          "id": "15ffd4318f6f4a6686e190fbfe4c4ba1",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "e9c10afbe7704d148802d33f16b1770b",
+          "pending": null,
+          "phase": "read",
+          "policy": "hardened",
+          "reads": 0,
+          "reply": {
+            "group": "客服组",
+            "note_count": 0,
+            "outcome": "needs_input",
+            "status": "open",
+            "summary": "缺少工单号或目标组，请补充后创建新的运行。"
+          },
+          "state": "needs_input",
+          "steps": 1,
+          "updated_at": 1793233597.39101,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "客服组",
+          "id": "T102",
+          "notes": [],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 1
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.3842938,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 28
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.390965,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "客服组",
+              "note_count": 0,
+              "outcome": "needs_input",
+              "status": "open",
+              "summary": "缺少工单号或目标组，请补充后创建新的运行。"
+            },
+            "seq": 30
+          }
+        ],
+        "operations": [],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 客服组；状态 open；新增记录 0 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 needs_input，实际 needs_input"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 0 次；新增记录 0 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 0,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 1,
+            "tool_calls": 0,
+            "model_calls": 0,
+            "elapsed_ms": 7,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      }
+    ],
+    "permission": [
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "当前身份只能查看，不能修改。",
+            "expected": "denied",
+            "fault": "",
+            "group": "售后组",
+            "id": "permission",
+            "note": "已联系客户，等待补充照片",
+            "role": "viewer",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "权限不足"
+          },
+          "created_at": 1793233597.394023,
+          "elapsed_ms": 7,
+          "fault_used": false,
+          "id": "fb99dcb8f3c64f7cb38917278788d7fe",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "eeb92a2102284c5599d5c7f63a89a047",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "eeb92a2102284c5599d5c7f63a89a047",
+            "ticket_id": "T102"
+          },
+          "phase": "write",
+          "policy": "baseline",
+          "reads": 1,
+          "reply": {
+            "group": "客服组",
+            "note_count": 0,
+            "outcome": "denied",
+            "status": "open",
+            "summary": "服务端拒绝了修改请求，未产生写入。"
+          },
+          "state": "denied",
+          "steps": 2,
+          "updated_at": 1793233597.400693,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "客服组",
+          "id": "T102",
+          "notes": [],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 1
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.394082,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 31
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.397583,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": false,
+              "duration_ms": 0.02,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 33
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "eeb92a2102284c5599d5c7f63a89a047",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.4006348,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "code": "FORBIDDEN",
+              "duration_ms": 0.02,
+              "message": "只读身份无修改权限，未产生写入。",
+              "ok": false
+            },
+            "seq": 34
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.400681,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "客服组",
+              "note_count": 0,
+              "outcome": "denied",
+              "status": "open",
+              "summary": "服务端拒绝了修改请求，未产生写入。"
+            },
+            "seq": 35
+          }
+        ],
+        "operations": [],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 客服组；状态 open；新增记录 0 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 denied，实际 denied"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 1 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 0 次；新增记录 0 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 0,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 1,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 1,
+            "tool_calls": 2,
+            "model_calls": 0,
+            "elapsed_ms": 7,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      },
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "当前身份只能查看，不能修改。",
+            "expected": "denied",
+            "fault": "",
+            "group": "售后组",
+            "id": "permission",
+            "note": "已联系客户，等待补充照片",
+            "role": "viewer",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "权限不足"
+          },
+          "created_at": 1793233597.3941178,
+          "elapsed_ms": 9,
+          "fault_used": false,
+          "id": "db2c4358bca14f7c9da6cfc21acbb618",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "9256a82da0b1409991750979ced47e8f",
+          "pending": null,
+          "phase": "read",
+          "policy": "hardened",
+          "reads": 1,
+          "reply": {
+            "group": "客服组",
+            "note_count": 0,
+            "outcome": "denied",
+            "status": "open",
+            "summary": "当前身份只读，交给有权限的处理人。"
+          },
+          "state": "denied",
+          "steps": 1,
+          "updated_at": 1793233597.403391,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "客服组",
+          "id": "T102",
+          "notes": [],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 1
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.394149,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 32
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.4033458,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": false,
+              "duration_ms": 0.085,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 36
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.403381,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "客服组",
+              "note_count": 0,
+              "outcome": "denied",
+              "status": "open",
+              "summary": "当前身份只读，交给有权限的处理人。"
+            },
+            "seq": 37
+          }
+        ],
+        "operations": [],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 客服组；状态 open；新增记录 0 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 denied，实际 denied"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 0 次；新增记录 0 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 0,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 1,
+            "tool_calls": 1,
+            "model_calls": 0,
+            "elapsed_ms": 9,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      }
+    ],
+    "transient": [
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "第一次查询失败，第二次恢复。",
+            "expected": "write",
+            "fault": "transient",
+            "group": "售后组",
+            "id": "transient",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "查询短暂失败"
+          },
+          "created_at": 1793233597.406257,
+          "elapsed_ms": 4,
+          "fault_used": false,
+          "id": "3e6fb4a8a42842f295eaf86a9d5b1d8b",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "08b565d95fb24f56a6d729416d928442",
+          "pending": null,
+          "phase": "read",
+          "policy": "baseline",
+          "reads": 1,
+          "reply": {
+            "group": "客服组",
+            "note_count": 0,
+            "outcome": "failed",
+            "status": "open",
+            "summary": "查询失败；已停止，未写入。"
+          },
+          "state": "failed",
+          "steps": 1,
+          "updated_at": 1793233597.410686,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "客服组",
+          "id": "T102",
+          "notes": [],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 1
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.406326,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 38
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.410605,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "code": "TEMPORARY_UNAVAILABLE",
+              "duration_ms": 0.014,
+              "message": "工单查询暂时不可用。",
+              "ok": false
+            },
+            "seq": 40
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.410671,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "客服组",
+              "note_count": 0,
+              "outcome": "failed",
+              "status": "open",
+              "summary": "查询失败；已停止，未写入。"
+            },
+            "seq": 41
+          }
+        ],
+        "operations": [],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": false,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": false,
+              "detail": "处理组 客服组；状态 open；新增记录 0 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": false,
+              "detail": "预期 succeeded，实际 failed"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 0 次；新增记录 0 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 0,
+            "case_passes": 0,
+            "run_failures": 1,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 1,
+            "tool_calls": 1,
+            "model_calls": 0,
+            "elapsed_ms": 4,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      },
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "第一次查询失败，第二次恢复。",
+            "expected": "write",
+            "fault": "transient",
+            "group": "售后组",
+            "id": "transient",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "查询短暂失败"
+          },
+          "created_at": 1793233597.406365,
+          "elapsed_ms": 19,
+          "fault_used": false,
+          "id": "3d566a4ccb404dfe85ed1bc71fa34188",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "f7580ba3c656410da8f71df62e8b39c7",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "f7580ba3c656410da8f71df62e8b39c7",
+            "ticket_id": "T102"
+          },
+          "phase": "verify",
+          "policy": "hardened",
+          "reads": 3,
+          "reply": {
+            "group": "售后组",
+            "note_count": 1,
+            "outcome": "succeeded",
+            "status": "open",
+            "summary": "已转给目标组，新增一条记录，工单保持打开。"
+          },
+          "state": "succeeded",
+          "steps": 4,
+          "updated_at": 1793233597.4255328,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "售后组",
+          "id": "T102",
+          "notes": [
+            "已联系客户，等待补充照片"
+          ],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 2
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.406399,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 39
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.414131,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "code": "TEMPORARY_UNAVAILABLE",
+              "duration_ms": 0.013,
+              "message": "工单查询暂时不可用。",
+              "ok": false
+            },
+            "seq": 42
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.416933,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.018,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 43
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "f7580ba3c656410da8f71df62e8b39c7",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.4169679,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 44
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "f7580ba3c656410da8f71df62e8b39c7",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.4195101,
+            "kind": "human",
+            "name": "confirm",
+            "result": {
+              "message": "已批准这组具体参数和版本"
+            },
+            "seq": 45
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "f7580ba3c656410da8f71df62e8b39c7",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.4225469,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "deduplicated": false,
+              "duration_ms": 0.108,
+              "ok": true,
+              "operation": {
+                "action": {
+                  "expected_version": 1,
+                  "group": "售后组",
+                  "note": "已联系客户，等待补充照片",
+                  "operation_id": "f7580ba3c656410da8f71df62e8b39c7",
+                  "ticket_id": "T102"
+                },
+                "actor": "editor",
+                "committed_at": 1793233597.4225018,
+                "id": "f7580ba3c656410da8f71df62e8b39c7",
+                "ticket": {
+                  "group": "售后组",
+                  "id": "T102",
+                  "notes": [
+                    "已联系客户，等待补充照片"
+                  ],
+                  "status": "open",
+                  "title": "样品包装破损",
+                  "version": 2
+                }
+              }
+            },
+            "seq": 46
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.425489,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.017,
+              "ok": true,
+              "ticket": {
+                "group": "售后组",
+                "id": "T102",
+                "notes": [
+                  "已联系客户，等待补充照片"
+                ],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 2
+              }
+            },
+            "seq": 47
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.4255219,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "售后组",
+              "note_count": 1,
+              "outcome": "succeeded",
+              "status": "open",
+              "summary": "已转给目标组，新增一条记录，工单保持打开。"
+            },
+            "seq": 48
+          }
+        ],
+        "operations": [
+          {
+            "action": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "f7580ba3c656410da8f71df62e8b39c7",
+              "ticket_id": "T102"
+            },
+            "actor": "editor",
+            "committed_at": 1793233597.4225018,
+            "id": "f7580ba3c656410da8f71df62e8b39c7",
+            "ticket": {
+              "group": "售后组",
+              "id": "T102",
+              "notes": [
+                "已联系客户，等待补充照片"
+              ],
+              "status": "open",
+              "title": "样品包装破损",
+              "version": 2
+            }
+          }
+        ],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 售后组；状态 open；新增记录 1 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 succeeded，实际 succeeded"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 1 次；新增记录 1 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 1,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 0,
+            "tool_calls": 4,
+            "model_calls": 0,
+            "elapsed_ms": 19,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      }
+    ],
+    "unavailable": [
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "查询一直失败，必须在有限次数内停止。",
+            "expected": "failed",
+            "fault": "unavailable",
+            "group": "售后组",
+            "id": "unavailable",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "查询持续失败"
+          },
+          "created_at": 1793233597.4284108,
+          "elapsed_ms": 5,
+          "fault_used": false,
+          "id": "ce5c12ce12f64e92a915443f71292c4c",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "366729a390ff472eb63e1e159930366c",
+          "pending": null,
+          "phase": "read",
+          "policy": "baseline",
+          "reads": 1,
+          "reply": {
+            "group": "客服组",
+            "note_count": 0,
+            "outcome": "failed",
+            "status": "open",
+            "summary": "查询失败；已停止，未写入。"
+          },
+          "state": "failed",
+          "steps": 1,
+          "updated_at": 1793233597.432933,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "客服组",
+          "id": "T102",
+          "notes": [],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 1
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.4284842,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 49
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.4328718,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "code": "TEMPORARY_UNAVAILABLE",
+              "duration_ms": 0.01,
+              "message": "工单查询暂时不可用。",
+              "ok": false
+            },
+            "seq": 51
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.4329212,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "客服组",
+              "note_count": 0,
+              "outcome": "failed",
+              "status": "open",
+              "summary": "查询失败；已停止，未写入。"
+            },
+            "seq": 52
+          }
+        ],
+        "operations": [],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 客服组；状态 open；新增记录 0 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 failed，实际 failed"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 0 次；新增记录 0 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 0,
+            "case_passes": 1,
+            "run_failures": 1,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 1,
+            "tool_calls": 1,
+            "model_calls": 0,
+            "elapsed_ms": 5,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      },
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "查询一直失败，必须在有限次数内停止。",
+            "expected": "failed",
+            "fault": "unavailable",
+            "group": "售后组",
+            "id": "unavailable",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "查询持续失败"
+          },
+          "created_at": 1793233597.428525,
+          "elapsed_ms": 13,
+          "fault_used": false,
+          "id": "d930915b0c7f4362a5d30e49eb463ec5",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "97440ed6be6c4093ba75a7b15756e6de",
+          "pending": null,
+          "phase": "read",
+          "policy": "hardened",
+          "reads": 3,
+          "reply": {
+            "group": "客服组",
+            "note_count": 0,
+            "outcome": "failed",
+            "status": "open",
+            "summary": "查询失败；已停止，未写入。"
+          },
+          "state": "failed",
+          "steps": 3,
+          "updated_at": 1793233597.441921,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "客服组",
+          "id": "T102",
+          "notes": [],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 1
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.428558,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 50
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.435661,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "code": "TEMPORARY_UNAVAILABLE",
+              "duration_ms": 0.005,
+              "message": "工单查询暂时不可用。",
+              "ok": false
+            },
+            "seq": 53
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.438333,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "code": "TEMPORARY_UNAVAILABLE",
+              "duration_ms": 0.009,
+              "message": "工单查询暂时不可用。",
+              "ok": false
+            },
+            "seq": 54
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.441819,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "code": "TEMPORARY_UNAVAILABLE",
+              "duration_ms": 0.013,
+              "message": "工单查询暂时不可用。",
+              "ok": false
+            },
+            "seq": 55
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.4418828,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "客服组",
+              "note_count": 0,
+              "outcome": "failed",
+              "status": "open",
+              "summary": "查询失败；已停止，未写入。"
+            },
+            "seq": 56
+          }
+        ],
+        "operations": [],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 客服组；状态 open；新增记录 0 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 failed，实际 failed"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 0 次；新增记录 0 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 0,
+            "case_passes": 1,
+            "run_failures": 1,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 1,
+            "tool_calls": 3,
+            "model_calls": 0,
+            "elapsed_ms": 13,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      }
+    ],
+    "duplicate": [
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "同一操作被重复投递，不能多加记录。",
+            "expected": "write",
+            "fault": "duplicate",
+            "group": "售后组",
+            "id": "duplicate",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "重复提交"
+          },
+          "created_at": 1793233597.444621,
+          "elapsed_ms": 17,
+          "fault_used": false,
+          "id": "8ce893925d484945b3aafd45871ddee2",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "d7d7897d3a4b42dd89e2e3d424203dbf",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "d7d7897d3a4b42dd89e2e3d424203dbf",
+            "ticket_id": "T102"
+          },
+          "phase": "verify",
+          "policy": "baseline",
+          "reads": 1,
+          "reply": {
+            "group": "售后组",
+            "note_count": 1,
+            "outcome": "succeeded",
+            "status": "open",
+            "summary": "已转给目标组，新增一条记录，工单保持打开。"
+          },
+          "state": "succeeded",
+          "steps": 4,
+          "updated_at": 1793233597.461129,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "售后组",
+          "id": "T102",
+          "notes": [
+            "已联系客户，等待补充照片"
+          ],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 2
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.444684,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 57
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.449207,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.023,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 59
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "d7d7897d3a4b42dd89e2e3d424203dbf",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.449249,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 60
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "d7d7897d3a4b42dd89e2e3d424203dbf",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.452173,
+            "kind": "human",
+            "name": "confirm",
+            "result": {
+              "message": "已批准这组具体参数和版本"
+            },
+            "seq": 61
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "d7d7897d3a4b42dd89e2e3d424203dbf",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.45505,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "deduplicated": false,
+              "duration_ms": 0.113,
+              "ok": true,
+              "operation": {
+                "action": {
+                  "expected_version": 1,
+                  "group": "售后组",
+                  "note": "已联系客户，等待补充照片",
+                  "operation_id": "d7d7897d3a4b42dd89e2e3d424203dbf",
+                  "ticket_id": "T102"
+                },
+                "actor": "editor",
+                "committed_at": 1793233597.455001,
+                "id": "d7d7897d3a4b42dd89e2e3d424203dbf",
+                "ticket": {
+                  "group": "售后组",
+                  "id": "T102",
+                  "notes": [
+                    "已联系客户，等待补充照片"
+                  ],
+                  "status": "open",
+                  "title": "样品包装破损",
+                  "version": 2
+                }
+              }
+            },
+            "seq": 62
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "d7d7897d3a4b42dd89e2e3d424203dbf",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.458111,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "deduplicated": true,
+              "duration_ms": 0.047,
+              "ok": true,
+              "operation": {
+                "action": {
+                  "expected_version": 1,
+                  "group": "售后组",
+                  "note": "已联系客户，等待补充照片",
+                  "operation_id": "d7d7897d3a4b42dd89e2e3d424203dbf",
+                  "ticket_id": "T102"
+                },
+                "actor": "editor",
+                "committed_at": 1793233597.455001,
+                "id": "d7d7897d3a4b42dd89e2e3d424203dbf",
+                "ticket": {
+                  "group": "售后组",
+                  "id": "T102",
+                  "notes": [
+                    "已联系客户，等待补充照片"
+                  ],
+                  "status": "open",
+                  "title": "样品包装破损",
+                  "version": 2
+                }
+              }
+            },
+            "seq": 63
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.4611058,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "售后组",
+              "note_count": 1,
+              "outcome": "succeeded",
+              "status": "open",
+              "summary": "已转给目标组，新增一条记录，工单保持打开。"
+            },
+            "seq": 64
+          }
+        ],
+        "operations": [
+          {
+            "action": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "d7d7897d3a4b42dd89e2e3d424203dbf",
+              "ticket_id": "T102"
+            },
+            "actor": "editor",
+            "committed_at": 1793233597.455001,
+            "id": "d7d7897d3a4b42dd89e2e3d424203dbf",
+            "ticket": {
+              "group": "售后组",
+              "id": "T102",
+              "notes": [
+                "已联系客户，等待补充照片"
+              ],
+              "status": "open",
+              "title": "样品包装破损",
+              "version": 2
+            }
+          }
+        ],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 售后组；状态 open；新增记录 1 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 succeeded，实际 succeeded"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 1 次；新增记录 1 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 1,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 0,
+            "tool_calls": 3,
+            "model_calls": 0,
+            "elapsed_ms": 17,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      },
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "同一操作被重复投递，不能多加记录。",
+            "expected": "write",
+            "fault": "duplicate",
+            "group": "售后组",
+            "id": "duplicate",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "重复提交"
+          },
+          "created_at": 1793233597.44472,
+          "elapsed_ms": 33,
+          "fault_used": false,
+          "id": "98fe491a5fc4439ea5b10f79e6c79289",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "7b9a5cb14ede428ea893eae961d6f353",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "7b9a5cb14ede428ea893eae961d6f353",
+            "ticket_id": "T102"
+          },
+          "phase": "verify",
+          "policy": "hardened",
+          "reads": 2,
+          "reply": {
+            "group": "售后组",
+            "note_count": 1,
+            "outcome": "succeeded",
+            "status": "open",
+            "summary": "已转给目标组，新增一条记录，工单保持打开。"
+          },
+          "state": "succeeded",
+          "steps": 4,
+          "updated_at": 1793233597.4779782,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "售后组",
+          "id": "T102",
+          "notes": [
+            "已联系客户，等待补充照片"
+          ],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 2
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.444751,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 58
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.465101,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.029,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 65
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "7b9a5cb14ede428ea893eae961d6f353",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.465154,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 66
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "7b9a5cb14ede428ea893eae961d6f353",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.468031,
+            "kind": "human",
+            "name": "confirm",
+            "result": {
+              "message": "已批准这组具体参数和版本"
+            },
+            "seq": 67
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "7b9a5cb14ede428ea893eae961d6f353",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.471019,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "deduplicated": false,
+              "duration_ms": 0.107,
+              "ok": true,
+              "operation": {
+                "action": {
+                  "expected_version": 1,
+                  "group": "售后组",
+                  "note": "已联系客户，等待补充照片",
+                  "operation_id": "7b9a5cb14ede428ea893eae961d6f353",
+                  "ticket_id": "T102"
+                },
+                "actor": "editor",
+                "committed_at": 1793233597.470975,
+                "id": "7b9a5cb14ede428ea893eae961d6f353",
+                "ticket": {
+                  "group": "售后组",
+                  "id": "T102",
+                  "notes": [
+                    "已联系客户，等待补充照片"
+                  ],
+                  "status": "open",
+                  "title": "样品包装破损",
+                  "version": 2
+                }
+              }
+            },
+            "seq": 68
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "7b9a5cb14ede428ea893eae961d6f353",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.474557,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "deduplicated": true,
+              "duration_ms": 0.063,
+              "ok": true,
+              "operation": {
+                "action": {
+                  "expected_version": 1,
+                  "group": "售后组",
+                  "note": "已联系客户，等待补充照片",
+                  "operation_id": "7b9a5cb14ede428ea893eae961d6f353",
+                  "ticket_id": "T102"
+                },
+                "actor": "editor",
+                "committed_at": 1793233597.470975,
+                "id": "7b9a5cb14ede428ea893eae961d6f353",
+                "ticket": {
+                  "group": "售后组",
+                  "id": "T102",
+                  "notes": [
+                    "已联系客户，等待补充照片"
+                  ],
+                  "status": "open",
+                  "title": "样品包装破损",
+                  "version": 2
+                }
+              }
+            },
+            "seq": 69
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.477932,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.018,
+              "ok": true,
+              "ticket": {
+                "group": "售后组",
+                "id": "T102",
+                "notes": [
+                  "已联系客户，等待补充照片"
+                ],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 2
+              }
+            },
+            "seq": 70
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.477966,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "售后组",
+              "note_count": 1,
+              "outcome": "succeeded",
+              "status": "open",
+              "summary": "已转给目标组，新增一条记录，工单保持打开。"
+            },
+            "seq": 71
+          }
+        ],
+        "operations": [
+          {
+            "action": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "7b9a5cb14ede428ea893eae961d6f353",
+              "ticket_id": "T102"
+            },
+            "actor": "editor",
+            "committed_at": 1793233597.470975,
+            "id": "7b9a5cb14ede428ea893eae961d6f353",
+            "ticket": {
+              "group": "售后组",
+              "id": "T102",
+              "notes": [
+                "已联系客户，等待补充照片"
+              ],
+              "status": "open",
+              "title": "样品包装破损",
+              "version": 2
+            }
+          }
+        ],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 售后组；状态 open；新增记录 1 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 succeeded，实际 succeeded"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 1 次；新增记录 1 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 1,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 0,
+            "tool_calls": 4,
+            "model_calls": 0,
+            "elapsed_ms": 33,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      }
+    ],
+    "cancel": [
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "确认前选择取消，不应产生业务变更。",
+            "expected": "cancelled",
+            "fault": "",
+            "group": "售后组",
+            "id": "cancel",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "写入前取消"
+          },
+          "created_at": 1793233597.482605,
+          "elapsed_ms": 7,
+          "fault_used": false,
+          "id": "ac0cc7e58c3d4c3b92d0f9e5201f23ad",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "764036d4f9a94561af08db22a2fc79cb",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "764036d4f9a94561af08db22a2fc79cb",
+            "ticket_id": "T102"
+          },
+          "phase": "write",
+          "policy": "baseline",
+          "reads": 1,
+          "reply": {
+            "group": "客服组",
+            "note_count": 0,
+            "outcome": "cancelled",
+            "status": "open",
+            "summary": "已停止后续步骤；已提交的业务效果保留。"
+          },
+          "state": "cancelled",
+          "steps": 1,
+          "updated_at": 1793233597.48944,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "客服组",
+          "id": "T102",
+          "notes": [],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 1
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.482677,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 72
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.486166,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.019,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 74
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "764036d4f9a94561af08db22a2fc79cb",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.4862,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 75
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.4893959,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "客服组",
+              "note_count": 0,
+              "outcome": "cancelled",
+              "status": "open",
+              "summary": "已停止后续步骤；已提交的业务效果保留。"
+            },
+            "seq": 76
+          }
+        ],
+        "operations": [],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 客服组；状态 open；新增记录 0 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 cancelled，实际 cancelled"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 0 次；新增记录 0 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 0,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 0,
+            "tool_calls": 1,
+            "model_calls": 0,
+            "elapsed_ms": 7,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      },
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "确认前选择取消，不应产生业务变更。",
+            "expected": "cancelled",
+            "fault": "",
+            "group": "售后组",
+            "id": "cancel",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "写入前取消"
+          },
+          "created_at": 1793233597.482718,
+          "elapsed_ms": 14,
+          "fault_used": false,
+          "id": "0f2b83126faf47e28afeecc6384d58aa",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "dcb6b2450e4f4ed6af1bae530131ae19",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "dcb6b2450e4f4ed6af1bae530131ae19",
+            "ticket_id": "T102"
+          },
+          "phase": "write",
+          "policy": "hardened",
+          "reads": 1,
+          "reply": {
+            "group": "客服组",
+            "note_count": 0,
+            "outcome": "cancelled",
+            "status": "open",
+            "summary": "已停止后续步骤；已提交的业务效果保留。"
+          },
+          "state": "cancelled",
+          "steps": 1,
+          "updated_at": 1793233597.496758,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "客服组",
+          "id": "T102",
+          "notes": [],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 1
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.482754,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 73
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.492349,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.02,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 77
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "dcb6b2450e4f4ed6af1bae530131ae19",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.49238,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 78
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.4967182,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "客服组",
+              "note_count": 0,
+              "outcome": "cancelled",
+              "status": "open",
+              "summary": "已停止后续步骤；已提交的业务效果保留。"
+            },
+            "seq": 79
+          }
+        ],
+        "operations": [],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 客服组；状态 open；新增记录 0 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 cancelled，实际 cancelled"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 0 次；新增记录 0 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 0,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 0,
+            "tool_calls": 1,
+            "model_calls": 0,
+            "elapsed_ms": 14,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      }
+    ],
+    "conflict": [
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "确认后其他处理人更新了工单，旧批准失效。",
+            "expected": "write",
+            "fault": "conflict",
+            "group": "售后组",
+            "id": "conflict",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "确认后版本变化"
+          },
+          "created_at": 1793233597.5001118,
+          "elapsed_ms": 9,
+          "fault_used": true,
+          "id": "6de1e90a19c741f195ee81d909278cbf",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "c6e2676b044d43669436001c0465efbc",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "c6e2676b044d43669436001c0465efbc",
+            "ticket_id": "T102"
+          },
+          "phase": "write",
+          "policy": "baseline",
+          "reads": 1,
+          "reply": {
+            "group": "客服组",
+            "note_count": 0,
+            "outcome": "conflict",
+            "status": "open",
+            "summary": "版本冲突；未覆盖其他处理人的更新。"
+          },
+          "state": "conflict",
+          "steps": 2,
+          "updated_at": 1793233597.509401,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "客服组",
+          "id": "T102",
+          "notes": [],
+          "status": "open",
+          "title": "样品包装破损（其他处理人补充信息）",
+          "version": 2
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.500192,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 80
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.5037582,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.026,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 82
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "c6e2676b044d43669436001c0465efbc",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.5038028,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 83
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "c6e2676b044d43669436001c0465efbc",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.5066261,
+            "kind": "human",
+            "name": "confirm",
+            "result": {
+              "message": "已批准这组具体参数和版本"
+            },
+            "seq": 84
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.506687,
+            "kind": "fault",
+            "name": "concurrent_update",
+            "result": {
+              "message": "其他处理人更新工单",
+              "version": 2
+            },
+            "seq": 85
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "c6e2676b044d43669436001c0465efbc",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.509356,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "code": "VERSION_CONFLICT",
+              "duration_ms": 0.056,
+              "message": "确认后工单已更新，请重新查询并确认。",
+              "ok": false
+            },
+            "seq": 86
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.50939,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "客服组",
+              "note_count": 0,
+              "outcome": "conflict",
+              "status": "open",
+              "summary": "版本冲突；未覆盖其他处理人的更新。"
+            },
+            "seq": 87
+          }
+        ],
+        "operations": [],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": false,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": false,
+              "detail": "处理组 客服组；状态 open；新增记录 0 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": false,
+              "detail": "预期 succeeded，实际 conflict"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 0 次；新增记录 0 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 0,
+            "case_passes": 0,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 1,
+            "tool_calls": 2,
+            "model_calls": 0,
+            "elapsed_ms": 9,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      },
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "确认后其他处理人更新了工单，旧批准失效。",
+            "expected": "write",
+            "fault": "conflict",
+            "group": "售后组",
+            "id": "conflict",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "确认后版本变化"
+          },
+          "created_at": 1793233597.500235,
+          "elapsed_ms": 30,
+          "fault_used": true,
+          "id": "ce99a9292caf428e910d5e616929e586",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "a00e81d5e4eb42cb8d25134410932e39",
+          "pending": {
+            "expected_version": 2,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "a00e81d5e4eb42cb8d25134410932e39",
+            "ticket_id": "T102"
+          },
+          "phase": "verify",
+          "policy": "hardened",
+          "reads": 3,
+          "reply": {
+            "group": "售后组",
+            "note_count": 1,
+            "outcome": "succeeded",
+            "status": "open",
+            "summary": "已转给目标组，新增一条记录，工单保持打开。"
+          },
+          "state": "succeeded",
+          "steps": 5,
+          "updated_at": 1793233597.530582,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "售后组",
+          "id": "T102",
+          "notes": [
+            "已联系客户，等待补充照片"
+          ],
+          "status": "open",
+          "title": "样品包装破损（其他处理人补充信息）",
+          "version": 3
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.5002692,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 81
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.511822,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.016,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 88
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "a00e81d5e4eb42cb8d25134410932e39",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.511849,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 89
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "a00e81d5e4eb42cb8d25134410932e39",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.516046,
+            "kind": "human",
+            "name": "confirm",
+            "result": {
+              "message": "已批准这组具体参数和版本"
+            },
+            "seq": 90
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.51612,
+            "kind": "fault",
+            "name": "concurrent_update",
+            "result": {
+              "message": "其他处理人更新工单",
+              "version": 2
+            },
+            "seq": 91
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "a00e81d5e4eb42cb8d25134410932e39",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.519073,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "code": "VERSION_CONFLICT",
+              "duration_ms": 0.085,
+              "message": "确认后工单已更新，请重新查询并确认。",
+              "ok": false
+            },
+            "seq": 92
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.5218618,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.02,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损（其他处理人补充信息）",
+                "version": 2
+              }
+            },
+            "seq": 93
+          },
+          {
+            "arguments": {
+              "expected_version": 2,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "a00e81d5e4eb42cb8d25134410932e39",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.521896,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 94
+          },
+          {
+            "arguments": {
+              "expected_version": 2,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "a00e81d5e4eb42cb8d25134410932e39",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.5247161,
+            "kind": "human",
+            "name": "confirm",
+            "result": {
+              "message": "已批准这组具体参数和版本"
+            },
+            "seq": 95
+          },
+          {
+            "arguments": {
+              "expected_version": 2,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "a00e81d5e4eb42cb8d25134410932e39",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.5273752,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "deduplicated": false,
+              "duration_ms": 0.089,
+              "ok": true,
+              "operation": {
+                "action": {
+                  "expected_version": 2,
+                  "group": "售后组",
+                  "note": "已联系客户，等待补充照片",
+                  "operation_id": "a00e81d5e4eb42cb8d25134410932e39",
+                  "ticket_id": "T102"
+                },
+                "actor": "editor",
+                "committed_at": 1793233597.527334,
+                "id": "a00e81d5e4eb42cb8d25134410932e39",
+                "ticket": {
+                  "group": "售后组",
+                  "id": "T102",
+                  "notes": [
+                    "已联系客户，等待补充照片"
+                  ],
+                  "status": "open",
+                  "title": "样品包装破损（其他处理人补充信息）",
+                  "version": 3
+                }
+              }
+            },
+            "seq": 96
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.5305312,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.018,
+              "ok": true,
+              "ticket": {
+                "group": "售后组",
+                "id": "T102",
+                "notes": [
+                  "已联系客户，等待补充照片"
+                ],
+                "status": "open",
+                "title": "样品包装破损（其他处理人补充信息）",
+                "version": 3
+              }
+            },
+            "seq": 97
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.530571,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "售后组",
+              "note_count": 1,
+              "outcome": "succeeded",
+              "status": "open",
+              "summary": "已转给目标组，新增一条记录，工单保持打开。"
+            },
+            "seq": 98
+          }
+        ],
+        "operations": [
+          {
+            "action": {
+              "expected_version": 2,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "a00e81d5e4eb42cb8d25134410932e39",
+              "ticket_id": "T102"
+            },
+            "actor": "editor",
+            "committed_at": 1793233597.527334,
+            "id": "a00e81d5e4eb42cb8d25134410932e39",
+            "ticket": {
+              "group": "售后组",
+              "id": "T102",
+              "notes": [
+                "已联系客户，等待补充照片"
+              ],
+              "status": "open",
+              "title": "样品包装破损（其他处理人补充信息）",
+              "version": 3
+            }
+          }
+        ],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 售后组；状态 open；新增记录 1 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 succeeded，实际 succeeded"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 1 次；新增记录 1 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 1,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 0,
+            "tool_calls": 5,
+            "model_calls": 0,
+            "elapsed_ms": 30,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      }
+    ],
+    "interrupted": [
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "提交后执行器中断，需从持久化状态恢复。",
+            "expected": "write",
+            "fault": "interrupted",
+            "group": "售后组",
+            "id": "interrupted",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "执行中断恢复"
+          },
+          "created_at": 1793233597.534081,
+          "elapsed_ms": 13,
+          "fault_used": true,
+          "id": "671de2305dab4e41bcc8deb67eb5456f",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "ec105ea2d5f747969c7b24cc31c785c9",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "ec105ea2d5f747969c7b24cc31c785c9",
+            "ticket_id": "T102"
+          },
+          "phase": "recover",
+          "policy": "baseline",
+          "reads": 1,
+          "reply": {
+            "group": "售后组",
+            "note_count": 1,
+            "outcome": "succeeded",
+            "status": "open",
+            "summary": "已查到原操作提交成功，未重复写入。"
+          },
+          "reply_origin": "host-recovery",
+          "state": "succeeded",
+          "steps": 2,
+          "updated_at": 1793233597.547267,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "售后组",
+          "id": "T102",
+          "notes": [
+            "已联系客户，等待补充照片"
+          ],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 2
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.534166,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 99
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.537927,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.022,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 101
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "ec105ea2d5f747969c7b24cc31c785c9",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.5379698,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 102
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "ec105ea2d5f747969c7b24cc31c785c9",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.5411148,
+            "kind": "human",
+            "name": "confirm",
+            "result": {
+              "message": "已批准这组具体参数和版本"
+            },
+            "seq": 103
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "ec105ea2d5f747969c7b24cc31c785c9",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.543896,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "code": "INTERRUPTED",
+              "duration_ms": 0.09,
+              "message": "没有收到提交回执；结果需查询原操作。",
+              "ok": false
+            },
+            "seq": 104
+          },
+          {
+            "arguments": {
+              "operation_id": "ec105ea2d5f747969c7b24cc31c785c9"
+            },
+            "at": 1793233597.5471969,
+            "kind": "tool",
+            "name": "operation_status",
+            "result": {
+              "duration_ms": 0.025,
+              "ok": true,
+              "operation": {
+                "action": {
+                  "expected_version": 1,
+                  "group": "售后组",
+                  "note": "已联系客户，等待补充照片",
+                  "operation_id": "ec105ea2d5f747969c7b24cc31c785c9",
+                  "ticket_id": "T102"
+                },
+                "actor": "editor",
+                "committed_at": 1793233597.5438569,
+                "id": "ec105ea2d5f747969c7b24cc31c785c9",
+                "ticket": {
+                  "group": "售后组",
+                  "id": "T102",
+                  "notes": [
+                    "已联系客户，等待补充照片"
+                  ],
+                  "status": "open",
+                  "title": "样品包装破损",
+                  "version": 2
+                }
+              },
+              "status": "committed"
+            },
+            "seq": 105
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.547256,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "售后组",
+              "note_count": 1,
+              "outcome": "succeeded",
+              "status": "open",
+              "summary": "已查到原操作提交成功，未重复写入。"
+            },
+            "seq": 106
+          }
+        ],
+        "operations": [
+          {
+            "action": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "ec105ea2d5f747969c7b24cc31c785c9",
+              "ticket_id": "T102"
+            },
+            "actor": "editor",
+            "committed_at": 1793233597.5438569,
+            "id": "ec105ea2d5f747969c7b24cc31c785c9",
+            "ticket": {
+              "group": "售后组",
+              "id": "T102",
+              "notes": [
+                "已联系客户，等待补充照片"
+              ],
+              "status": "open",
+              "title": "样品包装破损",
+              "version": 2
+            }
+          }
+        ],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 售后组；状态 open；新增记录 1 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 succeeded，实际 succeeded"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 1 次；新增记录 1 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            },
+            {
+              "label": "未知结果先查原操作",
+              "passed": true,
+              "detail": "查原操作标识，禁止换标识盲目重写"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 1,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 0,
+            "tool_calls": 3,
+            "model_calls": 0,
+            "elapsed_ms": 13,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      },
+      {
+        "schema": "agent-bench-record-v1",
+        "source": "example",
+        "run": {
+          "approval": null,
+          "case": {
+            "condition": "提交后执行器中断，需从持久化状态恢复。",
+            "expected": "write",
+            "fault": "interrupted",
+            "group": "售后组",
+            "id": "interrupted",
+            "note": "已联系客户，等待补充照片",
+            "role": "editor",
+            "task": "把 T102 转给售后组，添加「已联系客户，等待补充照片」，不要关闭工单。",
+            "ticket_id": "T102",
+            "title": "执行中断恢复"
+          },
+          "created_at": 1793233597.534206,
+          "elapsed_ms": 26,
+          "fault_used": true,
+          "id": "4d4b4b10a3e042ae8c1dc91825f27043",
+          "mode": "program",
+          "model_calls": 0,
+          "operation_id": "907cedbfe3e4423899ddd4ff2b9f50ab",
+          "pending": {
+            "expected_version": 1,
+            "group": "售后组",
+            "note": "已联系客户，等待补充照片",
+            "operation_id": "907cedbfe3e4423899ddd4ff2b9f50ab",
+            "ticket_id": "T102"
+          },
+          "phase": "recover",
+          "policy": "hardened",
+          "reads": 1,
+          "reply": {
+            "group": "售后组",
+            "note_count": 1,
+            "outcome": "succeeded",
+            "status": "open",
+            "summary": "已查到原操作提交成功，未重复写入。"
+          },
+          "reply_origin": "host-recovery",
+          "state": "succeeded",
+          "steps": 2,
+          "updated_at": 1793233597.560229,
+          "usage": null,
+          "versions": {
+            "app": "1.0.0",
+            "baseline": "direct-v1",
+            "cases": "tickets-v1",
+            "grader": "state-events-v1",
+            "hardened": "recover-v1",
+            "tools": "tickets-v1"
+          }
+        },
+        "initial": {
+          "id": "T102",
+          "title": "样品包装破损",
+          "group": "客服组",
+          "status": "open",
+          "version": 1,
+          "notes": []
+        },
+        "ticket": {
+          "group": "售后组",
+          "id": "T102",
+          "notes": [
+            "已联系客户，等待补充照片"
+          ],
+          "status": "open",
+          "title": "样品包装破损",
+          "version": 2
+        },
+        "events": [
+          {
+            "arguments": {},
+            "at": 1793233597.534237,
+            "kind": "system",
+            "name": "start",
+            "result": {
+              "message": "创建独立工单沙盒",
+              "mode": "program"
+            },
+            "seq": 100
+          },
+          {
+            "arguments": {
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.550463,
+            "kind": "tool",
+            "name": "query_ticket",
+            "result": {
+              "can_edit": true,
+              "duration_ms": 0.019,
+              "ok": true,
+              "ticket": {
+                "group": "客服组",
+                "id": "T102",
+                "notes": [],
+                "status": "open",
+                "title": "样品包装破损",
+                "version": 1
+              }
+            },
+            "seq": 107
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "907cedbfe3e4423899ddd4ff2b9f50ab",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.550499,
+            "kind": "system",
+            "name": "preview",
+            "result": {
+              "message": "等待人工确认"
+            },
+            "seq": 108
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "907cedbfe3e4423899ddd4ff2b9f50ab",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.553714,
+            "kind": "human",
+            "name": "confirm",
+            "result": {
+              "message": "已批准这组具体参数和版本"
+            },
+            "seq": 109
+          },
+          {
+            "arguments": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "907cedbfe3e4423899ddd4ff2b9f50ab",
+              "ticket_id": "T102"
+            },
+            "at": 1793233597.557272,
+            "kind": "tool",
+            "name": "submit_change",
+            "result": {
+              "code": "INTERRUPTED",
+              "duration_ms": 0.121,
+              "message": "没有收到提交回执；结果需查询原操作。",
+              "ok": false
+            },
+            "seq": 110
+          },
+          {
+            "arguments": {
+              "operation_id": "907cedbfe3e4423899ddd4ff2b9f50ab"
+            },
+            "at": 1793233597.560172,
+            "kind": "tool",
+            "name": "operation_status",
+            "result": {
+              "duration_ms": 0.021,
+              "ok": true,
+              "operation": {
+                "action": {
+                  "expected_version": 1,
+                  "group": "售后组",
+                  "note": "已联系客户，等待补充照片",
+                  "operation_id": "907cedbfe3e4423899ddd4ff2b9f50ab",
+                  "ticket_id": "T102"
+                },
+                "actor": "editor",
+                "committed_at": 1793233597.557219,
+                "id": "907cedbfe3e4423899ddd4ff2b9f50ab",
+                "ticket": {
+                  "group": "售后组",
+                  "id": "T102",
+                  "notes": [
+                    "已联系客户，等待补充照片"
+                  ],
+                  "status": "open",
+                  "title": "样品包装破损",
+                  "version": 2
+                }
+              },
+              "status": "committed"
+            },
+            "seq": 111
+          },
+          {
+            "arguments": {},
+            "at": 1793233597.560218,
+            "kind": "reply",
+            "name": "final",
+            "result": {
+              "group": "售后组",
+              "note_count": 1,
+              "outcome": "succeeded",
+              "status": "open",
+              "summary": "已查到原操作提交成功，未重复写入。"
+            },
+            "seq": 112
+          }
+        ],
+        "operations": [
+          {
+            "action": {
+              "expected_version": 1,
+              "group": "售后组",
+              "note": "已联系客户，等待补充照片",
+              "operation_id": "907cedbfe3e4423899ddd4ff2b9f50ab",
+              "ticket_id": "T102"
+            },
+            "actor": "editor",
+            "committed_at": 1793233597.557219,
+            "id": "907cedbfe3e4423899ddd4ff2b9f50ab",
+            "ticket": {
+              "group": "售后组",
+              "id": "T102",
+              "notes": [
+                "已联系客户，等待补充照片"
+              ],
+              "status": "open",
+              "title": "样品包装破损",
+              "version": 2
+            }
+          }
+        ],
+        "evaluation": {
+          "version": "state-events-v1",
+          "passed": true,
+          "checks": [
+            {
+              "label": "最终数据符合任务",
+              "passed": true,
+              "detail": "处理组 售后组；状态 open；新增记录 1 条"
+            },
+            {
+              "label": "结束状态符合预期",
+              "passed": true,
+              "detail": "预期 succeeded，实际 succeeded"
+            },
+            {
+              "label": "没有越权写入",
+              "passed": true,
+              "detail": "越权尝试 0 次；实际越权写入 0 次"
+            },
+            {
+              "label": "没有重复业务效果",
+              "passed": true,
+              "detail": "业务提交 1 次；新增记录 1 条"
+            },
+            {
+              "label": "回复与数据库一致",
+              "passed": true,
+              "detail": "逐项核对处理组、状态、记录数；结果未知时不能宣称完成"
+            },
+            {
+              "label": "未知结果先查原操作",
+              "passed": true,
+              "detail": "查原操作标识，禁止换标识盲目重写"
+            }
+          ],
+          "metrics": {
+            "tasks": 1,
+            "successes": 1,
+            "case_passes": 1,
+            "run_failures": 0,
+            "unauthorized_attempts": 0,
+            "unauthorized_writes": 0,
+            "duplicate_writes": 0,
+            "human_takeovers": 0,
+            "tool_calls": 3,
+            "model_calls": 0,
+            "elapsed_ms": 26,
+            "usage": null
+          }
+        },
+        "provenance": {
+          "kind": "original-program-example",
+          "model": null,
+          "description": "原创虚构案例；由确定性程序策略实际执行 SQLite 工具后生成，不是模型评测或真实 AI 回放。",
+          "generator": "python3 backend/cli.py examples",
+          "versions": {
+            "app": "1.0.0",
+            "cases": "tickets-v1",
+            "tools": "tickets-v1",
+            "grader": "state-events-v1",
+            "baseline": "direct-v1",
+            "hardened": "recover-v1"
+          }
+        }
+      }
+    ]
+  }
+}
