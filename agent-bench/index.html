@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Agent 执行评测台 · Andy Zhang</title>
+  <meta name="description" content="说完成了，真的完成了吗？在虚构工单沙盒里，检查 Agent 的工具执行、最终数据与失败恢复。">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css"><script src="./app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#workbench">跳到评测台</a>
+<header class="site-header"><a href="/" class="wordmark">Andy Zhang<span> / 作品实验</span></a><a href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/agent-bench" target="_blank" rel="noopener">源码 <span aria-hidden="true">↗</span></a></header>
+<main>
+  <div class="intro"><h1>Agent 执行评测台</h1><p>说「完成了」，真的完成了吗？<br class="mobile-only">看工具执行，也看最后的数据。</p></div>
+  <section id="workbench" aria-label="案例与执行对照">
+    <div class="case-controls"><div class="case-field"><label for="case-select">选择一个工单案例</label><select id="case-select" disabled><option>正在读取案例…</option></select></div><button id="watch" class="primary" disabled>观看示例</button><button id="pause" hidden>暂停</button></div>
+    <div class="source-line"><span class="source-mark" id="source-label">示例演示 · 不调用 AI</span><span id="source-help">原创虚构数据，无需密钥。播放已有示例，不会再次写入。</span></div>
+    <p id="error" class="error" role="alert" hidden></p><button id="retry-load" hidden>重新加载案例</button>
+    <div class="task-sheet"><div><h2 id="case-title">写入后超时</h2><p class="task" id="task">正在读取任务…</p><p id="condition" class="muted"></p></div><dl class="initial"><div><dt>初始工单</dt><dd>T102 · 样品包装破损</dd></div><div><dt>处理组</dt><dd>客服组</dd></div><div><dt>状态 / 记录</dt><dd>打开 / 0 条</dd></div></dl></div>
+    <div class="result-heading"><h2>同一个任务，两种执行方式</h2><p id="play-status" role="status" aria-live="polite">选好案例，点击「观看示例」。</p></div>
+    <div id="comparison" class="comparison"></div>
+    <div id="verdict" class="verdict" role="status" aria-live="polite" hidden></div>
+    <details class="technical"><summary>技术详情与运行边界</summary><div class="technical-body"><p>三个工具：查询工单、提交变更、查询原操作状态。判断依据是最终数据库状态和事件；不展示模型隐藏思维链。</p><div class="strategy-grid"><div><h3>基础版</h3><p>查询 → 经批准提交 → 返回结果。发生工具错误就停止并报告；没有自动查询恢复。</p></div><div><h3>加固版</h3><p>先查权限；查询最多 3 次。回执未知先查原操作，版本变化后重新查询与确认，结束前核对数据。</p></div></div><p>两版使用相同初始工单、故障和服务端鉴权。正常与重复提交案例可以同时通过。示例中的差异来自确定性程序策略，不代表模型能力或提升比例。</p><p>三种来源分别标注：真实模型运行需要本地配置；真实记录回放仅播放模型留档；示例演示不是模型结果。本地程序测试实际写入 SQLite，仍不属于真实模型运行。</p><div id="versions"></div><p>耗时为记录的总经过时间（含人工等待），播放速度不是执行耗时。用量没有记录时显示「未知」。</p><div class="local-controls"><h3>在本地运行工具</h3><p id="local-info">公开站点没有后台；在本地启动服务后可运行独立的 SQLite 工单沙盒。</p><button id="run-program" disabled>本地程序测试</button><button id="run-model" disabled>真实模型运行（未配置）</button><button id="restore" hidden>恢复上次本地运行</button><p><a href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/blob/main/agent-bench/README.md" target="_blank" rel="noopener">本地启动与接口说明 ↗</a></p></div></div></details>
+    <details class="technical"><summary>导入一次运行，进行只读回放</summary><div class="technical-body"><p>仅在浏览器读取本项目导出的 JSON，不上传、不调用工具。真实模型留档会保留来源；程序测试不会变成真实模型回放。</p><label for="import-record">选择运行记录（最大 1 MB）</label><input type="file" id="import-record" accept="application/json,.json"><p id="import-status" role="status"></p></div></details>
+  </section>
+</main>
+<footer><span>每次运行都有边界，每次完成都要有证据。</span><a href="/">返回个人官网</a></footer>
+<noscript><p>此交互需要 JavaScript；可在 GitHub 阅读源码与测试报告。</p></noscript>
+</body></html>
