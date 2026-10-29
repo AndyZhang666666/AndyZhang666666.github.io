@@ -1,0 +1,271 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-29T00:36:29.358579+00:00",
+  "title": "Design System: Agent 执行评测台",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "暖纸",
+        "tonalRamp": [
+          "oklch(15.000% 0.00984 87.471)",
+          "oklch(26.429% 0.00984 87.471)",
+          "oklch(37.857% 0.00984 87.471)",
+          "oklch(49.286% 0.00984 87.471)",
+          "oklch(60.714% 0.00984 87.471)",
+          "oklch(72.143% 0.00984 87.471)",
+          "oklch(83.571% 0.00984 87.471)",
+          "oklch(95.000% 0.00984 87.471)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "浅纸面",
+        "tonalRamp": [
+          "oklch(15.000% 0.00538 95.098)",
+          "oklch(26.429% 0.00538 95.098)",
+          "oklch(37.857% 0.00538 95.098)",
+          "oklch(49.286% 0.00538 95.098)",
+          "oklch(60.714% 0.00538 95.098)",
+          "oklch(72.143% 0.00538 95.098)",
+          "oklch(83.571% 0.00538 95.098)",
+          "oklch(95.000% 0.00538 95.098)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "墨色",
+        "tonalRamp": [
+          "oklch(15.000% 0.00951 124.857)",
+          "oklch(26.429% 0.00951 124.857)",
+          "oklch(37.857% 0.00951 124.857)",
+          "oklch(49.286% 0.00951 124.857)",
+          "oklch(60.714% 0.00951 124.857)",
+          "oklch(72.143% 0.00951 124.857)",
+          "oklch(83.571% 0.00951 124.857)",
+          "oklch(95.000% 0.00951 124.857)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "辅助墨色",
+        "tonalRamp": [
+          "oklch(15.000% 0.01418 117.095)",
+          "oklch(26.429% 0.01418 117.095)",
+          "oklch(37.857% 0.01418 117.095)",
+          "oklch(49.286% 0.01418 117.095)",
+          "oklch(60.714% 0.01418 117.095)",
+          "oklch(72.143% 0.01418 117.095)",
+          "oklch(83.571% 0.01418 117.095)",
+          "oklch(95.000% 0.01418 117.095)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "分隔线",
+        "tonalRamp": [
+          "oklch(15.000% 0.01487 106.703)",
+          "oklch(26.429% 0.01487 106.703)",
+          "oklch(37.857% 0.01487 106.703)",
+          "oklch(49.286% 0.01487 106.703)",
+          "oklch(60.714% 0.01487 106.703)",
+          "oklch(72.143% 0.01487 106.703)",
+          "oklch(83.571% 0.01487 106.703)",
+          "oklch(95.000% 0.01487 106.703)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "锈色动作",
+        "tonalRamp": [
+          "oklch(15.000% 0.15607 34.092)",
+          "oklch(26.429% 0.15607 34.092)",
+          "oklch(37.857% 0.15607 34.092)",
+          "oklch(49.286% 0.15607 34.092)",
+          "oklch(60.714% 0.15607 34.092)",
+          "oklch(72.143% 0.15607 34.092)",
+          "oklch(83.571% 0.15607 34.092)",
+          "oklch(95.000% 0.15607 34.092)"
+        ]
+      },
+      "good": {
+        "role": "secondary",
+        "displayName": "结果绿",
+        "tonalRamp": [
+          "oklch(15.000% 0.08429 158.606)",
+          "oklch(26.429% 0.08429 158.606)",
+          "oklch(37.857% 0.08429 158.606)",
+          "oklch(49.286% 0.08429 158.606)",
+          "oklch(60.714% 0.08429 158.606)",
+          "oklch(72.143% 0.08429 158.606)",
+          "oklch(83.571% 0.08429 158.606)",
+          "oklch(95.000% 0.08429 158.606)"
+        ]
+      },
+      "bad": {
+        "role": "secondary",
+        "displayName": "结果红褐",
+        "tonalRamp": [
+          "oklch(15.000% 0.13946 33.006)",
+          "oklch(26.429% 0.13946 33.006)",
+          "oklch(37.857% 0.13946 33.006)",
+          "oklch(49.286% 0.13946 33.006)",
+          "oklch(60.714% 0.13946 33.006)",
+          "oklch(72.143% 0.13946 33.006)",
+          "oklch(83.571% 0.13946 33.006)",
+          "oklch(95.000% 0.13946 33.006)"
+        ]
+      },
+      "tint": {
+        "role": "secondary",
+        "displayName": "确认浅绿",
+        "tonalRamp": [
+          "oklch(15.000% 0.01239 137.785)",
+          "oklch(26.429% 0.01239 137.785)",
+          "oklch(37.857% 0.01239 137.785)",
+          "oklch(49.286% 0.01239 137.785)",
+          "oklch(60.714% 0.01239 137.785)",
+          "oklch(72.143% 0.01239 137.785)",
+          "oklch(83.571% 0.01239 137.785)",
+          "oklch(95.000% 0.01239 137.785)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "页面标题",
+        "purpose": "继承系统 UI 字体；桌面 28px、手机 24px。"
+      },
+      "raw": {
+        "displayName": "原始记录",
+        "purpose": "仅用于展开后的 JSON 记录。"
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "button-background",
+        "value": "background .15s ease-out",
+        "purpose": "主次按钮背景反馈；减少动态效果时移除。"
+      },
+      {
+        "name": "button-press",
+        "value": "translateY(1px)",
+        "purpose": "启用按钮按下反馈。"
+      },
+      {
+        "name": "example-cadence",
+        "value": "320ms",
+        "purpose": "示例逐事件播放；减少动态效果时立即完成。"
+      },
+      {
+        "name": "import-cadence",
+        "value": "200ms",
+        "purpose": "导入回放逐事件播放；减少动态效果时立即完成。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "single-column",
+        "value": "700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "主操作",
+      "kind": "button",
+      "description": "观看、确认和恢复使用锈色实心动作。",
+      "html": "<button class=\"ds-primary\">观看示例</button>",
+      "css": ".ds-primary{min-height:46px;border:1px solid var(--control-border,#9c9f91);border-radius:6px;padding:9px 16px;font:15px/1.65 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;color:var(--ink,#252722);font-weight:550;cursor:pointer;transition:background .15s ease-out;background:var(--accent,#b23e24);border-color:var(--accent,#b23e24);color:#fff}.ds-primary:hover:not(:disabled){background:#8e301a}.ds-primary:active:not(:disabled){transform:translateY(1px)}.ds-primary:disabled{opacity:.5;cursor:not-allowed}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-select:focus-visible,.ds-nav a:focus-visible,.ds-disclosure summary:focus-visible{outline:3px solid var(--accent,#b23e24);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}",
+      "refersTo": "button-primary"
+    },
+    {
+      "name": "次操作",
+      "kind": "button",
+      "description": "与主操作并置的浅纸面按钮。",
+      "html": "<button class=\"ds-secondary\">取消后续步骤</button>",
+      "css": ".ds-secondary{min-height:46px;border:1px solid var(--control-border,#9c9f91);border-radius:6px;padding:9px 16px;font:15px/1.65 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;color:var(--ink,#252722);font-weight:550;cursor:pointer;transition:background .15s ease-out;background:var(--surface,#fcfbf7)}.ds-secondary:hover:not(:disabled){background:#e6e6dd}.ds-secondary:active:not(:disabled){transform:translateY(1px)}.ds-secondary:disabled{opacity:.5;cursor:not-allowed}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-select:focus-visible,.ds-nav a:focus-visible,.ds-disclosure summary:focus-visible{outline:3px solid var(--accent,#b23e24);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}",
+      "refersTo": "button-secondary"
+    },
+    {
+      "name": "案例选择",
+      "kind": "input",
+      "description": "可见标签配原生 select，不另造下拉弹层。",
+      "html": "<label class=\"ds-field\">选择一个工单案例<select class=\"ds-select\"><option>写入后超时</option><option>正常执行</option></select></label>",
+      "css": ".ds-field{display:grid;gap:7px;font:550 13px/1.65 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;color:var(--ink,#252722)}.ds-select{font:15px/1.65 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;color:var(--ink,#252722);min-height:46px;width:100%;border:1px solid #9c9f91;border-radius:6px;background:var(--surface,#fcfbf7);padding:9px 16px;cursor:pointer}.ds-select:disabled{opacity:.5;cursor:not-allowed}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-select:focus-visible,.ds-nav a:focus-visible,.ds-disclosure summary:focus-visible{outline:3px solid var(--accent,#b23e24);outline-offset:4px}",
+      "refersTo": "case-select"
+    },
+    {
+      "name": "结果卡",
+      "kind": "card",
+      "description": "同一结果内展示策略、文字状态与工单数据。",
+      "html": "<article class=\"ds-result\"><div class=\"ds-result-top\"><h3>加固版</h3><span>已完成</span></div><p class=\"ds-strategy\">核实权限、有限重试、查询原操作后恢复。</p><dl class=\"ds-data\"><div><dt>处理组</dt><dd>售后组</dd></div><div><dt>工单状态</dt><dd>打开</dd></div><div><dt>新增记录</dt><dd>1 条</dd></div></dl></article>",
+      "css": ".ds-result{font:15px/1.65 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;color:var(--ink,#252722);min-width:0;background:var(--surface,#fcfbf7);border:1px solid var(--line,#d7d7cc);border-radius:12px;padding:23px}.ds-result-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}.ds-result-top h3{font-size:16px;margin:0;font-weight:700}.ds-result-top span{font-size:12px;font-weight:600;color:var(--good,#276747)}.ds-strategy{font-size:12px;color:var(--muted,#62645b);margin:5px 0 22px}.ds-data{display:grid;grid-template-columns:1.3fr 1fr .8fr;gap:10px;margin:0 0 17px}.ds-data dt{font-size:12px;color:var(--muted,#62645b);margin-bottom:5px}.ds-data dd{font-size:18px;margin:0;font-variant-numeric:tabular-nums;white-space:nowrap}.ds-data div:first-child dd,.ds-data div:last-child dd{color:var(--good,#276747)}@media(max-width:700px){.ds-result{padding:20px}.ds-strategy{margin-bottom:18px}}",
+      "refersTo": "result-card"
+    },
+    {
+      "name": "确认参数",
+      "kind": "custom",
+      "description": "待确认区域直接保留具体参数与确认、取消操作。",
+      "html": "<div class=\"ds-approval\"><p>请确认：T102 v1 → 售后组；添加「已联系客户，等待补充照片」；保持工单打开。</p><div class=\"ds-actions\"><button class=\"ds-primary\">确认此变更</button><button class=\"ds-secondary\">取消后续步骤</button></div></div>",
+      "css": ".ds-approval{font:15px/1.65 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;color:var(--ink,#252722);font-size:13px;background:var(--tint,#e8eee6);border-radius:6px;padding:14px;margin-bottom:14px}.ds-approval p{margin:0 0 10px;overflow-wrap:anywhere}.ds-actions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}.ds-primary,.ds-secondary{min-height:46px;border:1px solid var(--control-border,#9c9f91);border-radius:6px;padding:9px 16px;font:15px/1.65 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;color:var(--ink,#252722);font-weight:550;cursor:pointer;transition:background .15s ease-out;min-height:44px;font-size:12px;padding:8px 12px;background:var(--surface,#fcfbf7)}.ds-primary{background:var(--accent,#b23e24);border-color:var(--accent,#b23e24);color:#fff}.ds-primary:hover:not(:disabled){background:#8e301a}.ds-secondary:hover:not(:disabled){background:#e6e6dd}.ds-primary:active:not(:disabled),.ds-secondary:active:not(:disabled){transform:translateY(1px)}.ds-primary:disabled,.ds-secondary:disabled{opacity:.5;cursor:not-allowed}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-select:focus-visible,.ds-nav a:focus-visible,.ds-disclosure summary:focus-visible{outline:3px solid var(--accent,#b23e24);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-primary,.ds-secondary{transition:none}}",
+      "refersTo": "approval-panel"
+    },
+    {
+      "name": "技术展开",
+      "kind": "custom",
+      "description": "原生 disclosure 以细边线连接文档流。",
+      "html": "<details class=\"ds-disclosure\"><summary>技术详情与运行边界</summary><p>三个工具：查询工单、提交变更、查询原操作状态。</p></details>",
+      "css": ".ds-disclosure{font:15px/1.65 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;color:var(--ink,#252722);border-top:1px solid var(--line,#d7d7cc);margin-top:24px}.ds-disclosure summary{cursor:pointer;padding:11px 0;min-height:44px;font-size:13px;font-weight:550}.ds-disclosure[open] summary{margin-bottom:8px}.ds-disclosure p{font-size:13px;color:var(--muted,#62645b);margin:0 0 14px}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-select:focus-visible,.ds-nav a:focus-visible,.ds-disclosure summary:focus-visible{outline:3px solid var(--accent,#b23e24);outline-offset:4px}"
+    },
+    {
+      "name": "原始记录",
+      "kind": "custom",
+      "description": "展开后的等宽记录在自身区域滚动。",
+      "html": "<pre class=\"ds-raw\">{\n  \"source\": \"example\",\n  \"operations\": []\n}</pre>",
+      "css": ".ds-raw{max-height:300px;overflow:auto;font:11px/1.6 ui-monospace,\"SFMono-Regular\",monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#f1f1e9;color:var(--ink,#252722);padding:12px;border-radius:6px;tab-size:2}",
+      "refersTo": "raw-record"
+    },
+    {
+      "name": "站点导航",
+      "kind": "nav",
+      "description": "继承站标和源码链接的两端对齐导航。",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-wordmark\" href=\"#\">Andy Zhang<span> / 作品实验</span></a><a href=\"#\">源码</a></nav>",
+      "css": ".ds-nav{font:15px/1.65 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;color:var(--ink,#252722);display:flex;justify-content:space-between;gap:16px;padding:28px 32px 25px;border-bottom:1px solid var(--line,#d7d7cc)}.ds-nav a{text-decoration:none;font-size:14px;color:inherit}.ds-wordmark{font-weight:650}.ds-wordmark span{color:var(--muted,#62645b);font-weight:400}@media(max-width:700px){.ds-nav{padding:20px 20px 18px}.ds-wordmark span{display:none}}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-select:focus-visible,.ds-nav a:focus-visible,.ds-disclosure summary:focus-visible{outline:3px solid var(--accent,#b23e24);outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "比较工作表",
+    "overview": "这是现有个人官网内的 Operate 屏，沿用暖纸、墨色和克制的锈色操作。记录范围仅为 `/agent-bench/`；不替换官网身份，也不把本页的执行流程提升为所有页面的组成规则。方向来源是已确认的 `docs/SURFACE.md`；以下数值和状态来自实际 HTML、CSS、JavaScript，截图用于核对其落地。\n\n整体密度接近一张可操作的比较工作表。表单、字段、细分隔线和并排结果承担信息组织；解释与技术记录通过原生 disclosure 展开。不存在另行批准的视觉 comp。",
+    "keyCharacteristics": [
+      "暖纸页面与略亮的结果面板，墨色文字、细边线。",
+      "使用继承的系统 UI 字体；标题紧凑，字段值优先于辅助说明。",
+      "动作、结果状态和待确认区域有各自明确的色彩用途。",
+      "桌面并排、手机纵排；键盘焦点与可读状态文字直接可见。"
+    ],
+    "rules": [
+      {
+        "name": "文字伴随状态",
+        "body": "状态始终保留“已完成”“结果未知”“通过”等文本；颜色是附加编码。",
+        "section": "colors"
+      },
+      {
+        "name": "平面工作表",
+        "body": "已建成的容器用色面和边线区分层次；后续局部扩展沿用此机制。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** 在此 app 扩展中继承暖纸、墨色与锈色动作；从 frontmatter 读取规范值。",
+      "**Do** 为状态、变化字段和判据保留可读文字，并沿用现有语义色的具体用途。",
+      "**Do** 在窄屏保持完整单列内容、可换行操作与明确焦点。",
+      "**Do** 保留原生表单、disclosure 与文件选择行为；将可执行确认和恢复放在结果区。"
+    ],
+    "donts": [
+      "**Don't** 用结果绿色将“数据改变”自动表述为“运行通过”。",
+      "**Don't** 把本页的任务、两版策略或工单组成规定为官网其他页面的全局模板。",
+      "**Don't** 将没有出现在此实现里的阴影、图像装饰、图表或新字体当作既有系统。"
+    ]
+  }
+}

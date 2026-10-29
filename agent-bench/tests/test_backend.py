@@ -254,7 +254,8 @@ class ModelTests(StoreTests):
         r=model.step(self.store,client,rid,'owner')
         self.assertEqual(len(r['operations']),1);self.assertTrue(r['evaluation']['passed'])
         self.assertEqual(r['run']['model_calls'],3)
-        self.assertEqual(r['run']['usage']['total_tokens'],20)
+        self.assertIsNone(r['run']['usage'])
+        self.assertEqual(r['run']['usage_samples'],[{'total_tokens':10},{'total_tokens':10},None])
     def test_model_lie_fails_database_grading(self):
         class Liar(DynamicModel):
             def complete(self,messages):return {'role':'assistant','content':json.dumps(dict(outcome='succeeded',group='售后组',status='open',note_count=1,summary='完成'))},None

@@ -116,6 +116,14 @@ def step(store, client, rid, owner):
         r['inflight'] = None
         if not pending:
             r['model_calls'] += 1
+            samples = r.setdefault('usage_samples', [])
+            samples.append(usage)
+            # Partial provider reporting must not look like a complete run total.
+            if all(samples):
+                keys = set.intersection(*(set(sample) for sample in samples))
+                r['usage'] = {key: sum(sample[key] for sample in samples) for key in keys} or None
+            else:
+                r['usage'] = None
         if r['state'] == 'cancelled':
             store.save(db, r)
             db.commit()
@@ -124,8 +132,6 @@ def step(store, client, rid, owner):
             store.event(db, r, 'system', 'model_error', {}, {'code': failure.code, 'message': failure.message})
             store.finish(db, r, 'failed', failure.message)
         else:
-            if usage:
-                r['usage'] = {k: (r.get('usage') or {}).get(k, 0) + v for k, v in usage.items()}
             if message:
                 r['messages'].append(message)
             call = pending or (message.get('tool_calls') or [None])[0]
