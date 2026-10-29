@@ -94,3 +94,6 @@ for(const study of studies){
  fs.writeFileSync(`cases/${study.id}/index.html`,`<!doctype html><html lang="zh-CN" data-palette="frost">${head.replace(/<title>.*?<\/title>/,`<title>${esc(p.name)} · 产品判断</title>`)}<body><div class="grain"></div><div class="glow glow-1"></div><div class="glow glow-2"></div>${nav}<main>${body}</main><footer>© 2026 张千羽 · ${localReview?'本地内容评审':'产品判断与验证'}</footer><script src="/scripts/case-reader.js"></script></body></html>`);
 }
 console.log('Updated the original shell, four native selected previews, explicit project cards and four case pages.');
+
+// Reapply the isolated RAG addition after the existing generator; preserve its own source.
+await (await import('../rag-lab/scripts/integrate-site.mjs')).integrateSite();

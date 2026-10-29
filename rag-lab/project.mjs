@@ -1,0 +1,23 @@
+// Only this project's metadata. Shared site files are extended, never regenerated from an old copy.
+export const project = {
+  id: 'rag-lab', name: '可信 RAG 实验台', nameEn: 'Trustworthy RAG Lab', category: 'ai', group: 'main',
+  subtitle: '答案依据从哪里来，为什么可以用', subtitleEn: 'Where evidence comes from and why it applies',
+  description: '选问题、看回答、打开依据，再改日期或身份。检索、版本、访问范围与无答案处理分别可检查。',
+  descriptionEn: 'Ask, inspect the answer and source, then change the conditions. Examine retrieval, effective versions, access scope and missing evidence separately.',
+  url: '/rag-lab/', github: 'https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/rag-lab',
+  tags: ['独立项目', 'RAG', '来源与权限'],
+  metrics: ['BM25 / 日期与版本选择', '服务端范围检查', '原创示例 / 本地 API'],
+  metricsEn: ['BM25 / effective versions', 'Server-side scope checks', 'Original example / local API'],
+  context: '同一问题会因制度版本、查询日期和可访问范围而改变。引用能定位，也不代表结论成立。',
+  contextEn: 'The applicable answer changes with policy versions, query date and access scope. A locatable quotation alone does not establish correctness.',
+  approach: ['先在服务端限定角色、日期与快照，再检索段落。', '展示引用原文与适用原因，冲突或资料不足时不补造规则。', '固定题分别复核召回、关键事实和引用；原始记录可导出。'],
+  approachEn: ['Restrict role, date and snapshot before server-side retrieval.', 'Show supporting paragraphs and applicability; retain conflicts and evidence gaps.', 'Check retrieval, key facts and citations separately on fixed fixtures, with exportable records.'],
+  result: '官网运行原创虚构资料的浏览器检索与规则摘录，无模型调用。本地 API 提供独立会话、真实检索和可配置模型接口；本次真实模型联调待验证。示例身份切换不是生产鉴权。',
+  resultEn: 'The public example searches original fictional text in the browser and extracts rules without calling a model. A local API provides independent sessions, real retrieval and a configurable model adapter. Live-model validation is pending; demo roles are not production authentication.',
+  presentation: {kind: 'demo',
+    question: {zh: '同一个问题，为什么换个条件就不能这样答？', en: 'Why does the same question need a different answer under different conditions?'},
+    decision: {zh: '先检查资料的范围与生效版本，再看答案和引用是否成立。', en: 'Check source scope and effective versions before judging the answer and its citations.'},
+    image: '/rag-lab/evidence/answer-preview.png', thumbnail: '/rag-lab/evidence/answer-preview.png',
+    caption: {zh: '可信 RAG 实验台 · 当前规则与原文段落，原创示例模式', en: 'Trustworthy RAG Lab · Applicable rule and source paragraph, original example mode'},
+  },
+};
