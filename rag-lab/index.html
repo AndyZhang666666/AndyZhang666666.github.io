@@ -19,7 +19,7 @@
   <main>
     <div class="intro">
       <h1>答案，要有可用的依据。</h1>
-      <p>显示器能借多久？换一个日期或身份，看看答案为什么变化。</p>
+      <p>改日期或身份，看看同一个问题为何答得不同。</p>
     </div>
     <div class="mode-banner"><span class="mode-dot" aria-hidden="true"></span><strong id="modeLabel">原创示例模式</strong><span id="modeDescription">浏览器文本检索 · 规则摘录 · 无模型调用</span></div>
 
@@ -34,13 +34,13 @@
         <label class="sr-only" for="question">设备借用问题</label>
         <div class="question-line"><textarea id="question" rows="2" maxlength="300" required aria-describedby="inputHint">显示器最长能借多久？</textarea><button class="primary" id="runButton" type="submit">查找依据<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg></button></div>
         <p id="inputHint" class="field-hint">也可以问续借、归还地点，或试试「无人机最长能借多久」。一次问一项规则。</p>
-        <div class="conditions">
+        <details id="conditionSettings" class="condition-settings" open><summary>查询条件：身份、日期与资料快照</summary><div class="conditions">
           <label>示例身份<select id="role"><option value="employee">普通员工</option><option value="admin">设备管理员</option></select></label>
           <label>业务日期<input id="date" type="date" value="2026-10-28" min="2000-01-01" max="2099-12-31" required></label>
-          <label>资料快照<select id="snapshot"><option value="baseline">原始快照 · 14 天规则</option><option value="revised">演示修订 · 10 天规则</option></select></label>
+          <label>资料快照<select id="snapshot"><option value="baseline">原始资料快照</option><option value="revised">演示修订快照</option></select></label>
           <button type="button" class="text-button" id="historical">试试历史日期</button>
         </div>
-        <p class="field-hint" id="scopeHint">日期固定，不随电脑时钟变化。快照是两份独立的虚构资料版本。</p>
+        <p class="field-hint" id="scopeHint">日期固定，不随电脑时钟变化。快照是两份独立的虚构资料版本。</p></details>
         <details id="runtimeSettings" class="runtime-settings">
           <summary>运行方式与演示边界</summary>
           <div class="runtime-body">

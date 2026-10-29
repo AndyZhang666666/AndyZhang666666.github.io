@@ -1,7 +1,7 @@
 // Pure retrieval core, shared by the public *example* and the real API.
 // Authorization is a server responsibility; a public browser is never a security boundary.
 export const VERSIONS = Object.freeze({index: 'zh-bigram-bm25-v1', prompt: 'grounded-json-v1', judge: 'equipment-facts-v1', corpus: 'qingyu-20261028-v1'});
-export const SNAPSHOTS = Object.freeze({baseline: '原始快照 · 14 天', revised: '演示修订 · 10 天'});
+export const SNAPSHOTS = Object.freeze({baseline: '原始资料快照', revised: '演示修订快照'});
 export const DEFAULT_DATE = '2026-10-28';
 
 export function validDate(date) {

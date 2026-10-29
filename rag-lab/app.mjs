@@ -11,6 +11,9 @@ let history = [];
 let employeeToken = null;
 let apiAvailable = false;
 let busy = false;
+matchMedia('(max-width: 650px)').addEventListener('change', event => {
+  if (!event.matches) $('conditionSettings').open = true;
+});
 
 function getInput() {
   return {question: $('question').value.trim(), date: $('date').value, snapshot: $('snapshot').value,
@@ -148,6 +151,7 @@ function render(run) {
     run.status === 'answered' ? run.mode === 'local-model' ? '引用与固定关键事实已检查；其他语义仍需复核。这不是模型准确率结论。' :
       '这是从原文生成的规则摘录。点击引用核对段落；没有调用模型，也不计入模型评测。' :
     run.status === 'conflict' ? '两份通知同日生效，未记录替代关系。允许查看冲突，不代表系统能消解冲突。' :
+    run.status === 'failed' ? '检索已完成，生成阶段未完成。右侧保留的是找到的依据，不是已通过检查的模型答案。' :
     '只说明本次范围下缺少依据，不断言其他范围一定存在规则，也不泄露不可访问资料的标题或内容。';
 
   $('citationLinks').replaceChildren(); $('sources').replaceChildren();
@@ -250,6 +254,7 @@ $('exportButton').addEventListener('click', async () => {
 
 async function initialize() {
   try {
+    if (matchMedia('(max-width: 650px)').matches) $('conditionSettings').open = false;
     const response = await fetch('./public-corpus.json');
     if (!response.ok) throw new Error('示例资料读取失败，请刷新重试。');
     const data = await response.json(); documents = data.documents;
