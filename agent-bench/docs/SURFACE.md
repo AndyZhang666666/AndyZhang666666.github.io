@@ -2,7 +2,7 @@
 Mode: Operate. Scope: /agent-bench/ only. The user's precise PRD and delegated implementation settle purpose and composition; no new visual-world approval is required. Code-first app screen; no stored global workflow preference.
 
 ## DIRECTION
-Inherit the portfolio's warm paper and dark ink, with a restrained rust action. A compact comparison worksheet, not a terminal or log dashboard. Seed: none (context launcher unavailable; documented fallback, established website identity).
+Inherit the portfolio's warm paper and dark ink, with a restrained rust action. A compact comparison worksheet, not a terminal or log dashboard. Seed: not applicable. No roll was run: new-work.md §3 exempts a precisely specified feature inside an established surface; the user already fixed the task sequence and disclosures. The context launcher initially failed, so existing source and references were read directly. The later detector used a writable workspace cache.
 ## FIRST VIEWPORT
 Name, one-sentence task, a case select and watch action, then the two policy results. The artifact starts immediately. Shared initial ticket and fault sit beside the task; no metric wall or promotional hero.
 ## SIGNATURE

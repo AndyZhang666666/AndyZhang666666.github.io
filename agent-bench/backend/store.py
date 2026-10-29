@@ -171,6 +171,8 @@ class Store:
         # Always enforce role, including duplicate deliveries. No strategy bypass.
         if r['case']['role'] != 'editor':
             raise Problem('FORBIDDEN', '只读身份无修改权限，未产生写入。', 403)
+        if args['operation_id'] != r['operation_id']:
+            raise Problem('OPERATION_ID_MISMATCH', '请沿用本次运行的原操作标识，不能换标识重写。', 409)
         action_hash = digest(args)
         prior = db.execute('SELECT digest,payload FROM operations WHERE run_id=? AND id=?', (r['id'], args['operation_id'])).fetchone()
         if prior:

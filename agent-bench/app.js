@@ -23,6 +23,7 @@ function currentCase() { return catalog.cases.find(c => c.id === caseId); }
 function selectCase() {
   playToken++; playing = false; paused = false; busy = false; $('#pause').hidden = true;
   records = []; rendered = []; mode('example'); clearError();
+  $('#import-record').value = ''; $('#import-status').textContent = '';
   const c = currentCase();
   $('#case-title').textContent = c.title; $('#task').textContent = c.task; $('#condition').textContent = c.condition;
   $('#play-status').textContent = '选好案例，点击「观看示例」。'; $('#verdict').hidden = true;

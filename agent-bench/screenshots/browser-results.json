@@ -1,0 +1,25 @@
+{
+  "base": "http://127.0.0.1:8878/agent-bench/",
+  "local": true,
+  "checks": [
+    "ten original cases and explicit example source",
+    "all ten public example flows and keyboard run",
+    "native disclosure keyboard and original operation evidence",
+    "export and read-only import produce no mutation requests",
+    "invalid import is recoverable",
+    "390, 768 and 1280px retain both comparison results without overflow",
+    "pause and continue example playback",
+    "local normal flow: exact approval, SQLite writes and checks",
+    "timeout recovery queries original operation and adds no duplicate note",
+    "duplicate transport delivery returns original receipt",
+    "stale approval is rejected and hardened flow asks again for v2",
+    "cancel before write leaves both databases unchanged",
+    "refresh resumes persistent run IDs and safely recovers interrupted commits",
+    "mobile local approval flow completes both policies",
+    "API failure preserves run and never silently converts to example mode",
+    "no browser JavaScript errors"
+  ],
+  "passed": 16,
+  "errors": [],
+  "model_calls": 0
+}

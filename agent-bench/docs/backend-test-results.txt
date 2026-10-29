@@ -1,0 +1,34 @@
+test_api_lifecycle_and_replay_read_only (test_backend.APITests) ... ok
+test_api_other_session_and_private_paths (test_backend.APITests) ... ok
+test_api_rejects_cross_origin_host_and_csrf (test_backend.APITests) ... ok
+test_api_validates_payload_and_mode (test_backend.APITests) ... ok
+test_cancellation_during_model_network_wait (test_backend.ModelTests) ... ok
+test_model_call_limit_persists_failed_state (test_backend.ModelTests) ... ok
+test_model_failure_is_saved_and_counted (test_backend.ModelTests) ... ok
+test_model_lie_fails_database_grading (test_backend.ModelTests) ... ok
+test_model_selects_real_tools_and_pauses_for_approval (test_backend.ModelTests) ... ok
+test_provider_adapter_sends_tools_without_leaking_reasoning (test_backend.ModelTests) ... ok
+test_access_control_and_export_minimization (test_backend.StoreTests) ... ok
+test_all_ten_cases_both_policies (test_backend.StoreTests) ... ok
+test_approval_cannot_bind_changed_parameters (test_backend.StoreTests) ... ok
+test_cancel_before_and_after_commit (test_backend.StoreTests) ... ok
+test_concurrent_steps_do_not_duplicate_effects (test_backend.StoreTests) ... ok
+test_duplicate_same_action_and_key_collision (test_backend.StoreTests) ... ok
+test_expected_failure_is_not_counted_as_completed_task (test_backend.StoreTests) ... ok
+test_missing_ticket_and_status_are_validated (test_backend.StoreTests) ... ok
+test_offline_grade_detects_false_completion (test_backend.StoreTests) ... ok
+test_operation_identifier_cannot_be_replaced (test_backend.StoreTests) ... ok
+test_pair_request_deduplication_concurrent (test_backend.StoreTests) ... ok
+test_parameter_validation_and_no_approval (test_backend.StoreTests) ... ok
+test_permission_attempt_and_write_are_separate (test_backend.StoreTests) ... ok
+test_permission_rechecked_after_approval (test_backend.StoreTests) ... ok
+test_read_retries_are_bounded (test_backend.StoreTests) ... ok
+test_restart_and_unknown_recovery (test_backend.StoreTests) ... ok
+test_runs_are_isolated (test_backend.StoreTests) ... ok
+test_stale_confirmation_and_reapproval (test_backend.StoreTests) ... ok
+test_unknown_never_silently_excluded_from_metrics (test_backend.StoreTests) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 3.948s
+
+OK
