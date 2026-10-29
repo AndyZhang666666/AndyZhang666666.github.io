@@ -29,6 +29,6 @@ test_stale_confirmation_and_reapproval (test_backend.StoreTests) ... ok
 test_unknown_never_silently_excluded_from_metrics (test_backend.StoreTests) ... ok
 
 ----------------------------------------------------------------------
-Ran 29 tests in 3.418s
+Ran 29 tests in 3.913s
 
 OK

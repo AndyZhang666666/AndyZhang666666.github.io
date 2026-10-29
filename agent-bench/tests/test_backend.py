@@ -176,6 +176,11 @@ class StoreTests(unittest.TestCase):
             self.assertEqual(self.store.tool(db,run,'query_ticket',{'ticket_id':''})['code'],'INVALID_ARGUMENTS')
             self.assertEqual(self.store.tool(db,run,'query_ticket',{'ticket_id':'T999'})['code'],'NOT_FOUND')
             self.assertEqual(self.store.tool(db,run,'operation_status',{'operation_id':'other-run-op'})['status'],'not_found')
+            run['case']['ticket_id']=None
+            self.store.save(db,run)
+        r=self.store.program_step(r['run']['id'],'owner')
+        self.assertEqual(r['run']['state'],'needs_input')
+        self.assertEqual(r['ticket']['notes'],[])
     def test_expected_failure_is_not_counted_as_completed_task(self):
         r=self.drive(self.pair('unavailable')[1])
         self.assertTrue(r['evaluation']['passed'])
@@ -210,6 +215,20 @@ class APITests(StoreTests):
         _,r=self.request('/api/runs/'+rid+'/step',{});self.assertEqual(r['run']['state'],'succeeded')
         for _ in range(3):_,export=self.request('/api/runs/'+rid+'/export')
         self.assertEqual(len(export['operations']),1)
+        _,pair=self.request('/api/pairs',dict(case_id='interrupted',request_id='api-interrupted',mode='program'))
+        rid=pair[0]['run']['id']
+        _,r=self.request('/api/runs/'+rid+'/step',{})
+        self.request('/api/runs/'+rid+'/confirm',{'digest':r['approval_digest']})
+        _,r=self.request('/api/runs/'+rid+'/step',{})
+        self.assertEqual(r['run']['state'],'unknown')
+        address=self.server.server_address
+        self.server.shutdown();self.server.server_close();self.thread.join()
+        self.server=Server(address,Store(self.path))
+        self.thread=threading.Thread(target=self.server.serve_forever,daemon=True);self.thread.start()
+        _,r=self.request('/api/runs/'+rid)
+        self.assertEqual(r['run']['state'],'unknown')
+        _,r=self.request('/api/runs/'+rid+'/recover',{})
+        self.assertEqual(r['run']['state'],'succeeded');self.assertEqual(len(r['operations']),1)
     def test_api_rejects_cross_origin_host_and_csrf(self):
         for headers in ({'Origin':'https://evil.example'},{'X-Bench-Request':''},{'Host':'evil.example'}):
             self.assertEqual(self.request('/api/pairs',{},headers)[0],403)
