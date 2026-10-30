@@ -16,7 +16,7 @@ from store import Store, Problem, digest, dump
 import model
 
 ROOT = Path(__file__).resolve().parent.parent
-STATIC = {'index.html', 'app.js', 'style.css', 'samples/examples.json', 'favicon.svg'}
+STATIC = {'index.html', 'app.js', 'replay.js', 'style.css', 'samples/examples.json', 'favicon.svg'}
 
 class Server(ThreadingHTTPServer):
     daemon_threads = True
