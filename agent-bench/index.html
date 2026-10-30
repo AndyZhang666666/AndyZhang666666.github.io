@@ -5,21 +5,26 @@
   <title>Agent 执行评测台 · Andy Zhang</title>
   <meta name="description" content="说完成了，真的完成了吗？在虚构工单沙盒里，检查 Agent 的工具执行、最终数据与失败恢复。">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css"><script src="./app.js" defer></script>
+  <link rel="stylesheet" href="./style.css"><script src="./replay.js" defer></script><script src="./app.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#workbench">跳到评测台</a>
 <header class="site-header"><a href="/" class="wordmark">Andy Zhang<span> / 作品实验</span></a><a href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/agent-bench" target="_blank" rel="noopener">源码 <span aria-hidden="true">↗</span></a></header>
 <main>
-  <div class="intro"><h1>Agent 执行评测台</h1><p>说「完成了」，真的完成了吗？<br class="mobile-only">看工具执行，也看最后的数据。</p></div>
+  <div class="intro"><div class="product-name"><svg class="bench-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 7h10v7H5zm12 11h10v7H17zM10 14v7h7M15 10h7v8" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="22" cy="10" r="2" fill="currentColor"/></svg><h1>Agent 执行评测台</h1></div><p>工具没有返回，事情到底做成了吗？</p><span class="intro-note">沿着一张工单，比较两种策略如何执行、核对与恢复。</span></div>
   <section id="workbench" aria-label="案例与执行对照">
-    <div class="case-controls"><div class="case-field"><label for="case-select">选择一个工单案例</label><select id="case-select" disabled><option>正在读取案例…</option></select></div><button id="watch" class="primary" disabled>观看示例</button><button id="pause" hidden>暂停</button></div>
-    <div class="source-line"><span class="source-mark" id="source-label">示例演示 · 不调用 AI</span><span id="source-help">原创虚构数据，无需密钥。播放已有示例，不会再次写入。</span></div>
+    <div class="case-controls"><div class="case-picks" role="group" aria-label="重点案例"><button data-case="timeout" aria-pressed="true" disabled><strong>响应丢失</strong><span>提交后，没有收到回执</span></button><button data-case="permission" aria-pressed="false" disabled><strong>权限不足</strong><span>能查看，是否就能修改</span></button><button data-case="conflict" aria-pressed="false" disabled><strong>版本变化</strong><span>工单更新后，批准还有效吗</span></button></div><div class="case-field"><label for="case-select">全部 10 个案例</label><select id="case-select" disabled><option>正在读取案例…</option></select></div></div>
+    <div class="source-line"><span class="source-mark" id="source-label">示例演示 · 不调用 AI</span><span id="source-help">原创程序策略记录，只读回放；不计入模型评测。</span></div>
     <p id="error" class="error" role="alert" hidden></p><button id="retry-load" hidden>重新加载案例</button>
-    <div class="task-sheet"><div><h2 id="case-title">写入后超时</h2><p class="task" id="task">正在读取任务…</p><p id="condition" class="muted"></p></div><dl class="initial"><div><dt>初始工单</dt><dd>T102 · 样品包装破损</dd></div><div><dt>处理组</dt><dd>客服组</dd></div><div><dt>状态 / 记录</dt><dd>打开 / 0 条</dd></div></dl></div>
-    <div class="result-heading"><h2>同一个任务，两种执行方式</h2><p id="play-status" role="status" aria-live="polite">选好案例，点击「观看示例」。</p></div>
+    <div class="task-sheet"><div><h2 id="case-title">响应丢失</h2><p class="task" id="task">正在读取任务…</p><p id="condition" class="muted">先看任务和初始数据，再沿着记录核对每一步。</p></div><div class="initial-wrap"><span class="field-label">起点 / 两个独立沙盒</span><dl class="initial" id="initial-ticket"><div><dt>工单</dt><dd>T102 · 样品包装破损</dd></div><div><dt>处理组</dt><dd>客服组</dd></div><div><dt>状态 / 记录</dt><dd>打开 / 0 条</dd></div></dl></div></div>
+    <div class="player" aria-label="只读回放控制"><div class="player-actions"><button id="previous" aria-label="上一步" disabled>上一步</button><button id="watch" class="primary" disabled>开始逐步回放</button><button id="next" aria-label="下一步" disabled>下一步</button><button id="finish" class="text-button" disabled>直接看结果</button></div><div class="player-progress"><span id="step-label">尚未开始</span><progress id="progress" max="1" value="0" aria-label="回放进度"></progress></div><p id="play-status" role="status" aria-live="polite">正在读取案例…</p></div>
+    <div class="result-heading"><div><h2>同一个任务，两条执行轨道</h2><p>按各自事件序号对照，不代表两条轨道同时发生。</p></div><span class="readonly">只读回放</span></div>
+    <div id="checkpoint" class="checkpoint"><strong>先看回执，再下结论。</strong><p>开始回放后会在关键异常处暂停。你可以逐步查看，也可以直接看最终核验。</p></div>
+    <div id="result-overview" class="result-overview" aria-label="两条轨道当前状态" hidden></div>
+    <div class="policy-tabs" role="tablist" aria-label="查看执行轨道"><button id="tab-baseline" role="tab" aria-selected="false" aria-controls="lane-baseline" tabindex="-1" data-policy-tab="baseline">基础策略</button><button id="tab-hardened" role="tab" aria-selected="true" aria-controls="lane-hardened" data-policy-tab="hardened">可靠策略</button></div>
     <div id="comparison" class="comparison"></div>
-    <div id="verdict" class="verdict" role="status" aria-live="polite" hidden></div>
+    <section id="event-inspector" class="event-inspector" aria-labelledby="event-title" hidden><div><span id="event-position" class="field-label"></span><h2 id="event-title">选中事件</h2><p id="event-description"></p><p id="event-boundary" class="muted"></p><div id="event-facts" class="event-facts"></div></div><details id="event-raw"><summary>查看这条事件的原始数据</summary><pre id="event-json" class="raw" tabindex="0" aria-label="选中事件的原始 JSON"></pre></details></section>
+    <section id="verdict" class="verdict" aria-labelledby="verdict-title" hidden></section>
     <details class="technical"><summary>技术详情与运行边界</summary><div class="technical-body"><p>三个工具：查询工单、提交变更、查询原操作状态。判断依据是最终数据库状态和事件；不展示模型隐藏思维链。</p><div class="strategy-grid"><div><h3>基础版</h3><p>查询 → 经批准提交 → 返回结果。发生工具错误就停止并报告；没有自动查询恢复。</p></div><div><h3>加固版</h3><p>先查权限；查询最多 3 次。回执未知先查原操作，版本变化后重新查询与确认，结束前核对数据。</p></div></div><p>两版使用相同初始工单、故障和服务端鉴权。正常与重复提交案例可以同时通过。示例中的差异来自确定性程序策略，不代表模型能力或提升比例。</p><p>三种来源分别标注：真实模型运行需要本地配置；真实记录回放仅播放模型留档；示例演示不是模型结果。本地程序测试实际写入 SQLite，仍不属于真实模型运行。</p><div id="versions"></div><p>耗时为记录的总经过时间（含人工等待），播放速度不是执行耗时。用量没有记录时显示「未知」。</p><div class="local-controls"><h3>在本地运行工具</h3><p id="local-info">公开站点没有后台；在本地启动服务后可运行独立的 SQLite 工单沙盒。</p><button id="run-program" disabled>本地程序测试</button><button id="run-model" disabled>真实模型运行（未配置）</button><button id="restore" hidden>恢复上次本地运行</button><p><a href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/blob/main/agent-bench/README.md" target="_blank" rel="noopener">本地启动与接口说明 ↗</a></p></div></div></details>
     <details class="technical"><summary>导入一次运行，进行只读回放</summary><div class="technical-body"><p>仅在浏览器读取本项目导出的 JSON，不上传、不调用工具。真实模型留档会保留来源；程序测试不会变成真实模型回放。</p><label for="import-record">选择运行记录（最大 1 MB）</label><input type="file" id="import-record" accept="application/json,.json"><p id="import-status" role="status"></p></div></details>
   </section>
