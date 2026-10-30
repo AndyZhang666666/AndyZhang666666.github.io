@@ -189,9 +189,11 @@ function renderInspector() {
   if(operation)fields.push(['原操作标识',operation.id]);
   for(const [key,value]of fields){const row=el('div');row.append(el('span','field-label',key),el('span',key==='原操作标识'?'operation-id':'',value));facts.append(row);}
 }
+function anomalyText(r) {const a=Replay.recap(r).anomaly;return a?'事件 '+(r.events.indexOf(a)+1)+' · '+eventText(a):'未记录工具异常。';}
+function handlingText(r) {const recap=Replay.recap(r);return recap.resolution?eventText(recap.resolution):recap.state==='unknown'?'留档停在结果未知，未记录后续核实。':recap.reply;}
 function recapMarkdown() {
   const out=['# Agent 执行复盘', '', $('#source-label').textContent, $('#source-help').textContent, '', '任务：'+records[0].run.case.task, '', lessonForRecords(), ''];
-  for(const r of records){const recap=Replay.recap(r);out.push('## '+policyName(r.run.policy),'运行：'+r.run.id,'来源：'+r.source,'结束状态：'+(labels[recap.state]||recap.state),'符合案例预期：'+(recap.passed?'是':'否'),'异常：'+(recap.anomaly?eventText(recap.anomaly):'未记录工具异常。'),'处理：'+(recap.resolution?eventText(recap.resolution):recap.reply),'最终数据：'+recap.ticket.group+' / '+recap.ticket.status+' / '+recap.ticket.notes.length+' 条记录','Agent 回复：'+recap.reply,'',...recap.checks.map(c=>(c.passed?'[通过] ':'[未通过] ')+c.label+'：'+c.detail),'');}
+  for(const r of records){const recap=Replay.recap(r);out.push('## '+policyName(r.run.policy),'运行：'+r.run.id,'来源：'+r.source,'结束状态：'+(labels[recap.state]||recap.state),'符合案例预期：'+(recap.passed?'是':'否'),'异常：'+anomalyText(r),'处理：'+handlingText(r),'最终数据：'+recap.ticket.group+' / '+recap.ticket.status+' / '+recap.ticket.notes.length+' 条记录','Agent 回复：'+recap.reply,'',...recap.checks.map(c=>(c.passed?'[通过] ':'[未通过] ')+c.label+'：'+c.detail),'');}
   out.push('边界：依据已有记录只读复盘，不调用模型、不重新执行工具。文件声明不等于真实性认证；播放速度不是运行耗时。');return out.join('\n');
 }
 function renderVerdict() {
@@ -203,7 +205,7 @@ function renderVerdict() {
   const lesson=el('p','lesson',lessonForRecords());
   const cards=el('div','recap-grid');
   for(const r of records){const recap=Replay.recap(r),card=el('article','recap-card');card.dataset.policy=r.run.policy;card.append(el('h3','',policyName(r.run.policy)));
-    const dl=el('dl','recap-facts');for(const [key,value]of [['异常',recap.anomaly?eventText(recap.anomaly):'未记录工具异常。'],['处理',recap.resolution?eventText(recap.resolution):recap.reply],['实际影响',`${recap.ticket.group} · ${recap.ticket.status==='open'?'工单打开':recap.ticket.status} · ${recap.ticket.notes.length} 条跟进记录`],['结束声明',recap.reply]]){const row=el('div');row.append(el('dt','',key),el('dd','',value));dl.append(row);}card.append(dl);appendRecordDetails(card,r);cards.append(card);}
+    const dl=el('dl','recap-facts');for(const [key,value]of [['异常',anomalyText(r)],['处理',handlingText(r)],['实际影响',`${recap.ticket.group} · ${recap.ticket.status==='open'?'工单打开':recap.ticket.status} · ${recap.ticket.notes.length} 条跟进记录`],['结束声明',recap.reply]]){const row=el('div');row.append(el('dt','',key),el('dd','',value));dl.append(row);}card.append(dl);appendRecordDetails(card,r);cards.append(card);}
   container.replaceChildren(heading,note,lesson,cards);
 }
 function render() {

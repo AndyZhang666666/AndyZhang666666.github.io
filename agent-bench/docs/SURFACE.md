@@ -1,4 +1,7 @@
 # Surface brief
+
+> 首发版本记录。2026-10-30 的逐步回放升级与验收见 [GUIDED-REPLAY.md](GUIDED-REPLAY.md)。
+
 Mode: Operate. Scope: /agent-bench/ only. The user's precise PRD and delegated implementation settle purpose and composition; no new visual-world approval is required. Code-first app screen; no stored global workflow preference.
 
 ## DIRECTION

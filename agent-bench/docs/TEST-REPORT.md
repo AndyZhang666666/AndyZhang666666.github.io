@@ -1,5 +1,8 @@
 # 验收记录
 
+> 首发版本记录。2026-10-30 的逐步回放升级与验收见 [GUIDED-REPLAY.md](GUIDED-REPLAY.md)。
+
+
 日期：2026-10-29（Asia/Shanghai）。环境：macOS、Python 3.9.6、独立 headless Google Chrome、Python Playwright 1.55.0。所有数据均为原创虚构工单；真实模型调用 0 次。
 
 ## 后端：29 / 29 通过

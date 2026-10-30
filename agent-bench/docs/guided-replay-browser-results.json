@@ -1,0 +1,33 @@
+{
+  "base": "http://127.0.0.1:8893/agent-bench/",
+  "local": true,
+  "checks": [
+    "three featured cases, ten original cases, initial state without final-state spoiler",
+    "automatic checkpoint at lost receipt, no premature database or grade reveal",
+    "next follows original-operation receipt; previous removes future knowledge",
+    "manual pause interrupts autoplay without advancing another event",
+    "all ten final tickets and grades match archived records, including safe refusal and deduplication",
+    "final-state audit stays distinct from Agent knowledge; selectable event has inspectable evidence",
+    "original JSON export is unchanged; readable Markdown contains source, record IDs, effects and checks",
+    "read-only import retains provenance, rejects invalid/oversized files, and never invents paired outcomes",
+    "390, 768 and 1280px; mobile policies share cursor, arrow keys work, reduced-motion skips animation only",
+    "public playback, seek, event inspection, import and exports issue zero mutation requests",
+    "catalog error disables playback and retry restores the same entry",
+    "storage restrictions do not block public replay or final audit",
+    "local normal flow: exact approval, SQLite writes and checks",
+    "timeout recovery queries original operation and adds no duplicate note",
+    "duplicate transport delivery returns original receipt",
+    "stale approval is rejected and hardened flow asks again for v2",
+    "cancel before write leaves both databases unchanged",
+    "refresh resumes persistent run IDs and safely recovers interrupted commits",
+    "mobile local approval flow completes both policies",
+    "API failure preserves run and never silently converts to example mode",
+    "no browser JavaScript errors"
+  ],
+  "passed": 21,
+  "errors": [],
+  "model_calls": 0,
+  "checked_on": "2026-10-30",
+  "baseline_commit": "86919e183c79779450210ee11ec181b2b74a321d",
+  "coverage_note": "Automated browser checks of synthetic program examples and loopback SQLite; no participant study or real model call."
+}

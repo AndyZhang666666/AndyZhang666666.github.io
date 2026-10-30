@@ -1,5 +1,8 @@
 # Release evidence
 
+> 首发版本记录。2026-10-30 的逐步回放升级与验收见 [GUIDED-REPLAY.md](GUIDED-REPLAY.md)。
+
+
 2026-10-29，Asia/Shanghai。推送、接入主分支、部署和线上交互分别核实。
 
 | 阶段 | 结果与证据 |

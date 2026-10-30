@@ -22,6 +22,9 @@ Baseline and hardened strategies use the same initial state, tool permissions an
 ## Evidence on Hand
 Approved PRD in docs/PRD.md. Existing root website uses warm paper, ink and restrained rust accent. There are no real-model records, customer results, benchmark improvements or authorized hosted API.
 
+## Public Replay Update (2026-10-30)
+Three case shortcuts, one reversible replay cursor, observable state separate from the final audit, mobile policy tabs and a readable recap. Keep the original record/grade schemas and the local execution contract. See docs/GUIDED-REPLAY.md for current implementation evidence.
+
 ## Product Principles
 Final database state outranks model prose. Show source mode before action. Keep consequences and recovery visible; put raw tool events and versions behind disclosure. Preserve other projects and parallel RAG work.
 

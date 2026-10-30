@@ -1,7 +1,7 @@
 name: Agent Bench checks
 on:
   push:
-    branches: [main, feat/agent-bench]
+    branches: [main, feat/agent-bench, feat/agent-replay-20261030]
     paths: ['agent-bench/**', '.github/workflows/agent-bench.yml']
   pull_request:
     paths: ['agent-bench/**', '.github/workflows/agent-bench.yml']
@@ -22,5 +22,9 @@ jobs:
         run: python -m unittest discover -s agent-bench/tests -p 'test_*.py' -v
       - name: Recompute saved example grade
         run: python agent-bench/backend/cli.py rescore agent-bench/samples/timeout-hardened.json
+      - name: Read-only replay projections
+        run: node --test agent-bench/tests/replay.test.cjs
       - name: JavaScript syntax
-        run: node --check agent-bench/app.js
+        run: |
+          node --check agent-bench/app.js
+          node --check agent-bench/replay.js

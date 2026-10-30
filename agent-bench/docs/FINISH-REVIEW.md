@@ -1,5 +1,8 @@
 # Independent impeccable finish review
 
+> 首发版本记录。2026-10-30 的逐步回放升级与验收见 [GUIDED-REPLAY.md](GUIDED-REPLAY.md)。
+
+
 Date: 2026-10-29. A fresh subagent inspected the approved brief, source, detector findings and actual desktop/mobile captures; it did not inherit the build conversation. Code-led, inherited website identity, no approved comp. The following is its final review, recorded without broadening the scope.
 
 disposition: ship

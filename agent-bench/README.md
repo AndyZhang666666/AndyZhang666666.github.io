@@ -8,6 +8,17 @@ Agent 说“完成了”，不代表工单真的改对了。这个小项目把**
 
 公开页面默认是**原创程序策略示例**，无需密钥。它不是实时 AI，也不是模型成绩。一个虚构工单 T102，三个工具，十个案例；不连接企业系统，不外发消息。
 
+## 先沿着一条记录走一遍
+
+默认打开“响应丢失”。点击“开始逐步回放”，会在没有收到提交回执时暂停；用下一步查看是否查询原操作，用上一步回到当时的已知状态。也可以直接看结果。
+
+- 三个重点入口是响应丢失、权限不足、批准后版本变化；下拉菜单保留全部十个案例。
+- 两条轨道分别显示工具回执、当时读到的工单、结束后的数据库快照和案例判据。结果未知不等于没有写入；正确拒绝也可以符合预期。
+- 点击已回放事件查看证据。手机用策略标签切换轨道，回放位置保持不变。
+- 复盘可下载 Markdown；每条原始 JSON 仍可单独导出。导入记录先停在起点，沿用同一套只读控制。
+
+公开回放不创建运行、不批准操作，也不写入浏览器的运行记录。减弱动态效果会取消界面动画，不会跳过关键节点。具体变更和验证见 [逐步回放升级记录](docs/GUIDED-REPLAY.md)。
+
 ## 本地启动
 
 需要 Python 3.9+，后端没有第三方运行依赖。
@@ -78,10 +89,11 @@ SQLite 的 `BEGIN IMMEDIATE` 将工单更新、操作回执、事件和运行游
 ```sh
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 python3 backend/cli.py rescore path/to/exported-run.json
+node --test tests/replay.test.cjs
 python3 backend/cli.py examples
 ```
 
-后一个命令重新执行原创程序案例并生成 `samples/examples.json`；操作标识和实际时间每次不同，不伪造为模型留档。`grade()` 是独立纯函数，可离线重算，版本为 `state-events-v1`。
+最后一个命令重新执行原创程序案例并生成 `samples/examples.json`；操作标识和实际时间每次不同，不伪造为模型留档。`grade()` 是独立纯函数，可离线重算，版本为 `state-events-v1`。
 
 浏览器测试使用 Python Playwright 与独立 headless Chrome，不使用个人浏览器登录。开发依赖锁定在 `requirements-dev.lock`：
 

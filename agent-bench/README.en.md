@@ -6,7 +6,9 @@ A tool response can time out after the database has committed a write. This proj
 
 ## Try the example
 
-Choose the write-timeout case and watch the baseline and hardened strategies side by side. Both use the same task, initial state, faults, tools and permission checks. The baseline stops after the error; the hardened strategy checks the original operation before continuing. Inspect the final group, open status and note count, then expand the grading evidence or export the record.
+Start with the lost-response case. The guided player pauses when the submission receipt is missing. Step backward or forward, resume playback, or jump to the final audit. Compare the baseline and hardened strategies side by side. Both use the same task, initial state, faults, tools and permission checks. The baseline stops after the error; the hardened strategy checks the original operation before continuing. Inspect the final group, open status and note count, then expand the grading evidence or export the record.
+
+Event selection exposes the original receipt and operation ID. Mobile policy tabs share one replay cursor. The final audit separates the Agent’s last known state from the archived database snapshot; safe refusal can meet the case expectation without completing a write. Download a readable Markdown recap or the unchanged original JSON. See the [guided replay change record](docs/GUIDED-REPLAY.md).
 
 The public site replays original deterministic program executions. It does not call a model or write a new ticket. Ten fictional cases cover permissions, approval, failures and recovery.
 
@@ -33,6 +35,7 @@ Open `http://127.0.0.1:8877/agent-bench/` and explicitly select local program te
 ```sh
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 python3 backend/cli.py rescore path/to/exported-run.json
+node --test tests/replay.test.cjs
 ```
 
 The first command runs the project tests. The second regrades an existing export without calling a model. `python3 backend/cli.py examples` deliberately reruns program cases and regenerates example records with new timestamps and operation IDs.
