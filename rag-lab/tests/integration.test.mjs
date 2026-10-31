@@ -1,11 +1,22 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtemp, readFile, writeFile, rm} from 'node:fs/promises';
+import {mkdtemp, readFile, writeFile, rm, cp, mkdir, readdir} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {integrateSite, captureExtensions, restoreExtensions} from '../scripts/integrate-site.mjs';
+
+async function snapshotTree(root) {
+  const files = {};
+  for (const entry of await readdir(root, {withFileTypes: true})) {
+    const path = join(root, entry.name);
+    if (entry.isDirectory()) {
+      for (const [name, bytes] of Object.entries(await snapshotTree(path))) files[`${entry.name}/${name}`] = bytes;
+    } else files[entry.name] = (await readFile(path)).toString('base64');
+  }
+  return files;
+}
 
 test('incremental site integration is idempotent and preserves unrelated data/cards', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'rag-integration-'));
@@ -13,6 +24,13 @@ test('incremental site integration is idempotent and preserves unrelated data/ca
   const unrelated = {id: 'another-agent', name: 'Parallel project', nested: {mustKeep: [1, 2, 3]}};
   const html = '<main>untouched<header>existing</header><div id="projectGrid" class="project-grid"><article id="project-another-agent">KEEP EXACTLY</article></div></main>';
   try {
+    // Exercise the current parallel module, rather than freezing it to an old release.
+    await cp(new URL('../../agent-bench/', import.meta.url), join(dir, 'agent-bench'), {recursive: true});
+    await mkdir(join(dir, '.github/workflows'), {recursive: true});
+    const workflow = join(dir, '.github/workflows/agent-bench.yml');
+    await cp(new URL('../../.github/workflows/agent-bench.yml', import.meta.url), workflow);
+    const parallelBefore = await snapshotTree(join(dir, 'agent-bench'));
+    const workflowBefore = await readFile(workflow);
     await writeFile(new URL('data.json', root), JSON.stringify({about: {keep: true}, projects: [unrelated]}));
     await writeFile(new URL('index.html', root), html);
     await writeFile(new URL('app.js', root), "fetch('data.json?v=old')");
@@ -24,6 +42,8 @@ test('incremental site integration is idempotent and preserves unrelated data/ca
     assert.equal(await integrateSite(root), 2);
     assert.equal(await readFile(new URL('index.html', root), 'utf8'), once);
     assert.equal((once.match(/id="project-rag-lab"/g) ?? []).length, 1);
+    assert.deepEqual(await snapshotTree(join(dir, 'agent-bench')), parallelBefore, 'Integration must not change the current Agent module');
+    assert.deepEqual(await readFile(workflow), workflowBefore, 'Integration must not change the Agent workflow');
   } finally { await rm(dir, {recursive: true}); }
 });
 
@@ -65,8 +85,5 @@ test('recorded RAG release preserves its 16 predecessors; later homepage editing
   const app = execFileSync('git', ['show', `${release}:app.js`], {cwd, encoding: 'utf8'});
   assert.equal(app.replace(/data\.json\?v=[\w.-]+/g, previousApp.match(/data\.json\?v=[\w.-]+/)[0]), previousApp);
   assert.equal(execFileSync('git', ['diff', base, release, '--', 'agent-bench', '.github/workflows/agent-bench.yml'], {cwd, encoding: 'utf8'}), '', 'Parallel module was unchanged in the recorded RAG release');
-  // Preserve the newer bilingual entry docs while protecting the live runtime.
-  const protectedAgentPaths = ['agent-bench', '.github/workflows/agent-bench.yml',
-    ':(exclude)agent-bench/README.md', ':(exclude)agent-bench/README.en.md'];
-  assert.equal(execFileSync('git', ['diff', base, '--', ...protectedAgentPaths], {cwd, encoding: 'utf8'}), '', 'Parallel runtime, fixtures and workflow must remain byte-for-byte unchanged');
+  // Current parallel-module preservation is exercised above; this test describes only the recorded release.
 });
