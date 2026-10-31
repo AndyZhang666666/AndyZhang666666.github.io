@@ -59,6 +59,8 @@ node scripts/test-four-selected.mjs
 node --test tasteroom/tests/engine.test.mjs tasteroom/tests/experiments.test.mjs tasteroom/tests/directions.test.mjs tasteroom/tests/usable.test.mjs
 ```
 
+浏览器检查脚本为 `scripts/verify-four-selected-browser.mjs`，保留原 `scripts/test-showcase.mjs` 入口并指向当前四项。使用可用的 Playwright 环境，设置 `PLAYWRIGHT_MODULE` 和可选 `SHOWCASE_BASE_URL` 后执行；结果写入 `.taste-skill/`。本次非个人数据的验证摘要见 [记录](verification/four-selected-20261031.json)。
+
 ## GitHub开发分支与真实步骤
 
 - [官网与Taste](https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/feat/usable-four-20261030)：先提交海报任务，再提交精选、截图和生成整合；保留走查修正。
