@@ -22,8 +22,9 @@ export function trialParameter(room, dimension, value) {
 }
 
 export async function posterPng(room, content) {
-  await document.fonts.ready;
+  // Capture the clicked canvas before yielding; later edits belong to the next export.
   const svg = posterSvg(room, content);
+  await document.fonts.ready;
   const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml;charset=utf-8' }));
   try {
     const image = new Image();
