@@ -4,6 +4,12 @@
 
 Ask a question about fictional equipment policies, inspect the applicable answer and passage, then change the business date or source snapshot. The project treats access scope, effective versions, retrieval and answer checking as separate decisions.
 
+<!-- github-evidence-20261031 -->
+
+![An answer beside the source applicable to its date and version. Original rule-based example.](../docs/assets/github/rag-preview.jpg)
+
+[Interaction contract](docs/UX-CONTRACT.md) · [Validation records](docs/TEST-REPORT.md)
+
 ## A small experiment
 
 Ask how long a monitor may be borrowed. The original snapshot on the fixed business date `2026-10-28` gives 14 days. Querying `2026-06-30` gives the older 30-day rule. The demonstration revision gives 10 days. After changing a condition, rerun explicitly; the previous answer retains its original conditions until replaced.

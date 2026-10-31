@@ -1,0 +1,55 @@
+[
+  {
+    "file": "agent-preview.jpg",
+    "source": "https://andyzhang666666.github.io/agent-bench/",
+    "captured": "2026-10-31",
+    "viewport": [
+      1280,
+      720
+    ],
+    "mode": "Read-only replay of an original deterministic program record; no model call or new ticket write. Response lost, query original operation, inspect final state.",
+    "sha256": "8953b3976b0b02cd6a4ee6949dd95756b88f9682af7c8fbbd151b2fab33f819d"
+  },
+  {
+    "file": "rag-preview.jpg",
+    "source": "https://andyzhang666666.github.io/rag-lab/",
+    "captured": "2026-10-31",
+    "viewport": [
+      1280,
+      720
+    ],
+    "mode": "Original fictional equipment rules, ordinary employee, 2026-10-28 snapshot. Browser retrieval and rule excerpt only; no model call.",
+    "sha256": "46c4ea7a67a4d0653e58222116dcaaf6907818d8c5a89dbeb23a08f7f681c7c6"
+  },
+  {
+    "file": "taste-preview.jpg",
+    "source": "https://andyzhang666666.github.io/tasteroom/?direction=swiss",
+    "captured": "2026-10-31",
+    "viewport": [
+      1280,
+      720
+    ],
+    "mode": "Original synthetic poster comparison. Swiss option selected; stopped before choosing memory scope. No preference rule saved.",
+    "sha256": "9ada17f8cb0d3c6833e4d3aa458c7b852dac9e1acfb213cf01449b1c8c1060af"
+  },
+  {
+    "file": "agent-replay.gif",
+    "source_frames": [
+      0,
+      2,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "source": "https://andyzhang666666.github.io/agent-bench/#checkpoint",
+    "captured": "2026-10-31",
+    "size": [
+      960,
+      540
+    ],
+    "mode": "Actual screenshots of the read-only program replay, resized and encoded as GIF. Pauses are presentation timing, not execution latency.",
+    "sha256": "7735675fc2e728690f70b92d43d939519179c4c9d16414d84ea818e09c96a1bb"
+  }
+]

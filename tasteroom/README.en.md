@@ -4,6 +4,12 @@
 
 Liking a poster does not tell a system which feature you liked, or where that preference should apply. TasteRoom turns this into an editable interaction: compare, identify a clue, confirm its scope, then test it in another context.
 
+<!-- github-evidence-20261031 -->
+
+![Compare the same content; choosing a design remains separate from authorising memory scope.](../docs/assets/github/taste-preview.jpg)
+
+[Design decisions](docs/DESIGN.md) · [Validation records](docs/VALIDATION.md)
+
 ## Try it
 
 1. Open the design workbench and compare Swiss modernist and deconstructed compositions with the same copy.

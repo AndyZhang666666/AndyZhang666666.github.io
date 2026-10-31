@@ -6,6 +6,12 @@
 
 [免 Key 体验](https://andyzhang666666.github.io/rag-lab/) · [PRD](docs/PRD.md) · [测试报告](docs/TEST-REPORT.md) · [交互约定](docs/UX-CONTRACT.md)
 
+<!-- github-evidence-20261031 -->
+
+![在当前日期与资料版本下，将答案与适用原文放在一起。原创规则示例。](../docs/assets/github/rag-preview.jpg)
+
+[交互约定](docs/UX-CONTRACT.md) · [验证记录](docs/TEST-REPORT.md)
+
 ## 三种运行方式
 
 | 方式 | 实际执行 | 边界 |

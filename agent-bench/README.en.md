@@ -4,6 +4,14 @@
 
 A tool response can time out after the database has committed a write. This project evaluates the final ticket state and execution record together, so a fluent completion message cannot stand in for the business effect.
 
+<!-- github-evidence-20261031 -->
+
+![After a lost response, inspect the original operation and final ticket. Recorded program example; no model call.](../docs/assets/github/agent-replay.gif)
+
+[View the static frame](../docs/assets/github/agent-preview.jpg). The animation steps through read-only program records; presentation timing is not execution latency.
+
+[Interaction contract](docs/INTERACTION.md) · [Validation records](docs/TEST-REPORT.md)
+
 ## Try the example
 
 Start with the lost-response case. The guided player pauses when the submission receipt is missing. Step backward or forward, resume playback, or jump to the final audit. Compare the baseline and hardened strategies side by side. Both use the same task, initial state, faults, tools and permission checks. The baseline stops after the error; the hardened strategy checks the original operation before continuing. Inspect the final group, open status and note count, then expand the grading evidence or export the record.
