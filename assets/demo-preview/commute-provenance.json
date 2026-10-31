@@ -1,0 +1,29 @@
+{
+  "repo": "commute-compare",
+  "revision": "23b695a1e3d0171d0784a9ba1f1ce854329a1731",
+  "sources": [
+    {
+      "file": "src/lib/simulate.js",
+      "sha256": "c0a43dfe22631c516e7b6f3caaef47fd6ed3ff30f92266ca133d62258c911be7"
+    },
+    {
+      "file": "src/lib/distributions.js",
+      "sha256": "5bb09d9784d7d92a8c32e6105accc1e885accd415e62b590bab4ced0ffbe8f27"
+    },
+    {
+      "file": "src/lib/presets.js",
+      "sha256": "9725c4fdfce78fed9097b88af1539ec1ecb812c581bb13528689aabdcace23e2"
+    },
+    {
+      "file": "src/lib/insights.js",
+      "sha256": "4d813a39abadf60b43282a67d295dcf60de672a71744e6fedbc52bc2802c18c1"
+    },
+    {
+      "file": "src/lib/tradeoff.js",
+      "sha256": "4f38b7268577744866aa826c98403724d65414c1808fa1ba6cf3ecc247606ca8"
+    }
+  ],
+  "outputSha256": "0b0cdc87ecaecdf12fca071b171f8b32a9be5b9112fe6c0f53fe1c76bbde0726",
+  "command": "node scripts/sync-commute-preview.mjs 23b695a1e3d0171d0784a9ba1f1ce854329a1731",
+  "use": "Read-only product-model projection; no separate homepage simulation or visitor storage"
+}

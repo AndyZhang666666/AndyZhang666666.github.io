@@ -388,7 +388,7 @@
           "id": "commute",
           "name": "Commute Compare",
           "url": "/#project-commute",
-          "caseUrl": null
+          "caseUrl": "/cases/commute/"
         }
       ],
       "anchor": "education",

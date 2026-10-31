@@ -1,0 +1,26 @@
+name: Four selected products (development only)
+on:
+  push:
+    branches: [feat/usable-four-20261030]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  preview-and-poster:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Original poster engine and usable-workflow boundaries
+        run: node --test tasteroom/tests/engine.test.mjs tasteroom/tests/experiments.test.mjs tasteroom/tests/directions.test.mjs tasteroom/tests/usable.test.mjs
+      - name: Four entries, canonical inputs and protected portfolio content
+        run: node scripts/test-four-selected.mjs
+      - name: Browser-module syntax
+        run: |
+          node --check assets/demo-showcase.mjs
+          node --check tasteroom/app.js

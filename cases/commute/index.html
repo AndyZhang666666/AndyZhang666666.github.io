@@ -1,0 +1,46 @@
+<!doctype html><html lang="zh-CN" data-palette="frost"><head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通勤方案比较器 · 产品判断</title>
+<meta name="description" content="张千羽 Andy Zhang，AI 产品经理。关注 Agent 工作流、模型评测与业务增长，提供内容创作、海外产品与企业 AI 应用的项目实践。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css?v=20260913d">
+<link rel="stylesheet" href="/poker.css?v=20260913e">
+<link rel="stylesheet" href="/hero-portrait.css?v=20260913d">
+<link rel="stylesheet" href="/sections.css?v=20261005b">
+<link rel="stylesheet" href="/enhance.css?v=20260913e">
+<link rel="stylesheet" href="/interactions.css?v=20260913e">
+<link rel="stylesheet" href="/jd.css?v=20260913b">
+<link rel="stylesheet" href="/embed.css?v=20260914r">
+<link rel="stylesheet" href="/railnav.css?v=20260914r">
+<link rel="stylesheet" href="/typography.css?v=20260914r">
+<link rel="stylesheet" href="/motion.css?v=20260914r">
+<link rel="stylesheet" href="/depth.css?v=20260914r">
+<link rel="stylesheet" href="/education.css?v=20260914r">
+<link rel="stylesheet" href="/bg-layers.css?v=20260914r">
+<link rel="stylesheet" href="/ai-views.css?v=20260914r">
+<link rel="stylesheet" href="/fixes.css?v=20260914r">
+<link rel="stylesheet" href="/projects-split.css?v=20261005c">
+<link rel="stylesheet" href="/poker-showcase.css?v=20260914r">
+<link rel="stylesheet" href="/academic-workflow.css?v=20261006a">
+<script>
+  // 在 CSS 生效前恢复上次选的配色，避免闪一下默认色
+  try { var p = localStorage.getItem('palette'); if (p) document.documentElement.setAttribute('data-palette', p); } catch (e) {}
+</script>
+<link rel="stylesheet" href="/assets/demo-showcase.css?v=20261031-usable-four1">
+<link rel="stylesheet" href="/assets/product-principles.css?v=20261031-usable-four1">
+<link rel="stylesheet" href="/assets/case-studies.css?v=20261031-usable-four1"></head><body class="case-page"><div class="grain"></div><div class="glow glow-1"></div><div class="glow glow-2"></div><nav id="nav">
+  <a href="/#top" class="nav-logo">张千羽</a>
+  <div class="nav-links">
+    <a href="/#about">关于</a>
+    <a href="/#work">经历</a>
+    <a href="/#education">教育</a>
+    <a href="/#selected">项目</a>
+    <a href="/#awards">奖项</a>
+    <a href="/#contact">联系</a>
+  </div>
+  <button id="langToggle" class="lang-toggle" aria-label="切换语言">EN</button>
+</nav><main><section class="section case-intro"><div class="section-head"><h1 class="" data-zh="多花的钱，换回怎样的早晨？" data-en="What kind of morning does the extra fare buy?">多花的钱，换回怎样的早晨？</h1></div><p class="case-summary" data-zh="输入自己的路线与费用，比较每月花费、节省时间和波动。用个人记录校准一条路线，再保存选择与理由。" data-en="Enter routes and fares, compare monthly cost, time and variation, then calibrate one route and save your choice.">输入自己的路线与费用，比较每月花费、节省时间和波动。用个人记录校准一条路线，再保存选择与理由。</p><div class="project-links"><a class="project-link" href="/commute-compare/" data-zh="体验 Demo ↗" data-en="Try the demo ↗">体验 Demo ↗</a><a class="project-link" href="/#projects" data-zh="返回作品集" data-en="Back to work">返回作品集</a></div><p class="case-text" data-zh="浏览器内模拟；估算与个人记录分别标识" data-en="Browser simulation; estimates and personal records labelled separately">浏览器内模拟；估算与个人记录分别标识</p><figure class="case-figure"><a href="/assets/work/showcase/commute.jpg" target="_blank" rel="noopener"><img src="/assets/work/showcase/commute.jpg" width="1440" height="1000" alt="通勤比较器 · 输入、校准、选择与独立快照" loading="lazy"></a><figcaption>通勤比较器 · 输入、校准、选择与独立快照</figcaption></figure></section><section id="problem" class="section"><div class="section-head"><h2 class="" data-zh="要解决的问题" data-en="The problem">要解决的问题</h2></div><p class="about-lead" data-zh="比较完时间和钱，用户接下来怎么选？" data-en="What happens after comparing time and money?">比较完时间和钱，用户接下来怎么选？</p><p class="about-body" data-zh="图表能列出哪个更快，却不知道一个人愿意为舒适、少换乘或早回家付多少。只给结论不保留输入，条件变了还容易沿用旧决定。" data-en="A chart cannot decide how much someone values comfort, fewer transfers or an earlier return. Without preserved inputs, an old decision may outlive its conditions.">图表能列出哪个更快，却不知道一个人愿意为舒适、少换乘或早回家付多少。只给结论不保留输入，条件变了还容易沿用旧决定。</p><p class="about-body" data-zh="独立设计并实现快速估算、记录校准、成本与时间比较、出门时刻、理由和决策卡；复用既有稳定路线种子的模拟算法。" data-en="Independently designed estimates, record calibration, time/cost comparisons, departure times and decision snapshots using the existing stable-route-seed model.">独立设计并实现快速估算、记录校准、成本与时间比较、出门时刻、理由和决策卡；复用既有稳定路线种子的模拟算法。</p></section><section id="approach" class="section"><div class="section-head"><h2 class="" data-zh="方案与取舍" data-en="Options and tradeoffs">方案与取舍</h2></div><p class="about-lead" data-zh="计算给出代价，选择保留给人；输入改变，决定就要重新确认。" data-en="Calculate the tradeoff, leave the choice to the person, and reconfirm it when inputs change.">计算给出代价，选择保留给人；输入改变，决定就要重新确认。</p><div class="principle-grid"><article class="principle-card"><h3 class="principle-title" data-zh="只推荐最快的路线" data-en="Recommend the fastest">只推荐最快的路线</h3><p class="principle-desc" data-zh="忽略费用、尾部波动和个人偏好。" data-en="Ignores cost, variation and personal priorities.">忽略费用、尾部波动和个人偏好。</p></article><article class="principle-card"><h3 class="principle-title" data-zh="要求填完所有分布参数" data-en="Ask for every parameter">要求填完所有分布参数</h3><p class="principle-desc" data-zh="看似精确，首次使用负担重，估计也未必更准。" data-en="Adds effort without ensuring more accurate estimates.">看似精确，首次使用负担重，估计也未必更准。</p></article><article class="principle-card"><h3 class="principle-title" data-zh="先估算，再校准与选择" data-en="Estimate, calibrate, then choose">先估算，再校准与选择</h3><p class="principle-desc" data-zh="采用的做法：常见耗时和费用先行，个人记录按路线补充，最终选择明确确认。" data-en="Implemented: start with common time and fare, add route-specific records, then explicitly confirm a choice.">采用的做法：常见耗时和费用先行，个人记录按路线补充，最终选择明确确认。</p></article></div></section><section id="mechanism" class="section"><div class="section-head"><h2 class="" data-zh="把判断变成机制" data-en="Making the decision work">把判断变成机制</h2></div><ol class="case-mechanism"><li><h3 class="principle-title" data-zh="先把时间换成同一单位" data-en="Use a comparable unit">先把时间换成同一单位</h3><p class="principle-desc" data-zh="首位展示每月多花、节省小时和每省一小时的费用。零时间优势不显示无穷大的比值，更慢的路线单独说明。" data-en="Lead with monthly cost, hours saved and cost per hour saved. Equal time has no infinite ratio; slower routes are described separately.">首位展示每月多花、节省小时和每省一小时的费用。零时间优势不显示无穷大的比值，更慢的路线单独说明。</p></li><li><h3 class="principle-title" data-zh="只校准这一条路线" data-en="Calibrate one route">只校准这一条路线</h3><p class="principle-desc" data-zh="从结果直达对应路线的记录输入，应用记录不会改动另一条路线。估算、个人记录与模型内范围各自标识。" data-en="Open the selected route’s records without changing the other route. Distinguish estimates, personal observations and modelled ranges.">从结果直达对应路线的记录输入，应用记录不会改动另一条路线。估算、个人记录与模型内范围各自标识。</p></li><li><h3 class="principle-title" data-zh="决定是快照，不随参数漂移" data-en="A choice is a snapshot">决定是快照，不随参数漂移</h3><p class="principle-desc" data-zh="保存参数、模型版本、比较结果和理由。修改输入时保留旧选择，并要求重新确认；重算或无效输入期间锁定当前导出。" data-en="Save inputs, model version, results and reason. Input edits preserve the previous choice but require reconfirmation; pending or invalid states block current exports.">保存参数、模型版本、比较结果和理由。修改输入时保留旧选择，并要求重新确认；重算或无效输入期间锁定当前导出。</p></li></ol><figure class="case-figure"><a href="/assets/work/showcase/commute-crop.jpg" target="_blank" rel="noopener"><img src="/assets/work/showcase/commute-crop.jpg" width="1440" height="1000" alt="包含路线输入、数据来源、比较结果、选择理由和模型版本的个人决策卡。" loading="lazy"></a><figcaption>包含路线输入、数据来源、比较结果、选择理由和模型版本的个人决策卡。</figcaption></figure></section><section id="evidence" class="section"><div class="section-head"><h2 class="" data-zh="验证、代价与下一步" data-en="Evidence, limitations and next steps">验证、代价与下一步</h2></div><p class="about-body" data-zh="浏览器实际检查了自定义路线、单条记录校准、选择保存、参数改变后重新确认与 JSON 导出。计算与状态检查不等于真实出行验证；未接地图或实时交通。" data-en="Browser checks cover custom inputs, single-route calibration, saved choices, reconfirmation and JSON export. These do not establish real-world travel accuracy; no map or live-traffic service is connected.">浏览器实际检查了自定义路线、单条记录校准、选择保存、参数改变后重新确认与 JSON 导出。计算与状态检查不等于真实出行验证；未接地图或实时交通。</p><p class="about-body" data-zh="快速估算降低了输入负担，也引入了三点分布假设。实际记录仍可能不包含雨天或异常，不能把模型内尾部风险当成未来准点承诺。" data-en="Quick entry lowers effort but introduces distribution assumptions. Personal records may miss disruptions, so modelled risk is not a punctuality guarantee.">快速估算降低了输入负担，也引入了三点分布假设。实际记录仍可能不包含雨天或异常，不能把模型内尾部风险当成未来准点承诺。</p><p class="about-body" data-zh="邀请使用者连续记录相近出发时段的工作日耗时，观察估算与个人记录下的选择是否变化，并补问舒适度、换乘与异常天气。" data-en="Collect comparable weekday records, observe whether calibrated inputs change the choice, and ask about comfort, transfers and weather.">邀请使用者连续记录相近出发时段的工作日耗时，观察估算与个人记录下的选择是否变化，并补问舒适度、换乘与异常天气。</p></section></main><footer>© 2026 张千羽 · 本地内容评审</footer><script src="/scripts/case-reader.js"></script></body></html>

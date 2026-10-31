@@ -388,7 +388,7 @@
           "id": "commute",
           "name": "通勤方案比较器",
           "url": "/#project-commute",
-          "caseUrl": null
+          "caseUrl": "/cases/commute/"
         }
       ],
       "anchor": "education",
