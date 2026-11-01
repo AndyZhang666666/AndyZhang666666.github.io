@@ -198,7 +198,7 @@ function render() {
     const p = room.pending;
     $("#conflictText").textContent =
       `原记忆「${OPTIONS[p.dimension][p.old.preference]}」（${ctx[p.old.context]}）与新要求「${OPTIONS[p.dimension][p.value]}」冲突。你希望记住到什么范围？`;
-    document.body.classList.remove("brain-open");
+    showBrain(false);
   }
   $("#pause").textContent = running ? "暂停整理" : "按记忆重新整理";
   $("#runState").textContent = room.pending
@@ -453,6 +453,7 @@ function showBrain(on) {
   document.body.classList.toggle("brain-open", on);
   $("#showCanvas").setAttribute("aria-pressed", !on);
   $("#showBrain").setAttribute("aria-pressed", on);
+  $("#showBrain").setAttribute("aria-expanded", String(on));
 }
 $("#showCanvas").onclick = () => showBrain(false);
 $("#showBrain").onclick = () => showBrain(true);
