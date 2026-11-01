@@ -27,7 +27,7 @@ export const projects = [
   ['commute','personal',L('通勤方案比较器','Commute Compare'),L('多花多少钱，换多少时间与迟到风险','Compare cost, travel time and late-arrival risk'),null],
   ['poker-quiz','personal',L('扑克玩家类型测试','Poker Style Quiz'),L('用十道题描述自己的打法','Describe your playing style in ten questions'),null],
   ['bankroll','personal',L('扑克筹码管理模拟器','Bankroll Simulator'),L('分开看停止、曾经达标与最终达标','Separate stopping, reaching and finishing above target'),null],
-  ['poker-ev','personal',L('扑克期望值计算器','Poker EV Calculator'),L('检查假设估错时，决策会不会改变','Check whether a decision survives a mistaken estimate'),null],
+  ['poker-ev','personal',L('Poker Lab · 手牌与训练','Poker Lab · Equity & Practice'),L('按牌面算权益，按位置练开池，把错题留到下次。','Calculate card equity, practise opening ranges and revisit mistakes.'),null],
   ['growth','growth',L('Growth Experiment Lab','Growth Experiment Lab'),L('把统计证据与上线决策分开','Separate statistical evidence from rollout decisions'),'growth'],
   ['pricing','growth',L('Pricing Model Sim','Pricing Model Sim'),L('同一付费人群口径下比较机制与回本','Compare payment models on a conserved cohort'),'pricing'],
   ['bundle','growth',L('Bundle Lab','Bundle Lab'),L('共购关系之外，核对新增与让利','Account for incremental sales and discounts to existing buyers'),'bundles'],
