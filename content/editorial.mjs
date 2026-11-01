@@ -168,6 +168,78 @@ export const studies = [
 
 studies.push(...specificStudies,...newWorkStudies,...usableStudies);
 
+// Task-oriented product iteration. Only these four owned cases change; career evidence stays untouched.
+const depthUpdates = {
+ trust: {
+  title:L('把自己的评测结果，变成下一步。','Turn your own evaluations into next actions.'),
+  summary:L('带自己的创意文本，复制固定五维任务给已有的 AI，带回结果。核对原文、记录复核和处理项，再比较两份结果。','Bring creative text, take a fixed five-dimension task to an AI you already use, then return with results. Review evidence, track actions and compare two records.'),
+  status:L('历史回放／外部自带结果／可选接口分开；免 Key 主流程不调用模型','Historical replay, external results and optional APIs remain separate; the key-free workflow makes no model calls'),
+  watch:L('建议先试：复制自己的文本评测任务，导入返回结果，把一条存疑评语加入处理清单，再导出报告。','Suggested task: take your own text task, import a returned result, add a questionable comment to the action list and export the report.'),
+  question:L('评分看完以后，作者到底应该先核查什么、修改什么？','After reading a score, what should the author check or change first?'),
+  problem:L('固定样本只能让访客看懂界面。真正的任务是把自己的原文、外部评测、证据争议和待修改问题连起来；如果一切最后仍停在总分，作者带不走下一步。','Fixed samples explain an interface but do not finish a personal task. Authors need their text, external judgements, evidence disputes and unresolved changes together, rather than another overall score.'),
+  role:L('独立实现历史回放、自有文本任务包、严格结果导入、本机材料库、逐维复核、处理清单、免 Key 记录对照和报告导出。五维、原 Prompt 与18条历史输出保持原样；本轮未重新调用模型。','Independently implemented replay, a personal-text task package, strict imports, a local library, per-dimension review, action tracking, key-free record comparison and export. The five dimensions, original Prompt and 18 saved outputs are unchanged; no new model calls were made.'),
+  insight:L('评测的下一步不应只是换一个总分，而是留下可追踪的问题、证据和处理选择。','An evaluation should leave trackable issues, evidence and actions, not just a different overall score.'),
+  decisions:[
+   {title:L('用自己的 AI，也能完成任务','Complete the task with an AI you already use'),text:L('任务包带完整 rubric、原系统 Prompt 和返回格式。用户自行运行后带回 JSON；本站看不到外部对话，模型、运行条件与时间仅为来源声明，不作认证。坏文件和取消不替换当前材料。','The package includes the complete rubric, original system Prompt and return format. Users run it elsewhere and return with JSON. External conversations are not visible; model, conditions and time are declarations, not certification. Failed or cancelled imports leave current material intact.')},
+   {title:L('原始评价与处理行动分开','Keep judge output separate from follow-up work'),text:L('支持、存疑与需上下文分别记录。可把问题加入核查评语或修改原文的处理项，跟踪完成状态；完成处理不会回写原始分数，报告把未解决事项放在前面。','Record support, disagreement and missing context separately. Track checking a judgement or revising text as follow-up work. Completing work does not change the original score; unresolved items lead the report.')},
+   {title:L('比较之前先核对条件','Check conditions before comparing records'),text:L('本机库最多20份，两侧按维度 ID 对齐。原文、模型或条件不同会提示；同一记录不重复计数。重复观察展示均值与极差，极差不是置信区间，也不自动宣布赢家或允许发布。','The local library holds up to 20 records, aligned by dimension ID. Text, model and condition differences stay visible, and duplicate records do not count twice. Repeats show means and ranges, not confidence intervals, winners or release permission.')},
+  ],
+  tradeoff:L('外部 AI 需要一次往返，但避免让公开作品集依赖共享 Key；五维限定创意文本，不能宣称支持任意评测体系。材料与人工判断仅在本机，库满不会自动淘汰旧记录。','The external-AI round trip avoids a shared public Key. The five dimensions remain specific to creative text, not arbitrary rubrics. Records and reviews stay local; a full library never silently evicts older material.'),
+  proof:L('6个样本的18次历史输出保持可回放。任务包、严格导入、资料上限、重复条件、处理项往返与报告顺序有程序检查；本轮浏览器集成证据另记，不能据此声称模型质量或生产准确率提升。','Six samples and 18 saved runs remain replayable. Program checks cover the task package, strict imports, capacity, duplicate conditions, action round trips and report ordering. Browser integration evidence is recorded separately; none of this establishes better model quality or production accuracy.'),
+  next:L('用自己的文本走完“任务—返回—复核—处理—再次对照”，记录哪里需要补充说明。之后再邀请首次使用者，观察未解决问题是否更容易转成实际修改，而不是只问分数是否直观。','Complete task, return, review, action and comparison with personal text, noting unclear steps. Later observe whether first-time users turn unresolved issues into revisions rather than merely understand scores.'),
+  artifact:L('含原文、原始结果、来源声明、人工复核与处理清单的 JSON，以及未解决事项优先的 Markdown 报告。','JSON with source text, original results, declared conditions, reviews and actions, plus a Markdown report leading with unresolved issues.'),
+ },
+ taste: {
+  title:L('先做出作品，再决定记住什么。','Make the artwork. Then decide what to remember.'),
+  summary:L('把自己的文案放进六套原创构图，保留两份候选，导出海报。整体风格与单项参数分开比较，确认后才保存有范围的偏好。','Put personal copy into six original compositions, keep two candidates and export a poster. Compare whole styles separately from individual parameters, then explicitly save scoped preferences.'),
+  status:L('本地原创 SVG 排版与规则模拟；无生图或模型调用','Original local SVG compositions and rule simulation; no image generation or model calls'),
+  watch:L('建议先试：改自己的标题，比较编辑杂志与双色印刷，留一份候选并导出；再决定是否只在日常场景记住方向。','Suggested task: edit a title, compare editorial and two-ink layouts, keep a candidate and export, then decide whether to remember the direction only for everyday use.'),
+  role:L('独立实现作品／偏爱双入口、六套原创构图、同文缩略图、候选、排版控制、任意风格对照、范围记忆及说明书复用。SVG 与 PNG 复用同一渲染，长期规则不随试用自动写入。','Independently implemented artwork and preference entry paths, six original compositions, same-copy thumbnails, candidates, type controls, explicit style comparison, scoped memory and reusable briefs. SVG and PNG share a renderer; trials never automatically save lasting rules.'),
+  insight:L('喜欢一整张可以只是喜欢这件作品；只有人确认了维度和范围，才值得让下一张沿用。','Liking a whole poster may mean liking that work alone. Reuse a preference only after the person confirms its dimension and scope.'),
+  decisions:[
+   {title:L('每个方向要真的改变构图','A direction must change the composition'),text:L('瑞士、解构、编辑杂志、包豪斯、日式留白和双色印刷使用不同几何与层级，展示同一份文案及容量提示。字号、换行和密度可微调；过密时保留内容、指出问题并暂停导出。','Swiss, deconstructed, editorial, Bauhaus, Japanese whitespace and two-ink layouts have distinct geometry and hierarchy, with the same copy and capacity guidance. Type size, wrapping and density are adjustable. Dense copy is retained with an actionable warning before export.')},
+   {title:L('整体选择不偷换成参数结论','Do not infer parameter preferences from a whole style'),text:L('任意选择两方向比较，依据记为整体构图；只保存方向，不推断字体、色彩或留白。参数对照才保持其他条件不变。选中、导出与保存规则是三件独立的事。','Any two named directions can be compared as whole compositions. Only the direction is recorded, without inferring type, colour or spacing. Parameter tests hold the rest constant. Choosing, exporting and saving memory are separate actions.')},
+   {title:L('下一张能复用，也能推翻','Reuse a preference without locking it in'),text:L('两份候选只存作品快照；确认过的偏好单独导出。JSON v1／旧 Markdown 说明书可再导入，先看替换项再确认，保留原场景与线索属性，且支持撤回。','Two candidates store artwork snapshots only. Confirmed preferences export separately. Import JSON v1 or previous Markdown briefs after reviewing replacements, retaining each context and clue/rule status, with undo available.')},
+  ],
+  tradeoff:L('六套构图提供足够的差异，也明确容量边界，没有变成任意拖拽设计工具。字体依赖系统，SVG 跨设备字形可能不同；PNG 保留当前渲染。偏好规则不是人格测量或学习准确率。','Six compositions offer meaningful differences with explicit capacity limits, rather than an unrestricted design editor. SVG fonts may differ across systems; PNG preserves the current render. Rules are not personality measurements or evidence of learning accuracy.'),
+  proof:L('核心检查覆盖六构图、任意对照、过期状态、说明书往返与旧草稿兼容。浏览器与导出文件验收由本轮集成记录补充；尚无真人研究证明这些维度足以描述个人审美。','Core checks cover six layouts, explicit pairs, stale states, brief round trips and old drafts. This iteration records browser and exported-file verification separately; no user study establishes that these dimensions represent personal taste.'),
+  next:L('观察首次使用者能否完成自己的第一张海报，再把已确认偏好用于第二张。比较直接做作品与先探索的负担，记录过密、反悔和错误记忆，不用风格点击数代替价值。','Observe a first personal poster and a second using confirmed preferences. Compare creation-first and exploration-first effort, recording dense copy, reversals and unwanted memories rather than treating style clicks as value.'),
+  artifact:L('自定义海报 SVG／900×1200 PNG、两份本机候选，以及可再次导入的范围偏好说明书；私人反馈不进入图片。','Custom SVG/900×1200 PNG, two local artwork candidates and a reusable scoped preference brief. Private feedback never enters the image.'),
+ },
+ bundles: {
+  title:L('保留方案，才看得清取舍。','Keep the scenarios to see the tradeoffs.'),
+  summary:L('带自己的商品假设，保留最多三份方案。分开看新增贡献与既有让利，用折扣×采纳条件地图检查结论，再留下选择理由。','Bring product assumptions and keep up to three scenarios. Separate new contribution from discount leakage, test discount/adoption conditions and record a reasoned choice.'),
+  watch:L('建议先试：保存当前方案 A，复制后只改折扣形成 B；对照两本账，再预演一个条件点，最后导出选择与待验证假设。','Suggested task: keep A, copy it and change only the discount for B, compare the ledgers, preview one condition point and export the choice and untested assumptions.'),
+  role:L('独立实现合成订单发现、自建算例、两类人群账本、三方案快照、条件地图与选择导出。继续复用原收益函数，不增加预测、价格弹性或自动最优推荐。','Independently implemented synthetic-order discovery, custom scenarios, the two-population ledger, three snapshots, a condition map and choice export. The original contribution function is reused, without forecasts, elasticity or automatic optimum recommendations.'),
+  decisions:[
+   {title:L('先冻结方案，再比较改了什么','Freeze a scenario before comparing changes'),text:L('第一份方案为 A 基准；最多三份独立快照对齐商品、价格、人群、假设、贡献、让利与平衡点。复制到当前草稿再调整，原快照不随滑杆漂移，方案收益也不相加。','A is the baseline. Up to three independent snapshots align products, prices, populations, assumptions, gains, leakage and break-even. Copy into a draft before editing; sliders never alter a saved scenario, and scenario returns are not added together.')},
+   {title:L('问结论在哪些条件下翻转','Find the conditions that reverse the conclusion'),text:L('折扣×中档采纳的每个格点调用同一个收益函数，其余成本和人群固定。点击先预演，与当前结果对照；确认后才修改输入。正负区域是条件算例，不是收益概率或价格弹性。','Every discount/adoption grid point calls the same model with costs and populations held fixed. Preview against the current result before applying it. Positive and negative regions are conditional calculations, not profit probabilities or elasticity.')},
+   {title:L('选择之后仍要验证假设','A choice still needs assumption checks'),text:L('人明确选择并填写理由，导出参数、差异、账本与下一步验证。未选择也可导出，但保留“尚未选择”；Growth 与 Pricing 仍是次级分析工具，不自动宣布全量上线。','People explicitly choose and explain, exporting inputs, changes, ledgers and validation steps. An unchosen export says so. Growth and Pricing remain related analysis tools, not automatic rollout permission.')},
+  ],
+  tradeoff:L('保留方案比只动滑杆多一步，却能防止凭记忆比较。二维地图固定其他变量，不代表真实采纳会如何随折扣变化；每100覆盖订单是统一比较单位，不是观测订单。','Keeping a scenario adds a step but avoids comparison from memory. The map fixes other variables and does not predict how adoption responds to discounts. Per 100 covered orders is a comparison unit, not an observed sample.'),
+  proof:L('沿用4,000条合成订单与既有收益模型。快照、差异、损坏恢复和条件地图格点有确定性检查；本轮浏览器任务另行验收，不把模拟正收益写成真实增长。','The original 4,000 synthetic orders and contribution model remain. Deterministic checks cover snapshots, differences, corrupt recovery and grid points. Browser tasks are verified separately; simulated positive returns are not observed growth.'),
+  artifact:L('最多三方案的差异、两类人群收益、条件与选择理由，连同待验证假设导出为 Markdown／JSON。','Markdown/JSON with differences across up to three scenarios, population-level contribution, conditions, a chosen rationale and assumptions still to validate.'),
+ },
+ commute: {
+  title:L('把个人条件，放回通勤选择。','Put personal constraints back into the commute choice.'),
+  summary:L('比较路线的月费用与时间，再加入预算和最早愿意出门时刻。用试行记录预演校准，明确接受取舍，保存可重新确认的决定。','Compare monthly time and cost, add a budget and earliest willing departure, preview calibration with trial records and save a choice that can be reconfirmed.'),
+  watch:L('建议先试：设一个月预算和出门底线，选一条路线并说明取舍；记录一次试行，再预演它会怎样影响当前估计。','Suggested task: set a monthly budget and departure limit, choose a route with a reason, record a trial and preview its effect on the estimate.'),
+  question:L('同一张时间费用表，为什么不同的人会选不同路线？','Why would people choose different routes from the same time/cost table?'),
+  role:L('独立实现路线比较、个人条件差、记录积累与预演、按路线校准、估算来源恢复和决策快照。模拟算法与模型版本保留；没有地图、实时路况或自动推荐服务。','Independently implemented route comparisons, personal constraint gaps, trial records and previews, route-specific calibration, source restoration and decision snapshots. The simulation and model version are unchanged; no maps, live traffic or automatic recommendation service is connected.'),
+  insight:L('把不满足的条件说清楚，再让人接受取舍；不要把个人选择压成一个综合分。','Show unmet conditions, then let the person accept the tradeoff instead of compressing the choice into one score.'),
+  decisions:[
+   {title:L('条件差，比一个推荐分更具体','Show the constraint gap, not a recommendation score'),text:L('月预算与最早愿意出门时刻可选；逐路线说明多花多少、需要早出门多久。没有设置就不假装知道偏好，用户也可以明确接受条件外的方案。','Budget and earliest departure are optional. Each route shows cost overruns or how much earlier departure is needed. Unset conditions imply no assumed preference; a person can explicitly accept an out-of-condition option.')},
+   {title:L('少量记录先积累，不冒充校准','Accumulate sparse records before calibration'),text:L('从结果补一次试行耗时，先预演再确认。少于三条明确显示积累中；三条起才用原经验重采样。只修改对应路线，另一条保持不变；输入变化会使旧预演失效。','Add a trial beside results, preview, then confirm. Fewer than three records are accumulation, not a calibrated distribution; three or more use the existing empirical resampling. Other routes stay intact, and changed inputs invalidate old previews.')},
+   {title:L('来源可以恢复，选择需要重新确认','Restore sources and reconfirm choices'),text:L('个人记录生效时不混改估计分布；切回估算要确认，并保留记录可恢复。预算、出门条件或记录变化都进入签名，旧选择保留为待重新确认的快照，不能冒充当前结果导出。','Do not mix edited estimates with active records. Confirm a switch back to estimates while retaining recoverable records. Constraint and record changes enter the decision signature; old choices remain marked for reconfirmation and cannot export as current results.')},
+  ],
+  tradeoff:L('三条记录只是开始校准的操作门槛，不代表统计充分；相近时段的数据仍可能漏掉雨天和事故。月度往返采用返程同分布假设，条件差不等于未来准点承诺。','Three records are an interaction threshold, not statistical sufficiency. Comparable observations may miss rain and incidents. Monthly return trips assume the same distribution; constraint gaps are not punctuality promises.'),
+  proof:L('个人条件、稀疏记录、预演失效、来源恢复、旧草稿与决策兼容有程序检查。真实输入、选择与导出仍需浏览器任务验收；没有真实出行准确率或节省时间的结论。','Program checks cover personal limits, sparse records, stale previews, restored sources and old drafts/decisions. Browser tasks verify input, choice and export separately. No real-world accuracy or time-saving result is claimed.'),
+  artifact:L('带个人条件、路线与来源、比较结果、选择理由和模型版本的通勤决策卡；旧选择与当前结果分开。','A decision card with personal constraints, routes and sources, comparisons, rationale and model version, keeping old choices separate from current results.'),
+ },
+};
+for (const [id,update] of Object.entries(depthUpdates)) Object.assign(studies.find(study=>study.id===id),update);
+
+
 // Existing four opinions stay intact. Each now points to a concrete design decision.
 export const aiPractices=[
  {study:'rag',text:L('在 RAG 实验台，引用之前先检查日期和资料版本；条件变化后，旧答案必须重新检索。','RAG Lab checks dates and source versions before citations. A change in scope requires a fresh search.'),link:L('看答案的适用条件','See why a source applies')},

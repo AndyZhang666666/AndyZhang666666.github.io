@@ -68,13 +68,13 @@ function initEval(panel){
  clear.addEventListener('click',()=>{press(reviews,null);clear.disabled=true;words(panel.querySelector('[data-eval-verdict]'),'尚未复核','Unreviewed');words(panel.querySelector('[data-eval-status]'),'试用判断已清除；历史评分与原文不变。','Preview review cleared. The saved score and source are unchanged.');});
 }
 async function initTaste(panel){
- const [{directionSvg},{createTastePreview,posterContent}]=await Promise.all([import('../tasteroom/directions.js'),import('./demo-preview/taste-session.mjs')]);
+ const [{directionSvg,DIRECTIONS},{createTastePreview,posterContent}]=await Promise.all([import('../tasteroom/directions.js'),import('./demo-preview/taste-session.mjs')]);
  const buttons=[...panel.querySelectorAll('[data-taste-direction]')];
  buttons.forEach(button=>{button.disabled=false;button.addEventListener('click',()=>{
   const direction=button.dataset.tasteDirection,{room}=createTastePreview(direction);
   panel.querySelector('[data-taste-canvas]').innerHTML=directionSvg(room,posterContent);
   panel.querySelector('[data-selected-demo=taste]').href='/tasteroom/?direction='+direction;
-  press(buttons,button);words(panel.querySelector('[data-taste-status]'),direction==='swiss'?'正在试瑞士构图；只传递设计方向到完整工具，不保存偏好。':'正在试解构构图；内容相同，其他参数保留，不保存偏好。',direction==='swiss'?'Trying Swiss composition. Only the direction transfers; no preference is saved.':'Trying deconstructed composition. Copy and other settings stay the same; no preference is saved.');
+  press(buttons,button);const english={swiss:'Swiss modernism',deconstructed:'Deconstructivism',editorial:'Editorial',bauhaus:'Bauhaus geometry',japanese:'Japanese whitespace',risograph:'Two-ink print'};words(panel.querySelector('[data-taste-status]'),`正在试「${DIRECTIONS[direction].name}」；同一文案，只传递方向到完整工具，不保存偏好。`,`Trying ${english[direction]}. The copy stays the same. Only direction transfers to the full tool; no preference is saved.`);
   feedback(panel.querySelector('[data-taste-canvas]'));
  });});
 }

@@ -5,6 +5,9 @@ import {execFileSync} from 'node:child_process';
 import {selected,renderSelected,bundleFixture} from '../content/showcase.mjs';
 import {directions,studies} from '../content/editorial.mjs';
 import {simulateOne} from '../assets/demo-preview/bundle-model.mjs';
+import {DIRECTIONS} from '../tasteroom/directions.js';
+import {createTastePreview,posterContent} from '../assets/demo-preview/taste-session.mjs';
+import {posterSvg} from '../tasteroom/experiments.js';
 const read=p=>fs.readFileSync(p,'utf8'),hash=v=>crypto.createHash('sha256').update(v).digest('hex');
 const data=JSON.parse(read('data.json')),html=read('index.html');
 assert.deepEqual(selected.map(s=>s.id),['trust','taste','bundles','commute']);
@@ -12,6 +15,8 @@ assert.deepEqual(directions[0].order,['trust','taste','bundles','commute']);
 for(const d of directions){assert.equal(d.order.length,4);assert.equal(new Set(d.order).size,4);assert.deepEqual([...d.order].sort(),selected.map(s=>s.id).sort());}
 assert.equal(data.projects.length,17);for(const id of ['agent-bench','rag-lab','grounded','poker-quiz','bankroll','poker-ev'])assert.ok(data.projects.some(p=>p.id===id));
 for(const s of selected){const p=data.projects.find(p=>p.id===s.project),study=studies.find(x=>x.id===s.id);assert.ok(p?.url&&p?.github);assert.equal(study?.project,p.id);assert.ok(html.includes(`data-selected-id="${s.id}"`));assert.ok(html.includes(`data-selected-demo="${s.project}"`));}
+assert.equal(Object.keys(DIRECTIONS).length,6);
+for(const id of Object.keys(DIRECTIONS)){assert.ok(html.includes(`data-taste-direction="${id}"`),'Missing style preview '+id);const {room}=createTastePreview(id);assert.equal(room.canvas.artDirection,id);assert.ok(posterSvg(room,posterContent).includes('无用之美'));assert.equal(room.memories.length,0,'Preview must not infer or save a preference');}
 assert.equal(data.projects.find(p=>p.id==='bundle').url,'/bundle-lab/simulate/');
 assert.equal(data.projects.find(p=>p.id==='bundle').analysisUrl,'/bundle-lab/');
 assert.equal(html.includes(renderSelected(data)),true,'Default previews and destinations must be static HTML');
