@@ -10,6 +10,7 @@
     <title>TasteRoom · 偏爱实验室</title>
     <link rel="stylesheet" href="style.css?v=20261024-v2" />
     <link rel="stylesheet" href="studio.css?v=20261030-usable1" />
+    <link rel="stylesheet" href="atelier.css?v=20261101-craft1" />
   </head>
   <body>
     <header>
@@ -35,18 +36,12 @@
       </div>
       <div class="mobile-nav">
         <button id="showCanvas" aria-pressed="true">体验画布</button
-        ><button id="showBrain" aria-pressed="false">
+        ><button id="showBrain" aria-pressed="false" aria-expanded="false" aria-controls="brainInspector">
           记忆与调用 <span id="memoryCount">0</span>
         </button>
       </div>
       <div class="workspace">
         <section class="studio" aria-label="审美实验画布">
-          <section class="design-directions" aria-label="选择设计方向">
-            <div><h2>先选一种构图。</h2><p>先试画布，喜欢后再决定是否记住。</p></div>
-            <div class="direction-options" role="group" aria-label="原创设计方案"><button type="button" data-direction="swiss" aria-pressed="false"><strong>瑞士现代主义</strong><span>网格 / 清晰层级</span></button><button type="button" data-direction="deconstructed" aria-pressed="false"><strong>解构主义</strong><span>错位 / 结构张力</span></button><button type="button" data-direction="free" aria-pressed="true"><strong>自由参数</strong><span>五项参数 / 自由组合</span></button></div>
-            <p id="directionStatus" class="hint">也可以完成下面两次直觉选择，再拆开验证偏爱。</p>
-            <button type="button" id="rememberDirection" hidden>记住当前场景的设计方向</button>
-          </section>
           <ol class="phases">
             <li id="phase1" class="current">编辑内容</li>
             <li id="phase2">比较构图</li>
@@ -63,10 +58,16 @@
           <div id="experiment" hidden>
             <div class="section-heading">
               <h2 id="canvasTitle">一张海报，正在学你的偏爱</h2>
-              <div class="export-bar"><span id="runState">临时画布</span><button id="exportPoster">导出 SVG</button><button id="exportPng">导出 PNG</button></div>
+              <div class="export-bar"><span id="runState">临时画布</span><a class="edit-copy-link" href="#posterContentForm">编辑文案</a><button id="exportPoster">导出 SVG</button><button id="exportPng">导出 PNG</button></div>
             </div>
             <div class="creation-board">
-            <section class="poster-content-editor"><h3>这张海报写什么？</h3><form id="posterContentForm"><label>活动类别<input id="editCategory" maxlength="32" required></label><label>标题（最多两行）<textarea id="editTitle" maxlength="36" rows="2" required></textarea></label><label>副文案（最多两行）<textarea id="editSubtitle" maxlength="100" rows="2" required></textarea></label><label>落款<input id="editFooter" maxlength="40" required></label><button type="submit" id="updateContent">更新画布</button><p id="contentStatus" role="status">只改本张内容，不从文案推断你的偏好。</p></form></section>
+            <section class="poster-content-editor">          <section class="design-directions" aria-label="选择设计方向">
+            <div><h2>先选一种构图。</h2><p>先试画布，喜欢后再决定是否记住。</p></div>
+            <div class="direction-options" role="group" aria-label="原创设计方案"><button type="button" data-direction="swiss" aria-pressed="false"><strong>瑞士现代主义</strong><span>网格 / 清晰层级</span></button><button type="button" data-direction="deconstructed" aria-pressed="false"><strong>解构主义</strong><span>错位 / 结构张力</span></button><button type="button" data-direction="free" aria-pressed="true"><strong>自由参数</strong><span>五项参数 / 自由组合</span></button></div>
+            <p id="directionStatus" class="hint">也可以完成下面两次直觉选择，再拆开验证偏爱。</p>
+            <button type="button" id="rememberDirection" hidden>记住当前场景的设计方向</button>
+          </section>
+<h3>这张海报写什么？</h3><form id="posterContentForm"><label>活动类别<input id="editCategory" maxlength="32" required></label><label>标题（最多两行）<textarea id="editTitle" maxlength="36" rows="2" required></textarea></label><label>副文案（最多两行）<textarea id="editSubtitle" maxlength="100" rows="2" required></textarea></label><label>落款<input id="editFooter" maxlength="40" required></label><button type="submit" id="updateContent">更新画布</button><p id="contentStatus" role="status">只改本张内容，不从文案推断你的偏好。</p></form></section>
 <div class="art-slot">            <div class="artboard">
               <div id="directionPreview" class="direction-preview" aria-label="当前原创海报预览" hidden></div>
               <article id="poster" class="poster" aria-label="实时海报">
@@ -151,7 +152,7 @@
             </div>
           </div>
         </section>
-        <aside class="brain" aria-label="记忆与工具调用">
+        <aside class="brain" id="brainInspector" aria-label="记忆与工具调用">
           <div class="brain-heading">
             <h2>它如何理解你</h2>
             <span>白盒视角</span>
@@ -183,6 +184,6 @@
       </div>
     </main>
     <dialog id="saveRuleDialog" aria-labelledby="saveRuleTitle"><form method="dialog"><h2 id="saveRuleTitle">记住哪一项？</h2><p id="saveRuleDescription"></p><label>适用范围<select id="saveRuleScope"><option value="current">当前场景</option><option value="global">全局（所有场景）</option></select></label><p id="saveRuleReplaced"></p><div class="takeaway-actions"><button id="confirmRule" value="confirm">确认保存这项规则</button><button value="cancel">取消，继续临时试用</button></div></form></dialog>
-    <script type="module" src="app.js?v=20261030-usable1"></script>
+    <script type="module" src="app.js?v=20261101-atelier1"></script>
   </body>
 </html>

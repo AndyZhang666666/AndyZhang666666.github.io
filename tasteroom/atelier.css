@@ -1,0 +1,54 @@
+/* The canvas is the working object. Memory is an optional adjacent inspector. */
+main{max-width:1480px;padding-top:22px}
+.intro{padding-bottom:12px}.intro>p{font-size:24px;font-weight:550}.intro>span{font-size:12px}
+.mobile-nav{display:flex;width:fit-content;gap:4px;margin:0 0 18px;padding:4px;background:#e3e7dd;border-radius:4px}
+.mobile-nav button{background:transparent;border:0;min-height:40px;padding:8px 18px;font-size:13px}
+.mobile-nav button[aria-pressed=true]{background:#fff;color:var(--studio-ink);box-shadow:0 2px 5px #24311e0e}
+.mobile-nav #memoryCount{font-variant-numeric:tabular-nums;margin-left:5px;color:var(--muted)}
+.workspace{grid-template-columns:minmax(0,1fr);gap:24px}
+.workspace>.brain{display:none}
+.brain-open .workspace{grid-template-columns:minmax(0,1fr) 286px}
+.brain-open .workspace>.brain{display:block;position:sticky;top:20px;max-height:calc(100dvh - 40px);overflow:auto;padding:22px}
+.phases{display:none}
+.section-heading:has(.export-bar){padding:0 0 18px;align-items:center;margin:0}
+.section-heading h2{font-size:20px}.export-bar{gap:8px}.export-bar button{font-size:13px;min-height:42px;padding:9px 16px}
+.creation-board{grid-template-columns:270px minmax(0,1fr);gap:24px}
+.creation-board .poster-content-editor{border:0;border-top:3px solid #293e2b;padding:20px;background:#fff}
+.creation-board .poster-content-editor h3{font-size:15px;margin:22px 0 14px}
+.creation-board .poster-content-editor form{gap:14px;margin-top:0}
+.creation-board .poster-content-editor label{font-size:12px}
+.creation-board .poster-content-editor :is(input,textarea){min-height:42px;line-height:1.65;padding:10px 12px;border-color:#aeb7a6;font-size:14px}
+.creation-board #updateContent{width:100%;background:#293e2b;color:#fff;border-color:#293e2b;min-height:44px;font-size:13px}
+.creation-board #contentStatus{font-size:12px;line-height:1.8}
+.poster-content-editor .design-directions{display:block;padding:0 0 20px;margin:0;border:0;border-bottom:1px solid var(--studio-line);background:transparent}
+.poster-content-editor .design-directions>div:first-child{display:block!important}
+.poster-content-editor .design-directions h2{font-size:15px!important;font-weight:550}
+.poster-content-editor .design-directions>div:first-child p{display:none}
+.poster-content-editor .direction-options{display:grid;grid-template-columns:1fr;gap:6px;margin:12px 0}
+.poster-content-editor .direction-options button{display:flex;width:100%;justify-content:space-between;align-items:center;min-height:44px;text-align:left;padding:10px 12px;gap:10px;background:#f0f2eb;border:1px solid transparent}
+.poster-content-editor .direction-options strong{font-size:13px}.poster-content-editor .direction-options span{margin:0;font-size:11px}
+.poster-content-editor .direction-options button[aria-pressed=true]{color:white;background:#293e2b}
+.poster-content-editor .direction-options button[aria-pressed=true] span{color:#e0e9da}
+.poster-content-editor .design-directions #directionStatus{font-size:12px;line-height:1.7;min-height:0;margin:10px 0}
+.poster-content-editor .design-directions #rememberDirection{font-size:12px;min-height:40px;max-width:100%;width:100%;margin:0;white-space:normal}
+.art-slot .artboard{min-height:670px;padding:28px 34px 18px;background:#e2e5dc;gap:18px;justify-content:center}
+.art-slot .direction-preview{max-width:480px;background:#f7f6ef;box-shadow:0 14px 28px #24331c19,0 3px 7px #24331c0a}
+.canvas-caption{font-size:12px;line-height:1.7}
+.edit-copy-link{font-size:13px;min-height:42px;display:inline-flex;align-items:center;padding:8px 12px;color:var(--accent);text-decoration:underline;text-underline-offset:4px}
+#posterContentForm{scroll-margin-top:24px}
+.transport{margin:0 0 18px 294px;border:0;background:transparent;padding:12px 0;gap:8px;align-items:center}
+.transport button{font-size:12px;min-height:42px;padding:9px 13px}
+#startComparison{margin-left:auto}
+#reply{margin-top:0;background:#e0e8d8;border-radius:3px}
+#feedback{display:grid;gap:14px}
+.direct-adjustment{padding:16px 20px}.direct-adjustment summary{min-height:26px;font-size:13px;cursor:pointer}
+.feedback-chips{margin:0}.feedback-chips button{min-height:40px;background:#fff}
+.brain .takeaway{margin-top:18px;padding:16px}.brain .context-note{margin-bottom:18px}
+.comparison-panel{min-height:600px;padding:24px}.comparison-panel .comparison-variants{grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.comparison-variant .direction-preview{max-width:100%;box-shadow:none}.comparison-variant>button{min-height:44px;font-size:13px}
+#comparisonPanel .resolution{gap:8px}
+@media(min-width:951px){.brain-open .studio{display:block}.brain-open .creation-board{grid-template-columns:220px minmax(0,1fr);gap:18px}.brain-open .art-slot .artboard{padding:22px 18px;min-height:560px}.brain-open .transport{margin-left:238px}.brain-open .poster-content-editor .direction-options button{display:block}.brain-open .poster-content-editor .direction-options span{display:block;margin-top:4px}}
+@media(max-width:950px){.workspace,.brain-open .workspace{display:block}.brain-open .workspace>.brain{position:static;max-height:none;display:block}.brain-open .studio{display:none}.creation-board{grid-template-columns:236px minmax(0,1fr);gap:18px}.art-slot .artboard{padding:24px;min-height:520px}.transport{margin-left:254px}.intro{gap:8px}.intro>span{text-align:left}.comparison-panel{padding:20px;min-height:480px}}
+@media(max-width:650px){main{padding-top:18px}.intro>p{font-size:22px}.intro>span{font-size:11px;line-height:1.8}.mobile-nav{display:flex;width:100%;margin-bottom:18px}.mobile-nav button{flex:1;min-height:44px;padding-inline:10px}.section-heading:has(.export-bar){display:block;padding-bottom:14px}.section-heading h2{font-size:18px}.export-bar{margin-top:12px}.export-bar button{padding:9px 14px;min-height:44px}.creation-board{display:flex;flex-direction:column;gap:18px}.creation-board .poster-content-editor{padding:18px}.poster-content-editor .direction-options{grid-template-columns:1fr 1fr}.poster-content-editor .direction-options button{display:block;min-height:62px}.poster-content-editor .direction-options button:last-child{grid-column:1/-1;display:flex;min-height:44px}.poster-content-editor .direction-options strong{font-size:12px}.poster-content-editor .direction-options span{display:block;margin-top:5px;font-size:11px}.poster-content-editor .direction-options button:last-child span{margin:0}.creation-board .poster-content-editor form{grid-template-columns:1fr 1fr;gap:12px}.creation-board .poster-content-editor :is(input,textarea){font-size:16px}.creation-board .poster-content-editor h3{margin-top:18px}.creation-board #updateContent{grid-column:1/-1}.art-slot .artboard{padding:20px 18px;min-height:0}.art-slot .direction-preview{max-width:100%}.transport{margin:0 0 16px;padding-top:10px;gap:6px}.transport button{min-height:44px;font-size:12px;flex:1}#startComparison{margin:0;flex-basis:100%}.canvas-caption{font-size:11px}.comparison-panel{padding:16px;min-height:420px}.comparison-panel .comparison-variants{gap:10px}.comparison-variant>button{font-size:12px;padding-inline:8px}.feedback-chips button{min-height:44px}.direct-fields{grid-template-columns:1fr}.brain-open .workspace>.brain{padding:20px}}
+@media(prefers-reduced-motion:reduce){.art-slot .direction-preview{animation:none}.mobile-nav button,button{transition:none}}
+@media(max-width:650px){.creation-board .art-slot{order:-1}.edit-copy-link{min-height:44px;padding-inline:5px}.export-bar>span{flex-basis:100%;margin-bottom:3px}.export-bar{justify-content:flex-start;gap:8px}.export-bar .edit-copy-link{margin-right:auto}.art-slot .direction-preview{max-width:340px}}

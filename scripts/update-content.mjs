@@ -9,7 +9,7 @@ import {renderSelected} from '../content/showcase.mjs';
 import {renderProductPrinciples} from '../assets/product-principles.mjs';
 import {renderAiViews} from '../assets/ai-views.mjs';
 const localReview=process.argv.includes('--local');
-const releaseVersion='20261031-usable-four1';
+const releaseVersion='20261101-craft1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
