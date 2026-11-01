@@ -1,9 +1,7 @@
 /* ============================================================
    项目区分组 · projects-split.css
    ------------------------------------------------------------
-   配合 projects-split.js：#projectGrid 被切成两组
-     .pgroup-main   AI 产品与增长
-     .pgroup-poker  德州扑克（左缘 2px 强调线 + 菱形标记）
+   配合 projects-split.js：按任务筛选，保留产品、实践与德州三种展示方式。
    只做分组与识别，卡片本身的视觉沿用 style.css / interactions.css。
    只用现有变量，不写裸色值。
    ============================================================ */
@@ -18,6 +16,27 @@
   display: block;
   perspective: none;
 }
+
+/* Native filter buttons keep the full collection in the DOM and require no swipe. */
+.library-controls{margin:0 0 32px;position:relative;z-index:2;min-width:0}
+.library-filter-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:14px}
+.library-filter-label{font:500 14px/1.5 var(--font-sans);color:var(--fg);margin:0}
+.library-filter-status{font:400 12px/1.6 var(--font-sans);color:var(--fg-muted);margin:0;text-align:right}
+.library-filter-list{display:flex;flex-wrap:wrap;gap:9px}
+.library-filter{display:inline-flex;align-items:center;justify-content:space-between;gap:15px;min-height:46px;padding:10px 15px;border:1px solid var(--border-strong);border-radius:8px;background:var(--glass-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font:400 14px/1.4 var(--font-sans);color:var(--fg-muted);cursor:pointer;text-align:left;transition:background .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease)}
+.library-filter-count{font-size:11px;font-variant-numeric:tabular-nums;color:var(--fg-dim);min-width:1.5ch;text-align:right}
+.library-filter:hover{border-color:rgba(var(--accent-rgb),.6);background:rgba(var(--accent-rgb),.07);transform:translateY(-2px)}
+.library-filter[aria-pressed=true]{background:var(--fg);border-color:var(--fg);color:var(--bg-0);box-shadow:var(--elev-1)}
+.library-filter[aria-pressed=true] .library-filter-count{color:inherit;opacity:.75}
+.library-filter:active{transform:translateY(0) scale(.98)}
+.library-filter:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.project-library #projectGrid .project-card[hidden],.project-library #projectGrid>.pgroup[hidden]{display:none!important}
+#projectGrid[data-library-filter]:not([data-library-filter=all])>.pgroup:not([hidden]){margin-top:0;padding-top:0;border-top:0}
+#projectGrid[data-library-filter=poker]>.pgroup-poker:not([hidden]){padding-top:30px}
+#projectGrid .project-card[data-project-id]{scroll-margin-top:100px}
+@media(max-width:700px){.library-controls{margin-bottom:25px}.library-filter-heading{gap:10px;align-items:start}.library-filter-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.library-filter{width:100%;min-width:0;font-size:13px;padding:11px 12px;gap:10px}.library-filter-status{font-size:11px;max-width:56%}.library-filter-count{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.library-filter{transition:none}.library-filter:hover,.library-filter:active{transform:none}}
+@media(prefers-reduced-transparency:reduce){.library-filter{background:var(--bg-1);backdrop-filter:none;-webkit-backdrop-filter:none}.library-filter[aria-pressed=true]{background:var(--fg)}}
 
 .pgroup {
   position: relative;

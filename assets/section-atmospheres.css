@@ -8,10 +8,10 @@
 .sa-atmosphere .sa-third{color:var(--third,var(--second))}
 
 /* The familiar interactive hand sits at the near edge of one quiet table. */
-.pgroup-poker.sa-poker-host{--pk-face:var(--bg-1);--pk-ink:var(--fg);--pk-red:var(--accent);isolation:isolate;padding:clamp(40px,5vw,64px) clamp(22px,3vw,40px) 38px;border-top:0;border-radius:24px;margin-inline:clamp(-40px,-3vw,-22px)}
-.pgroup-poker>.sa-poker{inset:0;z-index:-1;border-radius:24px;background:rgba(var(--second-rgb),.055)}
-.sa-poker .sa-table-field{opacity:.08;color:var(--second)}
-.sa-poker .sa-table-stitch{opacity:.2;color:var(--second)}
+.pgroup-poker.sa-poker-host{--pk-face:var(--bg-1);--pk-ink:var(--fg);--pk-red:var(--accent);--sa-poker-material:var(--poker-field,color-mix(in srgb,var(--bg-0) 96%,var(--fg) 4%));--sa-poker-thread:var(--poker-thread,color-mix(in srgb,var(--fg) 78%,var(--second) 22%));--sa-poker-wash:var(--poker-wash,rgba(var(--fg-rgb),.025));isolation:isolate;padding:clamp(40px,5vw,64px) clamp(22px,3vw,40px) 38px;border-top:0;border-radius:24px;margin-inline:clamp(-40px,-3vw,-22px)}
+.pgroup-poker>.sa-poker{inset:0;z-index:-1;border-radius:24px;background:transparent}
+.sa-poker .sa-table-field{opacity:.72;color:var(--sa-poker-material)}
+.sa-poker .sa-table-stitch{opacity:.16;color:var(--sa-poker-thread)}
 .sa-poker .sa-table-inner{opacity:.11;color:var(--fg)}
 .sa-poker .sa-table-rail{opacity:.11;color:var(--fg)}
 .sa-poker .sa-table-light{opacity:.17;color:var(--accent)}
@@ -19,7 +19,7 @@
 .sa-poker .sa-paper{fill:var(--bg-0);stroke:rgba(var(--fg-rgb),.16);stroke-width:1.2}
 .sa-poker .sa-card-rule{fill:none;stroke:currentColor;stroke-width:1.5;opacity:.5}
 .sa-poker .sa-suit-fill{fill:currentColor}
-.sa-poker .sa-card-fold{fill:rgba(var(--second-rgb),.1)}
+.sa-poker .sa-card-fold{fill:color-mix(in srgb,var(--bg-0) 94%,var(--fg) 6%)}
 .sa-poker-host .pgroup-grid::before{display:none}
 .sa-poker-host .pk-fan-wrap{gap:36px;padding:8px 0 30px;min-height:178px;margin:0 0 22px;align-items:center}
 .sa-poker-host .pk-fan{--pk-w:88px;--pk-h:124px;flex-shrink:0}
@@ -62,7 +62,7 @@
 /* On a phone, the real fan carries the cards; one near table edge carries the atmosphere. */
 @media(max-width:600px){
  .pgroup-poker>.sa-poker>svg{display:none}
- .pgroup-poker>.sa-poker{background:radial-gradient(ellipse 92% 420px at 50% 140px,rgba(var(--second-rgb),.075),transparent 100%)}
- .pgroup-poker>.sa-poker::before,.pgroup-poker>.sa-poker::after{content:'';position:absolute;pointer-events:none;left:17px;right:17px;top:25px;height:460px;border:1px solid rgba(var(--second-rgb),.13);border-radius:46% 46% 30% 30%;transform:rotate(-5deg)}
- .pgroup-poker>.sa-poker::after{left:24px;right:24px;top:32px;height:446px;border-style:dashed;border-color:rgba(var(--second-rgb),.085);transform:rotate(-5deg)}
+ .pgroup-poker>.sa-poker{background:radial-gradient(ellipse 92% 420px at 50% 140px,var(--sa-poker-wash),transparent 100%)}
+ .pgroup-poker>.sa-poker::before,.pgroup-poker>.sa-poker::after{content:'';position:absolute;pointer-events:none;left:17px;right:17px;top:25px;height:460px;border:1px solid color-mix(in srgb,var(--sa-poker-thread) 12%,transparent);border-radius:46% 46% 30% 30%;transform:rotate(-5deg)}
+ .pgroup-poker>.sa-poker::after{left:24px;right:24px;top:32px;height:446px;border-style:dashed;border-color:color-mix(in srgb,var(--sa-poker-thread) 8%,transparent);transform:rotate(-5deg)}
 }

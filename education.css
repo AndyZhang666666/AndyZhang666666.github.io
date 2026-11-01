@@ -349,7 +349,7 @@
 #education .thesis-item .thesis-result { grid-column: 1; }
 #education .thesis-item .thesis-scene { grid-column: 2; grid-row: 1 / span 5; min-width: 0; align-self: center; margin: 0; border: 0; border-radius: 0; background: transparent; overflow: visible; }
 #education .thesis-scene svg { display: block; width: 100%; height: auto; overflow: visible; }
-#education .thesis-scene figcaption { border: 0; padding: 8px 22px 0; display: flex; justify-content: space-between; gap: 14px; font: 400 12px/1.8 var(--font-sans); letter-spacing: 0; color: var(--fg-muted); }
+#education .thesis-scene figcaption { border: 0; padding: 8px 22px 0; display: flex; justify-content: flex-end; font: 400 12px/1.8 var(--font-sans); letter-spacing: 0; color: var(--fg-muted); }
 #education .thesis-figure-kind { color: var(--second); }
 .thesis-field { fill: var(--accent); fill-opacity: .035; }
 .thesis-field-sensing { fill: var(--second); fill-opacity: .055; }

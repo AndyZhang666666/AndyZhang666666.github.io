@@ -107,7 +107,7 @@
     var wearable=type==='bachelor';
     var zh=wearable?'可穿戴姿态监测：运动关节、传感信号与手机反馈的主题示意':'订单流研究：买卖深度、价差与非单向日内价格路径的主题示意';
     var en=wearable?'Conceptual diagram of movement joints, wearable sensors and mobile feedback':'Conceptual diagram of order-book depth, spread and a non-directional intraday price path';
-    return '<figure class="research-figure thesis-scene research-' + type + '"><svg viewBox="0 0 900 520" role="img" aria-label="' + zh + '" data-art-label-zh="' + zh + '" data-art-label-en="' + en + '"><title>' + zh + '</title>' + (wearable?wearableScene():orderFlowScene()) + '</svg><figcaption><span data-zh="研究主题示意" data-en="Conceptual study">研究主题示意</span><span class="thesis-figure-kind" data-zh="' + (wearable?'姿态感知与交互':'市场微观结构') + '" data-en="' + (wearable?'Sensing & interaction':'Market microstructure') + '">' + (wearable?'姿态感知与交互':'市场微观结构') + '</span></figcaption></figure>';
+    return '<figure class="research-figure thesis-scene research-' + type + '"><svg viewBox="0 0 900 520" role="img" aria-label="' + zh + '" data-art-label-zh="' + zh + '" data-art-label-en="' + en + '"><title>' + zh + '</title>' + (wearable?wearableScene():orderFlowScene()) + '</svg><figcaption><span class="thesis-figure-kind" data-zh="' + (wearable?'姿态感知与交互':'市场微观结构') + '" data-en="' + (wearable?'Sensing & interaction':'Market microstructure') + '">' + (wearable?'姿态感知与交互':'市场微观结构') + '</span></figcaption></figure>';
   }
 
   // ---------- 1. 学校徽记 ----------
