@@ -1,0 +1,12 @@
+{
+  "position": "BTN",
+  "cards": [
+    "Ac",
+    "2h"
+  ],
+  "hand": "A2o",
+  "openFrequency": 1,
+  "reference": "teaching-rfi-6max-100bb-v1-fe2ea3d4",
+  "sourceRepository": "AndyZhang666666/poker-ev-calculator",
+  "sourceFile": "src/lib/poker/training.ts"
+}
