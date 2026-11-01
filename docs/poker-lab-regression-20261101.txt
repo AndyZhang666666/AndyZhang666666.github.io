@@ -1,0 +1,42 @@
+✔ real HTTP auth, role spoofing, and employee data boundary (45.082583ms)
+✔ source and export endpoints isolate sessions and immutable snapshot records (32.467291ms)
+✔ limits, impossible dates, JSON errors, origin and static file isolation (15.752ms)
+✔ missing model is a visible generation failure, not fake success (3.777709ms)
+✔ protocol fixture checks actual authorized context and injection data; NOT a real LLM eval (8.709834ms)
+✔ unanswerable evidence never calls the model; ordinary denied context remains empty of secrets (6.779167ms)
+✔ wrong facts with a valid citation fail validation and preserve rejected raw output only in owner export (7.041416ms)
+✔ upstream failure and malformed JSON are explicit failures (8.844333ms)
+✔ model timeout abort is handled without an extractive success fallback (5.928ms)
+✔ retrieval failure identifies the failed stage (2.856875ms)
+✔ expired sessions and rate caps require explicit recovery (5.269375ms)
+✔ process-wide model call ceiling is enforced (8.720542ms)
+✔ redaction keeps measurable usage, strips credentials and masks common personal strings (0.261209ms)
+✔ fixed fixture: current (19.007875ms)
+✔ fixed fixture: historical (0.582625ms)
+✔ fixed fixture: denied (0.503834ms)
+✔ fixed fixture: admin (0.757833ms)
+✔ fixed fixture: distractor (0.365417ms)
+✔ fixed fixture: no-answer (0.2105ms)
+✔ fixed fixture: conflict (0.221458ms)
+✔ fixed fixture: injection (0.306417ms)
+✔ fixed fixture: snapshot (0.25475ms)
+✔ fixed fixture: renew (0.418875ms)
+✔ fixed fixture: laptop (0.829292ms)
+✔ fixed fixture: clarify (0.28375ms)
+✔ half-open effective date boundary and snapshot activation (0.174625ms)
+✔ no applicable date produces no fabricated current rule (0.088291ms)
+✔ stable source binding survives subsequent snapshot run (0.428542ms)
+✔ input validation rejects impossible dates, object tricks and auth parameters (0.2435ms)
+✔ citation existence is distinct from fact correctness (0.548542ms)
+✔ publication contains no admin-only metadata or text (6.318208ms)
+✔ incremental site integration is idempotent and preserves unrelated data/cards (109.74725ms)
+✔ a historical generator cannot erase a parallel custom project/card (3.949708ms)
+✔ recorded RAG release preserves its 16 predecessors; later homepage editing is tested separately (126.7325ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 321.671125

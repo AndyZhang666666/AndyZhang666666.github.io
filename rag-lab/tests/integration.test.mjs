@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {mkdtemp, readFile, writeFile, rm, cp, mkdir, readdir} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {pathToFileURL} from 'node:url';
+import {pathToFileURL, fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {integrateSite, captureExtensions, restoreExtensions} from '../scripts/integrate-site.mjs';
 
@@ -66,7 +66,7 @@ test('a historical generator cannot erase a parallel custom project/card', async
 });
 
 test('recorded RAG release preserves its 16 predecessors; later homepage editing is tested separately', async () => {
-  const cwd = new URL('../../', import.meta.url).pathname;
+  const cwd = fileURLToPath(new URL('../../', import.meta.url));
   const base = 'b74a5e4db66bb84be23a51cf191dec6e74b58086';
   // This assertion describes that release, not every future authorised portfolio edit.
   const release = 'd5d64cfa7717ce51753285603d097e1f68d7b5d9';
