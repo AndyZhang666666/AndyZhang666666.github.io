@@ -36,7 +36,7 @@ export function applyBrief(room,brief){
  if(room.pending)throw Error('请先处理当前记忆冲突，再导入。');
  // Validate again at confirmation. No partial import if a file or preview was changed.
  const checked=parseBrief(JSON.stringify(brief));
- for(const rule of checked.rules)room.upsert(rule.dimension,rule.value,rule.status==='本人明确规则'?'explicit':'implicit',rule.scope,'导入说明书：'+rule.reason,.7);
+ for(const rule of checked.rules){const memory=room.upsert(rule.dimension,rule.value,rule.status==='本人明确规则'?'explicit':'implicit',rule.scope,rule.reason,.7);memory.evidence={method:'imported-brief-v1',status:rule.status};}
  room.reconcile();room.log('import_style_brief',{rules:checked.rules.length,scope:'保留每条原有场景',inferred_dimensions:false});
  return checked.rules.length;
 }

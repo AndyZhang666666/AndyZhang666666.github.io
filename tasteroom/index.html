@@ -10,7 +10,8 @@
     <title>TasteRoom · 偏爱实验室</title>
     <link rel="stylesheet" href="style.css?v=20261024-v2" />
     <link rel="stylesheet" href="studio.css?v=20261030-usable1" />
-    <link rel="stylesheet" href="atelier.css?v=20261101-craft1" />
+    <link rel="stylesheet" href="atelier.css?v=20261101-depth1" />
+    <link rel="stylesheet" href="depth.css?v=20261101-depth1" />
   </head>
   <body>
     <header>
@@ -26,14 +27,16 @@
           target="_blank"
           rel="noopener"
           >源码与说明 ↗</a
-        ><button id="startExplore">可选：两次直觉探索</button><button id="reset">清空本机草稿</button>
+        ><button id="reset">清空本机草稿</button>
       </nav>
     </header>
     <main>
       <div class="intro">
-        <p>先做一张想带走的海报。</p>
+        <p>你的文字，值得一个好构图。</p>
         <span>本地规则模拟 · 无模型调用 · 数据仅留在此浏览器</span>
       </div>
+      <div class="entry-paths" aria-label="选择开始方式"><button id="startCreate" aria-pressed="true"><strong>做一张作品</strong><span>放进自己的文案，选构图，导出。</span><span aria-hidden="true">↗</span></button><button id="startExplore" aria-pressed="false"><strong>探索我的偏爱</strong><span>从具体比较出发，决定要记住什么。</span><span aria-hidden="true">↗</span></button></div>
+      <p id="storageNotice" role="status" hidden></p>
       <div class="mobile-nav">
         <button id="showCanvas" aria-pressed="true">体验画布</button
         ><button id="showBrain" aria-pressed="false" aria-expanded="false" aria-controls="brainInspector">
@@ -60,16 +63,12 @@
               <h2 id="canvasTitle">一张海报，正在学你的偏爱</h2>
               <div class="export-bar"><span id="runState">临时画布</span><a class="edit-copy-link" href="#posterContentForm">编辑文案</a><button id="exportPoster">导出 SVG</button><button id="exportPng">导出 PNG</button></div>
             </div>
+            <div id="directionGallery" class="direction-gallery" aria-label="六种构图：使用当前同一份文案" hidden></div>
             <div class="creation-board">
-            <section class="poster-content-editor">          <section class="design-directions" aria-label="选择设计方向">
-            <div><h2>先选一种构图。</h2><p>先试画布，喜欢后再决定是否记住。</p></div>
-            <div class="direction-options" role="group" aria-label="原创设计方案"><button type="button" data-direction="swiss" aria-pressed="false"><strong>瑞士现代主义</strong><span>网格 / 清晰层级</span></button><button type="button" data-direction="deconstructed" aria-pressed="false"><strong>解构主义</strong><span>错位 / 结构张力</span></button><button type="button" data-direction="free" aria-pressed="true"><strong>自由参数</strong><span>五项参数 / 自由组合</span></button></div>
-            <p id="directionStatus" class="hint">也可以完成下面两次直觉选择，再拆开验证偏爱。</p>
-            <button type="button" id="rememberDirection" hidden>记住当前场景的设计方向</button>
-          </section>
-<h3>这张海报写什么？</h3><form id="posterContentForm"><label>活动类别<input id="editCategory" maxlength="32" required></label><label>标题（最多两行）<textarea id="editTitle" maxlength="36" rows="2" required></textarea></label><label>副文案（最多两行）<textarea id="editSubtitle" maxlength="100" rows="2" required></textarea></label><label>落款<input id="editFooter" maxlength="40" required></label><button type="submit" id="updateContent">更新画布</button><p id="contentStatus" role="status">只改本张内容，不从文案推断你的偏好。</p></form></section>
+            <section class="poster-content-editor"><section class="design-directions" aria-label="选择设计方向"><div><h2>当前构图</h2><p>作品先行，记忆由你决定。</p></div><button id="openDirections" type="button" aria-expanded="false" aria-controls="directionGallery">更换构图 · 六种原创方向</button><p id="directionStatus" class="hint"></p><p id="directionCapacity" class="hint"></p><button type="button" id="rememberDirection" hidden>记住当前场景的设计方向</button></section>
+<h3>这张海报写什么？</h3><form id="posterContentForm"><label>内容起点<select id="contentPreset"><option value="custom">自己的内容</option><option value="0">展映活动</option><option value="1">旧书交换</option><option value="2">产品分享会</option></select></label><label>活动类别<input id="editCategory" maxlength="32" required></label><label>标题（最多四行）<textarea id="editTitle" maxlength="120" rows="2" required></textarea></label><label>副文案（最多四行）<textarea id="editSubtitle" maxlength="180" rows="2" required></textarea></label><label>落款<input id="editFooter" maxlength="40" required></label><button type="submit" id="updateContent">更新画布</button><details class="type-controls"><summary>排版微调</summary><label>标题字号 <output id="titleScaleValue">100%</output><input type="range" id="titleScale" min="65" max="130" step="5" value="100"></label><label>换行方式<select id="lineBreaks"><option value="auto">自动平衡；保留手动换行</option><option value="manual">只使用我输入的换行</option></select></label><label>信息密度<select id="densityControl"><option value="compact">紧凑</option><option value="balanced">均衡</option><option value="airy">大留白</option></select></label></details><p id="contentStatus" role="status">只改本张内容，不从文案推断你的偏好。</p></form></section>
 <div class="art-slot">            <div class="artboard">
-              <div id="directionPreview" class="direction-preview" aria-label="当前原创海报预览" hidden></div>
+              <p id="layoutWarning" class="layout-warning" role="status" hidden></p><div id="directionPreview" class="direction-preview" aria-label="当前原创海报预览" hidden></div>
               <article id="poster" class="poster" aria-label="实时海报">
                 <div class="poster-meta">
                   <span id="posterCategory">周末灵感计划</span
@@ -94,14 +93,15 @@
                 >900 × 1200 · SVG 与 PNG 使用当前同一张画布</span
               >
             </div>
-            <section id="comparisonPanel" class="comparison-panel" aria-label="单变量偏好实验" hidden>
-              <div class="section-heading"><h2>同一内容，只变一项</h2><button id="closeComparison">关闭对照</button></div>
+            <section id="comparisonPanel" class="comparison-panel" aria-label="构图与参数比较" hidden>
+              <div class="section-heading"><h2 id="comparisonTitle">同一内容，比较两个方案</h2><button id="closeComparison">关闭对照</button></div>
               <p class="hint">选择只是临时试用，可直接导出作品。授权保存后才形成长期规则。</p>
-              <label for="comparisonDimension">这次只比较</label><select id="comparisonDimension"><option value="typography">字体</option><option value="artDirection">设计方向</option><option value="layoutDensity">留白</option><option value="colorMood">色彩</option><option value="alignment">对齐</option><option value="decorElements">装饰</option></select>
+              <label for="comparisonDimension">比较什么</label><select id="comparisonDimension"><option value="typography">字体</option><option value="artDirection">设计方向</option><option value="layoutDensity">留白</option><option value="colorMood">色彩</option><option value="alignment">对齐</option><option value="decorElements">装饰</option></select><div id="directionPair" class="direction-pair"><label>A 构图<select id="compareA"></select></label><label>B 构图<select id="compareB"></select></label><button id="refreshComparison">生成对照</button></div><p id="comparisonScopeNote" class="hint"></p>
               <div id="comparisonVariants" class="comparison-variants"></div>
               <button id="skipComparison">两张都不选，不记住偏好</button>
               <button id="backToComparison" hidden>← 重新比较 A / B</button><div id="comparisonDecision" class="comparison-decision" hidden><p id="comparisonChoice"></p><p id="replacementSummary" class="hint"></p><div class="resolution"><button data-comparison-scope="once">使用这张，不保存偏好<small>仅应用当前画布</small></button><button data-comparison-scope="current">记在当前场景<small>不改变其他场景</small></button><button data-comparison-scope="global">修正为全局规则<small>覆盖这一维旧规则</small></button></div></div>
             </section></div></div>
+            <section class="candidate-tray" aria-label="临时作品候选"><div><h3>留住两个候选</h3><p>只存作品快照，不存成审美规则。</p><button id="pinCandidate">留作候选</button></div><div id="candidateList"></div></section>
             <div class="transport">
               <button id="pause">暂停整理</button
               ><button id="undo">撤回上一步</button
@@ -176,14 +176,15 @@
             <summary>工具调用轨迹 <span id="logCount">0</span></summary>
             <div id="logs" aria-label="真实状态机操作记录"></div>
           </details>
-          <section class="takeaway"><h3>把偏爱带走，而不是锁在这里</h3><p>说明书分开列出线索、明确规则与场景；作品可直接导出，不必保存偏好。说明书包含私人反馈，单独导出。</p><div class="takeaway-actions"><button id="exportBrief">导出偏好说明书</button><button id="undoMemory" disabled>撤回上次记忆操作</button></div></section>
+          <section class="takeaway"><h3>把偏爱带走，而不是锁在这里</h3><p>说明书分开列出线索、明确规则与场景；作品可直接导出，不必保存偏好。说明书包含私人反馈，单独导出。</p><div class="takeaway-actions"><button id="exportBrief">导出说明书 Markdown</button><button id="exportBriefJson">导出可复用 JSON</button><label class="import-label">导入说明书<input type="file" id="importBrief" accept=".json,.md,application/json,text/markdown"></label><button id="undoMemory" disabled>撤回上次记忆操作</button></div></section>
           <p class="brain-foot">
             喜欢整张，不等于喜欢每个参数。先保留线索，再由你验证、决定记忆范围。
           </p>
         </aside>
       </div>
     </main>
+    <dialog id="importDialog" aria-labelledby="importTitle"><h2 id="importTitle">把旧偏爱带回来</h2><p>只合并下列规则，保留原有场景和“明确／待验证”属性。其他规则与文案不变；取消不会写入。</p><div id="importSummary"></div><div class="takeaway-actions"><button id="confirmImport">确认导入并应用当前场景</button><button id="cancelImport">取消</button></div></dialog>
     <dialog id="saveRuleDialog" aria-labelledby="saveRuleTitle"><form method="dialog"><h2 id="saveRuleTitle">记住哪一项？</h2><p id="saveRuleDescription"></p><label>适用范围<select id="saveRuleScope"><option value="current">当前场景</option><option value="global">全局（所有场景）</option></select></label><p id="saveRuleReplaced"></p><div class="takeaway-actions"><button id="confirmRule" value="confirm">确认保存这项规则</button><button value="cancel">取消，继续临时试用</button></div></form></dialog>
-    <script type="module" src="app.js?v=20261101-atelier1"></script>
+    <script type="module" src="app.js?v=20261101-depth1"></script>
   </body>
 </html>
