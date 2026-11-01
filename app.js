@@ -15,7 +15,7 @@ const hl = (s) => esc(s).replace(
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data.json?v=rag-54e28d7336d4');
+    const res = await fetch('data.json?v=rag-4ee1828c9db2');
     if (!res.ok) throw new Error('Profile data could not be loaded');
     data = await res.json();
     if (typeof applyResumeEvidence === 'function') applyResumeEvidence(data);

@@ -6,8 +6,8 @@ const L = (zh, en) => ({ zh, en });
 
 export const identity = {
   title: L('我做 AI 应用，也关注它如何进入真实生活与业务。', 'I build AI products for real life and real work.'),
-  intro: L('从需求洞察、工作流设计到效果评测和上线验证，关注产品是否好用，也关注转化、留存与经营结果。', 'From user research and workflow design to evaluation and launch, I care about usability, conversion, retention and business results.'),
-  short: L('AI 产品经理，做 AI 应用与 Agent，也做增长与商业化。', 'AI product manager working across AI applications, Agents, growth and monetisation.'),
+  intro: L('设计 Agent 工作流、工具调用和评测机制，也能用代码把原型跑起来。用 SQL / Python 分析数据，通过 A/B 实验验证转化、留存与商业化假设。', 'I design Agent workflows, tool use and evaluation, and build working prototypes in code. I use SQL, Python and A/B experiments to test conversion, retention and monetisation assumptions.'),
+  short: L('AI 产品经理，做 AI 应用与 Agent，也做增长和商业化。', 'AI product manager working across AI applications, Agents, growth and monetisation.'),
 };
 
 export const directions = [

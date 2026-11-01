@@ -10,7 +10,7 @@ import {renderProductPrinciples} from '../assets/product-principles.mjs';
 import {renderAiViews} from '../assets/ai-views.mjs';
 import {applyPersonalPresentation,transformPersonalHTML,patchPersonalApp} from '../content/personal-presentation.mjs';
 const localReview=process.argv.includes('--local');
-const releaseVersion='20261101-personal1';
+const releaseVersion='20261101-personal2';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
@@ -95,6 +95,7 @@ html=html.replace(/<script src="embed\.js[^\"]*"><\/script>\n?/,'');
 html=html.replace('<script src="app.js',`<script type="module" src="assets/demo-showcase.mjs?v=${releaseVersion}"></script>\n<script src="app.js`);
 html=html.replace(/src="railnav\.js\?v=[^"]*"/,`src="railnav.js?v=${releaseVersion}"`);
 html=html.replace(/src="projects-split\.js\?v=[^"]*"/,`src="projects-split.js?v=${releaseVersion}"`);
+html=html.replace(/href="projects-split\.css\?v=[^"]*"/,`href="projects-split.css?v=${releaseVersion}"`);
 // The public master is indexable; --local is available for a private review build.
 if(localReview)html=html.replace('<meta charset="UTF-8">','<meta charset="UTF-8">\n<meta name="robots" content="noindex,nofollow">');
 html=html.replace(/src="app\.js\?v=[^"]*"/,`src="app.js?v=${releaseVersion}"`).replace(/src="jd\.js\?v=[^"]*"/,`src="jd.js?v=${releaseVersion}"`);

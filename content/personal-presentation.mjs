@@ -10,10 +10,15 @@ export const awardDestinations=[
 export function applyPersonalPresentation(data){
  data.about.facts=[
   {k:'学术训练',kEn:'Academic background',v:'电子电气工程 / 金融工程',vEn:'Electrical engineering / Financial engineering'},
-  {k:'做事方式',kEn:'Working approach',v:'先做原型，再用数据验证',vEn:'Build a prototype, then test with data'},
-  {k:'工作语言',kEn:'Working languages',v:'中文 / English',vEn:'Chinese / English'},
-  {k:'屏幕之外',kEn:'Outside work',v:'骑行、电子音乐，也打德州扑克',vEn:'Cycling, electronic music and poker'}
+  {k:'做事方式',kEn:'Working approach',v:'时间对每个人都是公平的。\n先执行，再思考。',vEn:'Time treats everyone equally.\nAct first, then think.'},
+  {k:'工作语言',kEn:'Working languages',v:'中文 / English / 法语（不熟练）',vEn:'Chinese / English / French (not fluent)'},
+  {k:'屏幕之外',kEn:'Outside work',v:'汽车、骑行、电子音乐，也打德州扑克',vEn:'Cars, cycling, electronic music and poker'}
  ];
+ const tags=[
+  [['订单流','日内交易','量化建模','市场微观结构','交易信号研究'],['Order flow','Intraday trading','Quantitative modelling','Market microstructure','Trading signal research']],
+  [['可穿戴设备','姿态监测','人体工学','传感数据','机器学习','移动端交互'],['Wearable devices','Posture monitoring','Ergonomics','Sensor data','Machine learning','Mobile interaction']]
+ ];
+ data.education.forEach((education,i)=>{if(education.thesis&&tags[i]){education.thesis.tags=tags[i][0];education.thesis.tagsEn=tags[i][1]}});
  const names=['Dean’s List','James Dyson Award','UCL Business Game','Bloomberg Global Trading Challenge'];
  data.awards.forEach(a=>{const d=awardDestinations[names.findIndex(name=>a.name.startsWith(name))];if(d){a.url=d[0];a.linkLabel=d[1];a.linkLabelEn=d[2]}});
  return data;
@@ -41,7 +46,7 @@ export function transformPersonalHTML(html,data){
  html=html.replace(/<p class="hero-tagline[^>]*>[\s\S]*?<\/p>/,`<p class="hero-tagline reveal">${renderIntro(data)}</p>`);
  html=html.replace('<div id="awardList" class="award-list"></div>',`<div id="awardList" class="award-list">${renderHonours(data.awards)}</div>`);
  html=html.replace('<div id="contactGrid" class="contact-grid"></div>',`<div id="contactGrid" class="contact-grid">${renderContacts(data.contact)}</div>`);
- const themes=[['frost','霜 · 象牙纸','#f5f2eb','#d9481c','#446477'],['copper','苔 · 亚麻','#f0f1e7','#4b623c','#b3593e'],['mist','瓷 · 雾蓝','#eef3f7','#31588b','#b55d45'],['indigo','绢 · 藕红','#f6eff0','#993d58','#587461']];
+ const themes=[['frost','霜 · 象牙纸','#f5f2eb','#d9481c','#446477'],['copper','夜 · 深海','#10222d','#a0d5d4','#e9b27e'],['mist','陶 · 赤砂','#ead0bf','#823b27','#386251'],['indigo','野 · 苔原','#d9e7d4','#315f45','#a34940']];
  html=html.replace(/<button type="button" class="ps-btn"[^>]*><\/button>/g,()=>{const a=themes.shift();return `<button type="button" class="ps-btn" data-palette="${a[0]}" data-name="${a[1]}" style="--sw-bg:${a[2]};--sw-accent:${a[3]};--sw-third:${a[4]}" aria-label="${a[1]}" aria-pressed="${a[0]==='frost'}"></button>`});
  return html;
 }

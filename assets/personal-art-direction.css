@@ -1,9 +1,9 @@
 /* A local refinement of the existing site. Theme IDs remain stable for saved preferences. */
 [data-palette]{color-scheme:light;--edge-highlight:inset 0 1px 0 rgba(255,255,255,.7);--edge-highlight-strong:inset 0 1px 0 rgba(255,255,255,.9);--elev-1:0 1px 2px rgba(var(--shadow-rgb),.06),0 2px 6px rgba(var(--shadow-rgb),.05);--elev-2:0 1px 2px rgba(var(--shadow-rgb),.07),0 6px 18px rgba(var(--shadow-rgb),.08),0 14px 32px rgba(var(--shadow-rgb),.05);--elev-3:0 2px 4px rgba(var(--shadow-rgb),.08),0 12px 32px rgba(var(--shadow-rgb),.11),0 28px 60px rgba(var(--shadow-rgb),.07);--glass-bg:rgba(255,255,255,.66);--glass-blur:16px;--glass-border:rgba(var(--fg-rgb),.09);--inset-1:inset 0 1px 2px rgba(var(--shadow-rgb),.07)}
 [data-palette=frost]{--fg-dim:#6e665e;--third:#446477;--third-rgb:68,100,119;--mesh-3:rgba(68,100,119,.10)}
-[data-palette=copper]{--bg-rgb:240,241,231;--bg-0:#f0f1e7;--bg-1:#e8ebdd;--bg-2:#dfe4d3;--bg-3:#d1dac1;--bg-4:#bdcaaa;--accent:#4b623c;--accent-rgb:75,98,60;--accent-bright:#698150;--accent-dim:#3c5130;--second:#b3593e;--second-rgb:179,89,62;--third:#426f7b;--third-rgb:66,111,123;--fg:#22291f;--fg-rgb:34,41,31;--fg-muted:#4d5848;--fg-dim:#5f6c57;--shadow-rgb:33,43,27;--mesh-1:rgba(75,98,60,.12);--mesh-2:rgba(179,89,62,.09);--mesh-3:rgba(66,111,123,.09)}
-[data-palette=mist]{--bg-rgb:238,243,247;--bg-0:#eef3f7;--bg-1:#e4ecf2;--bg-2:#d8e3ec;--bg-3:#cbd9e5;--bg-4:#b6cada;--accent:#31588b;--accent-rgb:49,88,139;--accent-bright:#4d75a3;--accent-dim:#24446d;--second:#b55d45;--second-rgb:181,93,69;--third:#50766e;--third-rgb:80,118,110;--fg:#1c2b39;--fg-rgb:28,43,57;--fg-muted:#4a5c6a;--fg-dim:#586874;--shadow-rgb:23,42,59;--mesh-1:rgba(49,88,139,.12);--mesh-2:rgba(181,93,69,.08);--mesh-3:rgba(80,118,110,.1)}
-[data-palette=indigo]{--bg-rgb:246,239,240;--bg-0:#f6eff0;--bg-1:#efe4e7;--bg-2:#e8d9df;--bg-3:#deccd4;--bg-4:#ceb6c2;--accent:#993d58;--accent-rgb:153,61,88;--accent-bright:#b15f76;--accent-dim:#803149;--second:#587461;--second-rgb:88,116,97;--third:#526c87;--third-rgb:82,108,135;--fg:#34262c;--fg-rgb:52,38,44;--fg-muted:#61515a;--fg-dim:#74616c;--shadow-rgb:51,28,40;--mesh-1:rgba(153,61,88,.11);--mesh-2:rgba(88,116,97,.09);--mesh-3:rgba(82,108,135,.1)}
+[data-palette=copper]{color-scheme:dark;--bg-rgb:16,34,45;--bg-0:#10222d;--bg-1:#172f3b;--bg-2:#203d49;--bg-3:#2b4b58;--bg-4:#3b5f6c;--accent:#a0d5d4;--accent-rgb:160,213,212;--accent-bright:#c4e9e4;--accent-dim:#71b4b9;--second:#e9b27e;--second-rgb:233,178,126;--third:#9dadd8;--third-rgb:157,173,216;--fg:#eef2ec;--fg-rgb:238,242,236;--fg-muted:#becfd1;--fg-dim:#9bb4b9;--shadow-rgb:3,9,16;--mesh-1:rgba(160,213,212,.12);--mesh-2:rgba(233,178,126,.07);--mesh-3:rgba(157,173,216,.12);--glass-bg:rgba(23,47,59,.78);--glass-border:rgba(238,242,236,.14);--edge-highlight:inset 0 1px 0 rgba(238,242,236,.06);--edge-highlight-strong:inset 0 1px 0 rgba(238,242,236,.1);--elev-1:0 2px 7px rgba(3,9,16,.22);--elev-2:0 7px 22px rgba(3,9,16,.3);--elev-3:0 16px 44px rgba(3,9,16,.34);--inset-1:inset 0 1px 3px rgba(3,9,16,.3)}
+[data-palette=mist]{--bg-rgb:234,208,191;--bg-0:#ead0bf;--bg-1:#e0c2af;--bg-2:#d6b49d;--bg-3:#cda68b;--bg-4:#bd9176;--accent:#823b27;--accent-rgb:130,59,39;--accent-bright:#9b4e35;--accent-dim:#6d2f1f;--second:#386251;--second-rgb:56,98,81;--third:#4f6288;--third-rgb:79,98,136;--fg:#372b26;--fg-rgb:55,43,38;--fg-muted:#5d483c;--fg-dim:#624b3d;--shadow-rgb:58,32,18;--mesh-1:rgba(130,59,39,.12);--mesh-2:rgba(56,98,81,.08);--mesh-3:rgba(79,98,136,.07);--glass-bg:rgba(250,232,217,.68);--glass-border:rgba(55,43,38,.14)}
+[data-palette=indigo]{--bg-rgb:217,231,212;--bg-0:#d9e7d4;--bg-1:#cbdcc5;--bg-2:#bed1b7;--bg-3:#adc4a5;--bg-4:#9bb593;--accent:#315f45;--accent-rgb:49,95,69;--accent-bright:#4e7a58;--accent-dim:#234c35;--second:#a34940;--second-rgb:163,73,64;--third:#4b627a;--third-rgb:75,98,122;--fg:#213529;--fg-rgb:33,53,41;--fg-muted:#435c45;--fg-dim:#50684e;--shadow-rgb:22,45,28;--mesh-1:rgba(49,95,69,.12);--mesh-2:rgba(163,73,64,.07);--mesh-3:rgba(75,98,122,.08);--glass-bg:rgba(232,242,226,.68);--glass-border:rgba(33,53,41,.13)}
 [data-palette] ::selection{background:var(--accent);color:#fff}
 [data-palette] .showcase-direction select{color-scheme:light}
 [data-palette] .btn-primary,[data-palette] .showcase .showcase-open{background:var(--accent-dim);color:#fff}
@@ -117,3 +117,21 @@
 @media(prefers-reduced-motion:reduce){.project-atmosphere svg{animation:none;transform:none}.hero-portrait:hover .portrait-ring{transform:rotate(4deg)}[data-palette] .hero-portrait:hover .portrait-img{transform:none}.portrait-ring,.practice-open svg,.honour-link svg,.award-item.honour-row,#contact .contact-item{transition:none}}
 @media(prefers-reduced-transparency:reduce){#contact .contact-item.contact-email{background:var(--bg-1);backdrop-filter:none;-webkit-backdrop-filter:none}}
 @media(max-width:600px){.project-atmosphere{inset-inline:0}}
+
+/* One shared section rhythm, measured from the approved numbers → AI interval (88px desktop). */
+:root{--section-space:clamp(48px,6.875vw,88px);--section-leading:calc(var(--section-space)*.86);--section-trailing:calc(var(--section-space)*.14)}
+#about,#selected,#ai,#work,#education,#projects,#awards,#uses,#skills,#jd,#contact{padding-top:var(--section-leading);padding-bottom:var(--section-trailing)}
+#selected.showcase{padding-top:var(--section-leading);padding-bottom:var(--section-trailing)}
+main>.stats{padding-top:var(--section-leading);padding-bottom:var(--section-trailing)}
+#education .thesis-item:last-child{padding-bottom:0}
+.about-fact dd{white-space:pre-line}
+.hero-summary{font-size:15.5px;line-height:1.85;max-width:47ch}
+
+/* Night is composed as a dark material system, rather than a pale theme with changed accents. */
+[data-palette=copper] ::selection{background:var(--accent);color:var(--bg-0)}
+[data-palette=copper] .showcase-direction select{color-scheme:dark}
+[data-palette=copper] .btn-primary,[data-palette=copper] .showcase .showcase-open{background:var(--accent);color:var(--bg-0)}
+[data-palette=copper] #contact .contact-email:hover{background:var(--bg-2);border-color:rgba(var(--third-rgb),.4)}
+[data-palette=copper] .portrait-ring{background:rgba(var(--third-rgb),.035)}
+[data-palette=copper] .portrait-blob{background:linear-gradient(150deg,rgba(var(--third-rgb),.16),rgba(var(--second-rgb),.05))}
+@media(max-width:600px){.hero-summary{font-size:15px;max-width:35ch}}

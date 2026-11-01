@@ -36,7 +36,7 @@ const selectedIds=source=>tags(source,'a').filter(tag=>'data-selected-id' in tag
 // Only the tagline, right-hand fact panel and award destinations may change in
 // the supplied personal data. Protect the full career/education/AI/stat objects,
 // not a hand-picked sample of their visible text or business numbers.
-const allowed=['tagline','taglineEn','about','projects','awards'];
+const allowed=['tagline','taglineEn','about','projects','awards','education'];
 assert.deepEqual(
   without(current,allowed),without(baseline,allowed),
   'Presentation work changed protected personal, career, education, stats or AI data'
@@ -51,11 +51,14 @@ const awardText=award=>without(award,['url','linkLabel','linkLabelEn']);
 assert.deepEqual(current.awards.map(awardText),baseline.awards.map(awardText),
   'An award name, result or metadata changed');
 assert.deepEqual(current.contact,baseline.contact,'A supplied contact value changed');
+const educationFacts=education=>education.map(entry=>({...entry,thesis:without(entry.thesis,['tags','tagsEn'])}));
+assert.deepEqual(educationFacts(current.education),educationFacts(baseline.education),'Degree or thesis facts changed beyond approved tags');
 
 // The reusable transformation must remain presentation-only when applied to
 // the published data; generation must not depend on accidental local edits.
 const transformed=applyPersonalPresentation(clone(baseline));
-assert.deepEqual(without(transformed,['about','awards']),without(baseline,['about','awards']));
+assert.deepEqual(without(transformed,['about','awards','education']),without(baseline,['about','awards','education']));
+assert.deepEqual(current.education,transformed.education,'Generated thesis tags are stale');
 assert.deepEqual(without(transformed.about,['facts']),without(baseline.about,['facts']));
 assert.deepEqual(transformed.awards.map(awardText),baseline.awards.map(awardText));
 assert.deepEqual(current.about.facts,transformed.about.facts,'Generated fact panel is stale');
@@ -92,7 +95,7 @@ assert.ok(!tags(html,'div').some(tag=>classes(tag).includes('hero-scroll')),'Her
 
 // Four palettes stay keyboard-addressable and keep their existing storage IDs.
 const palettes=tags(html,'button').filter(tag=>classes(tag).includes('ps-btn'));
-const expectedPalettes=[['frost','霜 · 象牙纸'],['copper','苔 · 亚麻'],['mist','瓷 · 雾蓝'],['indigo','绢 · 藕红']];
+const expectedPalettes=[['frost','霜 · 象牙纸'],['copper','夜 · 深海'],['mist','陶 · 赤砂'],['indigo','野 · 苔原']];
 assert.deepEqual(palettes.map(tag=>[tag['data-palette'],tag['data-name']]),expectedPalettes);
 for(const palette of palettes){
   assert.equal(palette.type,'button');
