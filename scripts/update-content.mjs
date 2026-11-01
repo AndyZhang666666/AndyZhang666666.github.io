@@ -1,5 +1,6 @@
 // The original shell stays intact. Scoped showcase/library presentation is generated here.
 import fs from 'node:fs';
+import {pokerLabMetadata} from '../content/poker-lab.mjs';
 import {execFileSync} from 'node:child_process';
 import {identity,projects,studies,aiPractices,evidenceDims} from '../content/editorial.mjs';
 import {presentationFor} from '../content/project-presentation.mjs';
@@ -37,6 +38,7 @@ for(const p of projects){
  entry.name=p.name.zh;entry.nameEn=p.name.en;
  entry.description=s?.project===p.id?s.summary.zh:p.description.zh;
  entry.descriptionEn=s?.project===p.id?s.summary.en:p.description.en;
+ if(p.id==='poker-ev')Object.assign(entry,pokerLabMetadata);
  if(s){entry.iterationUrl=`/cases/${s.id}/`;entry.caseLabel=s.project===p.id?'设计过程':'关联案例';entry.caseLabelEn=s.project===p.id?'Design process':'Related case';}
  // A shared case is a reference, never permission to overwrite another project's facts.
  if(s?.project===p.id){
@@ -94,6 +96,8 @@ html=html.replace(/src="projects-split\.js\?v=[^"]*"/,`src="projects-split.js?v=
 // The public master is indexable; --local is available for a private review build.
 if(localReview)html=html.replace('<meta charset="UTF-8">','<meta charset="UTF-8">\n<meta name="robots" content="noindex,nofollow">');
 html=html.replace(/src="app\.js\?v=[^"]*"/,`src="app.js?v=${releaseVersion}"`).replace(/src="jd\.js\?v=[^"]*"/,`src="jd.js?v=${releaseVersion}"`);
+html=html.replace('</head>','<link rel="stylesheet" href="assets/poker-lab-preview.css?v=20261101">\n</head>');
+html=html.replace('</body>','<script type="module" src="assets/poker-lab-preview.mjs?v=20261101"></script>\n</body>');
 fs.writeFileSync('index.html',html);
 let app=original('app.js');
 app=app.replace(/^[ \t]*<div class="(?:principle-num|ai-view-num)">[^\n]*<\/div>\n/gm,'');

@@ -1,0 +1,13 @@
+/* Use the portfolio's existing type, ink, accent and theme variables. */
+.pk-lab-quick{margin-top:1rem;max-width:560px;user-select:text;-webkit-user-select:text}
+.pk-lab-quick p{font-size:.875rem;line-height:1.6;margin:0 0 .35rem;color:var(--fg)}
+.pk-lab-quick small{display:block;font-size:.75rem;line-height:1.6;color:var(--fg-muted,var(--fg));opacity:.78}
+.pk-lab-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin:.65rem 0}
+.pk-lab-actions button{font:inherit;font-size:.8125rem;min-height:40px;padding:.45rem .85rem;border:1px solid rgba(var(--fg-rgb),.24);border-radius:6px;background:transparent;color:var(--fg);cursor:pointer}
+.pk-lab-actions button:hover{border-color:var(--accent)}
+.pk-lab-actions button:disabled{opacity:.65;cursor:default}
+.pk-lab-actions button:focus-visible,.pk-lab-actions a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.pk-lab-actions a{font-size:.8125rem;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.pk-lab-quick .pk-lab-answer{font-size:.8125rem;min-height:0}
+.pk-lab-answer:empty{display:none}
+@media(max-width:640px){.pk-lab-actions button{min-height:44px}.pk-lab-quick{max-width:100%}}
