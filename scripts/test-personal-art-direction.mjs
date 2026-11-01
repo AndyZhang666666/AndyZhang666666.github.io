@@ -63,9 +63,43 @@ assert.deepEqual(without(transformed.about,['facts']),without(baseline.about,['f
 assert.deepEqual(transformed.awards.map(awardText),baseline.awards.map(awardText));
 assert.deepEqual(current.about.facts,transformed.about.facts,'Generated fact panel is stale');
 
-// No demo is removed or silently replaced by this presentation round.
+// Integrate only the explicitly approved product copy from this immutable Demo
+// delivery: c2eb81a26346480c0c8767f94768b917f8ee8cee. The four IDs may change
+// description, approach, result and presentation.decision in both languages;
+// only Eval may additionally change context/contextEn. Everything else, including
+// all URLs, ownership, ordering, images, metadata and the other 13 projects,
+// remains protected by a full-array equality check against the published data.
+const approvedDemoCommit='c2eb81a26346480c0c8767f94768b917f8ee8cee';
+const approvedDemoProjects=JSON.parse(execFileSync('git',['show',`${approvedDemoCommit}:data.json`],{cwd:root,encoding:'utf8'})).projects;
+const approvedDemoCopyPaths={
+  taste:['description','descriptionEn','approach','approachEn','result','resultEn','presentation.decision.zh','presentation.decision.en'],
+  eval:['description','descriptionEn','context','contextEn','approach','approachEn','result','resultEn','presentation.decision.zh','presentation.decision.en'],
+  commute:['description','descriptionEn','approach','approachEn','result','resultEn','presentation.decision.zh','presentation.decision.en'],
+  bundle:['description','descriptionEn','approach','approachEn','result','resultEn','presentation.decision.zh','presentation.decision.en']
+};
+const expectedProjects=clone(baseline.projects);
+for(const project of expectedProjects){
+  const paths=approvedDemoCopyPaths[project.id];
+  if(!paths)continue;
+  const approved=approvedDemoProjects.find(candidate=>candidate.id===project.id);
+  assert.ok(approved,`Approved Demo snapshot is missing ${project.id}`);
+  for(const fieldPath of paths){
+    const keys=fieldPath.split('.');
+    let target=project,source=approved;
+    for(const key of keys.slice(0,-1)){
+      assert.ok(Object.hasOwn(target,key)&&Object.hasOwn(source,key),`Missing approved copy path ${project.id}.${fieldPath}`);
+      target=target[key];source=source[key];
+    }
+    const leaf=keys.at(-1);
+    assert.ok(Object.hasOwn(target,leaf)&&Object.hasOwn(source,leaf),`Missing approved copy field ${project.id}.${fieldPath}`);
+    target[leaf]=clone(source[leaf]);
+  }
+}
+assert.deepEqual(approvedDemoProjects,expectedProjects,
+  'Pinned Demo delivery changed a project outside the explicit approved copy paths');
+// No demo is removed, silently replaced or otherwise changed by integration.
 const projectIds=current.projects.map(project=>project.id);
-assert.deepEqual(current.projects,baseline.projects,'Demo descriptions, metadata or functionality changed in a presentation-only round');
+assert.deepEqual(current.projects,expectedProjects,'Project data changed outside the exact approved Demo copy');
 assert.equal(projectIds.length,17,'Keep all 17 existing projects');
 assert.equal(new Set(projectIds).size,17,'Project IDs must remain unique');
 assert.deepEqual(projectIds,baseline.projects.map(project=>project.id),'Project identity/order changed');

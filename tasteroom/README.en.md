@@ -14,10 +14,12 @@ Edit poster copy and export SVG or 900x1200 PNG without saving a preference. A/B
 
 ## Try it
 
-1. Open the design workbench and compare Swiss modernist and deconstructed compositions with the same copy.
+The current development branch adds six independent compositions, two artwork candidates, any explicit A/B direction pair, and reusable preference briefs. This update has not been published yet. JSON v1 and previous Markdown briefs are validated and previewed before merging rules; artwork exports never contain private feedback. [Implementation boundaries](docs/PRODUCT-DEPTH.md).
+
+1. Choose among Swiss, deconstructed, editorial, Bauhaus, Japanese whitespace and two-ink compositions using the same copy. Keep up to two candidate artworks without saving preference rules.
 2. Use a single-variable comparison for typography, spacing, colour or another dimension. Pick A, B or neither; a choice alone is not permission to save a rule.
 3. Choose once, the current context or all contexts. Switch content and context to inspect the result, then revoke or edit the memory.
-4. Export the poster as a self-contained SVG or export a style brief that keeps clues and explicit rules separate.
+4. Export SVG or 900×1200 PNG from the same renderer. Export a style brief as Markdown or reusable JSON; import it with an explicit replacement preview before applying rules.
 
 ## Decisions in the interface
 

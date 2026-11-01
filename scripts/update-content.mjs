@@ -10,7 +10,8 @@ import {renderProductPrinciples} from '../assets/product-principles.mjs';
 import {renderAiViews} from '../assets/ai-views.mjs';
 import {applyPersonalPresentation,transformPersonalHTML,patchPersonalApp} from '../content/personal-presentation.mjs';
 const localReview=process.argv.includes('--local');
-const releaseVersion='20261101-personal2';
+const releaseVersion='20261101-integrated1';
+const showcaseVersion='20261101-integrated1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
@@ -92,7 +93,7 @@ html=html.replace('</head>',`<link rel="stylesheet" href="assets/demo-showcase.c
 html=html.replace('</head>',`<link rel="stylesheet" href="assets/product-principles.css?v=${releaseVersion}">\n</head>`);
 // Small native previews replace whole-app iframes and the old parallel calculators.
 html=html.replace(/<script src="embed\.js[^\"]*"><\/script>\n?/,'');
-html=html.replace('<script src="app.js',`<script type="module" src="assets/demo-showcase.mjs?v=${releaseVersion}"></script>\n<script src="app.js`);
+html=html.replace('<script src="app.js',`<script type="module" src="assets/demo-showcase.mjs?v=${showcaseVersion}"></script>\n<script src="app.js`);
 html=html.replace(/src="railnav\.js\?v=[^"]*"/,`src="railnav.js?v=${releaseVersion}"`);
 html=html.replace(/src="projects-split\.js\?v=[^"]*"/,`src="projects-split.js?v=${releaseVersion}"`);
 html=html.replace(/href="projects-split\.css\?v=[^"]*"/,`href="projects-split.css?v=${releaseVersion}"`);
@@ -130,7 +131,7 @@ for(const study of studies){
  const evidenceLinks=study.evidenceLinks?`<div class="case-evidence-links">${study.evidenceLinks.map(link=>`<a class="project-link" href="${esc(link.href)}"${link.href.startsWith('http')?' target="_blank" rel="noopener"':''}>${pair('span','',link.label)} ↗</a>`).join('')}</div>`:'';
  const related=(study.related||[]).map(id=>data.projects.find(p=>p.id===id)).filter(Boolean);
  const relatedLinks=related.length?`<aside class="case-related">${pair('h2','',{zh:'关联工具',en:'Related tools'})}${related.map(p=>`<a href="${esc(p.url||p.iterationUrl)}">${pair('span','',{zh:p.name,en:p.nameEn})} ↗</a>`).join('')}</aside>`:'';
- const body=`<section class="section case-intro"><div class="section-head">${pair('h1','',study.title)}</div>${pair('p','case-summary',study.summary)}<div class="project-links">${primary}<a class="project-link" href="/#projects" data-zh="返回作品集" data-en="Back to work">返回作品集</a></div>${pair('p','case-text',study.status)}${image(study.image,study.caption?.zh)}</section>`+
+ const body=`<section class="section case-intro"><div class="section-head">${pair('h1','',study.title)}</div>${pair('p','case-summary',study.summary)}${['trust','taste','bundles','commute'].includes(study.id)?pair('p','case-text',study.watch):''}<div class="project-links">${primary}<a class="project-link" href="/#projects" data-zh="返回作品集" data-en="Back to work">返回作品集</a></div>${pair('p','case-text',study.status)}${image(study.image,study.caption?.zh)}</section>`+
  section('problem','要解决的问题','The problem',pair('p','about-lead',study.question)+pair('p','about-body',study.problem)+pair('p','about-body',study.role))+
  section('approach','方案与取舍','Options and tradeoffs',pair('p','about-lead',study.insight)+`<div class="principle-grid">${study.choices.map(([a,b])=>`<article class="principle-card">${pair('h3','principle-title',a)}${pair('p','principle-desc',b)}</article>`).join('')}</div>`)+
  section('mechanism','把判断变成机制','Making the decision work',`<ol class="case-mechanism">${study.decisions.map(d=>`<li>${pair('h3','principle-title',d.title)}${pair('p','principle-desc',d.text)}</li>`).join('')}</ol>${evidenceLinks}${study.secondaryImage!==study.image?image(study.secondaryImage,study.artifact.zh):''}`)+
