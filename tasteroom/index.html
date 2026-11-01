@@ -61,14 +61,14 @@
           <div id="experiment" hidden>
             <div class="section-heading">
               <h2 id="canvasTitle">一张海报，正在学你的偏爱</h2>
-              <div class="export-bar"><span id="runState">临时画布</span><a class="edit-copy-link" href="#posterContentForm">编辑文案</a><button id="exportPoster">导出 SVG</button><button id="exportPng">导出 PNG</button></div>
+              <div class="export-bar"><span id="runState">临时画布</span><button type="button" id="quickDirections" aria-expanded="false" aria-controls="directionGallery">六种构图</button><a class="edit-copy-link" href="#posterContentForm">编辑文案</a><button id="exportPoster">导出 SVG</button><button id="exportPng">导出 PNG</button></div>
             </div>
             <div id="directionGallery" class="direction-gallery" aria-label="六种构图：使用当前同一份文案" hidden></div>
             <div class="creation-board">
             <section class="poster-content-editor"><section class="design-directions" aria-label="选择设计方向"><div><h2>当前构图</h2><p>作品先行，记忆由你决定。</p></div><button id="openDirections" type="button" aria-expanded="false" aria-controls="directionGallery">更换构图 · 六种原创方向</button><p id="directionStatus" class="hint"></p><p id="directionCapacity" class="hint"></p><button type="button" id="rememberDirection" hidden>记住当前场景的设计方向</button></section>
 <h3>这张海报写什么？</h3><form id="posterContentForm"><label>内容起点<select id="contentPreset"><option value="custom">自己的内容</option><option value="0">展映活动</option><option value="1">旧书交换</option><option value="2">产品分享会</option></select></label><label>活动类别<input id="editCategory" maxlength="32" required></label><label>标题（最多四行）<textarea id="editTitle" maxlength="120" rows="2" required></textarea></label><label>副文案（最多四行）<textarea id="editSubtitle" maxlength="180" rows="2" required></textarea></label><label>落款<input id="editFooter" maxlength="40" required></label><button type="submit" id="updateContent">更新画布</button><details class="type-controls"><summary>排版微调</summary><label>标题字号 <output id="titleScaleValue">100%</output><input type="range" id="titleScale" min="65" max="130" step="5" value="100"></label><label>换行方式<select id="lineBreaks"><option value="auto">自动平衡；保留手动换行</option><option value="manual">只使用我输入的换行</option></select></label><label>信息密度<select id="densityControl"><option value="compact">紧凑</option><option value="balanced">均衡</option><option value="airy">大留白</option></select></label></details><p id="contentStatus" role="status">只改本张内容，不从文案推断你的偏好。</p></form></section>
 <div class="art-slot">            <div class="artboard">
-              <p id="layoutWarning" class="layout-warning" role="status" hidden></p><div id="directionPreview" class="direction-preview" aria-label="当前原创海报预览" hidden></div>
+              <p id="layoutWarning" class="layout-warning" role="status" hidden></p><div id="overflowActions" class="overflow-actions" hidden><button type="button" id="autoWrap">重新平衡换行</button><button type="button" id="reduceTitle">缩小标题字号</button><a href="#posterContentForm">修改文字</a></div><div id="directionPreview" class="direction-preview" aria-label="当前原创海报预览" hidden></div>
               <article id="poster" class="poster" aria-label="实时海报">
                 <div class="poster-meta">
                   <span id="posterCategory">周末灵感计划</span
