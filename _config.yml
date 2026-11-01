@@ -40,3 +40,10 @@ exclude:
   - agent-bench/README.md
   - agent-bench/requirements.txt
   - agent-bench/requirements-dev.lock
+
+  # Four-product release development records and build helpers.
+  - docs/FOUR-SELECTED-20261030.md
+  - docs/RELEASE-20261101.md
+  - scripts/test-four-selected.mjs
+  - scripts/verify-four-selected-browser.mjs
+  - scripts/sync-commute-preview.mjs

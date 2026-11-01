@@ -8,7 +8,7 @@ import {renderSelected} from '../content/showcase.mjs';
 import {renderProductPrinciples} from '../assets/product-principles.mjs';
 import {renderAiViews} from '../assets/ai-views.mjs';
 const localReview=process.argv.includes('--local');
-const releaseVersion='20261029-new-work1';
+const releaseVersion='20261031-usable-four1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
@@ -47,6 +47,7 @@ for(const p of projects){
  }
  if(entry.url?.startsWith('https://andyzhang666666.github.io'))entry.url=entry.url.slice('https://andyzhang666666.github.io'.length)||'/';
  if(p.id==='taste')entry.url='/tasteroom/?direction=swiss';
+ if(p.id==='bundle'){entry.url='/bundle-lab/simulate/';entry.analysisUrl='/bundle-lab/';}
  entry.presentation=presentationFor(entry);
  const cover=captures.find(record=>record.id===entry.presentation.image?.split('/').pop().replace('.jpg',''));
  if(cover?.cropSize)entry.presentation.coverSize=cover.cropSize;

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-29T13:45:15.288Z",
-  "source": "http://127.0.0.1:8811",
+  "updatedAt": "2026-10-31T02:12:03.595Z",
+  "source": "http://127.0.0.1:8820",
   "method": "Actual product screenshots in isolated empty contexts; per-product result states and regions. No model calls or real user state. Existing untouched captures retain their own timestamps.",
   "records": [
     {
@@ -12,15 +12,15 @@
         "width": 1280,
         "height": 1000
       },
-      "capturedAt": "2026-10-29T00:30:50.873Z",
-      "state": "Historical structure score, located quotation, independent needs-context review. Review is made only in this disposable capture context.",
+      "capturedAt": "2026-10-31T02:12:01.185Z",
+      "state": "Historical structure score and source evidence in the focused workspace; independent needs-context review in a disposable browser context, no new model call.",
       "fullPage": true,
       "cropSize": {
-        "width": 489,
-        "height": 513
+        "width": 1200,
+        "height": 820
       },
-      "fullSha256": "e882aa531349716519aa2e118a2c521643d84754631362bcd8886e97d88f4cd2",
-      "cropSha256": "f79e82a794edaca66322bfdb85bae20189c02ea7f5ecf27edbc868d161a43818"
+      "fullSha256": "8236efe7fe8d72a860da8f4b5bae49b5b7e9356bd09807b441101b0568dd2c83",
+      "cropSha256": "b4528fe4ec1cb3e57e7da20b4b7f4b468878a23f822db6d7a8864713f5d18937"
     },
     {
       "id": "taste",
@@ -31,15 +31,15 @@
         "width": 1280,
         "height": 1000
       },
-      "capturedAt": "2026-10-29T00:29:36.415Z",
-      "state": "Canonical single-variable typography comparison; B chosen, scope not yet authorised. Full image also shows the explicit scope options.",
+      "capturedAt": "2026-10-31T02:05:12.372Z",
+      "state": "Editable Swiss SVG poster with custom demonstration copy; visible SVG and 900x1200 PNG export controls, no saved preference.",
       "fullPage": true,
       "cropSize": {
-        "width": 802,
-        "height": 577
+        "width": 848,
+        "height": 652
       },
-      "fullSha256": "877b651716aa408ab59899465b4eb56c284159bd29ecb635986bf7db03417c78",
-      "cropSha256": "388046871587501629ad74c8d859c4f39bdbbdc179e4c6d4f9c647675a60120b"
+      "fullSha256": "8cba1328b9e07a8aa19be27b6e5df3662adc60f3aa667255c303a52d547815b0",
+      "cropSha256": "dc287ef7dbef4a7c868c98d3ecc535b1644451fbb97754b2f0415572d917e14a"
     },
     {
       "id": "suibianju",
@@ -69,15 +69,15 @@
         "width": 1280,
         "height": 1000
       },
-      "capturedAt": "2026-10-29T00:29:38.748Z",
+      "capturedAt": "2026-10-31T02:12:02.399Z",
       "state": "Actual cola + chicken rice candidate, default canonical assumptions; negative middle-case contribution, two-population ledger and break-even gate.",
       "fullPage": true,
       "cropSize": {
-        "width": 594,
-        "height": 598
+        "width": 1208,
+        "height": 720
       },
-      "fullSha256": "2adcd813e20a73aaa87c90811bdd82aed03bb159d1f458b8257ee4283225e4f2",
-      "cropSha256": "bb4187b8242d94bb60c64708c386961379e313a74e045b8fe4dca3da236f6704"
+      "fullSha256": "08b9be13a13156df062de3613a5659c6e9b0e2d9c37ec3ebf1bfe7ea9cf3dee8",
+      "cropSha256": "44f2eaf13be3a96dff5f54bfb32adad370642287052a5eb195736ad627fc3315"
     },
     {
       "id": "filing",
@@ -161,18 +161,18 @@
       "full": "assets/work/showcase/commute.jpg",
       "crop": "assets/work/showcase/commute-crop.jpg",
       "viewport": {
-        "width": 1440,
+        "width": 1280,
         "height": 1000
       },
-      "clip": {
-        "x": 24,
-        "y": 100,
-        "width": 1392,
-        "height": 870
+      "capturedAt": "2026-10-31T02:12:03.589Z",
+      "state": "Two illustrative routes, canonical monthly tradeoff and a disposable example choice with reason; independent snapshot is not a real travel observation.",
+      "fullPage": true,
+      "cropSize": {
+        "width": 1136,
+        "height": 705
       },
-      "fullSha256": "21d0c8116065ca6cfe4b28a9746749a307f69c1ea837f589a34ff49e69630645",
-      "cropSha256": "29558c587ad13e2891853b6a53f9bcfc3ba5a7ae792ecae0a662a38122b1ec45",
-      "capturedAt": "2026-10-28T03:29:39.908Z"
+      "fullSha256": "5ada7963adb40aed94421591899e2df5bc185da3b134a9e9025f3200cc404c49",
+      "cropSha256": "9d78121e4958e48fd23eb64ce49d2a9d47047e82e204fd32b4c20cee2894e8dc"
     },
     {
       "id": "agent-bench",

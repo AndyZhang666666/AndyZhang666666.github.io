@@ -412,19 +412,19 @@
           "en": "What did you like about that poster?"
         },
         "decision": {
-          "zh": "把构图、字体和留白拆开比较，再确认记忆范围。",
-          "en": "Compare design variables before deciding what to remember."
+          "zh": "先编辑并导出作品，构图与参数可比较；偏好保存另行确认。",
+          "en": "Edit and export a poster, compare settings, then separately confirm preference memory."
         },
         "image": "/assets/work/showcase/taste.jpg",
         "caption": {
-          "zh": "偏爱实验室 · 同内容只变字体；选 B 后仍待授权范围",
-          "en": "TasteRoom · Same content, only type changes; choosing B still requires scope consent"
+          "zh": "偏爱实验室 · 可编辑画布与 SVG / PNG 导出",
+          "en": "TasteRoom · Editable canvas and SVG / PNG export"
         },
         "kind": "demo",
         "thumbnail": "/assets/work/showcase/taste-crop.jpg",
         "coverSize": {
-          "width": 802,
-          "height": 577
+          "width": 848,
+          "height": 652
         }
       }
     },
@@ -612,8 +612,8 @@
           "en": "Does the evidence support the judge’s low score?"
         },
         "decision": {
-          "zh": "原文、引句和评语放在一起，人工判断另行记录。",
-          "en": "Review source, quotation and comment without overwriting the original score."
+          "zh": "可导入自己的五维结果，保留原分；核对引用后带走复核报告。",
+          "en": "Import your five-dimension results, preserve scores, review quotations and export a report."
         },
         "image": "/assets/work/showcase/eval.jpg",
         "caption": {
@@ -623,8 +623,8 @@
         "kind": "demo",
         "thumbnail": "/assets/work/showcase/eval-crop.jpg",
         "coverSize": {
-          "width": 489,
-          "height": 513
+          "width": 1200,
+          "height": 820
         }
       }
     },
@@ -806,8 +806,8 @@
       "nameEn": "Commute Compare",
       "subtitle": "比较通勤成本、耗时与迟到风险",
       "subtitleEn": "Compare commute cost, duration and lateness risk",
-      "description": "多花多少钱，换多少时间与迟到风险",
-      "descriptionEn": "Compare cost, travel time and late-arrival risk",
+      "description": "输入自己的路线与费用，比较每月花费、节省时间和波动。用个人记录校准一条路线，再保存选择与理由。",
+      "descriptionEn": "Enter routes and fares, compare monthly cost, time and variation, then calibrate one route and save your choice.",
       "url": "/commute-compare/",
       "github": "https://github.com/AndyZhang666666/commute-compare",
       "metrics": [
@@ -830,37 +830,46 @@
         "Monte Carlo",
         "Product"
       ],
-      "context": "通勤者想知道多花多少钱换多少时间，但通常无法准确估计最慢情况。",
-      "contextEn": "Commuters need time/cost trade-offs but rarely know the tail of their journey time distribution.",
+      "context": "图表能列出哪个更快，却不知道一个人愿意为舒适、少换乘或早回家付多少。只给结论不保留输入，条件变了还容易沿用旧决定。",
+      "contextEn": "A chart cannot decide how much someone values comfort, fewer transfers or an earlier return. Without preserved inputs, an old decision may outlive its conditions.",
       "approach": [
-        "默认两个方案，常见耗时与费用即可开始；高级三点参数与城市预设继续保留",
-        "实际记录按经验分布抽样，显示样本不足；数字确认后再计算，拖动松开才提交，损坏草稿不自动覆盖，导出只用当前已确认输入"
+        "先把时间换成同一单位：首位展示每月多花、节省小时和每省一小时的费用。零时间优势不显示无穷大的比值，更慢的路线单独说明。",
+        "只校准这一条路线：从结果直达对应路线的记录输入，应用记录不会改动另一条路线。估算、个人记录与模型内范围各自标识。",
+        "决定是快照，不随参数漂移：保存参数、模型版本、比较结果和理由。修改输入时保留旧选择，并要求重新确认；重算或无效输入期间锁定当前导出。"
       ],
       "approachEn": [
-        "Start with two routes and typical time/cost; retain advanced three-point inputs and city presets.",
-        "Resample observations with visible sample limits. Confirm numeric edits, preview drag changes before committing, preserve invalid saved drafts, and export only results bound to confirmed inputs."
+        "Use a comparable unit: Lead with monthly cost, hours saved and cost per hour saved. Equal time has no infinite ratio; slower routes are described separately.",
+        "Calibrate one route: Open the selected route’s records without changing the other route. Distinguish estimates, personal observations and modelled ranges.",
+        "A choice is a snapshot: Save inputs, model version, results and reason. Input edits preserve the previous choice but require reconfirmation; pending or invalid states block current exports."
       ],
-      "result": "无需地图或模型接口；记录与草稿只存本机。月度比较假设往返同分布；建议时间及尾部比例受输入限制，不保证未来准点率。",
-      "resultEn": "No map or model API. Records and drafts remain local. Monthly comparisons assume matching outbound/return distributions; departure suggestions do not guarantee future punctuality.",
+      "result": "浏览器实际检查了自定义路线、单条记录校准、选择保存、参数改变后重新确认与 JSON 导出。计算与状态检查不等于真实出行验证；未接地图或实时交通。 快速估算降低了输入负担，也引入了三点分布假设。实际记录仍可能不包含雨天或异常，不能把模型内尾部风险当成未来准点承诺。",
+      "resultEn": "Browser checks cover custom inputs, single-route calibration, saved choices, reconfirmation and JSON export. These do not establish real-world travel accuracy; no map or live-traffic service is connected. Quick entry lowers effort but introduces distribution assumptions. Personal records may miss disruptions, so modelled risk is not a punctuality guarantee.",
       "id": "commute",
       "category": "personal",
       "group": "main",
+      "iterationUrl": "/cases/commute/",
+      "caseLabel": "设计过程",
+      "caseLabelEn": "Design process",
       "presentation": {
         "question": {
           "zh": "多花一点钱，能换回多少可靠时间？",
           "en": "How much reliable travel time does a higher fare buy?"
         },
         "decision": {
-          "zh": "一起比较耗时、成本和迟到风险，保留输入与结果。",
-          "en": "Compare time, cost and lateness risk while preserving assumptions."
+          "zh": "输入自己的路线，校准记录，保存带理由的个人选择。",
+          "en": "Enter your routes, calibrate records and save a reasoned personal choice."
         },
         "image": "/assets/work/showcase/commute.jpg",
         "caption": {
-          "zh": "通勤方案比较器 · 成本与到达风险",
-          "en": "Commute Compare · Cost and arrival risk"
+          "zh": "通勤比较器 · 每月代价、记录校准与决策卡",
+          "en": "Commute Compare · Monthly tradeoffs, calibration and a decision card"
         },
         "kind": "demo",
-        "thumbnail": "/assets/work/showcase/commute-crop.jpg"
+        "thumbnail": "/assets/work/showcase/commute-crop.jpg",
+        "coverSize": {
+          "width": 1136,
+          "height": 705
+        }
       }
     },
     {
@@ -1108,7 +1117,7 @@
       "subtitleEn": "Discover bundle opportunities from co-purchased items",
       "description": "经常一起买，只能提出套餐假设。分开计算新增购买与既有顾客领折扣的成本，再决定值不值得试。",
       "descriptionEn": "Co-purchases suggest a bundle hypothesis. Separate incremental purchases from discounts to existing buyers before deciding what to test.",
-      "url": "/bundle-lab/",
+      "url": "/bundle-lab/simulate/",
       "github": "https://github.com/AndyZhang666666/bundle-lab",
       "metrics": [
         "两类人群核算",
@@ -1145,14 +1154,15 @@
       "iterationUrl": "/cases/bundles/",
       "caseLabel": "设计过程",
       "caseLabelEn": "Design process",
+      "analysisUrl": "/bundle-lab/",
       "presentation": {
         "question": {
           "zh": "套餐卖得更多，为什么反而少赚了？",
           "en": "Why can a bundle sell more and still earn less?"
         },
         "decision": {
-          "zh": "把新增购买的贡献和既有顾客的让利分开计算。",
-          "en": "Separate incremental contribution from discounts to existing buyers."
+          "zh": "自建商品算例，分开核对新增毛利与让利，导出待验证的假设。",
+          "en": "Build a product scenario, separate contribution from discount leakage and export assumptions to validate."
         },
         "image": "/assets/work/showcase/bundle.jpg",
         "caption": {
@@ -1162,8 +1172,8 @@
         "kind": "demo",
         "thumbnail": "/assets/work/showcase/bundle-crop.jpg",
         "coverSize": {
-          "width": 594,
-          "height": 598
+          "width": 1208,
+          "height": 720
         }
       }
     },

@@ -1,0 +1,92 @@
+{
+  "at": "2026-10-31T02:16:36.794Z",
+  "scope": "Local browser and core path verification; not a production outcome or model evaluation",
+  "runs": {
+    "taste-check.json": {
+      "png": [
+        900,
+        1200
+      ],
+      "trial_preserves_memory": true,
+      "scope_and_undo": true,
+      "widths": [
+        1440,
+        768,
+        390
+      ],
+      "errors": []
+    },
+    "flows.json": {
+      "bundle": {
+        "own_inputs": true,
+        "zero_adoption_loss": true,
+        "source_drafts_independent": true,
+        "markdown": true,
+        "errors": []
+      },
+      "eval": {
+        "import_roundtrip": true,
+        "missing_quote_preserved": true,
+        "bad_import_preserves_material": true,
+        "no_key_preserves_own_text": true,
+        "errors": []
+      },
+      "commute": {
+        "own_conditions": true,
+        "single_route_calibration": true,
+        "snapshot_export": true,
+        "empty_input_locks_export": true,
+        "reconfirmation": true,
+        "errors": []
+      }
+    },
+    "storage-check.json": [
+      {
+        "project": "taste",
+        "storage_blocked_export": true,
+        "reduced_motion": true,
+        "errors": []
+      },
+      {
+        "project": "bundle",
+        "storage_blocked_export": true,
+        "reduced_motion": true,
+        "errors": []
+      },
+      {
+        "project": "eval",
+        "storage_blocked_export": true,
+        "reduced_motion": true,
+        "errors": []
+      },
+      {
+        "project": "commute",
+        "storage_blocked_export": true,
+        "reduced_motion": true,
+        "errors": []
+      }
+    ],
+    "showcase-check.json": {
+      "passed": true,
+      "checks": [
+        "Four native interactions are isolated, correct and lazy; complete-app destinations preserve supported state only",
+        "Desktop, tablet, mobile; all four themes, all directions and panels have no horizontal overflow",
+        "Keyboard tabs, Home/End and real-image enlargement preserve focus; reduced motion keeps all tasks operable",
+        "Static HTML has all four entry points and all 17 projects without JavaScript; all relevant paths return 200"
+      ],
+      "errors": [],
+      "writes": []
+    },
+    "generation-check.json": {
+      "passed": true,
+      "generationIdempotent": true,
+      "protectedFiles": [
+        "style.css",
+        "railnav.js",
+        "assets/product-principles.mjs",
+        "assets/product-principles.css"
+      ],
+      "captureHashes": true
+    }
+  }
+}

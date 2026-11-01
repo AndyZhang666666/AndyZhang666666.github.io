@@ -9,26 +9,36 @@ const records=old.records.map(record=>({...record,capturedAt:record.capturedAt||
 const browser=await chromium.launch({channel:'chrome',headless:true});
 const hash=value=>crypto.createHash('sha256').update(value).digest('hex');
 try{
- for(const id of (process.argv.slice(2).length?process.argv.slice(2):['eval','taste','suibianju','bundle'])){
+ for(const id of (process.argv.slice(2).length?process.argv.slice(2):['eval','taste','bundle','commute'])){
   const context=await browser.newContext({viewport:{width:1280,height:1000},reducedMotion:'reduce'}),page=await context.newPage();
-  const route={eval:'/llm-output-eval/',taste:'/tasteroom/?direction=swiss',suibianju:'/suibianju/',bundle:'/bundle-lab/simulate/','agent-bench':'/agent-bench/','rag-lab':'/rag-lab/'}[id];
+  const route={eval:'/llm-output-eval/',taste:'/tasteroom/?direction=swiss',suibianju:'/suibianju/',bundle:'/bundle-lab/simulate/',commute:'/commute-compare/','agent-bench':'/agent-bench/','rag-lab':'/rag-lab/'}[id];
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
   const response=await page.goto(base+route,{waitUntil:'networkidle'});if(!response?.ok())throw Error(route+' did not load');
   await page.evaluate(()=>document.fonts.ready);
   let region,state;
   if(id==='eval'){
-   await page.locator('.dimension-card').filter({hasText:'结构完整性'}).locator('.evidence-link').first().click();
-   await page.locator('.evidence-context mark').waitFor();
+   await page.locator('.dimension-nav button').filter({hasText:'结构完整性'}).click();
+   await page.locator('.quote-list button').first().click();
+   await page.locator('.source-document mark').waitFor();
    await page.locator('.evidence-review select').selectOption('needs_context');
-   await page.locator('.evidence-review textarea').fill('引句确实存在；需结合完整故事结构，再判断是否支持原评语。');
-   const review=await page.locator('.evidence-review').boundingBox(),verdict=await page.locator('.evidence-review select').boundingBox(),scroll=await page.evaluate(()=>({x:scrollX,y:scrollY}));
-   if(!review||!verdict)throw Error('The independent verdict field must be visible');
-   region={clip:{x:review.x+scroll.x,y:review.y+scroll.y,width:review.width,height:verdict.y+verdict.height-review.y+15}};
-   state='Historical structure score, located quotation, independent needs-context review. Review is made only in this disposable capture context.';
+   await page.locator('.evidence-review textarea').fill('引句存在；需结合完整故事结构判断这条评语。');
+   await page.evaluate(()=>{document.activeElement.blur();scrollTo(0,0)});
+   const box=await page.locator('.focused-workspace').boundingBox();
+   region={clip:{x:box.x,y:box.y,width:box.width,height:Math.min(box.height,820)}};
+   state='Historical structure score and source evidence in the focused workspace; independent needs-context review in a disposable browser context, no new model call.';
   }else if(id==='taste'){
-   await page.locator('#rememberDirection').click();await page.locator('#startComparison').click();
-   await page.locator('#comparisonDimension').selectOption('typography');await page.locator('[data-comparison-side=b]').click();
-   region=page.locator('#comparisonVariants');state='Canonical single-variable typography comparison; B chosen, scope not yet authorised. Full image also shows the explicit scope options.';
+   await page.locator('#editTitle').fill('今晚散步\n不聊工作');
+   await page.locator('#posterContentForm button').click();
+   const top=await page.locator('#experiment>.section-heading').boundingBox(),board=await page.locator('.creation-board').boundingBox();
+   region={clip:{x:top.x,y:top.y,width:board.width,height:board.y+board.height-top.y}};
+   state='Editable Swiss SVG poster with custom demonstration copy; visible SVG and 900x1200 PNG export controls, no saved preference.';
+  }else if(id==='commute'){
+   await page.waitForFunction(()=>document.querySelector('#personal-decision')?.getAttribute('aria-busy')==='false');
+   await page.locator('.decision-reason textarea').fill('当前演示中，费用比这段省下的时间更重要。');
+   await page.getByRole('button',{name:'选择这个方案',exact:true}).first().click();
+   await page.evaluate(()=>{document.activeElement.blur();scrollTo(0,0)});
+   region=page.locator('#personal-decision');
+   state='Two illustrative routes, canonical monthly tradeoff and a disposable example choice with reason; independent snapshot is not a real travel observation.';
   }else if(id==='suibianju'){
    await page.locator('#quick').click();await page.locator('[data-action=understand]').click();await page.locator('[data-action=submit]').click();
    await page.locator('[data-action=conflict]').click();await page.locator('[data-action=prepare-plan]').first().click();
@@ -53,7 +63,7 @@ try{
    state='Public fictional corpus, actual BM25 retrieval and rule extraction for 2026-10-28 / baseline: 14-day rule with version 2.0 and source paragraph. No model call.';
   }else{
    await page.locator('#picked').selectOption('可乐 + 鸡腿饭');
-   await page.locator('#scenario-result').waitFor();region=page.locator('#scenario-result');
+   await page.locator('#scenario-result').waitFor();const box=await page.locator('.sim-work').boundingBox();region={clip:{x:box.x,y:box.y+await page.evaluate(()=>scrollY),width:box.width,height:Math.min(box.height,720)}};
    state='Actual cola + chicken rice candidate, default canonical assumptions; negative middle-case contribution, two-population ledger and break-even gate.';
   }
   const full=`${out}/${id}.jpg`,crop=`${out}/${id}-crop.jpg`;

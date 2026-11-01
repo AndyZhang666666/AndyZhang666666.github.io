@@ -23,14 +23,28 @@
   },
   {
     "file": "taste-preview.jpg",
-    "source": "https://andyzhang666666.github.io/tasteroom/?direction=swiss",
-    "captured": "2026-10-31",
-    "viewport": [
-      1280,
-      720
-    ],
-    "mode": "Original synthetic poster comparison. Swiss option selected; stopped before choosing memory scope. No preference rule saved.",
-    "sha256": "9ada17f8cb0d3c6833e4d3aa458c7b852dac9e1acfb213cf01449b1c8c1060af"
+    "copiedAt": "2026-11-01",
+    "sourceCommit": "6940fa0055c0f6003f7d4ebf147a53c1cd432a88",
+    "sourceCapture": {
+      "id": "taste",
+      "route": "/tasteroom/?direction=swiss",
+      "full": "assets/work/showcase/taste.jpg",
+      "crop": "assets/work/showcase/taste-crop.jpg",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "capturedAt": "2026-10-31T02:05:12.372Z",
+      "state": "Editable Swiss SVG poster with custom demonstration copy; visible SVG and 900x1200 PNG export controls, no saved preference.",
+      "fullPage": true,
+      "cropSize": {
+        "width": 848,
+        "height": 652
+      },
+      "fullSha256": "8cba1328b9e07a8aa19be27b6e5df3662adc60f3aa667255c303a52d547815b0",
+      "cropSha256": "dc287ef7dbef4a7c868c98d3ecc535b1644451fbb97754b2f0415572d917e14a"
+    },
+    "sha256": "dc287ef7dbef4a7c868c98d3ecc535b1644451fbb97754b2f0415572d917e14a"
   },
   {
     "file": "agent-replay.gif",

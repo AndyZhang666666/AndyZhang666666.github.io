@@ -1,0 +1,86 @@
+{
+  "source": "Two built-in illustrative Hangzhou estimates; no live traffic",
+  "modelVersion": "stable-route-seed-v2-2026-10-25",
+  "settings": {
+    "workStart": 570,
+    "daysPerMonth": 22,
+    "lateTolerance": 0.05
+  },
+  "months": 2000,
+  "seed": 20260914,
+  "inputs": [
+    {
+      "id": "hangzhou-0",
+      "name": "地铁 1 号线",
+      "min": 42,
+      "mode": 48,
+      "max": 65,
+      "cost": 6,
+      "departureOverride": null
+    },
+    {
+      "id": "hangzhou-2",
+      "name": "打车",
+      "min": 28,
+      "mode": 35,
+      "max": 70,
+      "cost": 45,
+      "departureOverride": null
+    }
+  ],
+  "routes": [
+    {
+      "id": "hangzhou-0",
+      "name": "地铁 1 号线",
+      "daily": {
+        "p10": 44.71812100603485,
+        "p50": 49.39473131074617,
+        "p90": 55.58673274493077,
+        "spread": 10.868611738895922
+      },
+      "monthly": {
+        "hoursP10": 35.97380576221302,
+        "hoursP50": 36.53720228287213,
+        "hoursP90": 37.10022873531002,
+        "cost": 264
+      },
+      "departure": "08:32"
+    },
+    {
+      "id": "hangzhou-2",
+      "name": "打车",
+      "daily": {
+        "p10": 31.188043427881595,
+        "p50": 38.54721895781527,
+        "p90": 49.75175133393429,
+        "spread": 18.56370790605269
+      },
+      "monthly": {
+        "hoursP10": 28.093308443899485,
+        "hoursP50": 29.06445248491236,
+        "hoursP90": 30.092433178795492,
+        "cost": 1980
+      },
+      "departure": "08:37"
+    }
+  ],
+  "tradeoff": {
+    "base": "hangzhou-0",
+    "other": "hangzhou-2",
+    "extraCost": 1716,
+    "savedHours": 7.4727497979597715,
+    "pricePerHour": 229.6343443036868,
+    "kind": "pay-for-time"
+  },
+  "focus": {
+    "fastest": [
+      "hangzhou-2"
+    ],
+    "steadiest": [
+      "hangzhou-0"
+    ],
+    "cheapest": [
+      "hangzhou-0"
+    ]
+  }
+}

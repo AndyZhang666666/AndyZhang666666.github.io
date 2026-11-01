@@ -2,6 +2,9 @@
 
 [Live portfolio](https://andyzhang666666.github.io/) · [中文](README.md) · [GitHub profile](https://github.com/AndyZhang666666) · [Project index](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.en.md)
 
+
+2026-11-01: Featured work now covers Eval Lab, TasteRoom, Bundle Lab and Commute Compare. Bring personal material, export a usable result, and keep original evidence separate from simulated or conditional outcomes. [Release scope](docs/RELEASE-20261101.md).
+
 This repository hosts my personal site and four independent products. Professional experience, product decisions, research and runnable demos are presented separately. Each project explains its data and run mode.
 
 The default featured work is **Agent Execution Bench, Eval Lab, TasteRoom and Bundle Lab**. The AI / Agents direction includes **Trustworthy RAG Lab**. Each direction shows four projects, always retaining Eval Lab; the complete library keeps all 17. [Selection and verification notes, Chinese](docs/NEW-WORK-SHOWCASE-20261029.md).

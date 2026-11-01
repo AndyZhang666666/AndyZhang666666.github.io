@@ -1,6 +1,7 @@
 // Resume and project facts live in data.json. This file contains presentation and product analysis.
 import {specificStudies} from './specific-studies.mjs';
 import {newWorkStudies} from './new-work-studies.mjs';
+import {usableStudies} from './usable-studies.mjs';
 const L = (zh, en) => ({ zh, en });
 
 export const identity = {
@@ -10,10 +11,10 @@ export const identity = {
 };
 
 export const directions = [
-  { id:'all', label:L('综合推荐','Overview'), order:['execution','trust','taste','bundles'] },
-  { id:'ai', label:L('AI / Agent','AI / Agents'), order:['execution','trust','rag','taste'] },
-  { id:'life', label:L('生活与创新','Life & innovation'), order:['taste','execution','trust','bundles'] },
-  { id:'growth', label:L('增长与商业化','Growth & monetisation'), order:['bundles','trust','execution','taste'] },
+  { id:'all', label:L('综合推荐','Overview'), order:['trust','taste','bundles','commute'] },
+  { id:'ai', label:L('AI / Agent','AI / Agents'), order:['trust','taste','bundles','commute'] },
+  { id:'life', label:L('生活与创新','Life & innovation'), order:['taste','commute','trust','bundles'] },
+  { id:'growth', label:L('增长与商业化','Growth & monetisation'), order:['bundles','trust','commute','taste'] },
 ];
 
 export const projects = [
@@ -24,7 +25,7 @@ export const projects = [
   ['filing','ai',L('Filing Eval','Filing Eval'),L('错句与遗漏，分别回到原文核验','Review false claims and omissions separately'),'filing'],
   ['fde','delivery',L('企业 AI 与轻量业务工具','Enterprise AI & business tools'),L('选品、问答、线索与生产记录的流程交付','Workflow delivery for research, support and operations'),'agent-workflow'],
   ['research-agent','delivery',L('个人投研 Agent 与量化研究','Research Agent & quantitative tools'),L('多源研究、盘后复盘与样本外对照','Multi-source research and out-of-sample comparison'),null],
-  ['commute','personal',L('通勤方案比较器','Commute Compare'),L('多花多少钱，换多少时间与迟到风险','Compare cost, travel time and late-arrival risk'),null],
+  ['commute','personal',L('通勤方案比较器','Commute Compare'),L('比较自己的路线，校准记录并保存选择','Compare your routes, calibrate records and save a choice'),'commute'],
   ['poker-quiz','personal',L('扑克玩家类型测试','Poker Style Quiz'),L('用十道题描述自己的打法','Describe your playing style in ten questions'),null],
   ['bankroll','personal',L('扑克筹码管理模拟器','Bankroll Simulator'),L('分开看停止、曾经达标与最终达标','Separate stopping, reaching and finishing above target'),null],
   ['poker-ev','personal',L('扑克期望值计算器','Poker EV Calculator'),L('检查假设估错时，决策会不会改变','Check whether a decision survives a mistaken estimate'),null],
@@ -51,7 +52,7 @@ export const studies = [
     name:L('AI 输出如何被信任','When is AI output worth trusting?'),
     title:L('评测之后，还要能复核。','Scores need evidence.'),
     summary:L('把低分、引句和原文放在一起。用独立的人工判断检查裁判，而不是让一个总分替人作决定。','Bring low scores, quotations and source text together. Let people review the judge instead of outsourcing the decision to one score.'),
-    image:'eval-review.jpg', secondaryImage:'filing-review.jpg',
+    image:'showcase/eval.jpg', secondaryImage:'showcase/eval-crop.jpg',
     alt:L('Eval Lab 实际界面：评分维度、原文与人工复核区域','Actual Eval Lab screen showing dimensions, source text and human review'),
     caption:L('Eval Lab · 历史运行回放与逐维复核','Eval Lab · Historical replay and per-dimension review'),
     status:L('历史回放，可选模型接口','Historical replay; optional model connection'),
@@ -74,14 +75,14 @@ export const studies = [
     tradeoff:L('复核比看总分慢。我的取舍是把人的注意力优先放在低分、错误和争议上，而不是要求逐字读完所有输出。','Review costs more time than reading a score. The tradeoff is to direct attention to low scores, errors and disputes rather than requiring an exhaustive read of every output.'),
     proof:L('Eval Lab 的免 Key 回放包含 6 条样本的 18 次历史输出。Filing Eval 展示 28 条构造公告；原始结果、困难集与未运行的候选留出集分开说明。界面与回归已检查，不等于生产准确率已被证明。','Eval Lab replays 18 saved outputs across six samples. Filing Eval contains 28 constructed notices, with original results, hard cases and unrun holdout candidates reported separately. Interface and regression checks do not establish production accuracy.'),
     next:L('先独立复核标签，再冻结规则，用未参与调参的样本比较漏报与误报；记录复核时间和分歧，不用本机构造集成绩代替泛化结论。','Independently review labels, freeze the rules, then test unseen samples for missed errors and false alarms. Measure review time and disagreement rather than treating constructed-set scores as generalisation.'),
-    artifact:L('可导出的评审记录；断言与遗漏分别复核。','Exportable review records, with claims and omissions reviewed separately.'),
+    artifact:L('可导入、再次读取的 JSON 复核记录与可读 Markdown 报告；原文、原分与人工意见分别保留。','Importable JSON review records and a readable Markdown report preserving source text, original scores and human review.'),
   },
   {
     id:'taste',project:'taste',related:[],
     name:L('AI 如何理解个人偏好','How should AI learn a preference?'),
     title:L('喜欢这张，不等于喜欢全部。','Find what you liked.'),
     summary:L('一张海报里有字体、留白和色彩。先拆开比较，再由用户决定这条偏爱该记在哪个场景。','A poster mixes type, spacing and colour. Compare one variable at a time, then let the person decide where that preference belongs.'),
-    image:'taste-comparison.jpg',secondaryImage:'taste-memory.jpg',
+    image:'showcase/taste.jpg',secondaryImage:'showcase/taste-crop.jpg',
     alt:L('偏爱实验室实际界面，同内容只改变字体的 A/B 海报对照','Actual TasteRoom experiment comparing two posters with only the font changed'),
     caption:L('偏爱实验室 · 单变量对照与记忆范围','TasteRoom · Single-variable comparison and memory scope'),
     status:L('本地规则模拟，无模型调用','Local-rule simulation; no model calls'),
@@ -103,7 +104,7 @@ export const studies = [
     tradeoff:L('多一次验证会增加操作，但能减少“你怎么又替我记住了”的负担。直接参数入口仍保留，避免用户被迫猜关键词。','An extra check adds friction but reduces the cost of unwanted memory. Direct parameter controls remain available, so people need not guess the right wording.'),
     proof:L('目前证明的是单变量对照、范围授权、冲突纠偏和撤回流程可以操作。没有真实用户研究，也没有证明这些画布参数足以代表一个人的审美。','The implemented flow demonstrates controlled comparison, scoped consent, correction and undo. It does not establish real-user value or that these canvas settings capture someone’s taste.'),
     next:L('让首次使用者在两种不同内容与工作、日常两个场景中完成任务，观察错误归因、撤回和重新表达的次数；比较直接配置与逐步探索的负担。','Ask first-time users to complete tasks across different content and work/everyday contexts. Observe wrong attribution, undo and restatement, and compare exploration with direct configuration.'),
-    artifact:L('带来源与场景的偏好说明书、自包含 SVG 海报。','A preference brief with sources and scope, plus a self-contained SVG poster.'),
+    artifact:L('自定义文案的 SVG / 900×1200 PNG 海报；带来源与场景的偏好说明书单独导出。','A custom-copy SVG or 900×1200 PNG poster, plus a separately exported preference brief with sources and scope.'),
   },
   {
     id:'shared-choice',project:'suibianju',related:['grounded'],
@@ -139,7 +140,7 @@ export const studies = [
     name:L('产品如何验证商业收益','How do we test the commercial case?'),
     title:L('卖得更多，先算清让利。','More sales come with a cost.'),
     summary:L('经常一起买，只能提出套餐假设。分开计算新增购买与既有顾客领折扣的成本，再决定值不值得试。','Co-purchases suggest a bundle hypothesis. Separate incremental purchases from discounts to existing buyers before deciding what to test.'),
-    image:'bundle-ledger.jpg',secondaryImage:'bundle-candidates.jpg',
+    image:'showcase/bundle.jpg',secondaryImage:'showcase/bundle-crop.jpg',
     alt:L('Bundle Lab 实际收益推演界面，分开核算新增购买和既有让利','Actual Bundle Lab simulation separating incremental purchases and discounts to existing buyers'),
     caption:L('Bundle Lab · 两类人群的收益账本','Bundle Lab · A two-population contribution ledger'),
     status:L('合成订单，参数化推演','Synthetic orders; assumption-driven simulation'),
@@ -161,11 +162,11 @@ export const studies = [
     tradeoff:L('两类人群仍是简化模型，采纳率、重复购买与商家成本都未被真实订单实验校准。多一个小数位不能补上这些信息。','Two populations are still a simplification. Adoption, repeat purchases and merchant costs have not been calibrated against a live experiment; more decimal places do not fix that.'),
     proof:L('有 4,000 条合成订单和可检查的候选、账本与导出。手算及边界用于验证实现；不能把候选毛利为正或模拟结果写成真实增长。','The demo contains 4,000 synthetic orders with inspectable candidates, ledgers and exports. Hand calculations and edge checks verify implementation, not actual growth.'),
     next:L('先核对商品份量和人群口径，再做小流量对照。预先约定贡献毛利、退款和复购的判断条件，区分新购买与原有整套购买的折扣成本。','Validate portion and segment definitions, then run a small controlled test. Predefine contribution, refund and repeat-purchase conditions, separating new purchases from discounts to existing full-basket buyers.'),
-    artifact:L('带当前假设的收益推演与下一步实验计划。','A contribution comparison and test plan with current assumptions attached.'),
+    artifact:L('自己的商品与经营假设卡，含每100个覆盖订单的贡献、让利、平衡点和待验证条件，可导出 Markdown / JSON。','A Markdown or JSON assumption card for personal products, with contribution, discount leakage, break-even and validation conditions per 100 covered orders.'),
   },
 ];
 
-studies.push(...specificStudies,...newWorkStudies);
+studies.push(...specificStudies,...newWorkStudies,...usableStudies);
 
 // Existing four opinions stay intact. Each now points to a concrete design decision.
 export const aiPractices=[

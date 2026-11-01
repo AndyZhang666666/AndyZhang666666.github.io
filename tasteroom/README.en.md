@@ -4,6 +4,8 @@
 
 Liking a poster does not tell a system which feature you liked, or where that preference should apply. TasteRoom turns this into an editable interaction: compare, identify a clue, confirm its scope, then test it in another context.
 
+Edit poster copy and export SVG or 900x1200 PNG without saving a preference. A/B choices remain temporary until a memory scope is explicitly confirmed.
+
 <!-- github-evidence-20261031 -->
 
 ![Compare the same content; choosing a design remains separate from authorising memory scope.](../docs/assets/github/taste-preview.jpg)

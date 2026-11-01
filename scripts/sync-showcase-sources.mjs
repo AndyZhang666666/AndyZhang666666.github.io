@@ -5,15 +5,17 @@ import crypto from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
 const root=path.resolve(import.meta.dirname,'..');
-const sourceRoot=path.resolve(process.argv[2]||path.join(root,'../demo-polish-2026-10-27'));
+const sourceRoot=path.resolve(process.argv[2]||path.join(root,'..'));
+const aliases={'bundle-lab':'bundle','llm-output-eval':'eval'};
+const repoPath=name=>path.join(sourceRoot,fs.existsSync(path.join(sourceRoot,name))?name:aliases[name]);
 const hash=value=>crypto.createHash('sha256').update(value).digest('hex');
 const pinned=[
-  {repo:'bundle-lab',revision:'55448e1b6c0ea623afd39d3230e1a3332e311f1e',source:'lib/simulate.js',target:'assets/demo-preview/bundle-model.mjs'},
-  {repo:'llm-output-eval',revision:'7cbf20fcfd81767a641b0a830312e6293ea5307a',source:'src/data/replay.json',target:'assets/demo-preview/eval-sample.json'},
+  {repo:'bundle-lab',revision:'b50f57e46ef98ed594a0394e564da84a4c7099da',source:'lib/simulate.js',target:'assets/demo-preview/bundle-model.mjs'},
+  {repo:'llm-output-eval',revision:'ff214286afc4483ee66dd975063e2e497286e554',source:'src/data/replay.json',target:'assets/demo-preview/eval-sample.json'},
 ];
 const manifest={format:1,sources:[]};
 for(const entry of pinned){
-  const cwd=path.join(sourceRoot,entry.repo);
+  const cwd=repoPath(entry.repo);
   const value=execFileSync('git',['show',`${entry.revision}:${entry.source}`],{cwd});
   let output=value;
   if(entry.repo==='llm-output-eval'){
@@ -28,7 +30,7 @@ for(const entry of pinned){
 }
 // Read a real mined candidate from the same pinned synthetic order corpus.
 // Mining stays at build time. The browser reuses the original pure contribution model.
-const bundleRevision=pinned[0].revision,bundleRoot=path.join(sourceRoot,'bundle-lab');
+const bundleRevision=pinned[0].revision,bundleRoot=repoPath('bundle-lab');
 const dependencyPaths=['lib/orders.js','lib/rules.js','data/orders.csv'];
 const inputs=dependencyPaths.map(file=>{
  const value=execFileSync('git',['show',`${bundleRevision}:${file}`],{cwd:bundleRoot});

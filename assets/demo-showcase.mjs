@@ -68,28 +68,25 @@ function initEval(panel){
  clear.addEventListener('click',()=>{press(reviews,null);clear.disabled=true;words(panel.querySelector('[data-eval-verdict]'),'尚未复核','Unreviewed');words(panel.querySelector('[data-eval-status]'),'试用判断已清除；历史评分与原文不变。','Preview review cleared. The saved score and source are unchanged.');});
 }
 async function initTaste(panel){
- const [{directionSvg},{createTastePreview,chooseTaste,authorizeTaste,revokeTaste,tasteSummary,posterContent}]=await Promise.all([import('../tasteroom/directions.js'),import('./demo-preview/taste-session.mjs')]);
- let preview=createTastePreview();
- const directions=[...panel.querySelectorAll('[data-taste-direction]')],choices=[...panel.querySelectorAll('[data-taste-choice]')],scopes=[...panel.querySelectorAll('[data-taste-scope]')];
- const revoke=panel.querySelector('[data-taste-revoke]'),skip=panel.querySelector('[data-taste-skip]');
- function render(){
-  const summary=tasteSummary(preview),hasMemory=!!preview.memory,serif=preview.choice==='b';
-  const value=serif?'书刊衬线':'利落无衬线',valueEn=serif?'editorial serif':'rational sans';
-  choices.forEach((button,i)=>{button.querySelector('[data-taste-poster]').innerHTML=directionSvg({...preview.room,canvas:preview.comparison.variants[i]},posterContent);button.setAttribute('aria-pressed',String(preview.choice===(i?'b':'a')));});
-  press(directions,directions.find(button=>button.dataset.tasteDirection===preview.direction));
-  press(scopes,hasMemory?scopes.find(button=>button.dataset.tasteScope===(summary.once?'once':summary.rule.scope==='work'?'current':'global')):null);
-  scopes.forEach(button=>button.disabled=!preview.choice);revoke.disabled=!hasMemory;
-  words(panel.querySelector('[data-taste-reason]'),preview.choice?`你选了${value}。这一轮只改变字体，因此不推断色彩或留白偏好。`:'还没选择。不会推断你喜欢整张海报的所有特征。',preview.choice?`You chose ${valueEn}. Only type changed, so no colour or spacing preference is inferred.`:'Nothing chosen. No preference is inferred for every feature.');
-  words(panel.querySelector('[data-taste-memory]'),!hasMemory?'未授权':summary.once?'仅本次 · 不形成长期规则':summary.rule.scope==='work'?`工作场景 · ${value}`:`全部场景 · ${value}`,!hasMemory?'Not authorised':summary.once?'This time · No lasting rule':summary.rule.scope==='work'?`Work only · ${valueEn}`:`All contexts · ${valueEn}`);
-  words(panel.querySelector('[data-taste-scope-note]'),hasMemory?'模拟授权可撤回；未写入完整工具或浏览器记忆':'选择范围后才预演授权；不会自动记住',hasMemory?'Reversible preview consent; no full-tool or browser memory is written':'Choose a scope to preview consent. Nothing is remembered automatically');
-  panel.querySelector('[data-selected-demo=taste]').href='/tasteroom/?direction='+preview.direction;
- }
- directions.forEach(button=>{button.disabled=false;button.addEventListener('click',()=>{preview=createTastePreview(button.dataset.tasteDirection);render();words(panel.querySelector('[data-taste-status]'),'构图已切换，重新比较字体；选择与模拟授权已重置。','Composition changed. Compare type again; preview choice and consent have been reset.');feedback(panel.querySelector('.preview-poster-pair'));});});
- choices.forEach(button=>{button.disabled=false;button.addEventListener('click',()=>{const authorized=!!preview.memory;preview=chooseTaste(preview,button.dataset.tasteChoice);render();words(panel.querySelector('[data-taste-status]'),authorized?'选择已变更，旧的模拟授权已撤回。请重新决定适用范围。':'选择先作为线索。你可以决定仅本次、工作场景或全部场景。',authorized?'Choice changed and previous preview consent was withdrawn. Choose its scope again.':'The choice is a clue. Decide whether it applies once, at work or across contexts.');feedback(panel.querySelector('.preview-taste-memory'));});});
- scopes.forEach(button=>button.addEventListener('click',()=>{preview=authorizeTaste(preview,button.dataset.tasteScope);render();words(panel.querySelector('[data-taste-status]'),'已按你选择的范围模拟授权。可以撤回；刷新后清空，不写入真实偏好。','Consent previewed for the scope you chose. Undo is available; reloading clears it and no lasting preference is saved.');feedback(panel.querySelector('.preview-memory-slip'));}));
- revoke.addEventListener('click',()=>{preview=revokeTaste(preview);render();words(panel.querySelector('[data-taste-status]'),'模拟授权已撤回。偏好线索还在，不会继续作为规则使用。','Preview consent withdrawn. The choice remains a clue, not an active rule.');});
- skip.disabled=false;skip.addEventListener('click',()=>{preview=chooseTaste(preview,'skip');render();words(panel.querySelector('[data-taste-status]'),'两张都不选：没有推断偏好，模拟授权也已清除。','Neither selected: no preference inferred and any preview consent cleared.');});
- render();
+ const [{directionSvg},{createTastePreview,posterContent}]=await Promise.all([import('../tasteroom/directions.js'),import('./demo-preview/taste-session.mjs')]);
+ const buttons=[...panel.querySelectorAll('[data-taste-direction]')];
+ buttons.forEach(button=>{button.disabled=false;button.addEventListener('click',()=>{
+  const direction=button.dataset.tasteDirection,{room}=createTastePreview(direction);
+  panel.querySelector('[data-taste-canvas]').innerHTML=directionSvg(room,posterContent);
+  panel.querySelector('[data-selected-demo=taste]').href='/tasteroom/?direction='+direction;
+  press(buttons,button);words(panel.querySelector('[data-taste-status]'),direction==='swiss'?'正在试瑞士构图；只传递设计方向到完整工具，不保存偏好。':'正在试解构构图；内容相同，其他参数保留，不保存偏好。',direction==='swiss'?'Trying Swiss composition. Only the direction transfers; no preference is saved.':'Trying deconstructed composition. Copy and other settings stay the same; no preference is saved.');
+  feedback(panel.querySelector('[data-taste-canvas]'));
+ });});
+}
+function initCommute(panel){
+ const data=fixture('commutePreviewInput'),buttons=[...panel.querySelectorAll('[data-commute-focus]')];
+ const labels={cheapest:['费用','cost'],fastest:['月中位时间','monthly median time'],steadiest:['P10–P90 波动','P10–P90 variation']};
+ buttons.forEach(button=>{button.disabled=false;button.addEventListener('click',()=>{
+  const ids=data.focus[button.dataset.commuteFocus],names=data.routes.filter(r=>ids.includes(r.id)).map(r=>r.name).join(' / '),label=labels[button.dataset.commuteFocus];
+  panel.querySelectorAll('[data-commute-route]').forEach(node=>node.dataset.focused=String(ids.includes(node.dataset.commuteRoute)));
+  press(buttons,button);words(panel.querySelector('[data-commute-status]'),label[0]+'最低：'+names+'。只是当前模型内比较；未保存个人选择。','Lowest '+label[1]+': '+names+'. A model comparison, not a saved personal choice.');
+  feedback(panel.querySelector('.preview-commute-routes'));
+ });});
 }
 async function initShared(panel){
  const {previewConditions}=await import('../suibianju/product.mjs?v=20261024-v2');
@@ -129,7 +126,7 @@ if(root){
  const direction=root.querySelector('#showcaseDirection'),tabs=root.querySelector('.showcase-choices');
  const allTabs=[...tabs.querySelectorAll('[data-selected-id]')],panels=[...root.querySelectorAll('[data-preview]')];
  const material=createShowcaseMotion(root);
- const pending=new Map(),loaders={'trust':initEval,'taste':initTaste,'shared-choice':initShared,'bundles':initBundle,'execution':initExecution,'rag':initRag};
+ const pending=new Map(),loaders={'trust':initEval,'taste':initTaste,'shared-choice':initShared,'bundles':initBundle,'commute':initCommute,'execution':initExecution,'rag':initRag};
  function activate(id,announce=true){
   const tab=allTabs.find(tab=>tab.dataset.selectedId===id);if(!tab||tab.hidden)return;
   const previous=allTabs.find(item=>item.getAttribute('aria-selected')==='true')?.dataset.selectedId;
