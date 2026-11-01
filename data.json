@@ -1,8 +1,8 @@
 {
   "name": "张千羽",
   "nameEn": "Qianyu Zhang (Andy)",
-  "tagline": "AI 产品经理，做 Agent、评测与商业增长。 从创作 Agent、效果评测，到生活里的新体验。先判断用户需要什么，再决定哪些步骤交给 AI，以及怎样验证它是否有效。",
-  "taglineEn": "AI product manager working across Agents, evaluation and growth. From creative Agents and evaluation to everyday experiments. I start with the user’s task, decide what AI should handle, then define how to tell whether it works.",
+  "tagline": "AI 产品经理，做 AI 应用与 Agent，也做增长与商业化。 从需求洞察、工作流设计到效果评测和上线验证，关注产品是否好用，也关注转化、留存与经营结果。",
+  "taglineEn": "AI product manager working across AI applications, Agents, growth and monetisation. From user research and workflow design to evaluation and launch, I care about usability, conversion, retention and business results.",
   "contact": {
     "phone": "13149829129",
     "email": "andy_zzz@yeah.net",
@@ -1395,34 +1395,28 @@
     "body2En": "In content production, I work on creation Agents, reusable assets and evaluation. In overseas products, I examine conversion and payment paths. When delivering business tools, I first walk the existing process and find the step worth changing.",
     "facts": [
       {
-        "k": "MBTI",
-        "kEn": "MBTI",
-        "v": "ENTJ",
-        "vEn": "ENTJ"
+        "k": "学术训练",
+        "kEn": "Academic background",
+        "v": "电子电气工程 / 金融工程",
+        "vEn": "Electrical engineering / Financial engineering"
       },
       {
-        "k": "教育",
-        "kEn": "Education",
-        "v": "UCL 金融工程 · Bristol 电子电气工程",
-        "vEn": "MSc Financial Engineering, UCL · BEng EEE, Bristol"
+        "k": "做事方式",
+        "kEn": "Working approach",
+        "v": "先做原型，再用数据验证",
+        "vEn": "Build a prototype, then test with data"
       },
       {
         "k": "工作语言",
-        "kEn": "Languages",
-        "v": "中文 · 英语（雅思 7.5）",
-        "vEn": "Chinese · English (IELTS 7.5)"
+        "kEn": "Working languages",
+        "v": "中文 / English",
+        "vEn": "Chinese / English"
       },
       {
-        "k": "关注方向",
-        "kEn": "Focus",
-        "v": "AI 应用产品 · 增长与商业化",
-        "vEn": "AI applications · Growth & monetisation"
-      },
-      {
-        "k": "兴趣",
-        "kEn": "Interests",
-        "v": "德州扑克 · 骑行 · 电子音乐",
-        "vEn": "Poker · Cycling · Electronic music"
+        "k": "屏幕之外",
+        "kEn": "Outside work",
+        "v": "骑行、电子音乐，也打德州扑克",
+        "vEn": "Cycling, electronic music and poker"
       }
     ],
     "principles": [
@@ -1642,25 +1636,37 @@
       "name": "Dean’s List",
       "nameEn": "Dean’s List",
       "meta": "布里斯托大学 · 院系荣誉榜",
-      "metaEn": "University of Bristol · Departmental honours"
+      "metaEn": "University of Bristol · Departmental honours",
+      "url": "https://www.bristol.ac.uk/science-engineering/schools/elec-mech/",
+      "linkLabel": "学院官网",
+      "linkLabelEn": "School website"
     },
     {
       "name": "James Dyson Award 地区赛亚军",
       "nameEn": "James Dyson Award · Regional Runner-up",
       "meta": "布里斯托大学学习期间",
-      "metaEn": "During undergraduate study at Bristol"
+      "metaEn": "During undergraduate study at Bristol",
+      "url": "https://www.jamesdysonaward.org/en-us/faq/",
+      "linkLabel": "赛事官网",
+      "linkLabelEn": "Award website"
     },
     {
       "name": "UCL Business Game 策略挑战赛亚军",
       "nameEn": "UCL Business Game · Strategy Challenge Runner-up",
       "meta": "伦敦大学学院",
-      "metaEn": "University College London"
+      "metaEn": "University College London",
+      "url": "https://ucle.co/",
+      "linkLabel": "主办方官网",
+      "linkLabelEn": "Organiser website"
     },
     {
       "name": "Bloomberg Global Trading Challenge",
       "nameEn": "Bloomberg Global Trading Challenge",
       "meta": "参赛经历",
-      "metaEn": "Competition participation"
+      "metaEn": "Competition participation",
+      "url": "https://portal.bloombergforeducation.com/trading_challenges",
+      "linkLabel": "赛事官网",
+      "linkLabelEn": "Challenge website"
     }
   ],
   "evidenceCatalog": {

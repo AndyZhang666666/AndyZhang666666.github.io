@@ -15,7 +15,7 @@
   var ORDER = ['main', 'cases', 'poker'];
   var GROUPS = {
     main:  { key: 'main',  zh: 'AI 产品与增长', en: 'AI Product & Growth' },
-    cases: { key: 'cases', zh: '交付与研究案例', en: 'Delivery & Research Cases' },
+    cases: { key: 'cases', zh: '也做过这些', en: 'Other things I have built' },
     poker: { key: 'poker', zh: '德州扑克',       en: "Texas Hold'em" }
   };
   /* 每组保底的占位卡数量：数据里已有的 .placeholder 会先计入，不足才补。

@@ -8,8 +8,9 @@ import {renderProjectCards} from '../assets/project-cards.mjs';
 import {renderSelected} from '../content/showcase.mjs';
 import {renderProductPrinciples} from '../assets/product-principles.mjs';
 import {renderAiViews} from '../assets/ai-views.mjs';
+import {applyPersonalPresentation,transformPersonalHTML,patchPersonalApp} from '../content/personal-presentation.mjs';
 const localReview=process.argv.includes('--local');
-const releaseVersion='20261101-craft1';
+const releaseVersion='20261101-personal1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
@@ -27,6 +28,7 @@ data.taglineEn=identity.short.en+' '+identity.intro.en;
 data.about.lead=identity.title.zh;data.about.leadEn=identity.title.en;
 data.about.body=data.about.body.split('。').slice(1).join('。');
 data.about.bodyEn=data.about.bodyEn.split('. ').slice(1).join('. ');
+applyPersonalPresentation(data);
 // Keep the original views; connect each to its own inspectable design decision.
 data.aiViews.items.forEach((item,index)=>item.practice=aiPractices[index]);
 for(const p of projects){
@@ -98,6 +100,11 @@ if(localReview)html=html.replace('<meta charset="UTF-8">','<meta charset="UTF-8"
 html=html.replace(/src="app\.js\?v=[^"]*"/,`src="app.js?v=${releaseVersion}"`).replace(/src="jd\.js\?v=[^"]*"/,`src="jd.js?v=${releaseVersion}"`);
 html=html.replace('</head>','<link rel="stylesheet" href="assets/poker-lab-preview.css?v=20261101">\n</head>');
 html=html.replace('</body>','<script type="module" src="assets/poker-lab-preview.mjs?v=20261101"></script>\n</body>');
+// Art direction stays reproducible in this generator, rather than only in a hand-edited page.
+html=html.replace('</head>',`<link rel="stylesheet" href="assets/section-atmospheres.css?v=${releaseVersion}">\n<link rel="stylesheet" href="assets/personal-art-direction.css?v=${releaseVersion}">\n</head>`);
+html=html.replace(/(education\.(?:css|js)\?v=)[^"']*/g,`$1${releaseVersion}`);
+html=html.replace('</body>',`<script type="module" src="assets/personal-sections.mjs?v=${releaseVersion}"></script>\n<script type="module" src="assets/section-atmospheres.mjs?v=${releaseVersion}"></script>\n</body>`);
+html=transformPersonalHTML(html,data);
 fs.writeFileSync('index.html',html);
 let app=original('app.js');
 app=app.replace(/^[ \t]*<div class="(?:principle-num|ai-view-num)">[^\n]*<\/div>\n/gm,'');
@@ -107,6 +114,7 @@ app=app.replace('<span data-zh="迭代与校验" data-en="Iterations & validatio
 app=app.replace(/function renderProjects\(\) \{[\s\S]*?\n\}\n\nfunction renderAwards/,`function renderProjects() {\n  // Static cards are also present without JavaScript. URLs are bound by project ID.\n  if (typeof window.refreshProjectLibrary === 'function') window.refreshProjectLibrary(data.projects);\n}\n\nfunction renderAwards`);
 app=app.replace(/function renderAiViews\(\) \{[\s\S]*?\n\}/,`function renderAiViews() {\n  // Keep the statically rendered opinions, own examples and reference links.\n  if (typeof window.refreshAiViews === 'function') window.refreshAiViews(data.aiViews?.items || []);\n}`);
 app=app.replace('    initMagnetic();','    initMagnetic();\n    document.dispatchEvent(new Event(\'portfolio:ready\'));');
+app=patchPersonalApp(app);
 fs.writeFileSync('app.js',app);
 
 // New reading pages use the original site's CSS and vocabulary, not the fusion skin.

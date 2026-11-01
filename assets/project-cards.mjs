@@ -1,3 +1,4 @@
+import {renderSidePractice} from '../content/personal-presentation.mjs';
 export const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const e=escapeHtml;
 const text=(tag,cls,zh,en=zh)=>`<${tag}${cls?` class="${cls}"`:''} data-zh="${e(zh)}" data-en="${e(en)}">${e(zh)}</${tag}>`;
@@ -10,6 +11,7 @@ export function renderProjectCards(projects){
  return projects.map(p=>{
   const v=p.presentation||{},poker=p.group==='poker';
   const caseOnly=v.kind==='case';
+  if(caseOnly)return renderSidePractice(p);
   const demoLabel=v.kind==='external'?['前往外站','Visit external site']:['打开完整 Demo','Open full demo'];
   const story=(!p.iterationUrl||poker)?details(p):'';
   const links=`<div class="project-links">${p.url?`<a href="${e(p.url)}" target="_blank" rel="noopener" class="project-link" data-link-kind="demo">${text('span','',...demoLabel)}${icon}</a>`:''}${p.iterationUrl?`<a href="${e(p.iterationUrl)}" target="_blank" rel="noopener" class="project-link muted" data-link-kind="case">${text('span','',p.caseLabel||'设计过程',p.caseLabelEn||'Design process')}</a>`:''}${p.analysisUrl?`<a href="${e(p.analysisUrl)}" target="_blank" rel="noopener" class="project-link muted" data-link-kind="analysis">${text('span','','订单分析','Order analysis')}</a>`:''}${p.github?`<a href="${e(p.github)}" target="_blank" rel="noopener" class="project-link muted" data-link-kind="source">${text('span','',p.sourceLabel||'源码',p.sourceLabelEn||'Source')}</a>`:''}${!poker&&!caseOnly?story:''}</div>`;

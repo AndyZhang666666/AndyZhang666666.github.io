@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>视觉优化与当前线上 · 对照</title>
+  <title>个人官网 · 新配色与主题视觉对照</title>
   <style>
     *{box-sizing:border-box}
     body{margin:0;height:100dvh;display:flex;flex-direction:column;font:14px/1.5 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;color:#232624;background:#f0f1ed}
@@ -36,8 +36,8 @@
 </head>
 <body>
   <header class="toolbar">
-    <div><h1>视觉优化 / 当前线上</h1><p>本轮仅本地预览 · 原风格与动效保留；线上版本未改变</p></div>
-    <label class="project-picker"><span>查看</span><select id="project" aria-label="选择对照项目"><option value="/">个人官网</option><option value="/#selected">四项精选</option><option value="/#projects">完整作品库</option><option value="/llm-output-eval/">Eval Lab</option><option value="/tasteroom/">偏爱实验室</option><option value="/demos/filing-eval/">Filing Eval</option><option value="/suibianju/">随便局</option><option value="/bundle-lab/simulate/">Bundle Lab</option><option value="/commute-compare/">通勤比较器</option></select></label>
+    <div><h1>官网新一轮细调 / 当前线上</h1><p>本轮本地预览 · 新配色、首屏、毕设与德州视觉；四项 Demo 功能留待下一轮</p></div>
+    <label class="project-picker"><span>查看</span><select id="project" aria-label="选择对照项目"><option value="/">个人官网</option><option value="/#about">关于我</option><option value="/#education">教育与毕设</option><option value="/#selected">四项精选</option><option value="/#projects">完整作品库与德州</option><option value="/#awards">奖项</option><option value="/#contact">联系</option><option value="/llm-output-eval/">Eval Lab</option><option value="/tasteroom/">偏爱实验室</option><option value="/demos/filing-eval/">Filing Eval</option><option value="/suibianju/">随便局</option><option value="/bundle-lab/simulate/">Bundle Lab</option><option value="/commute-compare/">通勤比较器</option></select></label>
     <div class="view-switch" role="group" aria-label="对照视图">
       <button type="button" data-view="split" aria-pressed="false">并排对照</button>
       <button type="button" data-view="local" aria-pressed="true">看本地优化</button>
@@ -74,7 +74,7 @@
     document.querySelector('#project').addEventListener('change',changeProject);
     document.querySelectorAll('button[data-view]').forEach(button=>button.addEventListener('click',()=>changeView(button.dataset.view)));
     const start=new URLSearchParams(location.search).get('section');
-    if(start==='selected'||start==='projects')document.querySelector('#project').value='/#'+start;
+    if(['about','education','selected','projects','awards','contact'].includes(start))document.querySelector('#project').value='/#'+start;
     changeProject();
     changeView('local');
   </script>
