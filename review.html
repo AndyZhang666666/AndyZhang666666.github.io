@@ -74,7 +74,8 @@
     document.querySelector('#project').addEventListener('change',changeProject);
     document.querySelectorAll('button[data-view]').forEach(button=>button.addEventListener('click',()=>changeView(button.dataset.view)));
     const start=new URLSearchParams(location.search).get('section');
-    if(start==='selected'||start==='projects'){document.querySelector('#project').value='/#'+start;changeProject();}
+    if(start==='selected'||start==='projects')document.querySelector('#project').value='/#'+start;
+    changeProject();
     changeView('local');
   </script>
 </body>

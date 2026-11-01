@@ -423,8 +423,8 @@
         "kind": "demo",
         "thumbnail": "/assets/work/showcase/taste-crop.jpg",
         "coverSize": {
-          "width": 848,
-          "height": 652
+          "width": 1440,
+          "height": 900
         }
       }
     },
@@ -623,8 +623,8 @@
         "kind": "demo",
         "thumbnail": "/assets/work/showcase/eval-crop.jpg",
         "coverSize": {
-          "width": 1200,
-          "height": 820
+          "width": 1440,
+          "height": 900
         }
       }
     },
@@ -867,8 +867,8 @@
         "kind": "demo",
         "thumbnail": "/assets/work/showcase/commute-crop.jpg",
         "coverSize": {
-          "width": 1136,
-          "height": 705
+          "width": 1440,
+          "height": 900
         }
       }
     },
@@ -1186,8 +1186,8 @@
         "kind": "demo",
         "thumbnail": "/assets/work/showcase/bundle-crop.jpg",
         "coverSize": {
-          "width": 1208,
-          "height": 720
+          "width": 1440,
+          "height": 900
         }
       }
     },
