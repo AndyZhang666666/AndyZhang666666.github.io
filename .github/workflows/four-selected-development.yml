@@ -1,7 +1,7 @@
 name: Four selected products (development only)
 on:
   push:
-    branches: [feat/usable-four-20261030]
+    branches: [feat/usable-four-20261030, feat/product-depth-20261101]
   pull_request:
 permissions:
   contents: read
@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 24
       - name: Original poster engine and usable-workflow boundaries
-        run: node --test tasteroom/tests/engine.test.mjs tasteroom/tests/experiments.test.mjs tasteroom/tests/directions.test.mjs tasteroom/tests/usable.test.mjs
+        run: node --test tasteroom/tests/engine.test.mjs tasteroom/tests/experiments.test.mjs tasteroom/tests/directions.test.mjs tasteroom/tests/usable.test.mjs tasteroom/tests/depth.test.mjs
       - name: Four entries, canonical inputs and protected portfolio content
         run: node scripts/test-four-selected.mjs
       - name: Browser-module syntax
