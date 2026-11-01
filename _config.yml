@@ -47,3 +47,4 @@ exclude:
   - scripts/test-four-selected.mjs
   - scripts/verify-four-selected-browser.mjs
   - scripts/sync-commute-preview.mjs
+  - docs/VISUAL-POLISH-20261101.md
