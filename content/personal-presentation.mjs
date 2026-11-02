@@ -10,7 +10,7 @@ export const awardDestinations=[
 export function applyPersonalPresentation(data){
  data.about.facts=[
   {k:'学术训练',kEn:'Academic background',v:'电子电气工程 / 金融工程',vEn:'Electrical engineering / Financial engineering'},
-  {k:'做事方式',kEn:'Working approach',v:'时间对每个人都是公平的。\n先执行，再思考。',vEn:'Time treats everyone equally.\nAct first, then think.'},
+  {k:'我相信',kEn:'What I believe',v:'时间对每个人都是公平的。\n先执行，再思考。',vEn:'Time treats everyone equally.\nAct first, then think.'},
   {k:'工作语言',kEn:'Working languages',v:'中文 / English / 法语（不熟练）',vEn:'Chinese / English / French (not fluent)'},
   {k:'屏幕之外',kEn:'Outside work',v:'汽车、骑行、电子音乐，也打德州扑克',vEn:'Cars, cycling, electronic music and poker'}
  ];
