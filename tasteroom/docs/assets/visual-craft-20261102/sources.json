@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-02",
+  "status": "unpublished visual candidate",
+  "implementationCommit": "88f89ed29ca79132ffd64350b532d70e7ba6d501",
+  "images": [
+    {
+      "file": "before-desktop.jpg",
+      "sha256": "a0f9faed9f17e1a5ec37aa0f662ed03566c0e7e90557e9eb247fc0b3affb49bb",
+      "source": "actual browser viewport screenshot",
+      "size": "1440x900",
+      "state": "built-in default; no model calls"
+    },
+    {
+      "file": "before-mobile.jpg",
+      "sha256": "d4834006d1062c28d003bf75cfb57f56b7052c173437b39d67cded35ddcde089",
+      "source": "actual browser viewport screenshot",
+      "size": "390x844",
+      "state": "built-in default; no model calls"
+    },
+    {
+      "file": "after-desktop.jpg",
+      "sha256": "12f11c68d70af1d8aaca1b1587627684530e388cea026351ce619ed01f4205fe",
+      "source": "actual browser viewport screenshot",
+      "size": "1440x900",
+      "state": "built-in default; no model calls"
+    },
+    {
+      "file": "after-mobile.jpg",
+      "sha256": "905f5e02c885b0d0c884711f78ca1cd40fa1cb10c7c993ea2e705397f40122c0",
+      "source": "actual browser viewport screenshot",
+      "size": "390x844",
+      "state": "built-in default; no model calls"
+    }
+  ],
+  "composited": false,
+  "businessData": "synthetic, estimated, or historical replay per product labels"
+}
