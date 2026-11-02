@@ -1,5 +1,8 @@
 # TasteRoom · Preference Lab
 
+Visual refresh approved after user review, 2026-11-02: [design, references and before/after screenshots](docs/VISUAL-CRAFT-20261102.md). Existing product behavior is preserved; the merge commit and Pages workflow record publication.
+
+
 [中文](README.md) · [Live demo](https://andyzhang666666.github.io/tasteroom/) · [Swiss composition](https://andyzhang666666.github.io/tasteroom/?direction=swiss) · [Product scope](docs/PRD.md)
 
 Liking a poster does not tell a system which feature you liked, or where that preference should apply. TasteRoom turns this into an editable interaction: compare, identify a clue, confirm its scope, then test it in another context.
@@ -8,13 +11,13 @@ Edit poster copy and export SVG or 900x1200 PNG without saving a preference. A/B
 
 <!-- github-evidence-20261031 -->
 
-![Compare the same content; choosing a design remains separate from authorising memory scope.](../docs/assets/github/taste-preview.jpg)
+![Compare the same content; choosing a design remains separate from authorising memory scope.](docs/assets/visual-craft-20261102/after-desktop.jpg)
 
 [Design decisions](docs/DESIGN.md) · [Validation records](docs/VALIDATION.md)
 
 ## Try it
 
-The current development branch adds six independent compositions, two artwork candidates, any explicit A/B direction pair, and reusable preference briefs. This update has not been published yet. JSON v1 and previous Markdown briefs are validated and previewed before merging rules; artwork exports never contain private feedback. [Implementation boundaries](docs/PRODUCT-DEPTH.md).
+The current product includes six independent compositions, two artwork candidates, any explicit A/B direction pair, and reusable preference briefs. JSON v1 and previous Markdown briefs are validated and previewed before merging rules; artwork exports never contain private feedback. [Implementation boundaries](docs/PRODUCT-DEPTH.md).
 
 1. Choose among Swiss, deconstructed, editorial, Bauhaus, Japanese whitespace and two-ink compositions using the same copy. Keep up to two candidate artworks without saving preference rules.
 2. Use a single-variable comparison for typography, spacing, colour or another dimension. Pick A, B or neither; a choice alone is not permission to save a rule.
