@@ -7,7 +7,7 @@
 
 This repository hosts my personal site and four independent products. Professional experience, product decisions, research and runnable demos are presented separately. Each project explains its data and run mode.
 
-The default featured work is **Agent Execution Bench, Eval Lab, TasteRoom and Bundle Lab**. The AI / Agents direction includes **Trustworthy RAG Lab**. Each direction shows four projects, always retaining Eval Lab; the complete library keeps all 17. [Selection and verification notes, Chinese](docs/NEW-WORK-SHOWCASE-20261029.md).
+The default featured work is **Eval Lab, TasteRoom, Bundle Lab and Commute Compare**. Direction controls change their order; all four remain available. Agent Execution Bench and Trustworthy RAG Lab remain in the complete 17-project library. [Current integrated release](docs/RELEASE-20261102.md).
 
 ## Find the source
 
