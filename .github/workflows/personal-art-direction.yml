@@ -1,0 +1,35 @@
+name: Personal website presentation checks
+on:
+  push:
+    branches: [design/personal-art-direction-20261101]
+  pull_request:
+    paths:
+      - 'content/personal-presentation.mjs'
+      - 'assets/personal-*'
+      - 'assets/section-atmospheres.*'
+      - 'education.*'
+      - 'scripts/test-personal-art-direction.mjs'
+permissions:
+  contents: read
+jobs:
+  presentation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Preserve published facts and four product previews
+        run: |
+          node scripts/test-four-selected.mjs
+          node scripts/test-personal-art-direction.mjs
+      - name: Check changed browser modules
+        run: |
+          node --check app.js
+          node --check education.js
+          node --check content/personal-presentation.mjs
+          node --check assets/personal-sections.mjs
+          node --check assets/section-atmospheres.mjs

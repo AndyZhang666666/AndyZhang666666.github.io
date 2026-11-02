@@ -1,8 +1,8 @@
 {
   "name": "张千羽",
   "nameEn": "Qianyu Zhang (Andy)",
-  "tagline": "AI 产品经理，做 Agent、评测与商业增长。 从创作 Agent、效果评测，到生活里的新体验。先判断用户需要什么，再决定哪些步骤交给 AI，以及怎样验证它是否有效。",
-  "taglineEn": "AI product manager working across Agents, evaluation and growth. From creative Agents and evaluation to everyday experiments. I start with the user’s task, decide what AI should handle, then define how to tell whether it works.",
+  "tagline": "AI 产品经理，做 AI 应用与 Agent，也做增长和商业化。 设计 Agent 工作流、工具调用和评测机制，也能用代码把原型跑起来。用 SQL / Python 分析数据，通过 A/B 实验验证转化、留存与商业化假设。",
+  "taglineEn": "AI product manager working across AI applications, Agents, growth and monetisation. I design Agent workflows, tool use and evaluation, and build working prototypes in code. I use SQL, Python and A/B experiments to test conversion, retention and monetisation assumptions.",
   "contact": {
     "phone": "13149829129",
     "email": "andy_zzz@yeah.net",
@@ -26,12 +26,16 @@
         "tags": [
           "订单流",
           "日内交易",
-          "量化建模"
+          "量化建模",
+          "市场微观结构",
+          "交易信号研究"
         ],
         "tagsEn": [
-          "Order Flow",
-          "Intraday Trading",
-          "Quantitative Modeling"
+          "Order flow",
+          "Intraday trading",
+          "Quantitative modelling",
+          "Market microstructure",
+          "Trading signal research"
         ]
       }
     },
@@ -50,13 +54,19 @@
         "summaryEn": "Designed ergonomic wearables for fitness and other exercise settings, using machine learning to analyze signals from multiple devices for posture monitoring, alongside a mobile interface.",
         "tags": [
           "可穿戴设备",
+          "姿态监测",
+          "人体工学",
+          "传感数据",
           "机器学习",
           "移动端交互"
         ],
         "tagsEn": [
-          "Wearables",
-          "Machine Learning",
-          "Mobile Interaction"
+          "Wearable devices",
+          "Posture monitoring",
+          "Ergonomics",
+          "Sensor data",
+          "Machine learning",
+          "Mobile interaction"
         ]
       }
     }
@@ -362,8 +372,8 @@
       "nameEn": "TasteRoom",
       "subtitle": "喜欢整张，不代表喜欢每个参数",
       "subtitleEn": "Liking a poster is not a preference for every parameter",
-      "description": "一张海报里有字体、留白和色彩。先拆开比较，再由用户决定这条偏爱该记在哪个场景。",
-      "descriptionEn": "A poster mixes type, spacing and colour. Compare one variable at a time, then let the person decide where that preference belongs.",
+      "description": "把自己的文案放进六套原创构图，保留两份候选，导出海报。整体风格与单项参数分开比较，确认后才保存有范围的偏好。",
+      "descriptionEn": "Put personal copy into six original compositions, keep two candidates and export a poster. Compare whole styles separately from individual parameters, then explicitly save scoped preferences.",
       "url": "/tasteroom/?direction=swiss",
       "github": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/tasteroom",
       "tags": [
@@ -384,17 +394,17 @@
       "context": "整张海报同时改变多种特征，单次选择无法说明原因。把它直接当成稳定偏好，还可能让工作和日常的需求互相干扰。",
       "contextEn": "A choice between posters with several differences cannot isolate the cause. Treating it as a stable preference can also mix up work and everyday needs.",
       "approach": [
-        "选择原因先作为线索：初次选择只留下待验证线索。拆开对照时保持内容和其余参数不变；两张都不选也不会被记成偏好。",
-        "记忆有范围，也能撤回：区分全局、日常审美与工作汇报。明确规则优先于推测，保留依据、冲突提示和撤回入口。",
-        "换内容，检查是否还成立：同一组参数可以应用到另一套海报内容。用户能带走偏好说明书与 SVG，而不是只能留在对话里。"
+        "每个方向要真的改变构图：瑞士、解构、编辑杂志、包豪斯、日式留白和双色印刷使用不同几何与层级，展示同一份文案及容量提示。字号、换行和密度可微调；过密时保留内容、指出问题并暂停导出。",
+        "整体选择不偷换成参数结论：任意选择两方向比较，依据记为整体构图；只保存方向，不推断字体、色彩或留白。参数对照才保持其他条件不变。选中、导出与保存规则是三件独立的事。",
+        "下一张能复用，也能推翻：两份候选只存作品快照；确认过的偏好单独导出。JSON v1／旧 Markdown 说明书可再导入，先看替换项再确认，保留原场景与线索属性，且支持撤回。"
       ],
       "approachEn": [
-        "Treat an inferred reason as a clue: Initial choices create tentative clues. Comparisons hold the content and other settings constant; rejecting both does not create a preference.",
-        "Make memory scoped and reversible: Separate global, everyday and work contexts. Explicit rules take priority over guesses, with sources, conflicts and undo available.",
-        "Test it on different content: Apply the settings to different poster content. Export the preference brief and SVG so the result can leave the conversation."
+        "A direction must change the composition: Swiss, deconstructed, editorial, Bauhaus, Japanese whitespace and two-ink layouts have distinct geometry and hierarchy, with the same copy and capacity guidance. Type size, wrapping and density are adjustable. Dense copy is retained with an actionable warning before export.",
+        "Do not infer parameter preferences from a whole style: Any two named directions can be compared as whole compositions. Only the direction is recorded, without inferring type, colour or spacing. Parameter tests hold the rest constant. Choosing, exporting and saving memory are separate actions.",
+        "Reuse a preference without locking it in: Two candidates store artwork snapshots only. Confirmed preferences export separately. Import JSON v1 or previous Markdown briefs after reviewing replacements, retaining each context and clue/rule status, with undo available."
       ],
-      "result": "目前证明的是单变量对照、范围授权、冲突纠偏和撤回流程可以操作。没有真实用户研究，也没有证明这些画布参数足以代表一个人的审美。 多一次验证会增加操作，但能减少“你怎么又替我记住了”的负担。直接参数入口仍保留，避免用户被迫猜关键词。",
-      "resultEn": "The implemented flow demonstrates controlled comparison, scoped consent, correction and undo. It does not establish real-user value or that these canvas settings capture someone’s taste. An extra check adds friction but reduces the cost of unwanted memory. Direct parameter controls remain available, so people need not guess the right wording.",
+      "result": "核心检查覆盖六构图、任意对照、过期状态、说明书往返与旧草稿兼容。浏览器与导出文件验收由本轮集成记录补充；尚无真人研究证明这些维度足以描述个人审美。 六套构图提供足够的差异，也明确容量边界，没有变成任意拖拽设计工具。字体依赖系统，SVG 跨设备字形可能不同；PNG 保留当前渲染。偏好规则不是人格测量或学习准确率。",
+      "resultEn": "Core checks cover six layouts, explicit pairs, stale states, brief round trips and old drafts. This iteration records browser and exported-file verification separately; no user study establishes that these dimensions represent personal taste. Six compositions offer meaningful differences with explicit capacity limits, rather than an unrestricted design editor. SVG fonts may differ across systems; PNG preserves the current render. Rules are not personality measurements or evidence of learning accuracy.",
       "featured": true,
       "demoLabel": "立即体验",
       "demoLabelEn": "Try it now",
@@ -412,8 +422,8 @@
           "en": "What did you like about that poster?"
         },
         "decision": {
-          "zh": "先编辑并导出作品，构图与参数可比较；偏好保存另行确认。",
-          "en": "Edit and export a poster, compare settings, then separately confirm preference memory."
+          "zh": "六套原创构图、两份候选；先导出作品，确认范围后才复用偏好。",
+          "en": "Six original layouts and two candidates. Export the work, then explicitly scope reusable preferences."
         },
         "image": "/assets/work/showcase/taste.jpg",
         "caption": {
@@ -564,8 +574,8 @@
       "nameEn": "Eval Lab",
       "subtitle": "从评分锚点，到有证据的版本评审",
       "subtitleEn": "From scoring anchors to evidence-backed version review",
-      "description": "把低分、引句和原文放在一起。用独立的人工判断检查裁判，而不是让一个总分替人作决定。",
-      "descriptionEn": "Bring low scores, quotations and source text together. Let people review the judge instead of outsourcing the decision to one score.",
+      "description": "带自己的创意文本，复制固定五维任务给已有的 AI，带回结果。核对原文、记录复核和处理项，再比较两份结果。",
+      "descriptionEn": "Bring creative text, take a fixed five-dimension task to an AI you already use, then return with results. Review evidence, track actions and compare two records.",
       "url": "/llm-output-eval/",
       "github": "https://github.com/AndyZhang666666/llm-output-eval",
       "metrics": [
@@ -583,20 +593,20 @@
         "Eval",
         "工具"
       ],
-      "context": "创意文本很难稳定比较，摘要又可能写错事实或漏掉重点。把不同问题压成一个总分，既难以解释，也不利于改进。",
-      "contextEn": "Creative text is hard to compare consistently; a summary can add false claims or omit essential facts. One score obscures both the reason and the next action.",
+      "context": "固定样本只能让访客看懂界面。真正的任务是把自己的原文、外部评测、证据争议和待修改问题连起来；如果一切最后仍停在总分，作者带不走下一步。",
+      "contextEn": "Fixed samples explain an interface but do not finish a personal task. Authors need their text, external judgements, evidence disputes and unresolved changes together, rather than another overall score.",
       "approach": [
-        "不让人工意见覆盖历史：按样本、模型和具体运行隔离复核。记录不同意或待补充的依据，导出时同时保留原文、原始结果和人工判断。",
-        "事实错误与信息遗漏分开：Filing Eval 独立检查断言与关键事实覆盖。摘要没有写错，也可能漏掉会改变决定的信息。",
-        "没有证据，就保留争议：引句无法定位时明确提示；复核默认不选结论。历史标签和复核意见不能互相替代。"
+        "用自己的 AI，也能完成任务：任务包带完整 rubric、原系统 Prompt 和返回格式。用户自行运行后带回 JSON；本站看不到外部对话，模型、运行条件与时间仅为来源声明，不作认证。坏文件和取消不替换当前材料。",
+        "原始评价与处理行动分开：支持、存疑与需上下文分别记录。可把问题加入核查评语或修改原文的处理项，跟踪完成状态；完成处理不会回写原始分数，报告把未解决事项放在前面。",
+        "比较之前先核对条件：本机库最多20份，两侧按维度 ID 对齐。原文、模型或条件不同会提示；同一记录不重复计数。重复观察展示均值与极差，极差不是置信区间，也不自动宣布赢家或允许发布。"
       ],
       "approachEn": [
-        "Keep the original record: Review is scoped to a sample, model and run. Exports retain source text, original results and the reviewer’s reasoning together.",
-        "Separate error from omission: Filing Eval reviews claims and coverage separately. A summary can be factually correct yet omit information that changes the decision.",
-        "Leave uncertainty visible: Unlocated quotes are flagged, and review starts with no selected verdict. Saved labels and human opinions serve different purposes."
+        "Complete the task with an AI you already use: The package includes the complete rubric, original system Prompt and return format. Users run it elsewhere and return with JSON. External conversations are not visible; model, conditions and time are declarations, not certification. Failed or cancelled imports leave current material intact.",
+        "Keep judge output separate from follow-up work: Record support, disagreement and missing context separately. Track checking a judgement or revising text as follow-up work. Completing work does not change the original score; unresolved items lead the report.",
+        "Check conditions before comparing records: The local library holds up to 20 records, aligned by dimension ID. Text, model and condition differences stay visible, and duplicate records do not count twice. Repeats show means and ranges, not confidence intervals, winners or release permission."
       ],
-      "result": "Eval Lab 的免 Key 回放包含 6 条样本的 18 次历史输出。Filing Eval 展示 28 条构造公告；原始结果、困难集与未运行的候选留出集分开说明。界面与回归已检查，不等于生产准确率已被证明。 复核比看总分慢。我的取舍是把人的注意力优先放在低分、错误和争议上，而不是要求逐字读完所有输出。",
-      "resultEn": "Eval Lab replays 18 saved outputs across six samples. Filing Eval contains 28 constructed notices, with original results, hard cases and unrun holdout candidates reported separately. Interface and regression checks do not establish production accuracy. Review costs more time than reading a score. The tradeoff is to direct attention to low scores, errors and disputes rather than requiring an exhaustive read of every output.",
+      "result": "6个样本的18次历史输出保持可回放。任务包、严格导入、资料上限、重复条件、处理项往返与报告顺序有程序检查；本轮浏览器集成证据另记，不能据此声称模型质量或生产准确率提升。 外部 AI 需要一次往返，但避免让公开作品集依赖共享 Key；五维限定创意文本，不能宣称支持任意评测体系。材料与人工判断仅在本机，库满不会自动淘汰旧记录。",
+      "resultEn": "Six samples and 18 saved runs remain replayable. Program checks cover the task package, strict imports, capacity, duplicate conditions, action round trips and report ordering. Browser integration evidence is recorded separately; none of this establishes better model quality or production accuracy. The external-AI round trip avoids a shared public Key. The five dimensions remain specific to creative text, not arbitrary rubrics. Records and reviews stay local; a full library never silently evicts older material.",
       "demoNote": "无需中转站体验历史回放和人工复核。可选接口仅按点击运行，Key 不持久保存；本轮未调用真实模型或重跑历史指标。",
       "demoNoteEn": "No relay needed for replay and human review. Optional API runs require a click; keys are not persisted. No real models or historical benchmarks were rerun this round.",
       "featured": true,
@@ -612,8 +622,8 @@
           "en": "Does the evidence support the judge’s low score?"
         },
         "decision": {
-          "zh": "可导入自己的五维结果，保留原分；核对引用后带走复核报告。",
-          "en": "Import your five-dimension results, preserve scores, review quotations and export a report."
+          "zh": "自己的文本带回评测，保留原分；核对证据、记录处理项，再比较结果。",
+          "en": "Bring evaluations of your own text, preserve scores, review evidence, track actions and compare results."
         },
         "image": "/assets/work/showcase/eval.jpg",
         "caption": {
@@ -806,8 +816,8 @@
       "nameEn": "Commute Compare",
       "subtitle": "比较通勤成本、耗时与迟到风险",
       "subtitleEn": "Compare commute cost, duration and lateness risk",
-      "description": "输入自己的路线与费用，比较每月花费、节省时间和波动。用个人记录校准一条路线，再保存选择与理由。",
-      "descriptionEn": "Enter routes and fares, compare monthly cost, time and variation, then calibrate one route and save your choice.",
+      "description": "比较路线的月费用与时间，再加入预算和最早愿意出门时刻。用试行记录预演校准，明确接受取舍，保存可重新确认的决定。",
+      "descriptionEn": "Compare monthly time and cost, add a budget and earliest willing departure, preview calibration with trial records and save a choice that can be reconfirmed.",
       "url": "/commute-compare/",
       "github": "https://github.com/AndyZhang666666/commute-compare",
       "metrics": [
@@ -833,17 +843,17 @@
       "context": "图表能列出哪个更快，却不知道一个人愿意为舒适、少换乘或早回家付多少。只给结论不保留输入，条件变了还容易沿用旧决定。",
       "contextEn": "A chart cannot decide how much someone values comfort, fewer transfers or an earlier return. Without preserved inputs, an old decision may outlive its conditions.",
       "approach": [
-        "先把时间换成同一单位：首位展示每月多花、节省小时和每省一小时的费用。零时间优势不显示无穷大的比值，更慢的路线单独说明。",
-        "只校准这一条路线：从结果直达对应路线的记录输入，应用记录不会改动另一条路线。估算、个人记录与模型内范围各自标识。",
-        "决定是快照，不随参数漂移：保存参数、模型版本、比较结果和理由。修改输入时保留旧选择，并要求重新确认；重算或无效输入期间锁定当前导出。"
+        "条件差，比一个推荐分更具体：月预算与最早愿意出门时刻可选；逐路线说明多花多少、需要早出门多久。没有设置就不假装知道偏好，用户也可以明确接受条件外的方案。",
+        "少量记录先积累，不冒充校准：从结果补一次试行耗时，先预演再确认。少于三条明确显示积累中；三条起才用原经验重采样。只修改对应路线，另一条保持不变；输入变化会使旧预演失效。",
+        "来源可以恢复，选择需要重新确认：个人记录生效时不混改估计分布；切回估算要确认，并保留记录可恢复。预算、出门条件或记录变化都进入签名，旧选择保留为待重新确认的快照，不能冒充当前结果导出。"
       ],
       "approachEn": [
-        "Use a comparable unit: Lead with monthly cost, hours saved and cost per hour saved. Equal time has no infinite ratio; slower routes are described separately.",
-        "Calibrate one route: Open the selected route’s records without changing the other route. Distinguish estimates, personal observations and modelled ranges.",
-        "A choice is a snapshot: Save inputs, model version, results and reason. Input edits preserve the previous choice but require reconfirmation; pending or invalid states block current exports."
+        "Show the constraint gap, not a recommendation score: Budget and earliest departure are optional. Each route shows cost overruns or how much earlier departure is needed. Unset conditions imply no assumed preference; a person can explicitly accept an out-of-condition option.",
+        "Accumulate sparse records before calibration: Add a trial beside results, preview, then confirm. Fewer than three records are accumulation, not a calibrated distribution; three or more use the existing empirical resampling. Other routes stay intact, and changed inputs invalidate old previews.",
+        "Restore sources and reconfirm choices: Do not mix edited estimates with active records. Confirm a switch back to estimates while retaining recoverable records. Constraint and record changes enter the decision signature; old choices remain marked for reconfirmation and cannot export as current results."
       ],
-      "result": "浏览器实际检查了自定义路线、单条记录校准、选择保存、参数改变后重新确认与 JSON 导出。计算与状态检查不等于真实出行验证；未接地图或实时交通。 快速估算降低了输入负担，也引入了三点分布假设。实际记录仍可能不包含雨天或异常，不能把模型内尾部风险当成未来准点承诺。",
-      "resultEn": "Browser checks cover custom inputs, single-route calibration, saved choices, reconfirmation and JSON export. These do not establish real-world travel accuracy; no map or live-traffic service is connected. Quick entry lowers effort but introduces distribution assumptions. Personal records may miss disruptions, so modelled risk is not a punctuality guarantee.",
+      "result": "个人条件、稀疏记录、预演失效、来源恢复、旧草稿与决策兼容有程序检查。真实输入、选择与导出仍需浏览器任务验收；没有真实出行准确率或节省时间的结论。 三条记录只是开始校准的操作门槛，不代表统计充分；相近时段的数据仍可能漏掉雨天和事故。月度往返采用返程同分布假设，条件差不等于未来准点承诺。",
+      "resultEn": "Program checks cover personal limits, sparse records, stale previews, restored sources and old drafts/decisions. Browser tasks verify input, choice and export separately. No real-world accuracy or time-saving result is claimed. Three records are an interaction threshold, not statistical sufficiency. Comparable observations may miss rain and incidents. Monthly return trips assume the same distribution; constraint gaps are not punctuality promises.",
       "id": "commute",
       "category": "personal",
       "group": "main",
@@ -856,8 +866,8 @@
           "en": "How much reliable travel time does a higher fare buy?"
         },
         "decision": {
-          "zh": "输入自己的路线，校准记录，保存带理由的个人选择。",
-          "en": "Enter your routes, calibrate records and save a reasoned personal choice."
+          "zh": "加上预算与出门条件，逐步补记录、预演校准，再保存自己的选择。",
+          "en": "Add budget and departure limits, collect trial records, preview calibration and save a choice."
         },
         "image": "/assets/work/showcase/commute.jpg",
         "caption": {
@@ -1129,8 +1139,8 @@
       "nameEn": "Bundle Lab",
       "subtitle": "从订单共现中发现套餐机会",
       "subtitleEn": "Discover bundle opportunities from co-purchased items",
-      "description": "经常一起买，只能提出套餐假设。分开计算新增购买与既有顾客领折扣的成本，再决定值不值得试。",
-      "descriptionEn": "Co-purchases suggest a bundle hypothesis. Separate incremental purchases from discounts to existing buyers before deciding what to test.",
+      "description": "带自己的商品假设，保留最多三份方案。分开看新增贡献与既有让利，用折扣×采纳条件地图检查结论，再留下选择理由。",
+      "descriptionEn": "Bring product assumptions and keep up to three scenarios. Separate new contribution from discount leakage, test discount/adoption conditions and record a reasoned choice.",
       "url": "/bundle-lab/simulate/",
       "github": "https://github.com/AndyZhang666666/bundle-lab",
       "metrics": [
@@ -1151,17 +1161,17 @@
       "context": "从订单共现直接跳到“做套餐”，容易把相关性当成效果。更高的客单也不等于更高收益，需要核对新增购买、让利、毛利与采纳假设。",
       "contextEn": "Jumping from co-occurrence to a bundle confuses association with impact. Higher order value does not establish better contribution; adoption, margin and discount leakage matter.",
       "approach": [
-        "结构差异先提出问题：多人订单人均商品数少，也可能因为共享大份菜。先核对份量与人数口径，不直接称为凑单流失。",
-        "同一账本允许否定建议：模型算例：原价 20、套餐价 18，原有平均消费 12；20% 已经买齐、食材成本率 40%、既有顾客全领折扣。未买齐者采纳 50% 时，新增贡献 1.60 减让利 0.40，净增 1.20；采纳 5% 时净增 −0.24。",
-        "建议之后接验证计划：Growth 将统计证据、业务最小效应和人工护栏分开；Pricing 用守恒人群检查不同付费机制。工具辅助判断，不自动宣布全量上线。"
+        "先冻结方案，再比较改了什么：第一份方案为 A 基准；最多三份独立快照对齐商品、价格、人群、假设、贡献、让利与平衡点。复制到当前草稿再调整，原快照不随滑杆漂移，方案收益也不相加。",
+        "问结论在哪些条件下翻转：折扣×中档采纳的每个格点调用同一个收益函数，其余成本和人群固定。点击先预演，与当前结果对照；确认后才修改输入。正负区域是条件算例，不是收益概率或价格弹性。",
+        "选择之后仍要验证假设：人明确选择并填写理由，导出参数、差异、账本与下一步验证。未选择也可导出，但保留“尚未选择”；Growth 与 Pricing 仍是次级分析工具，不自动宣布全量上线。"
       ],
       "approachEn": [
-        "Use patterns to ask a question: Fewer items per person may reflect shared portions. Check portion size and party-size definitions before blaming a missing bundle.",
-        "Let the ledger reject an idea: Model example: list price 20, bundle price 18, original average spend 12; 20% already buy the full basket, cost ratio 40%, all existing buyers redeem. At 50% adoption among incomplete buyers, gain 1.60 minus discount cost 0.40 gives 1.20; at 5%, the result is −0.24.",
-        "Follow advice with a test plan: Growth separates statistical evidence, minimum business effect and manual guardrails. Pricing compares payment mechanisms on conserved cohorts. These support a decision without automatically authorising rollout."
+        "Freeze a scenario before comparing changes: A is the baseline. Up to three independent snapshots align products, prices, populations, assumptions, gains, leakage and break-even. Copy into a draft before editing; sliders never alter a saved scenario, and scenario returns are not added together.",
+        "Find the conditions that reverse the conclusion: Every discount/adoption grid point calls the same model with costs and populations held fixed. Preview against the current result before applying it. Positive and negative regions are conditional calculations, not profit probabilities or elasticity.",
+        "A choice still needs assumption checks: People explicitly choose and explain, exporting inputs, changes, ledgers and validation steps. An unchosen export says so. Growth and Pricing remain related analysis tools, not automatic rollout permission."
       ],
-      "result": "有 4,000 条合成订单和可检查的候选、账本与导出。手算及边界用于验证实现；不能把候选毛利为正或模拟结果写成真实增长。 两类人群仍是简化模型，采纳率、重复购买与商家成本都未被真实订单实验校准。多一个小数位不能补上这些信息。",
-      "resultEn": "The demo contains 4,000 synthetic orders with inspectable candidates, ledgers and exports. Hand calculations and edge checks verify implementation, not actual growth. Two populations are still a simplification. Adoption, repeat purchases and merchant costs have not been calibrated against a live experiment; more decimal places do not fix that.",
+      "result": "沿用4,000条合成订单与既有收益模型。快照、差异、损坏恢复和条件地图格点有确定性检查；本轮浏览器任务另行验收，不把模拟正收益写成真实增长。 保留方案比只动滑杆多一步，却能防止凭记忆比较。二维地图固定其他变量，不代表真实采纳会如何随折扣变化；每100覆盖订单是统一比较单位，不是观测订单。",
+      "resultEn": "The original 4,000 synthetic orders and contribution model remain. Deterministic checks cover snapshots, differences, corrupt recovery and grid points. Browser tasks are verified separately; simulated positive returns are not observed growth. Keeping a scenario adds a step but avoids comparison from memory. The map fixes other variables and does not predict how adoption responds to discounts. Per 100 covered orders is a comparison unit, not an observed sample.",
       "id": "bundle",
       "category": "growth",
       "group": "main",
@@ -1175,8 +1185,8 @@
           "en": "Why can a bundle sell more and still earn less?"
         },
         "decision": {
-          "zh": "自建商品算例，分开核对新增毛利与让利，导出待验证的假设。",
-          "en": "Build a product scenario, separate contribution from discount leakage and export assumptions to validate."
+          "zh": "保存三方案，预演折扣与采纳条件；分开算新增和让利，再留下选择理由。",
+          "en": "Keep three scenarios, preview discount/adoption conditions, separate gains from leakage and record a rationale."
         },
         "image": "/assets/work/showcase/bundle.jpg",
         "caption": {
@@ -1395,34 +1405,28 @@
     "body2En": "In content production, I work on creation Agents, reusable assets and evaluation. In overseas products, I examine conversion and payment paths. When delivering business tools, I first walk the existing process and find the step worth changing.",
     "facts": [
       {
-        "k": "MBTI",
-        "kEn": "MBTI",
-        "v": "ENTJ",
-        "vEn": "ENTJ"
+        "k": "学术训练",
+        "kEn": "Academic background",
+        "v": "电子电气工程 / 金融工程",
+        "vEn": "Electrical engineering / Financial engineering"
       },
       {
-        "k": "教育",
-        "kEn": "Education",
-        "v": "UCL 金融工程 · Bristol 电子电气工程",
-        "vEn": "MSc Financial Engineering, UCL · BEng EEE, Bristol"
+        "k": "我相信",
+        "kEn": "What I believe",
+        "v": "时间对每个人都是公平的。\n先执行，再思考。",
+        "vEn": "Time treats everyone equally.\nAct first, then think."
       },
       {
         "k": "工作语言",
-        "kEn": "Languages",
-        "v": "中文 · 英语（雅思 7.5）",
-        "vEn": "Chinese · English (IELTS 7.5)"
+        "kEn": "Working languages",
+        "v": "中文 / English / 法语（不熟练）",
+        "vEn": "Chinese / English / French (not fluent)"
       },
       {
-        "k": "关注方向",
-        "kEn": "Focus",
-        "v": "AI 应用产品 · 增长与商业化",
-        "vEn": "AI applications · Growth & monetisation"
-      },
-      {
-        "k": "兴趣",
-        "kEn": "Interests",
-        "v": "德州扑克 · 骑行 · 电子音乐",
-        "vEn": "Poker · Cycling · Electronic music"
+        "k": "屏幕之外",
+        "kEn": "Outside work",
+        "v": "汽车、骑行、电子音乐，也打德州扑克",
+        "vEn": "Cars, cycling, electronic music and poker"
       }
     ],
     "principles": [
@@ -1642,25 +1646,37 @@
       "name": "Dean’s List",
       "nameEn": "Dean’s List",
       "meta": "布里斯托大学 · 院系荣誉榜",
-      "metaEn": "University of Bristol · Departmental honours"
+      "metaEn": "University of Bristol · Departmental honours",
+      "url": "https://www.bristol.ac.uk/science-engineering/schools/elec-mech/",
+      "linkLabel": "学院官网",
+      "linkLabelEn": "School website"
     },
     {
       "name": "James Dyson Award 地区赛亚军",
       "nameEn": "James Dyson Award · Regional Runner-up",
       "meta": "布里斯托大学学习期间",
-      "metaEn": "During undergraduate study at Bristol"
+      "metaEn": "During undergraduate study at Bristol",
+      "url": "https://www.jamesdysonaward.org/en-us/faq/",
+      "linkLabel": "赛事官网",
+      "linkLabelEn": "Award website"
     },
     {
       "name": "UCL Business Game 策略挑战赛亚军",
       "nameEn": "UCL Business Game · Strategy Challenge Runner-up",
       "meta": "伦敦大学学院",
-      "metaEn": "University College London"
+      "metaEn": "University College London",
+      "url": "https://ucle.co/",
+      "linkLabel": "主办方官网",
+      "linkLabelEn": "Organiser website"
     },
     {
       "name": "Bloomberg Global Trading Challenge",
       "nameEn": "Bloomberg Global Trading Challenge",
       "meta": "参赛经历",
-      "metaEn": "Competition participation"
+      "metaEn": "Competition participation",
+      "url": "https://portal.bloombergforeducation.com/trading_challenges",
+      "linkLabel": "赛事官网",
+      "linkLabelEn": "Challenge website"
     }
   ],
   "evidenceCatalog": {

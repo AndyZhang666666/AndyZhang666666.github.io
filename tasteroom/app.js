@@ -1,6 +1,8 @@
 import {visibleRoom, replacedRules, trialParameter, posterPng, savePreference} from './exports.js';
+import {DIRECTIONS,layoutStatus} from './directions.js';
+import {parseBrief,importPreview,applyBrief,validCandidate} from './preferences.js';
 import { Room, OPTIONS, parseFeedback, validChoice } from "./engine.js?v=20261027-studio1";
-import { createComparison, applyComparison, comparisonIsCurrent, briefMarkdown, posterSvg, DIMENSIONS } from './experiments.js?v=20261027-studio1';
+import { createComparison, applyComparison, comparisonIsCurrent, briefMarkdown, posterSvg, styleBrief, DIMENSIONS } from './experiments.js?v=20261027-studio1';
 const $ = (s) => document.querySelector(s),
   $$ = (s) => [...document.querySelectorAll(s)];
 const room = new Room();
@@ -13,7 +15,7 @@ let timer,
 let mode = "mock";
 let comparison=null,comparisonSide=null,memoryUndo=null;
 let artworkFingerprint='';
-let explorer=null;
+let explorer=null,activePath="create",candidates=[],importDraft=null;
 // Existing memories survive; a fresh session starts with an editable Swiss canvas.
 if(room.round!==2){room.round=2;room.canvas.artDirection='swiss';room.base.artDirection='swiss';}
 function displayedRoom(){return visibleRoom(room,comparison,comparisonSide);}
@@ -36,7 +38,7 @@ const esc = (s) =>
   );
 try {
   const raw=localStorage.getItem(STORE);room.restore(raw);
-  const saved=JSON.parse(raw||"null");if(saved?.draftCanvas&&Object.entries(saved.draftCanvas).every(([d,v])=>validChoice(d,v)))room.canvas={...room.canvas,...saved.draftCanvas};
+  const saved=JSON.parse(raw||"null");candidates=Array.isArray(saved?.candidates)?saved.candidates.filter(validCandidate).slice(0,2):[];if(saved?.draftCanvas&&Object.entries(saved.draftCanvas).every(([d,v])=>validChoice(d,v)))room.canvas={...room.canvas,...saved.draftCanvas};
 } catch {
   storageOK = false;
 }
@@ -71,7 +73,7 @@ const content = [
 ];
 function persist() {
   try {
-    localStorage.setItem(STORE, JSON.stringify({...JSON.parse(room.save()),draftCanvas:room.canvas}));
+    localStorage.setItem(STORE, JSON.stringify({...JSON.parse(room.save()),draftCanvas:room.canvas,candidates}));
   } catch {
     storageOK = false;
   }
@@ -87,16 +89,17 @@ function speak(t) {
 }
 function renderChoices() {
   const color = explorer?.round === 1;
+  const currentContent=room.draftContent||content[room.content%content.length];
   $("#question").textContent = color
     ? "哪一种颜色，更像你？"
     : "哪一张，让你想多看一眼？";
   $("#round").textContent = color ? "色彩选择 · 2 / 2" : "版式选择 · 1 / 2";
-  $("#choices").innerHTML = ["a", "b"]
-    .map(
-      (s, i) =>
-        `<button class="choice" data-choice="${s}" aria-label="选择${i === 0 ? "A" : "B"}：${color ? (i === 0 ? "高对比撞色" : "克制单色") : i === 0 ? "紧凑网格" : "留白书刊"}"><div class="mini ${s} ${color ? (i === 0 ? "colorful" : "mono") : ""}"><span class="mini-top">周末灵感计划 / TasteRoom</span><div><div class="mini-title">无用之美<br>周末放映室</div><div class="graphic"></div></div><div class="mini-sub">把日常调慢一格。<br>看一部电影，聊一段生活。</div></div><div class="choice-label"><span>${color ? (i === 0 ? "高对比撞色" : "克制单色") : i === 0 ? "紧凑网格" : "留白书刊"}</span><span>偏爱这张 ↗</span></div></button>`,
-    )
-    .join("");
+  $("#choices").innerHTML = ["a", "b"].map((side,i)=>{
+    const variant={...room.canvas,artDirection:room.canvas.artDirection==='free'?'swiss':room.canvas.artDirection,...(color?{colorMood:i===0?'high_contrast':'monochrome'}:{layoutDensity:i===0?'compact':'airy',typography:i===0?'rational_sans':'editorial_serif'})};
+    const label=color?(i===0?'高对比撞色':'克制单色'):(i===0?'紧凑无衬线':'留白书刊');
+    return `<button class="choice" data-choice="${side}" aria-label="选择${i===0?'A':'B'}：${label}"><div class="explore-poster">${posterSvg({...room,canvas:variant},currentContent)}</div><span class="choice-label"><span>${label}</span><span>偏爱这张 ↗</span></span></button>`;
+  }).join('');
+
 }
 function renderMemories() {
   $("#effectiveRules").innerHTML=room.effective().map(m=>`<p><strong>${esc(names[m.dimension])}</strong> ${esc(OPTIONS[m.dimension][m.preference])}<small>${esc(ctx[m.context])} · ${m.type==='explicit'?'明确规则':'待验证线索'}</small></p>`).join('')||'<p class="empty">还没有保存规则。当前构图和导出都不要求授权记忆。</p>';
@@ -155,6 +158,9 @@ function render() {
   if(comparison&&!comparisonIsCurrent(room,comparison)){comparison=null;comparisonSide=null;}
   const ready = !explorer;
   const shown=displayedRoom();
+  $('#startCreate').setAttribute('aria-pressed',String(activePath==='create'));
+  $('#startExplore').setAttribute('aria-pressed',String(activePath==='explore'));
+  $('#storageNotice').hidden=storageOK;$('#storageNotice').textContent='本机存储不可用；仍可编辑、比较和导出，刷新会结束本次草稿。';
   $("#probe").hidden = ready;
   $("#experiment").hidden = !ready;
   if (!ready) renderChoices();
@@ -174,13 +180,18 @@ function render() {
   const direction=shown.canvas.artDirection||'free',visual=$('#directionPreview');
   $('#canvasTitle').textContent=direction==='free'?'自由参数 · 当前画布':OPTIONS.artDirection[direction]+' · 当前画布';
   visual.hidden=false;p.hidden=true;
-  const stamp=JSON.stringify([shown.canvas,c]);
+  const stamp=JSON.stringify([shown.canvas,room.posterSettings,c]);
   if(stamp!==artworkFingerprint){artworkFingerprint=stamp;visual.innerHTML=posterSvg(shown,c);const object=visual;object.getAnimations().forEach(a=>a.cancel());if(!matchMedia('(prefers-reduced-motion:reduce)').matches)object.animate([{opacity:.65,transform:'translateY(5px)'},{opacity:1,transform:'none'}],{duration:240,easing:'cubic-bezier(.16,1,.3,1)'});}
   $$('[data-direction]').forEach(b=>{b.setAttribute('aria-pressed',String(b.dataset.direction===direction));b.disabled=!!room.pending});
   const directionRule=room.effective().find(m=>m.dimension==='artDirection'&&m.preference===direction&&m.type==='explicit');
   $('#rememberDirection').hidden=!ready||direction==='free'||!!comparison;$('#rememberDirection').disabled=!!room.pending||running||directionRule?.context===room.context;
   $('#directionStatus').textContent=ready?(directionRule?`「${OPTIONS.artDirection[direction]}」已按你授权的${ctx[directionRule.context]}规则应用。`:`正在试用「${OPTIONS.artDirection[direction]}」；这次试用不会新增长期记忆。`):'也可以先完成两次直觉选择，再拆开验证偏爱。';
   $('#updateContent').disabled=!!room.pending||running;
+  const layout=layoutStatus(shown,c);$('#overflowActions').hidden=layout.ok;$('#layoutWarning').hidden=layout.ok;$('#layoutWarning').textContent=layout.issues.join('；')+'。内容保留，调整后才能导出。';
+  const design=DIRECTIONS[direction];$('#directionCapacity').textContent=design?design.capacity+' · '+design.use:'自由参数：自行调整六项属性。';
+  $('#titleScale').value=String(Math.round((room.posterSettings?.titleScale||1)*100));$('#titleScaleValue').textContent=$('#titleScale').value+'%';$('#lineBreaks').value=room.posterSettings?.lineBreaks||'auto';$('#densityControl').value=shown.canvas.layoutDensity;
+  $('#openDirections').disabled=!!room.pending;$('#quickDirections').disabled=!!room.pending;$('#pinCandidate').disabled=!!room.pending||running||candidates.length>=2;$('#pinCandidate').textContent=candidates.length>=2?'已满，移除后再留':'留作候选';
+  renderDirections(c);renderCandidates();
   $$("[data-context]").forEach((b) => {
     b.setAttribute("aria-pressed", b.dataset.context === room.context);
     b.disabled = !!room.pending;
@@ -212,18 +223,24 @@ function render() {
   $("#pause").disabled = !!room.pending;
   $('#startComparison').disabled=!!room.pending;
   $('#exportBrief').disabled=!ready||!!room.pending||running;
-  $('#exportPoster').disabled=!ready||!!room.pending||running;
-  $('#exportPng').disabled=!ready||!!room.pending||running;
+  $('#exportPoster').disabled=!ready||!!room.pending||running||!layout.ok;
+  $('#exportPng').disabled=!ready||!!room.pending||running||!layout.ok;
+  $('#exportBriefJson').disabled=!ready||!!room.pending||running;
+  $('#importBrief').disabled=!!room.pending||running;
   $('#undoMemory').disabled=!memoryUndo||!!room.pending||running;
   $$(".phases li").forEach((el,i)=>el.classList.toggle('current',i===(comparisonSide?2:comparison?1:0)));
   renderComparison();
   persist();
+  $('#storageNotice').hidden=storageOK;
 }
 function renderComparison(){
   $('#comparisonPanel').hidden=!comparison;
   $('.artboard').hidden=!!comparison&&!comparisonSide;
   if(!comparison)return;
   $('#comparisonDimension').value=comparison.dimension;
+  $('#directionPair').hidden=comparison.dimension!=='artDirection';
+  $('#comparisonTitle').textContent=comparison.dimension==='artDirection'?'同一内容，比较整体构图':'同一内容，只变一项';
+  $('#comparisonScopeNote').textContent=comparison.dimension==='artDirection'?'艺术方向包含构图、字形和图形的整体变化。选择只说明这次更喜欢这个方向，不推断其他五项偏好。':'内容、构图与其他参数保持不变，只比较所选参数。';
   const container=$('#comparisonVariants');container.replaceChildren();container.hidden=!!comparisonSide;
   $('#backToComparison').hidden=!comparisonSide;
   $('#skipComparison').hidden=!!comparisonSide;
@@ -326,16 +343,10 @@ async function submitFeedback(text) {
 document.addEventListener("click", (e) => {
   const b = e.target.closest("button");
   if (!b) return;
-  if(b.dataset.direction){
-    stop();comparison=null;comparisonSide=null;room.round=2;explorer=null;
-    const value=b.dataset.direction;if(!validChoice('artDirection',value))return;
-    const m={id:'once_'+ ++room.seq,dimension:'artDirection',preference:value,type:'explicit',context:room.context,confidence:1,sourceReason:'本人选择试用原创构图；尚未授权长期记忆',status:'overridden',order:room.seq};
-    room.memories.push(m);room.update('artDirection',value,m.id);room.log('preview_direction',{direction:value,persisted:false});
-    render();speak('只切换本张构图，其他参数和长期记忆没有变化。可以继续改文案、对照参数或导出。');syncContentEditor();return;
-  }
+  if(b.dataset.direction){previewDirection(b.dataset.direction);return;}
   if (b.dataset.choice && explorer) {
     explorer.choose(b.dataset.choice);
-    if(explorer.round===2){explorer.reconcile();for(const [d,v] of Object.entries(explorer.canvas))trialParameter(room,d,v);explorer=null;speak('两次选择生成了一张临时画布，没有改动已有记忆。可以逐项比较，喜欢后再授权保存。');render();return;}
+    if(explorer.round===2){const priorDirection=room.canvas.artDirection==='free'?'swiss':room.canvas.artDirection;explorer.reconcile();for(const [d,v] of Object.entries(explorer.canvas))if(d!=='artDirection')trialParameter(room,d,v);trialParameter(room,'artDirection',priorDirection);explorer=null;speak('两次选择只生成临时画布；没有新增规则。现在可以任意比较两种构图，再决定是否记住。');beginComparison('artDirection');return;}
     render();return;
 
   }
@@ -441,7 +452,7 @@ $("#cancelConflict").onclick = () => {
 $("#reset").onclick = () => {
   stop();
   comparison=null;comparisonSide=null;memoryUndo=null;
-  room.reset();room.round=2;room.canvas.artDirection='swiss';room.base.artDirection='swiss';explorer=null;
+  room.reset();room.round=2;room.canvas.artDirection='swiss';room.base.artDirection='swiss';explorer=null;candidates=[];
   try {
     localStorage.removeItem(STORE);
   } catch {}
@@ -457,13 +468,22 @@ function showBrain(on) {
 }
 $("#showCanvas").onclick = () => showBrain(false);
 $("#showBrain").onclick = () => showBrain(true);
-$('#startExplore').onclick=()=>{stop();comparison=null;comparisonSide=null;explorer=new Room();render();$('#probe').scrollIntoView({block:'nearest'});};
+$('#startCreate').onclick=()=>{stop();explorer=null;activePath='create';comparison=null;comparisonSide=null;render();syncContentEditor();speak('继续当前作品；文案、临时画布与已保存偏好均保留。');};
+$('#startExplore').onclick=()=>{stop();comparison=null;comparisonSide=null;activePath='explore';explorer=new Room();render();$('#probe').scrollIntoView({block:'nearest'});};
 $('#backToComparison').onclick=()=>{comparisonSide=null;render();};
-$('#startComparison').onclick=()=>{
-  stop();comparison=createComparison(room,$('#comparisonDimension').value);comparisonSide=null;render();
-  $('#comparisonPanel').scrollIntoView({block:'nearest'});speak('现在只比较一项；选择不会立即写入记忆。');
-};
-$('#comparisonDimension').onchange=()=>{comparison=createComparison(room,$('#comparisonDimension').value);comparisonSide=null;render();};
+function beginComparison(dimension){
+  stop();explorer=null;comparisonSide=null;
+  try{
+    const pair=dimension==='artDirection'?[$('#compareA').value,$('#compareB').value]:null;
+    comparison=createComparison(room,dimension,pair);render();$('#comparisonPanel').scrollIntoView({block:'nearest'});speak(dimension==='artDirection'?'同一内容，两套整体构图；选择不推断其他参数。':'只比较这一项；选择不会立即写入记忆。');
+  }catch(e){speak(e.message)}
+}
+$('#startComparison').onclick=()=>{const current=Object.hasOwn(DIRECTIONS,room.canvas.artDirection)?room.canvas.artDirection:'swiss';$('#compareA').value=current;$('#compareB').value=Object.keys(DIRECTIONS).find(d=>d!==current);syncPairOptions();beginComparison('artDirection');};
+$('#comparisonDimension').onchange=()=>beginComparison($('#comparisonDimension').value);
+function syncPairOptions(){for(const [a,b] of [['compareA','compareB'],['compareB','compareA']])for(const option of $('#'+a).options)option.disabled=option.value===$('#'+b).value;}
+for(const id of ['compareA','compareB']){$('#'+id).innerHTML=Object.entries(DIRECTIONS).map(([key,d])=>`<option value="${key}">${d.name}</option>`).join('');$('#'+id).onchange=()=>{syncPairOptions();beginComparison('artDirection')};}
+$('#compareA').value='swiss';$('#compareB').value='deconstructed';syncPairOptions();
+$('#refreshComparison').onclick=()=>beginComparison('artDirection');
 $('#closeComparison').onclick=()=>{comparison=null;comparisonSide=null;render();speak('已关闭对照；尚未确认的选择不会被记住。');};
 $('#skipComparison').onclick=()=>{try{applyComparison(room,comparison,'skip');comparison=null;comparisonSide=null;render();speak('两张都不选，没有新增或修改任何偏好。');}catch(e){speak(e.message);}};
 document.addEventListener('click',e=>{
@@ -475,11 +495,11 @@ function directValues(){const d=$('#directDimension').value;$('#directValue').in
 $('#directDimension').onchange=directValues;directValues();
 $('#applyDirect').onclick=()=>{stop();comparison=null;comparisonSide=null;trialParameter(room,$('#directDimension').value,$('#directValue').value);render();speak('只试用当前参数；导出使用当前画布，没有新增长期规则。');};
 $('#saveDirect').onclick=()=>openRule($('#directDimension').value,$('#directValue').value);
-$('#undoMemory').onclick=()=>{if(!memoryUndo)return;stop();const snapshot=memoryUndo;memoryUndo=null;Object.assign(room,JSON.parse(snapshot));comparison=null;render();speak('上次删除、锁定或迁移已撤回；画布按恢复后的记忆重新生成。');};
+$('#undoMemory').onclick=()=>{if(!memoryUndo)return;stop();const snapshot=memoryUndo;memoryUndo=null;Object.assign(room,JSON.parse(snapshot));comparison=null;render();speak('上次记忆操作已撤回，当前规则与画布已恢复。');};
 function download(name,type,text){const url=URL.createObjectURL(text instanceof Blob?text:new Blob([text],{type})),link=document.createElement('a');link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 $('#exportBrief').onclick=()=>{if(room.pending||running)return;download('偏爱实验室-偏好说明书.md','text/markdown;charset=utf-8',briefMarkdown(room));speak('说明书已导出，线索和明确规则分开列出；其中可能包含你输入的反馈，请自行保管。');};
-$('#exportPoster').onclick=()=>{if(room.pending||running)return;download('偏爱实验室-风格海报.svg','image/svg+xml;charset=utf-8',posterSvg(displayedRoom(),room.draftContent||content[room.content%content.length]));speak('已导出与当前构图一致的矢量海报；没有调用生图服务。');};
-$('#exportPng').onclick=async()=>{if(room.pending||running)return;const button=$('#exportPng');button.disabled=true;button.textContent='正在生成…';try{const blob=await posterPng(displayedRoom(),room.draftContent||content[room.content%content.length]);download('偏爱实验室-海报.png','image/png',blob);speak('已导出 900 × 1200 PNG，与当前画布相同，不含私人反馈或记忆。');}catch(e){speak(e.message);}finally{button.textContent='导出 PNG';render();}};
+$('#exportPoster').onclick=()=>{if(room.pending||running||!layoutStatus(displayedRoom(),room.draftContent||content[room.content%content.length]).ok)return;download('偏爱实验室-风格海报.svg','image/svg+xml;charset=utf-8',posterSvg(displayedRoom(),room.draftContent||content[room.content%content.length]));speak('已导出与当前构图一致的矢量海报；没有调用生图服务。');};
+$('#exportPng').onclick=async()=>{if(room.pending||running||!layoutStatus(displayedRoom(),room.draftContent||content[room.content%content.length]).ok)return;const button=$('#exportPng');button.disabled=true;button.textContent='正在生成…';try{const blob=await posterPng(displayedRoom(),room.draftContent||content[room.content%content.length]);download('偏爱实验室-海报.png','image/png',blob);speak('已导出 900 × 1200 PNG，与当前画布相同，不含私人反馈或记忆。');}catch(e){speak(e.message);}finally{button.textContent='导出 PNG';render();}};
 let ruleDraft=null;
 function showRuleReplacement(){const scope=$('#saveRuleScope').value,rules=replacedRules(room,ruleDraft.dimension,scope);$('#saveRuleReplaced').textContent='将替换：'+(rules.length?rules.map(m=>`${ctx[m.context]}「${OPTIONS[m.dimension][m.preference]}」`).join('、'):'没有旧规则')+'。其他维度不变。';}
 function openRule(dimension,value){stop();comparison=null;comparisonSide=null;ruleDraft={dimension,value};$('#saveRuleDescription').textContent=`只保存${names[dimension]}：「${OPTIONS[dimension][value]}」。当前场景：${ctx[room.context]}。导出作品不需要保存。`;$('#saveRuleScope [value="current"]').disabled=room.context==='global';$('#saveRuleScope').value=room.context==='global'?'global':'current';showRuleReplacement();$('#saveRuleDialog').showModal();}
@@ -487,9 +507,41 @@ $('#saveRuleScope').onchange=showRuleReplacement;
 $('#confirmRule').onclick=()=>{if(!ruleDraft)return;memoryUndo=JSON.stringify(room);savePreference(room,ruleDraft.dimension,ruleDraft.value,$('#saveRuleScope').value);ruleDraft=null;render();speak('已按确认范围保存这一项规则，可以撤回上次记忆操作。');};
 $('#rememberDirection').onclick=()=>openRule('artDirection',room.canvas.artDirection);
 function syncContentEditor(){const c=room.draftContent||content[room.content%content.length];['editCategory','editTitle','editSubtitle','editFooter'].forEach((id,i)=>$('#'+id).value=c[i].replace(/<br\s*\/?\s*>/gi,'\n'));}
-$('#posterContentForm').onsubmit=e=>{e.preventDefault();if(room.pending||running)return;const values=['editCategory','editTitle','editSubtitle','editFooter'].map(id=>$('#'+id).value.trim());if(values.some(v=>!v)||values[1].split('\n').length>2||values[2].split('\n').length>2){$('#contentStatus').textContent='请补全内容，标题和副文案最多两行。';return;}stop();comparison=null;comparisonSide=null;room.draftContent=values;room.log('edit_poster_content',{fields:['category','title','subtitle','footer'],preference_inferred:false});render();$('#contentStatus').textContent='画布已更新；没有写入任何偏好，导出会使用这份内容。';};
+$('#posterContentForm').onsubmit=e=>{e.preventDefault();if(room.pending||running)return;const values=['editCategory','editTitle','editSubtitle','editFooter'].map(id=>$('#'+id).value.trim());if(values.some(v=>!v)||values[1].split('\n').length>4||values[2].split('\n').length>4){$('#contentStatus').textContent='请补全内容，标题和副文案最多四行。';return;}stop();comparison=null;comparisonSide=null;room.draftContent=values;room.log('edit_poster_content',{fields:['category','title','subtitle','footer'],preference_inferred:false});render();$('#contentPreset').value='custom';$('#contentStatus').textContent='画布已更新；没有写入任何偏好，导出会使用这份内容。';};
+function previewDirection(value){
+  if(!validChoice('artDirection',value)||room.pending)return;
+  stop();comparison=null;comparisonSide=null;room.round=2;explorer=null;
+  trialParameter(room,'artDirection',value);room.log('preview_direction',{direction:value,persisted:false});
+  $('#directionGallery').hidden=true;$('#openDirections').setAttribute('aria-expanded','false');$('#quickDirections').setAttribute('aria-expanded','false');
+  render();syncContentEditor();speak('只切换本张构图；其他参数和长期记忆不变。可继续编辑、比较或导出。');
+}
+function renderDirections(c){
+  if($('#directionGallery').hidden)return;
+  $('#directionGallery').innerHTML=Object.entries(DIRECTIONS).map(([id,d])=>`<button type="button" class="direction-card" data-direction="${id}" aria-pressed="${displayedRoom().canvas.artDirection===id}"><span class="direction-thumbnail">${posterSvg({...room,canvas:{...room.canvas,artDirection:id}},c)}</span><strong>${d.name}</strong><span>${d.detail}</span><small>${d.capacity}</small></button>`).join('')+`<button type="button" class="free-direction" data-direction="free">高级：自由参数<span>使用下方参数调整，不作为一种艺术风格</span></button>`;
+}
+$('#openDirections').onclick=()=>{const gallery=$('#directionGallery');gallery.hidden=!gallery.hidden;$('#openDirections').setAttribute('aria-expanded',String(!gallery.hidden));$('#quickDirections').setAttribute('aria-expanded',String(!gallery.hidden));if(!gallery.hidden){renderDirections(room.draftContent||content[room.content%content.length]);gallery.scrollIntoView({block:'nearest'});}};
+$('#quickDirections').onclick=()=>$('#openDirections').click();
+function renderCandidates(){
+  $('#candidateList').innerHTML=candidates.length?candidates.map((candidate,i)=>`<article><div class="candidate-image">${posterSvg({...room,canvas:candidate.canvas,posterSettings:candidate.posterSettings,draftContent:null},candidate.content)}</div><div><strong>${esc(OPTIONS.artDirection[candidate.canvas.artDirection])}</strong><span>${esc(candidate.content[1].replace(/\n/g,' '))}</span><button type="button" data-candidate="${i}">用这个继续</button><button type="button" data-remove-candidate="${i}" aria-label="移除候选 ${i+1}">移除</button></div></article>`).join(''):'<p class="empty">还没有候选。换方向前先留一张，最多两张，可随时移除。</p>';
+}
+$('#pinCandidate').onclick=()=>{if(candidates.length>=2||room.pending)return;const shown=displayedRoom();candidates.push(JSON.parse(JSON.stringify({canvas:shown.canvas,content:room.draftContent||content[room.content%content.length],posterSettings:room.posterSettings})));render();speak('已留下作品快照；没有保存审美规则。');};
+document.addEventListener('click',e=>{
+ const load=e.target.closest('[data-candidate]'),remove=e.target.closest('[data-remove-candidate]');
+ if(load){if(room.pending)return;const candidate=candidates[Number(load.dataset.candidate)];if(!validCandidate(candidate))return;stop();comparison=null;comparisonSide=null;explorer=null;activePath='create';for(const [d,v] of Object.entries(candidate.canvas))trialParameter(room,d,v);room.draftContent=[...candidate.content];room.posterSettings={...candidate.posterSettings};render();syncContentEditor();speak('按候选继续编辑；原有偏好规则未改变。');}
+ if(remove){candidates.splice(Number(remove.dataset.removeCandidate),1);render();}
+});
+$('#autoWrap').onclick=()=>{if(room.pending)return;const current=room.draftContent||content[room.content%content.length];stop();comparison=null;comparisonSide=null;room.draftContent=current.map((v,i)=>i===1||i===2?v.replace(/<br\s*\/?\s*>|\n/gi,''):v);room.posterSettings.lineBreaks='auto';render();syncContentEditor();speak('重新平衡了换行，文字全部保留；若仍过密，请减少文字或更换构图。');};
+$('#reduceTitle').onclick=()=>{if(room.pending)return;stop();comparison=null;comparisonSide=null;room.posterSettings.titleScale=Math.max(.65,(room.posterSettings.titleScale||1)-.1);render();};
+$('#titleScale').oninput=()=>{if(room.pending)return;stop();comparison=null;comparisonSide=null;room.posterSettings.titleScale=Number($('#titleScale').value)/100;render();};
+$('#lineBreaks').onchange=()=>{if(room.pending)return;comparison=null;comparisonSide=null;room.posterSettings.lineBreaks=$('#lineBreaks').value;render();};
+$('#densityControl').onchange=()=>{if(room.pending)return;comparison=null;comparisonSide=null;trialParameter(room,'layoutDensity',$('#densityControl').value);render();};
+$('#contentPreset').onchange=()=>{if($('#contentPreset').value==='custom'||room.pending)return;stop();comparison=null;comparisonSide=null;room.draftContent=[...content[Number($('#contentPreset').value)]];render();syncContentEditor();speak('已填入原创示例内容；构图和偏好保持不变。');};
+$('#exportBriefJson').onclick=()=>{if(room.pending||running)return;download('偏爱实验室-偏好说明书.json','application/json;charset=utf-8',JSON.stringify(styleBrief(room),null,2));speak('已导出可重新导入的说明书；其中包含私人反馈依据，请自行保管。');};
+$('#importBrief').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{if(file.size>262144)throw Error('说明书最大 256 KB。');importDraft=parseBrief(await file.text());const preview=importPreview(room,importDraft);$('#importSummary').innerHTML=preview.map(rule=>`<p><strong>${esc(names[rule.dimension])}：${esc(OPTIONS[rule.dimension][rule.value])}</strong><span>${esc(ctx[rule.scope])} · ${esc(rule.status)}</span><small>替换：${rule.replaces.length?rule.replaces.map(old=>esc(OPTIONS[old.dimension][old.value])).join('、'):'无同场景旧规则'}</small></p>`).join('');$('#importDialog').showModal();}catch(error){importDraft=null;speak(error.message)}finally{e.target.value='';}};
+$('#cancelImport').onclick=()=>{importDraft=null;$('#importDialog').close();};
+$('#confirmImport').onclick=()=>{if(!importDraft)return;try{stop();memoryUndo=JSON.stringify(room);const count=applyBrief(room,importDraft);comparison=null;comparisonSide=null;importDraft=null;$('#importDialog').close();render();speak(`已导入 ${count} 条规则，按当前场景应用；文案没有变化，可撤回本次导入。`);}catch(error){speak(error.message);$('#importDialog').close();}};
 render();
 syncContentEditor();
 // A portfolio link may open a composition directly; this is a preview, never consent to memory.
 const linkedDirection=new URLSearchParams(location.search).get('direction');
-if(linkedDirection&&validChoice('artDirection',linkedDirection))$(`[data-direction="${linkedDirection}"]`)?.click();
+if(linkedDirection&&validChoice('artDirection',linkedDirection))previewDirection(linkedDirection);

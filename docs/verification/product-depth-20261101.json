@@ -1,0 +1,105 @@
+{
+  "date": "2026-11-01",
+  "kind": "local-development-review",
+  "base": "http://127.0.0.1:8830",
+  "published": false,
+  "modelCalls": 0,
+  "checks": {
+    "taste": {
+      "coreTests": 36,
+      "desktop": [
+        "six genuine same-content directions",
+        "custom copy, candidate, arbitrary Japanese/risograph comparison",
+        "once-only adoption leaves0long-term rules",
+        "PNG actually downloaded and inspected900x1200"
+      ],
+      "mobile": [
+        "edit own copy",
+        "two exploration choices preserve copy",
+        "no new long-term rules",
+        "keyboard Enter exports SVG"
+      ]
+    },
+    "eval": {
+      "coreTests": 24,
+      "desktop": [
+        "external task package and explicitly synthetic returned result",
+        "two own materials in local library",
+        "unsupported review and action item",
+        "own A/B with missing-condition warnings and original scores"
+      ],
+      "mobile": [
+        "quote switches to source and marks exact text",
+        "return to review, unsupported judgement, add action",
+        "keyboard Enter exports Markdown report"
+      ]
+    },
+    "bundle": {
+      "coreTests": 24,
+      "ruleChecks": 21,
+      "desktop": [
+        "save A andB, compare margin loss",
+        "reason draft requires confirmation",
+        "cost change invalidates frozen sensitivity preview",
+        "fresh point confirmation changes working scenario, saved snapshots unchanged"
+      ],
+      "mobile": [
+        "copyA to working inputs",
+        "edit discount and saveC",
+        "copy full comparison card",
+        "page remains390px while tables scroll internally"
+      ]
+    },
+    "commute": {
+      "coreTests": 14,
+      "desktop": [
+        "budget and earliest-time conflict per route",
+        "change constraints and save selection",
+        "1record remains estimate,3records explicitly calibrate",
+        "old choice stale and export blocked",
+        "estimate switch preserves records and restore works",
+        "invalid earliest remains invalid when budget changes",
+        "copy summary includes own conditions and correct source"
+      ],
+      "mobile": [
+        "edit budget and choose withreason",
+        "keyboard Enter exports JSON",
+        "append1trial record, preview then apply",
+        "old choice becomes stale; current export disabled"
+      ]
+    }
+  },
+  "responsive": [
+    {
+      "width": 1440,
+      "height": 900,
+      "products": 4
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "products": 4
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "products": 4
+    }
+  ],
+  "portfolio": [
+    "all17 projects retained",
+    "selected order Eval/Taste/Bundle/Commute",
+    "six actual SVG previews and direction-only handoff",
+    "four original themes inspected",
+    "ArrowDown changes selected tab",
+    "protected unrelated sections pass existing checks"
+  ],
+  "limits": [
+    "Developer browser checks use fictional input, not recruited users; no measured user task completion rate.",
+    "No new model execution or traffic API/business experiment.",
+    "Reduced-motion CSS reviewed; OS/browser preference was not changed.",
+    "Blocked-storage and near-limit imports covered in deterministic/state tests, not rerun in browser.",
+    "Preference brief import roundtrip covered by core tests; browser upload dialog not separately exercised in this run.",
+    "Full Eval A/B report export/restore and badJSON checked by independent monitor on this same8830build; root checked external-task and ownA/B path."
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "websiteBaseline": "5b5741360290a7eb86a047ef1033fe8eb768bc56",
+  "branch": "review/integrated-followup-20261102",
+  "port": 8840,
+  "hashAlgorithm": "sort by relative POSIX path string; SHA256(path + NUL + file SHA256 + newline)",
+  "records": [
+    {
+      "app": "eval",
+      "sourceCommit": "f504319fbefc0aa2160ef860502f457efbe40fe2",
+      "relativeOutput": "../eval/out",
+      "treeSha256": "225b2350664b1a33f680999df61c1423990a1799b9677ca4113e011cf46de1d0",
+      "files": 61,
+      "rebuildByIntegrator": false
+    },
+    {
+      "app": "bundle",
+      "sourceCommit": "83847ebb48c97102733f1c735f11fd4b07c7b06b",
+      "relativeOutput": "../bundle/out",
+      "treeSha256": "48cfa5b87ee99eb97af9ddb05075a2c96dd4e0b37b259e4393bfe4c3177aa41b",
+      "files": 36,
+      "rebuildByIntegrator": false
+    },
+    {
+      "app": "commute",
+      "sourceCommit": "19417643e897cb266fe3d90847640cbce01c257a",
+      "relativeOutput": "../commute/out",
+      "treeSha256": "e5c5a6e0789f54a5d498514b0e24efc13bdee2d50c712cf9b95968f9d34874b3",
+      "files": 23,
+      "rebuildByIntegrator": false
+    }
+  ],
+  "publication": "local only; not pushed, merged or deployed"
+}

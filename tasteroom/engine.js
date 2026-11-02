@@ -1,5 +1,5 @@
 export const OPTIONS = {
-  artDirection: { free: "自由参数", swiss: "瑞士现代主义", deconstructed: "解构主义" },
+  artDirection: { free: "自由参数", swiss: "瑞士现代主义", deconstructed: "解构主义", editorial: "编辑杂志", bauhaus: "包豪斯几何", japanese: "日式留白", risograph: "双色印刷" },
   layoutDensity: { compact: "紧凑", balanced: "均衡", airy: "大留白" },
   typography: {
     rational_sans: "利落无衬线",
@@ -51,6 +51,7 @@ export class Room {
     this.round = 0;
     this.content = 0;
     this.draftContent = null;
+    this.posterSettings = { titleScale: 1, lineBreaks: "auto" };
     this.seq = 0;
     this.focus = null;
   }
@@ -311,6 +312,7 @@ export class Room {
         : "personal";
       this.content = Number.isInteger(s.content) && s.content >= 0 && s.content <= 100000 ? s.content : 0;
       this.draftContent = Array.isArray(s.draftContent) && s.draftContent.length === 4 && s.draftContent.every(v=>typeof v==='string'&&v.length<=180) ? s.draftContent : null;
+      this.posterSettings = s.posterSettings && Number.isFinite(s.posterSettings.titleScale) && s.posterSettings.titleScale >= .65 && s.posterSettings.titleScale <= 1.3 && ["auto","manual"].includes(s.posterSettings.lineBreaks) ? {...s.posterSettings} : { titleScale: 1, lineBreaks: "auto" };
       this.pending = null;
       this.reconcile();
       return true;
@@ -329,6 +331,7 @@ export class Room {
       context: this.context,
       content: this.content,
       draftContent: this.draftContent,
+      posterSettings: this.posterSettings,
     });
   }
 }
@@ -340,6 +343,10 @@ export function parseFeedback(text) {
   const specs = [
     ["artDirection", "swiss", /瑞士|swiss/i],
     ["artDirection", "deconstructed", /解构|deconstruct/i],
+    ["artDirection", "editorial", /编辑杂志|杂志风|editorial/i],
+    ["artDirection", "bauhaus", /包豪斯|bauhaus/i],
+    ["artDirection", "japanese", /日式|japanese/i],
+    ["artDirection", "risograph", /双色印刷|孔版|risograph/i],
     ["typography", "rational_sans", /无衬线|利落|不要衬线|别.*衬线|sans/i],
     ["typography", "mono_tech", /等宽|mono/i],
     ["typography", "editorial_serif", /衬线|书刊|serif/i],

@@ -15,7 +15,7 @@ const hl = (s) => esc(s).replace(
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data.json?v=rag-1b3d149c4a7b');
+    const res = await fetch('data.json?v=rag-43b6cc906d07');
     if (!res.ok) throw new Error('Profile data could not be loaded');
     data = await res.json();
     if (typeof applyResumeEvidence === 'function') applyResumeEvidence(data);
@@ -55,9 +55,7 @@ function render() {
 function renderProfileIntro() {
   const intro = document.querySelector('.hero-tagline');
   if (intro) {
-    intro.dataset.zh = data.tagline;
-    intro.dataset.en = data.taglineEn;
-    intro.textContent = data.tagline;
+    intro.innerHTML = window.personalPresentation.renderIntro(data);
   }
   const qualifications = document.querySelectorAll('.hero-meta > span:not(.dot)');
   (data.education || []).forEach((edu, i) => {
@@ -148,23 +146,7 @@ function renderProjects() {
   if (typeof window.refreshProjectLibrary === 'function') window.refreshProjectLibrary(data.projects);
 }
 
-function renderAwards() {
-  const list = document.getElementById('awardList');
-  const awards = data.awards && data.awards.length ? data.awards : [
-    { icon: '🎓', name: 'Distinction', nameEn: 'Distinction', meta: 'UCL · 金融工程硕士', metaEn: 'UCL · MSc Financial Engineering' },
-    { icon: '🎓', name: 'First Class Honours', nameEn: 'First Class Honours', meta: '布里斯托大学 · 电子电气工程本科', metaEn: 'University of Bristol · BEng Electronic and Electrical Engineering' },
-    { icon: '＋', name: '奖项待补充', nameEn: 'More to come', meta: '框架已就位，随时填', metaEn: 'Slot ready' }
-  ];
-  list.innerHTML = awards.map((a, i) => `
-    <div class="award-item reveal" data-delay="${i * 70}">
-      <span class="award-icon">${esc(a.icon || '◆')}</span>
-      <div>
-        <div class="award-name" data-zh="${esc(a.name)}" data-en="${esc(a.nameEn || a.name)}">${esc(a.name)}</div>
-        <div class="award-meta" data-zh="${esc(a.meta)}" data-en="${esc(a.metaEn || a.meta)}">${esc(a.meta)}</div>
-      </div>
-    </div>
-  `).join('');
-}
+function renderAwards() { document.getElementById('awardList').innerHTML = window.personalPresentation.renderHonours(data.awards); }
 
 function renderSkills() {
   const grid = document.getElementById('skillGrid');
@@ -238,29 +220,7 @@ function renderUses() {
   `).join('');
 }
 
-function renderContact() {
-  const grid = document.getElementById('contactGrid');
-  const c = data.contact;
-  const items = [
-    { icon: '☎', label: '手机', labelEn: 'Phone', value: c.phone, copy: true },
-    { icon: '✉', label: '邮箱', labelEn: 'Email', value: c.email, href: 'mailto:' + c.email },
-    { icon: '◈', label: '微信', labelEn: 'WeChat', value: c.wechat, copy: true },
-    { icon: '⌘', label: 'GitHub', labelEn: 'GitHub', value: '@AndyZhang666666', href: c.github }
-  ];
-  grid.innerHTML = items.map((it, i) => {
-    const tag = it.href ? 'a' : 'div';
-    const attrs = it.href ? ` href="${esc(it.href)}" target="_blank" rel="noopener"` : '';
-    return `
-      <${tag}${attrs} class="contact-item reveal"${it.copy ? ` data-copy="${esc(it.value)}"` : ''} data-delay="${i * 70}">
-        <span class="contact-icon">${it.icon}</span>
-        <span class="contact-text">
-          <span class="contact-label" data-zh="${esc(it.label)}" data-en="${esc(it.labelEn)}">${esc(it.label)}</span>
-          <span class="contact-value">${esc(it.value)}</span>
-        </span>
-        ${it.copy ? '<span class="copy-hint">已复制</span>' : ''}
-      </${tag}>`;
-  }).join('');
-}
+function renderContact() { document.getElementById('contactGrid').innerHTML = window.personalPresentation.renderContacts(data.contact); }
 
 // ===== EVENTS =====
 function attachEventListeners() {
@@ -274,9 +234,14 @@ function attachEventListeners() {
     el.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(el.dataset.copy);
+        el.querySelector('.copy-hint').textContent = lang === 'en' ? 'Copied' : '已复制';
         el.classList.add('copied');
-        setTimeout(() => el.classList.remove('copied'), 1600);
-      } catch (_) {}
+        setTimeout(() => { el.classList.remove('copied'); el.querySelector('.copy-hint').textContent = ''; }, 1600);
+      } catch (_) {
+        el.querySelector('.copy-hint').textContent = lang === 'en' ? 'Select text to copy' : '请选中文字复制';
+        el.classList.add('copied');
+        setTimeout(() => { el.classList.remove('copied'); el.querySelector('.copy-hint').textContent = ''; }, 2400);
+      }
     });
   });
 
@@ -498,7 +463,7 @@ function initPalette() {
   const root = document.documentElement;
   const btns = [...box.querySelectorAll('.ps-btn')];
   const current = () => root.getAttribute('data-palette') || 'frost';
-  const mark = () => btns.forEach(b => b.classList.toggle('active', b.dataset.palette === current()));
+  const mark = () => btns.forEach(b => { b.classList.toggle('active', b.dataset.palette === current()); b.setAttribute('aria-pressed', String(b.dataset.palette === current())); });
   const apply = (name) => {
     root.classList.add('theme-switching');
     // 默认主题是 frost，直接写属性，不再用「移除属性」表示默认

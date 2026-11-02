@@ -8,8 +8,10 @@ import {renderProjectCards} from '../assets/project-cards.mjs';
 import {renderSelected} from '../content/showcase.mjs';
 import {renderProductPrinciples} from '../assets/product-principles.mjs';
 import {renderAiViews} from '../assets/ai-views.mjs';
+import {applyPersonalPresentation,transformPersonalHTML,patchPersonalApp} from '../content/personal-presentation.mjs';
 const localReview=process.argv.includes('--local');
-const releaseVersion='20261101-craft1';
+const releaseVersion='20261101-integrated1';
+const showcaseVersion='20261101-integrated1';
 const base='86b16f4';
 const original=file=>execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
 const data=JSON.parse(original('data.json'));
@@ -27,6 +29,7 @@ data.taglineEn=identity.short.en+' '+identity.intro.en;
 data.about.lead=identity.title.zh;data.about.leadEn=identity.title.en;
 data.about.body=data.about.body.split('。').slice(1).join('。');
 data.about.bodyEn=data.about.bodyEn.split('. ').slice(1).join('. ');
+applyPersonalPresentation(data);
 // Keep the original views; connect each to its own inspectable design decision.
 data.aiViews.items.forEach((item,index)=>item.practice=aiPractices[index]);
 for(const p of projects){
@@ -90,14 +93,20 @@ html=html.replace('</head>',`<link rel="stylesheet" href="assets/demo-showcase.c
 html=html.replace('</head>',`<link rel="stylesheet" href="assets/product-principles.css?v=${releaseVersion}">\n</head>`);
 // Small native previews replace whole-app iframes and the old parallel calculators.
 html=html.replace(/<script src="embed\.js[^\"]*"><\/script>\n?/,'');
-html=html.replace('<script src="app.js',`<script type="module" src="assets/demo-showcase.mjs?v=${releaseVersion}"></script>\n<script src="app.js`);
+html=html.replace('<script src="app.js',`<script type="module" src="assets/demo-showcase.mjs?v=${showcaseVersion}"></script>\n<script src="app.js`);
 html=html.replace(/src="railnav\.js\?v=[^"]*"/,`src="railnav.js?v=${releaseVersion}"`);
 html=html.replace(/src="projects-split\.js\?v=[^"]*"/,`src="projects-split.js?v=${releaseVersion}"`);
+html=html.replace(/href="projects-split\.css\?v=[^"]*"/,`href="projects-split.css?v=${releaseVersion}"`);
 // The public master is indexable; --local is available for a private review build.
 if(localReview)html=html.replace('<meta charset="UTF-8">','<meta charset="UTF-8">\n<meta name="robots" content="noindex,nofollow">');
 html=html.replace(/src="app\.js\?v=[^"]*"/,`src="app.js?v=${releaseVersion}"`).replace(/src="jd\.js\?v=[^"]*"/,`src="jd.js?v=${releaseVersion}"`);
 html=html.replace('</head>','<link rel="stylesheet" href="assets/poker-lab-preview.css?v=20261101">\n</head>');
 html=html.replace('</body>','<script type="module" src="assets/poker-lab-preview.mjs?v=20261101"></script>\n</body>');
+// Art direction stays reproducible in this generator, rather than only in a hand-edited page.
+html=html.replace('</head>',`<link rel="stylesheet" href="assets/section-atmospheres.css?v=${releaseVersion}">\n<link rel="stylesheet" href="assets/personal-art-direction.css?v=${releaseVersion}">\n</head>`);
+html=html.replace(/(education\.(?:css|js)\?v=)[^"']*/g,`$1${releaseVersion}`);
+html=html.replace('</body>',`<script type="module" src="assets/personal-sections.mjs?v=${releaseVersion}"></script>\n<script type="module" src="assets/section-atmospheres.mjs?v=${releaseVersion}"></script>\n</body>`);
+html=transformPersonalHTML(html,data);
 fs.writeFileSync('index.html',html);
 let app=original('app.js');
 app=app.replace(/^[ \t]*<div class="(?:principle-num|ai-view-num)">[^\n]*<\/div>\n/gm,'');
@@ -107,6 +116,7 @@ app=app.replace('<span data-zh="迭代与校验" data-en="Iterations & validatio
 app=app.replace(/function renderProjects\(\) \{[\s\S]*?\n\}\n\nfunction renderAwards/,`function renderProjects() {\n  // Static cards are also present without JavaScript. URLs are bound by project ID.\n  if (typeof window.refreshProjectLibrary === 'function') window.refreshProjectLibrary(data.projects);\n}\n\nfunction renderAwards`);
 app=app.replace(/function renderAiViews\(\) \{[\s\S]*?\n\}/,`function renderAiViews() {\n  // Keep the statically rendered opinions, own examples and reference links.\n  if (typeof window.refreshAiViews === 'function') window.refreshAiViews(data.aiViews?.items || []);\n}`);
 app=app.replace('    initMagnetic();','    initMagnetic();\n    document.dispatchEvent(new Event(\'portfolio:ready\'));');
+app=patchPersonalApp(app);
 fs.writeFileSync('app.js',app);
 
 // New reading pages use the original site's CSS and vocabulary, not the fusion skin.
@@ -121,7 +131,7 @@ for(const study of studies){
  const evidenceLinks=study.evidenceLinks?`<div class="case-evidence-links">${study.evidenceLinks.map(link=>`<a class="project-link" href="${esc(link.href)}"${link.href.startsWith('http')?' target="_blank" rel="noopener"':''}>${pair('span','',link.label)} ↗</a>`).join('')}</div>`:'';
  const related=(study.related||[]).map(id=>data.projects.find(p=>p.id===id)).filter(Boolean);
  const relatedLinks=related.length?`<aside class="case-related">${pair('h2','',{zh:'关联工具',en:'Related tools'})}${related.map(p=>`<a href="${esc(p.url||p.iterationUrl)}">${pair('span','',{zh:p.name,en:p.nameEn})} ↗</a>`).join('')}</aside>`:'';
- const body=`<section class="section case-intro"><div class="section-head">${pair('h1','',study.title)}</div>${pair('p','case-summary',study.summary)}<div class="project-links">${primary}<a class="project-link" href="/#projects" data-zh="返回作品集" data-en="Back to work">返回作品集</a></div>${pair('p','case-text',study.status)}${image(study.image,study.caption?.zh)}</section>`+
+ const body=`<section class="section case-intro"><div class="section-head">${pair('h1','',study.title)}</div>${pair('p','case-summary',study.summary)}${['trust','taste','bundles','commute'].includes(study.id)?pair('p','case-text',study.watch):''}<div class="project-links">${primary}<a class="project-link" href="/#projects" data-zh="返回作品集" data-en="Back to work">返回作品集</a></div>${pair('p','case-text',study.status)}${image(study.image,study.caption?.zh)}</section>`+
  section('problem','要解决的问题','The problem',pair('p','about-lead',study.question)+pair('p','about-body',study.problem)+pair('p','about-body',study.role))+
  section('approach','方案与取舍','Options and tradeoffs',pair('p','about-lead',study.insight)+`<div class="principle-grid">${study.choices.map(([a,b])=>`<article class="principle-card">${pair('h3','principle-title',a)}${pair('p','principle-desc',b)}</article>`).join('')}</div>`)+
  section('mechanism','把判断变成机制','Making the decision work',`<ol class="case-mechanism">${study.decisions.map(d=>`<li>${pair('h3','principle-title',d.title)}${pair('p','principle-desc',d.text)}</li>`).join('')}</ol>${evidenceLinks}${study.secondaryImage!==study.image?image(study.secondaryImage,study.artifact.zh):''}`)+

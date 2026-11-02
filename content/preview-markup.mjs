@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import {escapeHtml as e} from '../assets/project-cards.mjs';
-import {directionSvg} from '../tasteroom/directions.js';
+import {directionSvg,DIRECTIONS} from '../tasteroom/directions.js';
 import {createTastePreview,posterContent} from '../assets/demo-preview/taste-session.mjs';
 import {createSession,submit} from '../suibianju/engine.mjs';
 import {previewConditions} from '../suibianju/product.mjs';
@@ -55,7 +55,7 @@ function bundle(){
 function posterWorkshop(){
  const {room}=createTastePreview();
  return `${path([['同一份文案','The same words'],['试不同构图','Try compositions'],['作品先带走','Export before memory']])}
- <div class="preview-composition" data-ui><div class="preview-composition-controls"><h4 data-zh="换一种看法" data-en="Change the composition">换一种看法</h4><div class="preview-segment" role="group" aria-label="构图方向">${button('data-taste-direction="swiss" aria-pressed="true"','瑞士现代主义','Swiss modernism')}${button('data-taste-direction="deconstructed" aria-pressed="false"','解构主义','Deconstructivism')}</div>${text('p','','内容相同，只切换设计方向。这里没有记录你的偏好。','The copy stays the same. Changing direction here does not save a preference.')}<dl class="preview-poster-steps"><div>${text('dt','','完整工具里','In the full tool')}${text('dd','','改标题、副文案与落款','Edit title, subtitle and signature')}</div><div>${text('dt','','带走作品','Take your work')}${text('dd','','SVG / 900 × 1200 PNG','SVG / 900 × 1200 PNG')}</div><div>${text('dt','','记住什么','What to remember')}${text('dd','','单独确认维度与场景，可撤回','Confirm dimension and scope separately; undo is available')}</div></dl></div><div class="preview-composition-sheet" data-taste-canvas>${directionSvg(room,posterContent)}</div></div>
+ <div class="preview-composition" data-ui><div class="preview-composition-controls"><h4 data-zh="换一种看法" data-en="Change the composition">换一种看法</h4><div class="preview-segment" role="group" aria-label="构图方向">${Object.entries(DIRECTIONS).map(([id,d])=>button(`data-taste-direction="${id}" aria-pressed="${id==='swiss'}"`,d.name,({swiss:'Swiss modernism',deconstructed:'Deconstructivism',editorial:'Editorial',bauhaus:'Bauhaus geometry',japanese:'Japanese whitespace',risograph:'Two-ink print'})[id])).join('')}</div>${text('p','','内容相同，只切换设计方向。这里没有记录你的偏好。','The copy stays the same. Changing direction here does not save a preference.')}<dl class="preview-poster-steps"><div>${text('dt','','完整工具里','In the full tool')}${text('dd','','自己的文案、两份候选与排版微调','Your copy, two candidates and type controls')}</div><div>${text('dt','','带走作品','Take your work')}${text('dd','','SVG / 900 × 1200 PNG','SVG / 900 × 1200 PNG')}</div><div>${text('dt','','记住什么','What to remember')}${text('dd','','单独确认范围，可导入旧说明书再用','Confirm scope separately; import a brief to reuse it')}</div></dl></div><div class="preview-composition-sheet" data-taste-canvas>${directionSvg(room,posterContent)}</div></div>
  <p class="preview-outcome" data-taste-status role="status">${text('span','','正在试瑞士构图。导出作品不要求保存长期偏好。','Trying the Swiss composition. Exporting does not require a lasting preference.')}</p>`;
 }
 function commute(){

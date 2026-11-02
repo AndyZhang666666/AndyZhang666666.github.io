@@ -1,0 +1,68 @@
+/* A table for the poker work; a conversation for the contact section. */
+.sa-atmosphere{position:absolute;pointer-events:none;overflow:hidden;user-select:none;-webkit-user-select:none;isolation:isolate}
+.sa-atmosphere svg{display:block;width:100%;height:100%;overflow:visible}
+.sa-atmosphere [data-sa-depth]{transform:translate3d(calc(var(--sa-x,0px)*var(--sa-depth,1)),calc(var(--sa-y,0px)*var(--sa-depth,1)),0);transform-origin:center;transition:opacity .3s}
+.sa-atmosphere .sa-ink{color:var(--fg)}
+.sa-atmosphere .sa-accent{color:var(--accent)}
+.sa-atmosphere .sa-second{color:var(--second)}
+.sa-atmosphere .sa-third{color:var(--third,var(--second))}
+
+/* The familiar interactive hand sits at the near edge of one quiet table. */
+.pgroup-poker.sa-poker-host{--pk-face:var(--bg-1);--pk-ink:var(--fg);--pk-red:var(--accent);--sa-poker-material:var(--poker-field,color-mix(in srgb,var(--bg-0) 96%,var(--fg) 4%));--sa-poker-thread:var(--poker-thread,color-mix(in srgb,var(--fg) 78%,var(--second) 22%));--sa-poker-wash:var(--poker-wash,rgba(var(--fg-rgb),.025));isolation:isolate;padding:clamp(40px,5vw,64px) clamp(22px,3vw,40px) 38px;border-top:0;border-radius:24px;margin-inline:clamp(-40px,-3vw,-22px)}
+.pgroup-poker>.sa-poker{inset:0;z-index:-1;border-radius:24px;background:transparent}
+.sa-poker .sa-table-field{opacity:.72;color:var(--sa-poker-material)}
+.sa-poker .sa-table-stitch{opacity:.16;color:var(--sa-poker-thread)}
+.sa-poker .sa-table-inner{opacity:.11;color:var(--fg)}
+.sa-poker .sa-table-rail{opacity:.11;color:var(--fg)}
+.sa-poker .sa-table-light{opacity:.17;color:var(--accent)}
+.sa-poker .sa-back-cards{opacity:.68}
+.sa-poker .sa-paper{fill:var(--bg-0);stroke:rgba(var(--fg-rgb),.16);stroke-width:1.2}
+.sa-poker .sa-card-rule{fill:none;stroke:currentColor;stroke-width:1.5;opacity:.5}
+.sa-poker .sa-suit-fill{fill:currentColor}
+.sa-poker .sa-card-fold{fill:color-mix(in srgb,var(--bg-0) 94%,var(--fg) 6%)}
+.sa-poker-host .pgroup-grid::before{display:none}
+.sa-poker-host .pk-fan-wrap{gap:36px;padding:8px 0 30px;min-height:178px;margin:0 0 22px;align-items:center}
+.sa-poker-host .pk-fan{--pk-w:88px;--pk-h:124px;flex-shrink:0}
+.sa-poker-host .pk-fan-cap{padding-right:235px}
+.sa-poker-host .pk-fan-line{font-size:19px;line-height:1.7;max-width:30ch;color:var(--fg)}
+.sa-poker-host .pk-fan-suits{font-family:var(--font-serif);font-size:15px;letter-spacing:.22em;color:var(--fg-muted)}
+.sa-poker-host .pk-fan-hint{font-family:var(--font-sans);font-size:12px;letter-spacing:0;color:var(--fg-muted)}
+.sa-poker-host .pgroup-head{margin-bottom:24px;gap:14px}
+.sa-poker-host .pgroup-title{font-family:var(--font-serif);font-size:28px;line-height:1.25;letter-spacing:-.02em;text-transform:none;color:var(--fg)}
+.sa-poker-host .pgroup-mark{display:none}
+.sa-poker-host .pgroup-count{font-family:var(--font-sans);font-size:13px;letter-spacing:0;color:var(--fg-muted)}
+.sa-poker-host .pgroup-count::before{display:none}
+.sa-poker-host .project-card.pk-card{background-image:none;background:var(--glass-bg,rgba(var(--bg-rgb),.76));backdrop-filter:blur(16px) saturate(120%);-webkit-backdrop-filter:blur(16px) saturate(120%);border-color:var(--glass-border,var(--border));box-shadow:var(--elev-1),var(--edge-highlight)}
+.sa-poker-host .project-card.pk-card:hover{border-color:rgba(var(--second-rgb),.4)}
+.sa-poker-host .pk-corner{opacity:.34}
+.sa-poker-host.sa-deal .sa-table-light{animation:sa-deal-light .8s cubic-bezier(.16,1,.3,1)}
+@keyframes sa-deal-light{0%{opacity:.1;transform:translateX(-28px)}45%{opacity:.38}100%{opacity:.17;transform:translateX(0)}}
+
+/* Contact no longer inherits any poker ornament or card-suit behaviour. */
+#contact .poker-field,#contact .felt-line,#contact .hand{display:none!important}
+#contact .contact-item::before,#contact .contact-item::after{content:none}
+#contact .contact-item:hover{transform:translateY(-3px)}
+#contact.sa-contact-host{isolation:isolate;overflow:hidden}
+#contact>.sa-correspondence{inset:0 -4%;z-index:0;opacity:.9}
+#contact>.reveal{position:relative;z-index:1}
+.sa-correspondence .sa-contact-line{fill:none;stroke:currentColor;stroke-width:1;opacity:.19}
+.sa-correspondence .sa-quote-start{opacity:.13}
+.sa-correspondence .sa-quote-end{opacity:.1}
+.sa-correspondence .sa-contact-fold{opacity:.07}
+.sa-contact-host .contact-title::after{display:none}
+
+@media(max-width:1100px){.pgroup-poker.sa-poker-host{margin-inline:-22px;padding-inline:22px}.sa-poker-host .pk-fan-cap{padding-right:165px}.sa-poker-host .pk-fan-wrap{gap:24px}.sa-poker-host .pk-fan-line{font-size:18px}.sa-poker .sa-back-cards{opacity:.43}}
+@media(max-width:800px){.pgroup-poker.sa-poker-host{border-radius:18px;padding-top:30px;margin-inline:-18px;padding-inline:18px}.sa-poker-host .pk-fan-wrap{gap:22px;align-items:center;min-height:165px}.sa-poker-host .pk-fan-cap{padding-right:0}.sa-poker .sa-back-cards{display:none}.sa-poker-host .pk-fan{--pk-w:76px;--pk-h:108px}.sa-poker-host .pk-fan-line{font-size:17px}.sa-poker-host .pgroup-title{font-size:25px}.sa-correspondence .sa-quote-start{opacity:.09}.sa-correspondence .sa-quote-end{opacity:.07}}
+@media(max-width:600px){.pgroup-poker.sa-poker-host{margin-inline:-12px;padding:24px 12px;border-radius:16px}.sa-poker-host .pk-fan-wrap{display:flex;flex-direction:column;align-items:flex-start;gap:17px;padding:0 12px 24px;margin-bottom:8px}.sa-poker-host .pk-fan{--pk-w:78px;--pk-h:110px;width:240px;margin-left:9px}.sa-poker-host .pk-fan-cap{padding:0;max-width:31ch}.sa-poker-host .pk-fan-line{font-size:17px;line-height:1.75}.sa-poker-host .pk-fan-suits{display:none}.sa-poker-host .pk-fan-hint{font-size:12px;margin-top:8px}.sa-poker-host .pgroup-head{padding-inline:6px;margin-bottom:20px}.sa-poker-host .pgroup-title{font-size:25px}.sa-poker .sa-table-stitch{opacity:.15}.sa-poker .sa-table-inner{opacity:.09}#contact>.sa-correspondence{inset:0 -36%}.sa-correspondence .sa-quote-start{opacity:.1}.sa-correspondence .sa-contact-line{opacity:.12}.sa-correspondence .sa-quote-end{opacity:.06}}
+@media(prefers-reduced-motion:reduce){.sa-atmosphere [data-sa-depth]{transform:none!important;transition:none}.sa-poker-host.sa-deal .sa-table-light{animation:none}.sa-poker-host .pk-fan-wrap,.sa-contact-host .contact-item:hover{transform:none}}
+@media(prefers-reduced-transparency:reduce){.sa-poker-host .project-card.pk-card{background:var(--bg-1);backdrop-filter:none;-webkit-backdrop-filter:none}}
+
+/* A tall mobile list is not a taller table. Keep the geometry at its authored ratio. */
+@media(max-width:800px){.pgroup-poker>.sa-poker>svg{position:absolute;top:52px;left:50%;width:980px;height:632px;margin-left:-490px;opacity:.68}.sa-poker .sa-table-rail{stroke-width:5;opacity:.09}}
+/* On a phone, the real fan carries the cards; one near table edge carries the atmosphere. */
+@media(max-width:600px){
+ .pgroup-poker>.sa-poker>svg{display:none}
+ .pgroup-poker>.sa-poker{background:radial-gradient(ellipse 92% 420px at 50% 140px,var(--sa-poker-wash),transparent 100%)}
+ .pgroup-poker>.sa-poker::before,.pgroup-poker>.sa-poker::after{content:'';position:absolute;pointer-events:none;left:17px;right:17px;top:25px;height:460px;border:1px solid color-mix(in srgb,var(--sa-poker-thread) 12%,transparent);border-radius:46% 46% 30% 30%;transform:rotate(-5deg)}
+ .pgroup-poker>.sa-poker::after{left:24px;right:24px;top:32px;height:446px;border-style:dashed;border-color:color-mix(in srgb,var(--sa-poker-thread) 8%,transparent);transform:rotate(-5deg)}
+}

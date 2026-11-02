@@ -323,3 +323,109 @@
   .edu-extra .reveal { opacity: 1; transform: none; transition: none; }
   .edu-logo, .edu-award-year, .thesis-tag, .edu-logo-school a { transition: none; }
 }
+
+/* The two disciplines have their own visual field; neither is another grid tile. */
+#education .edu-extra { margin-top: clamp(3rem,6vw,5rem); }
+#education .edu-extra .edu-block { padding-top: 28px; }
+#education .edu-extra .edu-block-head { margin-bottom: 24px; align-items: center; }
+#education .edu-block-title { font-family: var(--font-sans); font-size: 16px; letter-spacing: 0; text-transform: none; color: var(--fg); }
+#education .edu-extra .thesis-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 40px; }
+#education .edu-extra .thesis-item {
+  display: grid;
+  grid-template-columns: minmax(0,.78fr) minmax(0,1.22fr);
+  grid-template-rows: auto auto auto 1fr;
+  align-items: start;
+  column-gap: clamp(30px,4vw,64px);
+  padding: 25px 0 30px;
+  margin: 0;
+  border: 0;
+}
+#education .edu-extra .thesis-item + .thesis-item { border-top: 1px solid var(--border); padding-top: 48px; }
+#education .thesis-item .thesis-kicker { grid-column: 1; grid-row: 1; margin: 0 0 18px; align-self: end; font: 500 13px/1.7 var(--font-sans); letter-spacing: 0; text-transform: none; color: var(--accent); }
+#education .thesis-item .thesis-title { grid-column: 1; grid-row: 2; font-size: clamp(24px,2.35vw,32px); line-height: 1.45; margin: 0 0 20px; max-width: 21ch; }
+#education .thesis-item .thesis-summary { grid-column: 1; grid-row: 3; font-size: 16px; line-height: 1.95; margin: 0 0 24px; max-width: 43ch; }
+#education .thesis-item .thesis-tags { grid-column: 1; grid-row: 4; align-self: start; gap: 8px 18px; margin: 0; }
+#education .thesis-tag { border: 0; border-radius: 0; background: none; padding: 0; font: 400 12px/1.8 var(--font-sans); color: var(--fg-muted); letter-spacing: 0; }
+#education .thesis-item .thesis-result { grid-column: 1; }
+#education .thesis-item .thesis-scene { grid-column: 2; grid-row: 1 / span 5; min-width: 0; align-self: center; margin: 0; border: 0; border-radius: 0; background: transparent; overflow: visible; }
+#education .thesis-scene svg { display: block; width: 100%; height: auto; overflow: visible; }
+#education .thesis-scene figcaption { border: 0; padding: 8px 22px 0; display: flex; justify-content: flex-end; font: 400 12px/1.8 var(--font-sans); letter-spacing: 0; color: var(--fg-muted); }
+#education .thesis-figure-kind { color: var(--second); }
+.thesis-field { fill: var(--accent); fill-opacity: .035; }
+.thesis-field-sensing { fill: var(--second); fill-opacity: .055; }
+.thesis-scene-label { font: 500 18px var(--font-sans); fill: var(--fg-muted); }
+.thesis-scene-note { font: 400 15px var(--font-sans); fill: var(--fg-muted); }
+.thesis-ground { fill: none; stroke: var(--fg); stroke-opacity: .12; stroke-width: 1; }
+.thesis-reference { fill: none; stroke: var(--second); stroke-width: 2; stroke-opacity: .16; stroke-dasharray: 5 7; }
+.thesis-head { fill: var(--bg-1); stroke: var(--fg); stroke-opacity: .5; stroke-width: 2; }
+.thesis-bone-body { fill: none; stroke: var(--fg); stroke-width: 18; stroke-opacity: .065; stroke-linecap: round; stroke-linejoin: round; }
+.thesis-bone-line { fill: none; stroke: var(--fg-muted); stroke-width: 2; stroke-opacity: .75; stroke-linecap: round; stroke-linejoin: round; }
+.thesis-joint { fill: var(--bg-0); stroke: var(--fg-muted); stroke-width: 1.5; }
+.thesis-angle { fill: none; stroke: var(--second); stroke-width: 2; }
+.thesis-sensor rect { fill: var(--accent); stroke: var(--bg-0); stroke-width: 2; }
+.thesis-sensor-wave { fill: none; stroke: var(--accent); stroke-width: 1.3; stroke-opacity: .22; transform-box: fill-box; transform-origin: center; animation: thesis-sensor-pulse 5s ease-in-out infinite; animation-delay: calc(var(--sensor) * -.8s); }
+.thesis-connection { fill: none; stroke: var(--fg); stroke-opacity: .16; stroke-width: 1.4; }
+.thesis-signal-baseline,.thesis-signal-live { fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; }
+.thesis-signal-baseline { stroke-opacity: .2; }
+.thesis-channel-1 { stroke: var(--second); }
+.thesis-channel-2 { stroke: var(--third, var(--second)); }
+.thesis-signal-live { stroke-dasharray: 42 220; animation: thesis-signal-travel 7s linear infinite; animation-delay: calc(var(--channel) * -1.7s); }
+.thesis-transmit { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 7 12; animation: thesis-signal-travel 5s linear infinite; }
+.thesis-phone-shell { fill: var(--bg-2); stroke: var(--fg-muted); stroke-width: 1.8; }
+.thesis-phone-screen { fill: var(--bg-0); stroke: var(--border); stroke-width: 1; }
+.thesis-phone-speaker { stroke: var(--fg); stroke-opacity: .28; stroke-width: 4; stroke-linecap: round; }
+.thesis-phone-label { font: 500 17px var(--font-sans); fill: var(--fg); }
+.thesis-phone-pose { fill: none; stroke: var(--fg-muted); stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.thesis-phone-angle { fill: none; stroke: var(--accent); stroke-width: 2; }
+.thesis-feedback-surface { fill: var(--second); fill-opacity: .08; }
+.thesis-phone-feedback { font: 500 15px var(--font-sans); fill: var(--second); }
+.thesis-book-label { font: 500 18px var(--font-sans); fill: var(--fg); }
+.thesis-bid-ink { fill: var(--second); }
+.thesis-ask-ink { fill: var(--accent); }
+.thesis-book-bid { fill: var(--second); fill-opacity: .48; transform-origin: 288px center; animation: thesis-bid-depth 8s ease-in-out infinite; animation-delay: calc(var(--book-row) * -.55s); }
+.thesis-book-ask { fill: var(--accent); fill-opacity: .4; transform-origin: 310px center; animation: thesis-ask-depth 9s ease-in-out infinite; animation-delay: calc(var(--book-row) * -.65s); }
+.thesis-book-mid { fill: none; stroke: var(--fg); stroke-opacity: .16; stroke-width: 1; stroke-dasharray: 3 6; }
+.thesis-book-spread { fill: none; stroke: var(--fg-muted); stroke-width: 1.3; }
+.thesis-print-packets { fill: var(--accent); animation: thesis-trade-print 5s ease-out infinite; }
+.thesis-print-packets circle:last-child { fill: var(--second); }
+.thesis-market-axis { fill: none; stroke: var(--fg); stroke-opacity: .14; stroke-width: 1.2; }
+.thesis-market-base { fill: none; stroke: var(--fg); stroke-opacity: .24; stroke-width: 2; stroke-linejoin: round; }
+.thesis-market-live { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; stroke-dasharray: 65 440; animation: thesis-market-observe 12s linear infinite; }
+.thesis-volume { fill: var(--second); fill-opacity: .3; }
+.thesis-volume-sell { fill: var(--accent); fill-opacity: .26; }
+@keyframes thesis-sensor-pulse { 0%,100%{opacity:.45;transform:scale(.92)} 55%{opacity:1;transform:scale(1.1)} }
+@keyframes thesis-signal-travel { to{stroke-dashoffset:-524} }
+@keyframes thesis-bid-depth { 0%,100%{transform:scaleX(.94)} 50%{transform:scaleX(1.04)} }
+@keyframes thesis-ask-depth { 0%,100%{transform:scaleX(1.03)} 50%{transform:scaleX(.93)} }
+@keyframes thesis-trade-print { 0%{transform:translateX(-9px);opacity:0} 20%{opacity:.75} 80%{opacity:.75} 100%{transform:translateX(26px);opacity:0} }
+@keyframes thesis-market-observe { to{stroke-dashoffset:-505} }
+@media(max-width:1000px){
+  #education .edu-extra .thesis-item { grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);column-gap:24px; }
+  #education .thesis-item .thesis-title { font-size:25px; }
+  #education .thesis-item .thesis-summary { font-size:15px;line-height:1.9; }
+  #education .thesis-scene figcaption { padding-inline:10px;font-size:11px; }
+}
+@media(max-width:900px){
+  #education .edu-extra .thesis-grid { gap:32px; }
+  #education .edu-extra .thesis-item { display:flex;flex-direction:column;padding-top:16px;padding-bottom:12px;gap:0; }
+  #education .edu-extra .thesis-item + .thesis-item { padding-top:32px; }
+  #education .thesis-item .thesis-kicker { order:0;align-self:start;margin-bottom:12px;font-size:12px; }
+  #education .thesis-item .thesis-title { order:1;font-size:25px;max-width:none;text-wrap:pretty;margin-bottom:16px; }
+  #education .thesis-item .thesis-summary { order:2;font-size:15px;max-width:55ch;margin-bottom:16px; }
+  #education .thesis-item .thesis-tags { order:3;margin-bottom:18px;gap:6px 16px; }
+  #education .thesis-item .thesis-scene { order:4;width:100%;margin:0; }
+  #education .thesis-scene figcaption { font-size:12px;padding:8px 0 0; }
+  #education .thesis-item .thesis-result { order:5;margin-top:15px; }
+  #education .research-motion-toggle { min-height:42px;font-size:12px;padding:8px 12px; }
+  .thesis-scene-label,.thesis-book-label { font-size:26px; }
+  .thesis-scene-note { font-size:24px; }
+  .thesis-phone-label { font-size:26px;text-anchor:middle;transform:translateX(50px); }
+  .thesis-phone-feedback { font-size:24px;letter-spacing:-.04em; }
+  .thesis-feedback-surface { x:705px;width:128px; }
+  .thesis-scene [data-en="MOBILE INTERACTION"] { letter-spacing:-.05em; }
+}
+@media(prefers-reduced-motion:reduce){
+  #education .thesis-scene * { animation:none!important; }
+  #education .thesis-signal-live,#education .thesis-market-live { stroke-dasharray:none;opacity:.7; }
+  #education .thesis-transmit { stroke-dasharray:none;opacity:.45; }
+}
