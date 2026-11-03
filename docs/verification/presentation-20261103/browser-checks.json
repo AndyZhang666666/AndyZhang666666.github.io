@@ -1,0 +1,256 @@
+{
+  "reviewedAt": "2026-11-03T08:45:06.425Z",
+  "codeCommit": "8069ee0fa316a5ebfc5003a70d18b3167d4ec03d",
+  "checks": [
+    {
+      "name": "Desktop Escape restores focus, position, initial project and keeps temporary review",
+      "result": {
+        "focus": "presentationToggle",
+        "present": false,
+        "scrollY": 0,
+        "selected": "trust",
+        "verdict": "评语存疑"
+      }
+    },
+    {
+      "name": "Back and forward switch view without reloading previews",
+      "url": "http://127.0.0.1:8860/",
+      "normal": true
+    },
+    {
+      "name": "Nonzero position, growth direction, AI filter and duplicate query values preserved",
+      "before": {
+        "direction": "growth",
+        "filter": "AI 与评测4",
+        "selected": "bundles",
+        "visibleProjects": 4,
+        "y": 7995.5
+      },
+      "after": {
+        "direction": "growth",
+        "filter": "AI 与评测4",
+        "focus": "",
+        "selected": "bundles",
+        "visibleProjects": 4,
+        "y": 7995.5
+      },
+      "url": "http://127.0.0.1:8860/?utm_source=interview&label=AI%20PM&label=growth#selected"
+    },
+    {
+      "name": "Enter-to-exit focus retest after native-history focus fix",
+      "focus": "presentationToggle",
+      "present": false,
+      "tag": "BUTTON",
+      "url": "http://127.0.0.1:8860/?utm_source=interview&label=AI%20PM&label=growth#selected"
+    },
+    {
+      "name": "All four mode highlights and full tools",
+      "destinations": [
+        {
+          "project": "90秒投屏\nEval Lab\n设计高光\n↗\n退出投屏\nEsc",
+          "case": "/cases/trust/#mechanism",
+          "demo": "/llm-output-eval/"
+        },
+        {
+          "project": "90秒投屏\n偏爱实验室\n设计高光\n↗\n退出投屏\nEsc",
+          "case": "/cases/taste/#mechanism",
+          "demo": "/tasteroom/?direction=swiss"
+        },
+        {
+          "project": "90秒投屏\nBundle Lab\n设计高光\n↗\n退出投屏\nEsc",
+          "case": "/cases/bundles/#mechanism",
+          "demo": "/bundle-lab/simulate/"
+        },
+        {
+          "project": "90秒投屏\n通勤比较器\n设计高光\n↗\n退出投屏\nEsc",
+          "case": "/cases/commute/#mechanism",
+          "demo": "/commute-compare/"
+        }
+      ]
+    },
+    {
+      "name": "390px phone real viewport, no overflow or hidden-content focus",
+      "barBottom": 74,
+      "cardsTop": 94.69000244140624,
+      "height": 844,
+      "outsideFocusable": 0,
+      "overflow": 0,
+      "width": 390
+    },
+    {
+      "name": "Four existing themes inherited without a new theme preference mechanism",
+      "results": [
+        {
+          "bar": "rgba(16, 34, 45, 0.94)",
+          "ink": "rgb(238, 242, 236)",
+          "overflow": 0,
+          "palette": "copper",
+          "width": 390
+        },
+        {
+          "bar": "rgba(234, 208, 191, 0.94)",
+          "ink": "rgb(55, 43, 38)",
+          "overflow": 0,
+          "palette": "mist",
+          "width": 390
+        },
+        {
+          "bar": "rgba(217, 231, 212, 0.94)",
+          "ink": "rgb(33, 53, 41)",
+          "overflow": 0,
+          "palette": "indigo",
+          "width": 390
+        },
+        {
+          "bar": "rgba(245, 242, 235, 0.94)",
+          "ink": "rgb(20, 18, 16)",
+          "overflow": 0,
+          "palette": "frost",
+          "width": 390
+        }
+      ]
+    },
+    {
+      "name": "English 390px toolbar after compact exit-label fix",
+      "barRight": 359,
+      "client": 375,
+      "exitName": "Exit presentation",
+      "exitRight": 359,
+      "exitText": "Exit",
+      "overflow": 0,
+      "width": 390
+    },
+    {
+      "name": "320px English toolbar reflow after compact spacing fix",
+      "barRight": 289,
+      "client": 305,
+      "exitRight": 289,
+      "overflow": 0,
+      "width": 320
+    },
+    {
+      "name": "768px tablet real viewport",
+      "barBottom": 96,
+      "barRight": 733.796875,
+      "cardsTop": 122.23999786376952,
+      "exitRight": 733.796875,
+      "overflow": 0,
+      "width": 768
+    },
+    {
+      "name": "Real case anchor opens",
+      "path": "/cases/trust/#mechanism",
+      "heading": "把判断变成机制",
+      "url": "http://127.0.0.1:8860/cases/trust/#mechanism"
+    },
+    {
+      "name": "Real case anchor opens",
+      "path": "/cases/taste/#mechanism",
+      "heading": "把判断变成机制",
+      "url": "http://127.0.0.1:8860/cases/taste/#mechanism"
+    },
+    {
+      "name": "Real case anchor opens",
+      "path": "/cases/bundles/#mechanism",
+      "heading": "把判断变成机制",
+      "url": "http://127.0.0.1:8860/cases/bundles/#mechanism"
+    },
+    {
+      "name": "Real case anchor opens",
+      "path": "/cases/commute/#mechanism",
+      "heading": "把判断变成机制",
+      "url": "http://127.0.0.1:8860/cases/commute/#mechanism"
+    },
+    {
+      "name": "Refresh of explicit mode URL retains mode",
+      "url": "http://127.0.0.1:8860/?present=1#selected",
+      "present": true
+    },
+    {
+      "name": "Changing to a normal chapter leaves mode and reaches the real anchor",
+      "focus": "presentationToggle",
+      "present": false,
+      "url": "http://127.0.0.1:8860/#work",
+      "workTop": 0.1328125
+    },
+    {
+      "name": "Normal portfolio filter regression restores all 17",
+      "results": [
+        {
+          "pressed": "AI 与评测4",
+          "visible": 4
+        },
+        {
+          "pressed": "生活与设计4",
+          "visible": 4
+        },
+        {
+          "pressed": "增长与商业化3",
+          "visible": 3
+        },
+        {
+          "pressed": "其他实践3",
+          "visible": 3
+        },
+        {
+          "pressed": "德州工具3",
+          "visible": 3
+        },
+        {
+          "pressed": "全部作品17",
+          "visible": 17
+        }
+      ]
+    },
+    {
+      "name": "Final fresh 390px direct entry and click exit/re-entry",
+      "result": {
+        "directMode": true,
+        "exitFocus": "presentationToggle",
+        "reentryFocus": "selected-tab-trust",
+        "reentryMode": true
+      },
+      "evidence": "after-mobile.jpg"
+    },
+    {
+      "name": "Phone reverse Tab reaches exit and forward Tab returns to active work",
+      "reverse": {
+        "barBottom": 74,
+        "focus": "退出投屏",
+        "top": 15
+      },
+      "forward": {
+        "focus": "selected-tab-trust"
+      }
+    },
+    {
+      "name": "Mode keeps canonical Bundle and Commute short interactions",
+      "bundle": "50% scenario: +¥0.965 per covered order; explicitly conditional",
+      "commute": [
+        "已进入投屏模式。四项作品仍可操作；按 Escape 或退出投屏，回到原位置。",
+        "P10–P90 波动最低：地铁 1 号线。只是当前模型内比较；未保存个人选择。",
+        "已展示 通勤比较器"
+      ]
+    }
+  ],
+  "resolvedFindings": [
+    {
+      "finding": "Native history traversal could restore focus to body after keyboard exit",
+      "resolution": "Restore the saved focus again after the native traversal frame; Enter and Escape retests passed."
+    },
+    {
+      "finding": "Full English exit label could overrun the small toolbar",
+      "resolution": "Use a short visible label while keeping the full accessible name, with a 320px spacing adjustment; 320px and 390px retests passed."
+    },
+    {
+      "finding": "Direct-mode URL has no earlier browsing position to restore",
+      "resolution": "Exit to its existing ordinary anchor, or the top if none."
+    }
+  ],
+  "notRun": [
+    "Physical iPhone/Safari/VoiceOver",
+    "System reduced-motion emulation; browser exposes viewport and visibility only",
+    "Full business regression of unchanged independent apps",
+    "Paid models, real-user speed or 90-second completion study"
+  ]
+}
