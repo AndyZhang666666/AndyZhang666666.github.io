@@ -15,5 +15,8 @@ test("server serves app, reports mock and rejects credentials/source leakage", a
   assert.equal((await fetch(base + "/.env")).status, 404);
   assert.equal((await fetch(base + "/server.mjs")).status, 404);
   assert.equal((await fetch(base + "/tests/engine.test.mjs")).status, 404);
+  for (const asset of ['interaction-helpers.js', 'clarity.css', 'demo-help.js', 'demo-help.css']) {
+    assert.equal((await fetch(base + '/tasteroom/' + asset)).status, 200, asset + ' is served by the optional local server');
+  }
 });
 test.after(() => new Promise((r) => server.close(r)));

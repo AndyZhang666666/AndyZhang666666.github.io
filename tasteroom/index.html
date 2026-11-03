@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="atelier.css?v=20261101-depth1" />
     <link rel="stylesheet" href="depth.css?v=20261101-depth1" />
     <link rel="stylesheet" href="craft.css?v=20261102-craft1" />
+    <link rel="stylesheet" href="clarity.css?v=20261103-clarity1" />
+    <link rel="stylesheet" href="demo-help.css?v=20261103-clarity1" />
   </head>
   <body>
     <header>
@@ -28,7 +30,7 @@
           target="_blank"
           rel="noopener"
           >源码与说明 ↗</a
-        ><button id="reset">清空本机草稿</button>
+        ><button type="button" data-help="nav">其他 Demo</button><button type="button" data-help="guide">三步体验</button><button type="button" data-help="about">为什么这样做</button><button id="reset">清空本机数据</button>
       </nav>
     </header>
     <main>
@@ -38,6 +40,7 @@
       </div>
       <div class="entry-paths" aria-label="选择开始方式"><button id="startCreate" aria-pressed="true"><strong>做一张作品</strong><span>放进自己的文案，选构图，导出。</span><span aria-hidden="true">↗</span></button><button id="startExplore" aria-pressed="false"><strong>探索我的偏爱</strong><span>从具体比较出发，决定要记住什么。</span><span aria-hidden="true">↗</span></button></div>
       <p id="storageNotice" role="status" hidden></p>
+      <details class="legacy-explore"><summary>也可以先做两次直觉选择</summary><p>这是可选的启发小游戏，只试用组合，不自动授权记忆。文案保留，之后仍可推翻。</p><button type="button" id="startIntuition">开始两次直觉选择</button></details>
       <div class="mobile-nav">
         <button id="showCanvas" aria-pressed="true">体验画布</button
         ><button id="showBrain" aria-pressed="false" aria-expanded="false" aria-controls="brainInspector">
@@ -65,9 +68,10 @@
               <div class="export-bar"><span id="runState">临时画布</span><button type="button" id="quickDirections" aria-expanded="false" aria-controls="directionGallery">六种构图</button><a class="edit-copy-link" href="#posterContentForm">编辑文案</a><button id="exportPoster">导出 SVG</button><button id="exportPng">导出 PNG</button></div>
             </div>
             <div id="directionGallery" class="direction-gallery" aria-label="六种构图：使用当前同一份文案" hidden></div>
+            <p id="latestExport" class="latest-export" role="status" hidden>文件已生成。若没有自动下载，<a id="latestDownloadLink">点此保存文件</a>。更改画布不会改写这份已生成文件。</p>
             <div class="creation-board">
             <section class="poster-content-editor"><section class="design-directions" aria-label="选择设计方向"><div><h2>当前构图</h2><p>作品先行，记忆由你决定。</p></div><button id="openDirections" type="button" aria-expanded="false" aria-controls="directionGallery">更换构图 · 六种原创方向</button><p id="directionStatus" class="hint"></p><p id="directionCapacity" class="hint"></p><button type="button" id="rememberDirection" hidden>记住当前场景的设计方向</button></section>
-<h3>这张海报写什么？</h3><form id="posterContentForm"><label>内容起点<select id="contentPreset"><option value="custom">自己的内容</option><option value="0">展映活动</option><option value="1">旧书交换</option><option value="2">产品分享会</option></select></label><label>活动类别<input id="editCategory" maxlength="32" required></label><label>标题（最多四行）<textarea id="editTitle" maxlength="120" rows="2" required></textarea></label><label>副文案（最多四行）<textarea id="editSubtitle" maxlength="180" rows="2" required></textarea></label><label>落款<input id="editFooter" maxlength="40" required></label><button type="submit" id="updateContent">更新画布</button><details class="type-controls"><summary>排版微调</summary><label>标题字号 <output id="titleScaleValue">100%</output><input type="range" id="titleScale" min="65" max="130" step="5" value="100"></label><label>换行方式<select id="lineBreaks"><option value="auto">自动平衡；保留手动换行</option><option value="manual">只使用我输入的换行</option></select></label><label>信息密度<select id="densityControl"><option value="compact">紧凑</option><option value="balanced">均衡</option><option value="airy">大留白</option></select></label></details><p id="contentStatus" role="status">只改本张内容，不从文案推断你的偏好。</p></form></section>
+<p class="layer-label">内容编辑 · 只影响这张作品</p><h3>这张海报写什么？</h3><form id="posterContentForm"><label>内容起点<select id="contentPreset"><option value="custom">自己的内容</option><option value="0">展映活动</option><option value="1">旧书交换</option><option value="2">产品分享会</option></select></label><label>活动类别<input id="editCategory" maxlength="32" required></label><label>标题（最多四行）<textarea id="editTitle" maxlength="120" rows="2" required></textarea></label><label>副文案（最多四行）<textarea id="editSubtitle" maxlength="180" rows="2" required></textarea></label><label>落款<input id="editFooter" maxlength="40" required></label><button type="submit" id="updateContent">更新画布</button><details class="type-controls"><summary>排版微调</summary><label>标题字号 <output id="titleScaleValue">100%</output><input type="range" id="titleScale" min="65" max="130" step="5" value="100"></label><label>换行方式<select id="lineBreaks"><option value="auto">自动平衡；保留手动换行</option><option value="manual">只使用我输入的换行</option></select></label><label>信息密度<select id="densityControl"><option value="compact">紧凑</option><option value="balanced">均衡</option><option value="airy">大留白</option></select></label></details><p id="contentStatus" role="status">只改本张内容，不从文案推断你的偏好。</p></form></section>
 <div class="art-slot">            <div class="artboard">
               <p id="layoutWarning" class="layout-warning" role="status" hidden></p><div id="overflowActions" class="overflow-actions" hidden><button type="button" id="autoWrap">重新平衡换行</button><button type="button" id="reduceTitle">缩小标题字号</button><a href="#posterContentForm">修改文字</a></div><div id="directionPreview" class="direction-preview" aria-label="当前原创海报预览" hidden></div>
               <article id="poster" class="poster" aria-label="实时海报">
@@ -130,6 +134,7 @@
               <button id="cancelConflict">取消这次纠偏</button>
             </div>
             <div id="feedback">
+              <p class="layer-label">临时试用 · 满意之后再决定是否记住</p>
               <details class="direct-adjustment"><summary>直接选参数，不用猜关键词</summary><div class="direct-fields"><label>调整哪一项<select id="directDimension"></select></label><label>希望怎么改<select id="directValue"></select></label><button id="applyDirect" type="button">临时试用</button><button id="saveDirect" type="button">记住这项参数…</button></div></details>
               <div class="feedback-chips">
                 <button
@@ -150,6 +155,8 @@
                   placeholder="比如：别用衬线体，我要做科技汇报"
                 /><button type="submit">告诉它 ↗</button>
               </form>
+              <div id="feedbackHints" class="feedback-hints" hidden><p id="feedbackHintNote"></p><div id="feedbackHintChoices"></div></div>
+              <button type="button" id="rememberFeedback" hidden>记住刚才调整的这一项…</button>
             </div>
           </div>
         </section>
@@ -161,12 +168,13 @@
           <div class="contexts" role="group" aria-label="记忆场景">
             <button data-context="global">全局</button
             ><button data-context="personal" aria-pressed="true">
-              日常审美</button
+              个人展览／活动</button
             ><button data-context="work">工作汇报</button>
           </div>
           <p class="context-note" id="contextNote">
             场景继承全局规则；明确规则优先于推测。
           </p>
+          <p class="layer-label">授权记忆 · 按场景分别保留</p><div id="authorizedScenes" class="authorized-scenes"></div><p class="scope-compatibility">个人场景沿用原“日常审美”存储标识，旧规则保留；时间缺失的旧规则会明确标注。</p>
           <section class="effective-area"><h3>当前有效偏好</h3><div id="effectiveRules"></div></section><details class="memory-area"><summary>完整记忆与依据</summary>
             <h3>明确规则 <span id="explicitCount">0</span></h3>
             <div id="explicitMemories"></div>
@@ -186,6 +194,7 @@
     </main>
     <dialog id="importDialog" aria-labelledby="importTitle"><h2 id="importTitle">把旧偏爱带回来</h2><p>只合并下列规则，保留原有场景和“明确／待验证”属性。其他规则与文案不变；取消不会写入。</p><div id="importSummary"></div><div class="takeaway-actions"><button id="confirmImport">确认导入并应用当前场景</button><button id="cancelImport">取消</button></div></dialog>
     <dialog id="saveRuleDialog" aria-labelledby="saveRuleTitle"><form method="dialog"><h2 id="saveRuleTitle">记住哪一项？</h2><p id="saveRuleDescription"></p><label>适用范围<select id="saveRuleScope"><option value="current">当前场景</option><option value="global">全局（所有场景）</option></select></label><p id="saveRuleReplaced"></p><div class="takeaway-actions"><button id="confirmRule" value="confirm">确认保存这项规则</button><button value="cancel">取消，继续临时试用</button></div></form></dialog>
-    <script type="module" src="app.js?v=20261101-depth1"></script>
+    <script type="module" src="app.js?v=20261103-clarity1"></script>
+    <script type="module" src="demo-help.js?v=20261103-clarity1"></script>
   </body>
 </html>
