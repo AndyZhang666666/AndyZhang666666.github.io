@@ -50,3 +50,4 @@ exclude:
   - docs/VISUAL-POLISH-20261101.md
   - scripts/preview-presentation.mjs
   - scripts/test-presentation-mode.mjs
+  - scripts/test-presentation-anchors.mjs

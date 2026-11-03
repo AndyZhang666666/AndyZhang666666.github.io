@@ -25,3 +25,7 @@
 .case-page :is(a,button,summary):focus-visible{outline:2px solid var(--accent);outline-offset:5px}
 @media(max-width:900px){.case-page .section{padding-top:48px}.case-page .principle-grid{grid-template-columns:1fr}.case-mechanism{grid-template-columns:1fr;gap:22px}.case-page .case-related{margin:32px 24px 50px}.case-evidence-links{grid-template-columns:1fr}}
 @media(max-width:600px){.case-page main{padding-top:44px}.case-page .section{padding-top:38px}.case-page .about-body{font-size:16px}.case-page .case-summary{font-size:18px}.case-page .case-intro h1{font-size:35px}.case-page .principle-title{font-size:21px}}
+/* Only the four presentation destinations opt in. Clear the fixed nav without moving normal content. */
+.case-page .case-highlight-target{scroll-margin-top:12px}
+@media(max-width:900px){.case-page .case-highlight-target{scroll-margin-top:36px}}
+@media(max-width:600px){.case-page .case-highlight-target{scroll-margin-top:46px}}

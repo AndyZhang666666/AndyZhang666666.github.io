@@ -9,7 +9,8 @@ import {renderSelected} from '../content/showcase.mjs';
 import {renderProductPrinciples} from '../assets/product-principles.mjs';
 import {renderAiViews} from '../assets/ai-views.mjs';
 import {applyPersonalPresentation,transformPersonalHTML,patchPersonalApp} from '../content/personal-presentation.mjs';
-import {enhancePresentationHTML} from '../content/presentation-mode.mjs';
+import {enhancePresentationHTML,presentationCases} from '../content/presentation-mode.mjs';
+import {rasterSize} from '../content/raster-size.mjs';
 const localReview=process.argv.includes('--local');
 const releaseVersion='20261101-integrated1';
 const showcaseVersion='20261101-integrated1';
@@ -125,8 +126,14 @@ const head=html.slice(html.indexOf('<head>'),html.indexOf('</head>')+7).replace(
 const nav=html.slice(html.indexOf('<nav id="nav">'),html.indexOf('</nav>')+6).replaceAll('href="#','href="/#');
 const pair=(tag,cls,v)=>`<${tag} class="${cls}" data-zh="${esc(v.zh)}" data-en="${esc(v.en)}">${esc(v.zh)}</${tag}>`;
 for(const study of studies){
- const section=(id,title,en,body)=>`<section id="${id}" class="section"><div class="section-head">${pair('h2','', {zh:title,en})}</div>${body}</section>`;
- const image=(file,caption)=>file?`<figure class="case-figure"><a href="/assets/work/${file}" target="_blank" rel="noopener"><img src="/assets/work/${file}" width="1440" height="1000" alt="${esc(caption)}" loading="lazy"></a><figcaption>${esc(caption)}</figcaption></figure>`:'';
+ const section=(id,title,en,body)=>`<section id="${id}" class="section${id==='mechanism'&&Object.hasOwn(presentationCases,study.id)?' case-highlight-target':''}"><div class="section-head">${pair('h2','', {zh:title,en})}</div>${body}</section>`;
+ const image=(file,caption)=>{
+  if(!file)return '';
+  // Scope this follow-up to the four presentation highlights. Their lazy images
+  // must reserve the final height before native fragment navigation settles.
+  const {width,height}=Object.hasOwn(presentationCases,study.id)?rasterSize(fs.readFileSync(`assets/work/${file}`)):{width:1440,height:1000};
+  return `<figure class="case-figure"><a href="/assets/work/${file}" target="_blank" rel="noopener"><img src="/assets/work/${file}" width="${width}" height="${height}" alt="${esc(caption)}" loading="lazy"></a><figcaption>${esc(caption)}</figcaption></figure>`;
+ };
  const meta=projects.find(p=>p.id===study.project),p=data.projects[meta.index];
  const primary=p.url?`<a class="project-link" href="${esc(p.url)}" data-zh="体验 Demo ↗" data-en="Try the demo ↗">体验 Demo ↗</a>`:'<a class="project-link" href="#mechanism" data-zh="查看任务流 ↓" data-en="See the workflow ↓">查看任务流 ↓</a>';
  const evidenceLinks=study.evidenceLinks?`<div class="case-evidence-links">${study.evidenceLinks.map(link=>`<a class="project-link" href="${esc(link.href)}"${link.href.startsWith('http')?' target="_blank" rel="noopener"':''}>${pair('span','',link.label)} ↗</a>`).join('')}</div>`:'';
@@ -138,7 +145,8 @@ for(const study of studies){
  section('mechanism','把判断变成机制','Making the decision work',`<ol class="case-mechanism">${study.decisions.map(d=>`<li>${pair('h3','principle-title',d.title)}${pair('p','principle-desc',d.text)}</li>`).join('')}</ol>${evidenceLinks}${study.secondaryImage!==study.image?image(study.secondaryImage,study.artifact.zh):''}`)+
  section('evidence','验证、代价与下一步','Evidence, limitations and next steps',pair('p','about-body',study.proof)+pair('p','about-body',study.tradeoff)+pair('p','about-body',study.next))+relatedLinks;
  fs.mkdirSync(`cases/${study.id}`,{recursive:true});
- fs.writeFileSync(`cases/${study.id}/index.html`,`<!doctype html><html lang="zh-CN" data-palette="frost">${head.replace(/<title>.*?<\/title>/,`<title>${esc(p.name)} · 产品判断</title>`).replace('</head>','<link rel="stylesheet" href="/assets/case-studies.css?v='+releaseVersion+'"></head>')}<body class="case-page"><div class="grain"></div><div class="glow glow-1"></div><div class="glow glow-2"></div>${nav}<main>${body}</main><footer>© 2026 张千羽 · ${localReview?'本地内容评审':'产品判断与验证'}</footer><script src="/scripts/case-reader.js"></script></body></html>`);
+ const caseStyleVersion=Object.hasOwn(presentationCases,study.id)?'20261103-anchor1':releaseVersion;
+ fs.writeFileSync(`cases/${study.id}/index.html`,`<!doctype html><html lang="zh-CN" data-palette="frost">${head.replace(/<title>.*?<\/title>/,`<title>${esc(p.name)} · 产品判断</title>`).replace('</head>','<link rel="stylesheet" href="/assets/case-studies.css?v='+caseStyleVersion+'"></head>')}<body class="case-page"><div class="grain"></div><div class="glow glow-1"></div><div class="glow glow-2"></div>${nav}<main>${body}</main><footer>© 2026 张千羽 · ${localReview?'本地内容评审':'产品判断与验证'}</footer><script src="/scripts/case-reader.js"></script></body></html>`);
 }
 console.log(`Updated the original shell, four selected previews, explicit project cards and ${studies.length} project-owned case pages.`);
 await restoreExtensions(isolatedExtensions);
