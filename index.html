@@ -36,6 +36,7 @@
 <link rel="stylesheet" href="assets/poker-lab-preview.css?v=20261101">
 <link rel="stylesheet" href="assets/section-atmospheres.css?v=20261101-integrated1">
 <link rel="stylesheet" href="assets/personal-art-direction.css?v=20261101-integrated1">
+<link rel="stylesheet" href="assets/presentation-mode.css?v=20261103a">
 </head>
 <body>
 
@@ -55,9 +56,10 @@
     <a href="#awards">奖项</a>
     <a href="#contact">联系</a>
   </div>
-  <button id="langToggle" class="lang-toggle" aria-label="切换语言">EN</button>
+  <div class="presentation-nav-actions"><button id="presentationToggle" class="presentation-toggle" type="button" aria-pressed="false" aria-controls="selected" hidden><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v11H4zM2 4h20M12 15v5m-4 1 4-3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-zh="90秒投屏" data-en="90s presentation">90秒投屏</span></button><button id="langToggle" class="lang-toggle" aria-label="切换语言">EN</button></div>
 </nav>
 
+<div class="presentation-bar" id="presentationBar" role="region" aria-label="投屏控制" hidden><h1 class="presentation-current"><span data-zh="90秒投屏" data-en="90s presentation">90秒投屏</span><strong data-presentation-title>Eval Lab</strong></h1><div class="presentation-actions"><a class="presentation-highlight" data-presentation-highlight href="/cases/trust/#mechanism" target="_blank" rel="noopener"><span data-zh="设计高光" data-en="Design highlight">设计高光</span><span aria-hidden="true">↗</span></a><button class="presentation-exit" data-presentation-exit type="button"><span data-zh="退出投屏" data-en="Exit presentation">退出投屏</span><kbd aria-hidden="true">Esc</kbd></button></div></div><p class="showcase-sr" data-presentation-announcement role="status" aria-live="polite"></p>
 <main>
 
 <!-- ============ HERO ============ -->
@@ -343,5 +345,6 @@
 <script type="module" src="assets/poker-lab-preview.mjs?v=20261101"></script>
 <script type="module" src="assets/personal-sections.mjs?v=20261101-integrated1"></script>
 <script type="module" src="assets/section-atmospheres.mjs?v=20261101-integrated1"></script>
+<script type="module" src="assets/presentation-mode.mjs?v=20261103a"></script>
 </body>
 </html>

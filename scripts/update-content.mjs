@@ -9,6 +9,7 @@ import {renderSelected} from '../content/showcase.mjs';
 import {renderProductPrinciples} from '../assets/product-principles.mjs';
 import {renderAiViews} from '../assets/ai-views.mjs';
 import {applyPersonalPresentation,transformPersonalHTML,patchPersonalApp} from '../content/personal-presentation.mjs';
+import {enhancePresentationHTML} from '../content/presentation-mode.mjs';
 const localReview=process.argv.includes('--local');
 const releaseVersion='20261101-integrated1';
 const showcaseVersion='20261101-integrated1';
@@ -152,3 +153,4 @@ const orderedCards=[...previousCardOrder.filter(id=>cardMap.has(id)),...cards.ma
 restoredHtml=restoredHtml.replace(/<article id="project-[^]*?<\/article>/g,()=>orderedCards.shift());
 fs.writeFileSync('index.html',restoredHtml);
 await integrateSite();
+fs.writeFileSync('index.html',enhancePresentationHTML(fs.readFileSync('index.html','utf8')));
