@@ -1,7 +1,7 @@
 import {OPTIONS,validChoice} from './engine.js';
 import {DIMENSIONS} from './experiments.js';
-const contexts={global:'全局',personal:'日常审美',work:'工作汇报'};
-const scopeIds=Object.fromEntries(Object.entries(contexts).map(([k,v])=>[v,k]));
+const contexts={global:'全局',personal:'个人展览／活动',work:'工作汇报'};
+const scopeIds={...Object.fromEntries(Object.entries(contexts).map(([k,v])=>[v,k])),'日常审美':'personal'};
 const clone=x=>JSON.parse(JSON.stringify(x));
 export function parseBrief(text){
  if(typeof text!=='string'||new TextEncoder().encode(text).length>262144)throw Error('说明书最大 256 KB。');

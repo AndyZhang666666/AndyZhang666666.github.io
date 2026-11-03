@@ -98,6 +98,7 @@ export class Room {
       sourceReason: reason,
       status: "active",
       order: this.seq,
+      createdAt: new Date().toISOString(),
     };
     this.memories.push(m);
     this.log("upsert_memory", {
@@ -249,6 +250,7 @@ export class Room {
   manage(id, action, value) {
     const m = this.memories.find((m) => m.id === id);
     if (!m) return;
+    m.updatedAt = new Date().toISOString();
     if (action === "delete")
       this.memories = this.memories.filter((m) => m.id !== id);
     if (action === "lock") {

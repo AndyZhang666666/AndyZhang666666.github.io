@@ -1,0 +1,25 @@
+.legacy-explore{font-size:12px;margin:8px 0 18px;color:var(--muted,#687063)}
+.legacy-explore summary{cursor:pointer;min-height:36px;display:list-item;line-height:36px}
+.legacy-explore p{max-width:65ch;line-height:1.8;margin:6px 0}
+.legacy-explore button{min-height:40px;margin:6px 0}
+.layer-label{font-size:10px!important;letter-spacing:.06em;color:var(--muted,#687063);margin:20px 0 8px!important}
+.authorized-scenes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0 6px}
+.authorized-scenes section{border-block:1px solid var(--line,#d9dbd0);padding:12px 0}
+.authorized-scenes strong,.authorized-scenes span,.authorized-scenes small{display:block;font-size:12px;line-height:1.7}
+.authorized-scenes small{font-size:10px;color:var(--muted,#687063);margin:5px 0;overflow-wrap:anywhere}
+.authorized-scenes button{font-size:11px;min-height:36px;padding:4px 0;border:0;background:none;text-decoration:underline;text-underline-offset:4px}
+.scope-compatibility{font-size:10px;color:var(--muted,#687063);line-height:1.8}
+#effectiveRules p{position:relative;padding-right:56px}
+#effectiveRules small{display:block;line-height:1.7;margin-top:4px}
+#effectiveRules button{position:absolute;right:0;top:0;min-height:40px;font-size:10px;border:0;background:none;padding:6px 0;color:inherit;text-decoration:underline;text-underline-offset:4px}
+.feedback-hints{margin-top:14px;padding-top:14px;border-top:1px solid var(--line,#d9dbd0)}
+.feedback-hints>p{font-size:12px;line-height:1.8;max-width:70ch}
+#feedbackHintChoices{display:flex;flex-wrap:wrap;gap:8px}
+#feedbackHintChoices button,#rememberFeedback{font-size:12px;min-height:40px;line-height:1.7}
+#rememberFeedback{margin-top:12px}
+.latest-export{font-size:12px;line-height:1.8;padding:12px 0;border-bottom:1px solid var(--line,#d9dbd0)}
+.latest-export a{display:inline-block;min-height:36px;line-height:36px;text-underline-offset:4px;color:inherit}
+@media(max-width:600px){.authorized-scenes{grid-template-columns:1fr 1fr;gap:10px}.legacy-explore summary,.authorized-scenes button,#effectiveRules button,#feedbackHintChoices button,#rememberFeedback{min-height:44px}.layer-label{font-size:11px!important}}
+
+.feedback-hints:focus-visible{outline:2px solid var(--accent,#3b5444);outline-offset:5px}
+#startComparison{background:#f9faf6;color:#294235}
