@@ -1,0 +1,229 @@
+[
+  {
+    "step": "direct-exit",
+    "result": {
+      "focus": "presentationToggle",
+      "scrollY": 1882,
+      "selectedTop": 96.078125,
+      "url": "http://127.0.0.1:8860/#selected"
+    }
+  },
+  {
+    "step": "entry",
+    "before": {
+      "filter": "AI 与评测4",
+      "scrollY": 7840.5,
+      "selected": "selected-tab-trust"
+    },
+    "result": {
+      "focus": "selected-tab-trust",
+      "present": true
+    }
+  },
+  {
+    "step": "escape-restore",
+    "before": {
+      "filter": "AI 与评测4",
+      "scrollY": 7840.5,
+      "selected": "selected-tab-trust"
+    },
+    "result": {
+      "filter": "AI 与评测4",
+      "focus": "presentationToggle",
+      "scrollY": 7840.5,
+      "selected": "selected-tab-trust"
+    }
+  },
+  {
+    "step": "forward-back",
+    "result": {
+      "focus": "presentationToggle",
+      "present": false
+    }
+  },
+  {
+    "step": "highlight",
+    "name": "Eval Lab",
+    "href": "/cases/trust/#mechanism",
+    "url": "http://127.0.0.1:8860/cases/trust/#mechanism",
+    "mechanism": true
+  },
+  {
+    "step": "highlight",
+    "name": "偏爱实验室",
+    "href": "/cases/taste/#mechanism",
+    "url": "http://127.0.0.1:8860/cases/taste/#mechanism",
+    "mechanism": true
+  },
+  {
+    "step": "highlight",
+    "name": "Bundle Lab",
+    "href": "/cases/bundles/#mechanism",
+    "url": "http://127.0.0.1:8860/cases/bundles/#mechanism",
+    "mechanism": true
+  },
+  {
+    "step": "highlight",
+    "name": "通勤比较器",
+    "href": "/cases/commute/#mechanism",
+    "url": "http://127.0.0.1:8860/cases/commute/#mechanism",
+    "mechanism": true
+  },
+  {
+    "step": "mobile390",
+    "result": {
+      "barBottom": 74,
+      "exit": {
+        "bottom": 59,
+        "right": 359,
+        "x": 293,
+        "y": 15
+      },
+      "firstTabTop": 94.69000244140624,
+      "overflow": 0,
+      "width": 390
+    }
+  },
+  {
+    "step": "normal-content",
+    "articleContentAndLinksMatch": true
+  },
+  {
+    "step": "six-filters",
+    "results": [
+      {
+        "name": "AI 与评测 4",
+        "status": [
+          "已退出投屏，恢复进入前的位置与作品。"
+        ]
+      },
+      {
+        "name": "生活与设计 4",
+        "status": [
+          "已退出投屏，恢复进入前的位置与作品。"
+        ]
+      },
+      {
+        "name": "增长与商业化 3",
+        "status": [
+          "已退出投屏，恢复进入前的位置与作品。"
+        ]
+      },
+      {
+        "name": "其他实践 3",
+        "status": [
+          "已退出投屏，恢复进入前的位置与作品。"
+        ]
+      },
+      {
+        "name": "德州工具 3",
+        "status": [
+          "已退出投屏，恢复进入前的位置与作品。"
+        ]
+      },
+      {
+        "name": "全部作品 17",
+        "status": [
+          "已退出投屏，恢复进入前的位置与作品。",
+          "全部 17 项作品"
+        ]
+      }
+    ]
+  },
+  {
+    "step": "resume-download",
+    "href": "/assets/resume.pdf",
+    "path": "/Users/mac/Downloads/resume (1).pdf"
+  },
+  {
+    "step": "settled-highlight",
+    "anchorTop": 0.0546875,
+    "headingTop": 72.0546875,
+    "url": "http://127.0.0.1:8860/cases/trust/#mechanism",
+    "width": 1280,
+    "y": 2010.5
+  },
+  {
+    "step": "settled-highlight",
+    "anchorTop": -69.03125,
+    "headingTop": 2.96875,
+    "url": "http://127.0.0.1:8860/cases/taste/#mechanism",
+    "width": 1280,
+    "y": 2093
+  },
+  {
+    "step": "settled-highlight",
+    "anchorTop": -0.0390625,
+    "headingTop": 71.9609375,
+    "url": "http://127.0.0.1:8860/cases/bundles/#mechanism",
+    "width": 1280,
+    "y": 1981
+  },
+  {
+    "step": "settled-highlight",
+    "anchorTop": 0.0546875,
+    "headingTop": 72.0546875,
+    "url": "http://127.0.0.1:8860/cases/commute/#mechanism",
+    "width": 1280,
+    "y": 2010.5
+  },
+  {
+    "step": "visible-project-counts",
+    "counts": [
+      {
+        "name": "AI 与评测 4",
+        "count": 4
+      },
+      {
+        "name": "生活与设计 4",
+        "count": 4
+      },
+      {
+        "name": "增长与商业化 3",
+        "count": 3
+      },
+      {
+        "name": "其他实践 3",
+        "count": 3
+      },
+      {
+        "name": "德州工具 3",
+        "count": 3
+      },
+      {
+        "name": "全部作品 17",
+        "count": 17
+      }
+    ]
+  },
+  {
+    "step": "taste-anchor-reload",
+    "result": {
+      "headingTop": 2.96875,
+      "navBottom": 71.796875,
+      "url": "http://127.0.0.1:8860/cases/taste/#mechanism",
+      "y": 2093
+    }
+  },
+  {
+    "step": "baseline-taste-anchor",
+    "result": {
+      "headingTop": 71.96875,
+      "navBottom": 71.796875,
+      "url": "http://127.0.0.1:8861/cases/taste/#mechanism"
+    }
+  },
+  {
+    "step": "console",
+    "logs": []
+  },
+  {
+    "step": "fresh-candidate-taste",
+    "result": {
+      "headingTop": 2.96875,
+      "navBottom": 71.796875,
+      "url": "http://127.0.0.1:8860/cases/taste/#mechanism",
+      "width": 1280
+    }
+  }
+]

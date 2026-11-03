@@ -1,0 +1,399 @@
+{
+  "reviewedAt": "2026-11-03T10:12:29.090Z",
+  "previousCandidate": "0621651cfe4c295fa37bf4300e6a5480445787f5",
+  "cause": {
+    "reportedShift": 69,
+    "reservedHeightBefore": 688.8828125,
+    "decodedHeight": 620,
+    "intrinsic": [
+      1440,
+      900
+    ],
+    "declaredBefore": [
+      1440,
+      1000
+    ],
+    "timing250ms": {
+      "before": {
+        "complete": true,
+        "declaredHeight": "1000",
+        "headingTop": 2.96875,
+        "navBottom": 71.796875,
+        "renderedHeight": 620,
+        "y": 2093
+      },
+      "dimensionsOnlyAfter": {
+        "complete": true,
+        "declaredHeight": "900",
+        "headingTop": 71.96875,
+        "navBottom": 71.796875,
+        "renderedHeight": 620,
+        "y": 2024
+      }
+    },
+    "timing1200ms": {
+      "headingTop": 71.96875,
+      "image": {
+        "complete": true,
+        "declared": [
+          "1440",
+          "1000"
+        ],
+        "height": 620,
+        "natural": [
+          1440,
+          900
+        ]
+      },
+      "navBottom": 71.796875,
+      "y": 2024
+    }
+  },
+  "finalChecks": [
+    {
+      "type": "desktop-direct-settled",
+      "project": "trust",
+      "anchorTop": 12.0546875,
+      "headingTop": 84.0546875,
+      "navBottom": 71.796875,
+      "width": 1280,
+      "y": 1998.5
+    },
+    {
+      "type": "desktop-direct-settled",
+      "project": "taste",
+      "anchorTop": 11.96875,
+      "headingTop": 83.96875,
+      "navBottom": 71.796875,
+      "width": 1280,
+      "y": 2012
+    },
+    {
+      "type": "desktop-direct-settled",
+      "project": "bundles",
+      "anchorTop": 11.9609375,
+      "headingTop": 83.9609375,
+      "navBottom": 71.796875,
+      "width": 1280,
+      "y": 1969
+    },
+    {
+      "type": "desktop-direct-settled",
+      "project": "commute",
+      "anchorTop": 12.0546875,
+      "headingTop": 84.0546875,
+      "navBottom": 71.796875,
+      "width": 1280,
+      "y": 1998.5
+    },
+    {
+      "type": "desktop-reload-settled",
+      "project": "trust",
+      "headingTop": 84.0546875,
+      "navBottom": 71.796875,
+      "width": 1280
+    },
+    {
+      "type": "desktop-reload-settled",
+      "project": "taste",
+      "headingTop": 83.96875,
+      "navBottom": 71.796875,
+      "width": 1280
+    },
+    {
+      "type": "desktop-reload-settled",
+      "project": "bundles",
+      "headingTop": 83.9609375,
+      "navBottom": 71.796875,
+      "width": 1280
+    },
+    {
+      "type": "desktop-reload-settled",
+      "project": "commute",
+      "headingTop": 84.0546875,
+      "navBottom": 71.796875,
+      "width": 1280
+    },
+    {
+      "type": "desktop-real-popup-settled",
+      "project": "trust",
+      "headingTop": 84.0546875,
+      "navBottom": 71.796875,
+      "width": 1280
+    },
+    {
+      "type": "desktop-real-popup-settled",
+      "project": "taste",
+      "headingTop": 83.96875,
+      "navBottom": 71.796875,
+      "width": 1280
+    },
+    {
+      "type": "desktop-real-popup-settled",
+      "project": "bundles",
+      "headingTop": 83.9609375,
+      "navBottom": 71.796875,
+      "width": 1280
+    },
+    {
+      "type": "desktop-real-popup-settled",
+      "project": "commute",
+      "headingTop": 84.0546875,
+      "navBottom": 71.796875,
+      "width": 1280
+    },
+    {
+      "type": "phone-direct-settled",
+      "project": "trust",
+      "headingTop": 83.953125,
+      "navBottom": 71.796875,
+      "overflow": 0,
+      "width": 390
+    },
+    {
+      "type": "phone-direct-settled",
+      "project": "taste",
+      "headingTop": 84.0703125,
+      "navBottom": 71.796875,
+      "overflow": 0,
+      "width": 390
+    },
+    {
+      "type": "phone-direct-settled",
+      "project": "bundles",
+      "headingTop": 83.8671875,
+      "navBottom": 71.796875,
+      "overflow": 0,
+      "width": 390
+    },
+    {
+      "type": "phone-direct-settled",
+      "project": "commute",
+      "headingTop": 84.1640625,
+      "navBottom": 71.796875,
+      "overflow": 0,
+      "width": 390
+    },
+    {
+      "type": "phone-reload-settled",
+      "project": "trust",
+      "headingTop": 83.953125,
+      "navBottom": 71.796875,
+      "width": 390
+    },
+    {
+      "type": "phone-reload-settled",
+      "project": "taste",
+      "headingTop": 84.0703125,
+      "navBottom": 71.796875,
+      "width": 390
+    },
+    {
+      "type": "phone-reload-settled",
+      "project": "bundles",
+      "headingTop": 83.8671875,
+      "navBottom": 71.796875,
+      "width": 390
+    },
+    {
+      "type": "phone-reload-settled",
+      "project": "commute",
+      "headingTop": 84.1640625,
+      "navBottom": 71.796875,
+      "width": 390
+    }
+  ],
+  "phonePopupRouting": [
+    {
+      "project": "trust",
+      "url": "http://127.0.0.1:8860/cases/trust/#mechanism"
+    },
+    {
+      "project": "taste",
+      "url": "http://127.0.0.1:8860/cases/taste/#mechanism"
+    },
+    {
+      "project": "bundles",
+      "url": "http://127.0.0.1:8860/cases/bundles/#mechanism"
+    },
+    {
+      "project": "commute",
+      "url": "http://127.0.0.1:8860/cases/commute/#mechanism"
+    }
+  ],
+  "phonePopupMeasurementLimit": "IAB opens new tabs at its default desktop viewport. Resizing/reloading while the initial smooth fragment traversal was running created invalid measurements; those attempts are not counted as phone landing passes. Phone landing and refresh are tested separately at a verified 390px width.",
+  "recovery": {
+    "type": "presentation-recovery-after-case-fix",
+    "before": {
+      "filter": "AI 与评测4",
+      "selected": "trust",
+      "y": 7840.5
+    },
+    "after": {
+      "filter": "AI 与评测4",
+      "focus": "presentationToggle",
+      "review": "评语存疑",
+      "selected": "trust",
+      "y": 7840.5
+    }
+  },
+  "phoneExit": {
+    "focus": "presentationToggle",
+    "mode": false,
+    "selected": "trust",
+    "selectedTop": 79.9609375
+  },
+  "unsettledOrInterruptedAttempts": [
+    {
+      "type": "controlled-250ms",
+      "before": {
+        "complete": true,
+        "declaredHeight": "1000",
+        "headingTop": 2.96875,
+        "navBottom": 71.796875,
+        "renderedHeight": 620,
+        "y": 2093
+      },
+      "after": {
+        "complete": true,
+        "declaredHeight": "900",
+        "headingTop": 71.96875,
+        "navBottom": 71.796875,
+        "renderedHeight": 620,
+        "y": 2024
+      }
+    },
+    {
+      "type": "controlled-1200ms-before",
+      "result": {
+        "headingTop": 71.96875,
+        "image": {
+          "complete": true,
+          "declared": [
+            "1440",
+            "1000"
+          ],
+          "height": 620,
+          "natural": [
+            1440,
+            900
+          ]
+        },
+        "navBottom": 71.796875,
+        "y": 2024
+      }
+    },
+    {
+      "type": "desktop-direct",
+      "project": "trust",
+      "headingTop": 96.5546875,
+      "images": [
+        {
+          "complete": true,
+          "declaredHeight": "900",
+          "naturalHeight": 900
+        },
+        {
+          "complete": true,
+          "declaredHeight": "900",
+          "naturalHeight": 900
+        }
+      ],
+      "navBottom": 71.796875,
+      "width": 1280
+    },
+    {
+      "type": "desktop-direct",
+      "project": "taste",
+      "headingTop": 356.96875,
+      "images": [
+        {
+          "complete": true,
+          "declaredHeight": "900",
+          "naturalHeight": 900
+        },
+        {
+          "complete": true,
+          "declaredHeight": "900",
+          "naturalHeight": 900
+        }
+      ],
+      "navBottom": 71.796875,
+      "width": 1280
+    },
+    {
+      "type": "desktop-direct",
+      "project": "bundles",
+      "headingTop": 1093.9609375,
+      "images": [
+        {
+          "complete": true,
+          "declaredHeight": "900",
+          "naturalHeight": 900
+        },
+        {
+          "complete": true,
+          "declaredHeight": "900",
+          "naturalHeight": 900
+        }
+      ],
+      "navBottom": 71.796875,
+      "width": 1280
+    },
+    {
+      "type": "desktop-direct",
+      "project": "commute",
+      "headingTop": 2047.0546875,
+      "images": [
+        {
+          "complete": true,
+          "declaredHeight": "900",
+          "naturalHeight": 900
+        },
+        {
+          "complete": false,
+          "declaredHeight": "900",
+          "naturalHeight": 0
+        }
+      ],
+      "navBottom": 71.796875,
+      "width": 1280
+    },
+    {
+      "type": "phone-real-popup-settled",
+      "project": "trust",
+      "headingTop": 2021.453125,
+      "navBottom": 71.796875,
+      "overflow": 0,
+      "width": 390
+    },
+    {
+      "type": "phone-real-popup-settled",
+      "project": "taste",
+      "headingTop": 1897.0703125,
+      "navBottom": 71.796875,
+      "overflow": 0,
+      "width": 390
+    },
+    {
+      "type": "phone-real-popup-settled",
+      "project": "bundles",
+      "headingTop": 1898.3671875,
+      "navBottom": 71.796875,
+      "overflow": 0,
+      "width": 390
+    },
+    {
+      "type": "phone-real-popup-settled",
+      "project": "commute",
+      "headingTop": 2071.5546875,
+      "navBottom": 71.796875,
+      "overflow": 0,
+      "width": 1280
+    }
+  ],
+  "remaining": [
+    "Physical mobile browser, Safari and screen-reader checks remain unrun",
+    "No push, merge or deployment"
+  ]
+}
