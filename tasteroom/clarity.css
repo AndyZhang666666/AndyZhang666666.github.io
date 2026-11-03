@@ -20,3 +20,6 @@
 .latest-export{font-size:12px;line-height:1.8;padding:12px 0;border-bottom:1px solid var(--line,#d9dbd0)}
 .latest-export a{display:inline-block;min-height:36px;line-height:36px;text-underline-offset:4px;color:inherit}
 @media(max-width:600px){.authorized-scenes{grid-template-columns:1fr 1fr;gap:10px}.legacy-explore summary,.authorized-scenes button,#effectiveRules button,#feedbackHintChoices button,#rememberFeedback{min-height:44px}.layer-label{font-size:11px!important}}
+
+.feedback-hints:focus-visible{outline:2px solid var(--accent,#3b5444);outline-offset:5px}
+#startComparison{background:#f9faf6;color:#294235}

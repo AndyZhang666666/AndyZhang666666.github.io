@@ -330,9 +330,10 @@ async function submitFeedback(text) {
   if (requestEpoch !== epoch) return;
   if (!parsed || !validChoice(parsed.dimension, parsed.value)) {
     speak(
-      "本地规则暂时没理解这句话，或其中包含多项/否定要求。可展开“直接选参数”逐项调整；不会只取半句擅自写入记忆。",
+      "还没理解整句话。下面给出几个手动起点，选择只试用本张作品；不会取半句擅自写入记忆。",
     );
     feedbackHints=feedbackSuggestions(text);render();
+    requestAnimationFrame(()=>{const hints=$('#feedbackHints');hints.focus({preventScroll:true});hints.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});
     return;
   }
   trialParameter(room,parsed.dimension,parsed.value);lastFeedback={dimension:parsed.dimension,value:parsed.value};

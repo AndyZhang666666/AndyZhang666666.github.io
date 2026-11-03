@@ -1,5 +1,7 @@
 # TasteRoom · Preference Lab
 
+Local iteration, 2026-11-03 (not published): exploration opens same-copy comparison directly; temporary choices need explicit scene authorization to become memory. Undo preserves artwork. Unknown phrases offer manual hints without claiming full comprehension. Real SVG and 900×1200 PNG files were saved and opened; 39 core and 2 local fake-provider checks passed. No real model call or user study. [Local evidence](docs/TASK-CLARITY-20261103.md).
+
 Visual refresh approved after user review, 2026-11-02: [design, references and before/after screenshots](docs/VISUAL-CRAFT-20261102.md). Existing product behavior is preserved; the merge commit and Pages workflow record publication.
 
 
