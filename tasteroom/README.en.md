@@ -1,5 +1,7 @@
 # TasteRoom · Preference Lab
 
+Final display/export polish verified locally; calculation and persistence contracts retained. Unpublished. [Changes and checks](docs/FINAL-DETAIL-20261103.md).
+
 Independent task-flow rechecks passed; changes remain local and unpublished. [Review scope and untested limits](docs/INDEPENDENT-REVIEW-20261103.md).
 
 Local iteration, 2026-11-03 (not published): exploration opens same-copy comparison directly; temporary choices need explicit scene authorization to become memory. Undo preserves artwork. Unknown phrases offer manual hints without claiming full comprehension. Real SVG and 900×1200 PNG files were saved and opened; 39 core and 2 local fake-provider checks passed. No real model call or user study. [Local evidence](docs/TASK-CLARITY-20261103.md).
