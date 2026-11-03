@@ -26,6 +26,7 @@ function syncHighlight() {
   highlight.href = presentationCases[active.dataset.selectedId] || active.href;
   highlight.setAttribute('aria-label',isEnglish() ? `Design highlight: ${name.dataset.en} (new tab)` : `${name.dataset.zh}：设计高光（新标签页）`);
   bar.setAttribute('aria-label',isEnglish() ? 'Presentation controls' : '投屏控制');
+  exit.setAttribute('aria-label',isEnglish() ? 'Exit presentation' : '退出投屏');
 }
 
 function enter({writeHistory = true} = {}) {
@@ -38,6 +39,7 @@ function enter({writeHistory = true} = {}) {
     selected: activeTab()?.dataset.selectedId,
     focus: focused instanceof HTMLElement && focused !== document.body ? focused : launcher,
     href: withoutPresentationQuery(location.href),
+    direct: !writeHistory && !ownedURLs.has(location.href),
   };
   if (writeHistory) {
     // History only holds the view URL. Preserve other features' history state verbatim.
@@ -79,6 +81,7 @@ function finishLeave({restorePosition = true} = {}) {
   const restore = () => {
     if (restorePosition) window.scrollTo({top:saved.y,left:saved.x,behavior:'instant'});
     else if (destination) destination.scrollIntoView({block:'start',behavior:'instant'});
+    else window.scrollTo({top:0,left:0,behavior:'instant'});
   };
   restore();
   // Layout and the existing glass indicator settle together; repeated entry cancels this.
@@ -101,7 +104,7 @@ function leave() {
   } else {
     // A directly opened mode URL must not send the visitor to an unrelated previous page.
     history.replaceState(history.state,'',withoutPresentationQuery(location.href));
-    finishLeave();
+    finishLeave({restorePosition:!previous.direct});
   }
 }
 
