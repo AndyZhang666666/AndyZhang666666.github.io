@@ -47,12 +47,12 @@ export function styleBrief(room) {
     content:room.content,draftContent:copy(room.draftContent),posterSettings:copy(room.posterSettings), exportedAt:new Date().toISOString(),
     rules:room.memories.filter(m=>m.status==='active'&&!m.id.startsWith('once_')).map(m=>({
       dimension:m.dimension,value:m.preference,scope:m.context,status:m.type==='explicit'?'本人明确规则':'待验证线索',
-      reason:m.sourceReason,evidence:m.evidence||null})),
+      reason:m.sourceReason,evidence:m.evidence||null,createdAt:m.createdAt||null,updatedAt:m.updatedAt||null})),
     boundary:'本地交互 Demo；不是人格判断、统计学习结论或模型准确率。当前画布可能含仅本次例外；持久规则与当前画布分别导出。'};
 }
 
 export function briefMarkdown(room) {
-  const brief=styleBrief(room),names={global:'全局',personal:'日常审美',work:'工作汇报'};
+  const brief=styleBrief(room),names={global:'全局',personal:'个人展览／活动',work:'工作汇报'};
   return ['# 我的偏好说明书',`当前场景：${names[brief.context]}`,'',
     '## 这张画布',...Object.entries(brief.canvas).map(([d,v])=>`- ${DIMENSIONS[d]}：${OPTIONS[d][v]}`),'',
     '## 我允许保留的规则与线索',...brief.rules.map(r=>`- [${names[r.scope]} / ${r.status}] ${DIMENSIONS[r.dimension]}：${OPTIONS[r.dimension][r.value]}。依据：${r.reason}`),'',
