@@ -2,7 +2,7 @@
 
 [打开官网](https://andyzhang666666.github.io/) · [English](README.en.md) · [GitHub 主页](https://github.com/AndyZhang666666) · [项目索引](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.md)
 
-本地候选（2026-11-03）：`feat/presentation-mode-20261103` 增加可切换的官网投屏视图，尚未推送或发布，不改变当前线上版本。[PRD](docs/PRESENTATION-MODE-PRD-20261103.md) · [验收与本地入口](docs/PRESENTATION-MODE-ACCEPTANCE-20261103.md)。
+2026-11-03：经审阅确认，整合可切换的官网投屏视图、四案例高光导航修正及偏爱实验室的任务引导、授权区分与草稿恢复。保留原开发提交；发布状态以对应 PR 和 Pages 结果为准。[本次发布范围](docs/RELEASE-20261103.md) · [投屏 PRD](docs/PRESENTATION-MODE-PRD-20261103.md)。
 
 这里维护我的个人网站，以及与它一起发布的独立产品。工作经历、产品判断、研究主题与可运行 Demo 分开呈现；公开资料与模拟数据均在对应项目说明。
 

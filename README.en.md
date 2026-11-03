@@ -2,12 +2,13 @@
 
 [Live portfolio](https://andyzhang666666.github.io/) · [中文](README.md) · [GitHub profile](https://github.com/AndyZhang666666) · [Project index](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.en.md)
 
+2026-11-03: Integrates the reviewed reversible presentation view, four case-anchor fixes and TasteRoom's task help, explicit consent states and draft recovery. Original development history is retained; the PR and Pages run record the final publication status. [Release scope](docs/RELEASE-20261103.md).
 
 2026-11-01: Featured work now covers Eval Lab, TasteRoom, Bundle Lab and Commute Compare. Bring personal material, export a usable result, and keep original evidence separate from simulated or conditional outcomes. [Release scope](docs/RELEASE-20261101.md).
 
 This repository hosts my personal site and four independent products. Professional experience, product decisions, research and runnable demos are presented separately. Each project explains its data and run mode.
 
-The default featured work is **Eval Lab, TasteRoom, Bundle Lab and Commute Compare**. Direction controls change their order; all four remain available. Agent Execution Bench and Trustworthy RAG Lab remain in the complete 17-project library. [Current integrated release](docs/RELEASE-20261102.md).
+The default featured work is **Eval Lab, TasteRoom, Bundle Lab and Commute Compare**. Direction controls change their order; all four remain available. Agent Execution Bench and Trustworthy RAG Lab remain in the complete 17-project library. [Current integrated release](docs/RELEASE-20261103.md).
 
 ## Find the source
 

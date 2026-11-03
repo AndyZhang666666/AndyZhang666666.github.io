@@ -1,0 +1,39 @@
+name: Presentation and TasteRoom release checks
+on:
+  push:
+    branches: [main, release/website-taste-20261103]
+    paths:
+      - 'assets/presentation-mode.*'
+      - 'assets/case-studies.css'
+      - 'content/presentation-mode.mjs'
+      - 'content/raster-size.mjs'
+      - 'cases/**'
+      - 'tasteroom/**'
+      - 'scripts/test-presentation-*.mjs'
+      - '.github/workflows/presentation-release.yml'
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  approved-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Protect portfolio content, reviewed TasteRoom files and case anchors
+        run: |
+          node scripts/test-four-selected.mjs
+          node scripts/test-personal-art-direction.mjs
+          node --test scripts/test-presentation-mode.mjs scripts/test-presentation-anchors.mjs
+      - name: TasteRoom engine, recovery, authorization and local-server boundaries
+        run: node --test tasteroom/tests/*.test.mjs
+      - name: Browser-module syntax
+        run: |
+          node --check assets/presentation-mode.mjs
+          node --check tasteroom/app.js
+          node --check tasteroom/demo-help.js

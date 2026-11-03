@@ -10,7 +10,12 @@ const original = file => execFileSync('git',['show',`${base}:${file}`],{encoding
 test('normal page is the approved main plus only the presentation launcher, hidden toolbar and resources',() => {
   assert.equal(fs.readFileSync('index.html','utf8'),enhancePresentationHTML(original('index.html')));
   assert.equal(fs.readFileSync('data.json','utf8'),original('data.json'));
-  for (const file of ['assets/demo-showcase.mjs','assets/demo-showcase.css','projects-split.js','app.js','tasteroom/index.html','tasteroom/app.js']) assert.equal(fs.readFileSync(file,'utf8'),original(file),file);
+  for (const file of ['assets/demo-showcase.mjs','assets/demo-showcase.css','projects-split.js','app.js']) assert.equal(fs.readFileSync(file,'utf8'),original(file),file);
+  // The release also includes the separately approved TasteRoom branch. Protect its
+  // exact reviewed files rather than incorrectly requiring the older public copy.
+  const tasteBase = '7f686e7aee4cc749eccbebdf4370eb9f897d2c1e';
+  const tasteFiles = execFileSync('git',['ls-tree','-r','--name-only',tasteBase,'--','tasteroom/'],{encoding:'utf8'}).trim().split('\n');
+  for (const file of tasteFiles) assert.deepEqual(fs.readFileSync(file),execFileSync('git',['show',`${tasteBase}:${file}`]),`Approved TasteRoom changed: ${file}`);
   assert.equal(execFileSync('git',['hash-object','assets/resume.pdf'],{encoding:'utf8'}).trim(),execFileSync('git',['rev-parse',`${base}:assets/resume.pdf`],{encoding:'utf8'}).trim());
 });
 test('all four high points are existing case anchors, not invented tool features',() => {

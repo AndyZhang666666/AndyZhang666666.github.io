@@ -51,3 +51,14 @@ exclude:
   - scripts/preview-presentation.mjs
   - scripts/test-presentation-mode.mjs
   - scripts/test-presentation-anchors.mjs
+  # Review artifacts and optional local TasteRoom services stay out of Pages.
+  - docs/PRESENTATION-MODE-PRD-20261103.md
+  - docs/PRESENTATION-MODE-ACCEPTANCE-20261103.md
+  - docs/PRESENTATION-ANCHOR-FOLLOWUP-20261103.md
+  - docs/RELEASE-20261103.md
+  - tasteroom/docs
+  - tasteroom/tests
+  - tasteroom/server.mjs
+  - tasteroom/model-adapter.mjs
+  - tasteroom/package.json
+  - tasteroom/package-lock.json
