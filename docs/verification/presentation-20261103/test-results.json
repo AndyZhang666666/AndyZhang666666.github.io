@@ -1,0 +1,61 @@
+{
+  "checked_at": "2026-11-03T08:49:58.976997+00:00",
+  "code_commit": "8069ee0fa316a5ebfc5003a70d18b3167d4ec03d",
+  "baseline": "b3c192c8d9dc163024168cfdf913aff1d43df0bf",
+  "checks": [
+    {
+      "command": "node scripts/test-four-selected.mjs",
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/test-personal-art-direction.mjs",
+      "result": "pass"
+    },
+    {
+      "command": "node --test scripts/test-presentation-mode.mjs",
+      "result": "4 pass, 0 fail, 0 skipped"
+    },
+    {
+      "command": "node --check assets/presentation-mode.mjs; node --check content/presentation-mode.mjs; node --check scripts/preview-presentation.mjs",
+      "result": "pass"
+    },
+    {
+      "command": "git diff --check",
+      "result": "pass"
+    }
+  ],
+  "remote_main": "b3c192c8d9dc163024168cfdf913aff1d43df0bf",
+  "pushed": false,
+  "merged": false,
+  "deployed": false,
+  "captures": [
+    {
+      "file": "after-desktop.jpg",
+      "sha256": "ad25f125b48e7e8fd2cc733670e1a5e1ebae3e15d4137fc057bdfed93e0c4b47"
+    },
+    {
+      "file": "after-mobile.jpg",
+      "sha256": "54be1a42a2ec6de001bb360bce15a0445a6ac21c00c0d962e62a3a033e79fa41"
+    },
+    {
+      "file": "before-desktop.jpg",
+      "sha256": "2b2089f9c821bfb4dbe1ac17f00731218fc459e18b807a2496f914c9a27a34be"
+    },
+    {
+      "file": "before-mobile.jpg",
+      "sha256": "8e8d8dcdecfe5654df6676d098a8afebb01a0a6413861e806212e48adad85c63"
+    },
+    {
+      "file": "dark-mobile.jpg",
+      "sha256": "c0b322f6cfe3564f67e854cfab59cb50e63e0c712d430fa75390a9e069e73652"
+    },
+    {
+      "file": "english-mobile.jpg",
+      "sha256": "7da383ea744da47e7e5a338362d8bb9b3f9271abaee8279524ecd11bd7fb37ab"
+    },
+    {
+      "file": "normal-after-mobile.jpg",
+      "sha256": "76ec20ac96fc2b5c599f36383c174da722704f0f030d7617f5621ab970fb2862"
+    }
+  ]
+}

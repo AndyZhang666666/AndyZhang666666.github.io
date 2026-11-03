@@ -1,0 +1,127 @@
+{
+  "checked_at": "2026-11-03T08:39:11.785436+00:00",
+  "links": [
+    {
+      "id": "agent-bench",
+      "url": "http://127.0.0.1:8860/agent-bench/",
+      "http": 200,
+      "final": "http://127.0.0.1:8860/agent-bench/",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "taste",
+      "url": "http://127.0.0.1:8860/tasteroom/?direction=swiss",
+      "http": 200,
+      "final": "http://127.0.0.1:8860/tasteroom/?direction=swiss",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "suibianju",
+      "url": "http://127.0.0.1:8860/suibianju/",
+      "http": 200,
+      "final": "http://127.0.0.1:8860/suibianju/",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "grounded",
+      "url": "http://127.0.0.1:8860/grounded-choice/",
+      "http": 200,
+      "final": "https://andyzhang666666.github.io/grounded-choice/",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "eval",
+      "url": "http://127.0.0.1:8860/llm-output-eval/",
+      "http": 200,
+      "final": "https://andyzhang666666.github.io/llm-output-eval/",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "filing",
+      "url": "http://127.0.0.1:8860/demos/filing-eval/",
+      "http": 200,
+      "final": "http://127.0.0.1:8860/demos/filing-eval/",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "fde",
+      "url": "http://127.0.0.1:8860/cases/agent-workflow/",
+      "http": 200,
+      "final": "http://127.0.0.1:8860/cases/agent-workflow/",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "research-agent",
+      "kind": "inline",
+      "anchor": "project-research-agent",
+      "exists": true
+    },
+    {
+      "id": "commute",
+      "url": "http://127.0.0.1:8860/commute-compare/",
+      "http": 200,
+      "final": "https://andyzhang666666.github.io/commute-compare/",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "poker-quiz",
+      "url": "https://www.pokertesting.online/?utm_source=redonote&utm_medium=social",
+      "http": 200,
+      "final": "https://www.pokertesting.online/?utm_source=redonote&utm_medium=social",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "bankroll",
+      "url": "http://127.0.0.1:8860/poker-bankroll-sim/",
+      "http": 200,
+      "final": "https://andyzhang666666.github.io/poker-bankroll-sim/",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "poker-ev",
+      "url": "http://127.0.0.1:8860/poker-ev-calculator/",
+      "http": 200,
+      "final": "https://andyzhang666666.github.io/poker-ev-calculator/",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "growth",
+      "url": "http://127.0.0.1:8860/growth-experiment-lab/",
+      "http": 200,
+      "final": "https://andyzhang666666.github.io/growth-experiment-lab/",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "pricing",
+      "url": "http://127.0.0.1:8860/pricing-model-sim/",
+      "http": 200,
+      "final": "https://andyzhang666666.github.io/pricing-model-sim/",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "bundle",
+      "url": "http://127.0.0.1:8860/bundle-lab/simulate/",
+      "http": 200,
+      "final": "https://andyzhang666666.github.io/bundle-lab/simulate/",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "id": "content",
+      "kind": "inline",
+      "anchor": "project-content",
+      "exists": true
+    },
+    {
+      "id": "rag-lab",
+      "url": "http://127.0.0.1:8860/rag-lab/",
+      "http": 200,
+      "final": "http://127.0.0.1:8860/rag-lab/",
+      "content_type": "text/html; charset=utf-8"
+    }
+  ],
+  "resume": {
+    "http": 200,
+    "bytes_match": true
+  },
+  "note": "Independent apps use existing public releases; this is route availability, not a business-flow retest."
+}

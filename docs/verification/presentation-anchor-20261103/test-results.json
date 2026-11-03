@@ -1,0 +1,65 @@
+{
+  "checked_at": "2026-11-03T10:16:42.485652+00:00",
+  "code_commit": "df5af004094f31de707ad751226dba83ab4f8d02",
+  "previous_candidate": "0621651cfe4c295fa37bf4300e6a5480445787f5",
+  "results": {
+    "node_scripts_test_four_selected": "pass",
+    "node_scripts_test_personal_art_direction": "pass",
+    "node_test_presentation_mode_and_anchors": {
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    "syntax": "pass: raster-size, update-content, presentation-mode",
+    "git_diff_check": "pass",
+    "settled_anchor_placements": {
+      "desktop_direct": 4,
+      "desktop_reload": 4,
+      "desktop_real_click_new_tab": 4,
+      "phone390_direct": 4,
+      "phone390_reload": 4,
+      "total": 20,
+      "all_clear_fixed_nav": true
+    },
+    "phone_ui_real_popup_urls": "4 correct; simulated new-tab viewport limitation disclosed",
+    "original_presentation_exit": "7840.5px, AI4, Eval, focus and temporary review restored"
+  },
+  "normal_content": "Four case pages permit only actual image dimensions, one mechanism class and stylesheet version; other cases, app/style/case-reader scripts, main content, images and Demo source unchanged.",
+  "pushed": false,
+  "merged": false,
+  "deployed": false,
+  "captures": [
+    {
+      "file": "after-taste-desktop.jpg",
+      "sha256": "17dea9186f0241e26d37fe39a133bbd846f637459d2b93c2b5a6f58fd0707816"
+    },
+    {
+      "file": "after-taste-phone.jpg",
+      "sha256": "ce575183049bf293ee48d07dd8e35c7142cb56a756530072b8dede779417d455"
+    },
+    {
+      "file": "dimensions-only-after.jpg",
+      "sha256": "f7c1f42f6da207fe86df4d67fcbe9a2e71c371a98aeb68ea9d36e4d9c22a53cd"
+    },
+    {
+      "file": "during-scroll-before.jpg",
+      "sha256": "cd10e5455fc4de960b6c02d3ea8f240d745d62a1f1422397f552fc8bf3c0463c"
+    },
+    {
+      "file": "independent-baseline.jpg",
+      "sha256": "d280f44f572ea943616d14fd1dd344469e7c782a6e3f9c61f1b1c4cab8d20a73"
+    },
+    {
+      "file": "independent-reported-before.jpg",
+      "sha256": "229d8e70469d25948a8f5f4ef3138ff5a7c0f01693e8018f49a70f343528c7a8"
+    },
+    {
+      "file": "late-image-original.jpg",
+      "sha256": "f7c1f42f6da207fe86df4d67fcbe9a2e71c371a98aeb68ea9d36e4d9c22a53cd"
+    },
+    {
+      "file": "warm-cache-original.jpg",
+      "sha256": "f7c1f42f6da207fe86df4d67fcbe9a2e71c371a98aeb68ea9d36e4d9c22a53cd"
+    }
+  ]
+}
