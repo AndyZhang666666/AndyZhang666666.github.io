@@ -1,5 +1,7 @@
 # Andy Zhang · Product portfolio and independent tools
 
+
+2026-11-07: Added Squid Lab with finite/infinite rule comparisons, event replay, paired simulations and twelve spot challenges. The original 17 projects remain; the poker group now has four entries. See [integration notes](docs/SQUID-LAB-20261107.md).
 [Live portfolio](https://andyzhang666666.github.io/) · [中文](README.md) · [GitHub profile](https://github.com/AndyZhang666666) · [Project index](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.en.md)
 
 2026-11-03: Integrates the reviewed reversible presentation view, four case-anchor fixes and TasteRoom's task help, explicit consent states and draft recovery. Original development history is retained; the PR and Pages run record the final publication status. [Release scope](docs/RELEASE-20261103.md).

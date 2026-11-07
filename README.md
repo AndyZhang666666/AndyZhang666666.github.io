@@ -1,5 +1,7 @@
 # Andy Zhang · 产品作品集与独立工具
 
+
+2026-11-07：新增鱿鱼博弈实验室，提供有限/无限规则比较、回放、模拟与十二道挑战。官网保留原 17 项作品并新增第四个德州入口，详见 [集成记录](docs/SQUID-LAB-20261107.md)。
 [打开官网](https://andyzhang666666.github.io/) · [English](README.en.md) · [GitHub 主页](https://github.com/AndyZhang666666) · [项目索引](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.md)
 
 2026-11-03：经审阅确认，整合可切换的官网投屏视图、四案例高光导航修正及偏爱实验室的任务引导、授权区分与草稿恢复。保留原开发提交；发布状态以对应 PR 和 Pages 结果为准。[本次发布范围](docs/RELEASE-20261103.md) · [投屏 PRD](docs/PRESENTATION-MODE-PRD-20261103.md)。
