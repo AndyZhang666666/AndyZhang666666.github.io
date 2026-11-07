@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "rulesVersion": "squid-rules-v1-2026-11-07",
+  "sourceRepo": "AndyZhang666666/poker-squid-lab",
+  "sourceFile": "src/lib/rules.ts",
+  "sourceSha256": "f6fd5cd933cec4dd6f8ac8dd59588cd0f442201779319f9cd1c99754aeaaef60",
+  "players": 6,
+  "unit": 5,
+  "question": {
+    "options": [
+      5,
+      25,
+      30
+    ],
+    "answer": 25
+  },
+  "comparison": [
+    {
+      "mode": "plain",
+      "callMinusFold": -3.75,
+      "foldSettlement": 0
+    },
+    {
+      "mode": "finite",
+      "callMinusFold": 3.75,
+      "foldSettlement": -25
+    },
+    {
+      "mode": "infinite",
+      "callMinusFold": 11.25,
+      "foldSettlement": -55
+    }
+  ]
+}

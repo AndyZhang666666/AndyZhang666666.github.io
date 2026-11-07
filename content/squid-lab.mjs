@@ -1,0 +1,18 @@
+export const squidProject={
+ id:'squid-lab',category:'personal',group:'poker',
+ name:'鱿鱼博弈实验室',nameEn:'Squid Lab',
+ description:'同样一手牌，换了鱿鱼规则，争夺它的价值为什么变了？',
+ descriptionEn:'The same hand, different squid rules. What changes its value?',
+ subtitle:'有限与无限鱿鱼的互动比较、回放与局面挑战',subtitleEn:'Finite and infinite squid: comparisons, replay and short challenges',
+ url:'/poker-squid-lab/',github:'https://github.com/AndyZhang666666/poker-squid-lab',iterationUrl:'/cases/squid/',caseLabel:'设计过程',caseLabelEn:'Design process',
+ tags:['德州扑克','规则实验','互动学习'],tagsEn:['Poker','Rule experiments','Interactive learning'],
+ metrics:['同一手牌 · 三种结果','有限 / 无限 · 逐笔对账','12 道挑战 · 本机恢复'],
+ metricsEn:['One hand · three outcomes','Finite / infinite · reconciled transfers','12 challenges · local recovery'],
+ context:'只看底池，容易漏掉鱿鱼玩法的额外结算；只看规则文字，又不容易看清重复获标、倍率和结束条件的影响。',
+ contextEn:'The pot alone hides the side ledger. Written rules alone make repeat wins, multipliers and endpoints difficult to follow.',
+ approach:['先判断跟注或弃牌，再展开相同河牌在三种规则下的底池收益与附加结算。','由同一套版本化规则驱动标记、回放、结算、挑战解析与官网短试玩。','用相同随机事件比较两种模式；保留频率假设、种子、未完成样本和可恢复记录。'],
+ approachEn:['Choose call or fold before revealing chip EV and side payments under three rules.','Use one versioned engine for markers, replay, settlement, explanations and the homepage exercise.','Compare paired event sequences with explicit frequencies, seeds, incomplete samples and recoverable records.'],
+ result:'浏览器本地运行。牌面评估沿用 phe 与现有 Poker Lab 基础，事件回放参考 boardgame.io 的设计。首屏比较限定为明示的河牌局面；模拟采用人为频率假设。方法、实际验证与开源来源随源码公开。',
+ resultEn:'Runs locally in the browser. Card evaluation reuses phe and Poker Lab foundations; event replay takes design cues from boardgame.io. The opening comparison is an explicit river spot, and simulations use assumed frequencies. Methods, executed checks and provenance are documented.',
+ presentation:{kind:'demo'},
+};
