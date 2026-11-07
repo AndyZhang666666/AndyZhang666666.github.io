@@ -10,9 +10,10 @@ test('all previous 17 projects, personal data and published module files remain 
  assert.deepEqual(now.projects.filter(p=>p.id!=='squid-lab'),old.projects);
  assert.deepEqual({...now,projects:[]},{...old,projects:[]});
  assert.deepEqual(now.projects.find(p=>p.id==='squid-lab'),squidProject);
- for(const file of ['assets/demo-showcase.mjs','assets/demo-showcase.css','projects-split.js','assets/presentation-mode.mjs','assets/presentation-mode.css','assets/resume.pdf']){
+ for(const file of ['assets/demo-showcase.mjs','assets/demo-showcase.css','assets/presentation-mode.mjs','assets/presentation-mode.css','assets/resume.pdf']){
   assert.deepEqual(fs.readFileSync(file),execFileSync('git',['show',`32a393711aabcacdf6bc13d5015abf0c64ce4dfd:${file}`],{maxBuffer:8000000}),file);
  }
+ assert.equal(read('projects-split.js'),base('projects-split.js').replace("ids: ['poker-quiz', 'bankroll', 'poker-ev']", "ids: ['poker-quiz', 'bankroll', 'poker-ev', 'squid-lab']"));
 });
 test('homepage changes are scoped to the new entry, resource references, cache key and total count',()=>{
  let html=read('index.html'),old=base('index.html');
@@ -21,6 +22,7 @@ test('homepage changes are scoped to the new entry, resource references, cache k
  html=html.replace(/<link rel="stylesheet" href="assets\/squid-lab-preview.css[^\"]*">\n/,'').replace(/<script type="module" src="assets\/squid-lab-preview.mjs[^\"]*"><\/script>\n/,'');
  html=html.replaceAll('查看全部 18 项作品','查看全部 17 项作品').replaceAll('Explore all 18 projects','Explore all 17 projects');
  html=html.replace(/src="app\.js\?v=[^"]*"/,old.match(/src="app\.js\?v=[^"]*"/)[0]);
+ html=html.replace(/src="projects-split\.js\?v=[^"]*"/,old.match(/src="projects-split\.js\?v=[^"]*"/)[0]);
  assert.equal(html,old);
  assert.equal(read('app.js').replace(/data\.json\?v=[\w.-]+/g,base('app.js').match(/data\.json\?v=[\w.-]+/)[0]),base('app.js'));
 });

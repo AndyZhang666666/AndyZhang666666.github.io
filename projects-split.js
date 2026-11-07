@@ -30,7 +30,7 @@
     { key: 'life', zh: '生活与设计', en: 'Life & Design', ids: ['taste', 'suibianju', 'grounded', 'commute'] },
     { key: 'growth', zh: '增长与商业化', en: 'Growth & Monetisation', ids: ['growth', 'pricing', 'bundle'] },
     { key: 'practice', zh: '其他实践', en: 'Other Practice', ids: ['fde', 'research-agent', 'content'] },
-    { key: 'poker', zh: '德州工具', en: 'Poker Tools', ids: ['poker-quiz', 'bankroll', 'poker-ev'] }
+    { key: 'poker', zh: '德州工具', en: 'Poker Tools', ids: ['poker-quiz', 'bankroll', 'poker-ev', 'squid-lab'] }
   ];
   var activeCategory = 'all';
 
