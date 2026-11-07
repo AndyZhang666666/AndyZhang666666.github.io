@@ -1,6 +1,7 @@
 // The original shell stays intact. Scoped showcase/library presentation is generated here.
 import fs from 'node:fs';
 import {pokerLabMetadata} from '../content/poker-lab.mjs';
+import {integrateSquidLab} from './integrate-squid-lab.mjs';
 import {execFileSync} from 'node:child_process';
 import {identity,projects,studies,aiPractices,evidenceDims} from '../content/editorial.mjs';
 import {presentationFor} from '../content/project-presentation.mjs';
@@ -162,3 +163,4 @@ restoredHtml=restoredHtml.replace(/<article id="project-[^]*?<\/article>/g,()=>o
 fs.writeFileSync('index.html',restoredHtml);
 await integrateSite();
 fs.writeFileSync('index.html',enhancePresentationHTML(fs.readFileSync('index.html','utf8')));
+integrateSquidLab();

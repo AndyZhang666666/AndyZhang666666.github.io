@@ -99,12 +99,12 @@ assert.deepEqual(approvedDemoProjects,expectedProjects,
   'Pinned Demo delivery changed a project outside the explicit approved copy paths');
 // No demo is removed, silently replaced or otherwise changed by integration.
 const projectIds=current.projects.map(project=>project.id);
-assert.deepEqual(current.projects,expectedProjects,'Project data changed outside the exact approved Demo copy');
-assert.equal(projectIds.length,17,'Keep all 17 existing projects');
-assert.equal(new Set(projectIds).size,17,'Project IDs must remain unique');
-assert.deepEqual(projectIds,baseline.projects.map(project=>project.id),'Project identity/order changed');
+assert.deepEqual(current.projects.filter(p=>p.id!=='squid-lab'),expectedProjects,'An existing project changed outside the approved Demo copy');
+assert.equal(projectIds.length,18,'Keep the existing 17 projects and the approved Squid Lab addition');
+assert.equal(new Set(projectIds).size,18,'Project IDs must remain unique');
+assert.deepEqual(projectIds.filter(id=>id!=='squid-lab'),baseline.projects.map(project=>project.id),'Existing project identity/order changed');
 const cards=tags(html,'article').filter(tag=>'data-project-id' in tag);
-assert.equal(cards.length,17,'Static library must include exactly 17 project entries');
+assert.equal(cards.length,18,'Static library must include the 17 existing entries plus Squid Lab');
 assert.deepEqual(cards.map(tag=>tag['data-project-id']).sort(),[...projectIds].sort(),'Static library is incomplete or duplicates a project');
 const expectedSelected=['trust','taste','bundles','commute'];
 assert.deepEqual(selected.map(project=>project.id),expectedSelected,'The four selected products changed');
@@ -175,4 +175,4 @@ for(const file of ['assets/personal-art-direction.css','assets/section-atmospher
 assert.match(read('assets/personal-sections.mjs'),/from\s+['"]\.\.\/content\/personal-presentation\.mjs['"]/);
 assert.match(read('scripts/update-content.mjs'),/transformPersonalHTML\(html,data\)/,'Content generation bypasses the personal presentation');
 
-console.log('PASS: published facts, 17 projects and four selections preserved; three unboxed case rows, four palettes, official award links and presentation modules generated.');
+console.log('PASS: published facts, 17 existing projects plus Squid Lab and four selections preserved; three unboxed case rows, four palettes, official award links and presentation modules generated.');

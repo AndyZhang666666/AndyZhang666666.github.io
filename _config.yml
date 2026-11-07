@@ -62,3 +62,7 @@ exclude:
   - tasteroom/model-adapter.mjs
   - tasteroom/package.json
   - tasteroom/package-lock.json
+  # Squid Lab development records remain visible in GitHub, outside the website.
+  - scripts/integrate-squid-lab.mjs
+  - scripts/test-squid-integration.mjs
+  - docs/SQUID-LAB-20261107.md

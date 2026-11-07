@@ -1,0 +1,24 @@
+name: Squid Lab portfolio integration
+on:
+  push:
+    branches: [main, feat/squid-lab-entry]
+    paths: ['index.html', 'data.json', 'app.js', 'projects-split.js', 'assets/squid-lab-*', 'content/squid-lab.mjs', 'scripts/integrate-squid-lab.mjs', 'scripts/test-squid-integration.mjs', 'scripts/update-content.mjs', '.github/workflows/squid-entry.yml']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  preserve-and-integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node scripts/test-four-selected.mjs
+      - run: node scripts/test-personal-art-direction.mjs
+      - run: node --test scripts/test-presentation-mode.mjs scripts/test-presentation-anchors.mjs scripts/test-squid-integration.mjs
+      - run: node scripts/update-content.mjs
+      - run: git diff --exit-code -- index.html data.json app.js cases content/evidence-zh.json content/evidence-en.json
+      - run: node --check assets/squid-lab-preview.mjs

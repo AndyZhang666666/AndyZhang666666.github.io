@@ -20,8 +20,11 @@ test('all eight high-point images reserve their actual intrinsic dimensions',()=
 });
 test('follow-up changes only image dimensions, anchor opt-in and stylesheet cache version',()=>{
  const before='0621651cfe4c295fa37bf4300e6a5480445787f5';
- for(const dir of fs.readdirSync('cases')){
-  const file=`cases/${dir}/index.html`;
+ // Scope this historical follow-up to the case pages that existed then.
+ // Newly approved projects have their own integration checks.
+ const files=execFileSync('git',['ls-tree','-r','--name-only',before,'--','cases'],{encoding:'utf8'}).trim().split('\n').filter(file=>file.endsWith('/index.html'));
+ for(const file of files){
+  const dir=file.split('/')[1];
   if(!fs.existsSync(file))continue;
   const old=execFileSync('git',['show',`${before}:${file}`],{encoding:'utf8'});
   const current=fs.readFileSync(file,'utf8');

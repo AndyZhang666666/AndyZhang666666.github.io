@@ -6,11 +6,14 @@ import {enhancePresentationHTML,presentationCases,withPresentationQuery,withoutP
 
 const base = 'b3c192c8d9dc163024168cfdf913aff1d43df0bf';
 const original = file => execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'});
+const release = file => execFileSync('git',['show',`32a393711aabcacdf6bc13d5015abf0c64ce4dfd:${file}`],{encoding:'utf8'});
 
-test('normal page is the approved main plus only the presentation launcher, hidden toolbar and resources',() => {
-  assert.equal(fs.readFileSync('index.html','utf8'),enhancePresentationHTML(original('index.html')));
-  assert.equal(fs.readFileSync('data.json','utf8'),original('data.json'));
-  for (const file of ['assets/demo-showcase.mjs','assets/demo-showcase.css','projects-split.js','app.js']) assert.equal(fs.readFileSync(file,'utf8'),original(file),file);
+test('recorded November 3 release contains only the reviewed presentation integration',() => {
+  // This records the actual historical release. Current authorised additions are
+  // protected against that release in test-squid-integration.mjs.
+  assert.equal(release('index.html'),enhancePresentationHTML(original('index.html')));
+  assert.equal(release('data.json'),original('data.json'));
+  for (const file of ['assets/demo-showcase.mjs','assets/demo-showcase.css','projects-split.js','app.js']) assert.equal(release(file),original(file),file);
   // The release also includes the separately approved TasteRoom branch. Protect its
   // exact reviewed files rather than incorrectly requiring the older public copy.
   const tasteBase = '7f686e7aee4cc749eccbebdf4370eb9f897d2c1e';
