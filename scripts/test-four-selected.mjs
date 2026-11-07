@@ -14,7 +14,7 @@ const data=JSON.parse(read('data.json')),html=read('index.html');
 assert.deepEqual(selected.map(s=>s.id),['trust','taste','bundles','commute']);
 assert.deepEqual(directions[0].order,['trust','taste','bundles','commute']);
 for(const d of directions){assert.equal(d.order.length,4);assert.equal(new Set(d.order).size,4);assert.deepEqual([...d.order].sort(),selected.map(s=>s.id).sort());}
-assert.equal(data.projects.length,17);for(const id of ['agent-bench','rag-lab','grounded','poker-quiz','bankroll','poker-ev'])assert.ok(data.projects.some(p=>p.id===id));
+assert.equal(data.projects.length,18);for(const id of ['agent-bench','rag-lab','grounded','poker-quiz','bankroll','poker-ev','squid-lab'])assert.ok(data.projects.some(p=>p.id===id));
 for(const s of selected){const p=data.projects.find(p=>p.id===s.project),study=studies.find(x=>x.id===s.id);assert.ok(p?.url&&p?.github);assert.equal(study?.project,p.id);assert.ok(html.includes(`data-selected-id="${s.id}"`));assert.ok(html.includes(`data-selected-demo="${s.project}"`));}
 assert.equal(Object.keys(DIRECTIONS).length,6);
 for(const id of Object.keys(DIRECTIONS)){assert.ok(html.includes(`data-taste-direction="${id}"`),'Missing style preview '+id);const {room}=createTastePreview(id);assert.equal(room.canvas.artDirection,id);assert.ok(posterSvg(room,posterContent).includes('无用之美'));assert.equal(room.memories.length,0,'Preview must not infer or save a preference');}
@@ -36,4 +36,4 @@ function section(source,id){const start=source.indexOf(`<section id="${id}"`);as
 for(const id of ['ai','experience','education']){
  if(originalHTML.includes(`<section id="${id}"`))assert.equal(section(html,id),section(originalHTML,id),`Protected section changed: ${id}`);
 }
-console.log('PASS: four directions, 17 projects, owned destinations, canonical preview inputs and unchanged protected content.');
+console.log('PASS: four directions, 18 projects, owned destinations, canonical preview inputs and unchanged protected content.');
