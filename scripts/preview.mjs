@@ -2,9 +2,9 @@ import http from 'node:http';import fs from 'node:fs';import path from 'node:pat
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const suite=path.resolve(root,'../../demo-suite-2026-10-24'),polish=path.resolve(root,'../../demo-polish-2026-10-27');
 const port=Number(process.env.PREVIEW_PORT||8820);
-const integrated={'llm-output-eval':'eval','bundle-lab':'bundle','commute-compare':'commute'};
+const integrated={'llm-output-eval':'eval','bundle-lab':'bundle','commute-compare':'commute','poker-squid-lab':'poker-squid-lab'};
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.pdf':'application/pdf','.ttf':'font/ttf','.woff2':'font/woff2','.txt':'text/plain; charset=utf-8'};
-const exports=new Set(['llm-output-eval','bundle-lab','growth-experiment-lab','pricing-model-sim','commute-compare','poker-bankroll-sim','poker-ev-calculator']);
+const exports=new Set(['llm-output-eval','bundle-lab','growth-experiment-lab','pricing-model-sim','commute-compare','poker-bankroll-sim','poker-ev-calculator','poker-squid-lab']);
 function serve(req,res,originalHost=false){try{
  const u=new URL(req.url,'http://localhost'),all=decodeURIComponent(u.pathname).split('/').filter(Boolean),prefix=all[0]==='original',old=originalHost||prefix,parts=prefix?all.slice(1):all;
  let base=old?path.join(suite,'site'):root,relative=parts.join('/');
