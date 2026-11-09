@@ -47,29 +47,39 @@
   <main class="compare" id="comparison" data-view="local" aria-label="官网 V2 本地改版与当前线上网站对照">
     <section class="pane pane-local" aria-label="官网主版本，当前本地工作目录">
       <header class="pane-head"><div><h2>官网 V2 · 本地审阅，未发布</h2><p id="localSource">当前本地地址</p></div><a id="openLocal" href="/" target="_blank" rel="noopener">单独打开 ↗</a></header>
-      <iframe id="localFrame" src="/" title="官网主版本（当前本地工作目录）"></iframe>
+      <iframe id="localFrame" title="官网主版本（当前本地工作目录）"></iframe>
     </section>
     <section class="pane pane-live" aria-label="当前线上版本，直接加载 GitHub Pages">
       <header class="pane-head"><div><h2>当前线上版本 · GitHub Pages</h2><p id="liveSource">andyzhang666666.github.io/</p></div><a id="openLive" href="https://andyzhang666666.github.io/" target="_blank" rel="noopener">单独打开 ↗</a></header>
-      <iframe id="liveFrame" src="https://andyzhang666666.github.io/" title="当前线上版本（直接来自 GitHub Pages）" referrerpolicy="no-referrer"></iframe>
+      <iframe id="liveFrame" title="当前线上版本（直接来自 GitHub Pages）" referrerpolicy="no-referrer"></iframe>
     </section>
   </main>
   <script>
     const comparison=document.querySelector('#comparison');
+    let localURL,liveURL;
+    function loadVisibleFrames(){
+      const view=comparison.dataset.view;
+      for(const [id,url,visible] of [['localFrame',localURL,view!=='live'],['liveFrame',liveURL,view!=='local']]){
+        const frame=document.getElementById(id);
+        if(visible&&url&&frame.getAttribute('src')!==url)frame.src=url;
+      }
+    }
     function changeView(view){
       comparison.dataset.view=view;
       document.querySelectorAll('[data-view]').forEach(button=>{if(button.tagName==='BUTTON')button.setAttribute('aria-pressed',String(button.dataset.view===view))});
+      loadVisibleFrames();
     }
     function changeProject(){
       const path=document.querySelector('#project').value;
       const local=path+(path==='/tasteroom/'?'?direction=swiss':'');
       const live=new URL(path,'https://andyzhang666666.github.io/').href;
-      document.querySelector('#localFrame').src=local;
-      document.querySelector('#liveFrame').src=live;
+      localURL=new URL(local,location.href).href;
+      liveURL=live;
       document.querySelector('#openLocal').href=local;
       document.querySelector('#openLive').href=live;
       document.querySelector('#localSource').textContent=location.host+local;
       document.querySelector('#liveSource').textContent=live.replace('https://','');
+      loadVisibleFrames();
     }
     document.querySelector('#project').addEventListener('change',changeProject);
     document.querySelectorAll('button[data-view]').forEach(button=>button.addEventListener('click',()=>changeView(button.dataset.view)));

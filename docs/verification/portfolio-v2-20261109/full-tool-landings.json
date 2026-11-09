@@ -1,0 +1,55 @@
+[
+  {
+    "id": "eval",
+    "url": "https://andyzhang666666.github.io/llm-output-eval/",
+    "title": "文本评测台 · llm-output-eval",
+    "headings": [
+      "把评分，放回原文里。",
+      "原文",
+      "结构完整性",
+      "你的复核",
+      "下一步处理",
+      "未解决与已完成事项"
+    ]
+  },
+  {
+    "id": "taste",
+    "url": "http://127.0.0.1:56071/tasteroom/?direction=deconstructed",
+    "title": "TasteRoom · 偏爱实验室",
+    "headings": [
+      "\n        \n          TasteRoom 偏爱实验室\n      ",
+      "解构主义 · 当前画布",
+      "当前构图",
+      "这张海报写什么？",
+      "留住两个候选"
+    ]
+  },
+  {
+    "id": "bundle",
+    "url": "https://andyzhang666666.github.io/bundle-lab/simulate/",
+    "title": "套餐实验室 · Bundle Lab",
+    "headings": [
+      "一份套餐，算清两笔账。",
+      "卖什么，优惠多少？",
+      "新增贡献，抵得过让利吗？",
+      "采纳率到哪里才回本？",
+      "先留一份，再试一个改变。",
+      "折扣更大，不一定赚得更多。"
+    ]
+  },
+  {
+    "id": "commute",
+    "url": "https://andyzhang666666.github.io/commute-compare/",
+    "title": "Commute Compare — 通勤方案比较器",
+    "headings": [
+      "通勤方案比较器Commute Compare",
+      "你的到达要求",
+      "什么对你更重要？",
+      "先比较两个方案就够了",
+      "每月多付多少，换回多少时间？",
+      "每天的时间，差在波动",
+      "地铁 1 号线",
+      "打车"
+    ]
+  }
+]

@@ -1,0 +1,194 @@
+[
+  {
+    "cardCount": 18,
+    "menu": "flex",
+    "overflow": 0,
+    "paletteInsideDialog": true,
+    "theme": "frost",
+    "width": 390
+  },
+  {
+    "cardCount": 18,
+    "menu": "flex",
+    "overflow": 0,
+    "paletteInsideDialog": true,
+    "theme": "frost",
+    "width": 768
+  },
+  {
+    "cardCount": 18,
+    "menu": "flex",
+    "overflow": 0,
+    "paletteInsideDialog": true,
+    "theme": "frost",
+    "width": 820
+  },
+  {
+    "cardCount": 18,
+    "menu": "none",
+    "overflow": 0,
+    "paletteInsideDialog": false,
+    "theme": "frost",
+    "width": 821
+  },
+  {
+    "cardCount": 18,
+    "menu": "none",
+    "overflow": 0,
+    "paletteInsideDialog": false,
+    "theme": "frost",
+    "width": 1024
+  },
+  {
+    "cardCount": 18,
+    "menu": "none",
+    "overflow": 0,
+    "paletteInsideDialog": false,
+    "theme": "frost",
+    "width": 1440
+  },
+  {
+    "cardCount": 18,
+    "menu": "flex",
+    "overflow": 0,
+    "paletteInsideDialog": true,
+    "theme": "copper",
+    "width": 390
+  },
+  {
+    "cardCount": 18,
+    "menu": "flex",
+    "overflow": 0,
+    "paletteInsideDialog": true,
+    "theme": "copper",
+    "width": 768
+  },
+  {
+    "cardCount": 18,
+    "menu": "flex",
+    "overflow": 0,
+    "paletteInsideDialog": true,
+    "theme": "copper",
+    "width": 820
+  },
+  {
+    "cardCount": 18,
+    "menu": "none",
+    "overflow": 0,
+    "paletteInsideDialog": false,
+    "theme": "copper",
+    "width": 821
+  },
+  {
+    "cardCount": 18,
+    "menu": "none",
+    "overflow": 0,
+    "paletteInsideDialog": false,
+    "theme": "copper",
+    "width": 1024
+  },
+  {
+    "cardCount": 18,
+    "menu": "none",
+    "overflow": 0,
+    "paletteInsideDialog": false,
+    "theme": "copper",
+    "width": 1440
+  },
+  {
+    "cardCount": 18,
+    "menu": "flex",
+    "overflow": 0,
+    "paletteInsideDialog": true,
+    "theme": "mist",
+    "width": 390
+  },
+  {
+    "cardCount": 18,
+    "menu": "flex",
+    "overflow": 0,
+    "paletteInsideDialog": true,
+    "theme": "mist",
+    "width": 768
+  },
+  {
+    "cardCount": 18,
+    "menu": "flex",
+    "overflow": 0,
+    "paletteInsideDialog": true,
+    "theme": "mist",
+    "width": 820
+  },
+  {
+    "cardCount": 18,
+    "menu": "none",
+    "overflow": 0,
+    "paletteInsideDialog": false,
+    "theme": "mist",
+    "width": 821
+  },
+  {
+    "cardCount": 18,
+    "menu": "none",
+    "overflow": 0,
+    "paletteInsideDialog": false,
+    "theme": "mist",
+    "width": 1024
+  },
+  {
+    "cardCount": 18,
+    "menu": "none",
+    "overflow": 0,
+    "paletteInsideDialog": false,
+    "theme": "mist",
+    "width": 1440
+  },
+  {
+    "cardCount": 18,
+    "menu": "flex",
+    "overflow": 0,
+    "paletteInsideDialog": true,
+    "theme": "indigo",
+    "width": 390
+  },
+  {
+    "cardCount": 18,
+    "menu": "flex",
+    "overflow": 0,
+    "paletteInsideDialog": true,
+    "theme": "indigo",
+    "width": 768
+  },
+  {
+    "cardCount": 18,
+    "menu": "flex",
+    "overflow": 0,
+    "paletteInsideDialog": true,
+    "theme": "indigo",
+    "width": 820
+  },
+  {
+    "cardCount": 18,
+    "menu": "none",
+    "overflow": 0,
+    "paletteInsideDialog": false,
+    "theme": "indigo",
+    "width": 821
+  },
+  {
+    "cardCount": 18,
+    "menu": "none",
+    "overflow": 0,
+    "paletteInsideDialog": false,
+    "theme": "indigo",
+    "width": 1024
+  },
+  {
+    "cardCount": 18,
+    "menu": "none",
+    "overflow": 0,
+    "paletteInsideDialog": false,
+    "theme": "indigo",
+    "width": 1440
+  }
+]
