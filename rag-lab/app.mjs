@@ -8,6 +8,7 @@ const modeNames = {'original-example': '原创示例 · 无模型调用', 'local
 const roleName = role => role === 'admin' ? '设备管理员' : '普通员工';
 const node = (tag, text, className) => { const el = document.createElement(tag); if (text !== undefined) el.textContent = text; if (className) el.className = className; return el; };
 let documents = [];
+let corpusLoaded=false;
 let currentRun = null;
 let history = [];
 let employeeToken = null;
@@ -101,6 +102,7 @@ async function sessionToken() {
 
 async function run({focus = true} = {}) {
   if (busy) return;
+  if(!corpusLoaded){showError('示例资料尚未读取成功，请刷新重试；仍可进入「使用我的资料」完成本机检索。');return;}
   $('error').hidden = true;
   let input;
   try { input = validateInput(getInput()); }
@@ -275,11 +277,12 @@ $('exportButton').addEventListener('click', async () => {
 });
 
 async function initialize() {
+  initializeTasks();initializePersonal();
   try {
     if (matchMedia('(max-width: 650px)').matches){$('conditionSettings').open = false;$('scenarioChoices').open=false;}
     const response = await fetch('./public-corpus.json');
     if (!response.ok) throw new Error('示例资料读取失败，请刷新重试。');
-    const data = await response.json(); documents = data.documents;
+    const data = await response.json();if(!Array.isArray(data.documents))throw Error('示例资料格式无效，仍可使用自己的资料。');documents=data.documents;corpusLoaded=true;
     // Probe only a local origin, never contact an unconfigured hosted backend.
     if (['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname)) {
       try {
@@ -292,7 +295,7 @@ async function initialize() {
         }
       } catch { /* static preview: remain in explicitly labelled example mode */ }
     }
-    initializeTasks(); initializePersonal(); syncSettings(); await run({focus: false});
+    syncSettings(); await run({focus: false});
   } catch (error) { setBusy(false); showError(error.message); $('answerHeadline').textContent = '资料暂时无法读取'; }
 }
 function initializeTasks(){

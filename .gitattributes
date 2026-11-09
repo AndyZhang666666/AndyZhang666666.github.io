@@ -1,0 +1,4 @@
+
+# Binary parser fixtures and unmodified third-party resources retain upstream bytes.
+rag-lab/tests/fixtures/*.pdf binary
+rag-lab/vendor/** -whitespace
