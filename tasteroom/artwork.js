@@ -10,34 +10,50 @@ export function canvasProvenance(room,shown=room){
  const effective=room.effective().filter(m=>m.type==='explicit'&&!m.id.startsWith('once_'));
  const scene=effective.find(m=>m.dimension==='artDirection'&&m.context===room.context),inherited=effective.find(m=>m.dimension==='artDirection');
  const direction=shown.canvas.artDirection;
- const temporary=effective.some(m=>shown.canvas[m.dimension]!==m.preference)||(room.history||[]).some(h=>h.active&&String(h.memory||'').startsWith('once_'))||Number(room.posterSettings?.titleScale||1)!==1||room.posterSettings?.lineBreaks==='manual';
+ const temporary=effective.some(m=>shown.canvas[m.dimension]!==m.preference)||Object.keys(shown.canvas).some(d=>d!=='artDirection'&&shown.canvas[d]!==((room.effective().find(m=>m.dimension===d))?.preference??room.base[d]))||Object.keys(shown.canvas).some(d=>{const latest=(room.history||[]).filter(h=>h.active&&h.dimension===d).at(-1);return latest?.value===shown.canvas[d]&&String(latest?.memory||'').startsWith('once_');})||Number(room.posterSettings?.titleScale||1)!==1||room.posterSettings?.lineBreaks==='manual';
  return {direction,sceneDirection:scene?.preference||null,remembered:scene?.preference===direction,inherited:!scene&&inherited?.preference===direction,temporary,canRestore:!!scene&&scene.preference!==direction};
 }
 export function restoreSceneDirection(room){const before=JSON.stringify(room.memories);const rule=room.effective().find(m=>m.dimension==='artDirection'&&m.type==='explicit'&&m.context===room.context&&!m.id.startsWith('once_'));if(!rule)return false;room.update('artDirection',rule.preference,rule.id);if(JSON.stringify(room.memories)!==before)throw Error('恢复方向不应修改记忆');return true;}
 const xml=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
 const measure=s=>[...s].reduce((n,ch)=>n+(/[MW@%&mw]/.test(ch)?1.05:/[A-Z]/.test(ch)?.8:/[\x00-\x7f]/.test(ch)?.66:1),0);
 function lines(s,limit,manual){const source=String(s).split(/<br\s*\/?\s*>|\n/i);if(manual||source.length>1)return source;let result=[],line='',size=0;for(const ch of source[0]){const m=measure(ch);if(size+m>limit&&line){result.push(line);line='';size=0;}line+=ch;size+=m;}result.push(line);return result;}
+// Each direction owns its composition. Aspect-ratio changes reflow text and media;
+// image geometry remains separate from remembered design preferences.
+const GEOMETRY={
+ swiss:{title:.245,subtitle:.45,scale:1,mediaX:0,mediaW:1},
+ deconstructed:{title:.26,subtitle:.47,scale:1.04,mediaX:.09,mediaW:.91},
+ editorial:{title:.25,subtitle:.49,scale:.91,mediaX:0,mediaW:.8},
+ bauhaus:{title:.52,subtitle:.69,scale:.92,mediaX:0,mediaW:1},
+ japanese:{title:.32,subtitle:.55,scale:.78,mediaX:.12,mediaW:.8},
+ risograph:{title:.23,subtitle:.46,scale:1.04,mediaX:0,mediaW:1},
+};
 export function artworkLayout(room,content){
- const art=normalizeArtwork(room.artwork),{width:w,height:h}=ARTBOARDS[art.format],wide=art.format==='landscape',c=room.canvas,id=c.artDirection||'swiss',manual=room.posterSettings?.lineBreaks==='manual';
+ const art=normalizeArtwork(room.artwork),{width:w,height:h}=ARTBOARDS[art.format],wide=art.format==='landscape',c=room.canvas,id=c.artDirection||'swiss',g=GEOMETRY[id]||GEOMETRY.swiss,manual=room.posterSettings?.lineBreaks==='manual';
  const pad=Math.round(w*({compact:.065,balanced:.08,airy:.1}[c.layoutDensity]||.08));
  const colWidth=wide?w*.44:w-2*pad,usable=colWidth-(id==='japanese'?w*.08:0)-(c.alignment==='asymmetric'?24:0);
  const title=lines(content[1],wide?12:14,manual),subtitle=lines(content[2],wide?25:32,manual);
- const max=(wide?88:Math.min(w*.09,100))*(Number(room.posterSettings?.titleScale)||1);
- const size=Math.min(max,...title.map(s=>Math.floor((usable-16)/Math.max(1,measure(s))))),subtitleSize=Math.min(wide?26:27,...subtitle.map(s=>Math.floor(usable/Math.max(1,measure(s)))));
- const titleY=Math.round(h*(id==='japanese'?.3:id==='bauhaus'&&!art.image?.34:.245)),titleBottom=titleY+Math.max(0,title.length-1)*size*1.12;
- const subY=Math.max(titleBottom+Math.max(44,size*.6),Math.round(h*(wide?.55:.45))),subBottom=subY+Math.max(0,subtitle.length-1)*(subtitleSize*1.48);
+ const max=(wide?88:Math.min(w*.09,100))*g.scale*(Number(room.posterSettings?.titleScale)||1);
+ const size=Math.min(max,...title.map(s=>Math.floor((usable-20)/Math.max(1,measure(s))))),subtitleSize=Math.min(wide?26:27,...subtitle.map(s=>Math.floor(usable/Math.max(1,measure(s)))));
+ const titleY=Math.round(h*(wide?(id==='japanese'?.34:id==='bauhaus'?.32:.245):g.title)),titleBottom=titleY+Math.max(0,title.length-1)*size*1.12;
+ const subY=Math.max(titleBottom+Math.max(44,size*.6),Math.round(h*(wide?(id==='bauhaus'?.6:.55):g.subtitle))),subBottom=subY+Math.max(0,subtitle.length-1)*(subtitleSize*1.48);
  const detailRows=['when','where','action'].filter(k=>art.details[k]);
  const footerY=h-pad*.7,metaY=footerY-42-detailRows.length*30;
- const media=wide?{x:w*.57,y:h*.2,width:w*.36,height:h*.57}:{x:pad,y:subBottom+30,width:w-pad*2,height:metaY-subBottom-64};
+ let media;
+ if(wide)media={x:id==='bauhaus'?pad:id==='editorial'?w*.64:id==='japanese'?w*.67:w*.57,y:h*(id==='editorial'?.16:.2),width:w*(id==='editorial'?.29:id==='japanese'?.25:.36),height:h*(id==='japanese'?.48:.57)};
+ else if(id==='bauhaus')media={x:pad,y:h*.17,width:w-pad*2,height:h*.26};
+ else media={x:pad+(w-pad*2)*g.mediaX,y:subBottom+30,width:(w-pad*2)*g.mediaW,height:metaY-subBottom-64};
+ const categorySize=Math.min(23,Math.floor((w-pad*2-160)/Math.max(1,measure(content[0])))),footerSize=Math.min(22,Math.floor((w-pad*2)/Math.max(1,measure(content[3]))));
  const issues=[];
- if(title.length>4)issues.push('标题超过四行，请重新平衡换行');if(subtitle.length>4)issues.push('副文案超过四行，请调整换行或减少文字');if(size<28)issues.push('标题过密，请增加换行或换用更宽版式');if(subtitleSize<14)issues.push('副文案过密，请增加换行或减少文字');
- if(subBottom+22>metaY)issues.push('文字已进入活动信息区域，请缩小标题或调整换行');
+ if(title.length>4)issues.push('标题超过四行，请重新平衡换行');if(subtitle.length>4)issues.push('副文案超过四行，请调整换行或减少文字');if(size<28)issues.push('标题过密，请增加换行或换用更宽版式');if(subtitleSize<14)issues.push('副文案过密，请增加换行或减少文字');if(categorySize<12)issues.push('活动类别过长，请简化类别');if(footerSize<14)issues.push('落款过长，请简化落款');
+ if(subBottom+22>metaY)issues.push('副文案已进入活动信息区域，请缩小标题或调整换行');
  if(art.image&&!safeImageUrl(art.image))issues.push('本机图片尚未恢复，请重新选择图片或移除图片');
  if(art.image&&!wide&&media.height<100)issues.push('文字与主图区域重叠，请缩小标题、减少换行或使用横版');
- const detailWidth=wide?w-pad*2:w-pad*2;
- for(const key of detailRows)if(measure(art.details[key])*22>detailWidth)issues.push('活动信息过长，请简化时间、地点或行动说明');
- return {title,subtitle,pad,size,subtitleSize,subBottom,issues,ok:!issues.length,w,h,wide,titleY,titleBottom,subY,metaY,footerY,detailRows,usable,media,art,id};
+ const detailNames={when:'日期与时间',where:'地点',action:'行动说明'};
+ for(const key of detailRows)if(measure(art.details[key])*22>w-pad*2)issues.push(detailNames[key]+'过长，请简化该字段');
+ const titleX=wide&&id==='bauhaus'?w*.54:pad;
+ return {title,subtitle,pad,size,subtitleSize,categorySize,footerSize,subBottom,issues,ok:!issues.length,w,h,wide,titleY,titleBottom,titleX,subY,metaY,footerY,detailRows,usable,media,art,id};
 }
+
 function imageSvg(l){const a=l.art,url=safeImageUrl(a.image);if(!url)return '';const r=l.media,height=Math.max(1,r.height),img=a.image;let x=r.x,y=r.y,w=r.width,h=height;
  const scale=a.imageFit==='fit'?Math.min(w/img.width,h/img.height):Math.max(w/img.width,h/img.height);
  const iw=img.width*scale,ih=img.height*scale,ix=x+(w-iw)*a.imageX/100,iy=y+(h-ih)*a.imageY/100;
@@ -48,7 +64,7 @@ export function artworkSvg(room,content,d){
  const [paper,ink,accent]=c.colorMood==='monochrome'?[d.paper,d.ink,d.ink]:c.colorMood==='high_contrast'?['#fff',d.ink,d.accent]:[d.paper,d.ink,d.accent];
  const sans="Arial,Helvetica,'PingFang SC',sans-serif",serif="Georgia,'Songti SC',serif",mono="'Courier New',monospace",family=c.typography==='editorial_serif'?serif:c.typography==='mono_tech'?mono:sans;
  const text=(s,x,y,fs,attrs='')=>`<text x="${x}" y="${y}" font-size="${fs}" ${attrs}>${xml(s)}</text>`;
- const center=c.alignment==='centered',tx=center?(wide?p+l.usable/2:w/2):p+(c.alignment==='asymmetric'?24:0),anchor=center?'middle':'start';
+ const center=c.alignment==='centered',tx=center?(wide?l.titleX+l.usable/2:w/2):l.titleX+(c.alignment==='asymmetric'?24:0),anchor=center?'middle':'start';
  const title=l.title.map((s,i)=>text(s,tx,l.titleY+i*size*1.12,size,`text-anchor="${anchor}" font-weight="${['editorial','japanese'].includes(id)?400:700}" letter-spacing="${id==='japanese'?2:-1}"`)).join('');
  const sub=l.subtitle.map((s,i)=>text(s,tx,l.subY+i*ss*1.48,ss,`text-anchor="${anchor}"`)).join('');
  const hr=y=>`<path d="M${p} ${y}H${w-p}" stroke="${ink}" stroke-width="1"/>`;
@@ -65,8 +81,8 @@ export function artworkSvg(room,content,d){
  if(id==='risograph')titleMarkup=`<g fill="${accent}" transform="translate(4 3)" opacity=".6">${title}</g>${title}`;
  let details=l.detailRows.map((key,i)=>text(art.details[key],p,l.metaY+30*i,22,`font-weight="${key==='action'?600:400}"`)).join('');
  const mark=id==='japanese'?'余白 / Y O H A K U':id==='risograph'?'PRINT / TWO INKS':id==='deconstructed'?'FORM / FRAGMENT':'TasteRoom / Studio';
- const top=text(content[0],p,h*.085,Math.min(23,Math.floor((w-p*2-150)/Math.max(1,measure(content[0])))))+text(mark,w-p,h*.085,16,'text-anchor="end"');
- const line=['swiss','editorial'].includes(id)?hr(h*.12):'';
+ const top=text(content[0],p,h*.085,l.categorySize)+text(mark,w-p,h*.085,16,'text-anchor="end"');
+ const line=['swiss','editorial'].includes(id)?hr(h*.12):id==='japanese'?`<path d="M${p} ${h*.13}H${p+35}" stroke="${accent}" stroke-width="3"/>`:id==='deconstructed'?`<path d="M${w-p} ${h*.16}V${h*.64}" stroke="${accent}" stroke-width="5"/>`:'';
  const metadata={format:'tasteroom-artwork-v2',canvas:c,content,artwork:packedArtwork(art),posterSettings:room.posterSettings||{}};
- return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${xml(d.name+'：'+l.title.join(' '))}"><title>${xml(l.title.join(' '))}</title><desc>${xml(d.name)}原创构图；当前作品与图片由本机排版，不调用模型。</desc><metadata>${xml(JSON.stringify(metadata))}</metadata><rect width="${w}" height="${h}" fill="${paper}"/><g fill="${ink}" font-family="${family}">${top}${line}${titleMarkup}${sub}${imageSvg(l)}${ornaments}${details}${text(content[3],p,l.footerY,22)}</g></svg>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${xml(d.name+'：'+l.title.join(' '))}"><title>${xml(l.title.join(' '))}</title><desc>${xml(d.name)}原创构图；当前作品与图片由本机排版，不调用模型。</desc><metadata>${xml(JSON.stringify(metadata))}</metadata><rect width="${w}" height="${h}" fill="${paper}"/><g fill="${ink}" font-family="${family}">${top}${line}${titleMarkup}${sub}${imageSvg(l)}${ornaments}${details}${text(content[3],p,l.footerY,l.footerSize)}</g></svg>`;
 }
