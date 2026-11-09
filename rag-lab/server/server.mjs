@@ -1,5 +1,7 @@
+import {TASKS,taskRun} from '../task-catalog.mjs';
+import {workspaceHandler} from './workspaces.mjs';
 import http from 'node:http';
-import {readFile} from 'node:fs/promises';
+import {readFile,readdir} from 'node:fs/promises';
 import {randomBytes, createHash, timingSafeEqual} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
 import {loadCorpus} from './corpus.mjs';
@@ -22,13 +24,13 @@ export function redact(value) {
   return value;
 }
 
-async function bodyJson(req) {
+async function bodyJson(req,maxBytes=4096) {
   if (!(req.headers['content-type'] ?? '').startsWith('application/json')) throw new ApiError(415, 'content_type', '请使用 application/json。');
-  if (Number(req.headers['content-length']) > 4096) throw new ApiError(413, 'input_limit', '请求内容过长。');
+  if (Number(req.headers['content-length']) > maxBytes) throw new ApiError(413, 'input_limit', '请求内容过长。');
   let size = 0; const parts = [];
   for await (const part of req) {
     size += part.length;
-    if (size > 4096) throw new ApiError(413, 'input_limit', '请求内容过长。');
+    if (size > maxBytes) throw new ApiError(413, 'input_limit', '请求内容过长。');
     parts.push(part);
   }
   try { return JSON.parse(Buffer.concat(parts).toString('utf8')); }
@@ -36,9 +38,12 @@ async function bodyJson(req) {
 }
 
 const staticFiles = new Map([
+  ['workspace.mjs','text/javascript'],['task-catalog.mjs','text/javascript'],['personal-workbench.mjs','text/javascript'],['vendor/pdf.mjs','text/javascript'],['vendor/pdf.worker.mjs','text/javascript'],
   ['index.html', 'text/html'], ['app.mjs', 'text/javascript'], ['engine.mjs', 'text/javascript'],
   ['style.css', 'text/css'], ['public-corpus.json', 'application/json'], ['favicon.svg', 'image/svg+xml'],
 ]);
+
+for(const folder of ['cmaps','standard_fonts'])for(const file of await readdir(new URL('../vendor/'+folder+'/',import.meta.url))){if(/^[A-Za-z0-9_.-]+$/.test(file))staticFiles.set('vendor/'+folder+'/'+file,'application/octet-stream');}
 
 export async function createApp(options = {}) {
   const documents = options.documents ?? await loadCorpus();
@@ -48,6 +53,8 @@ export async function createApp(options = {}) {
   const sessions = new Map(); const records = new Map(); const rates = new Map();
   let modelCalls = 0;
   const now = options.now ?? Date.now;
+  const handleWorkspace=workspaceHandler({now});
+  const modelEnabled=options.enableModel ?? (Object.hasOwn(options,'model') ? Boolean(options.model) : process.env.ENABLE_MODEL_CALLS === '1');
   const ttl = 60 * 60 * 1000;
   const rateLimit = options.rateLimit ?? 30;
 
@@ -98,6 +105,7 @@ export async function createApp(options = {}) {
       const path = url.pathname;
       if (path.startsWith('/api/')) {
         limit('global', options.globalRateLimit ?? 100);
+        if(path === '/api/capabilities' && req.method === 'GET')return send(200,{version:2,personalWorkspaces:true,taskFacts:true,modelEnabled,modelConfigured:Boolean(config),publicModelService:false});
         if (path === '/api/health' && req.method === 'GET') return send(200, {service: 'rag-lab-local', modelConfigured: Boolean(config), adminConfigured: Boolean(adminToken)});
         if (path === '/api/session' && req.method === 'POST') {
           const body = await bodyJson(req);
@@ -110,7 +118,18 @@ export async function createApp(options = {}) {
         }
         const session = authenticate(req);
         limit(session.owner, rateLimit);
+        if(await handleWorkspace(path,req,session,send,bodyJson))return;
         if (path === '/api/whoami' && req.method === 'GET') return send(200, {role: session.role});
+        if(path==='/api/tasks/run'&&req.method==='POST'){
+          const b=await bodyJson(req);
+          if(!b||Array.isArray(b)||typeof b!=='object'||Object.keys(b).some(k=>!['taskId','facts','question','date','snapshot','generation'].includes(k)))throw new ApiError(400,'task_input','不支持的任务参数。');
+          const task=TASKS.find(t=>t.id===b.taskId);
+          if(!task||!b.facts||typeof b.facts!=='object'||Array.isArray(b.facts)||Object.entries(b.facts).some(([k,v])=>!['borrowed','due','used','booking'].includes(k)||typeof v!=='string'||v.length>20))throw new ApiError(400,'task_input','任务编号或事实格式无效。');
+          let input;try{input=validateInput({question:b.question,date:b.date,snapshot:b.snapshot,generation:b.generation});}catch(e){throw new ApiError(400,'task_input',e.message);}
+          if(input.generation!=='extractive')throw new ApiError(503,'task_model_disabled','条件任务当前只做检索与规则核对，未启用模型。');
+          const run=taskRun(documents,task,input,b.facts,{role:session.role,mode:'local-extractive'});
+          save(run,session.owner);return send(200,{run});
+        }
         if (path === '/api/run' && req.method === 'POST') {
           let input;
           try { input = validateInput(await bodyJson(req)); }
@@ -122,6 +141,7 @@ export async function createApp(options = {}) {
           if (input.generation === 'model') {
             try {
               if (!config) throw new ModelError('model_not_configured', '模型未配置；检索已完成。请选择规则摘录，或按 README 配置本项目模型。');
+              if(!modelEnabled)throw new ModelError('model_disabled','模型调用未启用；输入和检索已保留。本轮不接付费接口。');
               if (run.status === 'answered') {
                 limit(`model:${session.owner}`, 4);
                 if (modelCalls >= (options.maxModelCalls ?? 20)) throw new ApiError(429, 'call_limit', '本次服务模型调用上限已达 20 次，需由服务端确认后重启。');

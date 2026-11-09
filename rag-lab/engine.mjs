@@ -1,6 +1,6 @@
 // Pure retrieval core, shared by the public *example* and the real API.
 // Authorization is a server responsibility; a public browser is never a security boundary.
-export const VERSIONS = Object.freeze({index: 'zh-bigram-bm25-v1', prompt: 'grounded-json-v1', judge: 'equipment-facts-v1', corpus: 'qingyu-20261028-v1'});
+export const VERSIONS = Object.freeze({index: 'zh-bigram-bm25-v1', prompt: 'grounded-json-v1', judge: 'equipment-facts-v2', corpus: 'qingyu-20261028-v1'});
 export const SNAPSHOTS = Object.freeze({baseline: '原始资料快照', revised: '演示修订快照'});
 export const DEFAULT_DATE = '2026-10-28';
 
@@ -81,7 +81,7 @@ export function search(documents, query, scope, limit = 8) {
 }
 
 const TOPICS = [
-  ['monitor', /显示器|外接屏|显示屏/], ['laptop', /笔记本|电脑/], ['drone', /无人机/],
+  ['monitor', /显示器|外接屏|显示屏/], ['laptop', /笔记本|(?<!平板)电脑/], ['tablet', /平板/], ['drone', /无人机/],
   ['reserve', /备用机|应急.*库存/], ['purchase', /采购|审批额度/], ['headphone', /耳机/],
 ];
 const FACETS = [
@@ -116,10 +116,9 @@ const FACT_PATTERNS = [
 ];
 
 export function factsIn(chunk) {
-  return FACT_PATTERNS.flatMap(([topic, facet, re, unit]) => {
-    const m = chunk.text.match(re);
-    return m ? [{topic, facet, value: m[1].trim() + unit, quote: m[0].trim(), chunkId: chunk.id}] : [];
-  });
+  return FACT_PATTERNS.flatMap(([topic, facet, re, unit]) =>
+    [...chunk.text.matchAll(new RegExp(re.source,re.flags.includes('g')?re.flags:re.flags+'g'))]
+      .map(m=>({topic,facet,value:m[1].trim()+unit,quote:m[0].trim(),chunkId:chunk.id})));
 }
 
 export function assess(question, retrieved) {
@@ -170,9 +169,10 @@ export function checkModelAnswer(output, assessment, retrieved) {
 export function excludedEvidence(documents, scope, retrieved, citations) {
   const policies = new Set(citations.map(c => c.policy));
   const visible = documents.filter(d => d.roles.includes(scope.role));
+  const activeIds=new Set(eligibleDocuments(documents,scope).map(d=>d.id));
   const versions = visible.filter(d => policies.has(d.policy)).flatMap(d => {
-    const reason = !d.snapshots.includes(scope.snapshot) ? '非当前快照' : d.effectiveFrom > scope.date ? '尚未生效' : d.effectiveTo && scope.date >= d.effectiveTo ? '已过期失效' : null;
-    return reason ? [{id:d.id,title:d.title,version:d.version,reason,kind:'scope'}] : [];
+    const reason = !d.snapshots.includes(scope.snapshot) ? '非当前快照' : d.effectiveFrom > scope.date ? '尚未生效' : d.effectiveTo && scope.date >= d.effectiveTo ? '已过期失效' : !activeIds.has(d.id) ? '已被当前生效版本替代' : null;
+    return reason ? [{id:d.id,title:d.title,version:d.version,fact:d.chunks.flatMap(factsIn)[0]?.value??null,reason,kind:'scope'}] : [];
   });
   const used = new Set(citations.map(c => c.id));
   return [...versions, ...retrieved.filter(c => !used.has(c.id)).map(c => ({id:c.id,title:c.title,version:c.version,score:c.score,kind:'evidence',

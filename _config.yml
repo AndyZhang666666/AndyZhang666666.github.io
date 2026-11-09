@@ -66,3 +66,9 @@ exclude:
   - scripts/integrate-squid-lab.mjs
   - scripts/test-squid-integration.mjs
   - docs/SQUID-LAB-20261107.md
+
+  # Personal-source parser development material stays in Git, outside Pages.
+  - rag-lab/node_modules
+  - rag-lab/pnpm-lock.yaml
+  - rag-lab/evidence
+  - scripts/test-product-depth-showcase.mjs

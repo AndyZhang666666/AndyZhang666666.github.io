@@ -1,3 +1,5 @@
+import {TASKS,taskRun} from './task-catalog.mjs';
+import {initializePersonal} from './personal-workbench.mjs';
 import {retrieveRun, validateInput, SNAPSHOTS} from './engine.mjs';
 
 const $ = id => document.getElementById(id);
@@ -11,6 +13,7 @@ let history = [];
 let employeeToken = null;
 let apiAvailable = false;
 let busy = false;
+let activeTask = null;
 matchMedia('(max-width: 650px)').addEventListener('change', event => {
   if (!event.matches) $('conditionSettings').open = true;
 });
@@ -25,6 +28,8 @@ function hidePrivateHistory() {
     history = history.filter(run => run.role !== 'admin' || run.mode === 'original-example');
     if (currentRun?.role === 'admin' && currentRun.mode !== 'original-example') {
       currentRun = null;
+      $('exampleDraft').value='';$('copyExampleAnswer').disabled=true;$('downloadExampleAnswer').disabled=true;
+      $('excludedSources').replaceChildren();$('excludedPanel').hidden=true;$('taskNext').textContent='';
       $('sources').replaceChildren(node('p', '身份范围已改变，请重新查找。', 'empty-evidence'));
       $('citationLinks').replaceChildren(); $('retrieval').replaceChildren(); $('runDetails').replaceChildren(); $('process').replaceChildren();
       $('answerHeadline').textContent = '请重新查找'; $('answerText').textContent = '当前界面已清除管理会话的结果。';
@@ -52,6 +57,7 @@ function syncSettings() {
 function markStale() {
   if (busy) return;
   $('stale').hidden = !currentRun;
+  $('copyExampleAnswer').disabled=Boolean(currentRun);$('downloadExampleAnswer').disabled=Boolean(currentRun);
   $('error').hidden = true;
   syncSettings();
   const question = $('question').value.trim();
@@ -64,8 +70,8 @@ function setBusy(value) {
   $('runButton').firstChild.textContent = value ? ($('runtime').value === 'model' ? '检索与生成…' : '正在查找…') : '查找依据';
   $('result').setAttribute('aria-busy', String(value));
   // Keep the run's conditions fixed while a response is in flight.
-  for (const id of ['question', 'role', 'date', 'snapshot', 'runtime', 'adminCredential', 'historical']) $(id).disabled = value;
-  document.querySelectorAll('[data-question]').forEach(b => b.disabled = value);
+  for (const id of ['question', 'role', 'date', 'snapshot', 'runtime', 'adminCredential', 'historical','taskBorrowed','taskDue','taskUsed','taskBooking']) $(id).disabled = value;
+  document.querySelectorAll('[data-question],[data-task]').forEach(b => b.disabled = value);
   $('liveStatus').textContent = value ? '正在按当前条件查找依据。' : '';
 }
 
@@ -103,11 +109,13 @@ async function run({focus = true} = {}) {
   try {
     let result;
     if ($('runtime').value === 'example') {
-      result = retrieveRun(documents, input, $('role').value, 'original-example');
+      result = activeTask ? taskRun(documents,activeTask,input,{borrowed:$('taskBorrowed').value,due:$('taskDue').value,used:$('taskUsed').value,booking:$('taskBooking').value}) : retrieveRun(documents, input, $('role').value, 'original-example');
     } else {
       if (!apiAvailable) throw new Error('本地 API 未连接。请按 README 启动服务后，从本机地址打开页面。');
       const token = await sessionToken();
-      const {response, data} = await api('/api/run', {method: 'POST', body: JSON.stringify(input)}, token);
+      const path=activeTask?'/api/tasks/run':'/api/run';
+      const payload=activeTask?{...input,taskId:activeTask.id,facts:{borrowed:$('taskBorrowed').value,due:$('taskDue').value,used:$('taskUsed').value,booking:$('taskBooking').value}}:input;
+      const {response, data} = await api(path, {method: 'POST', body: JSON.stringify(payload)}, token);
       if (data.run) result = data.run;
       if (response.status === 401) employeeToken = null;
       if (!response.ok && !result) throw new Error(data.error?.message || '接口失败，请重试。');
@@ -129,6 +137,7 @@ function showError(message) { $('error').textContent = message; $('error').hidde
 
 function headline(run) {
   if (run.mode === 'original-example' && run.role === 'admin' && run.status === 'insufficient') return '公开示例不含管理原文';
+  if(run.taskId && run.taskFacts && run.status==='answered') return '可提出申请，仍待负责人确认';
   if (run.status === 'answered') {
     const fact = run.facts[0];
     if (fact?.facet === 'duration') return `单次最长 ${fact.value}`;
@@ -140,6 +149,9 @@ function headline(run) {
 }
 
 function render(run) {
+  $('exampleDraft').value=run.userDraft??run.answer;
+  $('copyExampleAnswer').disabled=false;$('downloadExampleAnswer').disabled=false;
+  $('taskNext').textContent=(run.taskNext||[]).join(' ');
   $('answerStatus').textContent = labels[run.status];
   $('answerStatus').dataset.kind = run.status;
   $('runScope').textContent = `${roleName(run.role)} · ${run.date} · ${SNAPSHOTS[run.snapshot]}`;
@@ -161,7 +173,7 @@ function render(run) {
   if (!run.citations.length) $('sources').append(node('p', '没有找到足以支持结论的段落。相似的资料仍可在下方技术详情中检查。', 'empty-evidence'));
   const excluded = $('excludedSources'); excluded.replaceChildren();
   for (const item of run.excluded ?? []) {
-    const row=node('article',undefined,'excluded-row'); row.append(node('strong',`${item.title} · v${item.version}`),node('p',`${item.reason}${item.score === undefined ? '' : ` · BM25 ${item.score}`}`)); excluded.append(row);
+    const row=node('article',undefined,'excluded-row'); row.append(node('strong',`${item.title} · v${item.version}${item.fact?' · '+item.fact:''}`),node('p',`${item.reason}${item.score === undefined ? '' : ` · BM25 ${item.score}`}`)); excluded.append(row);
   }
   $('excludedPanel').hidden=!(run.excluded?.length);
   if(run.mode==='original-example' && run.role==='admin' && run.status==='insufficient') $('sources').replaceChildren(node('p','公开构建包已在打包期剔除管理范围原文。前端身份切换不会取得这些资料。验证真实管理员检索，请按 README 启动本地 API 并使用独立管理凭据。','empty-evidence'));
@@ -221,6 +233,7 @@ function renderHistory() {
       // Never re-expose a privileged run after the viewer leaves that session.
       if (item.role === 'admin' && item.mode !== 'original-example' && ($('role').value !== 'admin' || $('runtime').value === 'example')) return;
       currentRun = structuredClone(item);
+      activeTask=TASKS.find(t=>t.id===item.taskId)||null;$('taskContext').hidden=!activeTask;if(activeTask){$('taskTitle').textContent=activeTask.title;$('taskGoal').textContent=activeTask.goal;$('taskFacts').hidden=!activeTask.facts;for(const [key,id]of Object.entries({borrowed:'taskBorrowed',due:'taskDue',used:'taskUsed',booking:'taskBooking'}))$(id).value=item.taskFacts?.[key]??(key==='booking'?'unknown':'');}
       $('question').value = item.question; $('date').value = item.date; $('snapshot').value = item.snapshot; $('role').value = item.role;
       $('runtime').value = item.mode === 'original-example' ? 'example' : item.generation === 'model' ? 'model' : 'api';
       syncSettings(); $('stale').hidden = true; $('error').hidden = true;
@@ -239,10 +252,10 @@ function publicRedact(run) {
 $('staleRerun').addEventListener('click', () => run());
 $('queryForm').addEventListener('submit', event => { event.preventDefault(); run(); });
 document.querySelectorAll('[data-question]').forEach(button => button.addEventListener('click', () => {
-  $('question').value = button.dataset.question; markStale(); run();
+  activeTask=null; $('taskContext').hidden=true; $('question').value = button.dataset.question; markStale(); run();
 }));
 for (const id of ['role', 'date', 'snapshot', 'runtime']) $(id).addEventListener('change', markStale);
-$('question').addEventListener('input', markStale);
+$('question').addEventListener('input', () => {activeTask=null;$('taskContext').hidden=true;markStale();});
 $('historical').addEventListener('click', () => { $('date').value = '2026-06-30'; markStale(); run(); });
 $('exportButton').addEventListener('click', async () => {
   if (!currentRun) return;
@@ -263,7 +276,7 @@ $('exportButton').addEventListener('click', async () => {
 
 async function initialize() {
   try {
-    if (matchMedia('(max-width: 650px)').matches) $('conditionSettings').open = false;
+    if (matchMedia('(max-width: 650px)').matches){$('conditionSettings').open = false;$('scenarioChoices').open=false;}
     const response = await fetch('./public-corpus.json');
     if (!response.ok) throw new Error('示例资料读取失败，请刷新重试。');
     const data = await response.json(); documents = data.documents;
@@ -274,11 +287,22 @@ async function initialize() {
         apiAvailable = response.ok && data.service === 'rag-lab-local';
         if (apiAvailable) {
           $('runtime').options[1].disabled = false; $('runtime').options[2].disabled = false;
-          $('apiHint').textContent = `已连接当前本机 API。${data.modelConfigured ? '模型已配置，实际生成仍需本次运行验证。' : '本项目未配置模型；可先使用真实检索与规则摘录，模型联调待验证。'}`;
+          const capability=await api('/api/capabilities');
+          $('apiHint').textContent = `已连接当前本机 API。${capability.data.modelEnabled?'服务端已允许模型阶段，实际运行仍需单独验证。':'服务端默认关闭模型调用；选择模型方式只会报告未配置或未启用，不会自动回退。'}可先用真实检索与规则摘录。`;
         }
       } catch { /* static preview: remain in explicitly labelled example mode */ }
     }
-    syncSettings(); await run({focus: false});
+    initializeTasks(); initializePersonal(); syncSettings(); await run({focus: false});
   } catch (error) { setBusy(false); showError(error.message); $('answerHeadline').textContent = '资料暂时无法读取'; }
+}
+function initializeTasks(){
+ for(const t of TASKS){const b=node('button',t.title);b.type='button';b.dataset.task=t.id;b.onclick=()=>{if(matchMedia('(max-width:650px)').matches)$('scenarioChoices').open=false;activeTask=t;$('taskContext').hidden=false;$('taskTitle').textContent=t.title;$('taskGoal').textContent=t.goal;$('taskFacts').hidden=!t.facts;$('taskBorrowed').value='';$('taskDue').value='';$('taskUsed').value=t.used??'';$('taskBooking').value=t.booking??'unknown';$('date').value=t.date??'2026-10-28';$('snapshot').value=t.snapshot??'baseline';$('runtime').value='example';$('role').value=t.admin?'admin':'employee';$('question').value=t.question;markStale();run();};$('taskList').append(b);}
+ for(const id of ['taskBorrowed','taskDue','taskUsed','taskBooking'])$(id).addEventListener('input',markStale);
+ const answerDocument=()=>{if(!currentRun||!$('stale').hidden)throw Error('先按当前条件重新查找，再带走答复。');return `# 制度答复草稿\n\n问题：${currentRun.question}\n日期：${currentRun.date} · ${SNAPSHOTS[currentRun.snapshot]}\n运行：${modeNames[currentRun.mode]}\n\n## 对外答复（用户可编辑）\n${$('exampleDraft').value}\n\n## 待确认与下一步\n${(currentRun.taskNext||[]).join('\n')}\n\n## 本次实际依据\n${currentRun.citations.map(c=>`### ${c.title} · ${c.id}\n${c.quote}`).join('\n\n')}\n\n任务事实：${currentRun.taskFacts?JSON.stringify(currentRun.taskFacts):'未提供额外事实'}\n原创虚构制度示例；未执行实际业务操作。引用匹配不等于语义正确；用户补写需核对。`;};
+ $('exampleDraft').oninput=()=>{if(!currentRun)return;currentRun.userDraft=$('exampleDraft').value;const h=history.find(r=>r.id===currentRun.id);if(h)h.userDraft=currentRun.userDraft;};
+ $('copyExampleAnswer').onclick=async()=>{try{await navigator.clipboard.writeText(answerDocument());$('liveStatus').textContent='已复制当前答复草稿。';}catch(e){showError(e.message||'复制不可用，请下载答复。');}};
+ $('downloadExampleAnswer').onclick=()=>{try{const content=answerDocument(),url=URL.createObjectURL(new Blob([content],{type:'text/markdown;charset=utf-8'}));const a=node('a');a.href=url;a.download='rag-example-answer.md';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){showError(e.message);}};
+
+ for(const [a,b]of [['showExamples','showPersonal'],['showPersonal','showExamples']])$(a).onclick=()=>{const personal=a==='showPersonal';$('exampleWorkspace').hidden=personal;$('personalWorkspace').hidden=!personal;$(a).setAttribute('aria-pressed','true');$(b).setAttribute('aria-pressed','false');};
 }
 initialize();
