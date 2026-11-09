@@ -128,6 +128,7 @@ async function run({focus = true} = {}) {
 function showError(message) { $('error').textContent = message; $('error').hidden = false; }
 
 function headline(run) {
+  if (run.mode === 'original-example' && run.role === 'admin' && run.status === 'insufficient') return '公开示例不含管理原文';
   if (run.status === 'answered') {
     const fact = run.facts[0];
     if (fact?.facet === 'duration') return `单次最长 ${fact.value}`;
@@ -158,6 +159,12 @@ function render(run) {
   $('evidenceTitle').textContent = run.status === 'failed' ? '本次找到的依据' : '这次使用的依据';
   $('evidenceCount').textContent = run.citations.length ? `${run.citations.length} 个段落` : '无支持段落';
   if (!run.citations.length) $('sources').append(node('p', '没有找到足以支持结论的段落。相似的资料仍可在下方技术详情中检查。', 'empty-evidence'));
+  const excluded = $('excludedSources'); excluded.replaceChildren();
+  for (const item of run.excluded ?? []) {
+    const row=node('article',undefined,'excluded-row'); row.append(node('strong',`${item.title} · v${item.version}`),node('p',`${item.reason}${item.score === undefined ? '' : ` · BM25 ${item.score}`}`)); excluded.append(row);
+  }
+  $('excludedPanel').hidden=!(run.excluded?.length);
+  if(run.mode==='original-example' && run.role==='admin' && run.status==='insufficient') $('sources').replaceChildren(node('p','公开构建包已在打包期剔除管理范围原文。前端身份切换不会取得这些资料。验证真实管理员检索，请按 README 启动本地 API 并使用独立管理凭据。','empty-evidence'));
   run.citations.forEach((source, index) => {
     const button = node('button', `[${index + 1}] ${source.title} · v${source.version}`);
     button.type = 'button'; button.dataset.citation = source.id; button.setAttribute('aria-controls', `source-${index}`);
@@ -208,7 +215,7 @@ function renderHistory() {
   const holder = $('historyList'); holder.className = 'history-list'; holder.replaceChildren();
   for (const item of history) {
     const button = node('button'); button.type = 'button'; button.setAttribute('aria-pressed', String(item.id === currentRun?.id));
-    button.append(node('span', item.facts[0]?.value && item.status === 'answered' ? item.facts[0].value : labels[item.status]), node('small', `${item.date} · ${item.snapshot === 'baseline' ? '原始' : '修订'} · ${roleName(item.role)}`));
+    button.append(node('span', `${item.question.replace(/[？?]/g,'').slice(0,16)} · ` + (item.facts[0]?.value && item.status === 'answered' ? item.facts[0].value : labels[item.status])), node('small', `${item.date} · ${item.snapshot === 'baseline' ? '原始' : '修订'} · ${roleName(item.role)}`));
     button.addEventListener('click', () => {
       if (busy) return;
       // Never re-expose a privileged run after the viewer leaves that session.
@@ -229,6 +236,7 @@ function publicRedact(run) {
     .replace(/(?<!\d)1[3-9]\d{9}(?!\d)/g, '[REDACTED_PHONE]'));
 }
 
+$('staleRerun').addEventListener('click', () => run());
 $('queryForm').addEventListener('submit', event => { event.preventDefault(); run(); });
 document.querySelectorAll('[data-question]').forEach(button => button.addEventListener('click', () => {
   $('question').value = button.dataset.question; markStale(); run();
