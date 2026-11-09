@@ -20,7 +20,7 @@
       '<rect x="18" y="18" width="564" height="314" rx="2" fill="url(#' + id + '-grid)"/>' +
       '<ellipse class="art-light" cx="196" cy="170" rx="180" ry="150" fill="url(#' + id + '-light)"/>' +
       label(28, 36, '身体 · 信号 · 反馈', 'BODY · SIGNAL · FEEDBACK', 'art-eyebrow') +
-      '<text x="570" y="36" text-anchor="end" class="art-eyebrow">BRISTOL / 01</text>' +
+      '<text x="570" y="36" text-anchor="end" class="art-eyebrow">BRISTOL</text>' +
       '<g class="art-guide"><ellipse cx="175" cy="289" rx="93" ry="17"/><path d="M175 58V307M73 185H285"/><circle cx="175" cy="169" r="92"/><path d="M84 159a92 92 0 0 1 95-82M214 250a92 92 0 0 1-89 3" class="art-orbit"/></g>' +
       '<g class="pose-reference"><path d="M170 115L167 185L147 260M167 185L198 259M139 129L112 181M198 130L229 177"/></g>' +
       '<g class="art-pose" filter="url(#' + id + '-shadow)">' +
@@ -43,39 +43,43 @@
       '<path d="M29 328h18M29 328v-18M571 328h-18M571 328v-18" class="art-frame"/>';
   }
   function orderFlow() {
-    var id = 'orderflow-study';
-    var widths = [47, 66, 81, 54, 91, 72, 43];
-    var rows = widths.map(function (w, i) {
-      var y = 104 + i * 20;
-      return '<rect x="' + (153 - w) + '" y="' + y + '" width="' + w + '" height="11" rx="2" class="art-depth art-bid" style="--row:' + i + ';--cx:153px"/><rect x="167" y="' + y + '" width="' + widths[(i + 3) % widths.length] + '" height="11" rx="2" class="art-depth art-ask" style="--row:' + (i + 2) + ';--cx:167px"/>';
+    // Relative depths illustrate the research mechanism; these are not market observations.
+    var depth = [38, 68, 94, 71, 122, 156, 184, 140, 110, 62];
+    var levels = depth.map(function (bid, i) {
+      var y = 81 + i * 17;
+      var ask = depth[(i + 3) % depth.length];
+      return '<g class="plate-level" style="--level:' + i + '">' +
+        '<path class="plate-bid" d="M262 ' + y + 'h-' + bid + '"/>' +
+        '<path class="plate-ask" d="M280 ' + y + 'h' + ask + '"/></g>';
     }).join('');
-    return defs(id) +
-      '<rect width="600" height="350" fill="url(#' + id + '-wash)"/><rect x="18" y="18" width="564" height="314" fill="url(#' + id + '-grid)"/>' +
-      '<ellipse class="art-light" cx="370" cy="180" rx="190" ry="150" fill="url(#' + id + '-light)"/>' +
-      label(28, 36, '订单流 · 模型 · 决策', 'ORDER FLOW · MODEL · DECISION', 'art-eyebrow') +
-      '<text x="570" y="36" text-anchor="end" class="art-eyebrow">UCL / 02</text>' +
-      '<g class="art-depth-panel"><rect x="41" y="66" width="232" height="202" rx="9" class="art-glass"/>' +
-      label(59, 87, '买方', 'BID', 'art-label art-bid-label') + label(222, 87, '卖方', 'ASK', 'art-label art-ask-label') +
-      '<path d="M160 101V247M56 247H258" class="art-axis"/>' + rows +
-      '<path d="M147 253H173" class="art-spread"/></g>' +
-      '<path d="M278 126C308 126 312 147 334 158M278 208C305 208 311 187 334 178" class="art-flow-guide"/><path d="M278 126C308 126 312 147 334 158M278 208C305 208 311 187 334 178" class="art-packet" stroke="url(#' + id + '-signal)"/>' +
-      '<g class="art-model"><circle cx="352" cy="168" r="36" class="art-model-halo"/><circle cx="352" cy="168" r="26" class="art-model-core"/><path d="M340 157L352 151L363 158L364 178L351 184L340 177Z M340 157L352 165L363 158M352 165V184" class="art-model-symbol"/>' +
-      '<circle cx="352" cy="132" r="3" class="art-model-node"/><circle cx="383" cy="186" r="3" class="art-model-node"/><circle cx="321" cy="186" r="3" class="art-model-node"/></g>' +
-      '<path d="M389 168H420" class="art-flow-guide"/><path d="M389 168H420" class="art-packet" stroke="url(#' + id + '-signal)"/>' +
-      '<g class="art-market-panel"><rect x="412" y="82" width="150" height="186" rx="9" class="art-glass"/>' +
-      label(427, 106, '日内信号', 'INTRADAY', 'art-label') +
-      '<path d="M430 130H545M430 156H545M430 182H545M430 208H545M430 233H545" class="art-grid"/>' +
-      '<path d="M429 220L439 199L449 211L458 180L468 185L478 158L488 171L498 143L508 155L518 136L528 145L541 121V233H429Z" class="art-market-area"/>' +
-      '<path d="M429 220L439 199L449 211L458 180L468 185L478 158L488 171L498 143L508 155L518 136L528 145L541 121" class="art-market-baseline"/><path d="M429 220L439 199L449 211L458 180L468 185L478 158L488 171L498 143L508 155L518 136L528 145L541 121" class="art-market-trace"/>' +
-      '<circle cx="541" cy="121" r="4" class="art-market-dot"/><path d="M429 242H449M487 242H507M525 242H545" class="art-axis"/></g>' +
-      label(83, 293, '买卖深度', 'MARKET DEPTH', 'art-tiny') + label(325, 230, '量化模型', 'MODEL', 'art-tiny') + label(434, 293, '短周期决策', 'DECISION', 'art-tiny') +
-      '<path d="M64 309H542" class="art-axis"/><path d="M64 309H542" class="art-flow-baseline"/>' +
-      '<path d="M29 328h18M29 328v-18M571 328h-18M571 328v-18" class="art-frame"/>';
+    var signals = ['M415 91C475 91 466 168 547 168', 'M421 226C478 226 476 168 547 168'];
+    return '<defs><pattern id="depth-dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".75" fill="currentColor"/></pattern></defs>' +
+      '<rect class="plate-paper" width="600" height="350"/><rect width="600" height="350" fill="url(#depth-dots)" opacity=".14"/>' +
+      '<g class="plate-type"><text x="32" y="39">BID</text><text x="280" y="39">ASK</text><text x="32" y="322">S&amp;P 500</text><text x="280" y="322">ORDER FLOW</text></g>' +
+      '<g class="plate-register">' + depth.map(function (_, i) {
+        var y = 81 + i * 17;
+        return '<path d="M35 ' + y + 'h5M266 ' + y + 'h3M273 ' + y + 'h3"/>';
+      }).join('') + '</g>' +
+      levels + '<path d="M271 54V265M32 284H565M262 272v5h18v-5" fill="none" stroke="currentColor" opacity=".55"/>' +
+      label(280, 273, '价差', 'SPREAD', 'art-tiny') +
+      '<circle class="plate-field" cx="551" cy="168" r="34"/>' +
+      signals.map(function (path) {
+        return '<path class="plate-guide" d="' + path + '"/><path class="plate-pulse" pathLength="100" d="' + path + '"/>';
+      }).join('') +
+      '<g class="plate-receiver"><circle cx="551" cy="168" r="13" class="plate-echo"/><circle cx="551" cy="168" r="6"/></g>' +
+      label(484, 208, '信号汇合', 'SIGNAL', 'art-tiny');
   }
+
   function figure(type) {
-    var labelZh = type === 'bachelor' ? '运动姿态、传感信号与手机反馈的研究示意' : '买卖深度、订单流信号与日内量化模型的研究示意';
-    var labelEn = type === 'bachelor' ? 'Conceptual illustration of movement, sensor signals and mobile feedback' : 'Conceptual illustration of market depth, order flow and an intraday model';
-    return '<figure class="research-figure research-' + type + '"><svg viewBox="0 0 600 350" role="img" aria-label="' + labelZh + '" data-art-label-zh="' + labelZh + '" data-art-label-en="' + labelEn + '">' + (type === 'bachelor' ? wearable() : orderFlow()) + '</svg><figcaption><span data-zh="研究主题示意" data-en="CONCEPTUAL STUDY">研究主题示意</span><span class="art-caption-rule" aria-hidden="true"></span><span data-zh="' + (type === 'bachelor' ? '姿态感知与交互' : '市场微观结构') + '" data-en="' + (type === 'bachelor' ? 'SENSING & INTERACTION' : 'MARKET MICROSTRUCTURE') + '">' + (type === 'bachelor' ? '姿态感知与交互' : '市场微观结构') + '</span></figcaption></figure>';
+    var isWearable = type === 'bachelor';
+    var zh = isWearable ? '运动姿态、传感信号与手机反馈的研究示意' : '订单簿的买卖深度、价差与信号汇合示意';
+    var en = isWearable ? 'Conceptual diagram of wearable sensors and mobile feedback' : 'Conceptual diagram of bid and ask depth, spread and signal transmission';
+    var caption = isWearable ? '姿态感知与交互' : '市场微观结构';
+    var captionEn = isWearable ? 'Sensing &amp; interaction' : 'Market microstructure';
+    return '<figure class="research-figure thesis-scene research-' + type + '" id="thesis-' + (isWearable ? 'wearable' : 'order-flow') + '">' +
+      '<svg viewBox="0 0 600 350" role="img" aria-label="' + zh + '" data-art-label-zh="' + zh + '" data-art-label-en="' + en + '">' +
+      (isWearable ? wearable() : orderFlow()) + '</svg>' +
+      '<figcaption><span class="thesis-figure-kind" data-zh="' + caption + '" data-en="' + captionEn + '">' + caption + '</span></figcaption></figure>';
   }
   var paused = false;
   var root;
