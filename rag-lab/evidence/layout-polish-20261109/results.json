@@ -1,0 +1,208 @@
+{
+  "status": "pass",
+  "recordedAt": "2026-11-09T15:24:07.964939+00:00",
+  "kind": "local-real-browser-validation",
+  "preview": "http://127.0.0.1:8869/rag-lab/",
+  "browser": "Chrome, isolated contexts",
+  "baseline": "e1d5f55150617a4c3e327da662d1ccdbf7615e8e",
+  "implementationCommits": [
+    "14a4abde0ce8118761b3e487795393fe45112067",
+    "5d4ecfb46c641b20e5c65986e1c287cf817cc108"
+  ],
+  "before1280": {
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    },
+    "queryWidth": 280,
+    "queryY": 527.078125,
+    "dateBottom": 958.734375,
+    "snapshotBottom": 1040.125,
+    "historicalBottom": 1096.125
+  },
+  "after1280": {
+    "width": 1280,
+    "scrollY": 0,
+    "overflow": false,
+    "query": {
+      "x": 32,
+      "y": 471.078125,
+      "width": 320,
+      "height": 484.671875,
+      "bottom": 955.75,
+      "visible": true
+    },
+    "question": {
+      "x": 48,
+      "y": 515.96875,
+      "width": 288,
+      "height": 70,
+      "bottom": 585.96875,
+      "visible": true
+    },
+    "date": {
+      "x": 198,
+      "y": 721.5625,
+      "width": 138,
+      "height": 44,
+      "bottom": 765.5625,
+      "visible": true
+    },
+    "snapshot": {
+      "x": 48,
+      "y": 797.5625,
+      "width": 138,
+      "height": 44,
+      "bottom": 841.5625,
+      "visible": true
+    },
+    "historical": {
+      "x": 198,
+      "y": 797.5625,
+      "width": 138,
+      "height": 44,
+      "bottom": 841.5625,
+      "visible": true
+    },
+    "conditionOpen": true,
+    "presets": [
+      {
+        "label": "借用时长",
+        "y": 307.078125,
+        "bottom": 355.078125,
+        "width": 400,
+        "visible": true
+      },
+      {
+        "label": "资料不足",
+        "y": 307.078125,
+        "bottom": 355.078125,
+        "width": 400,
+        "visible": true
+      },
+      {
+        "label": "权限限制",
+        "y": 307.078125,
+        "bottom": 355.078125,
+        "width": 400,
+        "visible": true
+      },
+      {
+        "label": "规则冲突",
+        "y": 363.078125,
+        "bottom": 411.078125,
+        "width": 400,
+        "visible": true
+      },
+      {
+        "label": "相似干扰",
+        "y": 363.078125,
+        "bottom": 411.078125,
+        "width": 400,
+        "visible": true
+      },
+      {
+        "label": "注入防御",
+        "y": 363.078125,
+        "bottom": 411.078125,
+        "width": 400,
+        "visible": true
+      }
+    ],
+    "library": {
+      "x": 32,
+      "y": 419.078125,
+      "width": 1216,
+      "height": 44,
+      "bottom": 463.078125,
+      "visible": true
+    }
+  },
+  "mobile390": {
+    "width": 390,
+    "checks": [
+      "six complete 44px targets in3×2 grid",
+      "answer section starts in390×900 first screen",
+      "date/role/snapshot16px; keyboard disclosure and Tab order; no overflow"
+    ],
+    "presets": [
+      {
+        "label": "借用时长",
+        "width": 114,
+        "height": 44,
+        "bottom": 351.5625,
+        "clipped": false
+      },
+      {
+        "label": "资料不足",
+        "width": 114,
+        "height": 44,
+        "bottom": 351.5625,
+        "clipped": false
+      },
+      {
+        "label": "权限限制",
+        "width": 114,
+        "height": 44,
+        "bottom": 351.5625,
+        "clipped": false
+      },
+      {
+        "label": "规则冲突",
+        "width": 114,
+        "height": 44,
+        "bottom": 401.5625,
+        "clipped": false
+      },
+      {
+        "label": "相似干扰",
+        "width": 114,
+        "height": 44,
+        "bottom": 401.5625,
+        "clipped": false
+      },
+      {
+        "label": "注入防御",
+        "width": 114,
+        "height": 44,
+        "bottom": 401.5625,
+        "clipped": false
+      }
+    ],
+    "answerY": 899.078125,
+    "nativeDateTabSteps": 4,
+    "status": "pass"
+  },
+  "otherViewportChecks": {
+    "width": 768,
+    "noHorizontalOverflow": true,
+    "sixPresetsVisible": true,
+    "twelveTasksSecondary": true,
+    "keyboardAndReducedMotion": "pass"
+  },
+  "functionalChecks": [
+    "Existing result remains stale after changing date until rerun; historical query returns30days",
+    "Six boundary presets keep expected answered/insufficient/conflict outcomes",
+    "Original synthetic TXT and Chinese text PDF import, retrieve, select quotation and download Markdown",
+    "Damaged, encrypted, no-text and oversize PDF leave documents and user draft unchanged",
+    "Injected unknown parser runtime error uses actionable Chinese fallback; no raw debug text displayed",
+    "Local API serves import-errors.mjs200 while private corpus/server/tests remain404"
+  ],
+  "tests": {
+    "necessaryUnitAndContractChecks": 40,
+    "targetedImportAndHttpBoundaryChecks": 3,
+    "note": "The3 targeted checks overlap the two import-message unit checks in the40; counts must not be added as43 unique tests."
+  },
+  "pageErrors": [],
+  "externalRequests": [],
+  "nonGetRequests": [],
+  "paidModelCalls": 0,
+  "privacy": "Only original synthetic test documents used. No keys, credentials, personal files or source PDFs in this evidence folder.",
+  "preservedFiles": [
+    "engine.mjs",
+    "workspace.mjs",
+    "task-catalog.mjs",
+    "public-corpus.json"
+  ],
+  "publication": "Local candidate evidence; live acceptance follows deployment separately."
+}
