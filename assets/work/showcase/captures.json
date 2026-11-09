@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-09T07:31:40.260Z",
+  "updatedAt": "2026-11-09T08:24:07.855Z",
   "source": "http://127.0.0.1:8830",
   "method": "Actual task-operated captures for the four selected tools. No mockups, model calls or invented outcomes; other capture records preserved.",
   "records": [
@@ -16,10 +16,10 @@
         "width": 1280,
         "height": 900
       },
-      "capturedAt": "2026-11-09T07:28:55.618Z",
+      "capturedAt": "2026-11-09T08:24:04.541Z",
       "state": "Original fictional capture text in the new personal-manuscript workspace; manually saved structural observation, explicitly no model evaluation or new model call.",
-      "source": "http://127.0.0.1:8866",
-      "sourceCommit": "5550197c5884e9005a0f85acb0daa86dbee8b6af",
+      "source": "http://127.0.0.1:8860",
+      "sourceCommit": "66a13b4551a9cccaeafb7d8ab3a308c808ec99c8",
       "hasUncommittedSourceChanges": false,
       "sourceRepository": "AndyZhang666666/llm-output-eval",
       "captureMethod": "Unedited actual operated Chrome viewport in an isolated browser context. Full and preview bytes are identical. Working-tree captures are explicitly marked.",
@@ -39,15 +39,15 @@
         "width": 1280,
         "height": 900
       },
-      "capturedAt": "2026-11-09T07:27:11.906Z",
+      "capturedAt": "2026-11-09T08:24:05.643Z",
       "state": "Actual six-direction, three-format creator: original demonstration copy and event details in a1600x900 Swiss landscape, no preference consent or model call.",
-      "source": "http://127.0.0.1:8866",
-      "sourceCommit": "956a599d732415259c5fd22e1761caf633619b3a",
+      "source": "http://127.0.0.1:8860",
+      "sourceCommit": "3637b38b4ccf58cffdf2d53df34062e97a4f761f",
       "hasUncommittedSourceChanges": false,
       "sourceRepository": "AndyZhang666666/AndyZhang666666.github.io",
       "captureMethod": "Unedited actual operated Chrome viewport in an isolated browser context. Full and preview bytes are identical. Working-tree captures are explicitly marked.",
-      "fullSha256": "a452dbc56eafd2f1a26a0f2ce8c213b162a192296a3cadc0df00c3ba0f6e847f",
-      "cropSha256": "a452dbc56eafd2f1a26a0f2ce8c213b162a192296a3cadc0df00c3ba0f6e847f"
+      "fullSha256": "591de3571446607971bed0a63abc9c5e9e735e8ba2b89691a11b951e39be97c0",
+      "cropSha256": "591de3571446607971bed0a63abc9c5e9e735e8ba2b89691a11b951e39be97c0"
     },
     {
       "id": "suibianju",
@@ -81,9 +81,9 @@
         "width": 1280,
         "height": 900
       },
-      "capturedAt": "2026-11-09T07:31:39.154Z",
+      "capturedAt": "2026-11-09T08:24:06.784Z",
       "state": "Actual updated Bundle Lab with the built-in synthetic-order basis and a locally saved scenario A; assumptions and contributions are not business observations.",
-      "source": "http://127.0.0.1:8866",
+      "source": "http://127.0.0.1:8860",
       "sourceCommit": "4cab0dc75fa70df970c016b642d294fbb8a33dde",
       "hasUncommittedSourceChanges": false,
       "sourceRepository": "AndyZhang666666/bundle-lab",
@@ -222,15 +222,15 @@
         "width": 1280,
         "height": 900
       },
-      "capturedAt": "2026-11-09T07:31:40.249Z",
+      "capturedAt": "2026-11-09T08:24:07.848Z",
       "state": "Actual updated RAG three-column example task: date/version conditions, browser retrieval, answer and supporting source; original fictional policies and no model call.",
-      "source": "http://127.0.0.1:8861",
-      "sourceCommit": "0503cf38d0256b7825bfc91701bb9c3f0eb10fbc",
-      "hasUncommittedSourceChanges": true,
+      "source": "http://127.0.0.1:8860",
+      "sourceCommit": "3637b38b4ccf58cffdf2d53df34062e97a4f761f",
+      "hasUncommittedSourceChanges": false,
       "sourceRepository": "AndyZhang666666/AndyZhang666666.github.io",
       "captureMethod": "Unedited actual operated Chrome viewport in an isolated browser context. Full and preview bytes are identical. Working-tree captures are explicitly marked.",
-      "fullSha256": "ce1ca690d6e3414b2bdb19d8de865a5908d9395da527e812e542ef88f59f8d91",
-      "cropSha256": "ce1ca690d6e3414b2bdb19d8de865a5908d9395da527e812e542ef88f59f8d91"
+      "fullSha256": "8bb36b5e1771d05e34b983022b24acedf57669b30f336b04100e8ae2fcfcabb5",
+      "cropSha256": "8bb36b5e1771d05e34b983022b24acedf57669b30f336b04100e8ae2fcfcabb5"
     }
   ]
 }
