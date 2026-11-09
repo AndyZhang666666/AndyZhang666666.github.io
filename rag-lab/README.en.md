@@ -4,7 +4,7 @@
 
 Check whether a source applies before drafting an answer. Change facts in fictional equipment-policy tasks, or bring TXT, Markdown and text-bearing PDF files to retrieve evidence, select quotations, edit a draft and export it locally.
 
-**2026-11-09 development version; not merged or published.** [Current scope, API and evidence boundaries](docs/PRODUCT-DEPTH-20261109.md). Previous [PRD](docs/PRD.md), [test report](docs/TEST-REPORT.md) and historical evidence retain their original results; they are not acceptance evidence for every new feature.
+**2026-11-09 reviewed and approved for publication.** [Release record](../docs/RELEASE-FOUR-PRODUCTS-20261109.md). [Current scope, API and evidence boundaries](docs/PRODUCT-DEPTH-20261109.md). Previous [PRD](docs/PRD.md), [test report](docs/TEST-REPORT.md) and historical evidence retain their original results; they are not acceptance evidence for every new feature.
 
 ![Actual workspace: conditions, answer and applicable or excluded sources. Fictional policies, no model call.](../assets/work/showcase/rag-lab.jpg)
 

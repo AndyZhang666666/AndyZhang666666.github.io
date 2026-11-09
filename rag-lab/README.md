@@ -4,7 +4,7 @@
 
 先判断资料是否适用，再整理一份可以核对的答复。可以改内置任务的日期与事实，也可以带自己的TXT、Markdown或文字版PDF，在本机检索、选择依据、编辑草稿并导出。
 
-**2026-11-09 开发版，未合并发布。** [本轮实现、API与证据边界](docs/PRODUCT-DEPTH-20261109.md) · [交互约定](docs/UX-CONTRACT.md)。旧[PRD](docs/PRD.md)、[测试报告](docs/TEST-REPORT.md)及历史证据保留原记录，不代替本轮全部功能验收。
+**2026-11-09 已通过审阅，获批发布。** [本次发布记录](../docs/RELEASE-FOUR-PRODUCTS-20261109.md)。 [本轮实现、API与证据边界](docs/PRODUCT-DEPTH-20261109.md) · [交互约定](docs/UX-CONTRACT.md)。旧[PRD](docs/PRD.md)、[测试报告](docs/TEST-REPORT.md)及历史证据保留原记录，不代替本轮全部功能验收。
 
 ![实际工作区：问题与条件、答复、适用及未采用的来源。原创虚构资料，无模型调用。](../assets/work/showcase/rag-lab.jpg)
 

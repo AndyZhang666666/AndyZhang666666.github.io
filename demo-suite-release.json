@@ -1,0 +1,34 @@
+{
+  "format": 1,
+  "batch": "four-product-depth-20261109",
+  "state": "approved-source",
+  "approved_site_source_sha": "1a203bc452e9f49e5efd20045d3126c0b335d0c2",
+  "visual_baseline_sha": "828fc5938ae9772afc150d920f892d77935f33b7",
+  "selected": [
+    "eval",
+    "taste",
+    "bundle",
+    "rag-lab"
+  ],
+  "sources": {
+    "eval": {
+      "repository": "AndyZhang666666/llm-output-eval",
+      "approved_sha": "66a13b4551a9cccaeafb7d8ab3a308c808ec99c8"
+    },
+    "bundle": {
+      "repository": "AndyZhang666666/bundle-lab",
+      "approved_sha": "4cab0dc75fa70df970c016b642d294fbb8a33dde"
+    },
+    "taste": {
+      "repository": "AndyZhang666666/AndyZhang666666.github.io",
+      "directory": "tasteroom"
+    },
+    "rag": {
+      "repository": "AndyZhang666666/AndyZhang666666.github.io",
+      "directory": "rag-lab"
+    }
+  },
+  "public_backend_deployed": false,
+  "primary_flows_require_paid_model": false,
+  "note": "Pins the approved product batch, not every future website style change. Deployment commit and live checks are recorded by GitHub Actions and the release PR."
+}

@@ -1,6 +1,6 @@
 # 四个主推 Demo · 联合交付与审阅
 
-2026-11-09。**本地成品与开发分支审阅；未合并到 main，未部署本批产品升级。**
+2026-11-09。下文是发布前的本地成品审阅记录，当时未合并或部署。用户随后已确认发布；当前状态见[发布记录](RELEASE-FOUR-PRODUCTS-20261109.md)。
 
 [联合需求基线](DEMO-PRODUCT-DEPTH-PRD-20261109.md) · [官网合并与检查范围](verification/selected-depth-v2-merge-20261109/README.md) · [本地启动](../LOCAL-REVIEW.md)
 
