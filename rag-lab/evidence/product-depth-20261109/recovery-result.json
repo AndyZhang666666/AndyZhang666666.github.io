@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "corrupt storage stays write-locked until explicit rebuild; raw backup and cancellation work",
+    "clear during a synthetically delayed real PDF parse does not reinsert a document",
+    "mixed text/blank PDF preserves extracted page and explicitly warns about the missing page",
+    "leaving privileged scope clears editable draft, excluded metadata and artifact controls",
+    "missing built-in corpus does not disable own-source import/retrieval"
+  ],
+  "errors": [],
+  "modelCalls": 0,
+  "fixtures": "synthetic local documents and credentials; no user data"
+}
