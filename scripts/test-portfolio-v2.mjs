@@ -25,12 +25,41 @@ test('mobile directory has valid destinations and keeps the existing controls un
  for(const id of ['mobileDirectory','directoryToggle','paletteSwitch','presentationToggle','langToggle'])assert.equal((html.match(new RegExp(`id="${id}"`,'g'))||[]).length,1,id);
  const menu=html.match(/<dialog id="mobileDirectory"[^]*?<\/dialog>/)[0];
  for(const [,id] of menu.matchAll(/href="#([^"]+)"/g))assert.ok(html.includes(`id="${id}"`),`Broken section link: ${id}`);
+ for(const [,id] of html.matchAll(/<section\b[^>]*id="([^"]+)"/g))assert.ok(menu.includes(`href="#${id}"`),`Directory omitted section: ${id}`);
  assert.ok(menu.includes('value="system"')&&menu.includes('value="reduce"'));
  assert.equal(enhanceMobileNavigation(html),html);
  for(const dir of fs.readdirSync('cases')){
   const file=`cases/${dir}/index.html`;if(!fs.existsSync(file))continue;
   const source=read(file);assert.equal((source.match(/id="paletteSwitch"/g)||[]).length,1,file);
   assert.ok(source.includes('href="/#uses"'),file);
+ }
+});
+test('generated case HTML preserves executable scripts, palette and native directory',()=>{
+ const inspect=`
+import json, sys
+from html.parser import HTMLParser
+class Inspector(HTMLParser):
+ def __init__(self):
+  super().__init__()
+  self.elements=[]
+ def handle_starttag(self, tag, attributes):
+  self.elements.append(dict(tag=tag, attributes=dict(attributes)))
+parser=Inspector()
+parser.feed(sys.stdin.read())
+print(json.dumps(parser.elements))
+`;
+ for(const dir of fs.readdirSync('cases')){
+  const file=`cases/${dir}/index.html`;if(!fs.existsSync(file))continue;
+  const elements=JSON.parse(execFileSync('python3',['-c',inspect],{input:read(file),encoding:'utf8'}));
+  const byId=id=>elements.filter(element=>element.attributes.id===id);
+  const scripts=elements.filter(element=>element.tag==='script').map(element=>element.attributes.src).filter(Boolean);
+  assert.ok(scripts.includes('/scripts/case-reader.js?v=20261109-v2'),`${file}: case reader script is not executable`);
+  assert.ok(scripts.includes('/assets/mobile-navigation.mjs?v=20261109-v2'),`${file}: mobile navigation script is not executable`);
+  assert.equal(byId('paletteSwitch').length,1,`${file}: palette is missing or duplicated`);
+  assert.equal(byId('paletteSwitch')[0].tag,'div',`${file}: palette markup was consumed by another tag`);
+  assert.equal(byId('mobileDirectory').length,1,`${file}: native directory is missing or duplicated`);
+  assert.equal(byId('mobileDirectory')[0].tag,'dialog',`${file}: native directory is not a dialog`);
+  assert.equal(elements.filter(element=>element.tag==='button'&&element.attributes.class?.split(/\s+/).includes('ps-btn')).length,4,`${file}: four theme controls must remain available`);
  }
 });
 test('motion migration is idempotent and leaves all non-owner app code unchanged',()=>{

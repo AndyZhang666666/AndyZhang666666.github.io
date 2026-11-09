@@ -54,7 +54,7 @@ html[data-motion=full] .hero-v2[data-motion-active=true] .portrait-ring,html[dat
   [data-palette] .hero-v2 .hero-portrait .portrait-img{height:220px!important;max-height:none!important}
   .hero-v2 .hero-cta{width:100%;max-width:340px;gap:8px;margin:3px 0 6px;display:grid;grid-template-columns:1fr 1fr}
   .hero-v2 .hero-cta>.btn-primary{grid-column:1/-1;justify-content:center;min-height:48px;padding:12px 20px}
-  .hero-v2 .hero-cta>.btn-ghost{justify-content:center;min-height:42px;padding:10px 12px;font-size:13px}
+  .hero-v2 .hero-cta>.btn-ghost{justify-content:center;min-height:44px;padding:10px 12px;font-size:13px}
   .hero-v2 .hero-summary{max-width:36ch;font-size:14px;line-height:1.85;text-wrap:pretty}
   .hero-v2 .hero-meta{font-size:12px;line-height:1.8;max-width:39ch}
   .hero-v2 .hero-jd-link{flex-wrap:wrap;gap:6px 8px;font-size:12px;line-height:1.7;max-width:35ch}

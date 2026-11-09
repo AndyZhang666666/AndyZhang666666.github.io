@@ -1,6 +1,6 @@
 // Progressive enhancement: the desktop navigation and no-JS links stay usable.
 const words=(zh,en)=>`<span data-zh="${zh}" data-en="${en}">${zh}</span>`;
-const sections=[['top','首页','Home'],['about','关于我','About'],['selected','精选作品','Selected work'],['ai','关于 AI','On AI'],['work','工作经历','Experience'],['education','教育与研究','Education'],['projects','完整作品库','All projects'],['awards','奖项','Awards'],['uses','工具','Toolkit'],['jd','按岗位找证据','Role evidence'],['contact','聊聊','Contact']];
+const sections=[['top','首页','Home'],['about','关于我','About'],['selected','精选作品','Selected work'],['ai','关于 AI','On AI'],['work','工作经历','Experience'],['education','教育与研究','Education'],['projects','完整作品库','All projects'],['awards','奖项','Awards'],['uses','工具','Toolkit'],['skills','能力','Capabilities'],['jd','按岗位找证据','Role evidence'],['contact','聊聊','Contact']];
 export function enhanceMobileNavigation(html,{casePage=false}={}) {
  if(html.includes('id="mobileDirectory"'))return html;
  if(!html.includes('id="langToggle"'))throw Error('Mobile directory requires the original language control');

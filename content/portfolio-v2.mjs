@@ -9,7 +9,7 @@ export function enhancePortfolioV2(html,{casePage=false,paletteMarkup=''}={}){
  if(!casePage)html=enhanceHeroV2(html);
  if(casePage&&paletteMarkup&&!html.includes('id="paletteSwitch"'))html=html.replace('</body>',paletteMarkup+'\n</body>');
  html=enhanceMobileNavigation(html,{casePage});
- html=html.replace(/src="\/scripts\/case-reader\.js(?:\?v=[^"]*)?"/g,`src="/scripts/case-reader.js?v=${portfolioV2Version}`);
+ html=html.replace(/src="\/scripts\/case-reader\.js(?:\?v=[^"]*)?"/g,`src="/scripts/case-reader.js?v=${portfolioV2Version}"`);
  for(const file of changedResources){
   const escaped=file.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
   html=html.replace(new RegExp(`((?:href|src)="/?${escaped}\\?v=)[^"\\s]+`,'g'),`$1${portfolioV2Version}`);
