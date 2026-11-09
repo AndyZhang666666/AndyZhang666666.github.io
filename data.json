@@ -372,8 +372,8 @@
       "nameEn": "TasteRoom",
       "subtitle": "喜欢整张，不代表喜欢每个参数",
       "subtitleEn": "Liking a poster is not a preference for every parameter",
-      "description": "把自己的文案放进六套原创构图，保留两份候选，导出海报。整体风格与单项参数分开比较，确认后才保存有范围的偏好。",
-      "descriptionEn": "Put personal copy into six original compositions, keep two candidates and export a poster. Compare whole styles separately from individual parameters, then explicitly save scoped preferences.",
+      "description": "用自己的图文做一张海报：六套构图、三种尺寸、两份候选。作品先带走，哪些方向值得下次沿用，再明确授权。",
+      "descriptionEn": "Create a poster from your own image and copy: six layouts, three sizes and two candidates. Export first, then explicitly authorise what to reuse.",
       "url": "/tasteroom/?direction=swiss",
       "github": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/tasteroom",
       "tags": [
@@ -394,17 +394,17 @@
       "context": "整张海报同时改变多种特征，单次选择无法说明原因。把它直接当成稳定偏好，还可能让工作和日常的需求互相干扰。",
       "contextEn": "A choice between posters with several differences cannot isolate the cause. Treating it as a stable preference can also mix up work and everyday needs.",
       "approach": [
-        "每个方向要真的改变构图：瑞士、解构、编辑杂志、包豪斯、日式留白和双色印刷使用不同几何与层级，展示同一份文案及容量提示。字号、换行和密度可微调；过密时保留内容、指出问题并暂停导出。",
-        "整体选择不偷换成参数结论：任意选择两方向比较，依据记为整体构图；只保存方向，不推断字体、色彩或留白。参数对照才保持其他条件不变。选中、导出与保存规则是三件独立的事。",
-        "下一张能复用，也能推翻：两份候选只存作品快照；确认过的偏好单独导出。JSON v1／旧 Markdown 说明书可再导入，先看替换项再确认，保留原场景与线索属性，且支持撤回。"
+        "输出尺寸改变，构图就重新组织：竖版、方形、横版分别计算文字和主图区域；空字段不占位置。过密时保留原文并给修复入口，未解决的遮挡不允许作为成品导出。",
+        "当前画布为什么长这样：区分当前场景授权、全局继承和临时改动。恢复场景方向复用原规则，不写新记忆；换内容可检查哪些偏好被沿用。",
+        "作品快照与长期偏好各存一份：候选带文案、尺寸、参数与主图引用，恢复前确认替换影响。图片只在本机；导出不附私人反馈，说明书独立且可撤回、重新导入。"
       ],
       "approachEn": [
-        "A direction must change the composition: Swiss, deconstructed, editorial, Bauhaus, Japanese whitespace and two-ink layouts have distinct geometry and hierarchy, with the same copy and capacity guidance. Type size, wrapping and density are adjustable. Dense copy is retained with an actionable warning before export.",
-        "Do not infer parameter preferences from a whole style: Any two named directions can be compared as whole compositions. Only the direction is recorded, without inferring type, colour or spacing. Parameter tests hold the rest constant. Choosing, exporting and saving memory are separate actions.",
-        "Reuse a preference without locking it in: Two candidates store artwork snapshots only. Confirmed preferences export separately. Import JSON v1 or previous Markdown briefs after reviewing replacements, retaining each context and clue/rule status, with undo available."
+        "Reflow when the output format changes: Portrait, square and landscape recalculate text and image regions. Empty fields take no space. Dense copy is retained with repair controls; unresolved overlap blocks final export.",
+        "Make the artwork’s provenance visible: Distinguish scene consent, inherited global rules and temporary edits. Restoring a scene direction reuses its rule without new memory; new content reveals what carried forward.",
+        "Separate artwork snapshots from durable preference: Candidates include copy, size, parameters and image reference, with replacement confirmation. Images stay local; exports omit private feedback. Preference briefs remain separate, reversible and importable."
       ],
-      "result": "核心检查覆盖六构图、任意对照、过期状态、说明书往返与旧草稿兼容。浏览器与导出文件验收由本轮集成记录补充；尚无真人研究证明这些维度足以描述个人审美。 六套构图提供足够的差异，也明确容量边界，没有变成任意拖拽设计工具。字体依赖系统，SVG 跨设备字形可能不同；PNG 保留当前渲染。偏好规则不是人格测量或学习准确率。",
-      "resultEn": "Core checks cover six layouts, explicit pairs, stale states, brief round trips and old drafts. This iteration records browser and exported-file verification separately; no user study establishes that these dimensions represent personal taste. Six compositions offer meaningful differences with explicit capacity limits, rather than an unrestricted design editor. SVG fonts may differ across systems; PNG preserves the current render. Rules are not personality measurements or evidence of learning accuracy.",
+      "result": "47项检查通过，原有断言保留；Chrome实际完成图文编辑、18种方向／尺寸、候选恢复、PNG／SVG导出、390布局与存储降级。尚无真人审美准确率或任务完成率声明。 六套构图提供足够的差异，也明确容量边界，没有变成任意拖拽设计工具。字体依赖系统，SVG 跨设备字形可能不同；PNG 保留当前渲染。偏好规则不是人格测量或学习准确率。",
+      "resultEn": "47 checks passed with previous assertions intact. Chrome tasks cover personal copy/images,18 combinations, candidate restoration, PNG/SVG,390 layout and blocked storage. No measured taste accuracy or real-user completion rate is claimed. Six compositions offer meaningful differences with explicit capacity limits, rather than an unrestricted design editor. SVG fonts may differ across systems; PNG preserves the current render. Rules are not personality measurements or evidence of learning accuracy.",
       "featured": true,
       "demoLabel": "立即体验",
       "demoLabelEn": "Try it now",
@@ -418,22 +418,22 @@
       "caseLabelEn": "Design process",
       "presentation": {
         "question": {
-          "zh": "喜欢一张海报，能说明喜欢什么吗？",
-          "en": "What did you like about that poster?"
+          "zh": "用户说“喜欢”，到底喜欢的是哪一部分？",
+          "en": "When a person says “I like it”, which part do they mean?"
         },
         "decision": {
-          "zh": "六套原创构图、两份候选；先导出作品，确认范围后才复用偏好。",
-          "en": "Six original layouts and two candidates. Export the work, then explicitly scope reusable preferences."
+          "zh": "用自己的图文做一张海报：六套构图、三种尺寸、两份候选。作品先带走，哪些方向值得下次沿用，再明确授权。",
+          "en": "Create a poster from your own image and copy: six layouts, three sizes and two candidates. Export first, then explicitly authorise what to reuse."
         },
         "image": "/assets/work/showcase/taste.jpg",
         "caption": {
-          "zh": "偏爱实验室 · 可编辑画布与 SVG / PNG 导出",
-          "en": "TasteRoom · Editable canvas and SVG / PNG export"
+          "zh": "偏爱实验室 · 六构图、三尺寸与活动海报",
+          "en": "TasteRoom · Six compositions, three sizes and event posters"
         },
         "kind": "demo",
         "thumbnail": "/assets/work/showcase/taste-crop.jpg",
         "coverSize": {
-          "width": 1440,
+          "width": 1280,
           "height": 900
         }
       }
@@ -574,8 +574,8 @@
       "nameEn": "Eval Lab",
       "subtitle": "从评分锚点，到有证据的版本评审",
       "subtitleEn": "From scoring anchors to evidence-backed version review",
-      "description": "带自己的创意文本，复制固定五维任务给已有的 AI，带回结果。核对原文、记录复核和处理项，再比较两份结果。",
-      "descriptionEn": "Bring creative text, take a fixed five-dimension task to an AI you already use, then return with results. Review evidence, track actions and compare two records.",
+      "description": "带自己的创意文本，先人工审阅或导入已有评价。核对依据、留下处理项，把改稿与原稿放在同一条证据链里。",
+      "descriptionEn": "Bring creative text for manual review or import an existing evaluation. Check evidence, track actions and connect the revision to its source.",
       "url": "/llm-output-eval/",
       "github": "https://github.com/AndyZhang666666/llm-output-eval",
       "metrics": [
@@ -596,17 +596,17 @@
       "context": "固定样本只能让访客看懂界面。真正的任务是把自己的原文、外部评测、证据争议和待修改问题连起来；如果一切最后仍停在总分，作者带不走下一步。",
       "contextEn": "Fixed samples explain an interface but do not finish a personal task. Authors need their text, external judgements, evidence disputes and unresolved changes together, rather than another overall score.",
       "approach": [
-        "用自己的 AI，也能完成任务：任务包带完整 rubric、原系统 Prompt 和返回格式。用户自行运行后带回 JSON；本站看不到外部对话，模型、运行条件与时间仅为来源声明，不作认证。坏文件和取消不替换当前材料。",
-        "原始评价与处理行动分开：支持、存疑与需上下文分别记录。可把问题加入核查评语或修改原文的处理项，跟踪完成状态；完成处理不会回写原始分数，报告把未解决事项放在前面。",
-        "比较之前先核对条件：本机库最多20份，两侧按维度 ID 对齐。原文、模型或条件不同会提示；同一记录不重复计数。重复观察展示均值与极差，极差不是置信区间，也不自动宣布赢家或允许发布。"
+        "没有模型，也能完成审阅：只带原文即可按五维记录意见、引用和处理项。没有模型结果时明确显示尚无评测，不填零分，不计入裁判一致率。",
+        "判断是否适用，先于比较高低：完整短篇与开场片段的用途分别声明；不适用意见属于人工解释层。用途、模型或标准不一致时展示比较限制，原分与均分保持原样。",
+        "处理完成，不等于问题解决：处理项关联维度与来源，新建修改稿时选本次处理的问题。旧稿、旧评价仍可回看，后续审阅才确认是否解决；报告先列未解决项。"
       ],
       "approachEn": [
-        "Complete the task with an AI you already use: The package includes the complete rubric, original system Prompt and return format. Users run it elsewhere and return with JSON. External conversations are not visible; model, conditions and time are declarations, not certification. Failed or cancelled imports leave current material intact.",
-        "Keep judge output separate from follow-up work: Record support, disagreement and missing context separately. Track checking a judgement or revising text as follow-up work. Completing work does not change the original score; unresolved items lead the report.",
-        "Check conditions before comparing records: The local library holds up to 20 records, aligned by dimension ID. Text, model and condition differences stay visible, and duplicate records do not count twice. Repeats show means and ranges, not confidence intervals, winners or release permission."
+        "Make review useful without a model: Review text with five-dimension notes, quotations and actions without a model result. Missing model evaluations stay missing, never zero or part of judge-agreement statistics.",
+        "Check applicability before comparing scores: Declare complete stories and opening excerpts separately. Applicability notes belong to the human layer. Different purposes, models or standards limit comparison without changing original scores or averages.",
+        "Finishing an action is not proof of resolution: Actions link to dimensions and records, then to a new draft. Keep old text and evaluations; later review determines resolution. Reports lead with unresolved work."
       ],
-      "result": "6个样本的18次历史输出保持可回放。任务包、严格导入、资料上限、重复条件、处理项往返与报告顺序有程序检查；本轮浏览器集成证据另记，不能据此声称模型质量或生产准确率提升。 外部 AI 需要一次往返，但避免让公开作品集依赖共享 Key；五维限定创意文本，不能宣称支持任意评测体系。材料与人工判断仅在本机，库满不会自动淘汰旧记录。",
-      "resultEn": "Six samples and 18 saved runs remain replayable. Program checks cover the task package, strict imports, capacity, duplicate conditions, action round trips and report ordering. Browser integration evidence is recorded separately; none of this establishes better model quality or production accuracy. The external-AI round trip avoids a shared public Key. The five dimensions remain specific to creative text, not arbitrary rubrics. Records and reviews stay local; a full library never silently evicts older material.",
+      "result": "历史原文、评分和结果标识保留。本轮对自有材料、人工审阅、导入与改稿路径进行独立验证；具体检查及未测范围见仓库记录，不把界面完成写成模型质量提升。 外部 AI 需要一次往返，但避免让公开作品集依赖共享 Key；五维限定创意文本，不能宣称支持任意评测体系。材料与人工判断仅在本机，库满不会自动淘汰旧记录。",
+      "resultEn": "Historical text, scores and identifiers are retained. Personal-material, manual-review, import and revision paths are verified separately; repository records state checks and limits, without claiming better model quality. The external-AI round trip avoids a shared public Key. The five dimensions remain specific to creative text, not arbitrary rubrics. Records and reviews stay local; a full library never silently evicts older material.",
       "demoNote": "无需中转站体验历史回放和人工复核。可选接口仅按点击运行，Key 不持久保存；本轮未调用真实模型或重跑历史指标。",
       "demoNoteEn": "No relay needed for replay and human review. Optional API runs require a click; keys are not persisted. No real models or historical benchmarks were rerun this round.",
       "featured": true,
@@ -618,22 +618,22 @@
       "caseLabelEn": "Design process",
       "presentation": {
         "question": {
-          "zh": "裁判给了低分，依据能经得起复核吗？",
-          "en": "Does the evidence support the judge’s low score?"
+          "zh": "评分看完以后，作者到底应该先核查什么、修改什么？",
+          "en": "After reading a score, what should the author check or change first?"
         },
         "decision": {
-          "zh": "自己的文本带回评测，保留原分；核对证据、记录处理项，再比较结果。",
-          "en": "Bring evaluations of your own text, preserve scores, review evidence, track actions and compare results."
+          "zh": "带自己的创意文本，先人工审阅或导入已有评价。核对依据、留下处理项，把改稿与原稿放在同一条证据链里。",
+          "en": "Bring creative text for manual review or import an existing evaluation. Check evidence, track actions and connect the revision to its source."
         },
         "image": "/assets/work/showcase/eval.jpg",
         "caption": {
-          "zh": "Eval Lab · 历史评分、引句与人工复核",
-          "en": "Eval Lab · Saved scores, quotations and human review"
+          "zh": "Eval Lab · 自有文稿、人工审阅与版本关系",
+          "en": "Eval Lab · Personal text, manual review and versions"
         },
         "kind": "demo",
         "thumbnail": "/assets/work/showcase/eval-crop.jpg",
         "coverSize": {
-          "width": 1440,
+          "width": 1280,
           "height": 900
         }
       }
@@ -1139,8 +1139,8 @@
       "nameEn": "Bundle Lab",
       "subtitle": "从订单共现中发现套餐机会",
       "subtitleEn": "Discover bundle opportunities from co-purchased items",
-      "description": "带自己的商品假设，保留最多三份方案。分开看新增贡献与既有让利，用折扣×采纳条件地图检查结论，再留下选择理由。",
-      "descriptionEn": "Bring product assumptions and keep up to three scenarios. Separate new contribution from discount leakage, test discount/adoption conditions and record a reasoned choice.",
+      "description": "带商品与订单构成建立基线，比较三份套餐方案。看清新增贡献、既有顾客让利与平衡点，再写验证计划、回填观察。",
+      "descriptionEn": "Build a baseline from products and order composition, compare three bundle scenarios, inspect gains, leakage and break-even, then plan a test and record observations.",
       "url": "/bundle-lab/simulate/",
       "github": "https://github.com/AndyZhang666666/bundle-lab",
       "metrics": [
@@ -1161,14 +1161,14 @@
       "context": "从订单共现直接跳到“做套餐”，容易把相关性当成效果。更高的客单也不等于更高收益，需要核对新增购买、让利、毛利与采纳假设。",
       "contextEn": "Jumping from co-occurrence to a bundle confuses association with impact. Higher order value does not establish better contribution; adoption, margin and discount leakage matter.",
       "approach": [
-        "先冻结方案，再比较改了什么：第一份方案为 A 基准；最多三份独立快照对齐商品、价格、人群、假设、贡献、让利与平衡点。复制到当前草稿再调整，原快照不随滑杆漂移，方案收益也不相加。",
-        "问结论在哪些条件下翻转：折扣×中档采纳的每个格点调用同一个收益函数，其余成本和人群固定。点击先预演，与当前结果对照；确认后才修改输入。正负区域是条件算例，不是收益概率或价格弹性。",
-        "选择之后仍要验证假设：人明确选择并填写理由，导出参数、差异、账本与下一步验证。未选择也可导出，但保留“尚未选择”；Growth 与 Pricing 仍是次级分析工具，不自动宣布全量上线。"
+        "先说清楚这些订单代表什么：按订单聚合商品出现关系，多单价先展示再确认参考价；实际覆盖单数与每100单比较单位分开。数量和实付不被偷换成已核对收入。",
+        "贡献与让利必须一起看：新增毛利、既有让利、增量毛利与平衡采纳率共同呈现。条件地图只预演；三份方案是独立快照，不能随滑杆漂移或把收益相加。",
+        "下一步是试验，不是自动上线：带入方案口径、平衡点和待验证项，补充对照、观察时长与护栏。回填率只与假设作描述比较，确认后复制为新工作假设，原方案和计划保留。"
       ],
       "approachEn": [
-        "Freeze a scenario before comparing changes: A is the baseline. Up to three independent snapshots align products, prices, populations, assumptions, gains, leakage and break-even. Copy into a draft before editing; sliders never alter a saved scenario, and scenario returns are not added together.",
-        "Find the conditions that reverse the conclusion: Every discount/adoption grid point calls the same model with costs and populations held fixed. Preview against the current result before applying it. Positive and negative regions are conditional calculations, not profit probabilities or elasticity.",
-        "A choice still needs assumption checks: People explicitly choose and explain, exporting inputs, changes, ledgers and validation steps. An unchosen export says so. Growth and Pricing remain related analysis tools, not automatic rollout permission."
+        "Define what the order baseline represents: Aggregate SKU presence by order and confirm a reference price when prices vary. Separate observed covered-order count from the per100 comparison unit. Quantity and paid revenue are not silently inferred.",
+        "Keep gains and discount leakage together: Show new margin, existing-buyer discounts, incremental margin and break-even together. The map only previews; three scenarios are independent snapshots, never drifting with sliders or summed as returns.",
+        "Move toward a test, not automatic rollout: Carry scope, break-even and assumptions into a plan with controls, duration and guardrails. Observed rates are descriptive; explicitly copy them to a new assumption while preserving the original plan and scenario."
       ],
       "result": "沿用4,000条合成订单与既有收益模型。快照、差异、损坏恢复和条件地图格点有确定性检查；本轮浏览器任务另行验收，不把模拟正收益写成真实增长。 保留方案比只动滑杆多一步，却能防止凭记忆比较。二维地图固定其他变量，不代表真实采纳会如何随折扣变化；每100覆盖订单是统一比较单位，不是观测订单。",
       "resultEn": "The original 4,000 synthetic orders and contribution model remain. Deterministic checks cover snapshots, differences, corrupt recovery and grid points. Browser tasks are verified separately; simulated positive returns are not observed growth. Keeping a scenario adds a step but avoids comparison from memory. The map fixes other variables and does not predict how adoption responds to discounts. Per 100 covered orders is a comparison unit, not an observed sample.",
@@ -1181,22 +1181,22 @@
       "analysisUrl": "/bundle-lab/",
       "presentation": {
         "question": {
-          "zh": "套餐卖得更多，为什么反而少赚了？",
-          "en": "Why can a bundle sell more and still earn less?"
+          "zh": "原本就会一起买的人，为什么也要拿到折扣？",
+          "en": "What does the discount cost when a customer would have bought both anyway?"
         },
         "decision": {
-          "zh": "保存三方案，预演折扣与采纳条件；分开算新增和让利，再留下选择理由。",
-          "en": "Keep three scenarios, preview discount/adoption conditions, separate gains from leakage and record a rationale."
+          "zh": "带商品与订单构成建立基线，比较三份套餐方案。看清新增贡献、既有顾客让利与平衡点，再写验证计划、回填观察。",
+          "en": "Build a baseline from products and order composition, compare three bundle scenarios, inspect gains, leakage and break-even, then plan a test and record observations."
         },
         "image": "/assets/work/showcase/bundle.jpg",
         "caption": {
-          "zh": "Bundle Lab · 两类人群的收益账本",
-          "en": "Bundle Lab · Two-population contribution ledger"
+          "zh": "Bundle Lab · 输入基线、双人群账本与方案快照",
+          "en": "Bundle Lab · Baseline, population ledger and scenario snapshots"
         },
         "kind": "demo",
         "thumbnail": "/assets/work/showcase/bundle-crop.jpg",
         "coverSize": {
-          "width": 1440,
+          "width": 1280,
           "height": 900
         }
       }
@@ -1261,8 +1261,8 @@
       "group": "main",
       "subtitle": "答案依据从哪里来，为什么可以用",
       "subtitleEn": "Where evidence comes from and why it applies",
-      "description": "对原创制度资料做真实检索，先限定日期、版本和可访问范围，再检查答案与引文。换条件后，旧答案明确待重新检索。",
-      "descriptionEn": "Retrieve original policy material after setting date, version and access scope. Inspect the answer and citation; mark old results stale when conditions change.",
+      "description": "对照日期、资料版本和任务条件，组织有依据的答复。内置案例可改条件，自己的资料可本机检索；未知条款留待确认。",
+      "descriptionEn": "Draft an answer against dates, source versions and task facts. Change built-in cases or search personal sources locally; unknown clauses remain unconfirmed.",
       "url": "/rag-lab/",
       "github": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/rag-lab",
       "tags": [
@@ -1283,36 +1283,36 @@
       "context": "旧版本、未来规则或无权访问的资料都可能包含相近语句。只让回答带引用，不足以证明这份资料对当前问题、日期和身份适用。",
       "contextEn": "Older versions, future rules and inaccessible material can all contain similar language. Attaching a citation does not prove its applicability to the current question, date and role.",
       "approach": [
-        "把日期与版本作为输入：同一显示器问题，在原始快照的 2026-06-30 查到 30 天，在 2026-10-28 查到 14 天；演示修订快照为 10 天。每个结果都有对应版本和原文。",
-        "条件改变，不沿用旧结论：首页预览先标明旧答案待更新，用户重新查找后才替换结果。它复用完整工具的检索引擎与公开资料，不另写答案映射表。",
-        "公开演示与服务端能力分开：公开包只含十二份公开虚构资料。身份切换用于体验，不能证明生产鉴权；本地 API 在检索前执行范围检查，管理侧测试资料不会进入公开预览。"
+        "检索到，不等于适用：先限定资料、日期与版本，再核对支持当前事项的条件。缺少、冲突或未来条款不被补成确定答案，引用定位只证明文字匹配。",
+        "变了条件，就保留旧结论的边界：答复绑定问题、事实、业务日期与实际引文。日期或资料变化后先标待重查，重新运行后才显示新结果；人工补写与证据原句分开。",
+        "自己的资料，不冒充通用语义理解：本机导入后先确认资料元数据，真实检索并组织草稿。范围外条款保持原文和人工判断；API默认关闭，不会因缺Key假装生成成功。"
       ],
       "approachEn": [
-        "Make date and version explicit inputs: The same monitor question yields 30 days on 2026-06-30 and 14 days on 2026-10-28 in the baseline snapshot; the demonstration revision yields 10. Each result has its own version and source.",
-        "A changed scope invalidates an old conclusion: The homepage marks the old answer stale and updates it only after a new search. It reuses the full tool’s retrieval engine and public corpus, rather than a hardcoded answer table.",
-        "Separate public demonstration from server enforcement: The public corpus contains twelve fictional public documents. Role switching demonstrates a scenario, not production authentication. The local API enforces scope before retrieval, and admin-only test documents are excluded from public previews."
+        "Retrieval does not establish applicability: Scope sources, date and version before checking task conditions. Missing, conflicting or future clauses do not become certain answers; citation location proves text matching only.",
+        "Retain the conditions behind an old answer: Bind each answer to question, facts, date and actual citations. Date/source changes mark it stale before a new run; manual additions remain distinct from quoted evidence.",
+        "Personal sources are not automatic semantic understanding: Confirm source metadata, retrieve actual text and organise a draft locally. Unsupported clauses remain evidence for human judgement; the API is off by default and missing credentials never produce simulated model success."
       ],
-      "result": "浏览器可真实执行 BM25 检索、版本选择与规则摘录，并展开引用段落。条件算例的 30 / 14 / 10 天分别来自对应原文；引用定位与关键事实检查不冒充模型语义评估。 规则摘录方便核对，但适用范围比自由生成窄。身份模拟不能替代真实服务端鉴权，构造资料上的检索检查也不能证明真实企业知识库的效果。",
-      "resultEn": "The browser performs actual BM25 retrieval, version selection and rule extraction with inspectable sources. The 30 / 14 / 10 day examples come from their respective paragraphs; citation and extracted-fact checks are not model semantic evaluations. Rule extraction is inspectable but narrower than free generation. Role simulation cannot replace server authentication, and constructed-corpus checks do not establish performance on an enterprise knowledge base.",
+      "result": "浏览器可真实执行 BM25 检索、版本选择与规则摘录，并展开引用段落。条件算例的 30 / 14 / 10 天分别来自对应原文；引用定位与关键事实检查不冒充模型语义评估。 受控规则便于查证，覆盖范围也更窄。任意资料仍需要人确认含义，真实模型与生产权限要另行验证；公开示例不证明企业知识库效果。",
+      "resultEn": "The browser performs actual BM25 retrieval, version selection and rule extraction with inspectable sources. The 30 / 14 / 10 day examples come from their respective paragraphs; citation and extracted-fact checks are not model semantic evaluations. Controlled rules are inspectable but narrower. Arbitrary sources need human interpretation; real models and production permissions require separate validation. Public examples do not establish enterprise performance.",
       "presentation": {
         "question": {
-          "zh": "引用同一份资料，为什么答案仍可能错？",
-          "en": "Why can a cited answer still be wrong?"
+          "zh": "资料里确实有这句话，为什么引用它仍可能答错？",
+          "en": "Why can a real quotation still support the wrong answer?"
         },
         "decision": {
-          "zh": "先限定日期、版本与可访问范围；条件改变后重新检索。",
-          "en": "Set date, version and access scope before retrieval; search again when conditions change."
+          "zh": "对照日期、资料版本和任务条件，组织有依据的答复。内置案例可改条件，自己的资料可本机检索；未知条款留待确认。",
+          "en": "Draft an answer against dates, source versions and task facts. Change built-in cases or search personal sources locally; unknown clauses remain unconfirmed."
         },
         "image": "/assets/work/showcase/rag-lab.jpg",
         "caption": {
-          "zh": "可信 RAG 实验台 · 生效版本、检索答案与对应原文",
-          "en": "Trustworthy RAG Lab · Effective version, retrieved answer and source paragraph"
+          "zh": "可信 RAG · 资料条件、答复与引用并置",
+          "en": "Trustworthy RAG · Conditions, answer and sources together"
         },
         "kind": "demo",
         "thumbnail": "/assets/work/showcase/rag-lab-crop.jpg",
         "coverSize": {
-          "width": 1112,
-          "height": 408
+          "width": 1280,
+          "height": 900
         }
       },
       "iterationUrl": "/cases/rag/",

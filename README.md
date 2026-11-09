@@ -1,5 +1,7 @@
 # Andy Zhang · 产品作品集与独立工具
 
+2026-11-09 本地待审：四精选为 **Eval → 偏爱 → Bundle → 可信RAG**；通勤继续在18项作品库。更新短互动、真实工具截图、入口与设计过程，保留官网原有风格和动效。[本批范围、生成与检查](docs/SELECTED-DEPTH-20261109.md)。此条不代表已合并或上线，以下日期记录保留原发布状态。
+
 
 2026-11-07：新增鱿鱼博弈实验室，提供有限/无限规则比较、回放、模拟与十二道挑战。官网保留原 17 项作品并新增第四个德州入口，详见 [集成记录](docs/SQUID-LAB-20261107.md)。
 [打开官网](https://andyzhang666666.github.io/) · [English](README.en.md) · [GitHub 主页](https://github.com/AndyZhang666666) · [项目索引](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.md)

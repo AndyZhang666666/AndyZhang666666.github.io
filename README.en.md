@@ -1,5 +1,7 @@
 # Andy Zhang · Product portfolio and independent tools
 
+2026-11-09 local candidate: **Eval → TasteRoom → Bundle → Trustworthy RAG**, with Commute retained in the18-work library. Short tasks, actual UI captures, links and owned case studies are updated while the original visual shell and motion remain. [Scope, generation and checks](docs/SELECTED-DEPTH-20261109.md). Not merged or published; dated entries below retain their historical status.
+
 
 2026-11-07: Added Squid Lab with finite/infinite rule comparisons, event replay, paired simulations and twelve spot challenges. The original 17 projects remain; the poker group now has four entries. See [integration notes](docs/SQUID-LAB-20261107.md).
 [Live portfolio](https://andyzhang666666.github.io/) · [中文](README.md) · [GitHub profile](https://github.com/AndyZhang666666) · [Project index](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.en.md)
@@ -10,7 +12,7 @@
 
 This repository hosts my personal site and four independent products. Professional experience, product decisions, research and runnable demos are presented separately. Each project explains its data and run mode.
 
-The default featured work is **Eval Lab, TasteRoom, Bundle Lab and Commute Compare**. Direction controls change their order; all four remain available. Agent Execution Bench and Trustworthy RAG Lab remain in the complete 17-project library. [Current integrated release](docs/RELEASE-20261103.md).
+The current local selection is **Eval Lab, TasteRoom, Bundle Lab and Trustworthy RAG**. Direction controls change order; all four remain available. Commute Compare and Agent Execution Bench remain in the complete18-work library. [Previous integrated release](docs/RELEASE-20261103.md).
 
 ## Find the source
 

@@ -12,6 +12,7 @@ import {renderAiViews} from '../assets/ai-views.mjs';
 import {applyPersonalPresentation,transformPersonalHTML,patchPersonalApp} from '../content/personal-presentation.mjs';
 import {enhancePresentationHTML,presentationCases} from '../content/presentation-mode.mjs';
 import {rasterSize} from '../content/raster-size.mjs';
+if(process.argv.includes('--selected-only')){await import('./update-selected.mjs');process.exit(0);}
 const localReview=process.argv.includes('--local');
 const releaseVersion='20261101-integrated1';
 const showcaseVersion='20261101-integrated1';
@@ -164,3 +165,5 @@ fs.writeFileSync('index.html',restoredHtml);
 await integrateSite();
 fs.writeFileSync('index.html',enhancePresentationHTML(fs.readFileSync('index.html','utf8')));
 integrateSquidLab();
+// Keep the latest four task-oriented entries after optional extension integration.
+await import('./update-selected.mjs');
