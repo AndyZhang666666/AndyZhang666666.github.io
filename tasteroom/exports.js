@@ -1,3 +1,4 @@
+import {ARTBOARDS,normalizeArtwork} from './artwork.js';
 import { posterSvg } from './experiments.js';
 
 // Both image formats use the exact SVG shown in the working canvas.
@@ -30,8 +31,9 @@ export async function posterPng(room, content) {
     const image = new Image();
     await new Promise((resolve, reject) => { image.onload = resolve; image.onerror = () => reject(Error('海报渲染失败，请重试或导出 SVG。')); image.src = url; });
     const canvas = document.createElement('canvas');
-    canvas.width = 900; canvas.height = 1200;
-    canvas.getContext('2d').drawImage(image, 0, 0, 900, 1200);
+    const {width,height}=ARTBOARDS[normalizeArtwork(room.artwork).format];
+    canvas.width = width; canvas.height = height;
+    canvas.getContext('2d').drawImage(image, 0, 0, width, height);
     return await new Promise((resolve, reject) => canvas.toBlob(blob => blob ? resolve(blob) : reject(Error('浏览器无法生成 PNG，请导出 SVG。')), 'image/png'));
   } finally { URL.revokeObjectURL(url); }
 }
