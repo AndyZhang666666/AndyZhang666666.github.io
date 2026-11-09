@@ -3,7 +3,7 @@ const {chromium}=await import('playwright').catch(()=>import(process.env.PLAYWRI
 import {mkdir,writeFile}from'node:fs/promises';import assert from'node:assert/strict';
 const base=process.env.RAG_URL||'http://127.0.0.1:8861/rag-lab/',out=new URL('../evidence/product-depth-20261109/',import.meta.url);await mkdir(out,{recursive:true});
 const browser=await chromium.launch({headless:true,channel:'chrome'}),checks=[];
-async function openDetails(page,selector){if(await page.locator(selector).getAttribute('open')===null)await page.locator(selector+'>summary').click();}
+async function openDetails(page,selector){if(await page.locator(selector).evaluate(e=>e.tagName==='DETAILS'&&!e.open))await page.locator(selector+'>summary').click();}
 try{for(const width of [1280,390,768]){
  const page=await browser.newPage({viewport:{width,height:900},acceptDownloads:true}),errors=[],external=[];page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(!r.url().startsWith(new URL(base).origin)&&/^https?:/.test(r.url()))external.push(r.url());});
  await page.goto(base);await page.locator('#result[aria-busy="false"]').waitFor();assert.equal(await page.locator('[data-question]').count(),6);if(width===390)assert.ok((await page.locator('#answerHeadline').boundingBox()).y<850);
