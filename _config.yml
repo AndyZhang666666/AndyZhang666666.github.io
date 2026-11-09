@@ -69,3 +69,4 @@ exclude:
   - docs/PORTFOLIO-V2-20261109.md
   - scripts/test-portfolio-v2.mjs
   - scripts/test-motion-policy.mjs
+  - docs/RELEASE-READY-V2-20261109.md
