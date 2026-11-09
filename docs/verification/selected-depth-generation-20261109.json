@@ -1,5 +1,13 @@
 {
   "format": 1,
+  "protectedBaseline": {
+    "format": 1,
+    "revision": "828fc5938ae9772afc150d920f892d77935f33b7",
+    "role": "Approved current origin/main visual baseline, merged into the product-depth development branch",
+    "priorBatchBaseline": "55f3cb4",
+    "scope": "Protect the current V2 hero, personal facts, unrelated works, education, themes and shared motion. This batch may replace only its four selected previews and owned cards/case bodies.",
+    "historicalEvidence": "Earlier selected-depth evidence and unchanged commute-specific scripts describe their original baseline; this record does not rewrite those results."
+  },
   "scope": "Four selected demos and their owned cards/cases only",
   "order": [
     "trust",
@@ -21,7 +29,7 @@
   ],
   "projectCount": 18,
   "commutePreserved": true,
-  "sourceManifestSha256": "192fadbf1fc2956082c2abe617b1dfb8c0550061c366d0b2afd67cf4cb29c3b2",
+  "sourceManifestSha256": "d262aa1b3f65d670e153412b968d29c9f7ed6fbadc086ec8d6d700998ab546a9",
   "previewSourceFiles": [
     {
       "file": "assets/demo-preview/eval-sample.json",
@@ -49,11 +57,11 @@
     },
     {
       "file": "rag-lab/engine.mjs",
-      "sha256": "fd02091c24c0ef78a44eca4179b1fbfdbf078748b84e57ee4c49d99d989d6632"
+      "sha256": "4ee1ee977a9c3ea0da56cea4753ca2d159700bc744aef90d972119cd99e4ff51"
     },
     {
       "file": "rag-lab/public-corpus.json",
-      "sha256": "76ab931e9d031f10f8d94e0f589f5fe1b592475a399e0dbe407050055397baaf"
+      "sha256": "36bcfc644d3d295940f5baed69d29f03c5557bdae0643d1c80c06e3cd217d93f"
     }
   ],
   "presentationCases": {

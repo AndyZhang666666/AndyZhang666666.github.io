@@ -3,27 +3,27 @@
   "sources": [
     {
       "repo": "bundle-lab",
-      "revision": "4c9ceb79239ae3c1b0afb4be3ed2e389b938c7b8",
+      "revision": "4cab0dc75fa70df970c016b642d294fbb8a33dde",
       "source": "lib/simulate.js",
       "target": "assets/demo-preview/bundle-model.mjs",
-      "url": "https://github.com/AndyZhang666666/bundle-lab/blob/4c9ceb79239ae3c1b0afb4be3ed2e389b938c7b8/lib/simulate.js",
+      "url": "https://github.com/AndyZhang666666/bundle-lab/blob/4cab0dc75fa70df970c016b642d294fbb8a33dde/lib/simulate.js",
       "sourceSha256": "0021819b10aff396334e57fd230a7a117dbe7e434656d83eafddc788db581e65",
       "outputSha256": "0021819b10aff396334e57fd230a7a117dbe7e434656d83eafddc788db581e65",
       "use": "Byte-identical pure calculation module"
     },
     {
       "repo": "llm-output-eval",
-      "revision": "c557760ec32a8954250667b805fc26295a9b0bbc",
+      "revision": "66a13b4551a9cccaeafb7d8ab3a308c808ec99c8",
       "source": "src/data/replay.json",
       "target": "assets/demo-preview/eval-sample.json",
-      "url": "https://github.com/AndyZhang666666/llm-output-eval/blob/c557760ec32a8954250667b805fc26295a9b0bbc/src/data/replay.json",
+      "url": "https://github.com/AndyZhang666666/llm-output-eval/blob/66a13b4551a9cccaeafb7d8ab3a308c808ec99c8/src/data/replay.json",
       "sourceSha256": "520e00a8eff4fb0236797f592f735dfe79e123c88e53aadcd13596672cf84779",
       "outputSha256": "65846b01015917fedb3682c9b792be6965355e46193d11d9f39e4d525ee1d01d",
       "use": "Read-only e06 / run 0 / structure excerpt; no new model call"
     },
     {
       "repo": "bundle-lab",
-      "revision": "4c9ceb79239ae3c1b0afb4be3ed2e389b938c7b8",
+      "revision": "4cab0dc75fa70df970c016b642d294fbb8a33dde",
       "target": "assets/demo-preview/bundle-candidate.json",
       "inputs": [
         {

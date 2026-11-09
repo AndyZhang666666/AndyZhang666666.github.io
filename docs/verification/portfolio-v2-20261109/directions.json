@@ -1,0 +1,42 @@
+[
+  {
+    "direction": "综合推荐",
+    "order": [
+      "trust",
+      "taste",
+      "bundles",
+      "commute"
+    ],
+    "selected": "trust"
+  },
+  {
+    "direction": "AI / Agent",
+    "order": [
+      "trust",
+      "taste",
+      "bundles",
+      "commute"
+    ],
+    "selected": "trust"
+  },
+  {
+    "direction": "生活与创新",
+    "order": [
+      "taste",
+      "commute",
+      "trust",
+      "bundles"
+    ],
+    "selected": "taste"
+  },
+  {
+    "direction": "增长与商业化",
+    "order": [
+      "bundles",
+      "trust",
+      "commute",
+      "taste"
+    ],
+    "selected": "bundles"
+  }
+]

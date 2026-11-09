@@ -1,0 +1,130 @@
+{
+  "passed": true,
+  "port": 8869,
+  "scope": "HTTP boundary and built-output mapping only; no browser or live external requests",
+  "checks": [
+    {
+      "check": "actual public root and source mappings",
+      "status": 200
+    },
+    {
+      "route": "/",
+      "status": 200
+    },
+    {
+      "route": "/review.html",
+      "status": 200
+    },
+    {
+      "route": "/assets/motion-governor.mjs",
+      "status": 200
+    },
+    {
+      "route": "/assets/mobile-navigation.mjs",
+      "status": 200
+    },
+    {
+      "route": "/scripts/case-reader.js",
+      "status": 200
+    },
+    {
+      "route": "/cases/trust/",
+      "status": 200
+    },
+    {
+      "route": "/cases/taste/",
+      "status": 200
+    },
+    {
+      "route": "/cases/bundles/",
+      "status": 200
+    },
+    {
+      "route": "/cases/rag/",
+      "status": 200
+    },
+    {
+      "route": "/llm-output-eval/",
+      "status": 200
+    },
+    {
+      "route": "/llm-output-eval/workspace/",
+      "status": 200
+    },
+    {
+      "route": "/bundle-lab/simulate/",
+      "status": 200
+    },
+    {
+      "route": "/tasteroom/",
+      "status": 200
+    },
+    {
+      "route": "/rag-lab/",
+      "status": 200
+    },
+    {
+      "route": "/rag-lab/vendor/pdf.mjs",
+      "status": 200
+    },
+    {
+      "route": "/rag-lab/vendor/pdf.worker.mjs",
+      "status": 200
+    },
+    {
+      "route": "/scripts/preview.mjs",
+      "status": 404
+    },
+    {
+      "route": "/scripts/update-content.mjs",
+      "status": 404
+    },
+    {
+      "route": "/rag-lab/server/server.mjs",
+      "status": 404
+    },
+    {
+      "route": "/rag-lab/corpus/policy-2026.md",
+      "status": 404
+    },
+    {
+      "route": "/rag-lab/evidence/product-depth-20261109/browser-result.json",
+      "status": 404
+    },
+    {
+      "route": "/rag-lab/node_modules/a",
+      "status": 404
+    },
+    {
+      "route": "/tasteroom/server.mjs",
+      "status": 404
+    },
+    {
+      "route": "/.git/config",
+      "status": 404
+    },
+    {
+      "route": "/.env",
+      "status": 404
+    },
+    {
+      "route": "/server.mjs",
+      "status": 404
+    },
+    {
+      "route": "/scripts/case-reader.js",
+      "method": "HEAD",
+      "status": 200
+    },
+    {
+      "route": "/",
+      "method": "POST",
+      "status": 405
+    },
+    {
+      "route": "/poker-squid-lab/",
+      "status": 302,
+      "redirectFollowed": false
+    }
+  ]
+}

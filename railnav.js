@@ -36,8 +36,8 @@
       var pair = LABELS[id];
       if (!pair) return;
 
-      var btn = document.createElement('button');
-      btn.type = 'button';
+      var btn = document.createElement('a');
+      btn.href = '#' + id;
       btn.className = 'rail-item';
       btn.dataset.target = id;
       btn.setAttribute('aria-label', pair[0]);
@@ -56,14 +56,8 @@
       btn.appendChild(label);
       btn.appendChild(tick);
 
-      btn.addEventListener('click', function () {
-        var target = document.getElementById(id);
-        if (!target) return;
-        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-        // 主动更新，不等 IO 回调，避免点击后指示器慢半拍
-        setCurrent(id);
-      });
+      // Native links update the hash/history, retain query parameters and allow
+      // keyboard/open-in-new-tab behavior. IO below only updates the highlight.
 
       nav.appendChild(btn);
       items[id] = btn;

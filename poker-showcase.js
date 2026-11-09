@@ -37,7 +37,7 @@
   var busy = false;
 
   function reduced() {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return document.documentElement.dataset.motion === 'reduce' || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
   function lang() {
     return (document.documentElement.lang || '').indexOf('en') === 0 ? 'en' : 'zh';
@@ -177,13 +177,15 @@
 
     if (!wrap) wrap = buildFan();
 
-    // 已在正确容器里且仍是它的第一个子节点，什么都不做
-    if (placed === target && wrap.parentNode === target) return;
-
     if (group) {
-      // 分组容器：作为第一个子节点（组标题上方 / 卡片之前）
-      group.insertBefore(wrap, group.firstChild);
+      // Read the group title first; the same fan sits immediately before its cards.
+      var head = group.querySelector(':scope > .pgroup-head');
+      var pokerGrid = group.querySelector(':scope > .pgroup-grid');
+      if (!head || !pokerGrid) return;
+      if (placed === target && wrap.parentNode === target && wrap.previousElementSibling === head && wrap.nextElementSibling === pokerGrid) return;
+      group.insertBefore(wrap, pokerGrid);
     } else {
+      if (placed === target && wrap.parentNode === target) return;
       // 没有分组：放在 #projects 内、#projectGrid 之前
       var grid = document.getElementById('projectGrid');
       target.insertBefore(wrap, grid || null);

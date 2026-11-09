@@ -64,6 +64,7 @@ for(const [id,value] of protectedSections){const r=sectionRange(html,id);if(html
 for(const [id,value] of untouched)if(JSON.stringify(data.projects.find(p=>p.id===id))!==value)throw Error(`Unrelated project changed: ${id}`);
 write('data.json',JSON.stringify(data,null,2)+'\n');write('index.html',html);
 const previewSourceFiles=['assets/demo-preview/eval-sample.json','assets/demo-preview/bundle-model.mjs','assets/demo-preview/bundle-candidate.json','tasteroom/engine.js','tasteroom/artwork.js','tasteroom/directions.js','rag-lab/engine.mjs','rag-lab/public-corpus.json'].map(file=>({file,sha256:hash(read(file))}));
-const report={format:1,scope:'Four selected demos and their owned cards/cases only',order:selected.map(s=>s.id),protectedSections:[...protectedSections.keys()],projectCount:data.projects.length,commutePreserved:data.projects.some(p=>p.id==='commute'),sourceManifestSha256:hash(read('assets/demo-preview/provenance.json')),previewSourceFiles,presentationCases};
+const protectedBaseline=JSON.parse(read('docs/verification/selected-depth-baseline-20261109.json'));
+const report={format:1,protectedBaseline,scope:'Four selected demos and their owned cards/cases only',order:selected.map(s=>s.id),protectedSections:[...protectedSections.keys()],projectCount:data.projects.length,commutePreserved:data.projects.some(p=>p.id==='commute'),sourceManifestSha256:hash(read('assets/demo-preview/provenance.json')),previewSourceFiles,presentationCases};
 fs.mkdirSync(path.join(root,'docs/verification'),{recursive:true});write('docs/verification/selected-depth-generation-20261109.json',JSON.stringify(report,null,2)+'\n');
 console.log('Updated four selected previews, their cards/cases and source manifest; current shell and unrelated content preserved.');

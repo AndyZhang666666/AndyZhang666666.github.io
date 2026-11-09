@@ -1,3 +1,4 @@
+// Motion V2: runtime owners live in motion-governor.mjs.
 // ===== STATE =====
 let lang = 'zh';
 let data = null;
@@ -22,14 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     render();
     attachEventListeners();
     initScrollAnimations();
-    initCountUp();
-    initNavState();
-    initScrollProgress();
-    initSpotlight();
-    initCardTilt();
-    initHeroFade();
     initPalette();
-    initMagnetic();
     document.dispatchEvent(new Event('portfolio:ready'));
   } catch (err) {
     console.error('Failed to load data:', err);
@@ -245,22 +239,8 @@ function attachEventListeners() {
     });
   });
 
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', (e) => {
-      const href = a.getAttribute('href');
-      if (href === '#top') {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (href !== '#') {
-        const t = document.querySelector(href);
-        if (t) {
-          e.preventDefault();
-          const nav = document.getElementById('nav').offsetHeight;
-          window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - nav - 28, behavior: 'smooth' });
-        }
-      }
-    });
-  });
+  // Native hash anchors own navigation, URL changes and browser history.
+
 }
 
 // ===== LANGUAGE =====
@@ -302,50 +282,10 @@ function initScrollAnimations() {
 }
 
 // ===== COUNT UP =====
-function initCountUp() {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(en => {
-      if (!en.isIntersecting) return;
-      const el = en.target;
-      const end = parseFloat(el.dataset.count);
-      const dec = parseInt(el.dataset.decimal || 0, 10);
-      const pre = el.dataset.prefix || '';
-      const suf = el.dataset.suffix || '';
-      const t0 = performance.now(), dur = 1400;
-      const tick = (now) => {
-        const p = Math.min((now - t0) / dur, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        let v = end * eased;
-        const fmt = end >= 1000000 ? (p < 1 ? (v / 1000000).toFixed(2) : Math.round(v / 1000000)) + 'M'
-                  : end >= 10000   ? Math.round(v / 1000) + 'k'
-                  : v.toFixed(dec);
-        el.textContent = pre + fmt + suf;
-        if (p < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-      io.unobserve(el);
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.stat-num').forEach(el => io.observe(el));
-}
+// initCountUp: owned by assets/motion-governor.mjs.
 
 // ===== NAV =====
-function initNavState() {
-  const nav = document.getElementById('nav');
-  const links = [...document.querySelectorAll('.nav-links a')];
-  const onScroll = () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-    const y = window.scrollY + nav.offsetHeight + 80;
-    let cur = null;
-    links.forEach(a => {
-      const s = document.querySelector(a.getAttribute('href'));
-      if (s && s.offsetTop <= y) cur = a;
-    });
-    links.forEach(a => a.classList.toggle('active', a === cur));
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-}
+// initNavState: owned by assets/motion-governor.mjs.
 
 
 // ===== MARQUEE：双轨。上轨 = 公司 · 年份 · 角色；下轨 = 做过的事 / 能力关键词，反向滚 =====
@@ -381,80 +321,17 @@ function renderMarquee() {
 }
 
 // ===== 顶部阅读进度 =====
-function initScrollProgress() {
-  const bar = document.querySelector('.scroll-progress');
-  if (!bar) return;
-  const update = () => {
-    const h = document.documentElement;
-    const max = h.scrollHeight - h.clientHeight;
-    bar.style.setProperty('--progress', max > 0 ? (h.scrollTop / max).toFixed(4) : 0);
-  };
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  update();
-}
+// initScrollProgress: owned by assets/motion-governor.mjs.
 
 // ===== 鼠标聚光灯（跟随光标的暖光） =====
-function initSpotlight() {
-  const sp = document.querySelector('.spotlight');
-  if (!sp || !window.matchMedia('(hover: hover)').matches) return;
-  let raf = null, x = innerWidth / 2, y = innerHeight * 0.3;
-  window.addEventListener('mousemove', (e) => {
-    x = e.clientX; y = e.clientY;
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      sp.style.setProperty('--mx', x + 'px');
-      sp.style.setProperty('--my', y + 'px');
-      raf = null;
-    });
-  }, { passive: true });
-}
+// initSpotlight: owned by assets/motion-governor.mjs.
 
 // ===== 项目卡 / Stat：3D 倾斜 + 光标追踪边缘高光 =====
-function initCardTilt() {
-  if (!window.matchMedia('(hover: hover)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const track = (el, tilt) => {
-    el.addEventListener('mousemove', (e) => {
-      const r = el.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width;
-      const py = (e.clientY - r.top) / r.height;
-      el.style.setProperty('--cx', (px * 100).toFixed(1) + '%');
-      el.style.setProperty('--cy', (py * 100).toFixed(1) + '%');
-      if (tilt) {
-        const rx = ((0.5 - py) * 6).toFixed(2);
-        const ry = ((px - 0.5) * 6).toFixed(2);
-        el.style.transform = `translateY(-5px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-      }
-    });
-    el.addEventListener('mouseleave', () => {
-      if (tilt) {
-        el.style.transition = 'transform 0.5s var(--ease), border-color 0.34s var(--ease), box-shadow 0.34s var(--ease)';
-        el.style.transform = '';
-        setTimeout(() => { el.style.transition = ''; }, 500);
-      }
-    });
-  };
-  document.querySelectorAll('.project-card:not(.placeholder)').forEach(c => track(c, true));
-  document.querySelectorAll('.stat').forEach(s => track(s, false));
-}
+// initCardTilt: owned by assets/motion-governor.mjs.
 
 
 // ===== 首屏 mesh：随滚动淡出、上移，让首屏「沉」进正文 =====
-function initHeroFade() {
-  const hero = document.querySelector('.hero');
-  if (!hero) return;
-  let raf = null;
-  const update = () => {
-    const h = hero.offsetHeight || innerHeight;
-    const f = Math.min(Math.max(scrollY / (h * 0.7), 0), 1);
-    hero.style.setProperty('--hero-fade', f.toFixed(3));
-    raf = null;
-  };
-  window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
-  update();
-}
+// initHeroFade: owned by assets/motion-governor.mjs.
 
 // ===== 配色切换：data-palette + localStorage =====
 function initPalette() {
@@ -479,27 +356,7 @@ function initPalette() {
 }
 
 // ===== 磁吸按钮（Dennis Snellenberg 式）：鼠标靠近时向鼠标偏移，离开弹回 =====
-function initMagnetic() {
-  if (window.matchMedia('(hover: none)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const targets = document.querySelectorAll('.hero-cta .btn, #contactGrid .contact-item');
-  targets.forEach(el => {
-    el.setAttribute('data-magnetic', '');
-    const strength = el.classList.contains('btn') ? 0.35 : 0.22;
-    let raf = 0;
-    el.addEventListener('mousemove', (e) => {
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left - r.width / 2) * strength;
-      const y = (e.clientY - r.top - r.height / 2) * strength;
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => { el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`; });
-    });
-    el.addEventListener('mouseleave', () => {
-      cancelAnimationFrame(raf);
-      el.style.transform = '';
-    });
-  });
-}
+// initMagnetic: owned by assets/motion-governor.mjs.
 
 
 // ===== 关于 AI：四条判断 =====

@@ -1,13 +1,14 @@
 import {renderProjectCards} from './project-cards.mjs';
-import {createShowcaseMotion} from './showcase-motion.mjs';
-import {renderProductPrinciples,initProductPrinciples} from './product-principles.mjs';
+import {createShowcaseMotion} from './showcase-motion.mjs?v=20261109-v2';
+import {renderProductPrinciples,initProductPrinciples} from './product-principles.mjs?v=20261109-v2';
 import {renderAiViews} from './ai-views.mjs';
-import {initExecution,initRag} from './new-work-previews.mjs';
+import {initExecution,initRag} from './new-work-previews.mjs?v=20261109-v2';
+import {isMotionReduced} from './motion-governor.mjs?v=20261109-v2';
 
 // The page owns only ephemeral previews. Full tools keep their own state and storage.
 const root=document.getElementById('selected');
 const en=()=>document.documentElement.lang.startsWith('en');
-const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduced=()=>isMotionReduced()||document.hidden;
 const words=(node,zh,english)=>{if(!node)return;node.dataset.zh=zh;node.dataset.en=english;node.textContent=en()?english:zh;};
 const translate=node=>node.querySelectorAll('[data-zh]').forEach(el=>{el.textContent=el.dataset[en()?'en':'zh'];});
 const feedback=node=>{if(node?.animate&&!reduced())node.animate([{opacity:.6,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:220,easing:'cubic-bezier(.16,1,.3,1)'});};

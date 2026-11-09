@@ -1,4 +1,7 @@
 import {escapeHtml as e} from './project-cards.mjs';
+// This module also renders HTML in Node. Read browser policy only when an
+// interaction runs; importing the renderer must not mount browser effects.
+const isMotionReduced=()=>document.documentElement.dataset.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches;
 const text=(tag,cls,zh,en)=>`<${tag} class="${cls}" data-zh="${e(zh)}" data-en="${e(en)}">${e(zh)}</${tag}>`;
 const arrow='<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const diagrams=[
@@ -17,14 +20,14 @@ export function renderProductPrinciples(principles){
 }
 export function initProductPrinciples(root){
  if(!root||root.dataset.practiceReady)return;root.dataset.practiceReady='true';
- const cards=[...root.querySelectorAll('[data-principle]')],reduce=matchMedia('(prefers-reduced-motion: reduce)');
+ const cards=[...root.querySelectorAll('[data-principle]')];
  const fine=matchMedia('(min-width:980px) and (hover:hover)');
  let frame=0,current,target={x:0,y:0};
- function paint(){frame=0;if(current){current.style.setProperty('--practice-rx',(-target.y*.65).toFixed(2)+'deg');current.style.setProperty('--practice-ry',(target.x*.65).toFixed(2)+'deg');}}
+ function paint(){frame=0;if(current&&!isMotionReduced()&&!document.hidden){current.style.setProperty('--practice-rx',(-target.y*.65).toFixed(2)+'deg');current.style.setProperty('--practice-ry',(target.x*.65).toFixed(2)+'deg');}}
  function reset(card){card.style.removeProperty('--practice-rx');card.style.removeProperty('--practice-ry');}
  cards.forEach(card=>{
   card.addEventListener('pointermove',event=>{
-   if(reduce.matches||!fine.matches||event.pointerType!=='mouse')return;
+   if(isMotionReduced()||document.hidden||!fine.matches||event.pointerType!=='mouse')return;
    if(current&&current!==card)reset(current);current=card;
    const r=card.getBoundingClientRect();target={x:Math.max(-1,Math.min(1,(event.clientX-r.left)/r.width*2-1)),y:Math.max(-1,Math.min(1,(event.clientY-r.top)/r.height*2-1))};
    if(!frame)frame=requestAnimationFrame(paint);
@@ -33,9 +36,9 @@ export function initProductPrinciples(root){
  });
  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('practice-entered');observer.unobserve(entry.target);}}),{threshold:.12});
  cards.forEach(card=>observer.observe(card));
- reduce.addEventListener('change',()=>{if(reduce.matches){cards.forEach(card=>{reset(card);card.getAnimations({subtree:true}).forEach(a=>a.cancel());});cancelAnimationFrame(frame);frame=0;current=null;}});
+ document.addEventListener('portfolio:motionchange',()=>{if(isMotionReduced()||document.hidden){cards.forEach(card=>{reset(card);card.getAnimations({subtree:true}).forEach(a=>a.cancel());});cancelAnimationFrame(frame);frame=0;current=null;}});
  root.addEventListener('pointerdown',event=>{
-  const link=event.target.closest('.practice-link');if(!link||reduce.matches||event.button!==0)return;
+  const link=event.target.closest('.practice-link');if(!link||isMotionReduced()||document.hidden||event.button!==0)return;
   link.animate([{scale:'1'},{scale:'.975',offset:.3},{scale:'1'}],{duration:230,easing:'cubic-bezier(.16,1,.3,1)'});
  },{passive:true});
 }

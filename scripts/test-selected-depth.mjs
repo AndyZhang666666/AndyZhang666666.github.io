@@ -7,9 +7,12 @@ import {directions,studies} from '../content/editorial.mjs';
 import {createTastePreview,posterContent} from '../assets/demo-preview/taste-session.mjs';
 import {DIRECTIONS,directionSvg} from '../tasteroom/directions.js';
 import {simulateOne,breakEvenAdoption} from '../assets/demo-preview/bundle-model.mjs';
+import {rasterSize} from '../content/raster-size.mjs';
+import {enhancePortfolioV2} from '../content/portfolio-v2.mjs';
 import {retrieveRun} from '../rag-lab/engine.mjs';
 const read=p=>fs.readFileSync(p,'utf8'),hash=v=>createHash('sha256').update(v).digest('hex');
-const base=process.env.SITE_BASELINE||'55f3cb4',old=p=>execFileSync('git',['show',`${base}:${p}`],{encoding:'utf8'});
+const baseline=JSON.parse(read('docs/verification/selected-depth-baseline-20261109.json'));
+const base=process.env.SITE_BASELINE||baseline.revision,old=p=>execFileSync('git',['show',`${base}:${p}`],{encoding:'utf8'});
 const data=JSON.parse(read('data.json')),prior=JSON.parse(old('data.json')),html=read('index.html');
 const expected={all:['trust','taste','bundles','rag'],ai:['rag','trust','taste','bundles'],life:['taste','trust','rag','bundles'],growth:['bundles','trust','rag','taste']};
 assert.deepEqual(selected.map(x=>x.id),expected.all);
@@ -32,7 +35,13 @@ for(const id of ids){const capture=captures.find(c=>c.id===id),p=data.projects.f
 for(const c of oldCaptures)if(!ids.has(c.id))assert.deepEqual(captures.find(n=>n.id===c.id),c,'Unrelated capture changed: '+c.id);
 function region(source,id){const start=source.indexOf(`<section id="${id}"`),tags=/<\/?section\b[^>]*>/g;assert.ok(start>=0,id);tags.lastIndex=start;let depth=0,m;while((m=tags.exec(source))){depth+=m[0].startsWith('</')?-1:1;if(depth===0)return source.slice(start,tags.lastIndex);}assert.fail('Unclosed '+id);}
 for(const id of ['top','about','ai','work','experience','education','awards','uses','skills','jd','contact'])if(old('index.html').includes(`<section id="${id}"`))assert.equal(region(html,id),region(old('index.html'),id),'Protected section: '+id);
-for(const file of ['app.js','style.css','bg-layers.js','motion.js','interactions.css','academic-art.js','education.js','assets/showcase-motion.mjs'])assert.equal(read(file),old(file),'Protected visual/interaction file: '+file);
+for(const file of ['app.js','style.css','bg-layers.js','motion.js','interactions.css','academic-art.js','education.js','assets/showcase-motion.mjs','assets/hero-paper.css','assets/mobile-navigation.css','assets/mobile-navigation.mjs','assets/motion-governor.css','assets/motion-governor.mjs','scripts/case-reader.js'])assert.equal(read(file),old(file),'Protected visual/interaction file: '+file);
+assert.equal(enhancePortfolioV2(html),html,'V2 enhancement and current selected resource revisions compose idempotently');
+for(const item of selected){
+ const file=`cases/${item.id}/index.html`,current=read(file);
+ assert.equal(current.replace(/<main>[^]*<\/main>/,'<main></main>'),old(file).replace(/<main>[^]*<\/main>/,'<main></main>'),'Approved V2 case shell/scripts: '+file);
+ for(const [,image,width,height] of current.matchAll(/<img src="(\/assets\/work\/[^"]+)" width="(\d+)" height="(\d+)"/g))assert.deepEqual({width:Number(width),height:Number(height)},rasterSize(fs.readFileSync(image.slice(1))),'Actual image dimensions: '+image);
+}
 const snapshot=['index.html','data.json',...selected.map(s=>`cases/${s.id}/index.html`)].map(p=>[p,hash(read(p))]);
 execFileSync(process.execPath,['scripts/update-content.mjs','--selected-only'],{stdio:'pipe'});for(const [file,value] of snapshot)assert.equal(hash(read(file)),value,'Idempotent current-shell generation: '+file);
 console.log('PASS: PRD directions, four canonical previews,18 preserved projects, all supplied facts, protected visual sections and idempotent scoped generation.');

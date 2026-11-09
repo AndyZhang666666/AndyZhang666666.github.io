@@ -1,8 +1,25 @@
-name: Squid Lab portfolio integration
+name: Portfolio integration and V2 regression
 on:
   push:
-    branches: [main, feat/squid-lab-entry]
-    paths: ['index.html', 'data.json', 'app.js', 'projects-split.js', 'assets/squid-lab-*', 'content/squid-lab.mjs', 'scripts/integrate-squid-lab.mjs', 'scripts/test-squid-integration.mjs', 'scripts/update-content.mjs', '.github/workflows/squid-entry.yml']
+    branches: [main, feat/squid-lab-entry, design/portfolio-v2-20261109]
+    paths:
+      - 'index.html'
+      - 'data.json'
+      - 'app.js'
+      - 'projects-split.js'
+      - 'poker-showcase.js'
+      - 'interactions.css'
+      - 'motion.js'
+      - 'railnav.js'
+      - 'academic-art.js'
+      - 'assets/**'
+      - 'content/**'
+      - 'cases/**'
+      - 'scripts/case-reader.js'
+      - 'scripts/integrate-squid-lab.mjs'
+      - 'scripts/test-*.mjs'
+      - 'scripts/update-content.mjs'
+      - '.github/workflows/squid-entry.yml'
   pull_request:
 permissions:
   contents: read
@@ -16,9 +33,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - run: node scripts/test-four-selected.mjs
       - run: node scripts/test-personal-art-direction.mjs
-      - run: node --test scripts/test-presentation-mode.mjs scripts/test-presentation-anchors.mjs scripts/test-squid-integration.mjs
+      - run: node --test scripts/test-presentation-mode.mjs scripts/test-presentation-anchors.mjs scripts/test-squid-integration.mjs scripts/test-portfolio-v2.mjs scripts/test-motion-policy.mjs
       - run: node scripts/update-content.mjs
       - run: git diff --exit-code -- index.html data.json app.js cases content/evidence-zh.json content/evidence-en.json
       - run: node --check assets/squid-lab-preview.mjs
