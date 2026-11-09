@@ -1,7 +1,8 @@
 // Read-only, in-memory homepage previews. Full apps retain their own state.
+import {isMotionReduced} from './motion-governor.mjs?v=20261109-v2';
 const en=()=>document.documentElement.lang.startsWith('en');
 const words=(node,zh,english)=>{node.dataset.zh=zh;node.dataset.en=english;node.textContent=en()?english:zh;};
-const feedback=node=>{if(node.animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches)node.animate([{opacity:.45,transform:'translateY(5px)'},{opacity:1,transform:'none'}],{duration:240,easing:'cubic-bezier(.16,1,.3,1)'});};
+const feedback=node=>{if(node.animate&&!isMotionReduced()&&!document.hidden)node.animate([{opacity:.45,transform:'translateY(5px)'},{opacity:1,transform:'none'}],{duration:240,easing:'cubic-bezier(.16,1,.3,1)'});};
 
 export function initExecution(panel){
  const records=JSON.parse(panel.querySelector('#executionPreviewRecord').textContent),record=records.find(item=>item.policy==='hardened');

@@ -1,8 +1,9 @@
 /* Decorative only. The real project cards, hand interaction and contact actions remain in place. */
+import {isMotionReduced} from './motion-governor.mjs?v=20261109-v2';
 const NS='http://www.w3.org/2000/svg';
-const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const fine=matchMedia('(hover: hover) and (pointer: fine)');
 const states=new Map();
+const layerStates=new WeakMap();
 let frame=0;
 
 const spade='<path d="M0-26C-5-18-24-8-24 5A13 13 0 0 0-3 15L-8 28H8L3 15A13 13 0 0 0 24 5C24-8 5-18 0-26Z"/>';
@@ -21,17 +22,17 @@ function conversationArtwork(){return `<svg xmlns="${NS}" viewBox="0 0 1320 640"
  </svg>`;}
 
 function layer(kind,art){const d=document.createElement('div');d.className=`sa-atmosphere sa-${kind}`;d.setAttribute('aria-hidden','true');d.innerHTML=art;return d;}
-const observer='IntersectionObserver' in window?new IntersectionObserver(entries=>{for(const entry of entries){const s=states.get(entry.target);if(!s)continue;s.visible=entry.isIntersecting;if(!s.visible){s.tx=0;s.ty=0;s.x=0;s.y=0;s.layer.style.setProperty('--sa-x','0px');s.layer.style.setProperty('--sa-y','0px');}else schedule();}},{rootMargin:'80px 0px',threshold:0}):null;
-function schedule(){if(!frame&&!document.hidden&&!reduced.matches)frame=requestAnimationFrame(update);}
-function update(){frame=0;if(document.hidden||reduced.matches)return;let moving=false;for(const s of states.values()){if(!s.visible||!s.host.isConnected)continue;s.x+=(s.tx-s.x)*.13;s.y+=(s.ty-s.y)*.13;s.layer.style.setProperty('--sa-x',s.x.toFixed(2)+'px');s.layer.style.setProperty('--sa-y',s.y.toFixed(2)+'px');if(Math.abs(s.tx-s.x)+Math.abs(s.ty-s.y)>.06)moving=true;}if(moving)schedule();}
-function mount(host,kind,art){if(!host||states.has(host))return;host.classList.add(`sa-${kind==='poker'?'poker':'contact'}-host`);const l=layer(kind,art);host.append(l);const abort=new AbortController();const state={host,layer:l,visible:!observer,x:0,y:0,tx:0,ty:0,abort};states.set(host,state);observer?.observe(host);
- host.addEventListener('pointermove',e=>{if(!state.visible||!fine.matches||reduced.matches)return;const r=host.getBoundingClientRect();state.tx=((e.clientX-r.left)/r.width-.5)*11;state.ty=((e.clientY-r.top)/r.height-.5)*7;schedule();},{passive:true,signal:abort.signal});
+const observer='IntersectionObserver' in window?new IntersectionObserver(entries=>{for(const entry of entries){const s=layerStates.get(entry.target);if(!s)continue;s.visible=entry.isIntersecting;if(!s.visible){s.tx=0;s.ty=0;s.x=0;s.y=0;s.layer.style.setProperty('--sa-x','0px');s.layer.style.setProperty('--sa-y','0px');}else schedule();}},{threshold:0}):null;
+function schedule(){if(!frame&&!document.hidden&&!isMotionReduced())frame=requestAnimationFrame(update);}
+function update(){frame=0;if(document.hidden||isMotionReduced())return;let moving=false;for(const s of states.values()){if(!s.visible||!s.host.isConnected)continue;s.x+=(s.tx-s.x)*.13;s.y+=(s.ty-s.y)*.13;s.layer.style.setProperty('--sa-x',s.x.toFixed(2)+'px');s.layer.style.setProperty('--sa-y',s.y.toFixed(2)+'px');if(Math.abs(s.tx-s.x)+Math.abs(s.ty-s.y)>.06)moving=true;}if(moving)schedule();}
+function mount(host,kind,art){if(!host||states.has(host))return;host.classList.add(`sa-${kind==='poker'?'poker':'contact'}-host`);const l=layer(kind,art);host.append(l);const abort=new AbortController();const state={host,layer:l,visible:!observer,x:0,y:0,tx:0,ty:0,abort};states.set(host,state);layerStates.set(l,state);observer?.observe(l);
+ host.addEventListener('pointermove',e=>{if(!state.visible||document.hidden||!fine.matches||isMotionReduced())return;const r=host.getBoundingClientRect();state.tx=((e.clientX-r.left)/r.width-.5)*11;state.ty=((e.clientY-r.top)/r.height-.5)*7;schedule();},{passive:true,signal:abort.signal});
  host.addEventListener('pointerleave',()=>{state.tx=0;state.ty=0;schedule();},{passive:true,signal:abort.signal});
- if(kind==='poker')host.addEventListener('click',e=>{if(!e.target.closest('.pk-fan')||reduced.matches)return;host.classList.remove('sa-deal');requestAnimationFrame(()=>host.classList.add('sa-deal'));},{passive:true,signal:abort.signal});
+ if(kind==='poker')host.addEventListener('click',e=>{if(!e.target.closest('.pk-fan')||document.hidden||isMotionReduced())return;host.classList.remove('sa-deal');requestAnimationFrame(()=>{if(!document.hidden&&!isMotionReduced())host.classList.add('sa-deal');});},{passive:true,signal:abort.signal});
 }
-function sync(){for(const [host,s]of states){if(!host.isConnected){s.abort.abort();observer?.unobserve(host);states.delete(host);}}mount(document.querySelector('.pgroup-poker'),'poker',pokerArtwork());mount(document.querySelector('#contact'),'correspondence',conversationArtwork());}
+function sync(){for(const [host,s]of states){if(!host.isConnected){s.abort.abort();observer?.unobserve(s.layer);states.delete(host);}}mount(document.querySelector('.pgroup-poker'),'poker',pokerArtwork());mount(document.querySelector('#contact'),'correspondence',conversationArtwork());}
 function reset(){for(const s of states.values()){s.tx=s.ty=s.x=s.y=0;s.layer.style.setProperty('--sa-x','0px');s.layer.style.setProperty('--sa-y','0px');}if(frame){cancelAnimationFrame(frame);frame=0;}}
 function init(){sync();const grid=document.querySelector('#projectGrid');if(grid)new MutationObserver(sync).observe(grid,{childList:true});}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)reset();});
-reduced.addEventListener('change',reset);fine.addEventListener('change',reset);
+document.addEventListener('portfolio:motionchange',reset);fine.addEventListener('change',reset);
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();

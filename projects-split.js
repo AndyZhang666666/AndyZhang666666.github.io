@@ -14,6 +14,8 @@
 
   var GRID_ID = 'projectGrid';
   var ORDER = ['main', 'cases', 'poker'];
+  // Presentation only: move the real cards, retaining their controls and saved state.
+  var POKER_ORDER = ['squid-lab', 'poker-ev', 'bankroll', 'poker-quiz'];
   var GROUPS = {
     main:  { key: 'main',  zh: '产品与实验', en: 'Products & Experiments' },
     cases: { key: 'cases', zh: '也做过这些', en: 'Other things I have built' },
@@ -49,7 +51,7 @@
     return (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
   }
   function reduced() {
-    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return document.documentElement.dataset.motion === 'reduce' || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }
   function textOf(el) {
     if (!el) return '';
@@ -295,6 +297,17 @@
       ORDER.forEach(function (k) {
         var g = groups[k];
         var grid = g.querySelector('.pgroup-grid');
+
+        if (k === 'poker') {
+          var current = Array.prototype.slice.call(grid.querySelectorAll(':scope > .project-card'));
+          var ranked = POKER_ORDER.map(function (id) {
+            return current.find(function (card) { return card.dataset.projectId === id; });
+          }).filter(Boolean);
+          var desired = ranked.concat(current.filter(function (card) { return ranked.indexOf(card) === -1; }));
+          if (desired.some(function (card, index) { return card !== current[index]; })) {
+            desired.forEach(function (card) { grid.appendChild(card); });
+          }
+        }
 
         /* 占位卡补足到目标数量（数据里已有的先算） */
         var have = grid.querySelectorAll(':scope > .project-card.placeholder').length;

@@ -8,8 +8,12 @@
 .sa-atmosphere .sa-third{color:var(--third,var(--second))}
 
 /* The familiar interactive hand sits at the near edge of one quiet table. */
-.pgroup-poker.sa-poker-host{--pk-face:var(--bg-1);--pk-ink:var(--fg);--pk-red:var(--accent);--sa-poker-material:var(--poker-field,color-mix(in srgb,var(--bg-0) 96%,var(--fg) 4%));--sa-poker-thread:var(--poker-thread,color-mix(in srgb,var(--fg) 78%,var(--second) 22%));--sa-poker-wash:var(--poker-wash,rgba(var(--fg-rgb),.025));isolation:isolate;padding:clamp(40px,5vw,64px) clamp(22px,3vw,40px) 38px;border-top:0;border-radius:24px;margin-inline:clamp(-40px,-3vw,-22px)}
-.pgroup-poker>.sa-poker{inset:0;z-index:-1;border-radius:24px;background:transparent}
+.pgroup-poker.sa-poker-host{--pk-face:var(--bg-1);--pk-ink:var(--fg);--pk-red:var(--accent);--sa-poker-material:var(--poker-field,color-mix(in srgb,var(--bg-0) 96%,var(--fg) 4%));--sa-poker-thread:var(--poker-thread,color-mix(in srgb,var(--fg) 78%,var(--second) 22%));--sa-poker-wash:var(--poker-wash,rgba(var(--fg-rgb),.025));isolation:isolate;padding:clamp(40px,5vw,64px) clamp(22px,3vw,40px) 38px;border:1px solid color-mix(in srgb,var(--sa-poker-thread) 14%,transparent);border-radius:24px;margin-inline:clamp(-40px,-3vw,-22px);background:var(--sa-poker-material);box-shadow:inset 0 1px 0 rgba(var(--fg-rgb),.04)}
+/* The surface follows the actual list height. Only the decorative layer clips. */
+.pgroup-poker>.sa-poker{inset:0;z-index:-1;border-radius:inherit;background:radial-gradient(ellipse 90% 440px at 50% 160px,var(--sa-poker-wash),transparent 100%)}
+.pgroup-poker>.sa-poker::before{content:'';position:absolute;inset:12px;border:1px dashed color-mix(in srgb,var(--sa-poker-thread) 9%,transparent);border-radius:inherit;pointer-events:none}
+/* Keep the authored 1240:800 artwork near the hand, never stretched over the list. */
+.pgroup-poker>.sa-poker>svg{position:absolute;top:0;left:50%;width:100%;min-width:760px;max-width:1240px;height:auto;aspect-ratio:1240/800;transform:translateX(-50%)}
 .sa-poker .sa-table-field{opacity:.72;color:var(--sa-poker-material)}
 .sa-poker .sa-table-stitch{opacity:.16;color:var(--sa-poker-thread)}
 .sa-poker .sa-table-inner{opacity:.11;color:var(--fg)}
@@ -34,6 +38,9 @@
 .sa-poker-host .pgroup-count::before{display:none}
 .sa-poker-host .project-card.pk-card{background-image:none;background:var(--glass-bg,rgba(var(--bg-rgb),.76));backdrop-filter:blur(16px) saturate(120%);-webkit-backdrop-filter:blur(16px) saturate(120%);border-color:var(--glass-border,var(--border));box-shadow:var(--elev-1),var(--edge-highlight)}
 .sa-poker-host .project-card.pk-card:hover{border-color:rgba(var(--second-rgb),.4)}
+/* Titles and facts are not links; only the explicit actions carry link feedback. */
+.pgroup-poker .project-name{background-image:none}
+.pgroup-poker .project-metric::after{content:none}
 .sa-poker-host .pk-corner{opacity:.34}
 .sa-poker-host.sa-deal .sa-table-light{animation:sa-deal-light .8s cubic-bezier(.16,1,.3,1)}
 @keyframes sa-deal-light{0%{opacity:.1;transform:translateX(-28px)}45%{opacity:.38}100%{opacity:.17;transform:translateX(0)}}
@@ -57,12 +64,5 @@
 @media(prefers-reduced-motion:reduce){.sa-atmosphere [data-sa-depth]{transform:none!important;transition:none}.sa-poker-host.sa-deal .sa-table-light{animation:none}.sa-poker-host .pk-fan-wrap,.sa-contact-host .contact-item:hover{transform:none}}
 @media(prefers-reduced-transparency:reduce){.sa-poker-host .project-card.pk-card{background:var(--bg-1);backdrop-filter:none;-webkit-backdrop-filter:none}}
 
-/* A tall mobile list is not a taller table. Keep the geometry at its authored ratio. */
-@media(max-width:800px){.pgroup-poker>.sa-poker>svg{position:absolute;top:52px;left:50%;width:980px;height:632px;margin-left:-490px;opacity:.68}.sa-poker .sa-table-rail{stroke-width:5;opacity:.09}}
-/* On a phone, the real fan carries the cards; one near table edge carries the atmosphere. */
-@media(max-width:600px){
- .pgroup-poker>.sa-poker>svg{display:none}
- .pgroup-poker>.sa-poker{background:radial-gradient(ellipse 92% 420px at 50% 140px,var(--sa-poker-wash),transparent 100%)}
- .pgroup-poker>.sa-poker::before,.pgroup-poker>.sa-poker::after{content:'';position:absolute;pointer-events:none;left:17px;right:17px;top:25px;height:460px;border:1px solid color-mix(in srgb,var(--sa-poker-thread) 12%,transparent);border-radius:46% 46% 30% 30%;transform:rotate(-5deg)}
- .pgroup-poker>.sa-poker::after{left:24px;right:24px;top:32px;height:446px;border-style:dashed;border-color:color-mix(in srgb,var(--sa-poker-thread) 8%,transparent);transform:rotate(-5deg)}
-}
+@media(max-width:820px){.pgroup-poker>.sa-poker>svg{opacity:.68}.sa-poker .sa-table-rail{stroke-width:5;opacity:.09}}
+@media(max-width:600px){.pgroup-poker>.sa-poker::before{inset:7px}}

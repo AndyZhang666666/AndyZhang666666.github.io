@@ -1,15 +1,21 @@
 import http from 'node:http';import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const sourceRoot=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const root=process.env.PREVIEW_ROOT?path.resolve(process.env.PREVIEW_ROOT):sourceRoot;
 const suite=path.resolve(root,'../../demo-suite-2026-10-24'),polish=path.resolve(root,'../../demo-polish-2026-10-27');
 const port=Number(process.env.PREVIEW_PORT||8820);
-const integrated={'llm-output-eval':'eval','bundle-lab':'bundle','commute-compare':'commute'};
+const integrated={'llm-output-eval':'eval','bundle-lab':'bundle','commute-compare':'commute','poker-squid-lab':'poker-squid-lab'};
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.pdf':'application/pdf','.ttf':'font/ttf','.woff2':'font/woff2','.txt':'text/plain; charset=utf-8'};
-const exports=new Set(['llm-output-eval','bundle-lab','growth-experiment-lab','pricing-model-sim','commute-compare','poker-bankroll-sim','poker-ev-calculator']);
+const exports=new Set(['llm-output-eval','bundle-lab','growth-experiment-lab','pricing-model-sim','commute-compare','poker-bankroll-sim','poker-ev-calculator','poker-squid-lab']);
 function serve(req,res,originalHost=false){try{
+ if(req.url==='/__preview__'){
+  res.setHeader('Cache-Control','no-store');res.setHeader('Content-Type','application/json');
+  res.end(JSON.stringify({preview:'portfolio-v2',root,sourceRoot,port}));return;
+ }
  const u=new URL(req.url,'http://localhost'),all=decodeURIComponent(u.pathname).split('/').filter(Boolean),prefix=all[0]==='original',old=originalHost||prefix,parts=prefix?all.slice(1):all;
  let base=old?path.join(suite,'site'):root,relative=parts.join('/');
- if(exports.has(parts[0])){const own=integrated[parts[0]]&&path.resolve(root,'..',integrated[parts[0]],'out');const updated=own&&fs.existsSync(own)?own:path.join(polish,parts[0],'out');base=!old&&fs.existsSync(updated)?updated:path.join(suite,parts[0],'out');relative=parts.slice(1).join('/')}
- else if(parts[0]==='grounded-choice'){base=path.join(suite,'grounded-choice','docs');relative=parts.slice(1).join('/')}
+ if(exports.has(parts[0])){const own=integrated[parts[0]]&&path.resolve(sourceRoot,'..',integrated[parts[0]],'out');const updated=own&&fs.existsSync(own)?own:path.join(polish,parts[0],'out');base=!old&&fs.existsSync(updated)?updated:path.join(suite,parts[0],'out');relative=parts.slice(1).join('/');
+  if(!fs.existsSync(base)){res.writeHead(302,{Location:new URL(u.pathname+u.search,'https://andyzhang666666.github.io/').href});res.end();return;}}
+ else if(parts[0]==='grounded-choice'){base=path.join(suite,'grounded-choice','docs');relative=parts.slice(1).join('/');if(!fs.existsSync(base)){res.writeHead(302,{Location:new URL(u.pathname+u.search,'https://andyzhang666666.github.io/').href});res.end();return;}}
  let file=path.resolve(base,relative);if(file!==base&&!file.startsWith(base+path.sep))throw Error('path');if(fs.statSync(file).isDirectory())file=path.join(file,'index.html');
  res.setHeader('Cache-Control','no-store');res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');
  if(['.html','.json'].includes(path.extname(file))){let value=fs.readFileSync(file,'utf8');

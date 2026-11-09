@@ -1,0 +1,86 @@
+[
+  {
+    "bottomInset": 25,
+    "columns": "348px",
+    "fanCount": 1,
+    "layerGap": 1,
+    "order": [
+      "squid-lab",
+      "poker-ev",
+      "bankroll",
+      "poker-quiz"
+    ],
+    "overflow": 0,
+    "width": 390
+  },
+  {
+    "bottomInset": 39,
+    "columns": "689.203px",
+    "fanCount": 1,
+    "layerGap": 1,
+    "order": [
+      "squid-lab",
+      "poker-ev",
+      "bankroll",
+      "poker-quiz"
+    ],
+    "overflow": 0,
+    "width": 768
+  },
+  {
+    "bottomInset": 39,
+    "columns": "736px",
+    "fanCount": 1,
+    "layerGap": 1,
+    "order": [
+      "squid-lab",
+      "poker-ev",
+      "bankroll",
+      "poker-quiz"
+    ],
+    "overflow": 0,
+    "width": 820
+  },
+  {
+    "bottomInset": 39,
+    "columns": "358.453px 358.453px",
+    "fanCount": 1,
+    "layerGap": 1,
+    "order": [
+      "squid-lab",
+      "poker-ev",
+      "bankroll",
+      "poker-quiz"
+    ],
+    "overflow": 0,
+    "width": 821
+  },
+  {
+    "bottomInset": 39,
+    "columns": "449.805px 449.805px",
+    "fanCount": 1,
+    "layerGap": 1,
+    "order": [
+      "squid-lab",
+      "poker-ev",
+      "bankroll",
+      "poker-quiz"
+    ],
+    "overflow": 0,
+    "width": 1024
+  },
+  {
+    "bottomInset": 39,
+    "columns": "545px 545px",
+    "fanCount": 1,
+    "layerGap": 1,
+    "order": [
+      "squid-lab",
+      "poker-ev",
+      "bankroll",
+      "poker-quiz"
+    ],
+    "overflow": 0,
+    "width": 1440
+  }
+]

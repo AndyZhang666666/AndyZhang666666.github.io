@@ -4,6 +4,7 @@ import {execFileSync} from 'node:child_process';
 import {test} from 'node:test';
 import {rasterSize} from '../content/raster-size.mjs';
 import {presentationCases} from '../content/presentation-mode.mjs';
+import {enhancePortfolioV2} from '../content/portfolio-v2.mjs';
 
 test('all eight high-point images reserve their actual intrinsic dimensions',()=>{
  let checked=0;
@@ -18,7 +19,7 @@ test('all eight high-point images reserve their actual intrinsic dimensions',()=
  }
  assert.equal(checked,8);
 });
-test('follow-up changes only image dimensions, anchor opt-in and stylesheet cache version',()=>{
+test('case content preserves the anchor follow-up with only the approved V2 navigation enhancement',()=>{
  const before='0621651cfe4c295fa37bf4300e6a5480445787f5';
  // Scope this historical follow-up to the case pages that existed then.
  // Newly approved projects have their own integration checks.
@@ -30,7 +31,8 @@ test('follow-up changes only image dimensions, anchor opt-in and stylesheet cach
   const current=fs.readFileSync(file,'utf8');
   const permitted=Object.values(presentationCases).some(href=>href.startsWith(`/cases/${dir}/`));
   const expected=permitted?old.replaceAll('width="1440" height="1000"','width="1440" height="900"').replace('id="mechanism" class="section"','id="mechanism" class="section case-highlight-target"').replace('/assets/case-studies.css?v=20261101-integrated1','/assets/case-studies.css?v=20261103-anchor1'):old;
-  assert.equal(current,expected,file);
+  const paletteMarkup=fs.readFileSync('index.html','utf8').match(/<div class="palette-switch"[^]*?<\/div>/)[0];
+  assert.equal(current,enhancePortfolioV2(expected,{casePage:true,paletteMarkup}),file);
  }
 });
 test('invalid images fail rather than reintroducing a made-up aspect ratio',()=>{
