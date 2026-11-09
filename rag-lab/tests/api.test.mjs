@@ -69,6 +69,10 @@ test('limits, impossible dates, JSON errors, origin and static file isolation', 
   assert.equal((await call('/api/run', {token, body: input, headers: {Origin: 'https://untrusted.example'}})).status, 403);
   assert.equal((await fetch(base + '/api/session', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: '{'})).status, 400);
   assert.equal((await fetch(base + '/api/session', {method: 'POST', body: '{}'})).status, 415);
+  const importMessages = await fetch(base + '/rag-lab/import-errors.mjs?v=20261109-layout-1');
+  assert.equal(importMessages.status, 200);
+  assert.match(importMessages.headers.get('content-type'), /javascript/);
+  assert.match(await importMessages.text(), /fileImportMessage/);
   for (const path of ['/rag-lab/corpus/ADM-RES-1.md', '/rag-lab/server/server.mjs', '/rag-lab/.env.local', '/rag-lab/tests/cases.json', '/rag-lab/%2e%2e/.git/config']) assert.equal((await fetch(base + path)).status, 404);
 }));
 

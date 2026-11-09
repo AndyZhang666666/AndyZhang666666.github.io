@@ -57,4 +57,37 @@ main,.topbar{max-width:1440px}.intro{margin-bottom:16px}.intro h1{font-size:28px
 
 .answer-draft{margin:12px 0 20px;border-top:1px solid var(--line)}.answer-draft label{display:block;font-size:13px}.answer-draft textarea{display:block;width:100%;font:16px/1.7 var(--font);padding:12px;border:1px solid var(--line);background:var(--surface);resize:vertical;border-radius:6px;margin:8px 0}.topbar a{min-height:44px;display:inline-flex;align-items:center}.check-label{min-height:44px;cursor:pointer}.citation-links button{min-height:44px}.personal-sources label{min-height:44px;display:flex;align-items:center;gap:10px}#personalHistory blockquote{font-size:14px;margin:10px 0;padding:12px;background:var(--soft);white-space:pre-wrap}#personalDraftSource{font-size:13px;color:var(--warning)}
 
-.scenario-choices{border:0}.scenario-choices>summary{display:none}@media(max-width:650px){.scenario-choices{margin:0 0 12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.scenario-choices>summary{display:list-item}.workspace-nav{margin-bottom:16px}.task-library{margin:4px 0 12px}.example-desk{margin-top:0}}
+/* Boundary questions stay visible. Complete tasks are a secondary disclosure. */
+.scenario-choices{border:0;margin:0}
+.workspace-nav{margin-bottom:16px}
+.intro{margin-bottom:12px}
+.mode-banner{padding:10px 0;margin-bottom:4px}
+.presets{margin:8px 0;gap:8px}
+.presets button{min-height:48px}
+.task-library{margin:0 0 8px}
+.task-library>summary{width:fit-content;color:var(--muted);font-size:12px;padding:8px 0}
+.task-library[open]{padding-bottom:12px}
+.task-library .field-hint{margin-top:0}
+.example-desk{grid-template-columns:320px minmax(0,1fr);margin-top:8px}
+.example-desk .query-panel{padding:16px}
+.example-desk .section-title{gap:4px}
+.example-desk .section-title .quiet{font-size:11px}
+.example-desk .question-line{gap:8px}
+.example-desk .question-line textarea{padding:10px 12px;min-height:68px}
+.example-desk .conditions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:end;gap:10px 12px;margin-top:14px}
+.example-desk .conditions label{min-width:0;gap:4px;line-height:1.5}
+.example-desk .conditions input,.example-desk .conditions select{padding:9px 8px;font-size:13px;min-width:0}
+.example-desk .conditions .text-button{width:100%;min-height:44px;margin:0;text-align:left;line-height:1.4;text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:9px 8px}
+.example-desk #scopeHint{font-size:11px;line-height:1.6}
+.example-desk .runtime-settings{margin-top:10px}
+@media(min-width:651px){main{padding-top:24px}}
+@media(max-width:900px){.example-desk .conditions .text-button{min-height:44px}}
+@media(max-width:760px){.example-desk{grid-template-columns:1fr}.presets button{align-items:flex-start}.workspace-nav{margin-bottom:14px}}
+@media(max-width:650px){
+ .intro{margin-bottom:12px}.mode-banner{margin-bottom:8px}
+ .presets{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0 4px}
+ .presets button{min-height:44px;align-items:center;justify-content:center;padding:8px;font-size:12px}
+ .task-library{margin:0 0 8px}.task-library>summary{min-height:44px}
+ .example-desk{margin-top:8px}.example-desk .question-line .primary{margin-top:0}
+ .example-desk .conditions input,.example-desk .conditions select{font-size:16px}
+}

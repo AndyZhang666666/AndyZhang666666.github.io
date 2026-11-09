@@ -1,5 +1,5 @@
 import {TASKS,taskRun} from './task-catalog.mjs';
-import {initializePersonal} from './personal-workbench.mjs';
+import {initializePersonal} from './personal-workbench.mjs?v=20261109-layout-1';
 import {retrieveRun, validateInput, SNAPSHOTS} from './engine.mjs';
 
 const $ = id => document.getElementById(id);
@@ -279,7 +279,7 @@ $('exportButton').addEventListener('click', async () => {
 async function initialize() {
   initializeTasks();initializePersonal();
   try {
-    if (matchMedia('(max-width: 650px)').matches){$('conditionSettings').open = false;$('scenarioChoices').open=false;}
+    if (matchMedia('(max-width: 650px)').matches) $('conditionSettings').open = false;
     const response = await fetch('./public-corpus.json');
     if (!response.ok) throw new Error('示例资料读取失败，请刷新重试。');
     const data = await response.json();if(!Array.isArray(data.documents))throw Error('示例资料格式无效，仍可使用自己的资料。');documents=data.documents;corpusLoaded=true;
@@ -299,7 +299,7 @@ async function initialize() {
   } catch (error) { setBusy(false); showError(error.message); $('answerHeadline').textContent = '资料暂时无法读取'; }
 }
 function initializeTasks(){
- for(const t of TASKS){const b=node('button',t.title);b.type='button';b.dataset.task=t.id;b.onclick=()=>{if(matchMedia('(max-width:650px)').matches)$('scenarioChoices').open=false;activeTask=t;$('taskContext').hidden=false;$('taskTitle').textContent=t.title;$('taskGoal').textContent=t.goal;$('taskFacts').hidden=!t.facts;$('taskBorrowed').value='';$('taskDue').value='';$('taskUsed').value=t.used??'';$('taskBooking').value=t.booking??'unknown';$('date').value=t.date??'2026-10-28';$('snapshot').value=t.snapshot??'baseline';$('runtime').value='example';$('role').value=t.admin?'admin':'employee';$('question').value=t.question;markStale();run();};$('taskList').append(b);}
+ for(const t of TASKS){const b=node('button',t.title);b.type='button';b.dataset.task=t.id;b.onclick=()=>{if(matchMedia('(max-width:650px)').matches)document.querySelector('.task-library').open=false;activeTask=t;$('taskContext').hidden=false;$('taskTitle').textContent=t.title;$('taskGoal').textContent=t.goal;$('taskFacts').hidden=!t.facts;$('taskBorrowed').value='';$('taskDue').value='';$('taskUsed').value=t.used??'';$('taskBooking').value=t.booking??'unknown';$('date').value=t.date??'2026-10-28';$('snapshot').value=t.snapshot??'baseline';$('runtime').value='example';$('role').value=t.admin?'admin':'employee';$('question').value=t.question;markStale();run();};$('taskList').append(b);}
  for(const id of ['taskBorrowed','taskDue','taskUsed','taskBooking'])$(id).addEventListener('input',markStale);
  const answerDocument=()=>{if(!currentRun||!$('stale').hidden)throw Error('先按当前条件重新查找，再带走答复。');return `# 制度答复草稿\n\n问题：${currentRun.question}\n日期：${currentRun.date} · ${SNAPSHOTS[currentRun.snapshot]}\n运行：${modeNames[currentRun.mode]}\n\n## 对外答复（用户可编辑）\n${$('exampleDraft').value}\n\n## 待确认与下一步\n${(currentRun.taskNext||[]).join('\n')}\n\n## 本次实际依据\n${currentRun.citations.map(c=>`### ${c.title} · ${c.id}\n${c.quote}`).join('\n\n')}\n\n任务事实：${currentRun.taskFacts?JSON.stringify(currentRun.taskFacts):'未提供额外事实'}\n原创虚构制度示例；未执行实际业务操作。引用匹配不等于语义正确；用户补写需核对。`;};
  $('exampleDraft').oninput=()=>{if(!currentRun)return;currentRun.userDraft=$('exampleDraft').value;const h=history.find(r=>r.id===currentRun.id);if(h)h.userDraft=currentRun.userDraft;};
