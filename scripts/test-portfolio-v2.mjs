@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
+import vm from 'node:vm';
 import {enhanceHeroV2} from '../content/hero-v2.mjs';
 import {enhanceMobileNavigation} from '../content/mobile-navigation.mjs';
 import {enhancePortfolioV2} from '../content/portfolio-v2.mjs';
@@ -39,4 +40,21 @@ test('motion migration is idempotent and leaves all non-owner app code unchanged
  assert.ok(!patched.includes("document.querySelectorAll('a[href^=\"#\"]').forEach(a =>"));
  assert.ok(!read('motion.js').includes("querySelectorAll('a[href^="));
  assert.ok(!read('railnav.js').includes('preventDefault'));
+});
+test('case theme controls bind after the parser reaches the injected palette',()=>{
+ for(const state of ['loading','complete']){
+  const listeners=new Map(),stored=new Map([['palette','frost']]);
+  let parsed=state==='complete',ready;
+  const buttons=['frost','copper','mist','indigo'].map(id=>({dataset:{palette:id},attributes:{},active:false,setAttribute(k,v){this.attributes[k]=v},classList:{toggle(_name,value){buttons.find(button=>button.classList===this).active=value;}}}));
+  const palette={querySelectorAll:()=>buttons,addEventListener:(name,callback)=>listeners.set(name,callback)};
+  const language={addEventListener:()=>{}};
+  const doc={readyState:state,documentElement:{dataset:{palette:'frost'}},getElementById:id=>id==='langToggle'?language:id==='paletteSwitch'&&parsed?palette:null,addEventListener:(name,callback)=>{assert.equal(name,'DOMContentLoaded');ready=callback;}};
+  vm.runInNewContext(read('scripts/case-reader.js'),{document:doc,localStorage:{getItem:key=>stored.get(key),setItem:(key,value)=>stored.set(key,value)}});
+  if(state==='loading'){assert.ok(!listeners.has('click'));parsed=true;ready();}
+  assert.ok(listeners.has('click'),'Palette never received its listener');
+  listeners.get('click')({target:{closest:()=>buttons[1]}});
+  assert.equal(doc.documentElement.dataset.palette,'copper');assert.equal(stored.get('palette'),'copper');
+  assert.deepEqual(buttons.map(button=>button.attributes['aria-pressed']),['false','true','false','false']);
+  assert.deepEqual(buttons.map(button=>button.active),[false,true,false,false]);
+ }
 });
