@@ -10,11 +10,16 @@ if [[ ! -x "$task_preview_node" ]]; then
   read -k 1
   exit 1
 fi
-if ! curl --fail --silent --max-time 2 http://127.0.0.1:8811/review.html >/dev/null; then
-  nohup "$task_preview_node" --watch scripts/preview.mjs > /private/tmp/andy-original-content-8811.log 2>&1 </dev/null &
+if ! curl --fail --silent --max-time 2 http://127.0.0.1:56071/__preview__ | /usr/bin/grep -q '"preview":"portfolio-v2"'; then
+  if curl --fail --silent --max-time 2 http://127.0.0.1:56071/ >/dev/null; then
+    print "56071端口正在服务其他项目。请先确认服务来源，未停止或替换其他预览。"
+    read -k 1
+    exit 1
+  fi
+  PREVIEW_PORT=56071 nohup "$task_preview_node" scripts/preview.mjs > /private/tmp/andy-portfolio-v2-56071.log 2>&1 </dev/null &
   for task_preview_attempt in {1..15}; do
-    if curl --fail --silent --max-time 1 http://127.0.0.1:8811/review.html >/dev/null; then break; fi
+    if curl --fail --silent --max-time 1 http://127.0.0.1:56071/__preview__ >/dev/null; then break; fi
     sleep 0.2
   done
 fi
-open http://127.0.0.1:8811/review.html
+open http://127.0.0.1:56071/review.html
