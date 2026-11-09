@@ -1,0 +1,65 @@
+{
+  "format": 1,
+  "scope": "Four selected demos and their owned cards/cases only",
+  "order": [
+    "trust",
+    "taste",
+    "bundles",
+    "rag"
+  ],
+  "protectedSections": [
+    "top",
+    "about",
+    "ai",
+    "work",
+    "education",
+    "awards",
+    "uses",
+    "skills",
+    "jd",
+    "contact"
+  ],
+  "projectCount": 18,
+  "commutePreserved": true,
+  "sourceManifestSha256": "192fadbf1fc2956082c2abe617b1dfb8c0550061c366d0b2afd67cf4cb29c3b2",
+  "previewSourceFiles": [
+    {
+      "file": "assets/demo-preview/eval-sample.json",
+      "sha256": "65846b01015917fedb3682c9b792be6965355e46193d11d9f39e4d525ee1d01d"
+    },
+    {
+      "file": "assets/demo-preview/bundle-model.mjs",
+      "sha256": "0021819b10aff396334e57fd230a7a117dbe7e434656d83eafddc788db581e65"
+    },
+    {
+      "file": "assets/demo-preview/bundle-candidate.json",
+      "sha256": "2a56a1ecfc32dc6b601a21ced1415e2f203dc17ac4ae4954eff9c3f0be0e1d4f"
+    },
+    {
+      "file": "tasteroom/engine.js",
+      "sha256": "0e88f97e387654b3d775d60ba94c51102d710fe7bdefecacb0da7910b59e628f"
+    },
+    {
+      "file": "tasteroom/artwork.js",
+      "sha256": "c2bff5b54439edb31f0163651410ed0435a9705c06247d98624bea61c0cb5154"
+    },
+    {
+      "file": "tasteroom/directions.js",
+      "sha256": "bb4af3f12405638a4cfe4e005cc8ed11c464dbf190002c400821fc0f60780c72"
+    },
+    {
+      "file": "rag-lab/engine.mjs",
+      "sha256": "fd02091c24c0ef78a44eca4179b1fbfdbf078748b84e57ee4c49d99d989d6632"
+    },
+    {
+      "file": "rag-lab/public-corpus.json",
+      "sha256": "76ab931e9d031f10f8d94e0f589f5fe1b592475a399e0dbe407050055397baaf"
+    }
+  ],
+  "presentationCases": {
+    "trust": "/cases/trust/#mechanism",
+    "taste": "/cases/taste/#mechanism",
+    "bundles": "/cases/bundles/#mechanism",
+    "rag": "/cases/rag/#mechanism"
+  }
+}
