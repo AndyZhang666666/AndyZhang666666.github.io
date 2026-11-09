@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="craft.css?v=20261102-craft1" />
     <link rel="stylesheet" href="clarity.css?v=20261103-clarity4" />
     <link rel="stylesheet" href="demo-help.css?v=20261103-clarity4" />
+    <link rel="stylesheet" href="product-depth.css?v=20261109-1" />
   </head>
   <body>
     <header>
@@ -69,9 +70,10 @@
             </div>
             <div id="directionGallery" class="direction-gallery" aria-label="六种构图：使用当前同一份文案" hidden></div>
             <p id="latestExport" class="latest-export" role="status" hidden>文件已生成。若没有自动下载，<a id="latestDownloadLink">点此保存文件</a>。更改画布不会改写这份已生成文件。</p>
+            <div class="canvas-provenance" id="canvasProvenance" role="status"><span id="provenanceDirection"></span><span id="provenanceTrial"></span><button type="button" id="restoreSceneDirection" hidden>恢复本场景已记方向</button></div>
             <div class="creation-board">
             <section class="poster-content-editor"><section class="design-directions" aria-label="选择设计方向"><div><h2>当前构图</h2><p>作品先行，记忆由你决定。</p></div><button id="openDirections" type="button" aria-expanded="false" aria-controls="directionGallery">更换构图 · 六种原创方向</button><p id="directionStatus" class="hint"></p><p id="directionCapacity" class="hint"></p><button type="button" id="rememberDirection" hidden>记住当前场景的设计方向</button></section>
-<p class="layer-label">内容编辑 · 只影响这张作品</p><h3>这张海报写什么？</h3><form id="posterContentForm"><label>内容起点<select id="contentPreset"><option value="custom">自己的内容</option><option value="0">展映活动</option><option value="1">旧书交换</option><option value="2">产品分享会</option></select></label><label>活动类别<input id="editCategory" maxlength="32" required></label><label>标题（最多四行）<textarea id="editTitle" maxlength="120" rows="2" required></textarea></label><label>副文案（最多四行）<textarea id="editSubtitle" maxlength="180" rows="2" required></textarea></label><label>落款<input id="editFooter" maxlength="40" required></label><button type="submit" id="updateContent">更新画布</button><details class="type-controls"><summary>排版微调</summary><label>标题字号 <output id="titleScaleValue">100%</output><input type="range" id="titleScale" min="65" max="130" step="5" value="100"></label><label>换行方式<select id="lineBreaks"><option value="auto">自动平衡；保留手动换行</option><option value="manual">只使用我输入的换行</option></select></label><label>信息密度<select id="densityControl"><option value="compact">紧凑</option><option value="balanced">均衡</option><option value="airy">大留白</option></select></label></details><p id="contentStatus" role="status">只改本张内容，不从文案推断你的偏好。</p></form></section>
+<p class="layer-label">内容编辑 · 只影响这张作品</p><h3>这张海报写什么？</h3><form id="posterContentForm"><label>内容起点<select id="contentPreset"><option value="custom">自己的内容</option><option value="0">展映活动</option><option value="1">公开招募</option><option value="2">产品分享会</option></select></label><label>活动类别<input id="editCategory" maxlength="32" required></label><label>标题（最多四行）<textarea id="editTitle" maxlength="120" rows="2" required></textarea></label><label>副文案（最多四行）<textarea id="editSubtitle" maxlength="180" rows="2" required></textarea></label><label>落款<input id="editFooter" maxlength="40" required></label><details class="event-details"><summary>活动信息（选填）</summary><label>日期与时间<input id="editWhen" maxlength="100" placeholder="例如：周六 19:30"></label><label>地点<input id="editWhere" maxlength="100" placeholder="例如：城市放映室"></label><label>行动说明<input id="editAction" maxlength="100" placeholder="例如：自由入场 · 请提前报名"></label></details><button type="submit" id="updateContent">更新画布</button><fieldset class="artwork-settings"><legend>尺寸与主图</legend><label>成品尺寸<select id="artboardFormat"><option value="portrait">竖版海报 · 900 × 1200</option><option value="square">方形分享 · 1080 × 1080</option><option value="landscape">横版展示 · 1600 × 900</option></select></label><label class="image-upload">添加自己的主图<input id="posterImage" type="file" accept="image/jpeg,image/png,image/webp"></label><p id="imageStatus" role="status">JPG / PNG / WebP，最大5MB，只在本机处理。</p><div id="imageAdjustments" hidden><label>图片裁切<select id="imageFit"><option value="fill">填满区域</option><option value="fit">保留完整图片</option></select></label><label>水平焦点 <input type="range" id="imageX" min="0" max="100" value="50"></label><label>垂直焦点 <input type="range" id="imageY" min="0" max="100" value="50"></label><button type="button" id="removeImage">移除本张主图</button></div></fieldset><details class="type-controls"><summary>排版微调</summary><label>标题字号 <output id="titleScaleValue">100%</output><input type="range" id="titleScale" min="65" max="130" step="5" value="100"></label><label>换行方式<select id="lineBreaks"><option value="auto">自动平衡；保留手动换行</option><option value="manual">只使用我输入的换行</option></select></label><label>信息密度<select id="densityControl"><option value="compact">紧凑</option><option value="balanced">均衡</option><option value="airy">大留白</option></select></label></details><p id="contentStatus" role="status">只改本张内容，不从文案推断你的偏好。</p></form></section>
 <div class="art-slot">            <div class="artboard">
               <p id="layoutWarning" class="layout-warning" role="status" hidden></p><div id="overflowActions" class="overflow-actions" hidden><button type="button" id="autoWrap">重新平衡换行</button><button type="button" id="reduceTitle">缩小标题字号</button><a href="#posterContentForm">修改文字</a></div><div id="directionPreview" class="direction-preview" aria-label="当前原创海报预览" hidden></div>
               <article id="poster" class="poster" aria-label="实时海报">
@@ -95,7 +97,7 @@
                 </div>
               </article>
               <span class="canvas-caption"
-                >900 × 1200 · SVG 与 PNG 使用当前同一张画布</span
+                 id="canvasCaption">900 × 1200 · SVG 与 PNG 使用当前同一张画布</span
               >
             </div>
             <section id="comparisonPanel" class="comparison-panel" aria-label="构图与参数比较" hidden>
@@ -105,7 +107,7 @@
               <div id="comparisonVariants" class="comparison-variants"></div>
               <button id="skipComparison">两张都不选，不记住偏好</button>
               <button id="backToComparison" hidden>← 重新比较 A / B</button><div id="comparisonDecision" class="comparison-decision" hidden><p id="comparisonChoice"></p><p id="replacementSummary" class="hint"></p><div class="resolution"><button data-comparison-scope="once">使用这张，不保存偏好<small>仅应用当前画布</small></button><button data-comparison-scope="current">记在当前场景<small>不改变其他场景</small></button><button data-comparison-scope="global">修正为全局规则<small>覆盖这一维旧规则</small></button></div></div>
-            </section></div></div>
+            </section>
             <section class="candidate-tray" aria-label="临时作品候选"><div><h3>留住两个候选</h3><p>只存作品快照，不存成审美规则。</p><button id="pinCandidate">留作候选</button></div><div id="candidateList"></div></section>
             <div class="transport">
               <button id="pause">暂停整理</button
@@ -113,7 +115,7 @@
               ><button id="redo">重做</button
               ><button id="newContent">换一套新内容 ↗</button>
               <button id="startComparison">拆开验证偏爱</button>
-            </div>
+            </div></div></div>
 
 
             <p id="reply" role="status" aria-live="polite">
@@ -148,12 +150,12 @@
                 ><button data-feedback="去掉装饰">去掉装饰</button>
               </div>
               <form id="feedbackForm">
-                <label class="sr-only" for="input">告诉 Agent 如何调整</label
+                <label class="sr-only" for="input">调整这张作品</label
                 ><input
                   id="input"
                   maxlength="400"
                   placeholder="比如：别用衬线体，我要做科技汇报"
-                /><button type="submit">告诉它 ↗</button>
+                /><button type="submit">试用调整 ↗</button>
               </form>
               <div id="feedbackHints" class="feedback-hints" role="region" aria-labelledby="feedbackHintNote" tabindex="-1" hidden><p id="feedbackHintNote"></p><div id="feedbackHintChoices"></div></div>
               <button type="button" id="rememberFeedback" hidden>记住刚才调整的这一项…</button>
@@ -162,8 +164,8 @@
         </section>
         <aside class="brain" id="brainInspector" aria-label="记忆与工具调用">
           <div class="brain-heading">
-            <h2>它如何理解你</h2>
-            <span>白盒视角</span>
+            <h2>记忆与复用</h2>
+            <button type="button" id="closeMemory">返回画布</button>
           </div>
           <div class="contexts" role="group" aria-label="记忆场景">
             <button data-context="global">全局</button
@@ -194,7 +196,7 @@
     </main>
     <dialog id="importDialog" aria-labelledby="importTitle"><h2 id="importTitle">把旧偏爱带回来</h2><p>只合并下列规则，保留原有场景和“明确／待验证”属性。其他规则与文案不变；取消不会写入。</p><div id="importSummary"></div><div class="takeaway-actions"><button id="confirmImport">确认导入并应用当前场景</button><button id="cancelImport">取消</button></div></dialog>
     <dialog id="saveRuleDialog" aria-labelledby="saveRuleTitle"><form method="dialog"><h2 id="saveRuleTitle">记住哪一项？</h2><p id="saveRuleDescription"></p><label>适用范围<select id="saveRuleScope"><option value="current">当前场景</option><option value="global">全局（所有场景）</option></select></label><p id="saveRuleReplaced"></p><div class="takeaway-actions"><button id="confirmRule" value="confirm">确认保存这项规则</button><button value="cancel">取消，继续临时试用</button></div></form></dialog>
-    <script type="module" src="app.js?v=20261103-detail1"></script>
+    <script type="module" src="app.js?v=20261109-product1"></script>
     <script type="module" src="demo-help.js?v=20261103-clarity4"></script>
   </body>
 </html>
