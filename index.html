@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-palette="frost">
 <head>
+<script id="motionPolicyBootstrap">(()=>{let reduce=false;try{reduce=localStorage.getItem("portfolio-motion-preference")==="reduce"}catch{}reduce=reduce||(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);document.documentElement.dataset.motion=reduce?"reduce":"full";document.documentElement.dataset.pageVisible=String(!document.hidden)})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>张千羽 Andy Zhang — AI 产品经理</title>
@@ -13,7 +14,7 @@
 <link rel="stylesheet" href="hero-portrait.css?v=20260913d">
 <link rel="stylesheet" href="sections.css?v=20261005b">
 <link rel="stylesheet" href="enhance.css?v=20260913e">
-<link rel="stylesheet" href="interactions.css?v=20260913e">
+<link rel="stylesheet" href="interactions.css?v=20261109-v2">
 <link rel="stylesheet" href="jd.css?v=20260913b">
 <link rel="stylesheet" href="embed.css?v=20260914r">
 <link rel="stylesheet" href="railnav.css?v=20260914r">
@@ -21,7 +22,7 @@
 <link rel="stylesheet" href="motion.css?v=20260914r">
 <link rel="stylesheet" href="depth.css?v=20260914r">
 <link rel="stylesheet" href="education.css?v=20261101-integrated1">
-<link rel="stylesheet" href="bg-layers.css?v=20260914r">
+<link rel="stylesheet" href="bg-layers.css?v=20261109-v2">
 <link rel="stylesheet" href="ai-views.css?v=20260914r">
 <link rel="stylesheet" href="fixes.css?v=20260914r">
 <link rel="stylesheet" href="projects-split.css?v=20261101-integrated1">
@@ -34,10 +35,13 @@
 <link rel="stylesheet" href="assets/demo-showcase.css?v=20261101-integrated1">
 <link rel="stylesheet" href="assets/product-principles.css?v=20261101-integrated1">
 <link rel="stylesheet" href="assets/poker-lab-preview.css?v=20261101">
-<link rel="stylesheet" href="assets/section-atmospheres.css?v=20261101-integrated1">
-<link rel="stylesheet" href="assets/personal-art-direction.css?v=20261101-integrated1">
+<link rel="stylesheet" href="assets/section-atmospheres.css?v=20261109-v2">
+<link rel="stylesheet" href="assets/personal-art-direction.css?v=20261109-v2">
 <link rel="stylesheet" href="assets/presentation-mode.css?v=20261103a">
-<link rel="stylesheet" href="assets/squid-lab-preview.css?v=20261107-squid2">
+<link rel="stylesheet" href="assets/squid-lab-preview.css?v=20261109-v2">
+<link rel="stylesheet" href="assets/hero-paper.css?v=20261109-v2">
+<link rel="stylesheet" href="/assets/mobile-navigation.css?v=20261109-v2">
+<link rel="stylesheet" href="/assets/motion-governor.css?v=20261109-v2">
 </head>
 <body>
 
@@ -57,14 +61,14 @@
     <a href="#awards">奖项</a>
     <a href="#contact">联系</a>
   </div>
-  <div class="presentation-nav-actions"><button id="presentationToggle" class="presentation-toggle" type="button" aria-pressed="false" aria-controls="selected" hidden><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v11H4zM2 4h20M12 15v5m-4 1 4-3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-zh="90秒投屏" data-en="90s presentation">90秒投屏</span></button><button id="langToggle" class="lang-toggle" aria-label="切换语言">EN</button></div>
+  <div class="presentation-nav-actions"><button id="presentationToggle" class="presentation-toggle" type="button" aria-pressed="false" aria-controls="selected" hidden><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v11H4zM2 4h20M12 15v5m-4 1 4-3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-zh="90秒投屏" data-en="90s presentation">90秒投屏</span></button><button id="directoryToggle" class="directory-toggle" type="button" aria-haspopup="dialog" aria-controls="mobileDirectory" aria-expanded="false" hidden><span data-zh="目录" data-en="Menu">目录</span><svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true"><path d="M3 6h14M3 13h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button><button id="langToggle" class="lang-toggle" aria-label="切换语言">EN</button></div>
 </nav>
 
 <div class="presentation-bar" id="presentationBar" role="region" aria-label="投屏控制" hidden><h1 class="presentation-current"><span data-zh="90秒投屏" data-en="90s presentation">90秒投屏</span><strong data-presentation-title>Eval Lab</strong></h1><div class="presentation-actions"><a class="presentation-highlight" data-presentation-highlight href="/cases/trust/#mechanism" target="_blank" rel="noopener"><span data-zh="设计高光" data-en="Design highlight">设计高光</span><span aria-hidden="true">↗</span></a><button class="presentation-exit" data-presentation-exit type="button"><span data-zh="退出投屏" data-en="Exit presentation">退出投屏</span><span class="presentation-exit-short" data-zh="退出" data-en="Exit">退出</span><kbd aria-hidden="true">Esc</kbd></button></div></div><p class="showcase-sr" data-presentation-announcement role="status" aria-live="polite"></p>
 <main>
 
 <!-- ============ HERO ============ -->
-<section id="top" class="hero">
+<section id="top" class="hero hero-v2">
   <div class="hero-mesh" aria-hidden="true"><span class="mesh-c"></span></div>
   <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-inner">
@@ -93,8 +97,9 @@
       </a>
     </div>
     <div class="hero-portrait reveal" aria-hidden="true">
-      <span class="portrait-ring"></span>
-      <span class="portrait-blob"></span>
+      <span class="portrait-local-light"></span>
+      <span class="portrait-paper-track portrait-paper-track-back" data-hero-paper="back"><span class="portrait-ring"></span></span>
+      <span class="portrait-paper-track portrait-paper-track-front" data-hero-paper="front"><span class="portrait-blob"></span></span>
       <img class="portrait-img portrait-img-dark" src="assets/gen/portrait-dark.png" alt="Andy Zhang" width="395" height="687" loading="eager" decoding="async">
       <img class="portrait-img portrait-img-light" src="assets/gen/portrait-light.png" alt="" width="394" height="687" loading="eager" decoding="async">
     </div>
@@ -332,22 +337,25 @@
   <button type="button" class="ps-btn" data-palette="indigo" data-name="野 · 苔原" style="--sw-bg:#d9e7d4;--sw-accent:#315f45;--sw-third:#a34940" aria-label="野 · 苔原" aria-pressed="false"></button>
 </div>
 
-<script type="module" src="assets/demo-showcase.mjs?v=20261101-integrated1"></script>
-<script src="app.js?v=20261107-squid2"></script>
+<script type="module" src="assets/demo-showcase.mjs?v=20261109-v2"></script>
+<script src="app.js?v=20261109-v2"></script>
 <script src="poker.js?v=20260913d" defer></script>
 <script src="jd-graph.js?v=20261022a"></script>
 <script src="jd.js?v=20261101-integrated1"></script>
-<script src="railnav.js?v=20261101-integrated1" defer></script>
-<script src="motion.js?v=20260914r" defer></script>
-<script src="projects-split.js?v=20261107-squid2" defer></script>
-<script src="poker-showcase.js?v=20260914r" defer></script>
-<script src="academic-art.js?v=20261006a" defer></script>
+<script src="railnav.js?v=20261109-v2" defer></script>
+<script src="motion.js?v=20261109-v2" defer></script>
+<script src="projects-split.js?v=20261109-v2" defer></script>
+<script src="poker-showcase.js?v=20261109-v2" defer></script>
+<script src="academic-art.js?v=20261109-v2" defer></script>
 <script src="education.js?v=20261101-integrated1" defer></script>
 <script src="bg-layers.js?v=20260914r" defer></script>
 <script type="module" src="assets/poker-lab-preview.mjs?v=20261101"></script>
-<script type="module" src="assets/personal-sections.mjs?v=20261101-integrated1"></script>
-<script type="module" src="assets/section-atmospheres.mjs?v=20261101-integrated1"></script>
+<script type="module" src="assets/personal-sections.mjs?v=20261109-v2"></script>
+<script type="module" src="assets/section-atmospheres.mjs?v=20261109-v2"></script>
 <script type="module" src="assets/presentation-mode.mjs?v=20261103a"></script>
 <script type="module" src="assets/squid-lab-preview.mjs?v=20261107-squid2"></script>
+<dialog id="mobileDirectory" class="mobile-directory" aria-labelledby="directoryTitle"><div class="directory-head"><h2 id="directoryTitle"><span data-zh="目录" data-en="Explore">目录</span></h2><button type="button" class="directory-close" data-directory-close aria-label="关闭目录" data-label-zh="关闭目录" data-label-en="Close menu"><span aria-hidden="true">×</span></button></div><nav class="directory-links" aria-label="页面目录" data-label-zh="页面目录" data-label-en="Page sections"><a href="#top"><span data-zh="首页" data-en="Home">首页</span><span aria-hidden="true">↗</span></a><a href="#about"><span data-zh="关于我" data-en="About">关于我</span><span aria-hidden="true">↗</span></a><a href="#selected"><span data-zh="精选作品" data-en="Selected work">精选作品</span><span aria-hidden="true">↗</span></a><a href="#ai"><span data-zh="关于 AI" data-en="On AI">关于 AI</span><span aria-hidden="true">↗</span></a><a href="#work"><span data-zh="工作经历" data-en="Experience">工作经历</span><span aria-hidden="true">↗</span></a><a href="#education"><span data-zh="教育与研究" data-en="Education">教育与研究</span><span aria-hidden="true">↗</span></a><a href="#projects"><span data-zh="完整作品库" data-en="All projects">完整作品库</span><span aria-hidden="true">↗</span></a><a href="#awards"><span data-zh="奖项" data-en="Awards">奖项</span><span aria-hidden="true">↗</span></a><a href="#uses"><span data-zh="工具" data-en="Toolkit">工具</span><span aria-hidden="true">↗</span></a><a href="#jd"><span data-zh="按岗位找证据" data-en="Role evidence">按岗位找证据</span><span aria-hidden="true">↗</span></a><a href="#contact"><span data-zh="聊聊" data-en="Contact">聊聊</span><span aria-hidden="true">↗</span></a></nav><div class="directory-settings"><div class="directory-theme"><h3><span data-zh="配色" data-en="Palette">配色</span></h3><div data-directory-palette></div></div><label class="directory-motion"><span><span data-zh="动效" data-en="Motion">动效</span></span><select data-motion-preference><option value="system" data-zh="跟随系统" data-en="Follow system">跟随系统</option><option value="reduce" data-zh="减少动态效果" data-en="Reduce motion">减少动态效果</option></select></label><button type="button" class="directory-presentation" data-directory-present><span data-zh="90秒投屏" data-en="90s presentation">90秒投屏</span><span aria-hidden="true">↗</span></button></div></dialog>
+<script type="module" src="/assets/mobile-navigation.mjs?v=20261109-v2"></script>
+<script type="module" src="/assets/motion-governor.mjs?v=20261109-v2"></script>
 </body>
 </html>

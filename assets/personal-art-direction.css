@@ -75,7 +75,7 @@
 .award-list{display:block;border-top:1px solid var(--border-strong)}
 .award-item.honour-row{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:25px 0;border:0;border-bottom:1px solid var(--border-strong);background:transparent;border-radius:0;box-shadow:none;transform:none}
 .award-item.honour-row:hover{background:rgba(var(--second-rgb),.045);padding-inline:15px}
-.honour-row .award-name{font-family:var(--font-serif);font-size:21px;line-height:1.5;font-weight:600;margin-bottom:5px}
+.honour-row .award-name{font-family:Georgia,'Noto Serif SC',serif;font-size:21px;line-height:1.5;font-weight:600;margin-bottom:5px}
 .honour-row .award-meta{font-family:var(--font-sans);font-size:14px;line-height:1.6;color:var(--fg-muted);letter-spacing:0}
 .honour-link{display:flex;align-items:center;gap:18px;flex-shrink:0;font-size:13px;color:var(--fg-muted);min-height:44px}
 .honour-link svg{width:18px;height:18px;transition:transform .2s}

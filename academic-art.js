@@ -82,7 +82,7 @@
   function refreshMotion() {
     if (!root) return;
     root.querySelectorAll('.research-figure').forEach(function (el) {
-      el.classList.toggle('art-running', el.classList.contains('art-in-view') && !paused && !document.hidden);
+      el.classList.toggle('art-running', el.classList.contains('art-in-view') && !paused && !document.hidden && document.documentElement.dataset.motion !== 'reduce' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     });
   }
   function mount(wrap) {
@@ -90,7 +90,7 @@
     var button = wrap.querySelector('.research-motion-toggle');
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
     function syncButton() {
-      button.hidden = reduce.matches;
+      button.hidden = reduce.matches || document.documentElement.dataset.motion === 'reduce';
       button.setAttribute('aria-pressed', String(paused));
       var text = button.querySelector('span');
       var zh = paused ? '播放动效' : '暂停动效';
@@ -113,6 +113,7 @@
     }
     document.addEventListener('visibilitychange', refreshMotion);
     reduce.addEventListener('change', syncButton);
+    document.addEventListener('portfolio:motionchange', syncButton);
     var languageObserver = new MutationObserver(function () {
       wrap.querySelectorAll('[data-art-label-en]').forEach(function (svg) {
         svg.setAttribute('aria-label', svg.getAttribute('data-art-label-' + (document.documentElement.lang === 'en' ? 'en' : 'zh')));

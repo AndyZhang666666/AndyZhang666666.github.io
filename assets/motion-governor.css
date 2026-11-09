@@ -1,0 +1,67 @@
+/* Native anchors keep query parameters/history; only their landing offset is custom. */
+html { scroll-padding-top: calc(var(--portfolio-nav-height, 88px) + 20px); }
+main section[id], #top { scroll-margin-top: 0; }
+html[data-motion="full"] { scroll-behavior: smooth; }
+
+/* A single owner combines magnetic translation and immediate press feedback.
+   The individual scale property does not compete with translation. */
+html[data-motion] [data-motion-magnetic],
+html[data-motion] #contactGrid [data-motion-magnetic] {
+  transform: translate3d(0, 0, 0);
+  scale: 1;
+  transition: transform 260ms cubic-bezier(.16, 1, .3, 1), scale 260ms cubic-bezier(.16, 1, .3, 1), background-color 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+}
+html[data-motion] [data-motion-magnetic]:hover { transform: translate3d(0, 0, 0); }
+html[data-motion] [data-motion-magnetic].is-motion-tracking,
+html[data-motion] #contactGrid [data-motion-magnetic].is-motion-tracking { transition-duration: 90ms, 260ms, 260ms, 260ms, 260ms; will-change: transform; }
+html[data-motion] [data-motion-magnetic].is-motion-pressed,
+html[data-motion] #contactGrid [data-motion-magnetic].is-motion-pressed { scale: .975; transition-duration: 140ms, 140ms, 140ms, 140ms, 140ms; }
+/* Old button :active transforms must not replace the magnetic translation. */
+html[data-palette] [data-motion-magnetic]:active { transform: translate3d(0, 0, 0); }
+[data-hero-paper] { transition: transform 600ms cubic-bezier(.16, 1, .3, 1); }
+.has-hero-pointer [data-hero-paper] { transition: none; }
+[data-motion-magnetic]:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+
+/* Observe the decorative element itself, rather than its potentially very long
+   section. Pausing never hides, replaces or removes the original artwork. */
+[data-motion-region][data-motion-active="false"],
+[data-motion-region][data-motion-active="false"] *,
+[data-motion-region][data-motion-active="false"]::before,
+[data-motion-region][data-motion-active="false"]::after,
+[data-motion-region][data-motion-active="false"] *::before,
+[data-motion-region][data-motion-active="false"] *::after {
+  animation-play-state: paused !important;
+  will-change: auto !important;
+}
+html[data-page-visible="false"] *,
+html[data-page-visible="false"] *::before,
+html[data-page-visible="false"] *::after { animation-play-state: paused !important; }
+
+/* Manual reduction mirrors the existing OS preference. Content and feedback
+   stay usable; only spatial/continuous animation becomes static. */
+html[data-motion="reduce"] { scroll-behavior: auto !important; }
+html[data-motion="reduce"] *,
+html[data-motion="reduce"] *::before,
+html[data-motion="reduce"] *::after {
+  animation: none !important;
+  transition-duration: .01ms !important;
+  transition-delay: 0ms !important;
+  scroll-behavior: auto !important;
+}
+html[data-motion="reduce"] .reveal,
+html[data-motion="reduce"] .hero .hero-name > span,
+html[data-motion="reduce"] .about-main .about-body,
+html[data-motion="reduce"] .principle-num,
+html[data-motion="reduce"] .ai-view-num,
+html[data-motion="reduce"] .hero-name-en .char { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+html[data-motion="reduce"] .principle-card::before { transform: scaleX(1); }
+html[data-motion="reduce"] [data-motion-magnetic],
+html[data-motion="reduce"] [data-hero-paper] { transform: none !important; scale: 1 !important; }
+html[data-motion="reduce"] .section-num { transform: none !important; }
+html[data-motion="reduce"] .hero-mesh,
+html[data-motion="reduce"] .hero-grid { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  [data-motion-magnetic], [data-hero-paper] { transform: none !important; scale: 1 !important; }
+}

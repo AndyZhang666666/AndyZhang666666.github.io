@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {squidProject} from '../content/squid-lab.mjs';
+import {enhancePortfolioV2} from '../content/portfolio-v2.mjs';
+import {patchMotionV2} from '../content/motion-v2.mjs';
 const read=p=>fs.readFileSync(p,'utf8');
 const base=p=>execFileSync('git',['show',`32a393711aabcacdf6bc13d5015abf0c64ce4dfd:${p}`],{encoding:'utf8'});
 test('all previous 17 projects, personal data and published module files remain unchanged',()=>{
@@ -10,21 +12,25 @@ test('all previous 17 projects, personal data and published module files remain 
  assert.deepEqual(now.projects.filter(p=>p.id!=='squid-lab'),old.projects);
  assert.deepEqual({...now,projects:[]},{...old,projects:[]});
  assert.deepEqual(now.projects.find(p=>p.id==='squid-lab'),squidProject);
- for(const file of ['assets/demo-showcase.mjs','assets/demo-showcase.css','assets/presentation-mode.mjs','assets/presentation-mode.css','assets/resume.pdf']){
+ for(const file of ['assets/demo-showcase.css','assets/presentation-mode.mjs','assets/presentation-mode.css','assets/resume.pdf']){
   assert.deepEqual(fs.readFileSync(file),execFileSync('git',['show',`32a393711aabcacdf6bc13d5015abf0c64ce4dfd:${file}`],{maxBuffer:8000000}),file);
  }
- assert.equal(read('projects-split.js'),base('projects-split.js').replace("ids: ['poker-quiz', 'bankroll', 'poker-ev']", "ids: ['poker-quiz', 'bankroll', 'poker-ev', 'squid-lab']"));
+ const reviewedShowcase=base('assets/demo-showcase.mjs')
+  .replace("import {initExecution,initRag} from './new-work-previews.mjs';","import {initExecution,initRag} from './new-work-previews.mjs';\nimport {isMotionReduced} from './motion-governor.mjs?v=20261109-v2';")
+  .replace("const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;","const reduced=()=>isMotionReduced()||document.hidden;");
+ const versionedShowcase=reviewedShowcase.replace(/from '\.\/(showcase-motion|product-principles|new-work-previews)\.mjs'/g,"from './$1.mjs?v=20261109-v2'");
+ assert.equal(read('assets/demo-showcase.mjs'),versionedShowcase,'Only resource versions and shared motion guard may change in selected product logic');
+ // The V2 presentation now reorders existing poker DOM nodes. Data order and
+ // project ownership above stay frozen; a whole-file freeze would prohibit
+ // that explicitly approved behavior. Runtime order belongs in browser QA.
 });
-test('homepage changes are scoped to the new entry, resource references, cache key and total count',()=>{
- let html=read('index.html'),old=base('index.html');
+test('V2 homepage adds only the reviewed Hero, mobile directory and motion ownership changes',()=>{
+ const before=file=>execFileSync('git',['show',`4ec678e8a96044b3f903424209c894511c984eaa:${file}`],{encoding:'utf8'});
+ const html=read('index.html');
  assert.equal((html.match(/id="project-squid-lab"/g)||[]).length,1);
- html=html.replace(/<article id="project-squid-lab"[^]*?<\/article>\n?/,'');
- html=html.replace(/<link rel="stylesheet" href="assets\/squid-lab-preview.css[^\"]*">\n/,'').replace(/<script type="module" src="assets\/squid-lab-preview.mjs[^\"]*"><\/script>\n/,'');
- html=html.replaceAll('查看全部 18 项作品','查看全部 17 项作品').replaceAll('Explore all 18 projects','Explore all 17 projects');
- html=html.replace(/src="app\.js\?v=[^"]*"/,old.match(/src="app\.js\?v=[^"]*"/)[0]);
- html=html.replace(/src="projects-split\.js\?v=[^"]*"/,old.match(/src="projects-split\.js\?v=[^"]*"/)[0]);
- assert.equal(html,old);
- assert.equal(read('app.js').replace(/data\.json\?v=[\w.-]+/g,base('app.js').match(/data\.json\?v=[\w.-]+/)[0]),base('app.js'));
+ assert.equal(html,enhancePortfolioV2(before('index.html')));
+ assert.equal(read('app.js'),patchMotionV2(before('app.js')));
+ assert.equal(read('data.json'),before('data.json'),'V2 must not alter any personal or project data');
 });
 test('homepage exercise is a versioned engine artifact and the new case has actual destinations',()=>{
  const data=JSON.parse(read('assets/squid-lab-preview.json'));

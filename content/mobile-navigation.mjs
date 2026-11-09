@@ -1,0 +1,13 @@
+// Progressive enhancement: the desktop navigation and no-JS links stay usable.
+const words=(zh,en)=>`<span data-zh="${zh}" data-en="${en}">${zh}</span>`;
+const sections=[['top','首页','Home'],['about','关于我','About'],['selected','精选作品','Selected work'],['ai','关于 AI','On AI'],['work','工作经历','Experience'],['education','教育与研究','Education'],['projects','完整作品库','All projects'],['awards','奖项','Awards'],['uses','工具','Toolkit'],['jd','按岗位找证据','Role evidence'],['contact','聊聊','Contact']];
+export function enhanceMobileNavigation(html,{casePage=false}={}) {
+ if(html.includes('id="mobileDirectory"'))return html;
+ if(!html.includes('id="langToggle"'))throw Error('Mobile directory requires the original language control');
+ const trigger=`<button id="directoryToggle" class="directory-toggle" type="button" aria-haspopup="dialog" aria-controls="mobileDirectory" aria-expanded="false" hidden>${words('目录','Menu')}<svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true"><path d="M3 6h14M3 13h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>`;
+ const links=sections.map(([id,zh,en])=>`<a href="${casePage?'/':''}#${id}">${words(zh,en)}<span aria-hidden="true">↗</span></a>`).join('');
+ const dialog=`<dialog id="mobileDirectory" class="mobile-directory" aria-labelledby="directoryTitle"><div class="directory-head"><h2 id="directoryTitle">${words('目录','Explore')}</h2><button type="button" class="directory-close" data-directory-close aria-label="关闭目录" data-label-zh="关闭目录" data-label-en="Close menu"><span aria-hidden="true">×</span></button></div><nav class="directory-links" aria-label="页面目录" data-label-zh="页面目录" data-label-en="Page sections">${links}</nav><div class="directory-settings"><div class="directory-theme"><h3>${words('配色','Palette')}</h3><div data-directory-palette></div></div><label class="directory-motion"><span>${words('动效','Motion')}</span><select data-motion-preference><option value="system" data-zh="跟随系统" data-en="Follow system">跟随系统</option><option value="reduce" data-zh="减少动态效果" data-en="Reduce motion">减少动态效果</option></select></label>${casePage?'':`<button type="button" class="directory-presentation" data-directory-present>${words('90秒投屏','90s presentation')}<span aria-hidden="true">↗</span></button>`}</div></dialog>`;
+ return html.replace('<button id="langToggle"',`${trigger}<button id="langToggle"`)
+  .replace('</head>','<link rel="stylesheet" href="/assets/mobile-navigation.css?v=20261109-v2">\n</head>')
+  .replace('</body>',`${dialog}\n<script type="module" src="/assets/mobile-navigation.mjs?v=20261109-v2"></script>\n</body>`);
+}

@@ -12,6 +12,8 @@ import {renderAiViews} from '../assets/ai-views.mjs';
 import {applyPersonalPresentation,transformPersonalHTML,patchPersonalApp} from '../content/personal-presentation.mjs';
 import {enhancePresentationHTML,presentationCases} from '../content/presentation-mode.mjs';
 import {rasterSize} from '../content/raster-size.mjs';
+import {patchMotionV2} from '../content/motion-v2.mjs';
+import {enhancePortfolioV2} from '../content/portfolio-v2.mjs';
 const localReview=process.argv.includes('--local');
 const releaseVersion='20261101-integrated1';
 const showcaseVersion='20261101-integrated1';
@@ -120,6 +122,7 @@ app=app.replace(/function renderProjects\(\) \{[\s\S]*?\n\}\n\nfunction renderAw
 app=app.replace(/function renderAiViews\(\) \{[\s\S]*?\n\}/,`function renderAiViews() {\n  // Keep the statically rendered opinions, own examples and reference links.\n  if (typeof window.refreshAiViews === 'function') window.refreshAiViews(data.aiViews?.items || []);\n}`);
 app=app.replace('    initMagnetic();','    initMagnetic();\n    document.dispatchEvent(new Event(\'portfolio:ready\'));');
 app=patchPersonalApp(app);
+app=patchMotionV2(app);
 fs.writeFileSync('app.js',app);
 
 // New reading pages use the original site's CSS and vocabulary, not the fusion skin.
@@ -164,3 +167,10 @@ fs.writeFileSync('index.html',restoredHtml);
 await integrateSite();
 fs.writeFileSync('index.html',enhancePresentationHTML(fs.readFileSync('index.html','utf8')));
 integrateSquidLab();
+const finalHTML=enhancePortfolioV2(fs.readFileSync('index.html','utf8'));
+fs.writeFileSync('index.html',finalHTML);
+const paletteMarkup=finalHTML.match(/<div class="palette-switch"[^]*?<\/div>/)?.[0]||'';
+for(const name of fs.readdirSync('cases')){
+ const file=`cases/${name}/index.html`;
+ if(fs.existsSync(file))fs.writeFileSync(file,enhancePortfolioV2(fs.readFileSync(file,'utf8'),{casePage:true,paletteMarkup}));
+}
