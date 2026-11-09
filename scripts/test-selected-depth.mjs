@@ -8,6 +8,7 @@ import {createTastePreview,posterContent} from '../assets/demo-preview/taste-ses
 import {DIRECTIONS,directionSvg} from '../tasteroom/directions.js';
 import {simulateOne,breakEvenAdoption} from '../assets/demo-preview/bundle-model.mjs';
 import {rasterSize} from '../content/raster-size.mjs';
+import {presentationCases,withPresentationQuery,withoutPresentationQuery} from '../content/presentation-mode.mjs';
 import {enhancePortfolioV2} from '../content/portfolio-v2.mjs';
 import {retrieveRun} from '../rag-lab/engine.mjs';
 const read=p=>fs.readFileSync(p,'utf8'),hash=v=>createHash('sha256').update(v).digest('hex');
@@ -20,6 +21,10 @@ for(const d of directions){assert.deepEqual(d.order,expected[d.id]);assert.equal
 assert.equal(html.includes(renderSelected(data)),true,'All default content/links must be in HTML');
 assert.equal(data.projects.length,prior.projects.length);assert.deepEqual(data.projects.map(p=>p.id),prior.projects.map(p=>p.id));
 const ids=new Set(selected.map(s=>s.project));
+assert.deepEqual(Object.keys(baseline.allowedProjectChanges),[...ids],'Only the four approved projects have content exceptions');
+const protectedProject=(project,paths)=>{const copy=structuredClone(project);for(const path of paths){const keys=path.split('.');let owner=copy;for(const key of keys.slice(0,-1))owner=owner?.[key];if(owner)delete owner[keys.at(-1)];}return copy;};
+for(const id of ids){const allowed=baseline.allowedProjectChanges[id];assert.deepEqual(protectedProject(data.projects.find(p=>p.id===id),allowed),protectedProject(prior.projects.find(p=>p.id===id),allowed),'Owned project changed outside explicit display-copy/image-size whitelist: '+id);}
+
 for(const p of prior.projects)if(!ids.has(p.id))assert.deepEqual(data.projects.find(n=>n.id===p.id),p,'Unrelated project: '+p.id);
 for(const k of Object.keys(prior).filter(k=>k!=='projects'))assert.deepEqual(data[k],prior[k],'Unrelated supplied facts: '+k);
 for(const s of selected){const p=data.projects.find(p=>p.id===s.project),study=studies.find(study=>study.id===s.id);assert.ok(p.url&&p.github);assert.equal(study.project,p.id);assert.ok(html.includes(`data-selected-demo="${p.id}"`));assert.ok(read(`cases/${s.id}/index.html`).includes(study.summary.zh));}
@@ -34,9 +39,13 @@ const captures=JSON.parse(read('assets/work/showcase/captures.json')).records,ol
 for(const id of ids){const capture=captures.find(c=>c.id===id),p=data.projects.find(p=>p.id===id);assert.ok(capture?.capturedAt&&capture.state);assert.equal(hash(fs.readFileSync(capture.full)),capture.fullSha256);assert.equal(hash(fs.readFileSync(capture.crop)),capture.cropSha256);assert.deepEqual(p.presentation.coverSize,capture.cropSize);}
 for(const c of oldCaptures)if(!ids.has(c.id))assert.deepEqual(captures.find(n=>n.id===c.id),c,'Unrelated capture changed: '+c.id);
 function region(source,id){const start=source.indexOf(`<section id="${id}"`),tags=/<\/?section\b[^>]*>/g;assert.ok(start>=0,id);tags.lastIndex=start;let depth=0,m;while((m=tags.exec(source))){depth+=m[0].startsWith('</')?-1:1;if(depth===0)return source.slice(start,tags.lastIndex);}assert.fail('Unclosed '+id);}
+const outsideOwnedContent=source=>{let result=source.replace(region(source,'selected'),'<section id="selected">APPROVED_SELECTED_CONTENT</section>');for(const id of ids)result=result.replace(new RegExp(`<article id="project-${id}"[^]*?</article>`),`<article id="project-${id}">APPROVED_PROJECT_CONTENT</article>`);return result.replace(/(assets\/demo-showcase\.(?:mjs|css)\?v=)[^"']*/g,'$1APPROVED_SELECTED_CACHE_KEY');};
+assert.equal(outsideOwnedContent(html),outsideOwnedContent(old('index.html')),'Entire V2 homepage shell and other cards outside the explicit four-project boundary');
 for(const id of ['top','about','ai','work','experience','education','awards','uses','skills','jd','contact'])if(old('index.html').includes(`<section id="${id}"`))assert.equal(region(html,id),region(old('index.html'),id),'Protected section: '+id);
 for(const file of ['app.js','style.css','bg-layers.js','motion.js','interactions.css','academic-art.js','education.js','assets/showcase-motion.mjs','assets/hero-paper.css','assets/mobile-navigation.css','assets/mobile-navigation.mjs','assets/motion-governor.css','assets/motion-governor.mjs','scripts/case-reader.js'])assert.equal(read(file),old(file),'Protected visual/interaction file: '+file);
 assert.equal(enhancePortfolioV2(html),html,'V2 enhancement and current selected resource revisions compose idempotently');
+assert.deepEqual(Object.keys(presentationCases),expected.all,'Presentation follows the four current product-owned mechanisms');
+for(const href of Object.values(presentationCases)){const url=new URL(href,'https://example.test');assert.ok(read(url.pathname.slice(1)+'index.html').includes(`id="${url.hash.slice(1)}"`),'Real case mechanism: '+href);const entered=new URL(withPresentationQuery(url.href));assert.equal(entered.searchParams.get('present'),'1');assert.equal(new URL(withoutPresentationQuery(entered.href)).href,url.href,'Presentation exit preserves route and anchor');}
 for(const item of selected){
  const file=`cases/${item.id}/index.html`,current=read(file);
  assert.equal(current.replace(/<main>[^]*<\/main>/,'<main></main>'),old(file).replace(/<main>[^]*<\/main>/,'<main></main>'),'Approved V2 case shell/scripts: '+file);

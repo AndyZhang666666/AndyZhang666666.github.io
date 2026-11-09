@@ -22,10 +22,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Preserve published facts and four product previews
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Historical display baseline plus current explicit product protections
         run: |
-          node scripts/test-four-selected.mjs
-          node scripts/test-personal-art-direction.mjs
+          node scripts/check-portfolio-history.mjs
+          node scripts/test-selected-depth.mjs
       - name: Check changed browser modules
         run: |
           node --check app.js
