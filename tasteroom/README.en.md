@@ -1,5 +1,11 @@
 # TasteRoom · Preference Lab
 
+2026-11-09: artwork creation upgrade verified locally; not pushed, merged or published. [Scope, real browser evidence and limits](docs/PRODUCT-DEPTH-20261109.md). Six directions reflow into portrait900×1200, square1080×1080 and landscape1600×900. Optional event details, one local JPG/PNG/WebP up to5MB, fit/fill and focal position belong to the artwork, never to preference rules.
+
+Candidates preserve copy, size, canvas parameters and image reference. Image bytes stay in IndexedDB. A provenance strip distinguishes scene-authorised direction from temporary changes; restoring the scene direction reuses its rule without writing memory. PNG and SVG use the current visible renderer. Private feedback stays in the separately exported preference brief.
+
+Earlier dated entries below describe the prior iterations.
+
 Final display/export polish verified locally; calculation and persistence contracts retained. Unpublished. [Changes and checks](docs/FINAL-DETAIL-20261103.md).
 
 Independent task-flow rechecks passed; changes remain local and unpublished. [Review scope and untested limits](docs/INDEPENDENT-REVIEW-20261103.md).
