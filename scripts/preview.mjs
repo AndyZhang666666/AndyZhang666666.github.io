@@ -12,7 +12,7 @@ if(!Number.isInteger(port)||port<1||port>65535)throw Error('PREVIEW_PORT must be
 const integrated={'llm-output-eval':'eval','bundle-lab':'bundle','commute-compare':'commute','poker-squid-lab':'poker-squid-lab'};
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.pdf':'application/pdf','.ttf':'font/ttf','.woff2':'font/woff2','.txt':'text/plain; charset=utf-8'};
 const exports=new Set(['llm-output-eval','bundle-lab','growth-experiment-lab','pricing-model-sim','commute-compare','poker-bankroll-sim','poker-ev-calculator','poker-squid-lab']);
-const ragFiles=new Set(['index.html','app.mjs','engine.mjs','workspace.mjs','personal-workbench.mjs','task-catalog.mjs','style.css','public-corpus.json','favicon.svg']);
+const ragFiles=new Set(['index.html','app.mjs','engine.mjs','workspace.mjs','personal-workbench.mjs','task-catalog.mjs','import-errors.mjs','style.css','public-corpus.json','favicon.svg']);
 const privateFolders=new Set(['server','backend','tests','evidence','corpus','node_modules']);
 
 function publicPath(parts){
