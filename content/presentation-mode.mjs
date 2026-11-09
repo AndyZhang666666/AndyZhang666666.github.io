@@ -3,7 +3,7 @@ export const presentationCases = Object.freeze({
   trust: '/cases/trust/#mechanism',
   taste: '/cases/taste/#mechanism',
   bundles: '/cases/bundles/#mechanism',
-  commute: '/cases/commute/#mechanism',
+  rag: '/cases/rag/#mechanism',
 });
 
 const icon = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v11H4zM2 4h20M12 15v5m-4 1 4-3 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';

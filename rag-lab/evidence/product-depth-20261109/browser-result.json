@@ -1,0 +1,38 @@
+[
+  {
+    "width": 1280,
+    "pass": true,
+    "errors": [],
+    "realPdf": true,
+    "chinesePdf": true,
+    "tasks": 12,
+    "failedPdfDraftProtection": true,
+    "backupRoundTrip": true,
+    "externalRequests": 0,
+    "paidModelCalls": 0
+  },
+  {
+    "width": 390,
+    "pass": true,
+    "errors": [],
+    "realPdf": true,
+    "chinesePdf": true,
+    "tasks": 12,
+    "failedPdfDraftProtection": true,
+    "backupRoundTrip": true,
+    "externalRequests": 0,
+    "paidModelCalls": 0
+  },
+  {
+    "width": 768,
+    "pass": true,
+    "errors": [],
+    "realPdf": true,
+    "chinesePdf": true,
+    "tasks": 12,
+    "failedPdfDraftProtection": true,
+    "backupRoundTrip": true,
+    "externalRequests": 0,
+    "paidModelCalls": 0
+  }
+]

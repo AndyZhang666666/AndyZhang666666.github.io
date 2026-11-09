@@ -1,7 +1,7 @@
 name: Four selected products (development only)
 on:
   push:
-    branches: [feat/usable-four-20261030, feat/product-depth-20261101, design/demo-craft-20261102]
+    branches: [feat/usable-four-20261030, feat/product-depth-20261101, design/demo-craft-20261102, feat/site-product-depth-20261109]
   pull_request:
 permissions:
   contents: read
@@ -16,10 +16,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Original poster engine and usable-workflow boundaries
-        run: node --test tasteroom/tests/engine.test.mjs tasteroom/tests/experiments.test.mjs tasteroom/tests/directions.test.mjs tasteroom/tests/usable.test.mjs tasteroom/tests/depth.test.mjs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Historical reviewed display contracts on their unchanged 828fc59 worktree
+        run: node scripts/check-portfolio-history.mjs
+      - name: All current poster and RAG calculation, state and safety contracts
+        run: node --test tasteroom/tests/*.test.mjs rag-lab/tests/*.test.mjs
       - name: Four entries, canonical inputs and protected portfolio content
-        run: node scripts/test-four-selected.mjs
+        run: node scripts/test-selected-depth.mjs
       - name: Browser-module syntax
         run: |
           node --check assets/demo-showcase.mjs

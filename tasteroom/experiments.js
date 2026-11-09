@@ -1,8 +1,9 @@
+import {artworkSignature} from './artwork.js';
 import { OPTIONS, validChoice } from './engine.js?v=20261027-studio1';
 import { directionSvg, balancedLines, fit, layoutStatus } from './directions.js';
 export const DIMENSIONS = { artDirection:'设计方向',layoutDensity:'留白',typography:'字体',alignment:'对齐',colorMood:'色彩',decorElements:'装饰' };
 const copy=x=>JSON.parse(JSON.stringify(x));
-const fingerprint=room=>JSON.stringify({context:room.context,content:room.content,draftContent:room.draftContent,canvas:room.canvas,posterSettings:room.posterSettings,memories:room.memories});
+const fingerprint=room=>JSON.stringify({context:room.context,content:room.content,draftContent:room.draftContent,canvas:room.canvas,posterSettings:room.posterSettings,artwork:artworkSignature(room.artwork),memories:room.memories});
 export const comparisonIsCurrent=(room,comparison)=>!!comparison && !room.pending && comparison.fingerprint===fingerprint(room);
 
 export function createComparison(room, dimension, pair=null) {
@@ -62,7 +63,7 @@ export function briefMarkdown(room) {
 const xml=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
 export function posterSvg(room, content) {
   content=room.draftContent||content;
-  if(room.canvas.artDirection && room.canvas.artDirection!=='free')return directionSvg(room,content);
+  if(room.artwork||(room.canvas.artDirection && room.canvas.artDirection!=='free'))return directionSvg(room,content);
   const c=room.canvas,layout=layoutStatus(room,content),pad=layout.pad;
   const palette={monochrome:['#f4f3ed','#25332b'],muted_warm:['#eadfd0','#3a3e32'],high_contrast:['#1f42cb','#eeff88']}[c.colorMood];
   const family={rational_sans:'sans-serif',editorial_serif:'serif',mono_tech:'monospace'}[c.typography];

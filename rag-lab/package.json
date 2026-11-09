@@ -2,11 +2,18 @@
   "name": "trustworthy-rag-lab",
   "private": true,
   "type": "module",
-  "engines": {"node": ">=22"},
+  "engines": {
+    "node": ">=22.13.0"
+  },
   "scripts": {
     "start": "node server/server.mjs",
     "build:public": "node scripts/build-public.mjs",
     "test": "node --test tests/*.test.mjs",
-    "evaluate": "node scripts/evaluate.mjs"
+    "evaluate": "node scripts/evaluate.mjs",
+    "vendor:pdf": "node scripts/vendor-pdf.mjs",
+    "test:browser": "node tests/product-browser.mjs"
+  },
+  "dependencies": {
+    "pdfjs-dist": "6.5.438"
   }
 }

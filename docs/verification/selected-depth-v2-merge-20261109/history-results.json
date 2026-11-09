@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "scope": "Original, unchanged display/frozen-content tests on the approved historical baseline only",
+  "revision": "828fc5938ae9772afc150d920f892d77935f33b7",
+  "commands": [
+    "node scripts/test-four-selected.mjs",
+    "node scripts/test-personal-art-direction.mjs",
+    "node --test scripts/test-presentation-mode.mjs scripts/test-presentation-anchors.mjs scripts/test-squid-integration.mjs scripts/test-portfolio-v2.mjs scripts/test-motion-policy.mjs"
+  ],
+  "currentProductClaim": false
+}

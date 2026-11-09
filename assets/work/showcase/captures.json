@@ -1,30 +1,30 @@
 {
-  "updatedAt": "2026-11-01T14:40:40.756350+00:00",
+  "updatedAt": "2026-11-09T08:24:07.855Z",
   "source": "http://127.0.0.1:8830",
-  "method": "Four current product-depth viewport captures with source commits and explicit fixture state. Other project captures keep prior provenance; no new model calls.",
+  "method": "Actual task-operated captures for the four selected tools. No mockups, model calls or invented outcomes; other capture records preserved.",
   "records": [
     {
       "id": "eval",
-      "route": "/llm-output-eval/?sample=e06&dimension=structure",
+      "route": "/llm-output-eval/workspace/",
       "full": "assets/work/showcase/eval.jpg",
       "crop": "assets/work/showcase/eval-crop.jpg",
       "viewport": {
-        "width": 1440,
+        "width": 1280,
         "height": 900
       },
-      "capturedAt": "2026-11-01T14:30:48.650183+00:00",
-      "state": "Original historical e06/structure replay, raw score 2/5 unchanged, in the new Swiss review desk. Two synthetic UI-check records were present in the local library, collapsed and not displayed. No new model calls.",
-      "fullPage": false,
       "cropSize": {
-        "width": 1440,
+        "width": 1280,
         "height": 900
       },
-      "fullSha256": "d51de7fce9edcdf573ea765b888d6f2cac0c73bf0e141768e919fae86131f97a",
-      "cropSha256": "d51de7fce9edcdf573ea765b888d6f2cac0c73bf0e141768e919fae86131f97a",
-      "source": "http://127.0.0.1:8830",
-      "sourceCommit": "339e09d7035c163a5f37fada722f729d775fc801",
+      "capturedAt": "2026-11-09T08:24:04.541Z",
+      "state": "Original fictional capture text in the new personal-manuscript workspace; manually saved structural observation, explicitly no model evaluation or new model call.",
+      "source": "http://127.0.0.1:8860",
+      "sourceCommit": "66a13b4551a9cccaeafb7d8ab3a308c808ec99c8",
+      "hasUncommittedSourceChanges": false,
       "sourceRepository": "AndyZhang666666/llm-output-eval",
-      "captureMethod": "Unedited actual browser viewport screenshot; full and preview files identical. No compositing, model-generated mockup or invented business results."
+      "captureMethod": "Unedited actual operated Chrome viewport in an isolated browser context. Full and preview bytes are identical. Working-tree captures are explicitly marked.",
+      "fullSha256": "4447030dd5c6c14e6bef66a5408c760d19fa17fe70d6da7fa85f340e328ff755",
+      "cropSha256": "4447030dd5c6c14e6bef66a5408c760d19fa17fe70d6da7fa85f340e328ff755"
     },
     {
       "id": "taste",
@@ -32,22 +32,22 @@
       "full": "assets/work/showcase/taste.jpg",
       "crop": "assets/work/showcase/taste-crop.jpg",
       "viewport": {
-        "width": 1440,
+        "width": 1280,
         "height": 900
       },
-      "capturedAt": "2026-11-01T14:29:22.460860+00:00",
-      "state": "Six genuine SVG directions using the same built-in fictional product-talk copy; gallery open, no preference saved. Local rule simulation, not image generation.",
-      "fullPage": false,
       "cropSize": {
-        "width": 1440,
+        "width": 1280,
         "height": 900
       },
-      "fullSha256": "feaf71b0162c45b66c999685f59eeea5f44e7c298d4902d3eecc7b7174106321",
-      "cropSha256": "feaf71b0162c45b66c999685f59eeea5f44e7c298d4902d3eecc7b7174106321",
-      "source": "http://127.0.0.1:8830",
-      "sourceCommit": "6f56e8e5f91516c2deb24bbcb212f57213dcd469",
+      "capturedAt": "2026-11-09T08:24:05.643Z",
+      "state": "Actual six-direction, three-format creator: original demonstration copy and event details in a1600x900 Swiss landscape, no preference consent or model call.",
+      "source": "http://127.0.0.1:8860",
+      "sourceCommit": "3637b38b4ccf58cffdf2d53df34062e97a4f761f",
+      "hasUncommittedSourceChanges": false,
       "sourceRepository": "AndyZhang666666/AndyZhang666666.github.io",
-      "captureMethod": "Unedited actual browser viewport screenshot; full and preview files identical. No compositing, model-generated mockup or invented business results."
+      "captureMethod": "Unedited actual operated Chrome viewport in an isolated browser context. Full and preview bytes are identical. Working-tree captures are explicitly marked.",
+      "fullSha256": "591de3571446607971bed0a63abc9c5e9e735e8ba2b89691a11b951e39be97c0",
+      "cropSha256": "591de3571446607971bed0a63abc9c5e9e735e8ba2b89691a11b951e39be97c0"
     },
     {
       "id": "suibianju",
@@ -74,22 +74,22 @@
       "full": "assets/work/showcase/bundle.jpg",
       "crop": "assets/work/showcase/bundle-crop.jpg",
       "viewport": {
-        "width": 1440,
+        "width": 1280,
         "height": 900
       },
-      "capturedAt": "2026-11-01T14:32:34.793274+00:00",
-      "state": "Built-in synthetic cola/chicken-rice scenario, discount 12%, cost 40%, neutral adoption 12%, loss -49.51 per100 covered orders. Fixed QA strategy snapshots exist below the viewport. No observed business outcome.",
-      "fullPage": false,
       "cropSize": {
-        "width": 1440,
+        "width": 1280,
         "height": 900
       },
-      "fullSha256": "1c8748020ddec95c9306e9331a5afd5f59d4cd44a86441df05a38bca8c57b8c5",
-      "cropSha256": "1c8748020ddec95c9306e9331a5afd5f59d4cd44a86441df05a38bca8c57b8c5",
-      "source": "http://127.0.0.1:8830",
-      "sourceCommit": "d5463642cc37d8e1bbc21f8b347882d53affe2b0",
+      "capturedAt": "2026-11-09T08:24:06.784Z",
+      "state": "Actual updated Bundle Lab with the built-in synthetic-order basis and a locally saved scenario A; assumptions and contributions are not business observations.",
+      "source": "http://127.0.0.1:8860",
+      "sourceCommit": "4cab0dc75fa70df970c016b642d294fbb8a33dde",
+      "hasUncommittedSourceChanges": false,
       "sourceRepository": "AndyZhang666666/bundle-lab",
-      "captureMethod": "Unedited actual browser viewport screenshot; full and preview files identical. No compositing, model-generated mockup or invented business results."
+      "captureMethod": "Unedited actual operated Chrome viewport in an isolated browser context. Full and preview bytes are identical. Working-tree captures are explicitly marked.",
+      "fullSha256": "04af5ef3966103f9b3c34d1588c8262593b87c12e45f5d310d8801707f541d7a",
+      "cropSha256": "04af5ef3966103f9b3c34d1588c8262593b87c12e45f5d310d8801707f541d7a"
     },
     {
       "id": "filing",
@@ -216,17 +216,21 @@
       "crop": "assets/work/showcase/rag-lab-crop.jpg",
       "viewport": {
         "width": 1280,
-        "height": 1000
+        "height": 900
       },
-      "capturedAt": "2026-10-29T13:45:15.262Z",
-      "state": "Public fictional corpus, actual BM25 retrieval and rule extraction for 2026-10-28 / baseline: 14-day rule with version 2.0 and source paragraph. No model call.",
-      "fullPage": true,
       "cropSize": {
-        "width": 1112,
-        "height": 408
+        "width": 1280,
+        "height": 900
       },
-      "fullSha256": "2b9f2037e4eb91dc8bfe66ac205267851231f74d3da832f30bd8bd31af32eca3",
-      "cropSha256": "b3ef444bf76ab0abe17b446d552562853b7a545a5a6df55baccddb110118ee55"
+      "capturedAt": "2026-11-09T08:24:07.848Z",
+      "state": "Actual updated RAG three-column example task: date/version conditions, browser retrieval, answer and supporting source; original fictional policies and no model call.",
+      "source": "http://127.0.0.1:8860",
+      "sourceCommit": "3637b38b4ccf58cffdf2d53df34062e97a4f761f",
+      "hasUncommittedSourceChanges": false,
+      "sourceRepository": "AndyZhang666666/AndyZhang666666.github.io",
+      "captureMethod": "Unedited actual operated Chrome viewport in an isolated browser context. Full and preview bytes are identical. Working-tree captures are explicitly marked.",
+      "fullSha256": "8bb36b5e1771d05e34b983022b24acedf57669b30f336b04100e8ae2fcfcabb5",
+      "cropSha256": "8bb36b5e1771d05e34b983022b24acedf57669b30f336b04100e8ae2fcfcabb5"
     }
   ]
 }

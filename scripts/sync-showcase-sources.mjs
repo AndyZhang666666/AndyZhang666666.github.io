@@ -9,9 +9,10 @@ const sourceRoot=path.resolve(process.argv[2]||path.join(root,'..'));
 const aliases={'bundle-lab':'bundle','llm-output-eval':'eval'};
 const repoPath=name=>path.join(sourceRoot,fs.existsSync(path.join(sourceRoot,name))?name:aliases[name]);
 const hash=value=>crypto.createHash('sha256').update(value).digest('hex');
+const revision=(name,key)=>process.env[key]||execFileSync('git',['rev-parse','HEAD'],{cwd:repoPath(name),encoding:'utf8'}).trim();
 const pinned=[
-  {repo:'bundle-lab',revision:'b50f57e46ef98ed594a0394e564da84a4c7099da',source:'lib/simulate.js',target:'assets/demo-preview/bundle-model.mjs'},
-  {repo:'llm-output-eval',revision:'ff214286afc4483ee66dd975063e2e497286e554',source:'src/data/replay.json',target:'assets/demo-preview/eval-sample.json'},
+  {repo:'bundle-lab',revision:revision('bundle-lab','BUNDLE_SOURCE_REVISION'),source:'lib/simulate.js',target:'assets/demo-preview/bundle-model.mjs'},
+  {repo:'llm-output-eval',revision:revision('llm-output-eval','EVAL_SOURCE_REVISION'),source:'src/data/replay.json',target:'assets/demo-preview/eval-sample.json'},
 ];
 const manifest={format:1,sources:[]};
 for(const entry of pinned){

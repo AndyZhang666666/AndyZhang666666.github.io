@@ -3,7 +3,7 @@
   "versions": {
     "index": "zh-bigram-bm25-v1",
     "prompt": "grounded-json-v1",
-    "judge": "equipment-facts-v1",
+    "judge": "equipment-facts-v2",
     "corpus": "qingyu-20261028-v1"
   },
   "documents": [

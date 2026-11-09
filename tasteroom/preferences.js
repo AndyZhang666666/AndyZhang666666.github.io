@@ -1,3 +1,4 @@
+import {validArtwork} from './artwork.js';
 import {OPTIONS,validChoice} from './engine.js';
 import {DIMENSIONS} from './experiments.js';
 const contexts={global:'全局',personal:'个人展览／活动',work:'工作汇报'};
@@ -41,5 +42,5 @@ export function applyBrief(room,brief){
  return checked.rules.length;
 }
 export function validCandidate(candidate){
- return !!candidate&&Array.isArray(candidate.content)&&candidate.content.length===4&&candidate.content.every(s=>typeof s==='string'&&s.length<=180)&&candidate.canvas&&Object.keys(OPTIONS).every(d=>validChoice(d,candidate.canvas[d]))&&candidate.posterSettings&&Number.isFinite(candidate.posterSettings.titleScale)&&candidate.posterSettings.titleScale>=.65&&candidate.posterSettings.titleScale<=1.3&&['auto','manual'].includes(candidate.posterSettings.lineBreaks);
+ return !!candidate&&(!candidate.artwork||validArtwork(candidate.artwork))&&Array.isArray(candidate.content)&&candidate.content.length===4&&candidate.content.every(s=>typeof s==='string'&&s.length<=180)&&candidate.canvas&&Object.keys(OPTIONS).every(d=>validChoice(d,candidate.canvas[d]))&&candidate.posterSettings&&Number.isFinite(candidate.posterSettings.titleScale)&&candidate.posterSettings.titleScale>=.65&&candidate.posterSettings.titleScale<=1.3&&['auto','manual'].includes(candidate.posterSettings.lineBreaks);
 }

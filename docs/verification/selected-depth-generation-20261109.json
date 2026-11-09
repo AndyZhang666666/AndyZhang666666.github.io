@@ -1,0 +1,123 @@
+{
+  "format": 1,
+  "protectedBaseline": {
+    "format": 1,
+    "revision": "828fc5938ae9772afc150d920f892d77935f33b7",
+    "role": "Approved current origin/main visual baseline, merged into the product-depth development branch",
+    "priorBatchBaseline": "55f3cb4",
+    "scope": "Protect the current V2 hero, personal facts, unrelated works, education, themes and shared motion. This batch may replace only its four selected previews and owned cards/case bodies.",
+    "historicalEvidence": "Earlier selected-depth evidence and unchanged commute-specific scripts describe their original baseline; this record does not rewrite those results.",
+    "allowedProjectChanges": {
+      "eval": [
+        "description",
+        "descriptionEn",
+        "approach",
+        "approachEn",
+        "result",
+        "resultEn",
+        "presentation.question",
+        "presentation.caption",
+        "presentation.decision",
+        "presentation.coverSize"
+      ],
+      "taste": [
+        "description",
+        "descriptionEn",
+        "approach",
+        "approachEn",
+        "result",
+        "resultEn",
+        "presentation.question",
+        "presentation.caption",
+        "presentation.decision",
+        "presentation.coverSize"
+      ],
+      "bundle": [
+        "description",
+        "descriptionEn",
+        "approach",
+        "approachEn",
+        "result",
+        "resultEn",
+        "presentation.question",
+        "presentation.caption",
+        "presentation.decision",
+        "presentation.coverSize"
+      ],
+      "rag-lab": [
+        "description",
+        "descriptionEn",
+        "approach",
+        "approachEn",
+        "result",
+        "resultEn",
+        "presentation.question",
+        "presentation.caption",
+        "presentation.decision",
+        "presentation.coverSize"
+      ]
+    }
+  },
+  "scope": "Four selected demos and their owned cards/cases only",
+  "order": [
+    "trust",
+    "taste",
+    "bundles",
+    "rag"
+  ],
+  "protectedSections": [
+    "top",
+    "about",
+    "ai",
+    "work",
+    "education",
+    "awards",
+    "uses",
+    "skills",
+    "jd",
+    "contact"
+  ],
+  "projectCount": 18,
+  "commutePreserved": true,
+  "sourceManifestSha256": "d262aa1b3f65d670e153412b968d29c9f7ed6fbadc086ec8d6d700998ab546a9",
+  "previewSourceFiles": [
+    {
+      "file": "assets/demo-preview/eval-sample.json",
+      "sha256": "65846b01015917fedb3682c9b792be6965355e46193d11d9f39e4d525ee1d01d"
+    },
+    {
+      "file": "assets/demo-preview/bundle-model.mjs",
+      "sha256": "0021819b10aff396334e57fd230a7a117dbe7e434656d83eafddc788db581e65"
+    },
+    {
+      "file": "assets/demo-preview/bundle-candidate.json",
+      "sha256": "2a56a1ecfc32dc6b601a21ced1415e2f203dc17ac4ae4954eff9c3f0be0e1d4f"
+    },
+    {
+      "file": "tasteroom/engine.js",
+      "sha256": "0e88f97e387654b3d775d60ba94c51102d710fe7bdefecacb0da7910b59e628f"
+    },
+    {
+      "file": "tasteroom/artwork.js",
+      "sha256": "c2bff5b54439edb31f0163651410ed0435a9705c06247d98624bea61c0cb5154"
+    },
+    {
+      "file": "tasteroom/directions.js",
+      "sha256": "bb4af3f12405638a4cfe4e005cc8ed11c464dbf190002c400821fc0f60780c72"
+    },
+    {
+      "file": "rag-lab/engine.mjs",
+      "sha256": "4ee1ee977a9c3ea0da56cea4753ca2d159700bc744aef90d972119cd99e4ff51"
+    },
+    {
+      "file": "rag-lab/public-corpus.json",
+      "sha256": "36bcfc644d3d295940f5baed69d29f03c5557bdae0643d1c80c06e3cd217d93f"
+    }
+  ],
+  "presentationCases": {
+    "trust": "/cases/trust/#mechanism",
+    "taste": "/cases/taste/#mechanism",
+    "bundles": "/cases/bundles/#mechanism",
+    "rag": "/cases/rag/#mechanism"
+  }
+}

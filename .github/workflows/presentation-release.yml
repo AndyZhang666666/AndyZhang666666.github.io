@@ -25,11 +25,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Protect portfolio content, reviewed TasteRoom files and case anchors
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Historical display baseline plus current case and V2 protections
         run: |
-          node scripts/test-four-selected.mjs
-          node scripts/test-personal-art-direction.mjs
-          node --test scripts/test-presentation-mode.mjs scripts/test-presentation-anchors.mjs
+          node scripts/check-portfolio-history.mjs
+          node scripts/test-selected-depth.mjs
+          node --test scripts/test-portfolio-v2.mjs scripts/test-motion-policy.mjs
       - name: TasteRoom engine, recovery, authorization and local-server boundaries
         run: node --test tasteroom/tests/*.test.mjs
       - name: Browser-module syntax

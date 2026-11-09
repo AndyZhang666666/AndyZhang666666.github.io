@@ -1,7 +1,7 @@
 name: RAG Lab checks
 on:
   push:
-    branches: [main, feat/trustworthy-rag-lab]
+    branches: [main, feat/trustworthy-rag-lab, feat/site-product-depth-20261109]
     paths: ['rag-lab/**', '.github/workflows/rag-lab.yml', 'index.html', 'data.json', 'app.js', '_config.yml', 'scripts/update-content.mjs']
   pull_request:
     paths: ['rag-lab/**', '.github/workflows/rag-lab.yml', 'index.html', 'data.json', 'app.js', '_config.yml', 'scripts/update-content.mjs']

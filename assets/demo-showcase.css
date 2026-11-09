@@ -1,4 +1,11 @@
 /* Scoped to selected work and the library. All original site tokens/effects are retained. */
+/* Product-depth integration: retain the glass/motion shell, improve task readability. */
+.showcase .preview-break-even{font-size:14px;line-height:1.8;margin:18px 0 0;color:var(--fg-muted)}
+.showcase .preview-break-even strong{font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--fg);font-size:18px;font-weight:550}
+.showcase :is(.showcase-links a,.showcase-all,.preview-original-comment summary,.preview-full-source summary,.preview-assumptions summary,.preview-test-plan summary,.rag-evidence summary){min-height:44px;display:flex;align-items:center}
+.showcase .preview-segment button{min-width:44px;min-height:44px}
+.showcase .rag-answer[data-stale=true]::before{content:'待更新 · 上一次条件的答复';display:block;font-size:13px;font-weight:550;color:var(--accent);margin-bottom:12px}
+html[lang=en] .showcase .rag-answer[data-stale=true]::before{content:'Stale · Answer from the previous scope'}
 .section-head:not([data-num])::before{content:none}
 .showcase{scroll-margin-top:96px}
 .showcase-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}

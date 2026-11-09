@@ -12,6 +12,7 @@ import {renderAiViews} from '../assets/ai-views.mjs';
 import {applyPersonalPresentation,transformPersonalHTML,patchPersonalApp} from '../content/personal-presentation.mjs';
 import {enhancePresentationHTML,presentationCases} from '../content/presentation-mode.mjs';
 import {rasterSize} from '../content/raster-size.mjs';
+if(process.argv.includes('--selected-only')){await import('./update-selected.mjs');process.exit(0);}
 import {patchMotionV2} from '../content/motion-v2.mjs';
 import {enhancePortfolioV2} from '../content/portfolio-v2.mjs';
 const localReview=process.argv.includes('--local');
@@ -167,6 +168,8 @@ fs.writeFileSync('index.html',restoredHtml);
 await integrateSite();
 fs.writeFileSync('index.html',enhancePresentationHTML(fs.readFileSync('index.html','utf8')));
 integrateSquidLab();
+// Keep the latest four task-oriented entries after optional extension integration.
+await import('./update-selected.mjs');
 const finalHTML=enhancePortfolioV2(fs.readFileSync('index.html','utf8'));
 fs.writeFileSync('index.html',finalHTML);
 const paletteMarkup=finalHTML.match(/<div class="palette-switch"[^]*?<\/div>/)?.[0]||'';

@@ -1,3 +1,4 @@
+import {artworkLayout,artworkSvg} from './artwork.js';
 // Original compositions. Each direction owns its geometry; previews and exports share this renderer.
 export const DIRECTIONS = {
  swiss:{name:'瑞士现代主义',detail:'清晰层级 / 理性网格',capacity:'标题 2–3 行 · 信息清楚时最有力量',use:'分享会、公开招募',paper:'#f4f2e9',ink:'#191d1c',accent:'#c43c29'},
@@ -17,6 +18,7 @@ export function balancedLines(value,limit,maxLines=2){
  const rows=[];let row='',width=0;for(const ch of [...source[0]]){if(width>=target&&rows.length<count-1){rows.push(row.trim());row='';width=0}row+=ch;width+=measure(ch)}if(row)rows.push(row.trim());return rows;
 }
 export function layoutStatus(room,content){
+ if(room.artwork)return artworkLayout(room,content);
  const settings=room.posterSettings||{},manual=settings.lineBreaks==='manual';
  const title=manual?String(content[1]).split(/<br\s*\/?\s*>|\n/i):balancedLines(content[1],12,4);
  const subtitle=manual?String(content[2]).split(/<br\s*\/?\s*>|\n/i):balancedLines(content[2],29,4);
@@ -36,6 +38,7 @@ export function layoutStatus(room,content){
  return {title,subtitle,pad,size,subtitleSize,subBottom,issues,ok:issues.length===0};
 }
 export function directionSvg(room,content){
+ if(room.artwork)return artworkSvg(room,content,DIRECTIONS[room.canvas.artDirection]||DIRECTIONS.swiss);
  const c=room.canvas,id=Object.hasOwn(DIRECTIONS,c.artDirection)?c.artDirection:'swiss',d=DIRECTIONS[id],l=layoutStatus(room,content);
  const [paper,ink,accent]=c.colorMood==='monochrome'?[d.paper,d.ink,d.ink]:c.colorMood==='high_contrast'?[id==='risograph'?'#ffe8b0':'#fff',d.ink,d.accent]:[d.paper,d.ink,d.accent];
  const sans="Arial,Helvetica,'PingFang SC',sans-serif",serif="Georgia,'Songti SC',serif",mono="'Courier New',monospace";

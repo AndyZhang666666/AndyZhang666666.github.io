@@ -2,6 +2,7 @@
 import {specificStudies} from './specific-studies.mjs';
 import {newWorkStudies} from './new-work-studies.mjs';
 import {usableStudies} from './usable-studies.mjs';
+import {productDepthStudies} from './selected-depth.mjs';
 const L = (zh, en) => ({ zh, en });
 
 export const identity = {
@@ -11,10 +12,10 @@ export const identity = {
 };
 
 export const directions = [
-  { id:'all', label:L('综合推荐','Overview'), order:['trust','taste','bundles','commute'] },
-  { id:'ai', label:L('AI / Agent','AI / Agents'), order:['trust','taste','bundles','commute'] },
-  { id:'life', label:L('生活与创新','Life & innovation'), order:['taste','commute','trust','bundles'] },
-  { id:'growth', label:L('增长与商业化','Growth & monetisation'), order:['bundles','trust','commute','taste'] },
+  { id:'all', label:L('综合推荐','Overview'), order:['trust','taste','bundles','rag'] },
+  { id:'ai', label:L('AI / Agent','AI / Agents'), order:['rag','trust','taste','bundles'] },
+  { id:'life', label:L('生活与创新','Life & innovation'), order:['taste','trust','rag','bundles'] },
+  { id:'growth', label:L('增长与商业化','Growth & monetisation'), order:['bundles','trust','rag','taste'] },
 ];
 
 export const projects = [
@@ -238,6 +239,7 @@ const depthUpdates = {
  },
 };
 for (const [id,update] of Object.entries(depthUpdates)) Object.assign(studies.find(study=>study.id===id),update);
+for (const [id,update] of Object.entries(productDepthStudies)) Object.assign(studies.find(study=>study.id===id),update);
 
 
 // Existing four opinions stay intact. Each now points to a concrete design decision.

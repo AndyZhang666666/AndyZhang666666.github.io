@@ -11,6 +11,9 @@ export function enhancePortfolioV2(html,{casePage=false,paletteMarkup=''}={}){
  html=enhanceMobileNavigation(html,{casePage});
  html=html.replace(/src="\/scripts\/case-reader\.js(?:\?v=[^"]*)?"/g,`src="/scripts/case-reader.js?v=${portfolioV2Version}"`);
  for(const file of changedResources){
+  // The selected-product integration has a newer explicit cache key. Keep it
+  // while applying the approved V2 enhancement to every other resource.
+  if(file==='assets/demo-showcase.mjs'&&html.includes('assets/demo-showcase.mjs?v=20261109-product-depth'))continue;
   const escaped=file.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
   html=html.replace(new RegExp(`((?:href|src)="/?${escaped}\\?v=)[^"\\s]+`,'g'),`$1${portfolioV2Version}`);
  }
