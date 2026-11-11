@@ -41,9 +41,15 @@ export function compareAuthorizedScenes(room, content) {
 // Two original SVG renderings may define the same clip IDs. Keep their references local.
 export function namespaceSceneSvg(svg,prefix) {
   if(typeof svg!=='string'||!/^scene-(personal|work)$/.test(prefix))throw Error('预览标识无效。');
-  const ids=new Set([...svg.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));
-  return svg.replace(/\bid="([^"]+)"/g,(_,id)=>`id="${prefix}-${id}"`)
-    .replace(/url\(#([^\)]+)\)/g,(full,id)=>ids.has(id)?`url(#${prefix}-${id})`:full)
-    .replace(/\b(href|xlink:href)="#([^"]+)"/g,(full,attribute,id)=>ids.has(id)?`${attribute}="#${prefix}-${id}"`:full)
-    .replace(/\b(aria-labelledby|aria-describedby)="([^"]+)"/g,(_,attribute,value)=>`${attribute}="${value.split(/\s+/).map(id=>ids.has(id)?prefix+'-'+id:id).join(' ')}"`);
+  const ids=new Set([...svg.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]));
+  const referenceAttributes=new Set(['clip-path','fill','stroke','filter','mask','marker-start','marker-mid','marker-end','style']);
+  // Restrict replacement to owned reference attributes, never visible copy or metadata.
+  return svg.replace(/(\s)([A-Za-z][\w:-]*)="([^"]*)"/g,(full,space,attribute,value)=>{
+    let next=value;
+    if(attribute==='id'&&ids.has(value))next=prefix+'-'+value;
+    else if(['href','xlink:href'].includes(attribute)&&value.startsWith('#')&&ids.has(value.slice(1)))next='#'+prefix+'-'+value.slice(1);
+    else if(['aria-labelledby','aria-describedby'].includes(attribute))next=value.split(/\s+/).map(id=>ids.has(id)?prefix+'-'+id:id).join(' ');
+    else if(referenceAttributes.has(attribute))next=value.replace(/url\(#([^\)]+)\)/g,(token,id)=>ids.has(id)?`url(#${prefix}-${id})`:token);
+    return next===value?full:`${space}${attribute}="${next}"`;
+  });
 }

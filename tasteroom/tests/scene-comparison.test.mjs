@@ -67,9 +67,10 @@ test('unsupported scope and malformed content are rejected without state changes
  assert.equal(snapshot(room),before);
 });
 test('SVG namespaces preserve user text and isolate clip, href and accessibility IDs',()=>{
- const svg='<svg><title id="title">同文 #clip</title><clipPath id="clip"/><image clip-path="url(#clip)"/><use href="#clip"/><g aria-labelledby="title external"/></svg>';
+ const svg='<svg aria-label="同文 url(#clip)"><title id="title">同文 #clip url(#clip)</title><metadata>{"caption":"url(#clip)"}</metadata><clipPath id="clip"/><image clip-path="url(#clip)"/><use href="#clip"/><g aria-labelledby="title external"/></svg>';
  const personal=namespaceSceneSvg(svg,'scene-personal'),work=namespaceSceneSvg(svg,'scene-work');
- assert.ok(personal.includes('同文 #clip'));assert.ok(personal.includes('id="scene-personal-clip"'));
+ assert.ok(personal.includes('同文 #clip url(#clip)'));assert.ok(personal.includes('id="scene-personal-clip"'));
+ assert.ok(personal.includes('aria-label="同文 url(#clip)"'));assert.ok(personal.includes('<metadata>{"caption":"url(#clip)"}</metadata>'));
  assert.ok(personal.includes('url(#scene-personal-clip)'));assert.ok(personal.includes('href="#scene-personal-clip"'));
  assert.ok(personal.includes('aria-labelledby="scene-personal-title external"'));assert.ok(!work.includes('scene-personal'));
  assert.throws(()=>namespaceSceneSvg(svg,'invalid" onclick="alert(1)'),/标识无效/);
