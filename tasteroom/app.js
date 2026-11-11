@@ -3,6 +3,7 @@ import {imageFromFile,storeImage,readImage,clearImages} from './image-store.js';
 import {feedbackSuggestions,revokePreference,restorePreferenceSnapshot,memoryTime} from './interaction-helpers.js';
 import {visibleRoom, replacedRules, trialParameter, posterPng, savePreference} from './exports.js';
 import {DIRECTIONS,layoutStatus} from './directions.js';
+import {compareAuthorizedScenes,namespaceSceneSvg} from './scene-comparison.js?v=20261111-task-loop1';
 import {parseBrief,importPreview,applyBrief,validCandidate} from './preferences.js';
 import { Room, OPTIONS, parseFeedback, validChoice } from "./engine.js?v=20261027-studio1";
 import { createComparison, applyComparison, comparisonIsCurrent, briefMarkdown, posterSvg, styleBrief, DIMENSIONS } from './experiments.js?v=20261027-studio1';
@@ -242,6 +243,7 @@ function render() {
   $('#exportBrief').disabled=!ready||!!room.pending||running;
   $('#exportPoster').disabled=!ready||!!room.pending||running||!layout.ok;
   $('#exportPng').disabled=!ready||!!room.pending||running||!layout.ok;
+  $('#crossSceneCompare').disabled=!ready||!!room.pending||running||!!comparison;
   $('#exportBriefJson').disabled=!ready||!!room.pending||running;
   $('#importBrief').disabled=!!room.pending||running;
   $('#undoMemory').disabled=!memoryUndo||!!room.pending||running;
@@ -283,6 +285,42 @@ function renderComparison(){
     $('#replacementSummary').textContent=`当前场景将替换：${describe('current')}。全局保存将替换所有场景该维度：${describe('global')}。仅试用不修改规则。`;
   }
 }
+
+// A native read-only dialog keeps the editor, context, undo history and memory untouched.
+const sceneDialog=$('#sceneComparisonDialog');
+const sceneOrigin={personal:'个人授权',work:'工作授权',global:'全局继承',default:'默认值'};
+$('#crossSceneCompare').onclick=()=>{
+ if($('#crossSceneCompare').disabled||room.pending||running||comparison||document.querySelector('dialog[open]'))return;
+ const applied=room.draftContent||content[room.content%content.length];
+ const model=compareAuthorizedScenes(room,applied);
+ const posters=$('#sceneComparisonPosters');posters.replaceChildren();
+ for(const view of model.scenes){
+  const article=document.createElement('article');article.className='scene-poster';
+  const heading=document.createElement('h3');heading.textContent=view.context==='personal'?'个人场景':'工作场景';
+  const scope=document.createElement('p');scope.className='scene-scope';
+  scope.textContent=view.sceneRuleCount?`${view.sceneRuleCount}项场景授权 · ${view.inheritedRuleCount}项全局继承`:`暂无场景授权 · ${view.inheritedRuleCount?'继承'+view.inheritedRuleCount+'项全局规则':'使用默认值'}`;
+  const image=document.createElement('div');image.className='scene-poster-image';
+  image.innerHTML=namespaceSceneSvg(posterSvg(view,view.content),'scene-'+view.context);
+  article.append(heading,scope,image);
+  const layout=layoutStatus(view,view.content);
+  if(!layout.ok){const warning=document.createElement('p');warning.className='scene-capacity-warning';warning.textContent='这套规则下文案超出建议容量。请关闭对照，调整文案或方向后再检查。';article.append(warning);}
+  posters.append(article);
+ }
+ const differences=$('#sceneComparisonDifferences');differences.replaceChildren();
+ $('#sceneComparisonSummary').textContent=model.differences.length?`有${model.differences.length}项参数不同；差异来自各场景的授权及其全局继承。`:'两侧参数相同。尚未分别授权时会使用相同默认值；相同构图也可能来自不同的授权范围。';
+ for(const difference of model.differences){
+  const row=document.createElement('li'),title=document.createElement('strong');title.textContent=names[difference.dimension];row.append(title);
+  for(const context of ['personal','work']){const value=difference[context],cell=document.createElement('span');cell.textContent=`${context==='personal'?'个人':'工作'}：${OPTIONS[difference.dimension][value.value]} · ${sceneOrigin[value.origin]}`;row.append(cell);}
+  differences.append(row);
+ }
+ $('#crossSceneCompare').setAttribute('aria-expanded','true');sceneDialog.showModal();
+};
+$('#closeSceneComparison').onclick=()=>sceneDialog.close();
+sceneDialog.addEventListener('close',()=>{
+ $('#crossSceneCompare').setAttribute('aria-expanded','false');
+ $('#sceneComparisonPosters').replaceChildren();$('#sceneComparisonDifferences').replaceChildren();
+ $('#crossSceneCompare').focus({preventScroll:true});
+});
 function organize() {
   stop();
   comparison=null;comparisonSide=null;

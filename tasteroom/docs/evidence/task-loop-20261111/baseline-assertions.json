@@ -1,0 +1,20 @@
+{
+  "rag-lab/tests/api.test.mjs": "b189a7726b93896927b601f23bf3dc169df8df28db981ee1c3925b1f11e54a3a",
+  "rag-lab/tests/engine.test.mjs": "6a7ff2d937bc48d6ea8ecaacca059938928d1fd2654b436f9c2f0963f7779fc5",
+  "rag-lab/tests/import-errors.test.mjs": "acc8683eab328c4deba85f2b4ea2bf4f8a661067d2d39a4c6904e28ff68e5ebc",
+  "rag-lab/tests/integration.test.mjs": "5899d7b4187a69c1be56e3bebf4e2b2de353f356504f2415c0b2522b1adfe5c9",
+  "rag-lab/tests/product-details.test.mjs": "e25b205871a8ee6471dfc18acfa28afce4e7d07e637813fe2e2422aff9d4e5c7",
+  "rag-lab/tests/workspace-api.test.mjs": "2b499893b69ba57eb3502fd8dc8a823944f6dadb8fd26fd63676e253b339bcdd",
+  "rag-lab/tests/workspace.test.mjs": "bbddeeb743030c3e6001bee0a0811d98a3d556c3106f8c4684dfdeedcb340080",
+  "tasteroom/tests/artwork.test.mjs": "7ea2401ff8ffceebdea02b7dd6f8b211c07f550324e1c16d6b2712e809618864",
+  "tasteroom/tests/browser.mjs": "a819a7950f4020718f396182ae82a3522ddb87b45003ccdbb47fde278d023899",
+  "tasteroom/tests/clarity.test.mjs": "07ea83cc50b6b0f44621cf051453927bb073390ce47d734900f53f173be7c985",
+  "tasteroom/tests/depth.test.mjs": "e9c531dc749c4aca15c863fddb365763328b6a2022b36c50b5d0b1d89c913d51",
+  "tasteroom/tests/directions.test.mjs": "9fb9a66bbe833e547793ab31f7cae25b95a5a76ae7a0863a4bc364f3434bfc9f",
+  "tasteroom/tests/engine.test.mjs": "8092de793866e3adde8d685aca2a659bea181cf93b6ab8202d9f11dba3042766",
+  "tasteroom/tests/experiments.test.mjs": "65bf7cb27545547df4744837c759a65f0a7c03364e1a03ca8e80e075ac72b274",
+  "tasteroom/tests/model-adapter.test.mjs": "3a460022e645d15682b240f163d91bf7e7530fa8552c88cb9072a8d01e403a8d",
+  "tasteroom/tests/product-browser.mjs": "d9ca412c03936567a9b12b79c4b22ab10d4909fa8fbf07eff68482d41e8be0c3",
+  "tasteroom/tests/server.test.mjs": "10f8a6096db214c918efa6c954294961fd7bba27ac2f1b7d371df8c911c3b4fc",
+  "tasteroom/tests/usable.test.mjs": "22433e5a9a1ebeb6b8790285ba0bc910b95a05f7629a60eb2d6520d124ca1a21"
+}

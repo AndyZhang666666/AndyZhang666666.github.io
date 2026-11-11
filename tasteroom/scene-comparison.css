@@ -1,0 +1,26 @@
+/* Two sheets use the studio's existing paper, ink and rule colors. */
+#sceneComparisonDialog{width:min(1120px,calc(100vw - 48px));max-width:none;max-height:calc(100dvh - 48px);overflow:auto;padding:24px;background:var(--work-paper);color:var(--work-ink);border:1px solid var(--work-line);border-radius:6px}
+#sceneComparisonDialog::backdrop{background:rgb(23 29 23 / .38)}
+.scene-dialog-heading{display:flex;gap:24px;justify-content:space-between;align-items:flex-start}
+.scene-dialog-heading p{font-size:12px;color:var(--work-muted);margin:0 0 8px}
+.scene-dialog-heading h2{font-size:23px;line-height:1.4;margin:0}
+.scene-dialog-heading button{flex-shrink:0;min-height:44px;padding:8px 16px}
+#sceneComparisonNote,.scene-preview-boundary{font-size:13px;line-height:1.7;color:var(--work-muted)}
+#sceneComparisonNote{max-width:76ch;margin:16px 0 24px}
+.scene-comparison-posters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.scene-poster{min-width:0}.scene-poster h3{font-size:18px;margin:0 0 8px}
+.scene-scope{font-size:12px!important;line-height:1.7;color:var(--work-muted);margin:0 0 12px}
+.scene-poster-image{display:grid;place-items:center;padding:16px;background:var(--work-line)}
+.scene-poster-image svg{width:auto;max-width:100%;height:auto;max-height:46dvh;display:block}
+.scene-capacity-warning{font-size:13px;line-height:1.7;color:var(--work-accent);margin:12px 0 0}
+.scene-differences{margin-top:24px;padding-top:20px;border-top:1px solid var(--work-line)}
+.scene-differences h3{font-size:17px;margin:0 0 8px}.scene-differences>p{font-size:13px;line-height:1.7}
+#sceneComparisonDifferences{padding:0;margin:12px 0;list-style:none}
+#sceneComparisonDifferences li{display:grid;grid-template-columns:100px minmax(0,1fr) minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--work-line);font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+.scene-preview-boundary{margin:20px 0 0}
+@media(max-width:650px){
+ #sceneComparisonDialog{width:calc(100vw - 24px);max-height:calc(100dvh - 24px);padding:16px}
+ .scene-dialog-heading{display:block}.scene-dialog-heading h2{font-size:20px}.scene-dialog-heading button{margin-top:12px}
+ #sceneComparisonNote{margin:16px 0}.scene-comparison-posters{gap:12px}.scene-poster h3{font-size:16px}.scene-poster-image{padding:8px}.scene-scope{min-height:42px}
+ #sceneComparisonDifferences li{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 12px}#sceneComparisonDifferences li>strong{grid-column:1/-1}
+}

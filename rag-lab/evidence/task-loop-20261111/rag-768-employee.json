@@ -1,0 +1,58 @@
+{
+  "id": "774a4df7-95bb-467d-9118-f5fd2cf18135",
+  "createdAt": "2026-11-11T07:07:06.783Z",
+  "question": "应急备用机有多少台？",
+  "date": "2026-10-28",
+  "snapshot": "baseline",
+  "generation": "extractive",
+  "role": "employee",
+  "mode": "local-extractive",
+  "versions": {
+    "index": "zh-bigram-bm25-v1",
+    "prompt": "grounded-json-v1",
+    "judge": "equipment-facts-v2",
+    "corpus": "qingyu-20261028-v1"
+  },
+  "status": "insufficient",
+  "answer": "当前可访问且适用的资料没有给出这项规则。请向设备负责人补充确认，不能从相似内容推算答案。",
+  "citations": [],
+  "retrieved": [],
+  "facts": [],
+  "excluded": [],
+  "eligibleDocuments": 10,
+  "stages": [
+    "会话范围限定",
+    "快照 / 生效版本选择",
+    "BM25 段落检索",
+    "证据覆盖与冲突检查"
+  ],
+  "checks": {
+    "citation": "not-applicable",
+    "keyFacts": "not-applicable",
+    "semantic": "not-model-evaluated"
+  },
+  "model": null,
+  "usage": null,
+  "rawAnswer": null,
+  "elapsedMs": 0.19,
+  "exportNotice": "脱敏尽力处理；仅允许虚构场景，不应输入真实个人资料或密钥。",
+  "scopeDiff": {
+    "previous": {
+      "date": "2026-10-28",
+      "snapshot": "baseline",
+      "role": "admin"
+    },
+    "current": {
+      "date": "2026-10-28",
+      "snapshot": "baseline",
+      "role": "employee"
+    },
+    "changes": [
+      "role"
+    ],
+    "evidenceChanged": null,
+    "resultChanged": null,
+    "previousRedacted": true,
+    "message": "同一问题的条件变化：2026-10-28 / 原始快照 / 设备管理员 → 2026-10-28 / 原始快照 / 普通员工。身份或权限范围已变，旧答复及旧引文已清除，不比较或导出旧内容。 本次可用引文/版本：无支持引文。本次结果：资料不足。"
+  }
+}

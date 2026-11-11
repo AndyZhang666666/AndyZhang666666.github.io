@@ -38,7 +38,7 @@ async function bodyJson(req,maxBytes=4096) {
 }
 
 const staticFiles = new Map([
-  ['import-errors.mjs','text/javascript'],['workspace.mjs','text/javascript'],['task-catalog.mjs','text/javascript'],['personal-workbench.mjs','text/javascript'],['vendor/pdf.mjs','text/javascript'],['vendor/pdf.worker.mjs','text/javascript'],
+  ['task-loop.mjs','text/javascript'],['import-errors.mjs','text/javascript'],['workspace.mjs','text/javascript'],['task-catalog.mjs','text/javascript'],['personal-workbench.mjs','text/javascript'],['vendor/pdf.mjs','text/javascript'],['vendor/pdf.worker.mjs','text/javascript'],
   ['index.html', 'text/html'], ['app.mjs', 'text/javascript'], ['engine.mjs', 'text/javascript'],
   ['style.css', 'text/css'], ['public-corpus.json', 'application/json'], ['favicon.svg', 'image/svg+xml'],
 ]);

@@ -1,0 +1,24 @@
+[
+  {
+    "baseline": false,
+    "headline": {
+      "x": 18,
+      "y": 843.078125,
+      "width": 354,
+      "height": 34.796875
+    },
+    "conditionOpen": false,
+    "scopeHidden": true
+  },
+  {
+    "baseline": true,
+    "headline": {
+      "x": 18,
+      "y": 899.078125,
+      "width": 354,
+      "height": 34.796875
+    },
+    "conditionOpen": false,
+    "scopeHidden": null
+  }
+]

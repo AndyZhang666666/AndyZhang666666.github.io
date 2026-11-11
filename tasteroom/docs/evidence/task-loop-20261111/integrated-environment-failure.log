@@ -1,0 +1,385 @@
+✖ real HTTP auth, role spoofing, and employee data boundary (143.388416ms)
+✖ source and export endpoints isolate sessions and immutable snapshot records (34.665417ms)
+✖ limits, impossible dates, JSON errors, origin and static file isolation (10.610291ms)
+✖ missing model is a visible generation failure, not fake success (6.3805ms)
+✖ protocol fixture checks actual authorized context and injection data; NOT a real LLM eval (5.517084ms)
+✖ unanswerable evidence never calls the model; ordinary denied context remains empty of secrets (7.173333ms)
+✖ wrong facts with a valid citation fail validation and preserve rejected raw output only in owner export (8.076833ms)
+✖ upstream failure and malformed JSON are explicit failures (5.388125ms)
+✔ model timeout abort is handled without an extractive success fallback (49.89775ms)
+✖ retrieval failure identifies the failed stage (3.850959ms)
+✖ expired sessions and rate caps require explicit recovery (3.778667ms)
+✖ process-wide model call ceiling is enforced (7.702333ms)
+✔ redaction keeps measurable usage, strips credentials and masks common personal strings (1.83525ms)
+✔ fixed fixture: current (37.753375ms)
+✔ fixed fixture: historical (0.712417ms)
+✔ fixed fixture: denied (0.279334ms)
+✔ fixed fixture: admin (0.557542ms)
+✔ fixed fixture: distractor (0.638125ms)
+✔ fixed fixture: no-answer (0.342958ms)
+✔ fixed fixture: conflict (0.359708ms)
+✔ fixed fixture: injection (1.293875ms)
+✔ fixed fixture: snapshot (0.902375ms)
+✔ fixed fixture: renew (0.697125ms)
+✔ fixed fixture: laptop (0.293916ms)
+✔ fixed fixture: clarify (0.183541ms)
+✔ half-open effective date boundary and snapshot activation (0.202834ms)
+✔ no applicable date produces no fabricated current rule (0.100708ms)
+✔ stable source binding survives subsequent snapshot run (0.533542ms)
+✔ input validation rejects impossible dates, object tricks and auth parameters (0.239792ms)
+✔ citation existence is distinct from fact correctness (0.507542ms)
+✔ publication contains no admin-only metadata or text (8.924333ms)
+✔ unknown parser/runtime details never reach the import notice (1.966334ms)
+✔ actionable PDF/size/scan messages survive the safe mapping (0.233916ms)
+✔ incremental site integration is idempotent and preserves unrelated data/cards (339.632625ms)
+✔ a historical generator cannot erase a parallel custom project/card (29.291333ms)
+✔ recorded RAG release preserves its 16 predecessors; later homepage editing is tested separately (229.951458ms)
+✔ specific rule: 显示器丢了多久内要报告？ (10.106125ms)
+✔ specific rule: 笔记本弄丢了几小时内报告？ (1.557084ms)
+✔ specific rule: 显示器续借能有几次，多久申请？ (1.347584ms)
+✔ specific rule: 设备归还地点在哪里？ (1.683709ms)
+✔ specific rule: 耳机归还前怎么清理擦拭？ (0.844917ms)
+✔ specific rule: 显示器借用按自然日还是工作日算？ (0.710583ms)
+✔ specific rule: 显示器能借多长时间？ (1.453417ms)
+✔ specific rule: 设备采购审批上限多少钱？ (0.870125ms)
+✔ exclusion explanation is scoped and distinguishes unused evidence (14.990792ms)
+✔ draft grounding: explicit empty draft and no chosen quotes, without implicit support (2.257958ms)
+✔ draft grounding: full width, whitespace, exact decimal normalization and large numbers (0.230459ms)
+✔ draft grounding: warn per occurrence, quote-only matching, selected references and stale recomputation (0.202333ms)
+✔ citation caution: shared units and unrelated topics, facets, entities remain separate (2.945ms)
+✔ citation caution: same supported topic values and effective intervals advise without adjudicating (1.413542ms)
+✔ scope diff: actual retrieval rerun explains date, evidence version and result changes (75.8625ms)
+✔ scope diff: no diff for unchanged conditions, new question, task facts, mode, failed run or unrelated predecessor (40.973709ms)
+✔ scope diff: permission change never serializes historical evidence, answer or draft (7.543833ms)
+✔ workspace integration: warning survives export and never blocks an editable unsupported draft (1.151042ms)
+✖ new module is explicitly public in both hosts, while private resources stay denied (41.884792ms)
+✖ personal API is session-owned and no-model; static PDF dependency and capabilities are available (36.540833ms)
+✖ versioned task endpoint uses session scope and current facts; no model or client role elevation (31.936334ms)
+✖ configured-but-disabled model never reaches an upstream endpoint (5.441542ms)
+✔ personal unknown scope is evidence only; confirmed supported facts remain source bound (7.438542ms)
+✔ personal edits make output stale without mutating old evidence (1.643542ms)
+✔ invalid period/oversized documents reject rather than replacing workspace (0.146833ms)
+✔ task catalog has 12 complete editable examples, extension keeps original corpus untouched (163.615958ms)
+✔ renew facts change outcome; not simply a canned success per preset (36.478458ms)
+✔ task supplements remain scoped by effective date; no canned loan for tablet (33.11675ms)
+✔ own backup restores sources atomically but never restores a valid answer (16.311792ms)
+✔ unknown-date sources remain searchable beside known newer versions of the same policy (3.403708ms)
+✔ untrusted backup metadata cannot coerce approval or alias a document identity (3.36575ms)
+✔ exports disclose a carried-over draft instead of presenting it as a current supported answer (0.551917ms)
+✔ two conflicting supported facts within one paragraph are never collapsed to the first match (0.807959ms)
+✔ DOM ready mounts policy and live OS changes follow system preference (4.998917ms)
+✔ manual reduce survives OS changes and returning to system restores live OS control (0.879958ms)
+✔ native visibility events publish hidden and visible state without changing preference (0.588208ms)
+✔ saved manual reduction is restored through the normal DOM entry (0.908458ms)
+✔ unavailable localStorage does not disable public or native policy controls (0.653542ms)
+✔ Hero decoration preserves every supplied bilingual string, image and destination (28.978583ms)
+✔ mobile directory has valid destinations and keeps the existing controls unique (7.407166ms)
+✔ generated case HTML preserves executable scripts, palette and native directory (729.813709ms)
+✔ motion migration is idempotent and leaves all non-owner app code unchanged (15.043416ms)
+✔ case theme controls bind after the parser reaches the injected palette (1.385167ms)
+✔ all eighteen compositions reflow to their actual dimensions with all event fields (6.159583ms)
+✔ provenance distinguishes scene consent, temporary parameters and memory-free restore (1.294667ms)
+✔ images only accept embedded raster URLs, metadata excludes bytes and private feedback (0.371792ms)
+✔ content, artwork size and image changes make pending comparisons stale (0.219792ms)
+✔ missing image and long copy are actionable and never silently truncated (0.194708ms)
+✔ restored document parameters remain temporary without guessing new rules (0.278459ms)
+✔ bookshop feedback offers deliberate temporary choices, without touching memory (2.44425ms)
+✔ work and personal authorizations stay independent; undo keeps the current artwork (1.878333ms)
+✔ new memory has operation time, old memory remains explicitly untimed, old scope labels import (31.350666ms)
+✔ six directions have independent composition and no private data in images (2.483292ms)
+✔ any named pair compares directly; whole direction never infers the other five dimensions (2.237542ms)
+✔ settings and content invalidate old comparisons; long copy is never truncated (0.324791ms)
+✔ JSON and previous Markdown briefs roundtrip with replacement preview before mutation (0.849125ms)
+✔ invalid imports cannot partially overwrite rules, and candidates retain only artwork (0.189208ms)
+✔ v1 drafts restore the new optional settings without requiring them (0.572208ms)
+✔ directions are a bounded canvas dimension and preserve old profile compatibility (1.990458ms)
+✔ comparison changes only direction; choosing once does not add a persistent rule (0.832167ms)
+✔ both SVG compositions are self-contained, escaped, and export current content (1.013125ms)
+✔ changing poster content invalidates a pending one-variable comparison (0.254333ms)
+✔ a selected art direction compares Swiss and deconstructed compositions directly (0.112ms)
+✔ two rounds create three traceable implicit memories (5.067541ms)
+✔ high confidence conflict suspends changes until arbitration (0.76325ms)
+✔ once does not change durable memory and expires on regenerate (0.2815ms)
+✔ global revision supersedes scene rules (0.187833ms)
+✔ branch retains personal preference and isolates work (3.747625ms)
+✔ explicit dominates implicit including contextual guesses (2.056333ms)
+✔ rollback preserves later unrelated changes, redo restores (1.459042ms)
+✔ delete, lock and migrate recalculate the canvas (5.102792ms)
+✔ unknown input is honest and user text remains data (0.846209ms)
+✔ corrupt and invalid persisted state rejected, valid memory restores (0.340542ms)
+✔ prototype names cannot bypass tool enum validation (9.700875ms)
+✔ all five comparisons hold content and other dimensions constant, with no write (5.596ms)
+✔ both rejected means no new memory or canvas change (0.3515ms)
+✔ current-context consent writes exactly one explicit dimension and preserves work (0.282958ms)
+✔ once consent affects this canvas only and is excluded from saved rules (0.219625ms)
+✔ global consent explicitly supersedes scene rules for this dimension (0.772833ms)
+✔ stale and tampered comparisons cannot write or cross scene boundaries (0.258833ms)
+✔ pending conflict blocks comparison, and invalid scope is not accepted (0.185834ms)
+✔ global view cannot pretend to be a private current context (0.137167ms)
+✔ brief separates temporary canvas from persistent clues and explicit rules (1.085959ms)
+✔ SVG is self-contained, escaped, and does not leak feedback or memory metadata (0.86675ms)
+✔ reload preserves content and retains long-lived active rules after many corrections (1.62975ms)
+✔ ambiguous multi-dimensional or negated input is not silently partially applied (0.955ms)
+node:events:505
+    throw er; // Unhandled 'error' event
+    ^
+
+Error: listen EPERM: operation not permitted 127.0.0.1
+    at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+    at listenInCluster (node:net:2499:12)
+    at node:net:2728:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:2478:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EPERM',
+  errno: -1,
+  syscall: 'listen',
+  address: '127.0.0.1'
+}
+
+Node.js v24.22.1
+✖ tasteroom/tests/model-adapter.test.mjs (147.199208ms)
+✔ unremembered scenes use defaults, not the current temporary canvas or implicit guesses (4.725125ms)
+✔ scene-specific authorization takes precedence over global using the existing rule resolver (0.312667ms)
+✔ active once-only trials and overridden rules never become an authorized preview (0.157333ms)
+✔ pending corrections, active context, history, logs, source and artwork remain byte-identical (0.229375ms)
+✔ both scenes render the same complete applied copy and current image with the original renderer (5.925792ms)
+✔ one authorized scene cannot leak its preference into the other scene (0.208291ms)
+✔ unsupported scope and malformed content are rejected without state changes (0.305333ms)
+✔ SVG namespaces preserve user text and isolate clip, href and accessibility IDs (0.441083ms)
+node:events:505
+    throw er; // Unhandled 'error' event
+    ^
+
+Error: listen EPERM: operation not permitted 127.0.0.1
+    at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+    at listenInCluster (node:net:2499:12)
+    at node:net:2728:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:2478:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EPERM',
+  errno: -1,
+  syscall: 'listen',
+  address: '127.0.0.1'
+}
+
+Node.js v24.22.1
+✖ tasteroom/tests/server.test.mjs (101.022958ms)
+✔ choosing a preview renders and exports that exact canvas without memory consent (1.59625ms)
+✔ direct trial is omitted from saved preferences; scope replacement names every affected scene (1.503209ms)
+ℹ tests 134
+ℹ suites 0
+ℹ pass 117
+ℹ fail 17
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1191.214625
+
+✖ failing tests:
+
+test at rag-lab/tests/api.test.mjs:31:1
+✖ real HTTP auth, role spoofing, and employee data boundary (143.388416ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/api.test.mjs:44:1
+✖ source and export endpoints isolate sessions and immutable snapshot records (34.665417ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/api.test.mjs:63:1
+✖ limits, impossible dates, JSON errors, origin and static file isolation (10.610291ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/api.test.mjs:79:1
+✖ missing model is a visible generation failure, not fake success (6.3805ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/api.test.mjs:87:1
+✖ protocol fixture checks actual authorized context and injection data; NOT a real LLM eval (5.517084ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/api.test.mjs:108:1
+✖ unanswerable evidence never calls the model; ordinary denied context remains empty of secrets (7.173333ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/api.test.mjs:121:1
+✖ wrong facts with a valid citation fail validation and preserve rejected raw output only in owner export (8.076833ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/api.test.mjs:132:1
+✖ upstream failure and malformed JSON are explicit failures (5.388125ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/api.test.mjs:153:1
+✖ retrieval failure identifies the failed stage (3.850959ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/api.test.mjs:158:1
+✖ expired sessions and rate caps require explicit recovery (3.778667ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/api.test.mjs:172:1
+✖ process-wide model call ceiling is enforced (7.702333ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/task-loop.test.mjs:85:1
+✖ new module is explicitly public in both hosts, while private resources stay denied (41.884792ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/workspace-api.test.mjs:2:1
+✖ personal API is session-owned and no-model; static PDF dependency and capabilities are available (36.540833ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/workspace-api.test.mjs:23:1
+✖ versioned task endpoint uses session scope and current facts; no model or client role elevation (31.936334ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at rag-lab/tests/workspace-api.test.mjs:35:1
+✖ configured-but-disabled model never reaches an upstream endpoint (5.441542ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at tasteroom/tests/model-adapter.test.mjs:1:1
+✖ tasteroom/tests/model-adapter.test.mjs (147.199208ms)
+  'test failed'
+
+test at tasteroom/tests/server.test.mjs:1:1
+✖ tasteroom/tests/server.test.mjs (101.022958ms)
+  'test failed'

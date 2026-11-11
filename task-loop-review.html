@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>四个 Demo · 本地任务审阅</title>
+<style>
+:root{color-scheme:light;--paper:#f4f1e9;--ink:#262c28;--muted:#626b62;--line:#cbcfc4;--accent:#324c3c}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}main{max-width:1060px;margin:auto;padding:48px 28px 64px}header{padding-bottom:30px;border-bottom:2px solid var(--ink)}.status{font-size:13px;letter-spacing:.08em;color:var(--muted)}h1{font-size:clamp(30px,5vw,52px);line-height:1.2;letter-spacing:-.04em;font-weight:600;margin:20px 0}header p{max-width:720px}a{color:var(--accent);text-underline-offset:4px}a:focus-visible{outline:3px solid var(--accent);outline-offset:5px}article{display:grid;grid-template-columns:210px 1fr;gap:36px;padding:30px 0;border-bottom:1px solid var(--line)}h2{font-size:25px;line-height:1.3;margin:0 0 8px;font-weight:600}.label{color:var(--muted);font-size:13px}article p{margin:0 0 12px}.boundary{font-size:14px;color:var(--muted)}.open{display:inline-flex;align-items:center;min-height:44px;font-weight:600}footer{font-size:14px;color:var(--muted);padding-top:28px}@media(max-width:620px){main{padding:28px 20px 48px}article{grid-template-columns:1fr;gap:12px;padding:24px 0}h2{font-size:24px}}
+</style>
+</head>
+<body><main>
+<header><div class="status">开发分支 · 线上版本保持不变</div>
+<h1>同一批作品，补齐下一步。</h1>
+<p>这里打开四个完整工具。本轮只补使用闭环，原公式、数据与安全边界保持。各工具在新标签页打开，避免嵌套滚动与编辑干扰。</p>
+<a href="https://andyzhang666666.github.io/#selected" target="_blank" rel="noopener" data-live-comparison>对照现在线上版 ↗</a>
+</header>
+<article><div><h2>可信 RAG</h2><span class="label">写答复前，再核对一次依据</span></div><div>
+<p>选一条包含数值的依据，在答复草稿中输入不同数值，检查非阻断提醒。再对同一问题更改日期、快照或身份，查看来源范围变化。</p>
+<p class="boundary">数字或单位未匹配是核查线索，不能证明语义对错；权限降低不回显旧的受限片段。</p>
+<a class="open" href="/rag-lab/" target="_blank" rel="noopener">打开 RAG 实验台 ↗</a></div></article>
+<article><div><h2>Eval Lab</h2><span class="label">从复核走到下一次修改</span></div><div>
+<p>复核一条五维结果，标记不适用项，查看独立参考均分；保存一个改稿版本，比较增删，再复制本版送评任务包或量表校准备忘。</p>
+<p class="boundary">原始分数和均分保留；参考均分另列。校准备忘只是讨论草稿，不修改正式量表。</p>
+<a class="open" href="/llm-output-eval/workspace/" target="_blank" rel="noopener">打开评测复核工作台 ↗</a></div></article>
+<article><div><h2>Bundle Lab</h2><span class="label">把触达假设放进账本</span></div><div>
+<p>切换100%／50%／15%已有顾客领折扣假设；在敏感性矩阵预演一个格点，直接保存比较方案。冻结验证计划后，再核对观察采纳率和保本点。</p>
+<p class="boundary">预设不代表真实隔离。预演不改当前草稿；条件达标不等于验证因果收益或批准推广。</p>
+<a class="open" href="/bundle-lab/simulate/" target="_blank" rel="noopener">打开套餐收益推演 ↗</a></div></article>
+<article><div><h2>偏爱实验室</h2><span class="label">一份内容，两个授权场景</span></div><div>
+<p>先分别为个人与工作授权不同设计方向，再点画布工具栏“个人 / 工作对照”。看同文同图如何因授权改变构图，以及每项差异来自哪里。</p>
+<p class="boundary">这里是只读预览。没有授权就展示默认值；关闭后原场景、草稿、画布和记忆不变。</p>
+<a class="open" href="/tasteroom/" target="_blank" rel="noopener">打开偏爱实验室 ↗</a></div></article>
+<footer><a href="docs/DEMO-TASK-LOOPS-20261111.md">范围与验证说明</a> · <a href="/">本地官网</a><p>本页只用于本机审阅，已从公开站点构建排除。本轮没有模型调用。</p></footer>
+</main></body></html>

@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:8889/tasteroom/",
+  "checkedAt": "2026-11-11T07:37:42.691Z",
+  "checks": [
+    "Empty authorization uses identical defaults; Escape restores focus and zero storage writes.",
+    "Real UI-authorized personal Swiss/work Japanese share applied copy/image with independent image viewports; unsaved input/context/undo/logs/storage stay untouched.",
+    "1280/768/390 paired portrait/square/landscape, keyboard close, native modal focus and no horizontal overflow.",
+    "Reduced motion, actual export after closing, reload keeps exactly two authorized scene rules and closes ephemeral preview."
+  ],
+  "errors": [],
+  "writes": [],
+  "external": [],
+  "modelCalls": 0
+}
