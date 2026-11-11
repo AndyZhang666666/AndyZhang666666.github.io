@@ -1,6 +1,6 @@
 import {checkDraftGrounding,citationCautions} from './task-loop.mjs';
 import {FileImportError,fileImportMessage} from './import-errors.mjs?v=20261109-layout-1';
-import {newWorkspace,validateWorkspace,personalRun,signature,exportWorkspace,workspaceMarkdown,restoreWorkspace,recognizedRules,LIMITS} from './workspace.mjs';
+import {newWorkspace,validateWorkspace,personalRun,signature,exportWorkspace,workspaceMarkdown,restoreWorkspace,recognizedRules,LIMITS} from './workspace.mjs?v=20261111-task-loop1';
 const $=id=>document.getElementById(id);
 const el=(tag,text)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;return n;};
 let w=newWorkspace(),result=null,db=null,pendingRestore=null,writeBlocked=false,corruptValue=null,importEpoch=0,pendingRestoreBase=null;

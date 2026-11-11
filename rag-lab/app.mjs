@@ -1,6 +1,6 @@
 import {scopeDiff,scopeBaseline} from './task-loop.mjs';
 import {TASKS,taskRun} from './task-catalog.mjs';
-import {initializePersonal} from './personal-workbench.mjs?v=20261109-layout-1';
+import {initializePersonal} from './personal-workbench.mjs?v=20261111-task-loop1';
 import {retrieveRun, validateInput, SNAPSHOTS} from './engine.mjs';
 
 const $ = id => document.getElementById(id);
