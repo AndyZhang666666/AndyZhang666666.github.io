@@ -95,3 +95,13 @@ main,.topbar{max-width:1440px}.intro{margin-bottom:16px}.intro h1{font-size:28px
  .example-desk{margin-top:8px}.example-desk .question-line .primary{margin-top:0}
  .example-desk .conditions input,.example-desk .conditions select{font-size:16px}
 }
+
+/* Keep the first result in the phone's initial reading area without shrinking controls. */
+@media(max-width:650px){
+ .workspace-nav{margin-bottom:8px}
+ #exampleWorkspace .mode-banner{padding:8px 0;gap:4px}
+ #exampleWorkspace .example-desk{gap:12px}
+ #exampleWorkspace .query-panel{padding-top:12px;padding-bottom:12px}
+ #exampleWorkspace .condition-settings,#exampleWorkspace .runtime-settings{margin-top:4px}
+ #exampleWorkspace .run-scope{margin:8px 0}
+}

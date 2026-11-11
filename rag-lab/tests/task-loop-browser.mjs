@@ -11,6 +11,7 @@ try {for(const width of [1280,768,390]){
  const context=await browser.newContext({viewport:{width,height:1000},acceptDownloads:true,reducedMotion:'reduce'});
  const page=await context.newPage(),errors=[],external=[];page.on('pageerror',error=>errors.push(error.message));page.on('request',r=>{if(/^https?:/.test(r.url())&&!r.url().startsWith(new URL(base).origin))external.push(r.url());});
  await page.goto(base);await page.locator('#result[aria-busy="false"]').waitFor();
+ const initialHeadlineY=(await page.locator('#answerHeadline').boundingBox()).y;if(width===390){assert.ok(initialHeadlineY<850);for(const b of await page.locator('[data-question]').all()){assert.equal(await b.isVisible(),true);assert.ok((await b.boundingBox()).height>=44);}assert.equal(await page.locator('#question').evaluate(e=>getComputedStyle(e).fontSize),'16px');}
  await open(page,'#conditionSettings');await page.locator('#date').fill('2026-06-30');await page.locator('#staleRerun').click();await page.locator('#scopeDiff:not([hidden])').waitFor();
  assert.match(await page.locator('#scopeDiff').innerText(),/MON-2:p1.*MON-1:p1/);assert.match(await page.locator('#scopeDiff').innerText(),/结果已变化/);
  await page.screenshot({path:new URL(`rag-${width}-scope.png`,out).pathname,fullPage:true});
@@ -53,6 +54,6 @@ try {for(const width of [1280,768,390]){
  await page.locator('#personalDraft').fill('');assert.equal(await page.locator('#personalGrounding').getAttribute('data-status'),'empty-draft');
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
  const health=await(await page.request.get(new URL('/api/health',base).href)).json();assert.equal(health.modelConfigured,false);
- checks.push({width,pass:true,realTxtAndChinesePdfImport:true,quoteSelection:true,perTokenWarnings:true,nonblockingExport:true,fullwidthNormalization:true,liveCitationKeyboardChange:true,staleRecompute:true,sourceMetadataRecompute:true,scopeDateDiff:true,noChangeAndNewQuestionNoDiff:true,permissionDowngradeDomAndExportsRedacted:true,authorizedHistoryAndDraftPreserved:true,reducedMotion:true,horizontalOverflow:false,pageErrors:errors,externalRequests:external.length,modelCalls:0});await context.close();
+ checks.push({width,pass:true,initialHeadlineY,realTxtAndChinesePdfImport:true,quoteSelection:true,perTokenWarnings:true,nonblockingExport:true,fullwidthNormalization:true,liveCitationKeyboardChange:true,staleRecompute:true,sourceMetadataRecompute:true,scopeDateDiff:true,noChangeAndNewQuestionNoDiff:true,permissionDowngradeDomAndExportsRedacted:true,authorizedHistoryAndDraftPreserved:true,reducedMotion:true,horizontalOverflow:false,pageErrors:errors,externalRequests:external.length,modelCalls:0});await context.close();
  }}finally{await browser.close();await writeFile(new URL('browser-result.json',out),JSON.stringify(checks,null,2));}
 console.log(JSON.stringify(checks));
