@@ -27,7 +27,7 @@ async function close(){await page.locator('#closeSceneComparison').click();await
 try{
  await page.goto(url,{waitUntil:'domcontentloaded'});await page.locator('#directionPreview>svg').waitFor();
  const empty=await snapshot();await open();
- assert.equal(await page.locator('#sceneComparisonPosters svg').count(),2);
+ assert.equal(await page.locator('.scene-poster-image>svg').count(),2);
  assert.ok((await page.locator('#sceneComparisonSummary').textContent()).includes('两侧参数相同'));
  assert.equal(await page.locator('#sceneComparisonDifferences li').count(),0);
  await page.keyboard.press('Escape');await page.locator('#sceneComparisonDialog').waitFor({state:'hidden'});
@@ -37,22 +37,29 @@ try{
  await page.locator('#showBrain').click();await page.locator('.contexts [data-context=work]').click();await page.locator('#closeMemory').click();
  await page.locator('#quickDirections').click();await page.locator('[data-direction=japanese]').click();
  await page.locator('#rememberDirection').click();await page.locator('#confirmRule').click();
+ const imageData=await page.evaluate(()=>{const c=document.createElement('canvas');c.width=600;c.height=400;const g=c.getContext('2d');g.fillStyle='#374d3c';g.fillRect(0,0,600,400);g.fillStyle='#b7845d';g.fillRect(300,0,300,400);return c.toDataURL('image/png').split(',')[1];});
+ await page.locator('#posterImage').setInputFiles({name:'synthetic-two-colour-study.png',mimeType:'image/png',buffer:Buffer.from(imageData,'base64')});
+ await page.locator('#directionPreview image').waitFor();
  await page.locator('#editTitle').fill('未应用的输入\n继续保留');
  const pending=await snapshot();await open();
  const metadata=await page.locator('#sceneComparisonPosters svg metadata').evaluateAll(nodes=>nodes.map(n=>JSON.parse(n.textContent)));
  assert.deepEqual(metadata[0].content,metadata[1].content);
  assert.ok(!metadata[0].content[1].includes('未应用的输入'));
  assert.deepEqual(metadata.map(m=>m.canvas.artDirection),['swiss','japanese']);
+ const imageReferences=await page.locator('.scene-poster-image>svg').evaluateAll(nodes=>nodes.map(svg=>({image:svg.querySelector('image').getAttribute('href'),ids:[...svg.querySelectorAll('[id]')].map(n=>n.id),clip:svg.querySelector('image').getAttribute('clip-path'),overflow:svg.querySelector('image').parentElement.getAttribute('overflow')})));
+ assert.equal(imageReferences[0].image,imageReferences[1].image);
+ const ids=imageReferences.flatMap(r=>r.ids);assert.equal(new Set(ids).size,ids.length);
+ assert.ok(imageReferences.every(r=>r.clip?r.ids.some(id=>r.clip===`url(#${id})`):r.overflow==='hidden'));
  assert.equal(await page.locator('#sceneComparisonDifferences li').count(),1);
  assert.match(await page.locator('#sceneComparisonDifferences').textContent(),/个人.*瑞士现代主义.*工作.*日式留白/s);
  await page.screenshot({path:out+'scene-desktop.png',animations:'disabled'});
  await close();assert.deepEqual(await snapshot(),pending);
- checks.push('Real UI-authorized personal Swiss/work Japanese use the same applied content; unsaved input/current context/undo/logs/storage stay untouched.');
+ checks.push('Real UI-authorized personal Swiss/work Japanese share applied copy/image with independent image viewports; unsaved input/context/undo/logs/storage stay untouched.');
  // The paired renderer must preserve the same format and namespaced image references.
  for(const [width,format,dimensions]of[[1280,'portrait',[900,1200]],[768,'square',[1080,1080]],[390,'landscape',[1600,900]]]){
   await page.setViewportSize({width,height:900});await page.locator('#artboardFormat').selectOption(format);
   const before=await snapshot();await open();
-  const sizes=await page.locator('#sceneComparisonPosters svg').evaluateAll(nodes=>nodes.map(n=>[Number(n.getAttribute('width')),Number(n.getAttribute('height'))]));
+  const sizes=await page.locator('.scene-poster-image>svg').evaluateAll(nodes=>nodes.map(n=>[Number(n.getAttribute('width')),Number(n.getAttribute('height'))]));
   assert.deepEqual(sizes,[dimensions,dimensions]);
   assert.ok(await page.evaluate(()=>document.querySelector('#sceneComparisonDialog').scrollWidth<=document.querySelector('#sceneComparisonDialog').clientWidth));
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
