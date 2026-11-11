@@ -64,7 +64,7 @@ function serve(req,res,originalHost=false){
     if(['.html','.json'].includes(path.extname(file))){
       let value=fs.readFileSync(file,'utf8');
       // The review shell deliberately points at the real released site.
-      if(file!==path.join(root,'review.html'))value=value.replaceAll('https://andyzhang666666.github.io',`http://127.0.0.1:${originalHost?8812:port}${old&&!originalHost?'/original':''}`);
+      if(!['review.html','task-loop-review.html'].some(page=>file===path.join(root,page)))value=value.replaceAll('https://andyzhang666666.github.io',`http://127.0.0.1:${originalHost?8812:port}${old&&!originalHost?'/original':''}`);
       if(old&&!originalHost&&base!==path.join(suite,'site'))value=value.replace(/((?:href|src)=")\/(?!\/|original\/)/g,'$1/original/');
       return res.end(value);
     }
