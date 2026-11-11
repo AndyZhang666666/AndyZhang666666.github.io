@@ -1,0 +1,22 @@
+[
+  {
+    "path": "task-loop.mjs",
+    "status": 200
+  },
+  {
+    "path": "server/server.mjs",
+    "status": 404
+  },
+  {
+    "path": "tests/task-loop.test.mjs",
+    "status": 404
+  },
+  {
+    "path": "evidence/task-loop-20261111/browser-result.json",
+    "status": 404
+  },
+  {
+    "path": "corpus/ADM-RES-1.md",
+    "status": 404
+  }
+]

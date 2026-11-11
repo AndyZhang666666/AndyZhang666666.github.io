@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "kind": "rag-evidence-workspace",
+  "mode": "personal-local",
+  "versions": {
+    "index": "zh-bigram-bm25-v1",
+    "prompt": "grounded-json-v1",
+    "judge": "equipment-facts-v2",
+    "corpus": "qingyu-20261028-v1",
+    "workspace": "source-workspace-v1"
+  },
+  "question": "显示器最长能借多久？",
+  "date": "2026-10-28",
+  "documentManifest": [
+    {
+      "id": "USR-9EBA0A70-D84C-44F8-911D-BBA798BEEA79",
+      "title": "本轮虚构测试资料.txt",
+      "version": "",
+      "effectiveFrom": "",
+      "effectiveTo": "",
+      "confirmed": false,
+      "characters": 25
+    }
+  ],
+  "status": "evidence",
+  "statusScope": "检索和规则状态；不代表用户草稿已验证",
+  "draftNeedsReview": false,
+  "draftSourceRunId": "78aeefaa-f8c8-4992-98aa-03674d08dc52",
+  "answerDraft": "依据已选原文，拟答复：本份资料写明21天。",
+  "groundingCheck": {
+    "status": "lexical-match",
+    "unsupported": [],
+    "note": "草稿中的数字与单位均能在所选引文找到。只核对数字与单位是否出现在所选引文中；文字匹配不代表语义正确。"
+  },
+  "citationCautions": [],
+  "author": "用户编辑；不是模型生成",
+  "unresolved": "",
+  "gaps": [
+    "部分资料的生效期间或版本尚未确认，不能宣称适用于本次业务日期。",
+    "当前只做检索与证据整理；如需使用支持的规则字段，请先逐条核对原文。"
+  ],
+  "runId": "78aeefaa-f8c8-4992-98aa-03674d08dc52",
+  "workspaceId": "8433a9ed-c3fe-487e-b783-c15d90acad87",
+  "revision": 1,
+  "evidence": [
+    {
+      "id": "USR-9EBA0A70-D84C-44F8-911D-BBA798BEEA79:p1",
+      "title": "本轮虚构测试资料.txt",
+      "version": "未声明",
+      "page": null,
+      "quote": "显示器单次最长借用 21 天。"
+    }
+  ],
+  "documents": [
+    {
+      "id": "USR-9EBA0A70-D84C-44F8-911D-BBA798BEEA79",
+      "title": "本轮虚构测试资料.txt",
+      "bytes": 63,
+      "text": "显示器单次最长借用 21 天。\n\n归还请到设备台。",
+      "version": "",
+      "policy": "",
+      "effectiveFrom": "",
+      "effectiveTo": "",
+      "confirmed": false
+    }
+  ],
+  "workspaceState": {
+    "question": "显示器最长能借多久？",
+    "date": "2026-10-28",
+    "draft": "依据已选原文，拟答复：本份资料写明21天。",
+    "notes": "",
+    "selected": [
+      "USR-9EBA0A70-D84C-44F8-911D-BBA798BEEA79:p1"
+    ],
+    "confirmedRules": false,
+    "draftSignature": "{\"revision\":1,\"question\":\"显示器最长能借多久？\",\"date\":\"2026-10-28\",\"documents\":[[\"USR-9EBA0A70-D84C-44F8-911D-BBA798BEEA79\",\"显示器单次最长借用 21 天。\\n\\n归还请到设备台。\",\"\",\"\",\"\",\"\",false]],\"confirmedRules\":false}"
+  },
+  "createdAt": "2026-11-11T07:06:52.709Z"
+}
