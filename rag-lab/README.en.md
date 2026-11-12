@@ -1,5 +1,7 @@
 # Trustworthy RAG Lab
 
+**2026-11-12 development review:** a compact task desk, locally bundled citation inspector, personal-source onboarding, mobile return paths and separate adoption/insertion feedback. [Design and verification](docs/CRAFT-20261112.md). This UI iteration is not deployed; retrieval, scope and storage contracts are unchanged.
+
 [中文](README.md) · [Project index](../README.md) · [Public site](https://andyzhang666666.github.io/rag-lab/)
 
 Check whether a source applies before drafting an answer. Change facts in fictional equipment-policy tasks, or bring TXT, Markdown and text-bearing PDF files to retrieve evidence, select quotations, edit a draft and export it locally.
