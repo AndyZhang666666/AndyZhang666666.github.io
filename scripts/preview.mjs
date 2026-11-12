@@ -12,7 +12,7 @@ if(!Number.isInteger(port)||port<1||port>65535)throw Error('PREVIEW_PORT must be
 const integrated={'llm-output-eval':'eval','bundle-lab':'bundle','commute-compare':'commute','poker-squid-lab':'poker-squid-lab'};
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.pdf':'application/pdf','.ttf':'font/ttf','.woff2':'font/woff2','.txt':'text/plain; charset=utf-8'};
 const exports=new Set(['llm-output-eval','bundle-lab','growth-experiment-lab','pricing-model-sim','commute-compare','poker-bankroll-sim','poker-ev-calculator','poker-squid-lab']);
-const ragFiles=new Set(['index.html','app.mjs','engine.mjs','workspace.mjs','personal-workbench.mjs','task-catalog.mjs','task-loop.mjs','import-errors.mjs','style.css','public-corpus.json','favicon.svg']);
+const ragFiles=new Set(['index.html','app.mjs','engine.mjs','workspace.mjs','personal-workbench.mjs','task-catalog.mjs','task-loop.mjs','import-errors.mjs','style.css','workbench.css','citation-inspector.mjs','public-corpus.json','favicon.svg']);
 const privateFolders=new Set(['server','backend','tests','evidence','corpus','node_modules']);
 
 function publicPath(parts){
@@ -22,7 +22,7 @@ function publicPath(parts){
   if(module==='scripts')return parts.length===2&&child==='case-reader.js';
   if(module==='rag-lab'){
     if(!child)return true;
-    if(child==='vendor')return parts.length===3&&['pdf.mjs','pdf.worker.mjs'].includes(parts[2])||parts.length===4&&['cmaps','standard_fonts'].includes(parts[2])&&/^[A-Za-z0-9_.-]+$/.test(parts[3]);
+    if(child==='vendor')return parts.length===3&&['pdf.mjs','pdf.worker.mjs','floating-ui.mjs','floating-ui.LICENSE.txt'].includes(parts[2])||parts.length===4&&['cmaps','standard_fonts'].includes(parts[2])&&/^[A-Za-z0-9_.-]+$/.test(parts[3]);
     return parts.length===2&&ragFiles.has(child);
   }
   if(module==='tasteroom'&&(privateFolders.has(child)||/^(?:server|backend|model-adapter)(?:[.-]|$)/i.test(child||'')))return false;

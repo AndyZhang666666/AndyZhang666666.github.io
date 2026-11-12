@@ -1,6 +1,7 @@
 import {scopeDiff,scopeBaseline} from './task-loop.mjs';
 import {TASKS,taskRun} from './task-catalog.mjs';
-import {initializePersonal} from './personal-workbench.mjs?v=20261111-task-loop1';
+import {initializePersonal} from './personal-workbench.mjs?v=20261112-craft1';
+import {openCitation,closeCitation} from './citation-inspector.mjs?v=20261112-craft1';
 import {retrieveRun, validateInput, SNAPSHOTS} from './engine.mjs';
 
 const $ = id => document.getElementById(id);
@@ -31,6 +32,7 @@ function getInput() {
 function hidePrivateHistory() {
   const identity = `${$('role').value}:${$('runtime').value}:${$('adminCredential').value}`;
   if (viewerIdentity !== null && identity !== viewerIdentity) {
+    closeCitation();
     // Even hidden history and edited drafts can disclose an earlier permission scope.
     // Clear all prior result DOM immediately, before any rerun or export is possible.
     previousCompletedRun = scopeBaseline(previousCompletedRun);
@@ -54,6 +56,7 @@ function syncSettings() {
   $('modeLabel').textContent = !local ? '原创示例模式' : runtime === 'model' ? '本地模型模式' : '本地 API 模式';
   $('modeDescription').textContent = !local ? '浏览器文本检索 · 规则摘录 · 无模型调用' : runtime === 'model' ? '服务端检索与范围检查 · 真实模型需本项目配置' : '服务端范围检查 · 真实 BM25 检索 · 无模型调用';
   const admin = $('role').value === 'admin';
+  $('conditionsSummary').textContent=`${roleName($('role').value)} · ${$('date').value} · ${$('snapshot').value==='baseline'?'原始':'修订'}`;
   $('adminSettings').hidden = !local || !admin;
   if (!admin) $('adminCredential').value = '';
   $('scopeHint').textContent = !local && admin ? '公开示例可切换角色，但不含管理原文。请本地启动 API 并使用独立管理凭据验证该范围。' :
@@ -63,6 +66,7 @@ function syncSettings() {
 }
 
 function markStale() {
+  closeCitation();
   if (busy) return;
   $('stale').hidden = !currentRun;
   $('copyExampleAnswer').disabled=Boolean(currentRun);$('downloadExampleAnswer').disabled=Boolean(currentRun);
@@ -109,6 +113,8 @@ async function sessionToken() {
 
 async function run({focus = true} = {}) {
   if (busy) return;
+  closeCitation();
+  if(focus){$('scenarioChoices').open=false;$('scenarioCurrent').textContent=$('question').value.trim();}
   if(!corpusLoaded){showError('示例资料尚未读取成功，请刷新重试；仍可进入「使用我的资料」完成本机检索。');return;}
   $('error').hidden = true;
   let input;
@@ -193,7 +199,7 @@ function render(run) {
   run.citations.forEach((source, index) => {
     const button = node('button', `[${index + 1}] ${source.title} · v${source.version}`);
     button.type = 'button'; button.dataset.citation = source.id; button.setAttribute('aria-controls', `source-${index}`);
-    button.addEventListener('click', () => locateSource(index)); $('citationLinks').append(button);
+    button.addEventListener('click', () => {if(!$('stale').hidden){$('liveStatus').textContent='条件已变更，请重新查找后展开引用。';return;}openCitation({trigger:button,title:source.title,metadata:`v${source.version} · 自 ${source.effectiveFrom} 生效${source.effectiveTo?'，至 '+source.effectiveTo+' 前有效':''} · ${source.id}`,quote:source.text,detailTarget:$(`source-${index}`)});}); $('citationLinks').append(button);
     const article = node('article', undefined, 'source'); article.id = `source-${index}`; article.tabIndex = -1;
     article.append(node('h3', `[${index + 1}] ${source.title}`));
     article.append(node('p', `v${source.version} · 自 ${source.effectiveFrom} 生效${source.effectiveTo ? `，至 ${source.effectiveTo} 前有效` : ''} · ${source.id}`, 'source-meta'));
@@ -243,6 +249,7 @@ function renderHistory() {
     const button = node('button'); button.type = 'button'; button.setAttribute('aria-pressed', String(item.id === currentRun?.id));
     button.append(node('span', `${item.question.replace(/[？?]/g,'').slice(0,16)} · ` + (item.facts[0]?.value && item.status === 'answered' ? item.facts[0].value : labels[item.status])), node('small', `${item.date} · ${item.snapshot === 'baseline' ? '原始' : '修订'} · ${roleName(item.role)}`));
     button.addEventListener('click', () => {
+      closeCitation();
       if (busy) return;
       if (historyIdentity.get(item.id) !== viewerIdentity) return;
       // Never re-expose a privileged run after the viewer leaves that session.
@@ -320,6 +327,6 @@ function initializeTasks(){
  $('copyExampleAnswer').onclick=async()=>{try{await navigator.clipboard.writeText(answerDocument());$('liveStatus').textContent='已复制当前答复草稿。';}catch(e){showError(e.message||'复制不可用，请下载答复。');}};
  $('downloadExampleAnswer').onclick=()=>{try{const content=answerDocument(),url=URL.createObjectURL(new Blob([content],{type:'text/markdown;charset=utf-8'}));const a=node('a');a.href=url;a.download='rag-example-answer.md';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){showError(e.message);}};
 
- for(const [a,b]of [['showExamples','showPersonal'],['showPersonal','showExamples']])$(a).onclick=()=>{const personal=a==='showPersonal';$('exampleWorkspace').hidden=personal;$('personalWorkspace').hidden=!personal;$(a).setAttribute('aria-pressed','true');$(b).setAttribute('aria-pressed','false');};
+ for(const [a,b]of [['showExamples','showPersonal'],['showPersonal','showExamples']])$(a).onclick=()=>{closeCitation();const personal=a==='showPersonal';$('exampleWorkspace').hidden=personal;$('personalWorkspace').hidden=!personal;$(a).setAttribute('aria-pressed','true');$(b).setAttribute('aria-pressed','false');};
 }
 initialize();
