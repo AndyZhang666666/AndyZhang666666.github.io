@@ -1,5 +1,5 @@
-import {ARTBOARDS,normalizeArtwork} from './artwork.js';
-import { posterSvg } from './experiments.js';
+import {ARTBOARDS,normalizeArtwork} from './artwork.js?v=20261112-craft1';
+import { posterSvg } from './experiments.js?v=20261112-craft1';
 
 // Both image formats use the exact SVG shown in the working canvas.
 export function visibleRoom(room, comparison, side) {

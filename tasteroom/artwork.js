@@ -15,74 +15,77 @@ export function canvasProvenance(room,shown=room){
 }
 export function restoreSceneDirection(room){const before=JSON.stringify(room.memories);const rule=room.effective().find(m=>m.dimension==='artDirection'&&m.type==='explicit'&&m.context===room.context&&!m.id.startsWith('once_'));if(!rule)return false;room.update('artDirection',rule.preference,rule.id);if(JSON.stringify(room.memories)!==before)throw Error('恢复方向不应修改记忆');return true;}
 const xml=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
-const measure=s=>[...s].reduce((n,ch)=>n+(/[MW@%&mw]/.test(ch)?1.05:/[A-Z]/.test(ch)?.8:/[\x00-\x7f]/.test(ch)?.66:1),0);
-function lines(s,limit,manual){const source=String(s).split(/<br\s*\/?\s*>|\n/i);if(manual||source.length>1)return source;let result=[],line='',size=0;for(const ch of source[0]){const m=measure(ch);if(size+m>limit&&line){result.push(line);line='';size=0;}line+=ch;size+=m;}result.push(line);return result;}
-// Each direction owns its composition. Aspect-ratio changes reflow text and media;
-// image geometry remains separate from remembered design preferences.
-const GEOMETRY={
- swiss:{title:.245,subtitle:.45,scale:1,mediaX:0,mediaW:1},
- deconstructed:{title:.26,subtitle:.47,scale:1.04,mediaX:.09,mediaW:.91},
- editorial:{title:.25,subtitle:.49,scale:.91,mediaX:0,mediaW:.8},
- bauhaus:{title:.52,subtitle:.69,scale:.92,mediaX:0,mediaW:1},
- japanese:{title:.32,subtitle:.55,scale:.78,mediaX:.12,mediaW:.8},
- risograph:{title:.23,subtitle:.46,scale:1.04,mediaX:0,mediaW:1},
+const measure=s=>[...s].reduce((n,ch)=>n+(/[MW@%&mw]/.test(ch)?1.05:/[A-Z]/.test(ch)?.8:/[\x00-\x7f]/.test(ch)?.62:1),0);
+function lines(value,limit,manual){
+ const source=String(value).split(/<br\s*\/?\s*>|\n/i);if(manual||source.length>1)return source;
+ const result=[];let line='',width=0;for(const ch of source[0]){const next=measure(ch);if(width+next>limit&&line){result.push(line.trim());line='';width=0;}line+=ch;width+=next;}result.push(line.trim());return result;
+}
+// These are composition rules, not remembered preferences. Each aspect ratio has
+// its own working regions; changing format never scales a portrait composition.
+const COMPOSITIONS={
+ swiss:{title:.225,sub:.405,size:1.08,mediaX:0,mediaW:1,mark:'01 / FORM & FUNCTION'},
+ deconstructed:{title:.25,sub:.445,size:1.08,mediaX:.07,mediaW:.88,mark:'02 / FORM IN MOTION'},
+ editorial:{title:.225,sub:.43,size:.98,mediaX:.35,mediaW:.65,mark:'03 / AN OPEN EDITION'},
+ bauhaus:{title:.515,sub:.715,size:.95,mediaX:0,mediaW:1,mark:'04 / COLOUR & FORM'},
+ japanese:{title:.30,sub:.51,size:.85,mediaX:.17,mediaW:.73,mark:'05 / SPACE TO NOTICE'},
+ risograph:{title:.235,sub:.43,size:1.08,mediaX:.04,mediaW:.92,mark:'06 / TWO INKS, ONE IDEA'},
 };
 export function artworkLayout(room,content){
- const art=normalizeArtwork(room.artwork),{width:w,height:h}=ARTBOARDS[art.format],wide=art.format==='landscape',c=room.canvas,id=c.artDirection||'swiss',g=GEOMETRY[id]||GEOMETRY.swiss,manual=room.posterSettings?.lineBreaks==='manual';
- const pad=Math.round(w*({compact:.065,balanced:.08,airy:.1}[c.layoutDensity]||.08));
- const colWidth=wide?w*.44:w-2*pad,usable=colWidth-(id==='japanese'?w*.08:0)-(c.alignment==='asymmetric'?24:0);
- const title=lines(content[1],wide?12:14,manual),subtitle=lines(content[2],wide?25:32,manual);
- const max=(wide?88:Math.min(w*.09,100))*g.scale*(Number(room.posterSettings?.titleScale)||1);
- const size=Math.min(max,...title.map(s=>Math.floor((usable-20)/Math.max(1,measure(s))))),subtitleSize=Math.min(wide?26:27,...subtitle.map(s=>Math.floor(usable/Math.max(1,measure(s)))));
- const titleY=Math.round(h*(wide?(id==='japanese'?.34:id==='bauhaus'?.32:.245):g.title)),titleBottom=titleY+Math.max(0,title.length-1)*size*1.12;
- const subY=Math.max(titleBottom+Math.max(44,size*.6),Math.round(h*(wide?(id==='bauhaus'?.6:.55):g.subtitle))),subBottom=subY+Math.max(0,subtitle.length-1)*(subtitleSize*1.48);
- const detailRows=['when','where','action'].filter(k=>art.details[k]);
- const footerY=h-pad*.7,metaY=footerY-42-detailRows.length*30;
+ const art=normalizeArtwork(room.artwork),{width:w,height:h}=ARTBOARDS[art.format],wide=art.format==='landscape',square=art.format==='square',c=room.canvas,id=Object.hasOwn(COMPOSITIONS,c.artDirection)?c.artDirection:'swiss',g=COMPOSITIONS[id],manual=room.posterSettings?.lineBreaks==='manual';
+ const pad=Math.round(w*({compact:.065,balanced:.08,airy:.10}[c.layoutDensity]||.08)),asym=c.alignment==='asymmetric'?Math.round(w*.022):0;
+ const titleX=wide?(id==='bauhaus'?w*.53:id==='japanese'?w*.12:pad):id==='japanese'?pad+w*.035:pad;
+ const usable=wide?(id==='bauhaus'?w*.39:id==='japanese'?w*.43:w*.455):w-pad*2-(id==='japanese'?w*.10:0)-asym;
+ const titleMax=(wide?104:square?104:100)*g.size*(Number(room.posterSettings?.titleScale)||1),title=lines(content[1],Math.max(6,Math.floor(usable/titleMax)),manual),subtitle=lines(content[2],Math.max(15,Math.floor(usable/(wide?27:26))),manual);
+ const wantedSize=Math.min(titleMax,...title.map(s=>Math.floor((usable-12)/Math.max(1,measure(s))))),size=Math.max(28,wantedSize),wantedSubSize=Math.min(wide?27:26,...subtitle.map(s=>Math.floor(usable/Math.max(1,measure(s))))),subtitleSize=Math.max(16,wantedSubSize);
+ const titleY=Math.round(h*(wide?(id==='japanese'?.34:id==='bauhaus'?.33:.28):g.title)),titleBottom=titleY+Math.max(0,title.length-1)*size*1.12;
+ const subY=Math.max(titleBottom+Math.max(55,size*.7),Math.round(h*(wide?.58:g.sub))),subBottom=subY+Math.max(0,subtitle.length-1)*subtitleSize*1.48;
+ const detailRows=['when','where','action'].filter(k=>art.details[k]),detailFont=wide?21:20,detailWidth=wide?(w-2*pad)/Math.max(1,detailRows.length)-30:w-2*pad-80;
+ const detailLines=Object.fromEntries(detailRows.map(k=>[k,lines(art.details[k],Math.max(16,Math.floor(detailWidth/detailFont)),false)]));
+ const detailHeight=wide?(detailRows.length?Math.max(...detailRows.map(k=>detailLines[k].length))*29+28:0):detailRows.reduce((n,k)=>n+Math.max(1,detailLines[k].length)*28+11,0);
+ const footerY=h-pad*.58,metaY=footerY-38-detailHeight;
  let media;
- if(wide)media={x:id==='bauhaus'?pad:id==='editorial'?w*.64:id==='japanese'?w*.67:w*.57,y:h*(id==='editorial'?.16:.2),width:w*(id==='editorial'?.29:id==='japanese'?.25:.36),height:h*(id==='japanese'?.48:.57)};
- else if(id==='bauhaus')media={x:pad,y:h*.17,width:w-pad*2,height:h*.26};
- else media={x:pad+(w-pad*2)*g.mediaX,y:subBottom+30,width:(w-pad*2)*g.mediaW,height:metaY-subBottom-64};
- const categorySize=Math.min(23,Math.floor((w-pad*2-160)/Math.max(1,measure(content[0])))),footerSize=Math.min(22,Math.floor((w-pad*2)/Math.max(1,measure(content[3]))));
- const issues=[];
- if(title.length>4)issues.push('标题超过四行，请重新平衡换行');if(subtitle.length>4)issues.push('副文案超过四行，请调整换行或减少文字');if(size<28)issues.push('标题过密，请增加换行或换用更宽版式');if(subtitleSize<14)issues.push('副文案过密，请增加换行或减少文字');if(categorySize<12)issues.push('活动类别过长，请简化类别');if(footerSize<14)issues.push('落款过长，请简化落款');
- if(subBottom+22>metaY)issues.push('副文案已进入活动信息区域，请缩小标题或调整换行');
+ if(wide){media={x:id==='bauhaus'?pad:id==='japanese'?w*.65:w*.585,y:h*(id==='japanese'?.23:.185),width:id==='bauhaus'?w*.395:id==='japanese'?w*.27:w*.34,height:Math.max(80,metaY-h*(id==='japanese'?.23:.185)-34)};}
+ else if(id==='bauhaus'){media={x:pad,y:h*.155,width:w-pad*2,height:h*(square?.26:.25)};}
+ else {const y=Math.max(subBottom+46,h*(id==='japanese'?.65:id==='editorial'?.62:.56));media={x:pad+(w-pad*2)*g.mediaX,y,width:(w-pad*2)*g.mediaW,height:Math.max(0,metaY-y-34)};}
+ const categoryWanted=Math.min(23,Math.floor((w-pad*2-(wide?330:220))/Math.max(1,measure(content[0])))),footerWanted=Math.min(21,Math.floor((w-pad*2-120)/Math.max(1,measure(content[3]))));
+ const categorySize=Math.max(14,categoryWanted),footerSize=Math.max(14,footerWanted),issues=[];
+ if(title.length>4)issues.push('标题超过四行，请重新平衡换行');if(subtitle.length>4)issues.push('副文案超过四行，请调整换行或减少文字');if(wantedSize<28)issues.push('标题过密，已保留可读字号，请增加换行或换用更宽版式');if(wantedSubSize<16)issues.push('副文案过密，请增加换行或减少文字');if(categoryWanted<14)issues.push('活动类别过长，请简化类别');if(footerWanted<14)issues.push('落款过长，请简化落款');
+ if(subBottom+26>metaY)issues.push('副文案已进入活动信息区域，请缩小标题或调整换行');
  if(art.image&&!safeImageUrl(art.image))issues.push('本机图片尚未恢复，请重新选择图片或移除图片');
- if(art.image&&!wide&&media.height<100)issues.push('文字与主图区域重叠，请缩小标题、减少换行或使用横版');
- const detailNames={when:'日期与时间',where:'地点',action:'行动说明'};
- for(const key of detailRows)if(measure(art.details[key])*22>w-pad*2)issues.push(detailNames[key]+'过长，请简化该字段');
- const titleX=wide&&id==='bauhaus'?w*.54:pad;
- return {title,subtitle,pad,size,subtitleSize,categorySize,footerSize,subBottom,issues,ok:!issues.length,w,h,wide,titleY,titleBottom,titleX,subY,metaY,footerY,detailRows,usable,media,art,id};
+ if(art.image&&!wide&&id!=='bauhaus'&&media.height<110)issues.push('文字与主图区域重叠，请缩小标题、减少换行或使用横版');
+ const detailNames={when:'日期与时间',where:'地点',action:'行动说明'};for(const key of detailRows)if(detailLines[key].length>2)issues.push(detailNames[key]+'超过两行，请简化该字段');
+ return {title,subtitle,pad,size,subtitleSize,categorySize,footerSize,subBottom,issues,ok:!issues.length,w,h,wide,square,titleY,titleBottom,titleX,subY,metaY,footerY,detailRows,detailLines,detailFont,detailWidth,usable,media,art,id,mark:g.mark,asym};
 }
-
-function imageSvg(l){const a=l.art,url=safeImageUrl(a.image);if(!url)return '';const r=l.media,height=Math.max(1,r.height),img=a.image;let x=r.x,y=r.y,w=r.width,h=height;
- const scale=a.imageFit==='fit'?Math.min(w/img.width,h/img.height):Math.max(w/img.width,h/img.height);
- const iw=img.width*scale,ih=img.height*scale,ix=x+(w-iw)*a.imageX/100,iy=y+(h-ih)*a.imageY/100;
- return `<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" overflow="hidden"><image x="${ix-x}" y="${iy-y}" width="${iw}" height="${ih}" href="${url}"/></svg>`;
+function imageSvg(l){const a=l.art,url=safeImageUrl(a.image);if(!url)return '';const r=l.media,height=Math.max(1,r.height),img=a.image;const scale=a.imageFit==='fit'?Math.min(r.width/img.width,height/img.height):Math.max(r.width/img.width,height/img.height),iw=img.width*scale,ih=img.height*scale,ix=(r.width-iw)*a.imageX/100,iy=(height-ih)*a.imageY/100;
+ return `<svg x="${r.x}" y="${r.y}" width="${r.width}" height="${height}" viewBox="0 0 ${r.width} ${height}" overflow="hidden"><image x="${ix}" y="${iy}" width="${iw}" height="${ih}" href="${url}"/></svg>`;
 }
 export function artworkSvg(room,content,d){
  const l=artworkLayout(room,content),{w,h,pad:p,size,subtitleSize:ss,art,id,wide}=l,c=room.canvas;
  const [paper,ink,accent]=c.colorMood==='monochrome'?[d.paper,d.ink,d.ink]:c.colorMood==='high_contrast'?['#fff',d.ink,d.accent]:[d.paper,d.ink,d.accent];
  const sans="Arial,Helvetica,'PingFang SC',sans-serif",serif="Georgia,'Songti SC',serif",mono="'Courier New',monospace",family=c.typography==='editorial_serif'?serif:c.typography==='mono_tech'?mono:sans;
  const text=(s,x,y,fs,attrs='')=>`<text x="${x}" y="${y}" font-size="${fs}" ${attrs}>${xml(s)}</text>`;
- const center=c.alignment==='centered',tx=center?(wide?l.titleX+l.usable/2:w/2):l.titleX+(c.alignment==='asymmetric'?24:0),anchor=center?'middle':'start';
- const title=l.title.map((s,i)=>text(s,tx,l.titleY+i*size*1.12,size,`text-anchor="${anchor}" font-weight="${['editorial','japanese'].includes(id)?400:700}" letter-spacing="${id==='japanese'?2:-1}"`)).join('');
- const sub=l.subtitle.map((s,i)=>text(s,tx,l.subY+i*ss*1.48,ss,`text-anchor="${anchor}"`)).join('');
- const hr=y=>`<path d="M${p} ${y}H${w-p}" stroke="${ink}" stroke-width="1"/>`;
- let ornaments='',titleMarkup=title;
- if(c.decorElements!=='none'&&!art.image){const r=l.media,aw=wide?r.width:Math.min(r.width,480),ah=Math.max(0,r.height);if(ah>70){
-  if(id==='swiss')ornaments=`<rect x="${r.x}" y="${r.y}" width="${aw*.56}" height="${Math.min(ah,aw*.4)}" fill="${accent}"/><circle cx="${r.x+aw*.82}" cy="${r.y+Math.min(ah,aw*.4)/2}" r="${Math.min(ah,aw*.4)/2}" fill="${ink}"/>`;
-  if(id==='deconstructed')ornaments=`<g transform="rotate(-8 ${r.x+aw/2} ${r.y+ah/2})"><rect x="${r.x}" y="${r.y+ah*.22}" width="${aw}" height="${ah*.48}" fill="${ink}"/><path d="M${r.x+aw*.1} ${r.y}L${r.x+aw*.6} ${r.y+ah}" stroke="${accent}" stroke-width="30"/></g>`;
-  if(id==='editorial')ornaments=`<path d="M${r.x+aw*.55} ${r.y}V${r.y+Math.min(ah,160)}" stroke="${accent}"/>`+text('Aa',r.x,r.y+Math.min(ah*.8,130),Math.min(ah*.8,140),`font-family="${serif}" font-style="italic" fill="${accent}"`)+text('READ / THINK',r.x+aw*.62,r.y+Math.min(ah*.6,90),17);
-  if(id==='bauhaus')ornaments=`<circle cx="${r.x+aw*.72}" cy="${r.y+Math.min(ah*.5,aw*.25)}" r="${Math.min(ah*.45,aw*.25)}" fill="${accent}"/><path d="M${r.x} ${r.y+Math.min(ah,aw*.5)}V${r.y}L${r.x+aw*.5} ${r.y+Math.min(ah,aw*.5)}Z" fill="${c.colorMood==='monochrome'?ink:'#c4a03c'}"/>`;
-  if(id==='japanese')ornaments=`<circle cx="${r.x+aw*.8}" cy="${r.y+ah*.6}" r="${Math.min(30,ah*.2)}" fill="${accent}"/>`;
-  if(id==='risograph')ornaments=`<circle cx="${r.x+aw*.4}" cy="${r.y+ah*.5}" r="${Math.min(ah*.42,aw*.29)}" fill="${ink}"/><circle cx="${r.x+aw*.68}" cy="${r.y+ah*.51}" r="${Math.min(ah*.42,aw*.29)}" fill="${accent}" opacity=".8"/>`;
- }}
- if(id==='deconstructed')titleMarkup=`<g transform="rotate(-3 ${w/2} ${l.titleY})">${title}</g>`;
- if(id==='risograph')titleMarkup=`<g fill="${accent}" transform="translate(4 3)" opacity=".6">${title}</g>${title}`;
- let details=l.detailRows.map((key,i)=>text(art.details[key],p,l.metaY+30*i,22,`font-weight="${key==='action'?600:400}"`)).join('');
- const mark=id==='japanese'?'余白 / Y O H A K U':id==='risograph'?'PRINT / TWO INKS':id==='deconstructed'?'FORM / FRAGMENT':'TasteRoom / Studio';
- const top=text(content[0],p,h*.085,l.categorySize)+text(mark,w-p,h*.085,16,'text-anchor="end"');
- const line=['swiss','editorial'].includes(id)?hr(h*.12):id==='japanese'?`<path d="M${p} ${h*.13}H${p+35}" stroke="${accent}" stroke-width="3"/>`:id==='deconstructed'?`<path d="M${w-p} ${h*.16}V${h*.64}" stroke="${accent}" stroke-width="5"/>`:'';
+ const center=c.alignment==='centered',tx=center?l.titleX+l.usable/2:l.titleX+l.asym,anchor=center?'middle':'start';
+ const title=l.title.map((s,i)=>text(s,tx,l.titleY+i*size*1.12,size,`text-anchor="${anchor}" font-weight="${['editorial','japanese'].includes(id)?400:800}" letter-spacing="${id==='japanese'?2:-1.8}"`)).join('');
+ const sub=l.subtitle.map((s,i)=>text(s,tx,l.subY+i*ss*1.48,ss,`text-anchor="${anchor}" opacity=".9"`)).join('');
+ const rule=(x1,y,x2,color=ink,width=1)=>`<path d="M${x1} ${y}H${x2}" fill="none" stroke="${color}" stroke-width="${width}"/>`;
+ const r=l.media,hasArt=c.decorElements!=='none',bold=c.decorElements==='bold_shapes',rw=r.width,rh=Math.max(0,r.height);
+ let ornament='',underlay='',titleMarkup=title;
+ if(hasArt&&!art.image&&rh>55){
+  if(id==='swiss'){const cell=Math.min(rw*.45,rh*.9);ornament=`<g fill="${accent}"><rect x="${r.x}" y="${r.y}" width="${cell}" height="${cell}"/><path d="M${r.x+cell+18} ${r.y+cell}V${r.y}A${cell} ${cell} 0 0 1 ${r.x+cell*2+18} ${r.y+cell}Z"/></g>`+rule(r.x,r.y+cell+18,r.x+Math.min(rw,cell*2+18),ink,1);if(!bold)ornament=`<path d="M${r.x} ${r.y}H${r.x+rw}M${r.x} ${r.y+rh*.45}H${r.x+rw}M${r.x} ${r.y+rh*.9}H${r.x+rw}" stroke="${accent}" stroke-width="2"/>`;}
+  if(id==='deconstructed'){const cy=r.y+rh*.5;ornament=`<g transform="rotate(-7 ${r.x+rw*.5} ${cy})"><rect x="${r.x+rw*.03}" y="${r.y+rh*.25}" width="${rw*.89}" height="${rh*.5}" fill="${ink}"/><path d="M${r.x+rw*.20} ${r.y+rh*.08}L${r.x+rw*.58} ${r.y+rh*.91}" stroke="${accent}" stroke-width="${Math.max(14,rw*.08)}"/>${text('FORM',r.x+rw*.12,cy+16,Math.min(rw*.16,rh*.32),`fill="${paper}" font-weight="800" letter-spacing="-3"`)}</g>`;}
+  if(id==='editorial'){const fs=Math.min(rh*.82,rw*.58);ornament=rule(r.x,r.y,r.x+rw,accent)+text('Aa',r.x,r.y+fs*.94,fs,`font-family="${serif}" font-style="italic" fill="${accent}"`)+`<path d="M${r.x+rw*.68} ${r.y+18}V${r.y+Math.min(rh,fs)}" stroke="${accent}"/>`+text('A NOTE',r.x+rw*.73,r.y+Math.min(rh*.4,60),13,`font-family="${mono}" letter-spacing="1"`)+text('ON SEEING',r.x+rw*.73,r.y+Math.min(rh*.4,60)+21,13,`font-family="${mono}"`);}
+  if(id==='bauhaus'){const side=Math.min(rw*.54,rh);ornament=`<path d="M${r.x} ${r.y+side}V${r.y}L${r.x+side} ${r.y+side}Z" fill="${c.colorMood==='monochrome'?ink:'#c79938'}"/><circle cx="${r.x+rw-side*.50}" cy="${r.y+side*.5}" r="${side*.5}" fill="${accent}"/><rect x="${r.x+side*.70}" y="${r.y+side*.75}" width="${Math.min(side*.75,rw*.35)}" height="${side*.24}" fill="${ink}"/>`;if(!bold)ornament=ornament.replaceAll('fill="'+accent+'"','fill="none" stroke="'+accent+'" stroke-width="3"');}
+  if(id==='japanese'){const cy=r.y+rh*.54;ornament=`<circle cx="${r.x+rw*.78}" cy="${cy}" r="${Math.min(34,rh*.2)}" fill="${accent}"/>`+rule(r.x,r.y+rh*.82,r.x+rw*.19,ink)+text('間',r.x+rw*.72,Math.min(r.y+rh,cy+84),19,`opacity=".7"`);}
+  if(id==='risograph'){const radius=Math.min(rh*.44,rw*.31),cy=r.y+rh*.48,cx=r.x+rw*.42;ornament=`<g opacity=".92"><circle cx="${cx}" cy="${cy}" r="${radius}" fill="${ink}"/><circle cx="${cx+radius*.95}" cy="${cy+3}" r="${radius}" fill="${accent}" opacity=".82"/></g>`+(bold?Array.from({length:12},(_,i)=>rule(cx-radius-5,cy-radius+14+i*(radius*2-28)/11,cx+radius*1.95,paper,1.5)).join(''):'');}
+ }
+ if(id==='deconstructed'){titleMarkup=`<g transform="rotate(-2 ${tx} ${l.titleY})">${title}</g>`;underlay=`<path d="M${w-p*.55} ${h*.15}V${h*.55}" stroke="${accent}" stroke-width="6"/>`;}
+ if(id==='risograph')titleMarkup=`<g fill="${accent}" transform="translate(2.5 1.8)" opacity=".5">${title}</g>${title}`;
+ const category=text(content[0],p,h*.077,l.categorySize,`font-weight="500" letter-spacing=".5"`),mark=text(l.mark,w-p,h*.077,wide?15:12,`text-anchor="end" font-family="${mono}" letter-spacing=".7"`);
+ let topRule=id==='japanese'?rule(p,h*.13,p+42,accent,3):['swiss','editorial','risograph'].includes(id)?rule(p,h*.112,w-p,ink,id==='swiss'?2:1):'';
+ if(id==='editorial')underlay+=text('ED.',wide?w*.84:w*.78,h*.16,wide?33:28,`font-family="${serif}" font-style="italic" fill="${accent}"`);
+ const labels={when:'WHEN',where:'WHERE',action:'JOIN'};let cursor=l.metaY,details='';
+ if(l.detailRows.length){details+=rule(p,l.metaY-21,w-p,ink,.7);for(const [index,key]of l.detailRows.entries()){const x=wide?p+index*(w-2*p)/l.detailRows.length:p,y=wide?l.metaY:cursor;details+=text(labels[key],x,y,11,`font-family="${mono}" letter-spacing="1" opacity=".7"`);l.detailLines[key].forEach((line,i)=>{details+=text(line,wide?x:x+77,y+23+i*28,l.detailFont,`font-weight="${key==='action'?550:400}"`);});if(!wide)cursor+=l.detailLines[key].length*28+11;}}
+ const footer=text(content[3],p,l.footerY,l.footerSize,`font-weight="450"`)+text('T / R',w-p,l.footerY,13,`font-family="${mono}" text-anchor="end" opacity=".6"`);
  const metadata={format:'tasteroom-artwork-v2',canvas:c,content,artwork:packedArtwork(art),posterSettings:room.posterSettings||{}};
- return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${xml(d.name+'：'+l.title.join(' '))}"><title>${xml(l.title.join(' '))}</title><desc>${xml(d.name)}原创构图；当前作品与图片由本机排版，不调用模型。</desc><metadata>${xml(JSON.stringify(metadata))}</metadata><rect width="${w}" height="${h}" fill="${paper}"/><g fill="${ink}" font-family="${family}">${top}${line}${titleMarkup}${sub}${imageSvg(l)}${ornaments}${details}${text(content[3],p,l.footerY,l.footerSize)}</g></svg>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${xml(d.name+'：'+l.title.join(' '))}"><title>${xml(l.title.join(' '))}</title><desc>${xml(d.name)}原创构图；当前作品与图片由本机排版，不调用模型。</desc><metadata>${xml(JSON.stringify(metadata))}</metadata><rect width="${w}" height="${h}" fill="${paper}"/><g fill="${ink}" font-family="${family}">${category}${mark}${topRule}${underlay}${ornament}${imageSvg(l)}${titleMarkup}${sub}${details}${footer}</g></svg>`;
 }

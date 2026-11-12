@@ -1,4 +1,4 @@
-import {artworkLayout,artworkSvg} from './artwork.js';
+import {artworkLayout,artworkSvg} from './artwork.js?v=20261112-craft1';
 // Original compositions. Each direction owns its geometry; previews and exports share this renderer.
 export const DIRECTIONS = {
  swiss:{name:'瑞士现代主义',detail:'清晰层级 / 理性网格',capacity:'标题 2–3 行 · 信息清楚时最有力量',use:'分享会、公开招募',paper:'#f4f2e9',ink:'#191d1c',accent:'#c43c29'},
