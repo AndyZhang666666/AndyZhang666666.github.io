@@ -33,7 +33,7 @@ function serve(req,res,originalHost=false){
   try{
     if(!['GET','HEAD'].includes(req.method)){res.writeHead(405);return res.end('Method not allowed');}
     const u=new URL(req.url,'http://localhost');
-    if(u.pathname==='/__preview__'){res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Content-Type','application/json');if(req.method==='HEAD')return res.end();return res.end(JSON.stringify({preview:'product-depth-with-portfolio-v2',root,sourceRoot,port}));}
+    if(u.pathname==='/__preview__'){res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Content-Type','application/json');if(req.method==='HEAD')return res.end();return res.end(JSON.stringify({preview:'four-demo-craft-20261112',root,sourceRoot,port}));}
     const all=decodeURIComponent(u.pathname).split('/').filter(Boolean);
     const prefix=all[0]==='original',old=originalHost||prefix,parts=prefix?all.slice(1):all;
     if(!publicPath(parts))throw Error('private path');
@@ -64,7 +64,7 @@ function serve(req,res,originalHost=false){
     if(['.html','.json'].includes(path.extname(file))){
       let value=fs.readFileSync(file,'utf8');
       // The review shell deliberately points at the real released site.
-      if(!['review.html','task-loop-review.html'].some(page=>file===path.join(root,page)))value=value.replaceAll('https://andyzhang666666.github.io',`http://127.0.0.1:${originalHost?8812:port}${old&&!originalHost?'/original':''}`);
+      if(!['review.html','task-loop-review.html','craft-review.html'].some(page=>file===path.join(root,page)))value=value.replaceAll('https://andyzhang666666.github.io',`http://127.0.0.1:${originalHost?8812:port}${old&&!originalHost?'/original':''}`);
       if(old&&!originalHost&&base!==path.join(suite,'site'))value=value.replace(/((?:href|src)=")\/(?!\/|original\/)/g,'$1/original/');
       return res.end(value);
     }

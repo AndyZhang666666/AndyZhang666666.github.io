@@ -1,7 +1,7 @@
 name: Four selected products (development only)
 on:
   push:
-    branches: [feat/usable-four-20261030, feat/product-depth-20261101, design/demo-craft-20261102, feat/site-product-depth-20261109]
+    branches: [feat/four-demo-craft-20261112, feat/usable-four-20261030, feat/product-depth-20261101, design/demo-craft-20261102, feat/site-product-depth-20261109]
   pull_request:
 permissions:
   contents: read

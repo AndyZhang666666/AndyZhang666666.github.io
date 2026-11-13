@@ -10,6 +10,7 @@ import {presentationFor} from '../content/project-presentation.mjs';
 import {presentationCases} from '../content/presentation-mode.mjs';
 import {renderProjectCards,escapeHtml as e} from '../assets/project-cards.mjs';
 import {rasterSize} from '../content/raster-size.mjs';
+import {evalPublicCoverUrl,fixedPublicCoverDimensions} from '../content/public-covers.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 const write=(file,value)=>fs.writeFileSync(path.join(root,file),value);
@@ -30,9 +31,13 @@ const region=sectionRange(html,'selected');html=html.slice(0,region.start)+rende
 const body=(tag,cls,value)=>`<${tag} class="${cls}" data-zh="${e(value.zh)}" data-en="${e(value.en)}">${e(value.zh)}</${tag}>`;
 const heading=(id,zh,en,content)=>`<section id="${id}" class="section${id==='mechanism'?' case-highlight-target':''}"><div class="section-head">${body('h2','',{zh,en})}</div>${content}</section>`;
 const image=(file,caption)=>{
- if(!file||!fs.existsSync(path.join(root,'assets/work',file)))return '';
- const size=rasterSize(fs.readFileSync(path.join(root,'assets/work',file)));
- return `<figure class="case-figure"><a href="/assets/work/${e(file)}" target="_blank" rel="noopener"><img src="/assets/work/${e(file)}" width="${size.width}" height="${size.height}" alt="${e(caption)}" loading="lazy"></a><figcaption>${e(caption)}</figcaption></figure>`;
+ if(!file)return '';
+ const fixedSize=fixedPublicCoverDimensions(file);
+ // The only remote case image is this exact version-pinned, already-public URL.
+ if(/^https?:/.test(file)&&file!==evalPublicCoverUrl)throw Error('Unapproved remote case image');
+ if(!fixedSize&&!fs.existsSync(path.join(root,'assets/work',file)))return '';
+ const size=fixedSize||rasterSize(fs.readFileSync(path.join(root,'assets/work',file))),src=file===evalPublicCoverUrl?file:`/assets/work/${file}`;
+ return `<figure class="case-figure"><a href="${e(src)}" target="_blank" rel="noopener"><img src="${e(src)}" width="${size.width}" height="${size.height}" alt="${e(caption)}" loading="lazy"></a><figcaption>${e(caption)}</figcaption></figure>`;
 };
 for(const item of selected){
  const project=data.projects.find(p=>p.id===item.project),study=studies.find(s=>s.id===item.id);
@@ -43,7 +48,7 @@ for(const item of selected){
  project.result=study.proof.zh+' '+study.tradeoff.zh;project.resultEn=study.proof.en+' '+study.tradeoff.en;
  project.iterationUrl=`/cases/${study.id}/`;project.caseLabel='设计过程';project.caseLabelEn='Design process';
  const prior=project.presentation||{},capture=captures.find(c=>c.id===project.id);
- project.presentation={...prior,...presentationFor(project),question:study.question,caption:study.caption,decision:study.summary,...(capture?.cropSize?{coverSize:capture.cropSize}:prior.coverSize?{coverSize:prior.coverSize}:{})};
+ project.presentation={...prior,...presentationFor(project),question:study.question,caption:study.caption,decision:study.summary,...(capture?.publicDisplay?.size?{coverSize:capture.publicDisplay.size}:capture?.cropSize?{coverSize:capture.cropSize}:prior.coverSize?{coverSize:prior.coverSize}:{})};
  if(project.id==='bundle'){project.url='/bundle-lab/simulate/';project.analysisUrl='/bundle-lab/';}
  const card=new RegExp(`<article id="project-${project.id}"[^]*?</article>`);
  if(!card.test(html))throw Error(`Preserve absent card before generating: ${project.id}`);
@@ -59,7 +64,7 @@ for(const item of selected){
  write(caseFile,priorCase.replace(/<main>[^]*<\/main>/,`<main>${content}</main>`));
 }
 // Only the selected assets need cache invalidation; keep all effect/background imports intact.
-html=html.replace(/(assets\/demo-showcase\.(?:mjs|css)\?v=)[^"']*/g,(_,prefix)=>prefix+'20261109-product-depth');
+html=html.replace(/(assets\/demo-showcase\.(?:mjs|css)\?v=)[^"']*/g,(_,prefix)=>prefix+'20261112-craft1');
 for(const [id,value] of protectedSections){const r=sectionRange(html,id);if(html.slice(r.start,r.end)!==value)throw Error(`Protected section changed: ${id}`);}
 for(const [id,value] of untouched)if(JSON.stringify(data.projects.find(p=>p.id===id))!==value)throw Error(`Unrelated project changed: ${id}`);
 write('data.json',JSON.stringify(data,null,2)+'\n');write('index.html',html);

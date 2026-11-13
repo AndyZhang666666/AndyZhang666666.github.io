@@ -1,8 +1,8 @@
 // Same Room and comparison engine as the full product, on an isolated in-memory room.
 // Never call Room.save(), restore(), storage, or the application's persistence adapter.
 import {Room,BASE,OPTIONS} from '../../tasteroom/engine.js';
-import {createComparison,applyComparison,styleBrief} from '../../tasteroom/experiments.js';
-import {artworkDefault} from '../../tasteroom/artwork.js';
+import {createComparison,applyComparison,styleBrief} from '../../tasteroom/experiments.js?v=20261112-craft1';
+import {artworkDefault} from '../../tasteroom/artwork.js?v=20261112-craft1';
 export const posterContent=['周末灵感计划','无用之美\n周末放映室','把日常调慢一格。\n看一部电影，聊一段生活。','城市漫游 · 自由入场'];
 export function createTastePreview(direction='swiss'){
  if(direction==='free'||!Object.hasOwn(OPTIONS.artDirection,direction))throw Error('Unknown direction');

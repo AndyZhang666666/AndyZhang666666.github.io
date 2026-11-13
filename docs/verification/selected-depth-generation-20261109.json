@@ -18,7 +18,9 @@
         "presentation.question",
         "presentation.caption",
         "presentation.decision",
-        "presentation.coverSize"
+        "presentation.coverSize",
+        "presentation.thumbnail",
+        "presentation.image"
       ],
       "taste": [
         "description",
@@ -54,7 +56,9 @@
         "presentation.question",
         "presentation.caption",
         "presentation.decision",
-        "presentation.coverSize"
+        "presentation.coverSize",
+        "presentation.thumbnail",
+        "presentation.image"
       ]
     }
   },
@@ -99,11 +103,11 @@
     },
     {
       "file": "tasteroom/artwork.js",
-      "sha256": "c2bff5b54439edb31f0163651410ed0435a9705c06247d98624bea61c0cb5154"
+      "sha256": "5ec481522bb6ee8d0594541c50a335229293023319d708ad634cace9d47392eb"
     },
     {
       "file": "tasteroom/directions.js",
-      "sha256": "bb4af3f12405638a4cfe4e005cc8ed11c464dbf190002c400821fc0f60780c72"
+      "sha256": "a5436fb8d3e825d4131c0dccb6768ec05734ca1152ec0fb0996bead9da3114bf"
     },
     {
       "file": "rag-lab/engine.mjs",

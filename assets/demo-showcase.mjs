@@ -69,7 +69,7 @@ function initEval(panel){
  clear.addEventListener('click',()=>{press(reviews,null);clear.disabled=true;words(panel.querySelector('[data-eval-verdict]'),'尚未复核','Unreviewed');words(panel.querySelector('[data-eval-status]'),'试用判断已清除；历史评分与原文不变。','Preview review cleared. The saved score and source are unchanged.');});
 }
 async function initTaste(panel){
- const [{directionSvg,DIRECTIONS},{createTastePreview,posterContent}]=await Promise.all([import('../tasteroom/directions.js'),import('./demo-preview/taste-session.mjs')]);
+ const [{directionSvg,DIRECTIONS},{createTastePreview,posterContent}]=await Promise.all([import('../tasteroom/directions.js?v=20261112-craft1'),import('./demo-preview/taste-session.mjs?v=20261112-craft1')]);
  const buttons=[...panel.querySelectorAll('[data-taste-direction]')];
  buttons.forEach(button=>{button.disabled=false;button.addEventListener('click',()=>{
   const direction=button.dataset.tasteDirection,{room}=createTastePreview(direction);

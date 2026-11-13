@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "scope": "Homepage short interactions, not complete-product acceptance",
+  "checks": [
+    "Four canonical short tasks: evidence review, six current layouts, contribution/leakage/break-even, changed-scope retrieval; no writes or saved preferences",
+    "1280/768/390, four themes and all directions/panels without horizontal overflow",
+    "Keyboard ordering, reduced motion, no-JS default content,18 preserved works and valid complete-tool/case destinations"
+  ],
+  "errors": [],
+  "writes": []
+}

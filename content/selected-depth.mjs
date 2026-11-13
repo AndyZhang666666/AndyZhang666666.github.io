@@ -1,7 +1,9 @@
+import {evalPublicCoverUrl} from './public-covers.mjs';
 // Product description, never career facts or calculated results.
 const L=(zh,en)=>({zh,en});
 export const productDepthStudies={
  trust:{
+  image:evalPublicCoverUrl,secondaryImage:evalPublicCoverUrl,
   caption:L('Eval Lab · 自有文稿、人工审阅与版本关系','Eval Lab · Personal text, manual review and versions'),
   title:L('从一条争议，走到下一版。','From a disputed judgement to the next draft.'),
   summary:L('带自己的创意文本，先人工审阅或导入已有评价。核对依据、留下处理项，把改稿与原稿放在同一条证据链里。','Bring creative text for manual review or import an existing evaluation. Check evidence, track actions and connect the revision to its source.'),
@@ -17,9 +19,9 @@ export const productDepthStudies={
   proof:L('历史原文、评分和结果标识保留。本轮对自有材料、人工审阅、导入与改稿路径进行独立验证；具体检查及未测范围见仓库记录，不把界面完成写成模型质量提升。','Historical text, scores and identifiers are retained. Personal-material, manual-review, import and revision paths are verified separately; repository records state checks and limits, without claiming better model quality.'),
  },
  taste:{
-  caption:L('偏爱实验室 · 六构图、三尺寸与活动海报','TasteRoom · Six compositions, three sizes and event posters'),
+  caption:L('偏爱实验室 · 作品工作台、六构图与三尺寸','TasteRoom · Artwork studio, six compositions and three formats'),
   summary:L('用自己的图文做一张海报：六套构图、三种尺寸、两份候选。作品先带走，哪些方向值得下次沿用，再明确授权。','Create a poster from your own image and copy: six layouts, three sizes and two candidates. Export first, then explicitly authorise what to reuse.'),
-  watch:L('改标题、加活动时间与自己的主图，切方形或横版，留一份候选并导出PNG；再试场景授权与恢复。','Edit the title, event time and local hero image, switch to square or landscape, keep a candidate and export PNG, then try scene consent and restoration.'),
+  watch:L('编辑图文并更新画布，打开构图库比较同一内容的六种排版，留一份候选，再导出PNG。未应用编辑时，明确选择导出当前画布或先更新；场景授权单独确认。','Edit copy and image, apply to the canvas, compare six compositions, keep a candidate and export PNG. Unapplied edits offer an explicit export-current or update-first choice; scene memory requires separate consent.'),
   role:L('独立实现六构图与三尺寸重排、真实活动字段、本机图片与裁切、完整候选、容量修复、方向来源条及可撤回场景记忆。预览、PNG与SVG共用渲染器。','Independently implemented six compositions, three reflowing sizes, event details, local images and cropping, complete candidates, capacity repair, provenance and reversible scene memory. Preview, PNG and SVG share one renderer.'),
   decisions:[
    {title:L('输出尺寸改变，构图就重新组织','Reflow when the output format changes'),text:L('竖版、方形、横版分别计算文字和主图区域；空字段不占位置。过密时保留原文并给修复入口，未解决的遮挡不允许作为成品导出。','Portrait, square and landscape recalculate text and image regions. Empty fields take no space. Dense copy is retained with repair controls; unresolved overlap blocks final export.')},
@@ -27,7 +29,7 @@ export const productDepthStudies={
    {title:L('作品快照与长期偏好各存一份','Separate artwork snapshots from durable preference'),text:L('候选带文案、尺寸、参数与主图引用，恢复前确认替换影响。图片只在本机；导出不附私人反馈，说明书独立且可撤回、重新导入。','Candidates include copy, size, parameters and image reference, with replacement confirmation. Images stay local; exports omit private feedback. Preference briefs remain separate, reversible and importable.')},
   ],
   artifact:L('900×1200、1080×1080或1600×900的PNG／SVG作品、两份本机候选，以及独立的场景偏好说明书。','PNG/SVG artwork at900×1200,1080×1080 or1600×900, two local candidates and a separate scoped preference brief.'),
-  proof:L('47项检查通过，原有断言保留；Chrome实际完成图文编辑、18种方向／尺寸、候选恢复、PNG／SVG导出、390布局与存储降级。尚无真人审美准确率或任务完成率声明。','47 checks passed with previous assertions intact. Chrome tasks cover personal copy/images,18 combinations, candidate restoration, PNG/SVG,390 layout and blocked storage. No measured taste accuracy or real-user completion rate is claimed.'),
+  proof:L('保留原授权、恢复及存储断言，补充六构图×三尺寸排版与未应用编辑的导出检查；实际操作与截图见仓库验收记录。尚无真人审美准确率或任务完成率声明。','Existing consent, recovery and storage assertions are retained, with added six-by-three layout and unapplied-edit export checks. Repository records contain actual operations and screenshots; no measured taste accuracy or real-user completion rate is claimed.'),
  },
  bundles:{
   caption:L('Bundle Lab · 输入基线、双人群账本与方案快照','Bundle Lab · Baseline, population ledger and scenario snapshots'),
@@ -42,7 +44,8 @@ export const productDepthStudies={
   artifact:L('Markdown／JSON假设卡：方案差异、选择理由、基线口径、双人群账本、验证计划与已有观察。','Markdown/JSON assumption card with scenario changes, rationale, baseline, population ledger, plan and available observations.'),
  },
  rag:{
-  caption:L('可信 RAG · 资料条件、答复与引用并置','Trustworthy RAG · Conditions, answer and sources together'),
+  image:'showcase/rag-lab-craft.png',secondaryImage:'showcase/rag-lab-craft.png',
+  caption:L('可信 RAG · 就地核对引用，区分采用与插入','Trustworthy RAG · Inspect citations locally; adopt and insert separately'),
   summary:L('对照日期、资料版本和任务条件，组织有依据的答复。内置案例可改条件，自己的资料可本机检索；未知条款留待确认。','Draft an answer against dates, source versions and task facts. Change built-in cases or search personal sources locally; unknown clauses remain unconfirmed.'),
   watch:L('先在首页切换历史日期，检查旧答复如何变为待更新；再到完整工具完成任务或导入自己的资料。','Change the historical date on the homepage and inspect the stale result, then complete a task or import personal sources in the full tool.'),
   status:L('免模型示例／本机自有资料分别标明；真实模型接口默认关闭，未调用上游','Model-free examples and local personal sources are labelled separately; the model interface is disabled by default with no upstream calls'),
