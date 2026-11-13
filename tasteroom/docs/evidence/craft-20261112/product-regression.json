@@ -1,0 +1,14 @@
+{
+  "scope": "isolated synthetic browser tasks; no model calls",
+  "steps": [
+    "remembered direction -> temporary other direction -> restore without memory writes",
+    "own content/details + local raster + fit/focus + actual SVG/PNG exports",
+    "reload and complete candidate restore",
+    "all 18 direction/format combinations remain exportable with same image and content",
+    "390 layout and memory drawer keyboard recovery",
+    "unapplied long-copy recovery and invalid image preserves current artwork",
+    "blocked browser storage keeps in-memory creation and export usable"
+  ],
+  "errors": [],
+  "state": "passed"
+}

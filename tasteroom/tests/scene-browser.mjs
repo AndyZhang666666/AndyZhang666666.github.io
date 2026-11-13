@@ -22,7 +22,7 @@ const snapshot=()=>page.evaluate(()=>({
  context:[...document.querySelectorAll('.contexts button')].filter(b=>b.getAttribute('aria-pressed')==='true').map(b=>b.dataset.context),
  logs:document.querySelectorAll('.log').length,
 }));
-async function open(){await page.locator('#crossSceneCompare').click();await page.locator('#sceneComparisonDialog[open]').waitFor();}
+async function open(){if(!await page.locator('#brainInspector').isVisible())await page.locator('#showBrain').click();await page.locator('#crossSceneCompare').click();await page.locator('#sceneComparisonDialog[open]').waitFor();}
 async function close(){await page.locator('#closeSceneComparison').click();await page.locator('#sceneComparisonDialog').waitFor({state:'hidden'});}
 try{
  await page.goto(url,{waitUntil:'domcontentloaded'});await page.locator('#directionPreview>svg').waitFor();
@@ -33,12 +33,12 @@ try{
  await page.keyboard.press('Escape');await page.locator('#sceneComparisonDialog').waitFor({state:'hidden'});
  assert.deepEqual(await snapshot(),empty);assert.equal(await page.evaluate(()=>document.activeElement.id),'crossSceneCompare');
  checks.push('Empty authorization uses identical defaults; Escape restores focus and zero storage writes.');
- await page.locator('#rememberDirection').click();await page.locator('#confirmRule').click();
+ await page.locator('#showBrain').click();await page.locator('#rememberDirection').click();await page.locator('#confirmRule').click();
  await page.locator('#showBrain').click();await page.locator('.contexts [data-context=work]').click();await page.locator('#closeMemory').click();
  await page.locator('#quickDirections').click();await page.locator('[data-direction=japanese]').click();
- await page.locator('#rememberDirection').click();await page.locator('#confirmRule').click();
+ await page.locator('#showBrain').click();await page.locator('#rememberDirection').click();await page.locator('#confirmRule').click();
  const imageData=await page.evaluate(()=>{const c=document.createElement('canvas');c.width=600;c.height=400;const g=c.getContext('2d');g.fillStyle='#374d3c';g.fillRect(0,0,600,400);g.fillStyle='#b7845d';g.fillRect(300,0,300,400);return c.toDataURL('image/png').split(',')[1];});
- await page.locator('#posterImage').setInputFiles({name:'synthetic-two-colour-study.png',mimeType:'image/png',buffer:Buffer.from(imageData,'base64')});
+ await page.locator('#closeMemory').click();await page.locator('.image-group>summary').click();await page.locator('#posterImage').setInputFiles({name:'synthetic-two-colour-study.png',mimeType:'image/png',buffer:Buffer.from(imageData,'base64')});
  await page.locator('#directionPreview image').waitFor();
  await page.locator('#editTitle').fill('未应用的输入\n继续保留');
  const pending=await snapshot();await open();
@@ -57,7 +57,7 @@ try{
  checks.push('Real UI-authorized personal Swiss/work Japanese share applied copy/image with independent image viewports; unsaved input/context/undo/logs/storage stay untouched.');
  // The paired renderer must preserve the same format and namespaced image references.
  for(const [width,format,dimensions]of[[1280,'portrait',[900,1200]],[768,'square',[1080,1080]],[390,'landscape',[1600,900]]]){
-  await page.setViewportSize({width,height:900});await page.locator('#artboardFormat').selectOption(format);
+  if(await page.locator('#brainInspector').isVisible())await page.locator('#closeMemory').click();await page.setViewportSize({width,height:900});if(width<768)await page.locator('#mobileEdit').click();await page.locator('#artboardFormat').selectOption(format);if(width<768)await page.locator('#mobileBackCanvas').click();
   const before=await snapshot();await open();
   const sizes=await page.locator('.scene-poster-image>svg').evaluateAll(nodes=>nodes.map(n=>[Number(n.getAttribute('width')),Number(n.getAttribute('height'))]));
   assert.deepEqual(sizes,[dimensions,dimensions]);
@@ -69,8 +69,8 @@ try{
  }
  checks.push('1280/768/390 paired portrait/square/landscape, keyboard close, native modal focus and no horizontal overflow.');
  await page.emulateMedia({reducedMotion:'reduce'});const reduced=await snapshot();await open();await close();assert.deepEqual(await snapshot(),reduced);
- await page.locator('#editTitle').fill('自己的活动\n周末一起');await page.locator('#updateContent').click();
- const download=page.waitForEvent('download');await page.locator('#exportPoster').click();await(await download).saveAs(out+'after-close.svg');
+ if(await page.locator('#brainInspector').isVisible())await page.locator('#closeMemory').click();await page.locator('#mobileEdit').click();await page.locator('#editTitle').fill('自己的活动\n周末一起');await page.locator('#mobileApply').click();
+ const download=page.waitForEvent('download');await page.locator('.format-menu summary').click();await page.locator('#exportPoster').click({timeout:5000});await(await download).saveAs(out+'after-close.svg');
  assert.match(await readFile(out+'after-close.svg','utf8'),/自己的活动/);
  await page.reload();await page.locator('#directionPreview>svg').waitFor();
  assert.equal(await page.locator('#sceneComparisonDialog[open]').count(),0);

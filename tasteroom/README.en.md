@@ -1,3 +1,5 @@
+> Development preview ready for review (2026-11-12): artwork-first studio, six composition systems across three formats, explicit unapplied-edit export choices, and a single mobile work surface. Production is unchanged. [Design and verification notes](docs/UI_CRAFT_20261112.md).
+
 # TasteRoom · Preference Lab
 
 2026-11-11 development branch: compare personal and work posters from the same applied copy and image, with explicit rule provenance. This read-only view does not switch the active context or write preferences; closing it preserves artwork, unsaved editor input and history. [Implementation, screenshots and test limits](docs/TASK-LOOP-20261111.md). Not merged or deployed. Dated entries below describe earlier versions.
