@@ -194,7 +194,7 @@ function render(run) {
   for (const item of run.excluded ?? []) {
     const row=node('article',undefined,'excluded-row'); row.append(node('strong',`${item.title} · v${item.version}${item.fact?' · '+item.fact:''}`),node('p',`${item.reason}${item.score === undefined ? '' : ` · BM25 ${item.score}`}`)); excluded.append(row);
   }
-  $('excludedPanel').hidden=!(run.excluded?.length);
+  $('excludedPanel').hidden=!(run.excluded?.length);$('excludedPanel').querySelector('summary').textContent=`为什么没用其他相近资料（${run.excluded?.length||0}）`;
   if(run.mode==='original-example' && run.role==='admin' && run.status==='insufficient') $('sources').replaceChildren(node('p','公开构建包已在打包期剔除管理范围原文。前端身份切换不会取得这些资料。验证真实管理员检索，请按 README 启动本地 API 并使用独立管理凭据。','empty-evidence'));
   run.citations.forEach((source, index) => {
     const button = node('button', `[${index + 1}] ${source.title} · v${source.version}`);
