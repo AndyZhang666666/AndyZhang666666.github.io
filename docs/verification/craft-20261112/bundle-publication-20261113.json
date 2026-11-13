@@ -1,0 +1,60 @@
+{
+  "at": "2026-11-13T06:23:24.770Z",
+  "repository": "AndyZhang666666/bundle-lab",
+  "pullRequest": {
+    "number": 5,
+    "url": "https://github.com/AndyZhang666666/bundle-lab/pull/5",
+    "method": "merge",
+    "base": "062b6563a9e587c27040f6fc596184f58d0407b3",
+    "head": "3abb52489c77d25e9d2e0e139df4d055ff2cf849",
+    "merge": "835bc065207ac652b72051ecab779783eae29b64"
+  },
+  "ci": [
+    {
+      "id": 43372017580,
+      "conclusion": "success",
+      "head": "3abb52489c77d25e9d2e0e139df4d055ff2cf849"
+    },
+    {
+      "id": 43372017590,
+      "conclusion": "success",
+      "head": "3abb52489c77d25e9d2e0e139df4d055ff2cf849"
+    }
+  ],
+  "featurePages": {
+    "id": 43372218902,
+    "head": "835bc065207ac652b72051ecab779783eae29b64",
+    "conclusion": "success"
+  },
+  "finalHead": "bf04f00dab8b30c017852d93d68bcc056b09ae75",
+  "finalTree": "be165e8c0e364eb70281b58dfcf26c6c0f4a668d",
+  "followUp": "Only six documentation/evidence files changed; conditional non-force ref update from verified merge SHA.",
+  "finalPages": {
+    "id": 43373387256,
+    "head": "bf04f00dab8b30c017852d93d68bcc056b09ae75",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "build",
+        "conclusion": "success"
+      },
+      {
+        "name": "deploy",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "live": {
+    "url": "https://andyzhang666666.github.io/bundle-lab/simulate/",
+    "threeWidths": "1440/1024/390 craft interaction checks passed",
+    "initialProof": "bundle-live-20261113/craft-browser.json",
+    "finalProof": "bundle-live-20261113/final-smoke.json",
+    "finalScreenshot": "bundle-live-20261113/final-smoke.jpg",
+    "modelsCalled": false
+  },
+  "readBack": {
+    "mainExact": true,
+    "READMEPublished": true,
+    "releaseDocs": "https://github.com/AndyZhang666666/bundle-lab/blob/main/docs/RELEASE-20261113.md"
+  }
+}

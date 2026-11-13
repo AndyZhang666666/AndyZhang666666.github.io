@@ -85,4 +85,5 @@ exclude:
   # Joint craft review and npm lock are development artifacts.
   - craft-review.html
   - docs/FOUR-DEMO-CRAFT-20261112.md
+  - docs/RELEASE-20261113.md
   - rag-lab/package-lock.json

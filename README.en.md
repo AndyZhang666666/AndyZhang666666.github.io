@@ -1,6 +1,6 @@
 # Andy Zhang · Product portfolio and independent tools
 
-**Four-demo craft update (2026-11-13 release batch):** coordinated workspace, interaction and artwork refinements for TasteRoom, Eval, Bundle and Trustworthy RAG. [Changes, checks and development history](docs/FOUR-DEMO-CRAFT-20261112.md). Local review remains available; publication has been authorised and deployment is recorded separately.
+**Four-demo craft update published (2026-11-13):** workspace, interaction and artwork refinements for TasteRoom, Eval, Bundle and Trustworthy RAG are live. All three repositories retain ordinary merge commits, successful Pages deployments and actual HTTPS task checks. Local review remains available. [Release and GitHub history](docs/RELEASE-20261113.md) · [Changes and verification scope](docs/FOUR-DEMO-CRAFT-20261112.md).
 
 2026-11-11 development branch: four tools add citation checks, revision review, targeting assumptions and read-only scene comparisons. Existing calculations, rubrics, source permissions and persistence contracts remain intact. These changes are not merged or deployed. [Scope, evidence and local review](docs/DEMO-TASK-LOOPS-20261111.md). Dated entries below retain their historical release status.
 

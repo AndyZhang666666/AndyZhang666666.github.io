@@ -1,0 +1,84 @@
+{
+  "status": "published-and-live-verified",
+  "repository": "AndyZhang666666/llm-output-eval",
+  "url": "https://andyzhang666666.github.io/llm-output-eval/",
+  "pr": "https://github.com/AndyZhang666666/llm-output-eval/pull/6",
+  "mergeMethod": "merge",
+  "developmentHead": "9f66e9e730041033c4f90f2def6102952516c276",
+  "developmentTree": "a3d347118429ff1758681dc7841b3ae3de79a148",
+  "functionalMergeHead": "e037b9dfd509a8d05e513f5c8f12d022dc6f4fd6",
+  "finalMainHead": "077f0ebd8522b7cd3d3367ea4ad1f6ba39d1a82e",
+  "finalMainTree": "bf0739add559e8c2951642939c9cd597c04bfc5e",
+  "ci": [
+    {
+      "run": 43378267803,
+      "name": "Product checks",
+      "head": "9f66e9e730041033c4f90f2def6102952516c276",
+      "conclusion": "success"
+    },
+    {
+      "run": 43378267749,
+      "name": "Development branch checks",
+      "head": "9f66e9e730041033c4f90f2def6102952516c276",
+      "conclusion": "success"
+    }
+  ],
+  "pages": [
+    {
+      "run": 43378761121,
+      "head": "e037b9dfd509a8d05e513f5c8f12d022dc6f4fd6",
+      "conclusion": "success"
+    },
+    {
+      "run": 43379691879,
+      "head": "077f0ebd8522b7cd3d3367ea4ad1f6ba39d1a82e",
+      "conclusion": "success"
+    }
+  ],
+  "functionalHTTPS": {
+    "status": "pass",
+    "environment": "real public HTTPS Pages + Chrome isolated context",
+    "url": "https://andyzhang666666.github.io/llm-output-eval/",
+    "checkedAt": "2026-11-13T06:29:39.166Z",
+    "widths": [
+      1440,
+      390
+    ],
+    "checks": [
+      "React Aria material chooser opens and closes",
+      "actual quote highlights corresponding original text",
+      "human judgment and note do not change raw score",
+      "actual Markdown download includes original English and human note",
+      "phone source switch returns to exact dimension and retained note",
+      "actual JSON download retains original source, mean and review",
+      "no horizontal overflow",
+      "no model or external resource request"
+    ],
+    "errors": [],
+    "requestFailures": [],
+    "external": []
+  },
+  "finalDocumentationHTTPS": {
+    "status": "pass",
+    "url": "https://andyzhang666666.github.io/llm-output-eval/",
+    "checkedAt": "2026-11-13T06:37:20.061Z",
+    "mainHead": "077f0ebd8522b7cd3d3367ea4ad1f6ba39d1a82e",
+    "pagesRun": 43379691879,
+    "checks": [
+      "license added in final docs commit served at HTTPS and byte-matches package license",
+      "material chooser opens and closes",
+      "original quote highlights source",
+      "report export remains enabled"
+    ],
+    "licenseSHA256": "7dfe6526888bac51759c99f9a51262ba2711a8c12a067f2181609dd9a4066b84",
+    "errors": []
+  },
+  "releaseRecord": "https://github.com/AndyZhang666666/llm-output-eval/blob/main/docs/RELEASE-20261113.md",
+  "notes": [
+    "No squash or force push. Real staged development commits retained.",
+    "Public screenshots contain only historical/synthetic examples and were explicitly authorized.",
+    "Final documentation commit changes release status and bundled dependency license only.",
+    "Local checkout now main at the verified final remote head; original development branches retained.",
+    "No model calls."
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "status": "pass",
+  "at": "2026-11-13T07:00:31.960Z",
+  "url": "https://andyzhang666666.github.io",
+  "mergeHead": "5e48a9e7c35767616b630fb53bb702c4e07cddf8",
+  "checks": [
+    "Four changed runtime assets match the published source byte-for-byte",
+    "All four homepage tasks work,18 works retained,no persistent preview writes",
+    "Eval and RAG verified-public cover images load at intrinsic1440×1000",
+    "Taste six actual compositions and dirty-export current-canvas branch preserve draft",
+    "RAG citation open/return, date staleness, personal import, adoption versus insertion and actualMarkdown export"
+  ],
+  "errors": [],
+  "nonGet": [],
+  "modelCalls": 0
+}
