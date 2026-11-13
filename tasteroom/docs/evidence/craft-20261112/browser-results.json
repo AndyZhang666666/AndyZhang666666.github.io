@@ -1,0 +1,24 @@
+{
+  "scope": "Synthetic UI tasks; no model calls; no production changes",
+  "steps": [
+    "unapplied export: current preserves draft; apply-first explicitly updates and exports",
+    "six same-content compositions selected through one gallery; Escape restores focus",
+    "local image fit/focus + complete candidate restore + actual SVG/PNG exports",
+    "explicit scope save, authorized scene preview without writes, and undo preserves artwork",
+    "arbitrary pair comparison -> temporary adoption without long-term rule",
+    "1440/1024/390, keyboard return, long-copy draft restore, invalid image recovery",
+    "reduced-motion and mobile SVG format menu remain usable above sticky work controls"
+  ],
+  "screens": [
+    "desktop-studio.jpg",
+    "unapplied-export-choice.jpg",
+    "six-composition-library.jpg",
+    "landscape-image-workspace.jpg",
+    "desktop-review.jpg",
+    "tablet-review.jpg",
+    "mobile-review.jpg",
+    "mobile-memory.jpg"
+  ],
+  "errors": [],
+  "state": "passed"
+}

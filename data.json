@@ -403,8 +403,8 @@
         "Make the artwork’s provenance visible: Distinguish scene consent, inherited global rules and temporary edits. Restoring a scene direction reuses its rule without new memory; new content reveals what carried forward.",
         "Separate artwork snapshots from durable preference: Candidates include copy, size, parameters and image reference, with replacement confirmation. Images stay local; exports omit private feedback. Preference briefs remain separate, reversible and importable."
       ],
-      "result": "47项检查通过，原有断言保留；Chrome实际完成图文编辑、18种方向／尺寸、候选恢复、PNG／SVG导出、390布局与存储降级。尚无真人审美准确率或任务完成率声明。 六套构图提供足够的差异，也明确容量边界，没有变成任意拖拽设计工具。字体依赖系统，SVG 跨设备字形可能不同；PNG 保留当前渲染。偏好规则不是人格测量或学习准确率。",
-      "resultEn": "47 checks passed with previous assertions intact. Chrome tasks cover personal copy/images,18 combinations, candidate restoration, PNG/SVG,390 layout and blocked storage. No measured taste accuracy or real-user completion rate is claimed. Six compositions offer meaningful differences with explicit capacity limits, rather than an unrestricted design editor. SVG fonts may differ across systems; PNG preserves the current render. Rules are not personality measurements or evidence of learning accuracy.",
+      "result": "保留原授权、恢复及存储断言，补充六构图×三尺寸排版与未应用编辑的导出检查；实际操作与截图见仓库验收记录。尚无真人审美准确率或任务完成率声明。 六套构图提供足够的差异，也明确容量边界，没有变成任意拖拽设计工具。字体依赖系统，SVG 跨设备字形可能不同；PNG 保留当前渲染。偏好规则不是人格测量或学习准确率。",
+      "resultEn": "Existing consent, recovery and storage assertions are retained, with added six-by-three layout and unapplied-edit export checks. Repository records contain actual operations and screenshots; no measured taste accuracy or real-user completion rate is claimed. Six compositions offer meaningful differences with explicit capacity limits, rather than an unrestricted design editor. SVG fonts may differ across systems; PNG preserves the current render. Rules are not personality measurements or evidence of learning accuracy.",
       "featured": true,
       "demoLabel": "立即体验",
       "demoLabelEn": "Try it now",
@@ -427,8 +427,8 @@
         },
         "image": "/assets/work/showcase/taste.jpg",
         "caption": {
-          "zh": "偏爱实验室 · 六构图、三尺寸与活动海报",
-          "en": "TasteRoom · Six compositions, three sizes and event posters"
+          "zh": "偏爱实验室 · 作品工作台、六构图与三尺寸",
+          "en": "TasteRoom · Artwork studio, six compositions and three formats"
         },
         "kind": "demo",
         "thumbnail": "/assets/work/showcase/taste-crop.jpg",
@@ -625,16 +625,16 @@
           "zh": "带自己的创意文本，先人工审阅或导入已有评价。核对依据、留下处理项，把改稿与原稿放在同一条证据链里。",
           "en": "Bring creative text for manual review or import an existing evaluation. Check evidence, track actions and connect the revision to its source."
         },
-        "image": "/assets/work/showcase/eval.jpg",
+        "image": "https://raw.githubusercontent.com/AndyZhang666666/llm-output-eval/9f66e9e730041033c4f90f2def6102952516c276/docs/screenshots/workbench-20261112/desktop.jpg",
         "caption": {
           "zh": "Eval Lab · 自有文稿、人工审阅与版本关系",
           "en": "Eval Lab · Personal text, manual review and versions"
         },
         "kind": "demo",
-        "thumbnail": "/assets/work/showcase/eval-crop.jpg",
+        "thumbnail": "https://raw.githubusercontent.com/AndyZhang666666/llm-output-eval/9f66e9e730041033c4f90f2def6102952516c276/docs/screenshots/workbench-20261112/desktop.jpg",
         "coverSize": {
-          "width": 1280,
-          "height": 900
+          "width": 1440,
+          "height": 1000
         }
       }
     },
@@ -1303,16 +1303,16 @@
           "zh": "对照日期、资料版本和任务条件，组织有依据的答复。内置案例可改条件，自己的资料可本机检索；未知条款留待确认。",
           "en": "Draft an answer against dates, source versions and task facts. Change built-in cases or search personal sources locally; unknown clauses remain unconfirmed."
         },
-        "image": "/assets/work/showcase/rag-lab.jpg",
+        "image": "/assets/work/showcase/rag-lab-craft.png",
         "caption": {
-          "zh": "可信 RAG · 资料条件、答复与引用并置",
-          "en": "Trustworthy RAG · Conditions, answer and sources together"
+          "zh": "可信 RAG · 就地核对引用，区分采用与插入",
+          "en": "Trustworthy RAG · Inspect citations locally; adopt and insert separately"
         },
         "kind": "demo",
-        "thumbnail": "/assets/work/showcase/rag-lab-crop.jpg",
+        "thumbnail": "/assets/work/showcase/rag-lab-craft.png",
         "coverSize": {
-          "width": 1280,
-          "height": 900
+          "width": 1440,
+          "height": 1000
         }
       },
       "iterationUrl": "/cases/rag/",

@@ -16,7 +16,9 @@
       "presentation.question",
       "presentation.caption",
       "presentation.decision",
-      "presentation.coverSize"
+      "presentation.coverSize",
+      "presentation.thumbnail",
+      "presentation.image"
     ],
     "taste": [
       "description",
@@ -52,7 +54,9 @@
       "presentation.question",
       "presentation.caption",
       "presentation.decision",
-      "presentation.coverSize"
+      "presentation.coverSize",
+      "presentation.thumbnail",
+      "presentation.image"
     ]
   }
 }

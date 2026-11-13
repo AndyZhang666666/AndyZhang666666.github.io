@@ -12,7 +12,7 @@ if(!Number.isInteger(port)||port<1||port>65535)throw Error('PREVIEW_PORT must be
 const integrated={'llm-output-eval':'eval','bundle-lab':'bundle','commute-compare':'commute','poker-squid-lab':'poker-squid-lab'};
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.pdf':'application/pdf','.ttf':'font/ttf','.woff2':'font/woff2','.txt':'text/plain; charset=utf-8'};
 const exports=new Set(['llm-output-eval','bundle-lab','growth-experiment-lab','pricing-model-sim','commute-compare','poker-bankroll-sim','poker-ev-calculator','poker-squid-lab']);
-const ragFiles=new Set(['index.html','app.mjs','engine.mjs','workspace.mjs','personal-workbench.mjs','task-catalog.mjs','task-loop.mjs','import-errors.mjs','style.css','public-corpus.json','favicon.svg']);
+const ragFiles=new Set(['index.html','app.mjs','engine.mjs','workspace.mjs','personal-workbench.mjs','task-catalog.mjs','task-loop.mjs','import-errors.mjs','style.css','workbench.css','citation-inspector.mjs','public-corpus.json','favicon.svg']);
 const privateFolders=new Set(['server','backend','tests','evidence','corpus','node_modules']);
 
 function publicPath(parts){
@@ -22,7 +22,7 @@ function publicPath(parts){
   if(module==='scripts')return parts.length===2&&child==='case-reader.js';
   if(module==='rag-lab'){
     if(!child)return true;
-    if(child==='vendor')return parts.length===3&&['pdf.mjs','pdf.worker.mjs'].includes(parts[2])||parts.length===4&&['cmaps','standard_fonts'].includes(parts[2])&&/^[A-Za-z0-9_.-]+$/.test(parts[3]);
+    if(child==='vendor')return parts.length===3&&['pdf.mjs','pdf.worker.mjs','floating-ui.mjs','floating-ui.LICENSE.txt'].includes(parts[2])||parts.length===4&&['cmaps','standard_fonts'].includes(parts[2])&&/^[A-Za-z0-9_.-]+$/.test(parts[3]);
     return parts.length===2&&ragFiles.has(child);
   }
   if(module==='tasteroom'&&(privateFolders.has(child)||/^(?:server|backend|model-adapter)(?:[.-]|$)/i.test(child||'')))return false;
@@ -33,7 +33,7 @@ function serve(req,res,originalHost=false){
   try{
     if(!['GET','HEAD'].includes(req.method)){res.writeHead(405);return res.end('Method not allowed');}
     const u=new URL(req.url,'http://localhost');
-    if(u.pathname==='/__preview__'){res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Content-Type','application/json');if(req.method==='HEAD')return res.end();return res.end(JSON.stringify({preview:'product-depth-with-portfolio-v2',root,sourceRoot,port}));}
+    if(u.pathname==='/__preview__'){res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Content-Type','application/json');if(req.method==='HEAD')return res.end();return res.end(JSON.stringify({preview:'four-demo-craft-20261112',root,sourceRoot,port}));}
     const all=decodeURIComponent(u.pathname).split('/').filter(Boolean);
     const prefix=all[0]==='original',old=originalHost||prefix,parts=prefix?all.slice(1):all;
     if(!publicPath(parts))throw Error('private path');
@@ -64,7 +64,7 @@ function serve(req,res,originalHost=false){
     if(['.html','.json'].includes(path.extname(file))){
       let value=fs.readFileSync(file,'utf8');
       // The review shell deliberately points at the real released site.
-      if(!['review.html','task-loop-review.html'].some(page=>file===path.join(root,page)))value=value.replaceAll('https://andyzhang666666.github.io',`http://127.0.0.1:${originalHost?8812:port}${old&&!originalHost?'/original':''}`);
+      if(!['review.html','task-loop-review.html','craft-review.html'].some(page=>file===path.join(root,page)))value=value.replaceAll('https://andyzhang666666.github.io',`http://127.0.0.1:${originalHost?8812:port}${old&&!originalHost?'/original':''}`);
       if(old&&!originalHost&&base!==path.join(suite,'site'))value=value.replace(/((?:href|src)=")\/(?!\/|original\/)/g,'$1/original/');
       return res.end(value);
     }

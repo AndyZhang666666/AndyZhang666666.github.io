@@ -1,3 +1,4 @@
+import {publicCoverFor} from './public-covers.mjs';
 const L=(zh,en)=>({zh,en});
 // Presentation metadata only. Canonical app/source/case URLs remain in data.json.
 export const presentations={
@@ -17,7 +18,7 @@ export const presentations={
  content:{question:L('内容带来的关注，怎样变成有效咨询？','How does an audience become a qualified consultation?'),decision:L('把内容、私域咨询和线索跟进连成可复盘的流程。','Connect content, consultation and lead follow-up in one reviewable flow.')},
 };
 export function presentationFor(project){
- const value=presentations[project.id]||{};
+ const value=presentations[project.id]||{},publicCover=publicCoverFor(project.id);
  const kind=!project.url?'case':/^https?:/.test(project.url)?'external':'demo';
- return {...value,kind,...(value.image?{thumbnail:`/assets/work/showcase/${value.image}-crop.jpg`,image:`/assets/work/showcase/${value.image}.jpg`}:{})};
+ return {...value,kind,...(publicCover?{thumbnail:publicCover.thumbnail,image:publicCover.full}:value.image?{thumbnail:`/assets/work/showcase/${value.image}-crop.jpg`,image:`/assets/work/showcase/${value.image}.jpg`}:{})};
 }

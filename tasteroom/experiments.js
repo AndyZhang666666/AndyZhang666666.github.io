@@ -1,6 +1,6 @@
-import {artworkSignature} from './artwork.js';
-import { OPTIONS, validChoice } from './engine.js?v=20261027-studio1';
-import { directionSvg, balancedLines, fit, layoutStatus } from './directions.js';
+import {artworkSignature} from './artwork.js?v=20261112-craft1';
+import { OPTIONS, validChoice } from './engine.js?v=20261112-craft1';
+import { directionSvg, balancedLines, fit, layoutStatus } from './directions.js?v=20261112-craft1';
 export const DIMENSIONS = { artDirection:'设计方向',layoutDensity:'留白',typography:'字体',alignment:'对齐',colorMood:'色彩',decorElements:'装饰' };
 const copy=x=>JSON.parse(JSON.stringify(x));
 const fingerprint=room=>JSON.stringify({context:room.context,content:room.content,draftContent:room.draftContent,canvas:room.canvas,posterSettings:room.posterSettings,artwork:artworkSignature(room.artwork),memories:room.memories});

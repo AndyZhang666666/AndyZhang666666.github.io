@@ -1,0 +1,7 @@
+*.png
+!poster-*.png
+*.jpg
+!desktop-studio.jpg
+!six-composition-library.jpg
+!mobile-review.jpg
+!tablet-review.jpg

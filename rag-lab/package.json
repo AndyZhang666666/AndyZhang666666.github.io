@@ -11,9 +11,14 @@
     "test": "node --test tests/*.test.mjs",
     "evaluate": "node scripts/evaluate.mjs",
     "vendor:pdf": "node scripts/vendor-pdf.mjs",
-    "test:browser": "node tests/product-browser.mjs"
+    "test:browser": "node tests/product-browser.mjs",
+    "vendor:floating": "node scripts/vendor-floating.mjs"
   },
   "dependencies": {
+    "@floating-ui/dom": "1.8.0",
     "pdfjs-dist": "6.5.438"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
   }
 }

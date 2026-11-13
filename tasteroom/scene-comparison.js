@@ -1,5 +1,5 @@
-import {BASE, OPTIONS, Room, validChoice} from './engine.js?v=20261027-studio1';
-import {normalizeArtwork} from './artwork.js';
+import {BASE, OPTIONS, Room, validChoice} from './engine.js?v=20261112-craft1';
+import {normalizeArtwork} from './artwork.js?v=20261112-craft1';
 
 const copy=value=>JSON.parse(JSON.stringify(value));
 export const COMPARED_SCENES=Object.freeze(['personal','work']);

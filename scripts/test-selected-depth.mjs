@@ -8,6 +8,7 @@ import {createTastePreview,posterContent} from '../assets/demo-preview/taste-ses
 import {DIRECTIONS,directionSvg} from '../tasteroom/directions.js';
 import {simulateOne,breakEvenAdoption} from '../assets/demo-preview/bundle-model.mjs';
 import {rasterSize} from '../content/raster-size.mjs';
+import {publicCovers,evalPublicCoverUrl,ragPublicCoverPath,fixedPublicCoverDimensions} from '../content/public-covers.mjs';
 import {presentationCases,withPresentationQuery,withoutPresentationQuery} from '../content/presentation-mode.mjs';
 import {enhancePortfolioV2} from '../content/portfolio-v2.mjs';
 import {retrieveRun} from '../rag-lab/engine.mjs';
@@ -36,8 +37,19 @@ const corpus=JSON.parse(read('rag-lab/public-corpus.json'));assert.equal(corpus.
 for(const [date,snapshot,days] of [['2026-06-30','baseline','30天'],['2026-10-28','baseline','14天'],['2026-10-28','revised','10天']]){const run=retrieveRun(corpus.documents,{question:'显示器可以借多久？',date,snapshot,generation:'extractive'},'employee','original-example');assert.ok(run.facts.some(f=>f.value===days));assert.ok(run.citations.length);}
 const manifest=JSON.parse(read('assets/demo-preview/provenance.json'));for(const source of manifest.sources)assert.equal(hash(read(source.target)),source.outputSha256);
 const captures=JSON.parse(read('assets/work/showcase/captures.json')).records,oldCaptures=JSON.parse(old('assets/work/showcase/captures.json')).records;
-for(const id of ids){const capture=captures.find(c=>c.id===id),p=data.projects.find(p=>p.id===id);assert.ok(capture?.capturedAt&&capture.state);assert.equal(hash(fs.readFileSync(capture.full)),capture.fullSha256);assert.equal(hash(fs.readFileSync(capture.crop)),capture.cropSha256);assert.deepEqual(p.presentation.coverSize,capture.cropSize);}
+for(const id of ids){const capture=captures.find(c=>c.id===id),p=data.projects.find(p=>p.id===id);assert.ok(capture?.capturedAt&&capture.state);assert.equal(hash(fs.readFileSync(capture.full)),capture.fullSha256);assert.equal(hash(fs.readFileSync(capture.crop)),capture.cropSha256);assert.deepEqual(p.presentation.coverSize,capture.publicDisplay?.size||capture.cropSize);if(capture.publicDisplay){assert.deepEqual(capture.publicDisplay,{...publicCovers[id],state:'Previously published verification screenshot of the refined workbench. Reused as-is; not a new capture or model call.'});assert.equal(p.presentation.image,publicCovers[id].full);assert.equal(p.presentation.thumbnail,publicCovers[id].thumbnail);}}
 for(const c of oldCaptures)if(!ids.has(c.id))assert.deepEqual(captures.find(n=>n.id===c.id),c,'Unrelated capture changed: '+c.id);
+assert.deepEqual(Object.keys(publicCovers),['eval','rag-lab'],'Only two explicitly approved public display sources');
+assert.equal(evalPublicCoverUrl,'https://raw.githubusercontent.com/AndyZhang666666/llm-output-eval/9f66e9e730041033c4f90f2def6102952516c276/docs/screenshots/workbench-20261112/desktop.jpg');
+assert.deepEqual(fixedPublicCoverDimensions(evalPublicCoverUrl),{width:1440,height:1000});
+assert.equal(fixedPublicCoverDimensions('https://example.test/desktop.jpg'),null,'No arbitrary remote dimension overrides');
+assert.equal(fixedPublicCoverDimensions(evalPublicCoverUrl+'?different=1'),null,'Exact public source pin only');
+assert.equal(execFileSync('git',['hash-object',ragPublicCoverPath.slice(1)],{encoding:'utf8'}).trim(),publicCovers['rag-lab'].sourceBlob,'Public RAG PNG reuses the existing Git blob byte-for-byte');
+assert.deepEqual(rasterSize(fs.readFileSync(ragPublicCoverPath.slice(1))),publicCovers['rag-lab'].size);
+for(const [file,blob]of [['eval.jpg','94057130f59eec60cb17b731f82e9540faca2a0b'],['eval-crop.jpg','94057130f59eec60cb17b731f82e9540faca2a0b'],['rag-lab.jpg','1c536c0b00546c65a797337a580fc85f80597ce6'],['rag-lab-crop.jpg','1c536c0b00546c65a797337a580fc85f80597ce6']])assert.equal(execFileSync('git',['hash-object','assets/work/showcase/'+file],{encoding:'utf8'}).trim(),blob,'Retain original public archive: '+file);
+assert.ok(read('cases/trust/index.html').includes('<img src="'+evalPublicCoverUrl+'" width="1440" height="1000"'));
+assert.ok(read('cases/rag/index.html').includes('<img src="'+ragPublicCoverPath+'" width="1440" height="1000"'));
+
 function region(source,id){const start=source.indexOf(`<section id="${id}"`),tags=/<\/?section\b[^>]*>/g;assert.ok(start>=0,id);tags.lastIndex=start;let depth=0,m;while((m=tags.exec(source))){depth+=m[0].startsWith('</')?-1:1;if(depth===0)return source.slice(start,tags.lastIndex);}assert.fail('Unclosed '+id);}
 const outsideOwnedContent=source=>{let result=source.replace(region(source,'selected'),'<section id="selected">APPROVED_SELECTED_CONTENT</section>');for(const id of ids)result=result.replace(new RegExp(`<article id="project-${id}"[^]*?</article>`),`<article id="project-${id}">APPROVED_PROJECT_CONTENT</article>`);return result.replace(/(assets\/demo-showcase\.(?:mjs|css)\?v=)[^"']*/g,'$1APPROVED_SELECTED_CACHE_KEY');};
 assert.equal(outsideOwnedContent(html),outsideOwnedContent(old('index.html')),'Entire V2 homepage shell and other cards outside the explicit four-project boundary');
@@ -55,7 +67,7 @@ for(const href of Object.values(presentationCases)){const url=new URL(href,'http
 for(const item of selected){
  const file=`cases/${item.id}/index.html`,current=read(file);
  assert.equal(current.replace(/<main>[^]*<\/main>/,'<main></main>'),old(file).replace(/<main>[^]*<\/main>/,'<main></main>'),'Approved V2 case shell/scripts: '+file);
- for(const [,image,width,height] of current.matchAll(/<img src="(\/assets\/work\/[^"]+)" width="(\d+)" height="(\d+)"/g))assert.deepEqual({width:Number(width),height:Number(height)},rasterSize(fs.readFileSync(image.slice(1))),'Actual image dimensions: '+image);
+ for(const [,image,width,height] of current.matchAll(/<img src="([^"]+)" width="(\d+)" height="(\d+)"/g)){if(/^https?:/.test(image))assert.equal(image,evalPublicCoverUrl,'Remote case image is exactly the pinned public Eval image');const size=image===evalPublicCoverUrl?fixedPublicCoverDimensions(image):rasterSize(fs.readFileSync(image.slice(1)));assert.deepEqual({width:Number(width),height:Number(height)},size,'Actual image dimensions: '+image);}
 }
 const snapshot=['index.html','data.json',...selected.map(s=>`cases/${s.id}/index.html`)].map(p=>[p,hash(read(p))]);
 execFileSync(process.execPath,['scripts/update-content.mjs','--selected-only'],{stdio:'pipe'});for(const [file,value] of snapshot)assert.equal(hash(read(file)),value,'Idempotent current-shell generation: '+file);

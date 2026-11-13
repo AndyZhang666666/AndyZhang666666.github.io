@@ -81,3 +81,8 @@ exclude:
   - docs/DEMO-LAYOUT-POLISH-20261109.md
   - docs/DEMO-TASK-LOOPS-20261111.md
   - task-loop-review.html
+
+  # Joint craft review and npm lock are development artifacts.
+  - craft-review.html
+  - docs/FOUR-DEMO-CRAFT-20261112.md
+  - rag-lab/package-lock.json

@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "checkedAt": "2026-11-13T06:47:28.736Z",
+  "base": "http://127.0.0.1:8876",
+  "scope": "Four display nodes only: two library cards and two owned case images. No image upload or transformation; no app tasks or model calls.",
+  "checks": [
+    {
+      "route": "/",
+      "selector": "#project-eval img",
+      "src": "https://raw.githubusercontent.com/AndyZhang666666/llm-output-eval/9f66e9e730041033c4f90f2def6102952516c276/docs/screenshots/workbench-20261112/desktop.jpg",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "route": "/",
+      "selector": "#project-rag-lab img",
+      "src": "/assets/work/showcase/rag-lab-craft.png",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "route": "/cases/trust/",
+      "selector": ".case-figure img",
+      "src": "https://raw.githubusercontent.com/AndyZhang666666/llm-output-eval/9f66e9e730041033c4f90f2def6102952516c276/docs/screenshots/workbench-20261112/desktop.jpg",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "route": "/cases/rag/",
+      "selector": ".case-figure img",
+      "src": "/assets/work/showcase/rag-lab-craft.png",
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "errors": []
+}

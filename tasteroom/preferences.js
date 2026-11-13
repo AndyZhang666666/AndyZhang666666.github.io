@@ -1,6 +1,6 @@
-import {validArtwork} from './artwork.js';
-import {OPTIONS,validChoice} from './engine.js';
-import {DIMENSIONS} from './experiments.js';
+import {validArtwork} from './artwork.js?v=20261112-craft1';
+import {OPTIONS,validChoice} from './engine.js?v=20261112-craft1';
+import {DIMENSIONS} from './experiments.js?v=20261112-craft1';
 const contexts={global:'全局',personal:'个人展览／活动',work:'工作汇报'};
 const scopeIds={...Object.fromEntries(Object.entries(contexts).map(([k,v])=>[v,k])),'日常审美':'personal'};
 const clone=x=>JSON.parse(JSON.stringify(x));

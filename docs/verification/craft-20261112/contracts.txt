@@ -1,0 +1,10 @@
+✔ choosing a preview renders and exports that exact canvas without memory consent (2.921292ms)
+✔ direct trial is omitted from saved preferences; scope replacement names every affected scene (31.153416ms)
+ℹ tests 128
+ℹ suites 0
+ℹ pass 128
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2957.968166
