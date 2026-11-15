@@ -104,7 +104,7 @@ export const specificStudies=[
   next:L('下一步公开材料应保留经授权的脱敏任务记录：输入、工具结果、确认点、失败原因和人工修改，用来判断接管是否有效。','Future public evidence should retain authorised, redacted inputs, tool results, approvals, failures and human changes to evaluate the effectiveness of handoff.'),
   artifact:L('公开实现与业务交付边界','Public implementations and delivery boundaries'),
   evidenceLinks:[
-   {href:'/llm-output-eval/',label:L('检查评分与证据复核','Inspect evaluation and evidence review')},
+   {href:'/llm-output-eval/?sample=e06&dimension=structure',label:L('检查评分与证据复核','Inspect evaluation and evidence review')},
    {href:'/suibianju/',label:L('体验条件预演与共同确认','Try preview and shared confirmation')},
    {href:'https://github.com/AndyZhang666666/AndyZhang666666.github.io/blob/35ea8dab812227a2a68f6c5a793198f773f2ced3/suibianju/product.mjs',label:L('查看预演与版本确认源码','Read preview and versioned-consent source')},
    {href:'https://github.com/AndyZhang666666/llm-output-eval/blob/7cbf20fcfd81767a641b0a830312e6293ea5307a/src/lib/review.ts',label:L('查看独立复核的数据结构','Read the independent-review data structure')},
