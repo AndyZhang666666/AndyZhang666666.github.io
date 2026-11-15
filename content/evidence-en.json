@@ -156,6 +156,74 @@
       ]
     },
     {
+      "id": "product-recommendations",
+      "name": "Product recommendation strategy",
+      "words": [
+        "商品推荐",
+        "多人份推荐",
+        "推荐策略",
+        "推荐与触达",
+        "推荐和触达",
+        "产品推荐",
+        "product recommendations",
+        "product recommendation strategy",
+        "recommendation strategy",
+        "recommendations and outreach"
+      ],
+      "keys": [
+        "family"
+      ],
+      "projects": [
+        {
+          "id": "work",
+          "name": "Read the work experience",
+          "url": "/#work",
+          "caseUrl": "/#work"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "family",
+          "co": "Meituan · Keeta",
+          "text": "Identified a mismatch between 35% demand for meals for three or more people and single-person supply. Designed family bundles and recommendations; bundles reached 22% of orders, with order value about 45% above the platform average.",
+          "metric": ""
+        }
+      ]
+    },
+    {
+      "id": "user-outreach",
+      "name": "User outreach and discovery",
+      "words": [
+        "触达",
+        "主动弹窗",
+        "入口优化",
+        "user outreach",
+        "proactive outreach",
+        "outreach strategy",
+        "entry-point discovery",
+        "recommendations and outreach"
+      ],
+      "keys": [
+        "exposure"
+      ],
+      "projects": [
+        {
+          "id": "work",
+          "name": "Read the work experience",
+          "url": "/#work",
+          "caseUrl": "/#work"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "exposure",
+          "co": "Baidu · PSIG",
+          "text": "Used event tracking and SQL to locate over 70% exposure loss through deep tabs. Improved pop-up discovery and navigation: single-day UV increased tenfold, post-iteration retained UV rose about 60%, and sharing reached 26%.",
+          "metric": ""
+        }
+      ]
+    },
+    {
       "id": "growth",
       "name": "Growth, experiments & analysis",
       "words": [

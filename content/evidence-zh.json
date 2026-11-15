@@ -156,6 +156,74 @@
       ]
     },
     {
+      "id": "product-recommendations",
+      "name": "商品与场景推荐策略",
+      "words": [
+        "商品推荐",
+        "多人份推荐",
+        "推荐策略",
+        "推荐与触达",
+        "推荐和触达",
+        "产品推荐",
+        "product recommendations",
+        "product recommendation strategy",
+        "recommendation strategy",
+        "recommendations and outreach"
+      ],
+      "keys": [
+        "family"
+      ],
+      "projects": [
+        {
+          "id": "work",
+          "name": "查看工作经历",
+          "url": "/#work",
+          "caseUrl": "/#work"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "family",
+          "co": "美团 · Keeta",
+          "text": "识别 35% 的多人家庭聚餐需求，设计专区、多人份供给与推荐策略",
+          "metric": "家庭套餐订单占比 22% · 套餐客单价高于平台均值约 45%"
+        }
+      ]
+    },
+    {
+      "id": "user-outreach",
+      "name": "用户触达与入口优化",
+      "words": [
+        "触达",
+        "主动弹窗",
+        "入口优化",
+        "user outreach",
+        "proactive outreach",
+        "outreach strategy",
+        "entry-point discovery",
+        "recommendations and outreach"
+      ],
+      "keys": [
+        "exposure"
+      ],
+      "projects": [
+        {
+          "id": "work",
+          "name": "查看工作经历",
+          "url": "/#work",
+          "caseUrl": "/#work"
+        }
+      ],
+      "evidence": [
+        {
+          "key": "exposure",
+          "co": "百度 · PSIG",
+          "text": "通过埋点与 SQL 定位深层 Tab 的曝光折损超 70%，设计主动触达与路径优化",
+          "metric": "单日 UV 增长 10 倍 · 留存 UV 约 +60% · 分享率 26%"
+        }
+      ]
+    },
+    {
       "id": "growth",
       "name": "增长、实验与数据分析",
       "words": [

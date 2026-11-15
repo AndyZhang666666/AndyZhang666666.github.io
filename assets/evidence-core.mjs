@@ -11,9 +11,18 @@ export function containsKeyword(text, word) {
   return haystack.includes(needle);
 }
 
+// Keep the collaboration requirement visible when the following product action has its own evidence.
+function requirements(input) {
+  const pieces = input
+    .replace(/((?:与|同|和)[^，,。；;\n]{0,36}?算法(?:团队)?(?:协同|协作|合作))(?=优化|验证|改进|设计|制定|推进)/g, '$1；')
+    .replace(/((?:collaborate|partner|work) with [^,;.\n]{0,45}?algorithms? team) to /gi, '$1;')
+    .split(/[\n\r。；;!?！？，,]+|\.\s+(?=[A-Z])/u);
+  return [...new Set(pieces.map(s => s.replace(/^\s*(?:[-•·]|\d+[.、)])\s*/, '').trim()).filter(Boolean))];
+}
+
 export function findEvidence(text, dimensions) {
   const input = String(text ?? '').slice(0,12000).trim();
-  const clauses = [...new Set(input.split(/[\n\r。；;!?！？]+/).map(s=>s.replace(/^\s*(?:[-•·]|\d+[.、)])\s*/,'').trim()).filter(Boolean))];
+  const clauses = requirements(input);
   const matched = dimensions.map(dim=>({
     ...dim,
     wordsFound: dim.words.filter(word=>containsKeyword(input,word)),

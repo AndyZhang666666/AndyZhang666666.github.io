@@ -3,12 +3,12 @@
   const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   let current=null,library=null,findEvidence;
   const en=()=>document.documentElement.lang==='en',t=(zh,english)=>en()?english:zh;
-  const dataFor=async()=>{const lang=en()?'en':'zh';if(library?.lang!==lang){const r=await fetch(`./content/evidence-${lang}.json`);if(!r.ok)throw Error('资料未能读取，请重试。');library=await r.json()}return library};
+  const dataFor=async()=>{const lang=en()?'en':'zh';if(library?.lang!==lang){const r=await fetch(`./content/evidence-${lang}.json?v=20261115-strategy1`);if(!r.ok)throw Error('资料未能读取，请重试。');library=await r.json()}return library};
   async function run(){
     const out=$('#jdResult'),input=$('#jdInput').value.trim().slice(0,12000);if(!input)return;
     const button=$('#jdRun');button.disabled=true;
     try{
-      const [data,core]=await Promise.all([dataFor(),import('./assets/evidence-core.mjs')]);findEvidence=core.findEvidence;
+      const [data,core]=await Promise.all([dataFor(),import('./assets/evidence-core.mjs?v=20261115-strategy1')]);findEvidence=core.findEvidence;
       const result=findEvidence(input,data.dims);current=result;
       const matched=result.matched.filter(d=>d.evidence.length),clues=result.matched.filter(d=>!d.evidence.length);
       out.innerHTML=`<div class="jd-head"><div class="jd-score"><span class="jd-score-num">${matched.length}</span><span class="jd-score-unit">${t('项','')}</span><span class="jd-score-label">${t('证据主题','Evidence areas')}</span></div><div class="jd-verdict"><strong>${t('找到这些相关材料','Relevant material to read')}</strong><p>${t('关键词只负责定位，请结合原始经历和作品判断。','Keywords help locate material. Assess it in its original context.')}</p><p class="jd-meta">${t('不计算匹配分或通过概率，也不据此推断没有某项经验。','No match score, hiring probability or inference of absent experience.')}</p></div></div>`;
@@ -18,6 +18,6 @@
       $('#jdCopy').onclick=async()=>{const text=[t('张千羽 · 岗位相关证据','Andy Zhang · Evidence for the role'),...result.matched.flatMap(d=>[d.name,...d.evidence.map(e=>`${e.co}: ${e.text} ${e.metric}`)]),t('未定位：','Not located: ')+result.unrecognised.join('；')].join('\n');try{await navigator.clipboard.writeText(text);$('#jdCopy').textContent=t('已复制','Copied')}catch{$('#jdCopy').textContent=t('复制未成功，请选中文字复制','Copy failed; select and copy the text')}};
     }catch(e){out.innerHTML=`<p class="jd-empty">${esc(e.message)}</p>`;out.hidden=false}finally{button.disabled=!$('#jdInput').value.trim()}
   }
-  function init(){const ta=$('#jdInput');if(!ta)return;ta.maxLength=12000;const upd=()=>{$('#jdRun').disabled=!ta.value.trim();$('#jdCount').textContent=ta.value.length?`${ta.value.length} / 12000`:''};ta.addEventListener('input',upd);$('#jdRun').onclick=run;$('#jdClear').onclick=()=>{ta.value='';current=null;$('#jdResult').hidden=true;$('#jdResult').replaceChildren();upd();ta.focus()};document.querySelectorAll('.jd-sample').forEach(b=>b.onclick=()=>{ta.value=b.dataset.jd;upd();run()});new MutationObserver(()=>{if(current)run()}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});upd()}
+  function init(){const ta=$('#jdInput');if(!ta)return;ta.maxLength=12000;const upd=()=>{$('#jdRun').disabled=!ta.value.trim();$('#jdCount').textContent=ta.value.length?`${ta.value.length} / 12000`:''};ta.addEventListener('input',upd);$('#jdRun').onclick=run;$('#jdClear').onclick=()=>{ta.value='';current=null;$('#jdResult').hidden=true;$('#jdResult').replaceChildren();upd();ta.focus()};document.querySelectorAll('.jd-sample').forEach(b=>b.onclick=()=>{ta.value=(en() && b.dataset.jdEn) || b.dataset.jd;upd();run()});new MutationObserver(()=>{if(current)run()}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});upd()}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
