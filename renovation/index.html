@@ -51,7 +51,15 @@ el('export').onclick=()=>{const r=rooms[state.room],d=state[state.room],a=docume
 if(location.protocol==='file:'){
   el('download').hidden=true;
   el('offlineState').textContent='已打开离线文件';
-}else if('serviceWorker' in navigator && window.isSecureContext){
+}else{
+  // Prepare a link to the original public file. Form values and saved handoffs stay out of the download.
+  const download=el('download');
+  fetch(download.href).then(response=>{
+    if (!response.ok) return;
+    return response.blob().then(file=>{download.href=URL.createObjectURL(file);});
+  }).catch(()=>{}); // The ordinary same-origin download remains available.
+}
+if(location.protocol!=='file:' && 'serviceWorker' in navigator && window.isSecureContext){
   navigator.serviceWorker.register('./sw.js').then(()=>navigator.serviceWorker.ready)
     .then(()=>{el('offlineState').textContent='本页已备好，可断网重开';})
     .catch(()=>{el('offlineState').textContent='可下载 HTML 以便断网重开';});
