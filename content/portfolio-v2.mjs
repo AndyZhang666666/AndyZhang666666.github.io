@@ -1,6 +1,7 @@
 import {enhanceHeroV2} from './hero-v2.mjs';
 import {enhanceMobileNavigation} from './mobile-navigation.mjs';
 
+export const directoryVersion='20261115-renovation1';
 export const portfolioV2Version='20261109-v2';
 const changedResources=['interactions.css','assets/section-atmospheres.css','assets/squid-lab-preview.css','assets/personal-art-direction.css','assets/demo-showcase.mjs','projects-split.js','poker-showcase.js','app.js','motion.js','bg-layers.css','railnav.js','academic-art.js','assets/personal-sections.mjs','assets/section-atmospheres.mjs'];
 // One final pass after existing integrations, so regeneration keeps every V2 change.
@@ -14,8 +15,10 @@ export function enhancePortfolioV2(html,{casePage=false,paletteMarkup=''}={}){
   // The selected-product integration has a newer explicit cache key. Keep it
   // while applying the approved V2 enhancement to every other resource.
   if(file==='assets/demo-showcase.mjs'&&/assets\/demo-showcase\.mjs\?v=(?:20261109-product-depth|20261112-craft1|20261115-entry1)/.test(html))continue;
+  const directoryScript = file === 'app.js' || file === 'projects-split.js';
+  const version = directoryScript && html.includes('id="project-renovation"') ? directoryVersion : portfolioV2Version;
   const escaped=file.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-  html=html.replace(new RegExp(`((?:href|src)="/?${escaped}\\?v=)[^"\\s]+`,'g'),`$1${portfolioV2Version}`);
+  html=html.replace(new RegExp(`((?:href|src)="/?${escaped}\\?v=)[^"\\s]+`,'g'),`$1${version}`);
  }
  if(!html.includes('assets/motion-governor.css'))html=html.replace('</head>',`<link rel="stylesheet" href="/assets/motion-governor.css?v=${portfolioV2Version}">\n</head>`);
  if(!html.includes('src="/assets/motion-governor.mjs?'))html=html.replace('</body>',`<script type="module" src="/assets/motion-governor.mjs?v=${portfolioV2Version}"></script>\n</body>`);

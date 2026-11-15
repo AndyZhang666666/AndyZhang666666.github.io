@@ -394,6 +394,16 @@
         "decision": {
           "zh": "点客餐厅示意图，比较两款家具。没量的尺寸、没问清的费用会变成下一步，可以带走一张交接单。",
           "en": "Select a room item and compare two quotes. Missing measurements and delivery fees become concrete questions on a take-away note."
+        },
+        "image": "/renovation/preview.jpg",
+        "thumbnail": "/renovation/preview.jpg",
+        "coverSize": {
+          "width": 1280,
+          "height": 720
+        },
+        "caption": {
+          "zh": "比较两款沙发：填入 246 厘米净长后，第一款余量 6 厘米。",
+          "en": "Two sofa quotes. The first leaves 6 cm along a 246 cm wall."
         }
       }
     },

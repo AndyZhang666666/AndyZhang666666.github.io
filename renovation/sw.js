@@ -1,6 +1,6 @@
 // Only the public workbook is cached. No personal entries or third-party URLs enter CacheStorage.
 const prefix = 'portfolio-renovation-workbook-';
-const cacheName = prefix + '20261115-1';
+const cacheName = prefix + '20261115-2';
 const home = new URL('./', self.registration.scope);
 const file = new URL('index.html', home);
 
