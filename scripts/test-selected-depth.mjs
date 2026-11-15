@@ -20,7 +20,9 @@ const expected={all:['trust','taste','bundles','rag'],ai:['rag','trust','taste',
 assert.deepEqual(selected.map(x=>x.id),expected.all);
 for(const d of directions){assert.deepEqual(d.order,expected[d.id]);assert.equal(new Set(d.order).size,4);}
 assert.equal(html.includes(renderSelected(data)),true,'All default content/links must be in HTML');
-assert.equal(data.projects.length,prior.projects.length);assert.deepEqual(data.projects.map(p=>p.id),prior.projects.map(p=>p.id));
+const additions=data.projects.filter(p=>!prior.projects.some(oldProject=>oldProject.id===p.id));
+assert.deepEqual(additions.map(p=>[p.id,p.url,p.group]),[['renovation','/renovation/','main']]);
+assert.deepEqual(data.projects.filter(p=>p.id!=='renovation').map(p=>p.id),prior.projects.map(p=>p.id));
 const ids=new Set(selected.map(s=>s.project));
 assert.deepEqual(Object.keys(baseline.allowedProjectChanges),[...ids],'Only the four approved projects have content exceptions');
 const protectedProject=(project,paths)=>{const copy=structuredClone(project);for(const path of paths){const keys=path.split('.');let owner=copy;for(const key of keys.slice(0,-1))owner=owner?.[key];if(owner)delete owner[keys.at(-1)];}return copy;};
@@ -56,7 +58,7 @@ assert.ok(read('cases/trust/index.html').includes('<img src="'+evalPublicCoverUr
 assert.ok(read('cases/rag/index.html').includes('<img src="'+ragPublicCoverPath+'" width="1440" height="1000"'));
 
 function region(source,id){const start=source.indexOf(`<section id="${id}"`),tags=/<\/?section\b[^>]*>/g;assert.ok(start>=0,id);tags.lastIndex=start;let depth=0,m;while((m=tags.exec(source))){depth+=m[0].startsWith('</')?-1:1;if(depth===0)return source.slice(start,tags.lastIndex);}assert.fail('Unclosed '+id);}
-const outsideOwnedContent=source=>{let result=source.replace(region(source,'selected'),'<section id="selected">APPROVED_SELECTED_CONTENT</section>');for(const id of ids)result=result.replace(new RegExp(`<article id="project-${id}"[^]*?</article>`),`<article id="project-${id}">APPROVED_PROJECT_CONTENT</article>`);return result.replace(/(assets\/demo-showcase\.(?:mjs|css)\?v=)[^"']*/g,'$1APPROVED_SELECTED_CACHE_KEY');};
+const outsideOwnedContent=source=>{let result=source.replace(region(source,'selected'),'<section id="selected">APPROVED_SELECTED_CONTENT</section>');result=result.replace(/<article id="project-renovation"[^]*?<\/article>\n?/,'');for(const id of ids)result=result.replace(new RegExp(`<article id="project-${id}"[^]*?</article>`),`<article id="project-${id}">APPROVED_PROJECT_CONTENT</article>`);return result.replace(/(assets\/demo-showcase\.(?:mjs|css)\?v=)[^"']*/g,'$1APPROVED_SELECTED_CACHE_KEY');};
 assert.equal(outsideOwnedContent(html),outsideOwnedContent(old('index.html')),'Entire V2 homepage shell and other cards outside the explicit four-project boundary');
 for(const id of ['top','about','ai','work','experience','education','awards','uses','skills','jd','contact'])if(old('index.html').includes(`<section id="${id}"`))assert.equal(region(html,id),region(old('index.html'),id),'Protected section: '+id);
 for(const file of ['app.js','style.css','bg-layers.js','motion.js','interactions.css','assets/showcase-motion.mjs','assets/hero-paper.css','assets/mobile-navigation.css','assets/mobile-navigation.mjs','assets/motion-governor.css','assets/motion-governor.mjs','scripts/case-reader.js'])assert.equal(read(file),old(file),'Protected visual/interaction file: '+file);
@@ -76,4 +78,4 @@ for(const item of selected){
 }
 const snapshot=['index.html','data.json',...selected.map(s=>`cases/${s.id}/index.html`)].map(p=>[p,hash(read(p))]);
 execFileSync(process.execPath,['scripts/update-content.mjs','--selected-only'],{stdio:'pipe'});for(const [file,value] of snapshot)assert.equal(hash(read(file)),value,'Idempotent current-shell generation: '+file);
-console.log('PASS: PRD directions, four canonical previews,18 preserved projects, all supplied facts, protected visual sections and idempotent scoped generation.');
+console.log('PASS: PRD directions, four canonical previews,original portfolio plus the renovation demo, all supplied facts, protected visual sections and idempotent scoped generation.');

@@ -29,7 +29,7 @@
   var CATEGORIES = [
     { key: 'all', zh: '全部作品', en: 'All work', ids: [] },
     { key: 'ai', zh: 'AI 与评测', en: 'AI & Evaluation', ids: ['eval', 'filing', 'agent-bench', 'rag-lab'] },
-    { key: 'life', zh: '生活与设计', en: 'Life & Design', ids: ['taste', 'suibianju', 'grounded', 'commute'] },
+    { key: 'life', zh: '生活与设计', en: 'Life & Design', ids: ['renovation', 'taste', 'suibianju', 'grounded', 'commute'] },
     { key: 'growth', zh: '增长与商业化', en: 'Growth & Monetisation', ids: ['growth', 'pricing', 'bundle'] },
     { key: 'practice', zh: '其他实践', en: 'Other Practice', ids: ['fde', 'research-agent', 'content'] },
     { key: 'poker', zh: '德州工具', en: 'Poker Tools', ids: ['poker-quiz', 'bankroll', 'poker-ev', 'squid-lab'] }
