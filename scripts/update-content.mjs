@@ -1,3 +1,4 @@
+import {updateRoleLookup} from '../content/role-lookup.mjs';
 // The original shell stays intact. Scoped showcase/library presentation is generated here.
 import fs from 'node:fs';
 import {pokerLabMetadata} from '../content/poker-lab.mjs';
@@ -175,7 +176,7 @@ if (previousProjectOrder.includes('renovation')) {
 }
 // Keep the latest four task-oriented entries after optional extension integration.
 await import('./update-selected.mjs');
-const finalHTML=enhancePortfolioV2(fs.readFileSync('index.html','utf8'));
+const finalHTML=updateRoleLookup(enhancePortfolioV2(fs.readFileSync('index.html','utf8')));
 fs.writeFileSync('index.html',finalHTML);
 const paletteMarkup=finalHTML.match(/<div class="palette-switch"[^]*?<\/div>/)?.[0]||'';
 for(const name of fs.readdirSync('cases')){

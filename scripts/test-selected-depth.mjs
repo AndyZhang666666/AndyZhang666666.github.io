@@ -1,3 +1,4 @@
+import {updateRoleLookup} from '../content/role-lookup.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
@@ -59,8 +60,8 @@ assert.ok(read('cases/rag/index.html').includes('<img src="'+ragPublicCoverPath+
 
 function region(source,id){const start=source.indexOf(`<section id="${id}"`),tags=/<\/?section\b[^>]*>/g;assert.ok(start>=0,id);tags.lastIndex=start;let depth=0,m;while((m=tags.exec(source))){depth+=m[0].startsWith('</')?-1:1;if(depth===0)return source.slice(start,tags.lastIndex);}assert.fail('Unclosed '+id);}
 const outsideOwnedContent=source=>{let result=source.replace(region(source,'selected'),'<section id="selected">APPROVED_SELECTED_CONTENT</section>');result=result.replace(/<article id="project-renovation"[^]*?<\/article>\n?/,'');for(const id of ids)result=result.replace(new RegExp(`<article id="project-${id}"[^]*?</article>`),`<article id="project-${id}">APPROVED_PROJECT_CONTENT</article>`);result=result.replaceAll('app.js?v=20261115-renovation1','app.js?v=20261109-v2').replaceAll('projects-split.js?v=20261115-renovation1','projects-split.js?v=20261109-v2');return result.replace(/(assets\/demo-showcase\.(?:mjs|css)\?v=)[^"']*/g,'$1APPROVED_SELECTED_CACHE_KEY');};
-assert.equal(outsideOwnedContent(html),outsideOwnedContent(old('index.html')),'Entire V2 homepage shell and other cards outside the explicit four-project boundary');
-for(const id of ['top','about','ai','work','experience','education','awards','uses','skills','jd','contact'])if(old('index.html').includes(`<section id="${id}"`))assert.equal(region(html,id),region(old('index.html'),id),'Protected section: '+id);
+assert.equal(outsideOwnedContent(html),outsideOwnedContent(updateRoleLookup(old('index.html'))),'Entire V2 homepage shell and other cards outside the explicit four-project boundary');
+for(const id of ['top','about','ai','work','experience','education','awards','uses','skills','jd','contact'])if(old('index.html').includes(`<section id="${id}"`))assert.equal(region(html,id),region(updateRoleLookup(old('index.html')),id),'Protected section: '+id);
 assert.equal(read('app.js'),old('app.js').replace('data.json?v=20261107-squid2','data.json?v=20261115-renovation1'));
 for(const resource of ['app.js','projects-split.js'])assert.ok(html.includes(resource+'?v=20261115-renovation1'));
 for(const file of ['style.css','bg-layers.js','motion.js','interactions.css','assets/showcase-motion.mjs','assets/hero-paper.css','assets/mobile-navigation.css','assets/mobile-navigation.mjs','assets/motion-governor.css','assets/motion-governor.mjs','scripts/case-reader.js'])assert.equal(read(file),old(file),'Protected visual/interaction file: '+file);
