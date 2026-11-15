@@ -368,6 +368,36 @@
       }
     },
     {
+      "id": "renovation",
+      "name": "安心装修 · 家具选购手记",
+      "nameEn": "Home Notes · Furniture decisions",
+      "category": "life",
+      "group": "main",
+      "url": "/renovation/",
+      "github": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/renovation",
+      "iterationUrl": "https://github.com/AndyZhang666666/AndyZhang666666.github.io/blob/main/renovation/CHANGELOG.md",
+      "caseLabel": "迭代记录",
+      "caseLabelEn": "Iterations",
+      "description": "在客餐厅图上选家具，比较摆位净尺寸和送装总价，留下下一步。",
+      "descriptionEn": "Choose a piece on the floor plan, compare fit and delivered cost, then take a handoff note.",
+      "tags": [
+        "装修",
+        "家庭决策",
+        "离线工具"
+      ],
+      "presentation": {
+        "kind": "demo",
+        "question": {
+          "zh": "店里看中的沙发，放到家里合适吗？",
+          "en": "Will the sofa you saw in the shop fit at home?"
+        },
+        "decision": {
+          "zh": "点客餐厅示意图，比较两款家具。没量的尺寸、没问清的费用会变成下一步，可以带走一张交接单。",
+          "en": "Select a room item and compare two quotes. Missing measurements and delivery fees become concrete questions on a take-away note."
+        }
+      }
+    },
+    {
       "name": "偏爱实验室",
       "nameEn": "TasteRoom",
       "subtitle": "喜欢整张，不代表喜欢每个参数",
