@@ -24,7 +24,12 @@ assert.equal(data.projects.length,prior.projects.length);assert.deepEqual(data.p
 const ids=new Set(selected.map(s=>s.project));
 assert.deepEqual(Object.keys(baseline.allowedProjectChanges),[...ids],'Only the four approved projects have content exceptions');
 const protectedProject=(project,paths)=>{const copy=structuredClone(project);for(const path of paths){const keys=path.split('.');let owner=copy;for(const key of keys.slice(0,-1))owner=owner?.[key];if(owner)delete owner[keys.at(-1)];}return copy;};
-for(const id of ids){const allowed=baseline.allowedProjectChanges[id];assert.deepEqual(protectedProject(data.projects.find(p=>p.id===id),allowed),protectedProject(prior.projects.find(p=>p.id===id),allowed),'Owned project changed outside explicit display-copy/image-size whitelist: '+id);}
+// The public Eval entry pins the sample and the dimension explicitly.
+const evalEntry='/llm-output-eval/?sample=e06&dimension=structure';
+assert.equal(data.projects.find(p=>p.id==='eval').url,evalEntry);
+assert.ok(html.includes('href="/llm-output-eval/workspace/"'));
+const expectedEval={...prior.projects.find(p=>p.id==='eval'),url:evalEntry};
+for(const id of ids){const allowed=baseline.allowedProjectChanges[id];assert.deepEqual(protectedProject(data.projects.find(p=>p.id===id),allowed),protectedProject(id==='eval'?expectedEval:prior.projects.find(p=>p.id===id),allowed),'Owned project changed outside explicit display-copy/image-size whitelist: '+id);}
 
 for(const p of prior.projects)if(!ids.has(p.id))assert.deepEqual(data.projects.find(n=>n.id===p.id),p,'Unrelated project: '+p.id);
 for(const k of Object.keys(prior).filter(k=>k!=='projects'))assert.deepEqual(data[k],prior[k],'Unrelated supplied facts: '+k);

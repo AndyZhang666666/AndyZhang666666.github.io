@@ -576,7 +576,7 @@
       "subtitleEn": "From scoring anchors to evidence-backed version review",
       "description": "带自己的创意文本，先人工审阅或导入已有评价。核对依据、留下处理项，把改稿与原稿放在同一条证据链里。",
       "descriptionEn": "Bring creative text for manual review or import an existing evaluation. Check evidence, track actions and connect the revision to its source.",
-      "url": "/llm-output-eval/",
+      "url": "/llm-output-eval/?sample=e06&dimension=structure",
       "github": "https://github.com/AndyZhang666666/llm-output-eval",
       "metrics": [
         "引用定位原文",

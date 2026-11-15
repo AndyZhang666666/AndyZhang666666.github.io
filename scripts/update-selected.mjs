@@ -64,7 +64,7 @@ for(const item of selected){
  write(caseFile,priorCase.replace(/<main>[^]*<\/main>/,`<main>${content}</main>`));
 }
 // Only the selected assets need cache invalidation; keep all effect/background imports intact.
-html=html.replace(/(assets\/demo-showcase\.(?:mjs|css)\?v=)[^"']*/g,(_,prefix)=>prefix+'20261112-craft1');
+html=html.replace(/(assets\/demo-showcase\.(?:mjs|css)\?v=)[^"']*/g,(_,prefix)=>prefix+'20261115-entry1');
 for(const [id,value] of protectedSections){const r=sectionRange(html,id);if(html.slice(r.start,r.end)!==value)throw Error(`Protected section changed: ${id}`);}
 for(const [id,value] of untouched)if(JSON.stringify(data.projects.find(p=>p.id===id))!==value)throw Error(`Unrelated project changed: ${id}`);
 write('data.json',JSON.stringify(data,null,2)+'\n');write('index.html',html);

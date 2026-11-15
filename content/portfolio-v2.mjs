@@ -13,7 +13,7 @@ export function enhancePortfolioV2(html,{casePage=false,paletteMarkup=''}={}){
  for(const file of changedResources){
   // The selected-product integration has a newer explicit cache key. Keep it
   // while applying the approved V2 enhancement to every other resource.
-  if(file==='assets/demo-showcase.mjs'&&/assets\/demo-showcase\.mjs\?v=(?:20261109-product-depth|20261112-craft1)/.test(html))continue;
+  if(file==='assets/demo-showcase.mjs'&&/assets\/demo-showcase\.mjs\?v=(?:20261109-product-depth|20261112-craft1|20261115-entry1)/.test(html))continue;
   const escaped=file.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
   html=html.replace(new RegExp(`((?:href|src)="/?${escaped}\\?v=)[^"\\s]+`,'g'),`$1${portfolioV2Version}`);
  }
