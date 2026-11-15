@@ -13,7 +13,7 @@
 <section class="choices"><p class="eyebrow">商品卡 · 虚构报价</p><h2 id="choiceTitle"></h2><div id="options"></div><div class="result" aria-live="polite"><h3 id="verdict"></h3><p id="reason"></p></div></section></div>
 <section class="details"><h2>把没问清的两件事补上</h2><div class="inputs"><div class="field"><label for="space" id="spaceLabel"></label><input type="number" inputmode="decimal" id="space" min="1" max="999" step="0.1" placeholder="还没复尺"><small id="spaceHelp"></small></div><div class="field"><label for="fee">这款的送装合计（元）</label><input type="number" inputmode="decimal" id="fee" min="0" max="99999" step="0.01" placeholder="商家还没确认"><small>含上楼、搬运与安装。确认免费时填 0。</small></div></div><div class="actions"><button class="secondary" id="example">试填示例回复</button><button class="secondary" id="clear">清除本款送装费</button></div></section>
 <section class="record"><p class="eyebrow">给家人的交接单</p><h2 id="next"></h2><ul id="list"></ul><div class="actions"><button class="action" id="save">保存这张交接单</button><button class="secondary" id="export">导出为文本</button></div><p class="saved" id="saved"></p><p class="status" role="status" id="status"></p></section>
-<footer class="foot"><span>演示数据仅用于比较，进门、转角和现场安装需另行核实。</span><a id="download" href="./index.html" download="安心装修-离线版.html">下载离线版 HTML</a><a href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/renovation">源码与迭代</a></footer>
+<footer class="foot"><span>演示数据仅用于比较，进门、转角和现场安装需另行核实。</span><span class="minor" id="offlineState"></span><a id="download" href="./index.html" download="安心装修-离线版.html">下载离线版 HTML</a><a href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/renovation">源码与迭代</a></footer>
 <noscript>请启用 JavaScript 以比较家具并保存交接单。</noscript></main>
 <script>
 'use strict';
@@ -48,6 +48,13 @@ el('example').onclick=()=>{const r=rooms[state.room],d=state[state.room];d.space
 el('clear').onclick=()=>{const d=state[state.room];d.fees[d.pick]='';persist();render();el('status').textContent='此款送装费已改回待确认。'};
 el('save').onclick=()=>{const d=state[state.room];d.saved=decision(rooms[state.room],d).text;const ok=persist();render(false);el('status').textContent=ok?'已保存到此浏览器，刷新后可查看。':'已暂存在本页；请导出文本留存。'};
 el('export').onclick=()=>{const r=rooms[state.room],d=state[state.room],a=document.createElement('a'),url=URL.createObjectURL(new Blob(['安心装修 · 示例交接单\n'+decision(r,d).text],{type:'text/plain;charset=utf-8'}));a.href=url;a.download='安心装修-'+r.name+'交接单.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);el('status').textContent='已生成当前条件的文本交接单。'};
-if(location.protocol==='file:')el('download').hidden=true;
+if(location.protocol==='file:'){
+  el('download').hidden=true;
+  el('offlineState').textContent='已打开离线文件';
+}else if('serviceWorker' in navigator && window.isSecureContext){
+  navigator.serviceWorker.register('./sw.js').then(()=>navigator.serviceWorker.ready)
+    .then(()=>{el('offlineState').textContent='本页已备好，可断网重开';})
+    .catch(()=>{el('offlineState').textContent='可下载 HTML 以便断网重开';});
+}
 render();
 </script></body></html>
