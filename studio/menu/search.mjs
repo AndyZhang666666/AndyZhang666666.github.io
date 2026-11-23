@@ -50,13 +50,35 @@ export function compare(menu,queries,baseline,candidate){
 export function parseMenu(text){
  const lines=text.split(/\r?\n/).filter(s=>s.trim());
  if(!lines.length||lines.length>100)throw Error('rows');
- const names=new Set(dishes.flatMap(d=>[clean(d.zh),clean(d.en),clean(d.ar)]));
+ const keys=new Map(dishes.flatMap(d=>[d.zh,d.en,d.ar].map(name=>[clean(name),d])));
+ const seen=new Set(),targets=new Map(originalQueries.map(r=>[clean(r.q),r.id]));
  return lines.map((line,i)=>{
   const parts=line.split('|').map(s=>s.trim()),[name,raw]=parts;
-  if(parts.length!==2||!clean(name)||name.length>100||!raw||raw.length>240||names.has(clean(name)))throw Error(String(i+1));
+  const key=clean(name||'');
+  if(parts.length!==2||!key||name.length>100||!raw||raw.length>240)throw Error(String(i+1));
+  const previous=keys.get(key),id=previous?.id||'user-'+i;
+  if(seen.has(id))throw Error(String(i+1));
+  seen.add(id);
   const aliases=[...new Set(raw.split(/[,，]/).map(s=>s.trim()).filter(Boolean))];
   if(!aliases.length||aliases.some(a=>!clean(a)))throw Error(String(i+1));
-  names.add(clean(name));
-  return {id:'user-'+i,zh:name,en:name,ar:'',ingredient:'',form:'custom',orders:0,aliases};
+  for(const alias of aliases){
+   const k=clean(alias);
+   if(targets.has(k)&&targets.get(k)!==id)throw Error(String(i+1));
+   targets.set(k,id);
+  }
+  return {id,zh:previous?.zh||name,en:previous?.en||name,ar:previous?.ar||'',ingredient:previous?.ingredient||'',form:previous?.form||'custom',orders:previous?.orders||0,aliases};
  });
+}
+export function withMenuEdits(custom){
+ const full=new Map(dishes.map(d=>[d.id,d]));
+ for(const d of custom){
+  const old=full.get(d.id);
+  full.set(d.id,old?{...old,aliases:[...new Set([...old.aliases,...d.aliases])]}:d);
+ }
+ return [...full.values()];
+}
+export function withQueryEdits(custom){
+ const all=new Map(originalQueries.map(row=>[clean(row.q),row]));
+ for(const d of custom)for(const q of d.aliases)if(!all.has(clean(q)))all.set(clean(q),{q,id:d.id});
+ return [...all.values()];
 }

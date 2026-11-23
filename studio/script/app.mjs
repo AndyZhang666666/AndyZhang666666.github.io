@@ -11,6 +11,13 @@ function starter(){
 function importView(){return '<form id="importer" class="import-form"><label>'+t('角色','Character')+'<input id="who" required maxlength="80" value="'+esc(form.character)+'"></label><label>'+t('这个角色将知道什么？','What will the character learn?')+'<input id="what" required maxlength="240" value="'+esc(form.fact)+'"></label><label>'+t('场名占一行，下一行起写正文，场间留空行。用【知情】标出依赖这条事实的对白。','Put the scene title first, dialogue below, and a blank line between scenes. Mark lines that depend on the fact with 【知情】.')+'<textarea id="scenes" required rows="11">'+esc(form.text)+'</textarea></label><label>'+t('原定揭晓场次','Original reveal scene')+'<input type="number" required min="1" max="30" id="firstReveal" value="'+form.reveal+'"></label><button class="primary">'+t('载入剧本','Load script')+'</button> <button type="button" id="cancelImport">'+t('返回','Cancel')+'</button></form>';}
 function render(){
  if(!story)story=starter();
+ else if(!customSource){
+  const original=examples[isEnglish()?'en':'zh'];
+  if(story.scenes[0].title!==original[0].split('\n')[0]){
+   const localized=starter();
+   story={...localized,reveal:story.reveal,edits:story.edits};
+  }
+ }
  const all=rows(story),conflicts=all.filter(r=>r.conflict),scene=story.scenes[active],lines=all.filter(r=>r.scene===active+1);
  const choices=story.scenes.map((s,i)=>'<option value="'+(i+1)+'" '+(story.reveal===i+1?'selected':'')+'>'+pad(i+1)+' · '+esc(s.title)+'</option>').join('');
  $('app').innerHTML='<div class="work-layout"><aside class="tools"><h2>'+t('人物知情线','Character timeline')+'</h2><p>'+esc(story.character)+' · '+esc(story.fact)+'</p><label>'+t('在哪一场揭晓？','When is the reveal?')+'<select id="reveal">'+choices+'</select></label><nav class="scene-index" aria-label="'+t('场景','Scenes')+'">'+story.scenes.map((s,i)=>'<button data-scene="'+i+'" aria-pressed="'+(i===active)+'"><small>'+pad(i+1)+'</small> '+esc(s.title)+(conflicts.some(c=>c.scene===i+1)?' <b>●</b>':'')+'</button>').join('')+'</nav><button id="own">'+t('带入自己的场景','Use my scenes')+'</button></aside><div class="surface">'+(form?importView():

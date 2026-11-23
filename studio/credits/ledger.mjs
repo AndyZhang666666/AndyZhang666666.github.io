@@ -8,7 +8,7 @@ export const spentBy=(w,who)=>w.batches.flatMap(b=>b.shots).filter(s=>s.who===wh
 export function quote(w,who,count,unit){
  if(!Object.hasOwn(w.caps,who)||!integer(count,1,50)||!integer(unit,1,10000))throw Error('invalid');
  const total=count*unit,available=w.paid+w.gift,remaining=w.caps[who]-spentBy(w,who);
- return {who,count,unit,total,available,remaining,gift:Math.min(total,w.gift),paid:Math.max(0,total-w.gift),gates:[...(total>available?['funds']:[]),...(total>remaining?['cap']:[])],day:w.day};
+ return {who,count,unit,total,available,remaining,memberLimit:w.caps[who],teamGift:w.gift,teamPaid:w.paid,expires:w.expiry,gift:Math.min(total,w.gift),paid:Math.max(0,total-w.gift),gates:[...(total>available?['funds']:[]),...(total>remaining?['cap']:[])],day:w.day};
 }
 function hold(w,shot){
  shot.gift=Math.min(w.gift,shot.unit);shot.paid=shot.unit-shot.gift;
@@ -17,9 +17,14 @@ function hold(w,shot){
 function event(w,shot,action,amounts={}){
  w.log.push({day:w.day,id:shot.id,attempt:shot.attempt,member:shot.who,action,...amounts});
 }
-export function reserve(w,who,count,unit){
+export function reserve(w,who,count,unit,requestId){
+ const prior=requestId&&w.batches.find(batch=>batch.requestId===requestId);
+ if(prior){
+  if(prior.quote.who!==who||prior.quote.count!==count||prior.quote.unit!==unit)throw Error('changed');
+  return w;
+ }
  const q=quote(w,who,count,unit);if(q.gates.length)throw Error(q.gates.join('+'));
- const copy=structuredClone(w),id=copy.batches.length+1,b={id,quote:q,shots:[]};
+ const copy=structuredClone(w),id=copy.batches.length+1,b={id,requestId:requestId??null,quote:q,shots:[]};
  for(let i=1;i<=count;i++){
   const s={id:id+'-'+i,who,unit,state:'',attempt:1};hold(copy,s);event(copy,s,'hold',{gift:s.gift,paid:s.paid});b.shots.push(s);
  }

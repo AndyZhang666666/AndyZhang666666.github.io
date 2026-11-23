@@ -1,3 +1,4 @@
+import {studioTasks} from './studio-objects.mjs';
 import {evidence} from './resume-profile.mjs';
 export const tasks = [
  {id:'eval', title:['判断模型打分有没有依据','Check the evidence for a model score'],name:['Eval Lab','Eval Lab'], kind:['历史评测回放','Historical evaluation'],desc:['读一条 2/5 的结构评语，回到被引用的原文，留下自己的判断。','Compare a 2/5 structure score with its quoted passage and record your own judgment.'],url:'/llm-output-eval/?sample=e06&dimension=structure',words:'模型打分 模型评分 模型质量 评估大模型 效果评测 模型评测 评测 评估模型 低分 评语 rubric evaluation eval model_score model_quality'},
@@ -10,6 +11,7 @@ export const tasks = [
  {id:'pricing',title:['比较定价方案','Compare pricing plans'],name:['定价模拟器','Pricing Model Sim'],kind:['模拟算例','Simulation'],desc:['把定价方案放在同一组假设下比较，查看哪个假设会改变结论。','Compare prices under common assumptions and inspect which assumption changes the decision.'],url:'/cases/pricing/',words:'定价 收费模式 price pricing pricing_strategy'},
  {id:'filing',title:['核对财报里的判断','Review a claim in a financial filing'],name:['Filing Eval','Filing Eval'],kind:['可操作作品','Interactive work'],desc:['打开财报评测案例，回到材料核对结论。','Open a filing case and check the conclusion against its source.'],url:'/cases/filing/',words:'财报 投研 financial_filing filings investment_research'},
  {id:'fde',title:['把业务步骤做成可交付的工具','Deliver a tool for a business workflow'],name:['企业 AI 交付案例','Enterprise AI delivery'],kind:['交付案例','Delivery case'],desc:['看商品资料怎样进入问答流程，以及何时需要人工核实。','Read how product records enter a support workflow and where a person needs to verify them.'],url:'/cases/agent-workflow/',words:'交付 企业流程 fde 选品 企业知识库 delivery enterprise'},
+ ...studioTasks,
  ...evidence
 ];
 export const methods=[
