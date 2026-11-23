@@ -55,6 +55,7 @@ render();
 
 function revealEvidence() {
   const item=document.getElementById(location.hash.slice(1));
+  if(item?.id==='resumes'){item.open=true;return;}
   if(!item?.matches('details.evidence-note'))return;
   for(let parent=item.parentElement;parent;parent=parent.parentElement){
     if(parent.tagName==='DETAILS')parent.open=true;

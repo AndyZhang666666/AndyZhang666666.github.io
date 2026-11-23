@@ -12,6 +12,7 @@ import {renderProductPrinciples} from '../assets/product-principles.mjs';
 import {renderAiViews} from '../assets/ai-views.mjs';
 import {applyPersonalPresentation,transformPersonalHTML,patchPersonalApp} from '../content/personal-presentation.mjs';
 import {enhancePresentationHTML,presentationCases} from '../content/presentation-mode.mjs';
+import {fixedPublicCoverDimensions} from '../content/public-covers.mjs';
 import {rasterSize} from '../content/raster-size.mjs';
 if(process.argv.includes('--selected-only')){await import('./update-selected.mjs');process.exit(0);}
 import {patchMotionV2} from '../content/motion-v2.mjs';
@@ -58,6 +59,7 @@ for(const p of projects){
   entry.result=s.proof.zh+' '+s.tradeoff.zh;entry.resultEn=s.proof.en+' '+s.tradeoff.en;
  }
  if(entry.url?.startsWith('https://andyzhang666666.github.io'))entry.url=entry.url.slice('https://andyzhang666666.github.io'.length)||'/';
+ if(p.id==='eval')entry.url='/llm-output-eval/?sample=e06&dimension=structure';
  if(p.id==='taste')entry.url='/tasteroom/?direction=swiss';
  if(p.id==='bundle'){entry.url='/bundle-lab/simulate/';entry.analysisUrl='/bundle-lab/';}
  entry.presentation=presentationFor(entry);
@@ -137,8 +139,10 @@ for(const study of studies){
   if(!file)return '';
   // Scope this follow-up to the four presentation highlights. Their lazy images
   // must reserve the final height before native fragment navigation settles.
-  const {width,height}=Object.hasOwn(presentationCases,study.id)?rasterSize(fs.readFileSync(`assets/work/${file}`)):{width:1440,height:1000};
-  return `<figure class="case-figure"><a href="/assets/work/${file}" target="_blank" rel="noopener"><img src="/assets/work/${file}" width="${width}" height="${height}" alt="${esc(caption)}" loading="lazy"></a><figcaption>${esc(caption)}</figcaption></figure>`;
+  const pinned=fixedPublicCoverDimensions(file);
+  const src=pinned?file:file.startsWith('/')?file:`/assets/work/${file}`;
+  const {width,height}=pinned||(Object.hasOwn(presentationCases,study.id)?rasterSize(fs.readFileSync(src.slice(1))):{width:1440,height:1000});
+  return `<figure class="case-figure"><a href="${esc(src)}" target="_blank" rel="noopener"><img src="${esc(src)}" width="${width}" height="${height}" alt="${esc(caption)}" loading="lazy"></a><figcaption>${esc(caption)}</figcaption></figure>`;
  };
  const meta=projects.find(p=>p.id===study.project),p=data.projects[meta.index];
  const primary=p.url?`<a class="project-link" href="${esc(p.url)}" data-zh="体验 Demo ↗" data-en="Try the demo ↗">体验 Demo ↗</a>`:'<a class="project-link" href="#mechanism" data-zh="查看任务流 ↓" data-en="See the workflow ↓">查看任务流 ↓</a>';
