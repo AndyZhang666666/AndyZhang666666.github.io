@@ -22,9 +22,11 @@ const expected={all:['trust','taste','bundles','rag'],ai:['rag','trust','taste',
 assert.deepEqual(selected.map(x=>x.id),expected.all);
 for(const d of directions){assert.deepEqual(d.order,expected[d.id]);assert.equal(new Set(d.order).size,4);}
 assert.equal(html.includes(renderSelected(data)),true,'All default content/links must be in HTML');
+const newStudios=[['scene-revision','/studio/script/','main'],['menu-search','/studio/menu/','main'],['generation-quote','/studio/credits/','main']];
+const newIds=new Set(newStudios.map(([id])=>id));
 const additions=data.projects.filter(p=>!prior.projects.some(oldProject=>oldProject.id===p.id));
-assert.deepEqual(additions.map(p=>[p.id,p.url,p.group]),[['renovation','/renovation/','main']]);
-assert.deepEqual(data.projects.filter(p=>p.id!=='renovation').map(p=>p.id),prior.projects.map(p=>p.id));
+assert.deepEqual(additions.map(p=>[p.id,p.url,p.group]),[['renovation','/renovation/','main'],...newStudios]);
+assert.deepEqual(data.projects.filter(p=>p.id!=='renovation'&&!newIds.has(p.id)).map(p=>p.id),prior.projects.map(p=>p.id));
 const ids=new Set(selected.map(s=>s.project));
 assert.deepEqual(Object.keys(baseline.allowedProjectChanges),[...ids],'Only the four approved projects have content exceptions');
 const protectedProject=(project,paths)=>{const copy=structuredClone(project);for(const path of paths){const keys=path.split('.');let owner=copy;for(const key of keys.slice(0,-1))owner=owner?.[key];if(owner)delete owner[keys.at(-1)];}return copy;};
@@ -75,7 +77,13 @@ for(const resource of ['app.js','projects-split.js'])assert.ok(previousShell.inc
 for(const file of ['style.css','bg-layers.js','motion.js','interactions.css','assets/showcase-motion.mjs','assets/hero-paper.css','assets/mobile-navigation.css','assets/mobile-navigation.mjs','assets/motion-governor.css','assets/motion-governor.mjs','scripts/case-reader.js'])assert.equal(previous(file),old(file),'Historical visual/interaction file: '+file);
 // Only explicitly revised résumé surfaces are normalized. The rest of the
 // original page, including portrait, selected interactions and all demos, stays pinned.
-const publicShell = source => outsideOwnedContent(source)
+function withoutStudio(source){
+ for(const [id] of newStudios)source=source.replace(new RegExp('<article id="project-'+id+'"[^]*?</article>\\n?'),'');
+ return source.replace(/\n<!--studio-desk-->[^]*?<!--\/studio-desk-->/,'')
+  .replace('<link rel="stylesheet" href="assets/studio-home.css">\n','')
+  .replace('<script type="module" src="assets/studio-home.mjs"></script>\n','');
+}
+const publicShell = source => outsideOwnedContent(withoutStudio(source))
  .replace(/<meta (?:name="(?:description|twitter:description)"|property="og:description")[^>]*>\n/g,'')
  .replace(/<p class="hero-tagline[^>]*>[^]*?<\/p>/,'HERO_COPY')
  .replace(/<details class="resume-picker"[^]*?<\/details>/,'')
@@ -106,6 +114,6 @@ for(const item of selected){
 }
 const snapshot=['index.html','data.json',...selected.map(s=>`cases/${s.id}/index.html`)].map(p=>[p,hash(read(p))]);
 execFileSync(process.execPath,['scripts/update-content.mjs','--selected-only'],{stdio:'pipe'});for(const [file,value] of snapshot)assert.equal(hash(read(file)),value,'Idempotent current-shell generation: '+file);
-console.log('PASS: PRD directions, four canonical previews,original portfolio plus the renovation demo, all supplied facts, protected visual sections and idempotent scoped generation.');
+console.log('PASS: PRD directions, four canonical previews,original portfolio plus the renovation demo and three studio projects, all supplied facts, protected visual sections and idempotent scoped generation.');
 
 await import('./test-task-lookup.mjs');

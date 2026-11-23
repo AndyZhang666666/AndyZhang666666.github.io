@@ -16,3 +16,11 @@ html[data-presentation] .studio-guide{display:block;margin-bottom:1rem}#selected
 
 #education .research-figure .plate-level .plate-bid[data-best]{animation:none;transform:none}
 #education .research-figure[data-sensor=back] [data-second-wave],#education .research-figure[data-sensor=arm] .art-wave-base{stroke-width:2.5}
+
+.paper-file summary:focus-visible,.studio-switch select:focus-visible,.studio-guide select:focus-visible,.instrument button:focus-visible,#studioFilm button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@keyframes desk-unfold{from{opacity:.6;transform:translateY(5px) rotate(-.35deg)}to{opacity:1;transform:none}}
+@keyframes film-change{from{opacity:.72;transform:translateY(3px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:no-preference){
+ html:not([data-motion=reduce]) .paper-file[open] .paper-insert{transform-origin:50% 100%;animation:desk-unfold .2s cubic-bezier(.2,.75,.3,1) both}
+ html:not([data-motion=reduce]) .film-opening{animation:film-change .18s ease-out}
+}

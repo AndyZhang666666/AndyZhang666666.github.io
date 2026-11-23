@@ -4,6 +4,11 @@ exclude:
   - CHANGELOG.md
   - LOCAL-REVIEW.md
   - review.html
+  - studio-review.html
+  - studio-preview.command
+  - scripts/compose-studio.mjs
+  - scripts/test-studio.mjs
+  - scripts/review-studio-browser.mjs
   - 打开本地预览.command
   - scripts/preview.mjs
   - scripts/test-delivery.mjs

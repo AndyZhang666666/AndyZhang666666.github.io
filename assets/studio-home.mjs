@@ -8,6 +8,17 @@ if(desk){
  document.addEventListener('pointerdown',ev=>{if(!desk.contains(ev.target))files.forEach(f=>f.open=false);});
  desk.addEventListener('keydown',ev=>{const f=ev.target.closest('details');if(ev.key==='Escape'&&f?.open){f.open=false;f.querySelector('summary').focus();ev.preventDefault();}});
 }
+function languageLinks(root=document){
+ for(const a of root.querySelectorAll('a[href^="/studio/"]')){
+  const url=new URL(a.href);
+  if(html.lang==='en')url.searchParams.set('lang','en');else url.searchParams.delete('lang');
+  const href=url.pathname+url.search+url.hash;if(a.getAttribute('href')!==href)a.setAttribute('href',href);
+ }
+}
+languageLinks();
+new MutationObserver(()=>languageLinks()).observe(html,{attributes:true,attributeFilter:['lang']});
+const taskResults=document.getElementById('jdResult');
+if(taskResults)new MutationObserver(()=>languageLinks(taskResults)).observe(taskResults,{childList:true,subtree:true});
 setupResearch();
 if(selected){
  const tabs=()=>[...selected.querySelectorAll('[data-selected-id]')].filter(x=>!x.hidden),active=()=>tabs().find(x=>x.getAttribute('aria-selected')==='true');
@@ -66,7 +77,7 @@ if(selected){
     if(act===2)body='<div class="film-score">'+(be.rate===null?t('不可达','Unreachable'):(be.rate*100).toFixed(1)+'%')+'</div><p>'+t('内置模拟订单的平衡采纳率。实际是否达到，还要验证成本与真实采纳。','Break-even adoption for these synthetic orders. Real costs and take-up still need validation.')+'</p>'+link('/bundle-lab/simulate/',t('换一组经营假设','Try a different scenario'));
    }
    if(myTicket!==ticket)return;
-   film.innerHTML='<header><small>'+ (act+1)+' / 3　'+titles()[route]+'</small><h3 tabindex="-1">'+series()[route][act]+'</h3></header><div class="film-page">'+body+'</div><nav><button id="prevAct" '+(!act?'disabled':'')+'>← '+t('上一幕','Back')+'</button><button id="nextAct">'+(act===2?t('回到自由演示','Back to free tour'):t('下一幕','Next'))+' →</button></nav>';
+   film.innerHTML='<header><small>'+ (act+1)+' / 3　'+titles()[route]+'</small><h3 tabindex="-1">'+series()[route][act]+'</h3></header><div class="film-page'+(focus?' film-opening':'')+'">'+body+'</div><nav><button id="prevAct" '+(!act?'disabled':'')+'>← '+t('上一幕','Back')+'</button><button id="nextAct">'+(act===2?t('回到自由演示','Back to free tour'):t('下一幕','Next'))+' →</button></nav>';
    const $=id=>film.querySelector('#'+id);
    $('prevAct').onclick=()=>step(-1);$('nextAct').onclick=()=>step(1);
    if($('citeLine'))$('citeLine').onclick=()=>{revealed=!revealed;show().then(()=>$('citeLine')?.focus());};
@@ -75,6 +86,7 @@ if(selected){
    if($('filmRule'))$('filmRule').onchange=e=>{rule=e.target.value;show().then(()=>$('filmRule')?.focus());};
    if($('filmRate'))$('filmRate').onchange=e=>{rate=Number(e.target.value);show().then(()=>$('filmRate')?.focus());};
    film.querySelectorAll('[data-decision]').forEach(b=>b.onclick=()=>{decision=b.dataset.decision;show().then(()=>film.querySelector('[data-decision="'+decision+'"]')?.focus());});
+   languageLinks(film);
    if(focus)film.querySelector('h3').focus({preventScroll:true});
   }catch(err){if(myTicket===ticket)film.innerHTML='<p>'+t('此幕资料暂时无法载入。','This scene could not load.')+'</p>'+link(({ai:'/llm-output-eval/',strategy:'/studio/menu/',growth:'/bundle-lab/simulate/'})[route],t('打开完整工具','Open full tool'));}
  }
