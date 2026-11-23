@@ -1366,6 +1366,132 @@
       "presentation": {
         "kind": "demo"
       }
+    },
+    {
+      "id": "scene-revision",
+      "name": "改一场戏",
+      "nameEn": "Move the reveal",
+      "subtitle": "把揭晓推迟两场，哪句台词会穿帮？",
+      "subtitleEn": "Which line breaks when the reveal moves two scenes later?",
+      "description": "在五场剧本里追踪人物知情线，逐句采纳修订，也可以换成自己的剧本。",
+      "descriptionEn": "Track knowledge across five scenes, accept line edits, or bring your own script.",
+      "url": "/studio/script/",
+      "group": "main",
+      "category": "ai",
+      "tags": [
+        "独立项目"
+      ],
+      "context": "把揭晓推迟两场，哪句台词会穿帮？",
+      "contextEn": "Which line breaks when the reveal moves two scenes later?",
+      "approach": [
+        "对白由作者标记，改动可逐句撤回。导出包含修订正文、待处理对白与修改清单。"
+      ],
+      "approachEn": [
+        "Authors mark the lines and can undo each edit. The export includes the edited scenes, open lines and a change log."
+      ],
+      "result": "使用自编材料，可在本机导出这次操作的结果。",
+      "resultEn": "Original material, with a locally exportable result.",
+      "presentation": {
+        "kind": "local",
+        "question": {
+          "zh": "把揭晓推迟两场，哪句台词会穿帮？",
+          "en": "Which line breaks when the reveal moves two scenes later?"
+        },
+        "image": "/assets/studio-covers/script.webp",
+        "thumbnail": "/assets/studio-covers/script.webp",
+        "coverSize": {
+          "width": 1120,
+          "height": 700
+        },
+        "caption": {
+          "zh": "改一场戏 · 实际界面",
+          "en": "Move the reveal · Actual interface"
+        }
+      }
+    },
+    {
+      "id": "menu-search",
+      "name": "一道菜，三种拼法",
+      "nameEn": "One dish, three spellings",
+      "subtitle": "找回了音译菜名，排在第一位的还是那道菜吗？",
+      "subtitleEn": "Does the right dish still rank first after adding aliases?",
+      "description": "在同一份双语菜单上比较三种搜索规则，逐条核对找回与错配，可带入自己的菜名和别名。",
+      "descriptionEn": "Compare three rules on a bilingual menu, inspect gains and losses, and try your own aliases.",
+      "url": "/studio/menu/",
+      "group": "main",
+      "category": "strategy",
+      "tags": [
+        "独立项目"
+      ],
+      "context": "找回了音译菜名，排在第一位的还是那道菜吗？",
+      "contextEn": "Does the right dish still rank first after adding aliases?",
+      "approach": [
+        "使用原创菜品与标注查询。导出保留规则、目标菜和每条查询前后的排序。"
+      ],
+      "approachEn": [
+        "Original dishes and labeled queries. The export includes the rules, expected dish and both result lists."
+      ],
+      "result": "使用自编材料，可在本机导出这次操作的结果。",
+      "resultEn": "Original material, with a locally exportable result.",
+      "presentation": {
+        "kind": "local",
+        "question": {
+          "zh": "找回了音译菜名，排在第一位的还是那道菜吗？",
+          "en": "Does the right dish still rank first after adding aliases?"
+        },
+        "image": "/assets/studio-covers/menu.webp",
+        "thumbnail": "/assets/studio-covers/menu.webp",
+        "coverSize": {
+          "width": 1120,
+          "height": 700
+        },
+        "caption": {
+          "zh": "一道菜，三种拼法 · 实际界面",
+          "en": "One dish, three spellings · Actual interface"
+        }
+      }
+    },
+    {
+      "id": "generation-quote",
+      "name": "开拍前，这批生成要花多少？",
+      "nameEn": "What will this shoot cost?",
+      "subtitle": "三次生成有一次失败，团队怎样结账？",
+      "subtitleEn": "One of three shots fails. What should the team be charged?",
+      "description": "预估镜头费用并预留团队积分，模拟失败与重试，逐笔核对退回、过期和实际扣款。",
+      "descriptionEn": "Quote a shoot, reserve credits and trace refunds, expiry and final charges through retries.",
+      "url": "/studio/credits/",
+      "group": "main",
+      "category": "growth",
+      "tags": [
+        "独立项目"
+      ],
+      "context": "三次生成有一次失败，团队怎样结账？",
+      "contextEn": "One of three shots fails. What should the team be charged?",
+      "approach": [
+        "额度和有效期可改；每次预留、结算或退回都保留镜头号和负责人。"
+      ],
+      "approachEn": [
+        "Edit caps and expiry. Every reservation, charge and return identifies its shot and owner."
+      ],
+      "result": "使用自编材料，可在本机导出这次操作的结果。",
+      "resultEn": "Original material, with a locally exportable result.",
+      "presentation": {
+        "kind": "local",
+        "question": {
+          "zh": "三次生成有一次失败，团队怎样结账？",
+          "en": "One of three shots fails. What should the team be charged?"
+        },
+        "image": "/assets/studio-covers/credits.webp",
+        "thumbnail": "/assets/studio-covers/credits.webp",
+        "coverSize": {
+          "width": 1120,
+          "height": 700
+        },
+        "caption": {
+          "zh": "开拍前，这批生成要花多少？ · 实际界面",
+          "en": "What will this shoot cost? · Actual interface"
+        }
+      }
     }
   ],
   "skills": {

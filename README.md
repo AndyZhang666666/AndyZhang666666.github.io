@@ -1,5 +1,7 @@
 # Andy Zhang · 产品作品集与独立工具
 
+本地审阅新增三个独立作品，从三份简历可以进入剧本修订、双语菜单检索和制作积分核算。四个精选仍可自由演示，另有三条手动放映路线。[作品与审阅入口](studio/README.md)
+
 [三份定稿简历](https://andyzhang666666.github.io/#resumes) · [按任务查看工作案例与独立作品](https://andyzhang666666.github.io/#jd)
 
 **四Demo联合精修已发布（2026-11-13）：** 偏爱、Eval、Bundle与可信RAG完成工作区、交互及真实作品展示更新。三个仓库均已普通合并，Pages部署成功，实际HTTPS操作核对通过。本地预览保留。[发布记录与GitHub提交](docs/RELEASE-20261113.md) · [完整改动与验证范围](docs/FOUR-DEMO-CRAFT-20261112.md)。

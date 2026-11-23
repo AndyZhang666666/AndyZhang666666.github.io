@@ -1,3 +1,4 @@
+import {objects} from '../content/studio-objects.mjs';
 import { containsKeyword, requirements } from './evidence-core.mjs';
 import { tasks } from '../content/task-portfolio.mjs?v=cv1';
 import { quickTasks } from '../content/resume-profile.mjs';
@@ -25,6 +26,8 @@ export function lookup(input) {
     if(!hits.length){missing.push(part);continue;}
     hits.forEach(({task,score},i)=>record(task,part,score,i===0));
     const first=hits[0].task;
+    const independent=objects.find(o=>o.evidence===first.id);
+    if(independent)record(byId.get('studio-'+independent.folder),part,hits[0].score-0.05);
     if(first.related)record(byId.get(first.related),part,hits[0].score-0.1);
     if(quick?.[0]==='subscription')for(const id of ['premium','membership'])record(byId.get(id),part,2);
   }

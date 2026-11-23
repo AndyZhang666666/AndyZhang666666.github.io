@@ -1,14 +1,19 @@
+import {objects,studioURL} from '../content/studio-objects.mjs';
 import {hero, resumes, aboutStrategy, quickTasks, work, evidence} from '../content/resume-profile.mjs';
 const escape=s=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;');
 const bilingual=(zh,en,tag='span',cls='')=>`<${tag}${cls?' class="'+cls+'"':''} data-zh="${escape(zh)}" data-en="${escape(en)}">${escape(zh)}</${tag}>`;
+const example=(key,by='evidence')=>{
+ const o=objects.find(item=>item[by]===key);
+ return o?'<a class="independent-example" href="'+studioURL(o)+'">'+bilingual('独立作品 · '+o.name[0],'Independent work · '+o.name[1])+' ↗</a>':'';
+};
 const notes=(owner)=>evidence.filter(x=>x.owner===owner).map(item=>
- `<details class="evidence-note" id="evidence-${item.id}"><summary>${bilingual(...item.title)}</summary>${bilingual(...item.desc,'p')}${['fde','content'].includes(owner)?`<a href="${owner==='fde'?'/cases/agent-workflow/':'#project-content'}">${bilingual('查看项目','View project')} ↗</a>`:''}</details>`).join('');
+ `<details class="evidence-note" id="evidence-${item.id}"><summary>${bilingual(...item.title)}</summary>${bilingual(...item.desc,'p')}${example(item.id)}${['fde','content'].includes(owner)?`<a href="${owner==='fde'?'/cases/agent-workflow/':'#project-content'}">${bilingual('查看项目','View project')} ↗</a>`:''}</details>`).join('');
 export function experienceHTML(){
  return `<dl class="work-notes">${work.map(([id,zh,en,skill,skillEn,date,dateEn])=>
   `<div id="work-${id}"><dt>${bilingual(zh,en)}${date?bilingual(date,dateEn,'small','work-period'):''}</dt><dd>${bilingual(skill,skillEn)}${notes(id)}</dd></div>`).join('')}</dl><aside class="side-evidence">${bilingual('独立实践','Independent work','h3')}${notes('fde')}${notes('content')}</aside>`;
 }
 export function resumeLinks(){
- return `<details class="resume-picker" id="resumes"><summary>${bilingual('查看简历','View résumés')}</summary><ul>${resumes.map(([id,zh,en,tip,tipEn])=>`<li><a href="/assets/cv/${id}.pdf" target="_blank" rel="noopener">${bilingual(zh,en)} <small>${bilingual('PDF ↗','PDF in Chinese ↗')}</small></a>${bilingual(tip,tipEn,'small')}</li>`).join('')}</ul></details>`;
+ return `<details class="resume-picker" id="resumes"><summary>${bilingual('查看简历','View résumés')}</summary><ul>${resumes.map(([id,zh,en,tip,tipEn])=>`<li><a href="/assets/cv/${id}.pdf" target="_blank" rel="noopener">${bilingual(zh,en)} <small>${bilingual('PDF ↗','PDF in Chinese ↗')}</small></a>${bilingual(tip,tipEn,'small')}${id==='strategy-product'?example(id,'cv'):''}</li>`).join('')}</ul></details>`;
 }
 export const resultPrompts=()=>quickTasks.map(([id,zh,en])=>`<button type="button" class="jd-sample" data-task="${id}" aria-pressed="false">${bilingual(zh,en)}<span aria-hidden="true">↗</span></button>`).join('');
 const replacements=[

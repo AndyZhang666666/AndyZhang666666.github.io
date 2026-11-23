@@ -59,3 +59,4 @@ export function compose(){
  fs.writeFileSync('app.js',app);
 }
 compose();
+await import("./compose-studio.mjs");

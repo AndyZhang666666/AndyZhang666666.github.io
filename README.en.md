@@ -1,5 +1,7 @@
 # Andy Zhang · Product portfolio and independent tools
 
+The local review adds three independent tools for scene revision, multilingual menu search and production credits. Three guided presentations sit alongside the four selected demos. [Open the review guide](studio/README.md)
+
 [Three role-specific résumés (Chinese PDFs)](https://andyzhang666666.github.io/#resumes) · [Find work by task](https://andyzhang666666.github.io/#jd)
 
 **Four-demo craft update published (2026-11-13):** workspace, interaction and artwork refinements for TasteRoom, Eval, Bundle and Trustworthy RAG are live. All three repositories retain ordinary merge commits, successful Pages deployments and actual HTTPS task checks. Local review remains available. [Release and GitHub history](docs/RELEASE-20261113.md) · [Changes and verification scope](docs/FOUR-DEMO-CRAFT-20261112.md).
