@@ -15,7 +15,7 @@ function trace(rows, side, cumulative) {
   const points = rows.map((r,i) => [xFor(side,i),yFor(r[field],cap)]);
   if (!cumulative) {
     const bars = points.map(([x,y]) => 'M'+(x-7)+' 236V'+y+'h14V236Z').join('');
-    return {line:'',fill:bars,points};
+    return {line:bars,fill:bars,points};
   }
   let line = 'M'+points[0][0]+' '+points[0][1];
   for (const [x,y] of points.slice(1)) line += 'H'+x+'V'+y;
@@ -44,14 +44,18 @@ export function orderBook(fig) {
       $('[data-path-'+s+']').setAttribute('d',a.line);
       $('[data-base-'+s+']').setAttribute('d',amount && side===s ? (cumulative ? base.line : base.fill.slice(0,base.fill.indexOf('Z')+1)) : '');
       const [x,y]=a.points[level];
-      $('[data-dot-'+s+']').setAttribute('cx',x);$('[data-dot-'+s+']').setAttribute('cy',y);
-      $('[data-rule-'+s+']').setAttribute('d','M'+x+' 41V235');
+      $('[data-dot-'+s+']').setAttribute('transform','translate('+x+' '+y+')');
+      $('[data-rule-'+s+']').setAttribute('d','M'+x+' 52V236');
     }
     $('[data-bid-label]').textContent=t('买侧','BID');
     $('[data-ask-label]').textContent=t('卖侧','ASK');
+    $('[data-before-key]').setAttribute('visibility',amount ? 'visible' : 'hidden');
+    $('[data-before-label]').textContent=t('撤单前','Before');
     $('[data-spread-label]').textContent=t('价差','SPREAD')+' 0.25';
-    $('[data-plot-max]').textContent=(cumulative?cumulativeMax:200)+' '+t('手','lots');
-    $('[data-plot-unit]').textContent=cumulative?t('累计挂量','CUMULATIVE DEPTH'):t('单档挂量','RESTING SIZE');
+    const ceiling=cumulative ? cumulativeMax : 200;
+    $('[data-plot-max]').textContent=String(ceiling);
+    $('[data-plot-mid]').textContent=String(ceiling / 2);
+    $('[data-plot-unit]').textContent=cumulative?t('累计挂量 · 手','Cumulative lots'):t('单档挂量 · 手','Lots per level');
     $('[data-r=balance-label]').textContent=t('最优档不平衡','Top-of-book imbalance');
     $('[data-r=imbalance]').textContent=percent(q.imbalance);
     $('.rp-balance i').style.width=(100*q.bid/(q.bid+q.ask))+'%';

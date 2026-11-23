@@ -28,11 +28,13 @@ try{
   await page.goto(base+'/#thesis-order-flow',{waitUntil:'domcontentloaded'});
   await book.locator('output').waitFor();await open(book);
   assert.match(await book.locator('output').innerText(),/5000.00 × 38/);
+  assert.equal(await book.locator('[data-before-key]').getAttribute('visibility'),'hidden');
   await act(book,'range').focus();await act(book,'range').press('End');assert.match(await book.locator('output').innerText(),/5000.00 × 1[　 ]/);
   await act(book,'reset').click();await act(book,'ask').click();await act(book,'play').click();
   await page.waitForFunction(()=>document.querySelector('#thesis-order-flow input').value==='50');
   assert.match(await book.locator('output').innerText(),/5000.25 × 21/);assert.match(await book.locator('[data-r=imbalance]').innerText(),/\+28.8%/);
   assert.ok((await book.locator('[data-base-ask]').getAttribute('d')).length>10);
+  assert.equal(await book.locator('[data-before-key]').getAttribute('visibility'),'visible');
   await act(book,'levels').click();await book.locator('select').selectOption('2');
   assert.deepEqual(await book.locator('.rp-buy td').allTextContents(),['4999.50','94']);
   await act(book,'cumulative').click();assert.deepEqual(await book.locator('.rp-buy td').allTextContents(),['4999.50','200']);
@@ -61,12 +63,23 @@ try{
   assert.match(await wear.locator('.instrument-title').innerText(),/Movement/);
   assert.match(await act(book,'ask').innerText(),/Ask/);
   assert.equal(await book.locator('select option:checked').textContent(),'Level '+(Number(await book.locator('select').inputValue())+1));
+  const bookPapers=new Set(),bookInks=new Set();
   for(const language of ['en','zh']){
     if(language==='zh')await page.locator('#langToggle').evaluate(b=>b.click());
     for(const width of [360,390,768,820,821,1024,1440]){
       await page.setViewportSize({width,height:850});
       for(const palette of ['frost','mist','copper','indigo']){
         await page.locator('#paletteSwitch [data-palette="'+palette+'"]').evaluate(b=>b.click());
+        if(width===390&&language==='en'){
+          const look=await book.evaluate(el=>({
+            paper:getComputedStyle(el.querySelector('.rp-illustration')).backgroundColor,
+            ink:getComputedStyle(el.querySelector('[data-path-bid]')).stroke,
+            selectScheme:getComputedStyle(el.querySelector('select')).colorScheme,
+            siteScheme:getComputedStyle(document.documentElement).colorScheme
+          }));
+          bookPapers.add(look.paper);bookInks.add(look.ink);
+          assert.equal(look.selectScheme,look.siteScheme,'The native menu follows the page palette');
+        }
         for(const fig of [book,wear]){
           const fits=await fig.evaluate(el=>el.scrollWidth<=el.clientWidth+1 && [...el.querySelectorAll('button,select,input')].every(c=>{const x=c.getBoundingClientRect(),f=el.getBoundingClientRect();return x.width>0&&x.left>=f.left-1&&x.right<=f.right+1;}));
           assert.ok(fits,language+' '+width+' '+palette+' '+await fig.getAttribute('id'));
@@ -74,6 +87,8 @@ try{
       }
     }
   }
+  assert.equal(bookPapers.size,4,'The order book uses the paper of each site palette');
+  assert.equal(bookInks.size,4,'Its drawing inks change with the site palette');
   await page.setViewportSize({width:390,height:844});await page.locator('#paletteSwitch [data-palette=frost]').evaluate(b=>b.click());
   await open(book);await act(book,'ask').click();await act(book,'play').click();await shot(book,'ucl-mobile');
   await open(wear);await seek(wear,1);await act(wear,'pin').click();await seek(wear,3);await shot(wear,'bristol-mobile');

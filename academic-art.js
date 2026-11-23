@@ -54,21 +54,38 @@
   }
 
   function orderFlow() {
-    const grid = [0,1,2,3,4].map(i => '<path d="M40 '+(42+i*49)+'H504"/>').join('');
-    const vert = [0,1,2,3,4,5,6,7,8,9,10].map(i => '<path d="M'+(42+i*46)+' 41V239"/>').join('');
-    return `<defs><linearGradient id="book-bid" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#67e0c5" stop-opacity=".72"/><stop offset="1" stop-color="#397a75" stop-opacity=".1"/></linearGradient>
-      <linearGradient id="book-ask" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#f3b47d" stop-opacity=".74"/><stop offset="1" stop-color="#a17160" stop-opacity=".1"/></linearGradient>
-      <pattern id="book-hatch" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 6l6-6" stroke="#91a5af" opacity=".3" stroke-width=".7"/></pattern></defs>
-    <rect width="540" height="294" fill="#152a32"/><rect x="252" y="41" width="40" height="198" fill="url(#book-hatch)"/>
-    <g fill="none" stroke="#354a50" stroke-width=".65">${grid}${vert}</g>
-    <g data-fill-bid fill="url(#book-bid)"></g><g data-fill-ask fill="url(#book-ask)"></g>
-    <g fill="none" stroke-linejoin="round" stroke-width="2"><path data-path-bid stroke="#79e3cc"/><path data-path-ask stroke="#fec18a"/></g>
-    <g fill="none" stroke-width="1" stroke-dasharray="4 4" opacity=".85"><path data-base-bid stroke="#a6ece0"/><path data-base-ask stroke="#ffe1c2"/></g>
-    <g data-inspect-guides fill="none" stroke-dasharray="2 4" stroke="#afc0c3" opacity=".65"><path data-rule-bid/><path data-rule-ask/></g>
-    <g fill="#152a32" stroke-width="2"><circle data-dot-bid r="4.4" stroke="#79e3cc"/><circle data-dot-ask r="4.4" stroke="#fec18a"/></g>
-    <g class="rp-diagram-type" fill="#c5d3d3"><text x="40" y="22" data-plot-max></text><circle cx="138" cy="18" r="2.6" fill="#79e3cc"/><text x="147" y="22" data-bid-label></text><circle cx="198" cy="18" r="2.6" fill="#fec18a"/><text x="207" y="22" data-ask-label></text><text x="504" y="22" text-anchor="end" data-plot-unit></text>
-      <text x="40" y="264">4997.75</text><text x="248" y="264" text-anchor="end" fill="#96e4d2">5000.00</text><text x="297" y="264" fill="#ffd0a5">5000.25</text><text x="504" y="264" text-anchor="end">5002.50</text></g>
-    <text x="272" y="283" text-anchor="middle" class="rp-diagram-type" fill="#b2c6c7" data-spread-label></text><path d="M251 247v4h42v-4" stroke="#9caeae" fill="none"/>`;
+    return `<defs>
+      <pattern id="book-ask-engraving" width="7" height="7" patternUnits="userSpaceOnUse">
+        <rect width="7" height="7" fill="var(--book-ask)" opacity=".07"/>
+        <path d="M-1 1L1 -1 M0 7L7 0 M6 8L8 6" fill="none" stroke="var(--book-ask)" opacity=".34" stroke-width=".7"/>
+      </pattern>
+    </defs>
+    <g fill="none" stroke="var(--line)" stroke-width=".75"><path d="M40 52h464M40 98h464M40 144h464M40 190h464"/></g>
+    <path d="M40 236h464" stroke="var(--soft)" stroke-width=".8"/>
+    <g data-fill-bid fill="var(--book-bid)" fill-opacity=".16"></g>
+    <g data-fill-ask fill="url(#book-ask-engraving)"></g>
+    <g fill="none" stroke-width="1.8" stroke-linejoin="round">
+      <path data-path-bid stroke="var(--book-bid)"/><path data-path-ask stroke="var(--book-ask)"/>
+    </g>
+    <g fill="none" stroke-width="1.15" stroke-dasharray="3 3">
+      <path data-base-bid stroke="var(--book-bid)"/><path data-base-ask stroke="var(--book-ask)"/>
+    </g>
+    <g data-inspect-guides fill="none" stroke="var(--soft)" stroke-width=".8" stroke-dasharray="1.5 4" opacity=".75"><path data-rule-bid/><path data-rule-ask/></g>
+    <g fill="var(--pane)" stroke-width="1.8">
+      <g data-dot-bid><circle r="4" stroke="var(--book-bid)"/></g>
+      <g data-dot-ask><path d="M0 -4.8L4.8 0L0 4.8L-4.8 0Z" stroke="var(--book-ask)"/></g>
+    </g>
+    <g class="rp-diagram-type" fill="var(--soft)">
+      <path d="M40 20h18" stroke="var(--book-bid)" stroke-width="1.6"/><circle cx="49" cy="20" r="2.7" fill="var(--book-bid)"/><text x="65" y="24" data-bid-label></text>
+      <path d="M128 20h18" stroke="var(--book-ask)" stroke-width="1.6"/><path d="M137 16.5l3.5 3.5-3.5 3.5-3.5-3.5Z" fill="var(--book-ask)"/><text x="153" y="24" data-ask-label></text>
+      <g data-before-key visibility="hidden"><path d="M220 20h18" stroke="var(--soft)" stroke-width="1.1" stroke-dasharray="3 3"/><text x="244" y="24" data-before-label></text></g>
+      <text x="504" y="24" text-anchor="end" data-plot-unit></text>
+      <g class="rp-book-axis" text-anchor="end"><text x="34" y="55" data-plot-max></text><text x="34" y="147" data-plot-mid></text><text x="34" y="239">0</text></g>
+      <text x="40" y="258">4997.75</text><text x="247" y="258" text-anchor="end" fill="var(--book-bid)">5000.00</text>
+      <text x="297" y="258" fill="var(--book-ask)">5000.25</text><text x="504" y="258" text-anchor="end">5002.50</text>
+      <text x="272" y="282" text-anchor="middle" data-spread-label></text>
+    </g>
+    <path d="M247 265v4h50v-4" fill="none" stroke="var(--soft)" stroke-width=".8"/>`;
   }
 
   function figure(type) {
