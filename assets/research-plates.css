@@ -1,0 +1,159 @@
+/* Editorial plates. The academic copy stays on the page; each instrument owns its working surface. */
+#education .edu-extra .thesis-item {row-gap:0}
+@media (min-width:721px) {
+  #education .edu-extra .thesis-item {display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);grid-template-rows:auto auto auto auto;align-items:start}
+  #education .thesis-item .thesis-kicker {grid-row:1;grid-column:1;margin-bottom:7px}
+  #education .thesis-item .thesis-title {grid-row:2;grid-column:1;max-width:22ch;margin-bottom:12px}
+  #education .thesis-item .thesis-summary {grid-row:1 / span 2;grid-column:2;align-self:center;margin:0;max-width:64ch}
+  #education .thesis-item .thesis-tags {grid-row:3;grid-column:1/-1;margin:4px 0 20px}
+  #education .thesis-item .thesis-scene.research-plate {grid-row:4;grid-column:1/-1}
+  #education .thesis-item .thesis-result {grid-row:5;grid-column:1/-1}
+}
+#education .thesis-item .research-plate {
+  --ink:#e1eeea;--soft:#b5c8c5;--line:#3c5055;--sheet:#192f37;--pane:#152a32;--signal:#92ead4;--opposite:#ffc28b;
+  isolation:isolate;scroll-margin-top:88px;overflow:hidden;width:100%;align-self:stretch;color:var(--ink);background:var(--sheet);border:1px solid var(--line);border-radius:3px;
+  box-shadow:0 3px 1px -2px color-mix(in srgb,var(--fg) 12%, transparent),0 15px 33px -28px var(--fg);
+  text-align:start;font-family:var(--font-sans)
+}
+#education .thesis-item .research-bachelor {
+  --ink:#3f3030;--soft:#6c514a;--line:#c9b29e;--sheet:#f5eadb;--pane:#f1e4d3;--signal:#9f3f31;--opposite:#3e686a
+}
+#education .research-plate .rp-heading {
+  display:flex;align-items:end;justify-content:space-between;gap:10px;margin:0;padding:clamp(14px,2vw,23px) clamp(15px,2.5vw,30px) 14px;color:var(--ink);
+  border-bottom:1px solid var(--line);background:var(--sheet)
+}
+.rp-heading>div{display:grid;gap:4px}
+#education .rp-eyebrow {font:550 10px/1.4 var(--font-mono);letter-spacing:.12em;color:var(--soft)}
+#education .rp-heading strong {font:550 clamp(23px,2.55vw,34px)/1.18 var(--font-serif);letter-spacing:-.035em;color:var(--ink)}
+#education .rp-heading small{font:450 12px/1.6 var(--font-sans);color:var(--soft);text-align:end}
+.rp-bench {display:grid;grid-template-columns:minmax(0,1.8fr) minmax(215px,.85fr);align-items:stretch}
+#education .research-plate .rp-illustration {display:grid;align-content:center;overflow:hidden;position:relative;min-width:0;background:var(--pane)}
+#education .research-plate svg {display:block;background:none;color:inherit;border:0;box-shadow:none;width:100%;height:auto;overflow:hidden}
+#education .research-plate .rp-illustration>svg {max-height:360px}
+#education .research-master .rp-illustration>svg {cursor:crosshair}
+.rp-diagram-type,.rp-wave-label{font:10.5px/1 var(--font-mono);letter-spacing:.025em}
+.rp-readout {display:flex;flex-direction:column;justify-content:center;gap:9px;padding:clamp(13px,2.2vw,30px);border-inline-start:1px solid var(--line);color:var(--ink);min-width:0;font-size:13px;line-height:1.45;font-variant-numeric:tabular-nums}
+.rp-readout-top {display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:3px 8px}
+.rp-readout-top>span,.rp-level-label label,.rp-device small,.rp-reference,.rp-compare {font-size:12px;line-height:1.55;color:var(--soft)}
+.rp-readout-top strong {font:500 clamp(26px,2.9vw,41px)/1.05 var(--font-mono);letter-spacing:-.07em;color:var(--ink)}
+.rp-balance {height:5px;display:flex;gap:2px;margin:0}
+.rp-balance i {background:var(--signal)}
+.rp-balance b {flex:1;background:var(--opposite)}
+.rp-compare {min-height:1.6em}
+.rp-level-label {display:flex;align-items:center;justify-content:space-between;gap:4px;border-top:1px solid var(--line);padding-top:10px;margin-top:5px}
+.rp-level-label select {font:inherit;color:var(--ink);background:var(--pane);border:1px solid var(--line);border-radius:3px;padding:3px;min-height:34px}
+.research-master .rp-level-label select{color-scheme:dark}
+.rp-book-table {width:100%;border-collapse:collapse;font:500 13px/1.6 var(--font-mono)}
+.rp-book-table th,.rp-book-table td {font-weight:500;text-align:end;padding:3px 0;color:var(--ink)}
+.rp-book-table th:first-child {text-align:start}
+.rp-book-table thead th {font:450 11px/1.5 var(--font-sans);color:var(--soft)}
+.rp-book-table .rp-buy th {color:var(--signal)}
+.rp-book-table .rp-sell th {color:var(--opposite)}
+.rp-sensor-wire {stroke-width:1;stroke-dasharray:2 3}
+.rp-node {fill:#d76a4a;stroke:#fff0d7;stroke-width:1.7;cursor:pointer}
+.rp-illustration [data-ghost-arm]{pointer-events:none}
+#education .rp-readout .rp-trace {max-height:112px;overflow:visible}
+.rp-trace [data-trace] {fill:none;stroke-width:1.4;stroke-linejoin:round;stroke-linecap:round}
+.rp-trace [data-trace=arm]{stroke:var(--signal)}
+.rp-trace [data-trace=back]{stroke:var(--opposite)}
+[data-sensor=arm] .rp-trace [data-trace=arm],[data-sensor=back] .rp-trace [data-trace=back]{stroke-width:2.8}
+.rp-trace [data-cursor]{fill:none;stroke:var(--ink);stroke-width:1}
+.rp-trace [data-pin-cursor]{fill:none;stroke:var(--signal);stroke-dasharray:2 2}
+.rp-trace [data-signal-dot]{fill:var(--sheet);stroke:var(--ink);stroke-width:1.6}
+.rp-wave-label{fill:var(--soft);font-size:9px}
+.rp-device {display:flex;align-items:center;gap:7px;border-top:1px solid var(--line);padding-top:8px}
+#education .rp-device svg {height:44px;width:39px;flex:none}
+.rp-device>div {display:grid;gap:2px}
+.rp-device b {font-weight:600;font-size:15px;color:var(--ink)}
+.rp-frame-no {margin-inline-start:auto;color:var(--soft);font:500 12px/1.3 var(--font-mono)}
+#education .rp-readout .rp-reference {font-size:11px;margin:0}
+#education .research-plate .rp-controls {position:relative;color:var(--ink);background:var(--sheet);border:0;border-top:1px solid var(--line);padding:13px clamp(14px,2.5vw,30px) 15px;margin:0;text-align:start}
+.rp-command,.rp-modes,.rp-group,.rp-timeline,.rp-track {display:flex;align-items:center}
+.rp-command {flex-wrap:wrap;justify-content:space-between;gap:4px 14px}
+#education .rp-controls .instrument-title {display:inline;font:650 14px/1.5 var(--font-sans);color:var(--ink)}
+.rp-modes {gap:12px;flex-wrap:wrap}
+.rp-group {position:relative;gap:2px}
+.rp-group+.rp-group::before {content:"";height:15px;width:1px;background:var(--line);margin-inline-end:6px}
+#education .research-plate .rp-controls button {position:relative;min-height:36px;min-width:33px;margin:0;padding:3px 9px;border:1px solid transparent;border-radius:3px;background:transparent;color:var(--ink);font:500 13px/1.4 var(--font-sans);cursor:pointer;box-shadow:none;transform:none}
+#education .rp-controls .rp-group button {color:var(--soft)}
+#education .rp-controls .rp-group button[aria-pressed=true] {color:var(--signal);background:color-mix(in srgb,var(--signal) 10%, transparent);border-bottom-color:var(--signal)}
+.rp-timeline {margin-top:7px;gap:clamp(6px,1.2vw,15px)}
+#education .research-plate .rp-controls .rp-play {min-width:90px;background:var(--signal);color:var(--pane);font-weight:650;white-space:nowrap}
+#education .research-bachelor .rp-play {color:#fff7ec}
+.rp-play::before {content:"";display:inline-block;border:4px solid transparent;border-left:6px solid currentColor;border-right:0;margin-inline-end:7px;vertical-align:1px}
+.rp-play[data-playing=true]::before{border:0;border-inline:2px solid currentColor;width:6px;height:8px;box-sizing:border-box}
+.rp-track {flex:1;gap:4px;min-width:0}
+#education .rp-track button {border-color:var(--line);font:500 17px var(--font-mono);color:var(--ink)}
+#education .rp-track button:disabled {opacity:.42;cursor:default}
+#education .rp-controls .rp-reset {color:var(--soft);text-decoration:underline;text-underline-offset:3px}
+.rp-track input {display:block;flex:1;min-width:0;width:100%;height:36px;margin:0;appearance:none;-webkit-appearance:none;cursor:pointer;background:transparent;accent-color:var(--signal);border:0;outline-offset:0}
+.rp-track input::-webkit-slider-runnable-track {height:3px;border-radius:2px;background:linear-gradient(to right,var(--signal) 0 var(--fill,0%),var(--line) var(--fill,0%) 100%)}
+.rp-track input::-webkit-slider-thumb {appearance:none;-webkit-appearance:none;width:14px;height:14px;margin-top:-5.5px;border-radius:50%;background:var(--signal);border:2px solid var(--sheet);box-shadow:0 0 0 1px var(--signal)}
+.rp-track input::-moz-range-track{height:3px;background:var(--line)}
+.rp-track input::-moz-range-progress{height:3px;background:var(--signal)}
+.rp-track input::-moz-range-thumb{background:var(--signal);border:2px solid var(--sheet);width:12px;height:12px}
+.rp-amount {font:500 12px/1.5 var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+#education .rp-controls output {display:block;min-height:1.5em;margin:7px 0 0;font:450 12px/1.6 var(--font-mono);color:var(--soft);letter-spacing:0;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+#education .research-plate :is(button,select,input):focus-visible {outline:2px solid var(--signal);outline-offset:2px}
+@media(hover:hover) {
+  #education .rp-controls button:not(:disabled):hover {border-color:var(--signal);color:var(--ink)}
+  #education .research-plate .rp-controls .rp-play:hover {color:var(--pane);filter:brightness(1.08)}
+}
+@media(prefers-reduced-motion:no-preference){
+  #education .research-plate.art-running .rp-controls button {transition:transform .13s ease-out,background-color .15s,border-color .15s}
+  #education .research-plate.art-running .rp-controls button:not(:disabled):active {transform:scale(.965)}
+  #education .research-plate.art-running [data-study-arm],#education .research-plate.art-running [data-phone-arm],#education .research-plate.art-running [data-body-trunk] {transition:transform .18s cubic-bezier(.22,.61,.36,1)}
+  #education .research-plate.art-running .rp-balance i {transition:width .13s ease-out}
+}
+@media(max-width:720px){
+  #education .edu-extra .thesis-item {display:flex;flex-direction:column}
+  #education .thesis-item .thesis-kicker {order:0}
+  #education .thesis-item .thesis-title {order:1;max-width:unset}
+  #education .thesis-item .thesis-summary {order:2;max-width:unset}
+  #education .thesis-item .thesis-tags {order:3;margin-bottom:17px}
+  #education .thesis-item .research-plate {order:4;scroll-margin-top:70px}
+  #education .thesis-item .thesis-result {order:5}
+  .rp-bench{grid-template-columns:minmax(0,1.35fr) minmax(158px,.8fr)}
+  .rp-readout {padding:13px}
+  #education .rp-controls .rp-group button {padding-inline:6px}
+}
+@media(max-width:540px){
+  #education .rp-heading {align-items:flex-start}
+  #education .rp-heading small {max-width:44%;font-size:11px}
+  .rp-bench {display:block}
+  .rp-readout {display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:4px 13px;padding:11px 14px;border-inline-start:0;border-top:1px solid var(--line)}
+  .rp-readout-top {align-content:start;align-items:start;flex-direction:column;gap:3px;grid-column:1;grid-row:1}
+  .rp-readout-top strong {font-size:27px}
+  .rp-balance {grid-column:1;grid-row:2;margin-top:4px}
+  .rp-compare {grid-column:1;grid-row:3;font-size:10px}
+  .rp-level-label {grid-column:2;grid-row:1;margin:0;border:0;padding:0;align-self:start}
+  .rp-book-table {grid-column:2;grid-row:2 / span 2;font-size:11.5px}
+  .rp-book-table th,.rp-book-table td{padding:1px 0}
+  .rp-level-label select {min-height:40px}
+  .rp-readout .rp-trace {grid-column:2;grid-row:1 / span 2;align-self:center}
+  .rp-device {grid-column:1;grid-row:2;gap:5px;padding-top:4px}
+  #education .rp-device svg {width:23px;height:34px}
+  .rp-device b,.rp-frame-no{font-size:11px}
+  #education .rp-reference{grid-column:1/-1}
+  .rp-command {align-items:start;gap:2px}
+  #education .rp-controls .instrument-title {width:100%}
+  .rp-modes {gap:3px}
+  .rp-timeline {display:grid;grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"play amount reset" "track track track";gap:2px 9px}
+  .rp-timeline .rp-play {grid-area:play;justify-self:start}
+  .rp-timeline .rp-track {grid-area:track}
+  .rp-timeline .rp-amount {grid-area:amount}
+  .rp-timeline .rp-reset {grid-area:reset}
+  #education .research-plate .rp-controls button {min-height:42px}
+  #education .research-plate .rp-controls .rp-play {min-width:69px;font-size:12px}
+  #education .rp-track button{min-width:30px;padding-inline:5px}
+  .rp-track {gap:2px}
+  .rp-track input {height:42px}
+  .rp-amount {font-size:10px}
+  #education .rp-controls .rp-reset {padding-inline:4px;min-width:30px;font-size:12px}
+  .rp-diagram-type {font-size:14.5px}
+}
+@media(max-width:360px){
+  #education .rp-modes {column-gap:0}
+  #education .rp-group button {font-size:12px}
+  .rp-group+.rp-group::before{margin-inline-end:1px}
+}

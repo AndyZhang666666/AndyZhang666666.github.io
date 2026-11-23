@@ -1,3 +1,4 @@
+@import url("./research-plates.css");
 #top.hero-v2 .hero-inner{position:relative}
 #top.hero-v2 .workdesk{grid-column:2;grid-row:1;z-index:4;align-self:end;justify-self:center;display:flex;align-items:end;justify-content:center;isolation:isolate;margin:0 0 -14px;max-width:100%;width:min(100%,370px);position:relative;color:var(--fg);font-family:var(--font-sans)}
 .paper-file{position:static;flex:1;min-width:0;--paper-angle:0deg;--paper-offset:0px;--paper-ink:var(--accent);--page:color-mix(in srgb,var(--bg-0) 88%,white);color:var(--fg)}
