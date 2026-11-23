@@ -28,7 +28,7 @@ html[data-motion=full] .hero-v2[data-motion-active=true] .portrait-ring,html[dat
 @media(max-width:1050px) and (min-width:901px){.hero-v2 .hero-portrait{width:min(100%,345px)}.hero-v2 .hero-inner{column-gap:32px}}
 @media(max-width:900px){
   .hero-v2{padding-top:110px;padding-bottom:50px;min-height:100svh;justify-content:flex-start}
-  .hero-v2 .hero-inner{grid-template-columns:minmax(0,1fr);grid-template-areas:"name" "role" "portrait" "cta" "summary" "meta" "jd";gap:16px;justify-items:center;text-align:center}
+  .hero-v2 .hero-inner{grid-template-columns:minmax(0,1fr);grid-template-areas:"name" "role" "portrait" "cta" "summary" "example" "meta";gap:16px;justify-items:center;text-align:center}
   .hero-v2 .hero-body,.hero-v2 .hero-tagline{display:contents}
   .hero-v2 .hero-tagline.reveal{opacity:1;transform:none;filter:none;clip-path:none;transition:none;animation:none}
   .hero-v2 .hero-name{grid-area:name;margin:0;align-items:center}
@@ -38,7 +38,7 @@ html[data-motion=full] .hero-v2[data-motion-active=true] .portrait-ring,html[dat
   .hero-v2 .hero-cta{grid-area:cta;justify-content:center;margin:2px 0 8px;gap:10px}
   .hero-v2 .hero-summary{grid-area:summary;margin:0;max-width:47ch;font-size:15px;line-height:1.8}
   .hero-v2 .hero-meta{grid-area:meta;align-items:center;margin:2px 0 0;gap:4px;font-size:13px;line-height:1.75}
-  .hero-v2 .hero-jd-link{grid-area:jd;margin:0;justify-content:center}
+  .hero-v2 .hero-example{grid-area:example;margin:0;max-width:46ch;font-size:14px;line-height:1.65;text-wrap:pretty}
   [data-palette] .hero-v2 .portrait-blob{left:13%!important;right:12%!important;top:16%;bottom:6%}
   [data-palette] .hero-v2 .portrait-ring{left:22%;right:5%;top:23%;bottom:3%}
   .hero-v2 .portrait-local-light{inset:5% 0 0 5%}

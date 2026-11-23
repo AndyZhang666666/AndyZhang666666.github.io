@@ -12,7 +12,7 @@ export function containsKeyword(text, word) {
 }
 
 // Keep the collaboration requirement visible when the following product action has its own evidence.
-function requirements(input) {
+export function requirements(input) {
   const pieces = input
     .replace(/((?:与|同|和)[^，,。；;\n]{0,36}?算法(?:团队)?(?:协同|协作|合作))(?=优化|验证|改进|设计|制定|推进)/g, '$1；')
     .replace(/((?:collaborate|partner|work) with [^,;.\n]{0,45}?algorithms? team) to /gi, '$1;')

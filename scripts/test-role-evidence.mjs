@@ -4,10 +4,9 @@ import test from 'node:test';
 import {findEvidence} from '../assets/evidence-core.mjs';
 
 const read = path => readFileSync(new URL('../' + path, import.meta.url), 'utf8');
-const html = read('index.html');
-const growth = html.match(/data-jd="([^"]+)">增长 \/ 商业化 PM/)[1];
-const strategy = html.match(/data-en="Search \/ Strategy PM" data-jd="([^"]+)" data-jd-en="([^"]+)"/);
-
+// These historical job descriptions remain regression inputs after the preset UI changed.
+const growth = "岗位职责：负责 App 的用户增长与商业化变现，包括订阅付费转化、ARPU 提升、会员权益设计；通过埋点数据分析做转化漏斗归因，设计并执行 A/B 实验；与运营、算法协同优化推荐与触达策略。任职要求：有 C 端增长或商业化经验，熟悉 SQL，有金融或支付业务理解优先。";
+const strategy = [null, "优化商品推荐与用户触达策略；用 A/B 实验观察转化和留存；与算法团队协作验证搜索排序模型。", "Improve product recommendations and user outreach; use A/B tests to assess conversion and retention; collaborate with the algorithms team to validate search ranking models."];
 for (const [lang, sample] of [['zh', strategy[1]], ['en', strategy[2]]]) {
   const {dims} = JSON.parse(read('content/evidence-' + lang + '.json'));
   const lookup = text => findEvidence(text, dims);

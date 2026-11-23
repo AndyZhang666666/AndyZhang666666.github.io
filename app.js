@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const res = await fetch('data.json?v=20261115-renovation1');
     if (!res.ok) throw new Error('Profile data could not be loaded');
     data = await res.json();
-    if (typeof applyResumeEvidence === 'function') applyResumeEvidence(data);
     render();
     attachEventListeners();
     initScrollAnimations();
@@ -36,21 +35,14 @@ function render() {
   renderAbout();
   renderAiViews();
   renderMarquee();
-  renderTimeline();
   renderEducation();
   renderProjects();
   renderAwards();
-  renderUses();
-  renderSkills();
   renderContact();
   updateLanguage();
 }
 
 function renderProfileIntro() {
-  const intro = document.querySelector('.hero-tagline');
-  if (intro) {
-    intro.innerHTML = window.personalPresentation.renderIntro(data);
-  }
   const qualifications = document.querySelectorAll('.hero-meta > span:not(.dot)');
   (data.education || []).forEach((edu, i) => {
     const node = qualifications[i];
@@ -64,56 +56,6 @@ function renderProfileIntro() {
 }
 
 // ===== RAILROAD TIMELINE（每段可点开，展开该段做过的东西） =====
-function renderTimeline() {
-  const el = document.getElementById('timeline');
-  el.innerHTML = data.experience.map((exp, i) => {
-    const works = exp.works || [];
-    const hasWorks = works.length > 0;
-    const worksHtml = hasWorks ? `
-      <div class="timeline-works" id="works-${i}" role="region" aria-hidden="true">
-        <div class="timeline-works-inner">
-          <div class="works-label" data-zh="在这里做了什么" data-en="What I built here">在这里做了什么</div>
-          <div class="works-grid">
-            ${works.map((w, j) => `
-              <div class="work-card" style="--i:${j}">
-                <div class="work-tags">${(w.tags || []).map(t => `<span class="work-tag">${esc(t)}</span>`).join('')}</div>
-                <div class="work-name" data-zh="${esc(w.name)}" data-en="${esc(w.nameEn || w.name)}">${esc(w.name)}</div>
-                <p class="work-desc" data-html-zh="${esc(hl(w.desc))}" data-html-en="${esc(hl(w.descEn || w.desc))}">${hl(w.desc)}</p>
-                ${w.url ? `<a class="work-link" href="${esc(w.url)}" target="_blank" rel="noopener"><span data-zh="打开看看" data-en="Open">打开看看</span> ↗</a>` : ''}
-              </div>`).join('')}
-          </div>
-        </div>
-      </div>` : '';
-
-    return `
-    <div class="timeline-item reveal${i === 0 ? ' current' : ''}${hasWorks ? ' expandable' : ''}" data-delay="${i * 70}" data-idx="${i}">
-      <div class="timeline-period" data-zh="${esc(exp.period)}" data-en="${esc(exp.periodEn || exp.period)}">${esc(exp.period)}</div>
-      <button type="button" class="timeline-head${hasWorks ? ' timeline-toggle' : ''}" ${hasWorks ? `aria-expanded="false" aria-controls="works-${i}"` : 'disabled'}>
-        <span class="timeline-company" data-zh="${esc(exp.company)}" data-en="${esc(exp.companyEn)}">${esc(exp.company)}</span>
-        <span class="timeline-role" data-zh="${esc(exp.role)}" data-en="${esc(exp.roleEn)}">${esc(exp.role)}</span>
-        ${hasWorks ? `<span class="timeline-expand-hint"><span data-zh="${works.length} 个项目" data-en="${works.length} projects">${works.length} 个项目</span><svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>` : ''}
-      </button>
-      ${exp.location ? `<div class="timeline-loc" data-zh="${esc(exp.location)}" data-en="${esc(exp.locationEn || exp.location)}">${esc(exp.location)}</div>` : ''}
-      <ul class="timeline-highlights">
-        ${(exp.highlights || []).map((h, j) => `<li data-html-zh="${esc(hl(h))}" data-html-en="${esc(hl((exp.highlightsEn || [])[j] || h))}">${hl(h)}</li>`).join('')}
-      </ul>
-      ${worksHtml}
-    </div>
-  `;
-  }).join('');
-
-  // 点击标题行展开 / 收起；用 grid-template-rows 0fr→1fr 做高度动画
-  el.querySelectorAll('.timeline-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.timeline-item');
-      const open = !item.classList.contains('open');
-      item.classList.toggle('open', open);
-      btn.setAttribute('aria-expanded', String(open));
-      const panel = item.querySelector('.timeline-works');
-      if (panel) panel.setAttribute('aria-hidden', String(!open));
-    });
-  });
-}
 
 function renderEducation() {
   const el = document.getElementById('educationTimeline');
@@ -142,25 +84,6 @@ function renderProjects() {
 
 function renderAwards() { document.getElementById('awardList').innerHTML = window.personalPresentation.renderHonours(data.awards); }
 
-function renderSkills() {
-  const grid = document.getElementById('skillGrid');
-  const cats = [
-    { zh: '数据与分析', en: 'Data & Analysis', k: 'data' },
-    { zh: 'AI 工程', en: 'AI Engineering', k: 'ai' },
-    { zh: '产品能力', en: 'Product', k: 'product' },
-    { zh: '语言', en: 'Languages', k: 'language' }
-  ];
-  grid.innerHTML = cats.map((c, i) => `
-    <div class="skill-category reveal" data-delay="${i * 70}">
-      <div class="skill-cat-name" data-zh="${esc(c.zh)}" data-en="${esc(c.en)}">${esc(c.zh)}</div>
-      <div class="skill-tags">
-        ${(data.skills[c.k] || []).map((s, j) =>
-          `<span class="skill-tag" data-zh="${esc(s)}" data-en="${esc((data.skills[c.k + 'En'] || [])[j] || s)}">${esc(s)}</span>`
-        ).join('')}
-      </div>
-    </div>
-  `).join('');
-}
 
 // ===== ABOUT =====
 function renderAbout() {
@@ -189,30 +112,6 @@ function renderAbout() {
 }
 
 // ===== USES =====
-function renderUses() {
-  const u = data.uses;
-  if (!u) return;
-  
-  const grid = document.getElementById('usesGrid');
-  const symbols = [
-    '<rect x="5" y="6" width="21" height="17" rx="2"/><path d="M10 11h11M10 16h7M20 22l4 5M24 27l3-8"/>',
-    '<path d="M10 9l-6 7 6 7M22 9l6 7-6 7M18 5l-4 22"/>',
-    '<circle cx="16" cy="16" r="5"/><circle cx="6" cy="6" r="2"/><circle cx="26" cy="9" r="2"/><circle cx="24" cy="26" r="2"/><path d="M8 8l5 5M21 14l3-3M19 20l4 4M5 25l7-6"/>',
-    '<path d="M5 5v22h23M10 22v-7M17 22V9M24 22V12M8 11l8-6 9 3"/>'
-  ];
-  grid.innerHTML = (u.groups || []).map((g, i) => `
-    <article class="uses-group reveal" data-delay="${i * 70}">
-      <div class="uses-group-head"><span class="uses-step" aria-hidden="true">${String(i + 1).padStart(2, '0')} / ${['DEFINE','BUILD','EVALUATE','LEARN'][i] || 'WORK'}</span><span class="uses-symbol" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">${symbols[i] || symbols[0]}</svg></span></div>
-      <h3 class="uses-group-title" data-zh="${esc(g.zh)}" data-en="${esc(g.en)}">${esc(g.zh)}</h3>
-      <ul class="uses-tools">
-        ${(g.items || []).map(it => typeof it === 'string'
-          ? `<li><span class="uses-tool-name">${esc(it)}</span></li>`
-          : `<li><span class="uses-tool-name" data-zh="${esc(it.name)}" data-en="${esc(it.nameEn || it.name)}">${esc(it.name)}</span><p class="uses-tool-desc" data-zh="${esc(it.zh)}" data-en="${esc(it.en)}">${esc(it.zh)}</p></li>`).join('')}
-      </ul>
-      ${g.output ? `<p class="uses-output"><span data-zh="交付物" data-en="Outputs">交付物</span><span data-zh="${esc(g.output)}" data-en="${esc(g.outputEn || g.output)}">${esc(g.output)}</span></p>` : ''}
-    </article>
-  `).join('');
-}
 
 function renderContact() { document.getElementById('contactGrid').innerHTML = window.personalPresentation.renderContacts(data.contact); }
 

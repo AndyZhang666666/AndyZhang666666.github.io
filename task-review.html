@@ -1,0 +1,9 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>作品集 · 本地对照</title><style>
+*{box-sizing:border-box}body{margin:0;height:100dvh;display:flex;flex-direction:column;background:#f5f2eb;color:#27251f;font:14px/1.5 system-ui,sans-serif}header{padding:10px clamp(12px,3vw,44px);display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid #ccc3b6}header strong{margin-right:auto}a,button,select{font:inherit;color:inherit}button,select{border:1px solid #cfc7bb;background:transparent;border-radius:4px;padding:5px 8px}button{cursor:pointer}button[aria-pressed=true]{background:#302c26;color:#fff}iframe{border:0;flex:1;width:100%;min-height:0}@media(max-width:600px){header{gap:6px}header strong{width:100%;font-size:12px}}</style></head>
+<body><header><strong>作品集 · 本地对照</strong><div><button id="new" aria-pressed="true">本地候选</button> <button id="old" aria-pressed="false">原版</button></div><select id="where" aria-label="定位到章节"><option value="top">首屏</option><option value="selected">精选作品</option><option value="work">工作经历</option><option value="uses">工作方式</option><option value="jd">任务检索</option></select><a id="standalone" target="_blank" rel="noopener">单独打开 ↗</a></header><iframe title="官网审阅" id="frame"></iframe>
+<script>
+const candidate=document.getElementById('new'),original=document.getElementById('old'),frame=document.querySelector('iframe'),where=document.querySelector('select'),openLink=document.querySelector('a');
+let base='/';
+function show(){const link=base+'#'+where.value;frame.src=link;openLink.href=link;candidate.setAttribute('aria-pressed',base==='/');original.setAttribute('aria-pressed',base!=='/');}
+candidate.onclick=()=>{base='/';show()};original.onclick=()=>{base='http://127.0.0.1:8934/';show()};where.onchange=show;show();
+</script></body></html>

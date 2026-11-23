@@ -4,8 +4,8 @@
 <script id="motionPolicyBootstrap">(()=>{let reduce=false;try{reduce=localStorage.getItem("portfolio-motion-preference")==="reduce"}catch{}reduce=reduce||(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);document.documentElement.dataset.motion=reduce?"reduce":"full";document.documentElement.dataset.pageVisible=String(!document.hidden)})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>张千羽 Andy Zhang — AI 产品经理</title>
-<meta name="description" content="张千羽 Andy Zhang，AI 产品经理。关注 Agent 工作流、模型评测与业务增长，提供内容创作、海外产品与企业 AI 应用的项目实践。">
+<title>张千羽 Andy Zhang · 产品作品集</title>
+<meta name="description" content="张千羽的产品作品集。操作模型评测、设计和定价工具，了解从用户问题到产品验证的过程。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="sections.css?v=20261005b">
 <link rel="stylesheet" href="enhance.css?v=20260913e">
 <link rel="stylesheet" href="interactions.css?v=20261109-v2">
-<link rel="stylesheet" href="jd.css?v=20260913b">
+<link rel="stylesheet" href="jd.css?v=task1">
 <link rel="stylesheet" href="embed.css?v=20260914r">
 <link rel="stylesheet" href="railnav.css?v=20260914r">
 <link rel="stylesheet" href="typography.css?v=20260914r">
@@ -39,7 +39,7 @@
 <link rel="stylesheet" href="assets/personal-art-direction.css?v=20261109-v2">
 <link rel="stylesheet" href="assets/presentation-mode.css?v=20261103a">
 <link rel="stylesheet" href="assets/squid-lab-preview.css?v=20261109-v2">
-<link rel="stylesheet" href="assets/hero-paper.css?v=20261109-v2">
+<link rel="stylesheet" href="assets/hero-paper.css?v=task1">
 <link rel="stylesheet" href="/assets/mobile-navigation.css?v=20261109-v2">
 <link rel="stylesheet" href="/assets/motion-governor.css?v=20261109-v2">
 </head>
@@ -77,24 +77,13 @@
         <span class="hero-name-zh">张千羽</span>
         <span class="hero-name-en">Andy Zhang</span>
       </h1>
-      <p class="hero-tagline reveal"><strong class="hero-role" data-zh="AI 产品经理，做 AI 应用与 Agent，也做增长和商业化。" data-en="AI product manager working across AI applications, Agents, growth and monetisation.">AI 产品经理，做 AI 应用与 Agent，也做增长和商业化。</strong><span class="hero-summary" data-zh="设计 Agent 工作流、工具调用和评测机制，也能用代码把原型跑起来。用 SQL / Python 分析数据，通过 A/B 实验验证转化、留存与商业化假设。" data-en="I design Agent workflows, tool use and evaluation, and build working prototypes in code. I use SQL, Python and A/B experiments to test conversion, retention and monetisation assumptions.">设计 Agent 工作流、工具调用和评测机制，也能用代码把原型跑起来。用 SQL / Python 分析数据，通过 A/B 实验验证转化、留存与商业化假设。</span></p>
+      <p class="hero-tagline reveal"><strong class="hero-role" data-zh="产品经理" data-en="Product manager">产品经理</strong><span class="hero-summary" data-zh="我从用户遇到的具体问题出发，做出可以试用的产品，再用反馈和数据决定下一步。" data-en="I start with a problem people actually face, build something they can try, then use feedback and data to decide what comes next.">我从用户遇到的具体问题出发，做出可以试用的产品，再用反馈和数据决定下一步。</span><span class="hero-example" data-zh="在这里，你可以复核一条模型评语，给同一段文字换一种构图，或算一笔套餐折扣的账。" data-en="Here you can review a model’s verdict, try a different layout with the same words, or work out what a bundle discount costs.">在这里，你可以复核一条模型评语，给同一段文字换一种构图，或算一笔套餐折扣的账。</span></p>
       <div class="hero-meta reveal">
         <span data-zh="UCL 金融工程 硕士 · Distinction · Top 8%" data-en="MSc Financial Engineering, UCL · Distinction · Top 8%">UCL 金融工程 硕士 · Distinction · Top 8%</span>
         <span class="dot">·</span>
         <span data-zh="布里斯托大学 电子电气工程 本科 · First Class Honours · Top 5%" data-en="BEng EEE, University of Bristol · First Class Honours · Top 5%">布里斯托大学 电子电气工程 本科 · First Class Honours · Top 5%</span>
       </div>
-      <div class="hero-cta reveal">
-        <a href="#selected" class="btn btn-primary">
-          <span data-zh="看我做的东西" data-en="See my work">看我做的东西</span>
-          <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="https://github.com/AndyZhang666666" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
-        <a href="/assets/resume.pdf" class="btn btn-ghost" download data-zh="下载简历" data-en="Download CV">下载简历</a>
-      </div>
-      <a href="#jd" class="hero-jd-link reveal">
-        <span class="hero-jd-tag" data-zh="按岗位找证据" data-en="Find the evidence">按岗位找证据</span>
-        <span class="hero-jd-text" data-zh="手上有岗位描述？找到值得先读的经历与作品。" data-en="Have a role in mind? Find relevant experience and work.">手上有岗位描述？找到值得先读的经历与作品。</span><span class="hero-jd-arrow" aria-hidden="true">→</span>
-      </a>
+      <div class="hero-cta reveal"><a href="#selected" class="btn btn-primary"><span data-zh="体验精选作品" data-en="Try selected work">体验精选作品</span> <span aria-hidden="true">↗</span></a><a href="#jd" class="btn btn-ghost"><span data-zh="按任务找作品" data-en="Find work by task">按任务找作品</span></a><a href="https://github.com/AndyZhang666666" class="portfolio-git" target="_blank" rel="noopener">GitHub ↗</a></div>
     </div>
     <div class="hero-portrait reveal" aria-hidden="true">
       <span class="portrait-local-light"></span>
@@ -167,39 +156,7 @@
  <p class="preview-outcome" data-rag-status role="status"><span class="" data-zh="当前示例：2026-10-28 / 原始资料快照。浏览器执行 BM25 检索与规则摘录，无模型调用。" data-en="Example scope: 2026-10-28 / baseline snapshot. Browser BM25 retrieval and rule extraction; no model call.">当前示例：2026-10-28 / 原始资料快照。浏览器执行 BM25 检索与规则摘录，无模型调用。</span></p><div class="showcase-panel-footer"><div class="showcase-links"><a class="showcase-process" href="/cases/rag/" target="_blank" rel="noopener"><span data-zh="设计过程" data-en="Design process">设计过程</span></a><a class="showcase-source" href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/rag-lab" target="_blank" rel="noopener"><span data-zh="源码" data-en="Source">源码</span></a></div><p class="showcase-handoff" data-zh="首页是独立预演；完整工具不带入本页临时判断或条件。" data-en="This is an isolated preview. Temporary reviews and conditions do not carry into the full tool.">首页是独立预演；完整工具不带入本页临时判断或条件。</p></div></article></div></div><p id="showcaseStatus" class="showcase-sr" role="status" aria-live="polite"></p><noscript><p>互动需要 JavaScript；四项作品的完整工具入口仍可直接打开。</p></noscript></section>
 
 
-<section class="stats">
-  <div class="stats-head reveal">
-    <p class="stats-kicker" data-zh="做过的事，留下的数字" data-en="What the work left behind">做过的事，留下的数字</p>
-  </div>
-  <div class="stats-grid">
-    <div class="stat reveal" data-delay="0">
-      <div class="stat-num" data-count="10000" data-suffix="+">10k+</div>
-      <div class="stat-label" data-zh="百度命理馆 · 上线两周 DAU" data-en="Baidu Fortune Hall · DAU within 2 weeks">百度命理馆 · 上线两周 DAU</div>
-    </div>
-    <div class="stat reveal" data-delay="90">
-      <div class="stat-num" data-count="30" data-suffix="%">30%</div>
-      <div class="stat-label" data-zh="山海星辰 · 单剧创作耗时缩短约" data-en="Shanhai · Approx. reduction in creation time per title">山海星辰 · 单剧创作耗时缩短约</div>
-    </div>
-    <div class="stat reveal" data-delay="180">
-      <div class="stat-num" data-count="27" data-suffix="%">27%</div>
-      <div class="stat-label" data-zh="美团 Keeta · 新客获客成本降低" data-en="Meituan Keeta · Lower new-customer acquisition cost">美团 Keeta · 新客获客成本降低</div>
-    </div>
-    <div class="stat reveal" data-delay="270">
-      <div class="stat-num" data-count="40" data-suffix="%">40%</div>
-      <div class="stat-label" data-zh="企业选品工具 · 信息整理人工耗时减少约" data-en="Selection tools · Approx. reduction in manual research time">企业选品工具 · 信息整理人工耗时减少约</div>
-    </div>
-  </div>
 
-<!-- ============ MARQUEE ============ -->
-<div class="marquee reveal" aria-label="经历与能力">
-  <div class="marquee-track marquee-track-a">
-    <div class="marquee-inner" id="marqueeInner"></div>
-  </div>
-  <div class="marquee-track marquee-track-b">
-    <div class="marquee-inner marquee-inner-rev" id="marqueeInnerB"></div>
-  </div>
-</div>
-</section>
 
 <!-- ============ AI VIEWS ============ -->
 <section id="ai" class="section ai-views">
@@ -214,13 +171,7 @@
 
 
 <!-- ============ WORK ============ -->
-<section id="work" class="section">
-  <div class="section-head reveal">
-    <h2 data-zh="工作经历" data-en="Experience">工作经历</h2>
-    <p class="section-sub" data-zh="AI 内容创作、海外增长与智能产品。展开查看具体工作。" data-en="AI content creation, overseas growth and intelligent products. Expand a role for details.">AI 内容创作、海外增长与智能产品。展开查看具体工作。</p>
-  </div>
-  <div id="timeline" class="timeline"></div>
-</section>
+<section id="work" class="section"><div class="section-head"><h2 data-zh="工作经历" data-en="Experience">工作经历</h2></div><dl class="work-notes"><div id="work-shanhai"><dt data-zh="山海星辰" data-en="Shanhai Xingchen">山海星辰</dt><dd data-zh="把复杂的创作流程拆成几步，确定哪些决定要交还给编剧。" data-en="Break a creative workflow into stages and decide where the writer should take over.">把复杂的创作流程拆成几步，确定哪些决定要交还给编剧。</dd></div><div id="work-baidu"><dt data-zh="百度" data-en="Baidu">百度</dt><dd data-zh="通过使用数据找出用户错过的入口，让有用的功能更容易被发现。" data-en="Use behavioral data to spot overlooked entry points and make a useful feature easier to discover.">通过使用数据找出用户错过的入口，让有用的功能更容易被发现。</dd></div><div id="work-keeta"><dt data-zh="美团 · Keeta" data-en="Meituan · Keeta">美团 · Keeta</dt><dd data-zh="按用餐场景拆分需求，再用首单和复购判断补贴花得值不值。" data-en="Separate dining occasions and judge an incentive by first orders and repeat purchases.">按用餐场景拆分需求，再用首单和复购判断补贴花得值不值。</dd></div><div id="work-li-auto"><dt data-zh="理想汽车" data-en="Li Auto">理想汽车</dt><dd data-zh="结合门店观察和使用记录，把车里的一连串操作收成一次指令。" data-en="Combine showroom observations and usage data to turn several cabin controls into one command.">结合门店观察和使用记录，把车里的一连串操作收成一次指令。</dd></div><div id="work-revolut"><dt data-zh="Revolut" data-en="Revolut">Revolut</dt><dd data-zh="把会员权益讲清楚，再用对照实验判断用户为什么愿意升级。" data-en="Clarify membership benefits and test which changes help people choose an upgrade.">把会员权益讲清楚，再用对照实验判断用户为什么愿意升级。</dd></div></dl></section>
 
 <!-- ============ EDUCATION ============ -->
 <section id="education" class="section">
@@ -266,55 +217,18 @@
 </section>
 
 <!-- ============ USES ============ -->
-<section id="uses" class="section">
-  <div class="section-head reveal">
-    <h2 data-zh="我的工作方式" data-en="How I work">我的工作方式</h2>
-    <p class="section-sub" data-zh="工具跟着任务走，最后留下可以检查的产物。" data-en="Tools follow the task. The output should be something we can inspect.">工具跟着任务走，最后留下可以检查的产物。</p>
-  </div>
-  <div id="usesGrid" class="uses-grid"></div>
-</section>
+<section id="uses" class="section"><div id="skills"><div class="section-head"><h2 data-zh="我的工作方式" data-en="How I work">我的工作方式</h2></div></div><div class="method-list"><article><h3 data-zh="定义问题" data-en="Frame a problem">定义问题</h3><div><p data-zh="把每个人的预算、时间和底线写成可比较的条件。" data-en="Translate budgets, schedules and constraints into comparable options.">把每个人的预算、时间和底线写成可比较的条件。</p><small data-zh="飞书多维表格 / Figma" data-en="Feishu Base / Figma">飞书多维表格 / Figma</small></div><a href="/suibianju/"><span data-zh="约束清单 · 随便局" data-en="Constraint list · Group Planner">约束清单 · 随便局</span> ↗</a></article><article><h3 data-zh="做出原型" data-en="Prototype">做出原型</h3><div><p data-zh="让用户用同一份内容比较方案，再记录选择。" data-en="Compare designs with identical content and capture a choice.">让用户用同一份内容比较方案，再记录选择。</p><small data-zh="Figma / JavaScript" data-en="Figma / JavaScript">Figma / JavaScript</small></div><a href="/tasteroom/"><span data-zh="可操作画布 · 偏爱实验室" data-en="Interactive canvas · Taste Lab">可操作画布 · 偏爱实验室</span> ↗</a></article><article><h3 data-zh="复核质量" data-en="Review quality">复核质量</h3><div><p data-zh="把评分与原文放在一起，逐条复核有争议的判断。" data-en="Read a score alongside its source and review disputed judgments.">把评分与原文放在一起，逐条复核有争议的判断。</p><small data-zh="Python / JSON" data-en="Python / JSON">Python / JSON</small></div><a href="/llm-output-eval/?sample=e06&dimension=structure"><span data-zh="评测复核报告 · Eval Lab" data-en="Evaluation review · Eval Lab">评测复核报告 · Eval Lab</span> ↗</a></article><article><h3 data-zh="验证收益" data-en="Test a return">验证收益</h3><div><p data-zh="把关键假设写进账本，检查什么条件下方案才划算。" data-en="Put assumptions into a ledger and inspect the break-even point.">把关键假设写进账本，检查什么条件下方案才划算。</p><small data-zh="Excel / SQL" data-en="Excel / SQL">Excel / SQL</small></div><a href="/bundle-lab/simulate/"><span data-zh="套餐假设卡 · Bundle Lab" data-en="Bundle assumption card · Bundle Lab">套餐假设卡 · Bundle Lab</span> ↗</a></article></div></section>
 
 <!-- ============ SKILLS ============ -->
-<section id="skills" class="section">
-  <div class="section-head reveal">
-    <h2 data-zh="能力" data-en="Skills">能力</h2>
-  </div>
-  <div id="skillGrid" class="skill-grid"></div>
-</section>
+
 
 <!-- ============ JD MATCHER ============ -->
-<section id="jd" class="section jd-matcher">
-  <div class="section-head reveal">
-    <h2 data-zh="按岗位找证据" data-en="Find the evidence">按岗位找证据</h2>
-    <p class="section-sub" data-zh="关键词辅助检索，只在浏览器本地处理。不上传、不调用模型，不计算通过概率或综合匹配分。" data-en="Local keyword-assisted search. No upload, model call, hiring probability or overall match score.">关键词辅助检索，只在浏览器本地处理。不上传、不调用模型，不计算通过概率或综合匹配分。</p>
-  </div>
-
-  <div class="jd-input-wrap reveal">
-    <label for="jdInput" class="jd-label">
-      <span data-zh="把 JD 的岗位职责 + 任职要求贴进来" data-en="Paste the job requirements here">把 JD 的岗位职责 + 任职要求贴进来</span>
-      <span id="jdCount" class="jd-count"></span>
-    </label>
-    <textarea id="jdInput" class="jd-textarea" rows="8" placeholder="例如：负责大模型应用产品的 0→1，搭建 Prompt 评估体系，通过 A/B 实验和数据分析优化用户转化……" data-zh-placeholder="例如：负责大模型应用产品的 0→1，搭建 Prompt 评估体系，通过 A/B 实验和数据分析优化用户转化……" data-en-placeholder="e.g.: Own 0→1 AI product design, build prompt eval framework, drive conversion via A/B tests and data analysis…"></textarea>
-    <div class="jd-samples">
-      <span class="jd-samples-label" data-zh="没 JD？试试：" data-en="No JD? Try:">没 JD？试试：</span>
-      <button type="button" class="jd-sample" data-jd="岗位职责：负责大模型应用产品从 0 到 1 的设计与落地，搭建 Prompt 工程与效果评估体系；通过数据分析和 A/B 实验驱动用户增长与商业化转化；撰写 PRD，推动跨团队协作落地。任职要求：本科及以上学历，有 AI 产品或 C 端产品经验，熟悉 SQL 与埋点分析，有海外市场经验加分。">AI 产品经理</button>
-      <button type="button" class="jd-sample" data-jd="岗位职责：负责 App 的用户增长与商业化变现，包括订阅付费转化、ARPU 提升、会员权益设计；通过埋点数据分析做转化漏斗归因，设计并执行 A/B 实验；与运营、算法协同优化推荐与触达策略。任职要求：有 C 端增长或商业化经验，熟悉 SQL，有金融或支付业务理解优先。">增长 / 商业化 PM</button>
-      <button type="button" class="jd-sample" data-jd="岗位职责：负责企业级 SaaS 工作台产品设计，服务 B 端商家客户；输出 PRD 与研发、算法团队协同推进；搭建中后台系统与数据看板。任职要求：3 年以上 B 端产品经验，熟悉 CRM 或 ERP 系统，有电商供应链背景优先。">B 端 SaaS PM</button>
-      <button type="button" class="jd-sample" data-zh="搜推 / 策略产品" data-en="Search / Strategy PM" data-jd="优化商品推荐与用户触达策略；用 A/B 实验观察转化和留存；与算法团队协作验证搜索排序模型。" data-jd-en="Improve product recommendations and user outreach; use A/B tests to assess conversion and retention; collaborate with the algorithms team to validate search ranking models.">搜推 / 策略产品</button>
-    </div>
-
-    <div class="jd-actions">
-      <button type="button" id="jdRun" class="jd-btn-run" disabled>
-        <span data-zh="查找相关证据" data-en="Find evidence">查找相关证据</span>
-      </button>
-      <button type="button" id="jdClear" class="jd-btn-clear">
-        <span data-zh="清空" data-en="Clear">清空</span>
-      </button>
-    </div>
-  </div>
-
-  <div id="jdResult" class="jd-result" hidden></div>
-</section>
+<section id="jd" class="section jd-matcher"><div class="section-head"><h2 data-zh="按任务找作品与证据" data-en="Find work by task">按任务找作品与证据</h2></div><div class="task-desk"><div class="task-examples"><h3><span data-zh="选一个问题" data-en="Choose a question">选一个问题</span></h3><button type="button" class="jd-sample" data-task="eval" aria-pressed="false"><span data-zh="判断模型打分有没有依据" data-en="Check the evidence for a model score">判断模型打分有没有依据</span><span aria-hidden="true">↗</span></button><button type="button" class="jd-sample" data-task="taste" aria-pressed="false"><span data-zh="比较两种设计，再决定用哪种" data-en="Compare two designs before choosing one">比较两种设计，再决定用哪种</span><span aria-hidden="true">↗</span></button><button type="button" class="jd-sample" data-task="bundle" aria-pressed="false"><span data-zh="判断促销有没有多赚钱" data-en="Check whether a promotion earns more">判断促销有没有多赚钱</span><span aria-hidden="true">↗</span></button><button type="button" class="jd-sample" data-task="rag" aria-pressed="false"><span data-zh="检查检索结果能不能支撑回答" data-en="Check whether retrieved sources support an answer">检查检索结果能不能支撑回答</span><span aria-hidden="true">↗</span></button></div>
+ <form id="taskForm"><label for="jdInput"><span data-zh="或写下你关心的任务" data-en="Or describe your task">或写下你关心的任务</span></label>
+ <textarea id="jdInput" rows="3" maxlength="12000" aria-describedby="taskHint"></textarea>
+ <small id="taskHint" class="task-hint" data-zh="可以粘贴一段岗位要求。输入仅在当前浏览器处理。" data-en="You can paste job requirements here. Your text stays in this browser.">可以粘贴一段岗位要求。输入仅在当前浏览器处理。</small>
+ <div class="jd-actions"><button class="jd-btn-run" id="jdRun" disabled><span data-zh="查找材料" data-en="Find evidence">查找材料</span></button><button type="button" class="jd-btn-clear" id="jdClear"><span data-zh="清空" data-en="Clear">清空</span></button></div></form></div>
+ <p id="taskAnnouncement" class="showcase-sr" role="status"></p><div id="jdResult" hidden></div><noscript><a href="#projects">浏览完整作品库 / Browse all work →</a></noscript></section>
 
 <!-- ============ CONTACT ============ -->
 <section id="contact" class="section contact">
@@ -340,11 +254,10 @@
 </div>
 
 <script type="module" src="assets/demo-showcase.mjs?v=20261115-entry1"></script>
-<script src="app.js?v=20261115-renovation1"></script>
+<script src="app.js?v=task1"></script>
 <script src="poker.js?v=20260913d" defer></script>
-<script src="jd-graph.js?v=20261022a"></script>
-<script src="jd.js?v=20261115-strategy1"></script>
-<script src="railnav.js?v=20261109-v2" defer></script>
+<script type="module" src="jd.js?v=task1"></script>
+<script src="railnav.js?v=task1" defer></script>
 <script src="motion.js?v=20261109-v2" defer></script>
 <script src="projects-split.js?v=20261115-renovation1" defer></script>
 <script src="poker-showcase.js?v=20261109-v2" defer></script>
@@ -356,7 +269,7 @@
 <script type="module" src="assets/section-atmospheres.mjs?v=20261109-v2"></script>
 <script type="module" src="assets/presentation-mode.mjs?v=20261103a"></script>
 <script type="module" src="assets/squid-lab-preview.mjs?v=20261107-squid2"></script>
-<dialog id="mobileDirectory" class="mobile-directory" aria-labelledby="directoryTitle"><div class="directory-head"><h2 id="directoryTitle"><span data-zh="目录" data-en="Explore">目录</span></h2><button type="button" class="directory-close" data-directory-close aria-label="关闭目录" data-label-zh="关闭目录" data-label-en="Close menu"><span aria-hidden="true">×</span></button></div><nav class="directory-links" aria-label="页面目录" data-label-zh="页面目录" data-label-en="Page sections"><a href="#top"><span data-zh="首页" data-en="Home">首页</span><span aria-hidden="true">↗</span></a><a href="#about"><span data-zh="关于我" data-en="About">关于我</span><span aria-hidden="true">↗</span></a><a href="#selected"><span data-zh="精选作品" data-en="Selected work">精选作品</span><span aria-hidden="true">↗</span></a><a href="#ai"><span data-zh="关于 AI" data-en="On AI">关于 AI</span><span aria-hidden="true">↗</span></a><a href="#work"><span data-zh="工作经历" data-en="Experience">工作经历</span><span aria-hidden="true">↗</span></a><a href="#education"><span data-zh="教育与研究" data-en="Education">教育与研究</span><span aria-hidden="true">↗</span></a><a href="#projects"><span data-zh="完整作品库" data-en="All projects">完整作品库</span><span aria-hidden="true">↗</span></a><a href="#awards"><span data-zh="奖项" data-en="Awards">奖项</span><span aria-hidden="true">↗</span></a><a href="#uses"><span data-zh="工具" data-en="Toolkit">工具</span><span aria-hidden="true">↗</span></a><a href="#skills"><span data-zh="能力" data-en="Capabilities">能力</span><span aria-hidden="true">↗</span></a><a href="#jd"><span data-zh="按岗位找证据" data-en="Role evidence">按岗位找证据</span><span aria-hidden="true">↗</span></a><a href="#contact"><span data-zh="聊聊" data-en="Contact">聊聊</span><span aria-hidden="true">↗</span></a></nav><div class="directory-settings"><div class="directory-theme"><h3><span data-zh="配色" data-en="Palette">配色</span></h3><div data-directory-palette></div></div><label class="directory-motion"><span><span data-zh="动效" data-en="Motion">动效</span></span><select data-motion-preference><option value="system" data-zh="跟随系统" data-en="Follow system">跟随系统</option><option value="reduce" data-zh="减少动态效果" data-en="Reduce motion">减少动态效果</option></select></label><button type="button" class="directory-presentation" data-directory-present><span data-zh="90秒投屏" data-en="90s presentation">90秒投屏</span><span aria-hidden="true">↗</span></button></div></dialog>
+<dialog id="mobileDirectory" class="mobile-directory" aria-labelledby="directoryTitle"><div class="directory-head"><h2 id="directoryTitle"><span data-zh="目录" data-en="Explore">目录</span></h2><button type="button" class="directory-close" data-directory-close aria-label="关闭目录" data-label-zh="关闭目录" data-label-en="Close menu"><span aria-hidden="true">×</span></button></div><nav class="directory-links" aria-label="页面目录" data-label-zh="页面目录" data-label-en="Page sections"><a href="#top"><span data-zh="首页" data-en="Home">首页</span><span aria-hidden="true">↗</span></a><a href="#about"><span data-zh="关于我" data-en="About">关于我</span><span aria-hidden="true">↗</span></a><a href="#selected"><span data-zh="精选作品" data-en="Selected work">精选作品</span><span aria-hidden="true">↗</span></a><a href="#ai"><span data-zh="关于 AI" data-en="On AI">关于 AI</span><span aria-hidden="true">↗</span></a><a href="#work"><span data-zh="工作经历" data-en="Experience">工作经历</span><span aria-hidden="true">↗</span></a><a href="#education"><span data-zh="教育与研究" data-en="Education">教育与研究</span><span aria-hidden="true">↗</span></a><a href="#projects"><span data-zh="完整作品库" data-en="All projects">完整作品库</span><span aria-hidden="true">↗</span></a><a href="#awards"><span data-zh="奖项" data-en="Awards">奖项</span><span aria-hidden="true">↗</span></a><a href="#uses"><span data-zh="工作方式" data-en="How I work">工作方式</span><span aria-hidden="true">↗</span></a><a href="#jd"><span data-zh="按任务找作品" data-en="Find work by task">按任务找作品</span><span aria-hidden="true">↗</span></a><a href="#contact"><span data-zh="聊聊" data-en="Contact">聊聊</span><span aria-hidden="true">↗</span></a></nav><div class="directory-settings"><div class="directory-theme"><h3><span data-zh="配色" data-en="Palette">配色</span></h3><div data-directory-palette></div></div><label class="directory-motion"><span><span data-zh="动效" data-en="Motion">动效</span></span><select data-motion-preference><option value="system" data-zh="跟随系统" data-en="Follow system">跟随系统</option><option value="reduce" data-zh="减少动态效果" data-en="Reduce motion">减少动态效果</option></select></label><button type="button" class="directory-presentation" data-directory-present><span data-zh="90秒投屏" data-en="90s presentation">90秒投屏</span><span aria-hidden="true">↗</span></button></div></dialog>
 <script type="module" src="/assets/mobile-navigation.mjs?v=20261109-v2"></script>
 <script type="module" src="/assets/motion-governor.mjs?v=20261109-v2"></script>
 </body>

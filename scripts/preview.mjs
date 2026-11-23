@@ -39,7 +39,7 @@ function serve(req,res,originalHost=false){
     if(!publicPath(parts))throw Error('private path');
     let base=old?path.join(suite,'site'):root,relative=parts.join('/');
     if(exports.has(parts[0])){
-      const own=integrated[parts[0]]&&path.resolve(sourceRoot,'..',integrated[parts[0]],'out');
+      const own=integrated[parts[0]]&&path.resolve(process.env.DEMO_EXPORT_ROOT || path.resolve(sourceRoot,'..'),integrated[parts[0]],'out');
       const updated=own&&fs.existsSync(own)?own:path.join(polish,parts[0],'out');
       base=!old&&fs.existsSync(updated)?updated:path.join(suite,parts[0],'out');
       relative=parts.slice(1).join('/');

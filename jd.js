@@ -1,23 +1,53 @@
-/* Original JD interface, now an evidence lookup. No suitability or hiring score. */
-(() => {
-  const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  let current=null,library=null,findEvidence;
-  const en=()=>document.documentElement.lang==='en',t=(zh,english)=>en()?english:zh;
-  const dataFor=async()=>{const lang=en()?'en':'zh';if(library?.lang!==lang){const r=await fetch(`./content/evidence-${lang}.json?v=20261115-strategy1`);if(!r.ok)throw Error('资料未能读取，请重试。');library=await r.json()}return library};
-  async function run(){
-    const out=$('#jdResult'),input=$('#jdInput').value.trim().slice(0,12000);if(!input)return;
-    const button=$('#jdRun');button.disabled=true;
-    try{
-      const [data,core]=await Promise.all([dataFor(),import('./assets/evidence-core.mjs?v=20261115-strategy1')]);findEvidence=core.findEvidence;
-      const result=findEvidence(input,data.dims);current=result;
-      const matched=result.matched.filter(d=>d.evidence.length),clues=result.matched.filter(d=>!d.evidence.length);
-      out.innerHTML=`<div class="jd-head"><div class="jd-score"><span class="jd-score-num">${matched.length}</span><span class="jd-score-unit">${t('项','')}</span><span class="jd-score-label">${t('证据主题','Evidence areas')}</span></div><div class="jd-verdict"><strong>${t('找到这些相关材料','Relevant material to read')}</strong><p>${t('关键词只负责定位，请结合原始经历和作品判断。','Keywords help locate material. Assess it in its original context.')}</p><p class="jd-meta">${t('不计算匹配分或通过概率，也不据此推断没有某项经验。','No match score, hiring probability or inference of absent experience.')}</p></div></div>`;
-      for(const [items,title,mark] of [[matched,t('对应经历与作品','Experience and work'),'have'],[clues,t('相关线索，需进一步了解','Related clues to explore'),'partial']])if(items.length)out.insertAdjacentHTML('beforeend',`<div class="jd-group"><h4 class="jd-group-t"><span class="jd-mark ${mark}">${mark==='have'?'✓':'~'}</span>${title}<span class="jd-group-n">${items.length}</span></h4>${items.map(d=>`<div class="jd-dim"><div class="jd-dim-h"><span class="jd-dim-name">${esc(d.name)}</span><span class="jd-dim-kw">${d.wordsFound.map(esc).join(' / ')}</span></div><p class="jd-note">${d.clauses.map(esc).join('；')}</p><ul class="jd-evs">${d.evidence.map(e=>`<li class="jd-ev"><span class="jd-ev-co">${esc(e.co)}</span><span class="jd-ev-text">${esc(e.text)}</span><span class="jd-ev-metric">${esc(e.metric)}</span></li>`).join('')}</ul>${d.projects.map(p=>`<a class="project-link" href="${esc(p.caseUrl||'/#projects')}">${esc(p.name)} ↗</a>`).join('')}</div>`).join('')}</div>`);
-      if(result.unrecognised.length||!result.matched.length)out.insertAdjacentHTML('beforeend',`<div class="jd-group"><h4 class="jd-group-t">${t('尚未定位到材料','No material located yet')}</h4><p class="jd-note">${t('当前词库没有定位到对应材料，不能据此判断是否具备经验。可以换词，或直接查看完整经历。','The keyword index found no material. This does not establish whether experience exists. Try another term or read the full experience.')}</p>${result.unrecognised.map(x=>`<p class="jd-note">${esc(x)}</p>`).join('')}</div>`);
-      out.insertAdjacentHTML('beforeend',`<div class="jd-foot"><button type="button" class="jd-copy" id="jdCopy">${t('复制证据清单','Copy evidence list')}</button><span class="jd-disclaimer">${t('只在本地检索；模拟、历史回放与业务成果分别以原材料说明为准。','Local lookup. Read each source’s distinction between simulation, historical replay and business outcomes.')}</span></div>`);out.hidden=false;
-      $('#jdCopy').onclick=async()=>{const text=[t('张千羽 · 岗位相关证据','Andy Zhang · Evidence for the role'),...result.matched.flatMap(d=>[d.name,...d.evidence.map(e=>`${e.co}: ${e.text} ${e.metric}`)]),t('未定位：','Not located: ')+result.unrecognised.join('；')].join('\n');try{await navigator.clipboard.writeText(text);$('#jdCopy').textContent=t('已复制','Copied')}catch{$('#jdCopy').textContent=t('复制未成功，请选中文字复制','Copy failed; select and copy the text')}};
-    }catch(e){out.innerHTML=`<p class="jd-empty">${esc(e.message)}</p>`;out.hidden=false}finally{button.disabled=!$('#jdInput').value.trim()}
+import {lookup} from './assets/task-search.mjs';
+import {tasks} from './content/task-portfolio.mjs';
+
+const input=document.querySelector('#jdInput'), result=document.querySelector('#jdResult');
+const submit=document.querySelector('#jdRun'), announcement=document.querySelector('#taskAnnouncement');
+const examples=[...document.querySelectorAll('[data-task]')];
+const lang=()=>document.documentElement.lang==='en'?1:0;
+const phrase=(zh,en)=>[zh,en][lang()];
+const node=(tag,txt,cls)=>{const el=document.createElement(tag);el.textContent=txt;if(cls)el.className=cls;return el;};
+let active='', submitted=false;
+function setControls(){
+  submit.disabled=!input.value.trim();
+  for(const button of examples)button.setAttribute('aria-pressed',String(button.dataset.task===active));
+}
+function render(){
+  setControls();
+  result.replaceChildren();result.hidden=!submitted;announcement.textContent='';
+  if(!submitted)return;
+  const {items,missing,limitations}=lookup(input.value),index=lang(),copyLines=[];
+  for(const {task,parts} of items){
+    const row=node('article','','task-result-row');
+    const body=node('div','');
+    body.append(node('small',task.kind[index]),node('h3',task.name[index]),node('p',task.desc[index]));
+    body.append(node('p',phrase('对应任务 · ','Task · ')+parts.join(' / '),'task-context'));
+    const link=node('a',phrase('查看材料','View evidence')+' ↗');link.href=task.url;
+    row.append(body,link);result.append(row);
+    copyLines.push(task.name[index]+' · '+task.kind[index],parts.join(' / '),task.desc[index],new URL(task.url,location.origin).href,'');
   }
-  function init(){const ta=$('#jdInput');if(!ta)return;ta.maxLength=12000;const upd=()=>{$('#jdRun').disabled=!ta.value.trim();$('#jdCount').textContent=ta.value.length?`${ta.value.length} / 12000`:''};ta.addEventListener('input',upd);$('#jdRun').onclick=run;$('#jdClear').onclick=()=>{ta.value='';current=null;$('#jdResult').hidden=true;$('#jdResult').replaceChildren();upd();ta.focus()};document.querySelectorAll('.jd-sample').forEach(b=>b.onclick=()=>{ta.value=(en() && b.dataset.jdEn) || b.dataset.jd;upd();run()});new MutationObserver(()=>{if(current)run()}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});upd()}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
-})();
+  function note(message){result.append(node('p',message,'task-note'));copyLines.push(message);}
+  if(limitations.length)note(phrase('本站尚未提供线上排序实验或召回模型训练案例。可信 RAG 可以演示检索与引用核对。','This portfolio has no public online ranking experiment or retrieval-model training case. RAG Lab demonstrates retrieval and source checks.'));
+  if(missing.length)note(phrase('尚未找到公开材料 · ','No public material found for · ')+missing.join(' / '));
+  if(!items.length){const link=node('a',phrase('换一个任务，或浏览完整作品库 →','Try another task, or browse all work →'));link.href='#projects';result.append(link);}
+  else{
+    const copy=node('button',phrase('复制结果和链接','Copy results and links'),'jd-copy');
+    copy.type='button';
+    copy.onclick=async()=>{const contents=copyLines.join('\n');try{await navigator.clipboard.writeText(contents);copy.textContent=phrase('已复制','Copied');}catch{const field=node('textarea','');field.value=contents;field.readOnly=true;field.setAttribute('aria-label',phrase('手动复制结果','Copy results manually'));copy.replaceWith(field);field.select();}};
+    result.append(copy);
+  }
+  announcement.textContent=items.length?phrase('已更新相关材料','Evidence updated'):phrase('没有找到相关材料','No relevant material found');
+}
+function remember(){
+  history.replaceState({...history.state,taskSearch:{value:input.value,active,submitted}},'');
+}
+function run(){submitted=!!input.value.trim();render();remember();}
+document.querySelector('#taskForm').onsubmit=e=>{e.preventDefault();run();};
+examples.forEach(b=>b.onclick=()=>{active=b.dataset.task;input.value=tasks.find(t=>t.id===active).title[lang()];run();});
+input.oninput=()=>{const hadResult=submitted;active='';submitted=false;render();if(hadResult)remember();};
+window.addEventListener('pagehide',remember);
+document.querySelector('#jdClear').onclick=()=>{input.value='';active='';submitted=false;render();remember();input.focus();};
+new MutationObserver(()=>{if(active)input.value=tasks.find(t=>t.id===active).title[lang()];render();}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+const saved=history.state?.taskSearch;
+if(saved){active=tasks.some(t=>t.id===saved.active)?saved.active:'';input.value=active?tasks.find(t=>t.id===active).title[lang()]:saved.value;submitted=saved.submitted;}
+render();

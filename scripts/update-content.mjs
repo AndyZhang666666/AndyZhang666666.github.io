@@ -183,3 +183,6 @@ for(const name of fs.readdirSync('cases')){
  const file=`cases/${name}/index.html`;
  if(fs.existsSync(file))fs.writeFileSync(file,enhancePortfolioV2(fs.readFileSync(file,'utf8'),{casePage:true,paletteMarkup}));
 }
+
+// Apply the shared portfolio content after the original site generators.
+await import("./compose-portfolio.mjs");
