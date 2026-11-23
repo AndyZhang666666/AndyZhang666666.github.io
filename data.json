@@ -1,8 +1,8 @@
 {
   "name": "张千羽",
   "nameEn": "Qianyu Zhang (Andy)",
-  "tagline": "AI 产品经理，做 AI 应用与 Agent，也做增长和商业化。 设计 Agent 工作流、工具调用和评测机制，也能用代码把原型跑起来。用 SQL / Python 分析数据，通过 A/B 实验验证转化、留存与商业化假设。",
-  "taglineEn": "AI product manager working across AI applications, Agents, growth and monetisation. I design Agent workflows, tool use and evaluation, and build working prototypes in code. I use SQL, Python and A/B experiments to test conversion, retention and monetisation assumptions.",
+  "tagline": "我把用户说不清的需求拆成可以验证的问题，做出原型，再用反馈、实验和经营数据决定下一步。",
+  "taglineEn": "I turn unclear needs into questions I can test, build a prototype, and use feedback, experiments and business results to decide what comes next.",
   "contact": {
     "phone": "13149829129",
     "email": "andy_zzz@yeah.net",
@@ -15,7 +15,7 @@
       "schoolEn": "University College London",
       "degree": "金融工程 · 硕士",
       "degreeEn": "MSc Financial Engineering",
-      "period": "2024.09 – 2026.02",
+      "period": "2024.09 – 2026.03",
       "grade": "Distinction · Top 8%",
       "link": "https://www.ucl.ac.uk/prospective-students/graduate/taught-degrees/financial-engineering-msc",
       "thesis": {
@@ -75,227 +75,182 @@
     {
       "company": "山海星辰",
       "companyEn": "Shanhai Xingchen",
-      "role": "AI 产品经理",
-      "roleEn": "AI Product Manager",
-      "location": "AI 内容创作与海外业务",
-      "locationEn": "AI content creation & overseas products",
-      "period": "2026.06 – 至今",
-      "periodEn": "2026.06 – Present",
+      "role": "评测剧本，减少返工",
+      "roleEn": "Evaluate generated scripts and reduce rework",
+      "period": "2026.07 – 至今",
+      "periodEn": "Jul 2026 – present",
       "highlights": [
-        "负责国内、海外双线 11 类创作能力，设计六阶段对话式 Agent 与可插拔 Skill；上线 38 个 Skill，单剧创作耗时缩短约 30%，工具月均调用 6000 次、编剧使用覆盖率 70%。",
-        "推动剧本拆解、资产生产与分镜生成链路化，定义角色一致性、风格统一及描述遵循度等评测口径；内测样本中单集制作耗时缩短约 30%。",
-        "负责一键视频转绘的需求定义、流程与上线迭代；初步估算人工处理耗时缩短约 20%，生成镜头可用率提升约 1 倍。",
-        "基于 Q2 海外收入下滑 11% 的归因分析设计订阅试点；试点月复购率提升约 20%，ARPU 提升 8%，订阅用户占比由 18% 提升至 35%。"
+        "按题材、市场和创作阶段建评测集。对白偏离人设时补同题材样例，角色提前知情时限定可引用的时间线。按项目回顾估算，每集从首稿到定稿的人工改稿轮次减少约 45%。",
+        "提案和样集分别确认方向与人物对白，确认后再扩写。封装 40+ 个可复用 Skill，创作工具月均调用 1 万+ 次，单剧创作耗时缩短约 30%。",
+        "生成前展示预计积分并确认费用。团队共用积分池，成员有限额，临期积分优先扣减，帮助团队控制预算。",
+        "以按集解锁为对照，测试前三集免费加包月，并观察首购和退款。试点月复购率提升约 20%，ARPU 提升 8%，订阅用户占比从 18% 升至 35%。"
       ],
       "highlightsEn": [
-        "Owned 11 creation capabilities across domestic and overseas products. Designed a six-stage conversational Agent and pluggable Skills: 38 Skills shipped, about 30% less creation time per title, 6,000 monthly tool calls and 70% screenwriter usage coverage.",
-        "Connected script breakdown, asset production and storyboard generation. Defined evaluation criteria for character consistency, style and description adherence; internal trial samples showed about 30% less production time per episode.",
-        "Defined and iterated one-click video restyling. Preliminary estimates showed about 20% less manual processing time and roughly twice the usable-shot rate.",
-        "Diagnosed an 11% Q2 overseas revenue decline and designed a subscription pilot. Pilot monthly repeat purchase rose about 20%, ARPU 8%, and subscriber share from 18% to 35%."
+        "We evaluated scripts by genre, market and stage. Out-of-character dialogue called for better examples; characters knowing too much called for timeline limits. Project reviews estimated about 45% fewer manual revision rounds per episode.",
+        "Writers approve the proposal and sample dialogue before expanding a script. More than 40 reusable skills supported over 10,000 monthly tool calls. Creation time per title fell by about 30%.",
+        "Show the estimated credit cost before generation. A shared pool, per-member limits and expiry-first spending help teams manage their budget.",
+        "Tested three free episodes plus a monthly plan against per-episode unlocks, tracking first purchase and refunds. In the pilot, monthly repeat purchase rose about 20%, ARPU rose 8%, and subscriber share moved from 18% to 35%."
       ],
       "works": [
         {
-          "name": "创作 Agent 与 Skill 资产",
-          "nameEn": "Creation Agent & Skill Assets",
-          "desc": "把拆解、提案、策划、MVP、全本、导出组织成可对话的主链路，在开放创作环节结合 ReAct 工具调用与 Agent 交叉校验，并保留人工确认。将 SOP、Prompt、知识与工具配置封装为 38 个 Skill，建立版本、效果对比和反馈机制。单剧创作耗时缩短约 30%。",
-          "descEn": "Designed a conversational flow from breakdown through proposal, planning, MVP, full draft and export. Used ReAct tool calls and Agent cross-checks in open-ended creation stages, with human checkpoints. Packaged SOPs, prompts, knowledge and tools into 38 Skills with versioning, output comparison and feedback; creation time per title fell about 30%.",
-          "tags": [
-            "Agent",
-            "Skill",
-            "人工确认"
-          ]
+          "name": "评测剧本，减少返工",
+          "nameEn": "Evaluate generated scripts and reduce rework"
         },
         {
-          "name": "AIGC 制作链路与质量评测",
-          "nameEn": "AIGC Production & Quality Evaluation",
-          "desc": "区分项目全局提示词与镜头配置，把角色、场景和道具组织为可复用资产，支持跨项目引用与分镜一键关联。结合人工评审和 Bad Case 归因迭代资产引用、提示词与生成配置；内测样本中单集制作耗时缩短约 30%。",
-          "descEn": "Separated project-wide prompts from shot configurations and made characters, scenes and props reusable across projects. Used human reviews and failure-case analysis to iterate asset references, prompts and generation settings; internal trial samples showed about 30% less production time per episode.",
-          "tags": [
-            "资产复用",
-            "质量评测"
-          ]
+          "name": "让编剧决定何时扩写全本",
+          "nameEn": "Give writers control over full-script generation"
         },
         {
-          "name": "一键视频转绘",
-          "nameEn": "One-click Video Restyling",
-          "desc": "串联原片上传、角色与场景解析、目标画风转换及分镜视频生成，围绕角色辨识度、画风一致性和节奏保留迭代。初步估算人工处理耗时缩短约 20%，生成镜头可用率提升约 1 倍。",
-          "descEn": "Connected upload, character and scene parsing, target-style conversion and shot generation. Iterated recognisability, style consistency and preservation of pacing. Preliminary estimates showed about 20% less manual processing time and roughly twice the usable-shot rate.",
-          "tags": [
-            "视频转绘",
-            "效果迭代"
-          ]
+          "name": "为制作团队估算生成费用",
+          "nameEn": "Estimate generation costs for production teams"
         },
         {
-          "name": "海外订阅试点",
-          "nameEn": "Overseas Subscription Pilot",
-          "desc": "将收入拆为活跃用户、付费转化、付费频次与客单价，识别首购后持续付费不足。选择北美试点，设计包月档位与前三集免费组合，通过 A/B Test 验证后分阶段放大；试点月复购率提升约 20%，ARPU 提升 8%，订阅用户占比由 18% 提升至 35%。",
-          "descEn": "Decomposed revenue into active users, paid conversion, purchase frequency and order value, identifying weak repeat payment after first purchase. Piloted monthly tiers with the first three episodes free in North America, then scaled in stages after A/B tests. Pilot monthly repeat purchase rose about 20%, ARPU 8%, and subscriber share from 18% to 35%.",
-          "tags": [
-            "订阅商业化",
-            "A/B Test"
-          ]
+          "name": "验证短剧包月订阅",
+          "nameEn": "Test a monthly short-drama subscription"
         }
       ]
     },
     {
-      "company": "百度 · PSIG",
-      "companyEn": "Baidu · PSIG",
-      "role": "AI 产品经理实习生",
-      "roleEn": "AI Product Manager Intern",
-      "location": "百度文库",
-      "locationEn": "Baidu Library",
+      "company": "百度 · 百度文库 PSIG",
+      "companyEn": "Baidu · Wenku PSIG",
+      "role": "围绕已存资料继续提问",
+      "roleEn": "Ask questions across saved documents",
       "period": "2026.01 – 2026.06",
-      "periodEn": "2026.01 – 2026.06",
+      "periodEn": "Jan – Jun 2026",
       "highlights": [
-        "负责 AI 命理功能 0→1，结合 GenFlow 个性化生成与 AI 壁纸玩法；上线两周日活破万，周回访率 35%，带动文库会员转化提升约 8%。",
-        "用埋点与 SQL 定位深层 Tab 导致曝光折损超 70%，推动主动弹窗与路径优化；弹窗拉动单日 UV 增长 10 倍，迭代后留存 UV 提升约 60%，分享率 26%。",
-        "重构知识库信息架构，落地多级文件夹并协同检索、渲染和模型上下文策略；知识库周均访问次数提升约 30%，AI 问答使用率提升约 25%。"
+        "把资料整理成多级文件夹，和研发调整目录内检索与上下文分配。上线后，知识库用户周均访问次数提升约 30%，AI 问答使用率提升约 25%。",
+        "埋点和 SQL 显示深层 Tab 的曝光折损超过 70%。在首页给高活跃用户增加推荐入口后，命理馆单日访问人数约为调整前的 10 倍。",
+        "用文库、网盘和影音会员分别购买的价格作参照，测算联购价，再按老会员新增权益设计补差升级规则。"
       ],
       "highlightsEn": [
-        "Launched AI fortune features from 0 to 1 with GenFlow personalisation and AI wallpapers. DAU exceeded 10,000 within two weeks, weekly return rate reached 35%, and Wenku membership conversion rose about 8%.",
-        "Used event tracking and SQL to locate over 70% exposure loss through deep tabs. Improved pop-up discovery and navigation: single-day UV increased tenfold, post-iteration retained UV rose about 60%, and sharing reached 26%.",
-        "Restructured the knowledge base with multi-level folders and coordinated retrieval, rendering and model-context changes. Weekly visits rose about 30% and AI Q&A usage about 25%."
+        "Nested folders, retrieval within a folder and revised context allocation let readers ask about saved material. Weekly visits per knowledge-base user rose about 30%, and AI Q&A usage rose about 25%.",
+        "Event and SQL analysis found over 70% exposure loss at a deep tab. After adding a homepage entry for active readers, daily unique visitors to the feature reached about ten times the previous level.",
+        "Compared stand-alone prices for document, storage and video services, then priced bundles and upgrades against the extra benefits existing members would receive."
       ],
       "works": [
         {
-          "name": "AI 命理馆与玩法复制",
-          "nameEn": "AI Fortune Hall & Reusable Experiences",
-          "desc": "定义每日运势、许愿抽签和八字、星盘等多维测算，依托 GenFlow 生成个性化报告，并将运势转化为可传播的 AI 壁纸。上线两周日活破万、周回访率 35%；模式复制至 AI 百宝箱的六款人格测试，新品上线周期缩短约 40%。",
-          "descEn": "Defined daily fortunes, wish draws and multidimensional readings using GenFlow-generated personalised reports and shareable AI wallpapers. DAU exceeded 10,000 within two weeks and weekly return rate reached 35%. Reused the approach in six personality experiences, shortening new-product launch cycles about 40%.",
-          "tags": [
-            "0→1",
-            "AI 内容"
-          ]
+          "name": "围绕已存资料继续提问",
+          "nameEn": "Ask questions across saved documents"
         },
         {
-          "name": "曝光归因与主动触达",
-          "nameEn": "Discovery Analysis & Proactive Reach",
-          "desc": "用 SQL 拆用户行为路径，识别深层 Tab 导致曝光折损超 70%。面向高活跃用户在首页与 Tab 页主动推荐入口，并优化路径引导；主动弹窗拉动单日 UV 增长 10 倍，迭代后留存 UV 提升约 60%，分享率 26%。",
-          "descEn": "Analysed user paths in SQL and identified over 70% exposure loss through deep tabs. Added proactive entry points on the home and tab pages for active users and simplified navigation. Pop-ups drove a tenfold single-day UV increase; retained UV rose about 60% after iteration, with 26% sharing.",
-          "tags": [
-            "埋点归因",
-            "增长迭代"
-          ]
+          "name": "缩短新功能的发现路径",
+          "nameEn": "Make a feature easier to discover"
         },
         {
-          "name": "知识库与 AI 问答",
-          "nameEn": "Knowledge Base & AI Q&A",
-          "desc": "重构文库 App 知识库的信息架构，落地多级文件夹，协同优化检索、前端渲染与 GenFlow 上下文分配，串联资料管理、内容检索和 AI 问答。知识库周均访问次数提升约 30%，AI 问答使用率提升约 25%。",
-          "descEn": "Restructured Wenku’s knowledge base with multi-level folders and coordinated retrieval, rendering and GenFlow context allocation. Connected document management, retrieval and AI Q&A; weekly visits rose about 30% and AI Q&A usage about 25%.",
-          "tags": [
-            "知识库",
-            "信息架构"
-          ]
+          "name": "为联合会员和老会员升级定价",
+          "nameEn": "Price bundled memberships and upgrades"
         }
       ]
     },
     {
-      "company": "美团 · Keeta",
-      "companyEn": "Meituan · Keeta",
-      "role": "用户增长产品经理实习生",
-      "roleEn": "Growth Product Manager Intern",
-      "location": "沙特市场",
-      "locationEn": "Saudi Arabia",
+      "company": "美团 · Keeta 中东外卖",
+      "companyEn": "Meituan · Keeta Middle East",
+      "role": "改善跨语言搜索",
+      "roleEn": "Improve multilingual search",
       "period": "2025.09 – 2026.01",
-      "periodEn": "2025.09 – 2026.01",
+      "periodEn": "Sep 2025 – Jan 2026",
       "highlights": [
-        "识别 3 人以上家庭聚餐需求占比 35% 与单人餐供给的错位，设计家庭套餐专区与多人份推荐；家庭套餐订单占比达到 22%，套餐客单价高于平台订单均值约 45%。",
-        "按城市阶段、留存与价格敏感度分层调整补贴，通过 A/B Test 比较获客及后续留存；新客获客成本降低 27%，新客月留存提升 8%。"
+        "抽查沙特用户搜不到或搜错的菜名，补齐阿语、英语别名和音译。先展示精确匹配，用图和规格区分歧义，再给近似替代。跨语言查询无结果率降低约 20%，搜索到加购转化提升约 15%。",
+        "按城市发展阶段和价格敏感度调整券门槛、面额及触达人群，对照原有补贴，同时看获客成本与后续留存。新客获取成本降低 27%，新客月留存提升 8%。",
+        "把人数、预算和送达时效作为约束，信息不足时先澄清，再给可替换单品的整餐方案。试点场景中，推荐到加购转化提升约 12%。"
       ],
       "highlightsEn": [
-        "Identified a mismatch between 35% demand for meals for three or more people and single-person supply. Designed family bundles and recommendations; bundles reached 22% of orders, with order value about 45% above the platform average.",
-        "Segmented subsidies by city stage, retention and price sensitivity, using A/B tests to compare acquisition and subsequent retention. New-customer acquisition cost fell 27% and new-customer monthly retention rose 8%."
+        "Reviewed failed Saudi dish queries, added Arabic and English aliases and transliterations, and used images and specifications to disambiguate results. Exact matches precede substitutes. Zero-result queries fell about 20%; search-to-cart conversion rose about 15%.",
+        "Tested coupon thresholds, amounts and targeting against the previous offer by city stage and price sensitivity. New-customer acquisition cost fell 27% and monthly new-customer retention rose 8%.",
+        "The meal flow clarifies missing party size, budget and delivery constraints before offering a basket with replaceable items. In the pilot, recommendation-to-cart conversion rose about 12%."
       ],
       "works": [
         {
-          "name": "家庭聚餐场景与商品供给",
-          "nameEn": "Family Dining & Assortment",
-          "desc": "从订单结构与流失路径识别家庭聚餐需求，联动商家补充多人份组合，并设计专区、商品规格和推荐策略。家庭套餐订单占比达到 22%，该类套餐客单价高于平台订单均值约 45%。",
-          "descEn": "Used order composition and drop-off paths to identify family dining demand, coordinated multi-person supply and designed the collection, specifications and recommendations. Family bundles reached 22% of orders and their order value was about 45% above the platform average.",
-          "tags": [
-            "场景定义",
-            "供给策略"
-          ]
+          "name": "改善跨语言搜索",
+          "nameEn": "Improve multilingual search"
         },
         {
-          "name": "补贴效率与留存验证",
-          "nameEn": "Subsidy Efficiency & Retention",
-          "desc": "识别高补贴、低留存人群，差异化调整优惠券门槛、力度与覆盖范围，用 A/B Test 同时观察短期转化和后续留存。新客获客成本降低 27%，新客月留存提升 8%。",
-          "descEn": "Identified high-subsidy, low-retention segments, varied coupon thresholds, amounts and coverage, and used A/B tests to examine short-term conversion alongside subsequent retention. New-customer acquisition cost fell 27% and monthly retention rose 8%.",
-          "tags": [
-            "A/B Test",
-            "获客与留存"
-          ]
+          "name": "算清补贴增量",
+          "nameEn": "Measure incremental value from incentives"
+        },
+        {
+          "name": "按人数与预算搭配家庭餐",
+          "nameEn": "Build a family meal within constraints"
         }
       ]
     },
     {
       "company": "理想汽车 · 智能座舱",
-      "companyEn": "Li Auto · Intelligent Cockpit",
-      "role": "智能座舱产品实习生",
-      "roleEn": "Intelligent Cockpit Product Intern",
-      "location": "座舱场景与语音交互",
-      "locationEn": "Cockpit experiences & voice interaction",
-      "period": "2024.05 – 2024.10",
-      "periodEn": "2024.05 – 2024.10",
+      "companyEn": "Li Auto · Smart Cabin",
+      "role": "给模糊语音设置响应边界",
+      "roleEn": "Set limits on ambiguous voice commands",
+      "period": "2024.07 – 2024.10",
+      "periodEn": "Jul – Oct 2024",
       "highlights": [
-        "结合埋点与 20+ 场门店走访，定义一键联动座椅、遮阳帘、空调、氛围灯和白噪音的“小憩模式”，支持自然语言泛化指令。",
-        "通过 A/B Test 确定 App 与车机双入口；上线后午休时段渗透率从 10% 提升至 30%，单次沉浸时长翻倍，语音唤醒占比 40%，功能 NPS 位列座舱场景类前三。"
+        "结合座舱使用数据和 20 多家门店走访，定义午休场景，区分行车与驻车的可执行操作，再对照验证车机和 App 入口。"
       ],
       "highlightsEn": [
-        "Combined event data with 20+ store visits to define a rest mode linking seats, blinds, climate, lighting and white noise, with natural-language activation.",
-        "Used A/B tests to confirm app and in-car entry points. After launch, lunchtime penetration rose from 10% to 30%, session duration doubled, voice activation reached 40%, and NPS ranked in the top three cockpit scenarios."
+        "Cabin data and visits to over 20 stores informed a rest mode. Available actions depend on whether the car is parked, with in-car and app entry points tested."
       ],
       "works": [
         {
-          "name": "从午休痛点到软硬件联动",
-          "nameEn": "From Rest Needs to Integrated Controls",
-          "desc": "识别午休需要手动调节 5—6 步、平均耗时超一分钟的问题，撰写 PRD 并打通座椅、遮阳帘、空调、氛围灯和白噪音。引入大模型意图识别，支持“我有点困了”等表达；上线后午休时段渗透率从 10% 提升至 30%。",
-          "descEn": "Found that preparing for a lunchtime rest required five or six manual steps and over a minute. Defined the PRD and integrated seats, blinds, climate, lighting and white noise with model-based intent recognition. Lunchtime penetration rose from 10% to 30% after launch.",
-          "tags": [
-            "用户研究",
-            "软硬件联动"
-          ]
+          "name": "给模糊语音设置响应边界",
+          "nameEn": "Set limits on ambiguous voice commands"
         }
       ]
     },
     {
-      "company": "Revolut",
-      "companyEn": "Revolut",
-      "role": "产品实习生（增长与商业化）",
-      "roleEn": "Product Intern (Growth & Monetization)",
-      "location": "订阅会员与智能预算",
-      "locationEn": "Subscriptions & smart budgeting",
-      "period": "2023.06 – 2023.09",
-      "periodEn": "2023.06 – 2023.09",
+      "company": "携程 · TrainPal",
+      "companyEn": "Trip.com · TrainPal",
+      "role": "让折扣卡资格和结账价格清楚可见",
+      "roleEn": "Clarify Railcard eligibility and total fare",
+      "period": "2024.04 – 2024.07",
+      "periodEn": "Apr – Jul 2024",
       "highlights": [
-        "参与 Premium 会员增长实验，围绕汇率优惠、消费返现等权益优化展示和升级引导，通过 A/B Test 验证方案，订阅转化率提升超 15%。",
-        "基于大模型纠错数据梳理智能预算功能的高频交互问题，推动预算信息呈现与操作引导优化，模块点击率提升超 20%。"
+        "提前展示含手续费的总价，匹配折扣资格并缩短购卡到用卡的路径。结账支付转化率提升约 8%，折扣卡首单核销率提升约 15%。"
       ],
       "highlightsEn": [
-        "Contributed to Premium growth experiments, improving benefit presentation and upgrade prompts around exchange-rate and cashback benefits. A/B-tested changes lifted subscription conversion over 15%.",
-        "Used model-correction data to identify frequent smart-budget interaction problems and improve information presentation and guidance. Module click-through rose over 20%."
+        "Showed total price including fees earlier and matched discount eligibility. Checkout conversion rose about 8%, and first-order Railcard redemption rose about 15%."
       ],
       "works": [
         {
-          "name": "Premium 权益与升级引导",
-          "nameEn": "Premium Benefits & Upgrade Flow",
-          "desc": "结合用户使用场景与触达时机优化权益展示和升级引导，通过 A/B Test 比较方案，订阅转化率提升超 15%。",
-          "descEn": "Improved benefit presentation and upgrade guidance around users’ needs and timing. Compared approaches through A/B tests; subscription conversion rose over 15%.",
-          "tags": [
-            "订阅转化",
-            "A/B Test"
-          ]
-        },
+          "name": "让折扣卡资格和结账价格清楚可见",
+          "nameEn": "Clarify Railcard eligibility and total fare"
+        }
+      ]
+    },
+    {
+      "company": "Google · Google Ads",
+      "companyEn": "Google · Google Ads",
+      "role": "让零售商家完成广告首投",
+      "roleEn": "Review a retailer’s first campaign",
+      "period": "",
+      "periodEn": "",
+      "highlights": [
+        "沿目标、预算和商品三个步骤走查首次投放，评估图文模板生成的视频预览，整理商家在投放前应补充的素材。"
+      ],
+      "highlightsEn": [
+        "Reviewed goal, budget and product setup, evaluated video previews generated from templates, and identified assets retailers should supply before launch."
+      ],
+      "works": [
         {
-          "name": "智能预算交互迭代",
-          "nameEn": "Smart Budget Interaction",
-          "desc": "将大模型纠错数据中的高频问题转为产品需求，协同研发完善预算信息呈现与操作引导，模块点击率提升超 20%。",
-          "descEn": "Turned recurring model-correction issues into product requirements and worked with engineering on budget information and guidance. Module click-through rose over 20%.",
-          "tags": [
-            "AI 产品",
-            "交互迭代"
-          ]
+          "name": "让零售商家完成广告首投",
+          "nameEn": "Review a retailer’s first campaign"
+        }
+      ]
+    },
+    {
+      "company": "Revolut · Premium",
+      "companyEn": "Revolut · Premium",
+      "role": "在交易环节说明会员升级权益",
+      "roleEn": "Explain upgrade benefits within a transaction",
+      "period": "",
+      "periodEn": "",
+      "highlights": [
+        "把 Premium 的汇率优惠与消费返现放到跨境换汇和境外消费环节。A/B 实验中，覆盖用户的订阅转化率提升超过 15%。"
+      ],
+      "highlightsEn": [
+        "Placed exchange and cashback benefits in relevant cross-border transactions. Subscription conversion rose over 15% among users covered by the experiment."
+      ],
+      "works": [
+        {
+          "name": "在交易环节说明会员升级权益",
+          "nameEn": "Explain upgrade benefits within a transaction"
         }
       ]
     }
@@ -1545,8 +1500,8 @@
         "de": "Before writing a spec, walk the flow myself. Only then do I find which step is redundant and which sentence will be misread."
       }
     ],
-    "body3": "我喜欢先把想法做成能操作的版本，让用户用起来，再看反馈和数据。能否进入真实工作、哪些结果可以验证，是我判断一个 AI 产品是否有用的起点。",
-    "body3En": "I like making an idea usable, putting it in front of people and examining their feedback and the data. Whether it fits real work, and which outcomes can be verified, is where I start judging an AI product."
+    "body3": "做跨语言搜菜时，我会把放宽规则前后的结果放在一起看：多找回了哪些菜，又把哪些相似的菜错当成了同一道？",
+    "body3En": "When I worked on multilingual dish search, I compared the results before and after relaxing a rule. Which dishes did we recover? Which similar dishes did we mistakenly treat as identical?"
   },
   "uses": {
     "groups": [
@@ -1776,7 +1731,7 @@
     "agent": {
       "co": "山海星辰",
       "text": "设计六阶段创作 Agent，在开放创作环节结合工具调用、交叉校验与人工确认，封装可复用 Skill",
-      "metric": "38 个 Skill · 月均调用 6000 次 · 使用覆盖率 70% · 单剧创作耗时约 −30%"
+      "metric": "40+ 个可复用 Skill · 月均调用 1 万+ 次 · 使用覆盖率 70% · 单剧创作耗时约 −30%"
     },
     "production": {
       "co": "山海星辰",
@@ -1845,7 +1800,7 @@
     },
     "msc": {
       "co": "教育背景",
-      "text": "UCL 金融工程硕士 · 2024.09 – 2026.02",
+      "text": "UCL 金融工程硕士 · 2024.09 – 2026.03",
       "metric": "Distinction · Top 8%"
     },
     "bachelor": {

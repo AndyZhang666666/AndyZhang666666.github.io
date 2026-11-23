@@ -1,3 +1,4 @@
+import {syncProfile} from './compose-resumes.mjs';
 import {updateRoleLookup} from '../content/role-lookup.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -35,7 +36,8 @@ const expectedEval={...prior.projects.find(p=>p.id==='eval'),url:evalEntry};
 for(const id of ids){const allowed=baseline.allowedProjectChanges[id];assert.deepEqual(protectedProject(data.projects.find(p=>p.id===id),allowed),protectedProject(id==='eval'?expectedEval:prior.projects.find(p=>p.id===id),allowed),'Owned project changed outside explicit display-copy/image-size whitelist: '+id);}
 
 for(const p of prior.projects)if(!ids.has(p.id))assert.deepEqual(data.projects.find(n=>n.id===p.id),p,'Unrelated project: '+p.id);
-for(const k of Object.keys(prior).filter(k=>k!=='projects'))assert.deepEqual(data[k],prior[k],'Unrelated supplied facts: '+k);
+const revisedFacts=syncProfile(structuredClone(prior));
+for(const k of Object.keys(prior).filter(k=>k!=='projects'))assert.deepEqual(data[k],revisedFacts[k],'Unrelated supplied facts: '+k);
 for(const s of selected){const p=data.projects.find(p=>p.id===s.project),study=studies.find(study=>study.id===s.id);assert.ok(p.url&&p.github);assert.equal(study.project,p.id);assert.ok(html.includes(`data-selected-demo="${p.id}"`));assert.ok(read(`cases/${s.id}/index.html`).includes(study.summary.zh));}
 assert.equal(data.projects.find(p=>p.id==='commute').url,'/commute-compare/');
 for(const d of Object.keys(DIRECTIONS)){const {room}=createTastePreview(d);assert.ok(room.artwork);assert.equal(room.memories.length,0);assert.equal(room.canvas.artDirection,d);assert.ok(directionSvg(room,posterContent).includes('无用之美'));}
@@ -71,8 +73,21 @@ for(const id of ['top','about','ai','work','experience','education','awards','us
 assert.equal(previous('app.js'),old('app.js').replace('data.json?v=20261107-squid2','data.json?v=20261115-renovation1'));
 for(const resource of ['app.js','projects-split.js'])assert.ok(previousShell.includes(resource+'?v=20261115-renovation1'));
 for(const file of ['style.css','bg-layers.js','motion.js','interactions.css','assets/showcase-motion.mjs','assets/hero-paper.css','assets/mobile-navigation.css','assets/mobile-navigation.mjs','assets/motion-governor.css','assets/motion-governor.mjs','scripts/case-reader.js'])assert.equal(previous(file),old(file),'Historical visual/interaction file: '+file);
-assert.equal(outsideOwnedContent(html),outsideOwnedContent(approved('index.html')),'Approved task portfolio around selected demos');
-assert.equal(read('app.js'),approved('app.js'));
+// Only explicitly revised résumé surfaces are normalized. The rest of the
+// original page, including portrait, selected interactions and all demos, stays pinned.
+const publicShell = source => outsideOwnedContent(source)
+ .replace(/<meta (?:name="(?:description|twitter:description)"|property="og:description")[^>]*>\n/g,'')
+ .replace(/<p class="hero-tagline[^>]*>[^]*?<\/p>/,'HERO_COPY')
+ .replace(/<details class="resume-picker"[^]*?<\/details>/,'')
+ .replace(/<p class="about-body"[^>]*>[^]*?<\/p>/g,'ABOUT_PARAGRAPH')
+ .replace(/<dl class="work-notes">[^]*?<\/dl>(?:<aside class="side-evidence">[^]*?<\/aside>)?/,'WORK_COPY')
+ .replace(/<div class="task-examples">[^]*?<\/div>/,'TASK_PROMPTS')
+ .replaceAll('?v=cv1','?v=task1');
+assert.equal(publicShell(html),publicShell(approved('index.html')),'Original site outside approved resume surfaces');
+const newApp=approved('app.js').replace('data.json?v=20261115-renovation1','data.json?v=cv1')
+ .replace('${year(e.period)} · ${e.role}',"${[year(e.period),e.role].filter(Boolean).join(' · ')}")
+ .replace('${year(e.period)} · ${e.roleEn || e.role}',"${[year(e.period),e.roleEn || e.role].filter(Boolean).join(' · ')}");
+assert.equal(read('app.js'),newApp);
 for(const file of ['style.css','bg-layers.js','motion.js','interactions.css','assets/showcase-motion.mjs','assets/mobile-navigation.css','assets/mobile-navigation.mjs','assets/motion-governor.css','assets/motion-governor.mjs','scripts/case-reader.js'])assert.equal(read(file),old(file),'Preserved interaction: '+file);
 assert.equal(read('assets/hero-paper.css'),approved('assets/hero-paper.css'),'Approved responsive portrait placement');
 const oldEducation=old('education.js');

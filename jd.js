@@ -1,5 +1,6 @@
-import {lookup} from './assets/task-search.mjs';
-import {tasks} from './content/task-portfolio.mjs';
+import {lookup} from './assets/task-search.mjs?v=cv1';
+import {quickTasks} from './content/resume-profile.mjs';
+const sampleTitle=(id)=>quickTasks.find(row=>row[0]===id)?.[lang()+1];
 
 const input=document.querySelector('#jdInput'), result=document.querySelector('#jdResult');
 const submit=document.querySelector('#jdRun'), announcement=document.querySelector('#taskAnnouncement');
@@ -20,14 +21,14 @@ function render(){
   for(const {task,parts} of items){
     const row=node('article','','task-result-row');
     const body=node('div','');
-    body.append(node('small',task.kind[index]),node('h3',task.name[index]),node('p',task.desc[index]));
+    body.append(node('small',task.kind[index]),node('h3',task.owner?task.name[index]+' · '+task.title[index]:task.name[index]),node('p',task.desc[index]));
     body.append(node('p',phrase('对应任务 · ','Task · ')+parts.join(' / '),'task-context'));
     const link=node('a',phrase('查看材料','View evidence')+' ↗');link.href=task.url;
     row.append(body,link);result.append(row);
     copyLines.push(task.name[index]+' · '+task.kind[index],parts.join(' / '),task.desc[index],new URL(task.url,location.origin).href,'');
   }
   function note(message){result.append(node('p',message,'task-note'));copyLines.push(message);}
-  if(limitations.length)note(phrase('本站尚未提供线上排序实验或召回模型训练案例。可信 RAG 可以演示检索与引用核对。','This portfolio has no public online ranking experiment or retrieval-model training case. RAG Lab demonstrates retrieval and source checks.'));
+  if(limitations.length)note(phrase('可查看跨语言召回规则与匹配纠错。独立训练或调优排序、召回模型的经历暂无公开材料。','Available evidence covers multilingual retrieval rules and matching decisions. Independent training or tuning of ranking and retrieval models has no public case here.'));
   if(missing.length)note(phrase('尚未找到公开材料 · ','No public material found for · ')+missing.join(' / '));
   if(!items.length){const link=node('a',phrase('换一个任务，或浏览完整作品库 →','Try another task, or browse all work →'));link.href='#projects';result.append(link);}
   else{
@@ -43,11 +44,25 @@ function remember(){
 }
 function run(){submitted=!!input.value.trim();render();remember();}
 document.querySelector('#taskForm').onsubmit=e=>{e.preventDefault();run();};
-examples.forEach(b=>b.onclick=()=>{active=b.dataset.task;input.value=tasks.find(t=>t.id===active).title[lang()];run();});
+examples.forEach(b=>b.onclick=()=>{active=b.dataset.task;input.value=sampleTitle(active);run();});
 input.oninput=()=>{const hadResult=submitted;active='';submitted=false;render();if(hadResult)remember();};
 window.addEventListener('pagehide',remember);
 document.querySelector('#jdClear').onclick=()=>{input.value='';active='';submitted=false;render();remember();input.focus();};
-new MutationObserver(()=>{if(active)input.value=tasks.find(t=>t.id===active).title[lang()];render();}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+new MutationObserver(()=>{if(active)input.value=sampleTitle(active);render();}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 const saved=history.state?.taskSearch;
-if(saved){active=tasks.some(t=>t.id===saved.active)?saved.active:'';input.value=active?tasks.find(t=>t.id===active).title[lang()]:saved.value;submitted=saved.submitted;}
+if(saved){active=quickTasks.some(t=>t[0]===saved.active)?saved.active:'';input.value=active?sampleTitle(active):saved.value;submitted=saved.submitted;}
 render();
+
+function revealEvidence() {
+  const item=document.getElementById(location.hash.slice(1));
+  if(!item?.matches('details.evidence-note'))return;
+  for(let parent=item.parentElement;parent;parent=parent.parentElement){
+    if(parent.tagName==='DETAILS')parent.open=true;
+  }
+  item.open=true;
+  item.querySelector('summary').focus({preventScroll:true});
+  item.scrollIntoView({block:'start'});
+}
+window.addEventListener('hashchange',revealEvidence);
+window.addEventListener('load',revealEvidence);
+revealEvidence();

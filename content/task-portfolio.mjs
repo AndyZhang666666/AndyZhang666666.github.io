@@ -1,11 +1,4 @@
-export const work = [
-  ['shanhai','山海星辰','Shanhai Xingchen','把复杂的创作流程拆成几步，确定哪些决定要交还给编剧。','Break a creative workflow into stages and decide where the writer should take over.'],
-  ['baidu','百度','Baidu','通过使用数据找出用户错过的入口，让有用的功能更容易被发现。','Use behavioral data to spot overlooked entry points and make a useful feature easier to discover.'],
-  ['keeta','美团 · Keeta','Meituan · Keeta','按用餐场景拆分需求，再用首单和复购判断补贴花得值不值。','Separate dining occasions and judge an incentive by first orders and repeat purchases.'],
-  ['li-auto','理想汽车','Li Auto','结合门店观察和使用记录，把车里的一连串操作收成一次指令。','Combine showroom observations and usage data to turn several cabin controls into one command.'],
-  ['revolut','Revolut','Revolut','把会员权益讲清楚，再用对照实验判断用户为什么愿意升级。','Clarify membership benefits and test which changes help people choose an upgrade.']
-];
-
+import {evidence} from './resume-profile.mjs';
 export const tasks = [
  {id:'eval', title:['判断模型打分有没有依据','Check the evidence for a model score'],name:['Eval Lab','Eval Lab'], kind:['历史评测回放','Historical evaluation'],desc:['读一条 2/5 的结构评语，回到被引用的原文，留下自己的判断。','Compare a 2/5 structure score with its quoted passage and record your own judgment.'],url:'/llm-output-eval/?sample=e06&dimension=structure',words:'模型打分 模型评分 模型质量 评估大模型 效果评测 模型评测 评测 评估模型 低分 评语 rubric evaluation eval model_score model_quality'},
  {id:'taste', title:['比较两种设计，再决定用哪种','Compare two designs before choosing one'],name:['偏爱实验室','Taste Lab'],kind:['可操作作品','Interactive work'],desc:['给同一段文字换两种构图。先比较，再决定只用这一次，还是记住偏好。','Try two compositions with the same copy, then choose a one-off layout or a lasting preference.'],url:'/tasteroom/?direction=swiss',words:'用户反馈 收集反馈 用户偏好 设计原型 交互原型 设计方案 两种设计 设计比较 偏爱 构图 海报 排版 审美 layout layouts composition compositions designs design_preference poster'},
@@ -17,13 +10,7 @@ export const tasks = [
  {id:'pricing',title:['比较定价方案','Compare pricing plans'],name:['定价模拟器','Pricing Model Sim'],kind:['模拟算例','Simulation'],desc:['把定价方案放在同一组假设下比较，查看哪个假设会改变结论。','Compare prices under common assumptions and inspect which assumption changes the decision.'],url:'/cases/pricing/',words:'定价 收费模式 price pricing pricing_strategy'},
  {id:'filing',title:['核对财报里的判断','Review a claim in a financial filing'],name:['Filing Eval','Filing Eval'],kind:['可操作作品','Interactive work'],desc:['打开财报评测案例，回到材料核对结论。','Open a filing case and check the conclusion against its source.'],url:'/cases/filing/',words:'财报 投研 financial_filing filings investment_research'},
  {id:'fde',title:['把业务步骤做成可交付的工具','Deliver a tool for a business workflow'],name:['企业 AI 交付案例','Enterprise AI delivery'],kind:['交付案例','Delivery case'],desc:['看商品资料怎样进入问答流程，以及何时需要人工核实。','Read how product records enter a support workflow and where a person needs to verify them.'],url:'/cases/agent-workflow/',words:'交付 企业流程 fde 选品 企业知识库 delivery enterprise'},
- ...[
- ['keeta','按用餐场景拆分需求','Identify demand by dining occasion','复购 首单 获客 拉新 留存 用户分层 商品推荐 多人份推荐 推荐策略 recommendations acquisition retention repeat_purchase'],
- ['baidu','改善功能入口和用户触达','Improve feature discovery and outreach','触达 入口优化 埋点 漏斗 outreach funnel feature_discovery'],
- ['revolut','设计会员权益与升级引导','Design membership benefits and upgrades','会员 续费 订阅 付费转化 升级权益 subscription membership renewal'],
- ['li-auto','把用户观察带进产品设计','Translate user observation into product design','用户访谈 门店 用户观察 座舱 硬件 user_research cockpit hardware'],
- ['shanhai','安排工作流中的人工确认','Place human decisions in a workflow','编剧 人工确认 人机协作 工作流 workflow human_review']
- ].map(([id,zh,en,words])=>{const row=work.find(w=>w[0]===id);return {id,title:[zh,en],name:row.slice(1,3),desc:row.slice(3),kind:['工作经历','Professional experience'],url:'/#work-'+id,words}})
+ ...evidence
 ];
 export const methods=[
  ['定义问题','Frame a problem','把每个人的预算、时间和底线写成可比较的条件。','Translate budgets, schedules and constraints into comparable options.','约束清单','Constraint list','随便局','Group Planner','/suibianju/','飞书多维表格 / Figma','Feishu Base / Figma'],

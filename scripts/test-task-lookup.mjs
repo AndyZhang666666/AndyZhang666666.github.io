@@ -1,15 +1,24 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import {tasks} from '../content/task-portfolio.mjs';
+import {work,quickTasks,evidence,resumes} from '../content/resume-profile.mjs';
 import {lookup} from '../assets/task-search.mjs';
-for(const task of tasks.slice(0,4)){
-  for(const example of task.title)assert.equal(lookup(example).items[0].task.id,task.id);
-}
+const ids=q=>lookup(q).items.map(x=>x.task.id);
+for(const task of tasks.slice(0,4))for(const title of task.title)assert.equal(ids(title)[0],task.id);
+for(const [id,...labels] of quickTasks)for(const title of labels)assert.equal(ids(title)[0],id);
+for(const [query,first] of Object.entries({'阿语搜菜':'search','同款误判':'matching','折扣卡资格':'railcard','团队积分池':'credit','订阅权益升级':'premium','联合会员':'membership','留学咨询':'content-growth','商家首投':'pmax','资料问答':'knowledge','核对财报':'filing','模糊语音':'voice','merchant performance max':'pmax','SKU matching':'matching','railcard eligibility':'railcard'}))assert.equal(ids(query)[0],first,query);
+assert.deepEqual(ids('算清补贴增量'),['subsidy','bundle']);
+assert.deepEqual(ids('复核模型评语'),['quality','eval']);
 const mixed=lookup('模型评测；套餐毛利；线上搜索排序实验；海底种植');
-assert.deepEqual(mixed.items.map(item=>item.task.id).sort(),['bundle','eval','rag']);
-assert.deepEqual(mixed.limitations,['线上搜索排序实验']);
-assert.deepEqual(mixed.missing,['海底种植']);
-assert.deepEqual(lookup('online search ranking experiments').items.map(item=>item.task.id),['rag']);
-assert.equal(lookup('商品推荐；触达').items.length,2);
-assert.equal(lookup('核对财报').items[0].task.id,'filing');
-assert.equal(lookup('evaluate a transaction in Prague').items.length,0);
-console.log('Task evidence checks passed');
+assert.deepEqual(mixed.items.map(item=>item.task.id).sort(),['bundle','quality','search']);
+assert.deepEqual(mixed.missing,['海底种植']);assert.deepEqual(mixed.limitations,[]);
+assert.deepEqual(lookup('独立训练排序模型').limitations,['独立训练排序模型']);
+assert.equal(ids('online search ranking experiments')[0],'search');
+assert.equal(ids('商品推荐；触达').length,2);
+assert.equal(ids('evaluate a transaction in Prague').length,0);
+const html=fs.readFileSync('index.html','utf8'),data=JSON.parse(fs.readFileSync('data.json','utf8'));
+for(const e of evidence)assert.ok(html.includes('id="evidence-'+e.id+'"')&&html.includes(e.desc[0]),e.id);
+for(const [id] of resumes)assert.ok(html.includes('/assets/cv/'+id+'.pdf')&&fs.existsSync('assets/cv/'+id+'.pdf'));
+assert.equal(work.length,7);assert.equal(data.education[0].period,'2024.09 – 2026.03');
+assert.deepEqual(data.experience.map(e=>e.period),['2026.07 – 至今','2026.01 – 2026.06','2025.09 – 2026.01','2024.07 – 2024.10','2024.04 – 2024.07','','']);
+console.log('Verified bilingual task routes, limits, destination evidence, seven work entries and three PDF links.');

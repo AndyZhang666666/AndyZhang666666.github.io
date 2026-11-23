@@ -82,6 +82,7 @@ exclude:
   - docs/DEMO-TASK-LOOPS-20261111.md
   - task-loop-review.html
   - task-review.html
+  - scripts/compose-resumes.mjs
   - scripts/compose-portfolio.mjs
   - scripts/test-task-lookup.mjs
 

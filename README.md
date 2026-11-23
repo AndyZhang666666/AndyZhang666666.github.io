@@ -1,5 +1,7 @@
 # Andy Zhang · 产品作品集与独立工具
 
+[三份定稿简历](https://andyzhang666666.github.io/#resumes) · [按任务查看工作案例与独立作品](https://andyzhang666666.github.io/#jd)
+
 **四Demo联合精修已发布（2026-11-13）：** 偏爱、Eval、Bundle与可信RAG完成工作区、交互及真实作品展示更新。三个仓库均已普通合并，Pages部署成功，实际HTTPS操作核对通过。本地预览保留。[发布记录与GitHub提交](docs/RELEASE-20261113.md) · [完整改动与验证范围](docs/FOUR-DEMO-CRAFT-20261112.md)。
 
 2026-11-11 开发分支：四个工具补充引用核对、改稿复核、触达假设与场景授权对照。原公式、量表、来源权限与持久化契约保持；本轮尚未合并或部署。[本轮范围、证据和本地入口](docs/DEMO-TASK-LOOPS-20261111.md)。以下日期保留各自历史发布状态。

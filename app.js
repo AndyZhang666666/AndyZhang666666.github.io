@@ -16,7 +16,7 @@ const hl = (s) => esc(s).replace(
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data.json?v=20261115-renovation1');
+    const res = await fetch('data.json?v=cv1');
     if (!res.ok) throw new Error('Profile data could not be loaded');
     data = await res.json();
     render();
@@ -197,8 +197,8 @@ function renderMarquee() {
   const year = (p) => (p.match(/\d{4}/) || [''])[0];
   const track1 = data.experience.map(e => ({
     zh: `${e.company}`, en: `${e.companyEn || e.company}`,
-    metaZh: `${year(e.period)} · ${e.role}`,
-    metaEn: `${year(e.period)} · ${e.roleEn || e.role}`,
+    metaZh: `${[year(e.period),e.role].filter(Boolean).join(' · ')}`,
+    metaEn: `${[year(e.period),e.roleEn || e.role].filter(Boolean).join(' · ')}`,
   }));
   a.innerHTML = [...track1, ...track1].map(n => `
     <span class="marquee-item">
