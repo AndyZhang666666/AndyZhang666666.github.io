@@ -60,11 +60,21 @@ assert.ok(read('cases/rag/index.html').includes('<img src="'+ragPublicCoverPath+
 
 function region(source,id){const start=source.indexOf(`<section id="${id}"`),tags=/<\/?section\b[^>]*>/g;assert.ok(start>=0,id);tags.lastIndex=start;let depth=0,m;while((m=tags.exec(source))){depth+=m[0].startsWith('</')?-1:1;if(depth===0)return source.slice(start,tags.lastIndex);}assert.fail('Unclosed '+id);}
 const outsideOwnedContent=source=>{let result=source.replace(region(source,'selected'),'<section id="selected">APPROVED_SELECTED_CONTENT</section>');result=result.replace(/<article id="project-renovation"[^]*?<\/article>\n?/,'');for(const id of ids)result=result.replace(new RegExp(`<article id="project-${id}"[^]*?</article>`),`<article id="project-${id}">APPROVED_PROJECT_CONTENT</article>`);result=result.replaceAll('app.js?v=20261115-renovation1','app.js?v=20261109-v2').replaceAll('projects-split.js?v=20261115-renovation1','projects-split.js?v=20261109-v2');return result.replace(/(assets\/demo-showcase\.(?:mjs|css)\?v=)[^"']*/g,'$1APPROVED_SELECTED_CACHE_KEY');};
-assert.equal(outsideOwnedContent(html),outsideOwnedContent(updateRoleLookup(old('index.html'))),'Entire V2 homepage shell and other cards outside the explicit four-project boundary');
-for(const id of ['top','about','ai','work','experience','education','awards','uses','skills','jd','contact'])if(old('index.html').includes(`<section id="${id}"`))assert.equal(region(html,id),region(updateRoleLookup(old('index.html')),id),'Protected section: '+id);
-assert.equal(read('app.js'),old('app.js').replace('data.json?v=20261107-squid2','data.json?v=20261115-renovation1'));
-for(const resource of ['app.js','projects-split.js'])assert.ok(html.includes(resource+'?v=20261115-renovation1'));
-for(const file of ['style.css','bg-layers.js','motion.js','interactions.css','assets/showcase-motion.mjs','assets/hero-paper.css','assets/mobile-navigation.css','assets/mobile-navigation.mjs','assets/motion-governor.css','assets/motion-governor.mjs','scripts/case-reader.js'])assert.equal(read(file),old(file),'Protected visual/interaction file: '+file);
+// Keep the full prior release contract on the original site. Verify the accepted
+// portfolio shell separately; the four demo sections remain product-owned above.
+const at = (revision, file) => execFileSync('git', ['show', revision + ':' + file], {encoding:'utf8'});
+const previous = file => at('3f75d663a5eac7eb7bc1aecd2d59e9a7d6bf365a', file);
+const approved = file => at('855d58c0b390a7af51515fc3fd55ecf9dac8c22c', file);
+const previousShell = previous('index.html');
+assert.equal(outsideOwnedContent(previousShell),outsideOwnedContent(updateRoleLookup(old('index.html'))),'Entire V2 homepage shell and other cards outside the explicit four-project boundary');
+for(const id of ['top','about','ai','work','experience','education','awards','uses','skills','jd','contact'])if(old('index.html').includes(`<section id="${id}"`))assert.equal(region(previousShell,id),region(updateRoleLookup(old('index.html')),id),'Protected section: '+id);
+assert.equal(previous('app.js'),old('app.js').replace('data.json?v=20261107-squid2','data.json?v=20261115-renovation1'));
+for(const resource of ['app.js','projects-split.js'])assert.ok(previousShell.includes(resource+'?v=20261115-renovation1'));
+for(const file of ['style.css','bg-layers.js','motion.js','interactions.css','assets/showcase-motion.mjs','assets/hero-paper.css','assets/mobile-navigation.css','assets/mobile-navigation.mjs','assets/motion-governor.css','assets/motion-governor.mjs','scripts/case-reader.js'])assert.equal(previous(file),old(file),'Historical visual/interaction file: '+file);
+assert.equal(outsideOwnedContent(html),outsideOwnedContent(approved('index.html')),'Approved task portfolio around selected demos');
+assert.equal(read('app.js'),approved('app.js'));
+for(const file of ['style.css','bg-layers.js','motion.js','interactions.css','assets/showcase-motion.mjs','assets/mobile-navigation.css','assets/mobile-navigation.mjs','assets/motion-governor.css','assets/motion-governor.mjs','scripts/case-reader.js'])assert.equal(read(file),old(file),'Preserved interaction: '+file);
+assert.equal(read('assets/hero-paper.css'),approved('assets/hero-paper.css'),'Approved responsive portrait placement');
 const oldEducation=old('education.js');
 const expectedEducation=oldEducation.slice(0,oldEducation.indexOf('  // Subject-specific geometry.')) +
   oldEducation.slice(oldEducation.indexOf('  // ---------- 1.')).replace('        thesisFigure(type) +','        window.AcademicArt.figure(type) +');
@@ -76,9 +86,11 @@ assert.deepEqual(Object.keys(presentationCases),expected.all,'Presentation follo
 for(const href of Object.values(presentationCases)){const url=new URL(href,'https://example.test');assert.ok(read(url.pathname.slice(1)+'index.html').includes(`id="${url.hash.slice(1)}"`),'Real case mechanism: '+href);const entered=new URL(withPresentationQuery(url.href));assert.equal(entered.searchParams.get('present'),'1');assert.equal(new URL(withoutPresentationQuery(entered.href)).href,url.href,'Presentation exit preserves route and anchor');}
 for(const item of selected){
  const file=`cases/${item.id}/index.html`,current=read(file);
- assert.equal(current.replace(/<main>[^]*<\/main>/,'<main></main>'),old(file).replace(/<main>[^]*<\/main>/,'<main></main>'),'Approved V2 case shell/scripts: '+file);
+ assert.equal(current.replace(/<main>[^]*<\/main>/,'<main></main>'),approved(file).replace(/<main>[^]*<\/main>/,'<main></main>'),'Approved portfolio case shell/scripts: '+file);
  for(const [,image,width,height] of current.matchAll(/<img src="([^"]+)" width="(\d+)" height="(\d+)"/g)){if(/^https?:/.test(image))assert.equal(image,evalPublicCoverUrl,'Remote case image is exactly the pinned public Eval image');const size=image===evalPublicCoverUrl?fixedPublicCoverDimensions(image):rasterSize(fs.readFileSync(image.slice(1)));assert.deepEqual({width:Number(width),height:Number(height)},size,'Actual image dimensions: '+image);}
 }
 const snapshot=['index.html','data.json',...selected.map(s=>`cases/${s.id}/index.html`)].map(p=>[p,hash(read(p))]);
 execFileSync(process.execPath,['scripts/update-content.mjs','--selected-only'],{stdio:'pipe'});for(const [file,value] of snapshot)assert.equal(hash(read(file)),value,'Idempotent current-shell generation: '+file);
 console.log('PASS: PRD directions, four canonical previews,original portfolio plus the renovation demo, all supplied facts, protected visual sections and idempotent scoped generation.');
+
+await import('./test-task-lookup.mjs');

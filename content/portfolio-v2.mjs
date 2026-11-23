@@ -15,6 +15,7 @@ export function enhancePortfolioV2(html,{casePage=false,paletteMarkup=''}={}){
   // The selected-product integration has a newer explicit cache key. Keep it
   // while applying the approved V2 enhancement to every other resource.
   if(file==='assets/demo-showcase.mjs'&&/assets\/demo-showcase\.mjs\?v=(?:20261109-product-depth|20261112-craft1|20261115-entry1)/.test(html))continue;
+  if (html.includes('id="taskForm"') && ['app.js','railnav.js'].includes(file)) continue;
   const directoryScript = file === 'app.js' || file === 'projects-split.js';
   const version = directoryScript && html.includes('id="project-renovation"') ? directoryVersion : portfolioV2Version;
   const escaped=file.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
