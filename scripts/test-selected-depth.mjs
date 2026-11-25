@@ -13,6 +13,7 @@ import {rasterSize} from '../content/raster-size.mjs';
 import {publicCovers,evalPublicCoverUrl,ragPublicCoverPath,fixedPublicCoverDimensions} from '../content/public-covers.mjs';
 import {presentationCases,withPresentationQuery,withoutPresentationQuery} from '../content/presentation-mode.mjs';
 import {enhancePortfolioV2} from '../content/portfolio-v2.mjs';
+import {printCover,renderWorkdesk} from '../content/print-cover.mjs';
 import {retrieveRun} from '../rag-lab/engine.mjs';
 const read=p=>fs.readFileSync(p,'utf8'),hash=v=>createHash('sha256').update(v).digest('hex');
 const baseline=JSON.parse(read('docs/verification/selected-depth-baseline-20261109.json'));
@@ -69,6 +70,7 @@ const outsideOwnedContent=source=>{let result=source.replace(region(source,'sele
 const at = (revision, file) => execFileSync('git', ['show', revision + ':' + file], {encoding:'utf8'});
 const previous = file => at('3f75d663a5eac7eb7bc1aecd2d59e9a7d6bf365a', file);
 const approved = file => at('855d58c0b390a7af51515fc3fd55ecf9dac8c22c', file);
+const beforeCover = file => at('457a92c6f697896203ea06b33f59c142f1af1d2c', file);
 const previousShell = previous('index.html');
 assert.equal(outsideOwnedContent(previousShell),outsideOwnedContent(updateRoleLookup(old('index.html'))),'Entire V2 homepage shell and other cards outside the explicit four-project boundary');
 for(const id of ['top','about','ai','work','experience','education','awards','uses','skills','jd','contact'])if(old('index.html').includes(`<section id="${id}"`))assert.equal(region(previousShell,id),region(updateRoleLookup(old('index.html')),id),'Protected section: '+id);
@@ -91,13 +93,24 @@ const publicShell = source => outsideOwnedContent(withoutStudio(source))
  .replace(/<dl class="work-notes">[^]*?<\/dl>(?:<aside class="side-evidence">[^]*?<\/aside>)?/,'WORK_COPY')
  .replace(/<div class="task-examples">[^]*?<\/div>/,'TASK_PROMPTS')
  .replaceAll('?v=cv1','?v=task1');
-assert.equal(publicShell(html),publicShell(approved('index.html')),'Original site outside approved resume surfaces');
+const releasedPage = beforeCover('index.html');
+assert.equal(publicShell(releasedPage),publicShell(approved('index.html')),'Original site outside approved resume surfaces');
+const releasedDesk = /<!--studio-desk-->[\s\S]*?<!--\/studio-desk-->/;
+assert.ok(releasedDesk.test(releasedPage));
+const expectedCover = printCover(releasedPage.replace(releasedDesk, '<!--studio-desk-->' + renderWorkdesk() + '<!--/studio-desk-->'));
+assert.equal(region(html,'top'),region(expectedCover,'top'),'Complete cover with its three printed sheets');
+assert.equal(publicShell(html),publicShell(expectedCover),'Candidate contains only the agreed cover changes');
 const newApp=approved('app.js').replace('data.json?v=20261115-renovation1','data.json?v=cv1')
  .replace('${year(e.period)} · ${e.role}',"${[year(e.period),e.role].filter(Boolean).join(' · ')}")
  .replace('${year(e.period)} · ${e.roleEn || e.role}',"${[year(e.period),e.roleEn || e.role].filter(Boolean).join(' · ')}");
 assert.equal(read('app.js'),newApp);
 for(const file of ['style.css','bg-layers.js','motion.js','interactions.css','assets/showcase-motion.mjs','assets/mobile-navigation.css','assets/mobile-navigation.mjs','assets/motion-governor.css','assets/motion-governor.mjs','scripts/case-reader.js'])assert.equal(read(file),old(file),'Preserved interaction: '+file);
-assert.equal(read('assets/hero-paper.css'),approved('assets/hero-paper.css'),'Approved responsive portrait placement');
+assert.equal(beforeCover('assets/hero-paper.css'),approved('assets/hero-paper.css'),'Released responsive portrait placement');
+for(const image of ['portrait-light.png','portrait-dark.png']){
+  const filename = 'assets/gen/' + image;
+  const published = execFileSync('git',['rev-parse','457a92c:' + filename],{encoding:'utf8'}).trim();
+  assert.equal(execFileSync('git',['hash-object',filename],{encoding:'utf8'}).trim(),published,'Original portrait retained: ' + image);
+}
 const oldEducation=old('education.js');
 const expectedEducation=oldEducation.slice(0,oldEducation.indexOf('  // Subject-specific geometry.')) +
   oldEducation.slice(oldEducation.indexOf('  // ---------- 1.')).replace('        thesisFigure(type) +','        window.AcademicArt.figure(type) +');

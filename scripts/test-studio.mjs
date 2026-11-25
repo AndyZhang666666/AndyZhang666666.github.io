@@ -6,7 +6,9 @@ import {wallet,quote,reserve,transition,advance,receipt,spentBy} from '../studio
 import {depthAt,poseAt} from '../assets/research-instruments.mjs';
 import {bookRows,highestWithdrawal} from '../assets/research-model.mjs';
 import {objects} from '../content/studio-objects.mjs';
+import {readProof,ticketHTML} from '../assets/cover-proof.mjs';
 import {lookup} from '../assets/task-search.mjs';
+import {initialMenu,menuResult,initialBill,billResult,sampleTicket} from '../assets/desk-samples.mjs';
 const id=(q,r)=>search(dishes,q,r)[0]?.dish.id;
 assert.equal(id('shawerma chicken wrap','literal'),undefined);
 assert.equal(id('shawerma chicken wrap','alias'),'cw');
@@ -20,6 +22,22 @@ assert.equal(withMenuEdits(update).length,dishes.length);
 assert.equal(search(withMenuEdits(update),'local sandwich','alias')[0].dish.id,dishes[0].id);
 assert.equal(withQueryEdits(update).at(-1).id,dishes[0].id);
 assert.throws(()=>parseMenu('Mushroom pita'));assert.throws(()=>parseMenu(''));
+// The desk tickets must describe the exact search and wallet changes on screen.
+for(const [rule,won,lost] of [['literal',0,0],['alias',3,0],['wide',0,4]]){
+  const state={...initialMenu(),rule},outcome=menuResult(state);
+  assert.deepEqual([outcome.won.length,outcome.lost.length],[won,lost]);
+  assert.equal(outcome.first?.id,id(state.query,rule));
+  assert.ok(sampleTicket('menu',state,false).includes('找回 '+won+' / 错排 '+lost));
+}
+const markupQuery='<untrusted-menu>';
+const escapedTicket=sampleTicket('menu',{...initialMenu(),query:markupQuery},true);
+assert.ok(escapedTicket.includes('&lt;untrusted-menu&gt;'));assert.ok(!escapedTicket.includes(markupQuery));
+for(const [shot,late,returned,expired] of [[1,true,0,12],[2,true,6,6],[3,true,12,0],[1,false,12,0],[2,false,12,0],[3,false,12,0]]){
+  const state={...initialBill(),step:2,shot,late},bill=billResult(state);
+  const refunds=bill.events.reduce((n,e)=>n+(e.returnedGift||0)+(e.returnedPaid||0),0);
+  assert.deepEqual([bill.held,bill.charged,refunds,bill.expired],[0,24,returned,expired]);
+  assert.ok(sampleTicket('credits',state,true).includes('Shot '+shot+' · Returned '+returned+' credits, expired '+expired+' credits'));
+}
 let story=createStory(examples.zh.join('\n\n'),5,'阿禾','寄信人是林岚');
 let flags=rows(story).filter(r=>r.conflict);assert.equal(flags.length,2);
 let edit=revise(story,flags[0].key,'doubt','还不能确定。');
@@ -27,6 +45,23 @@ assert.match(scriptText(edit),/还不能确定/);assert.equal(rows(story).filter
 edit=revise(edit,flags[1].key,'omit','');assert.equal(rows(edit).filter(r=>r.conflict).length,0);
 assert.equal(rows(revise(story,flags[0].key,'clue','先看见了落款。')).filter(r=>r.conflict).length,1);
 assert.throws(()=>createStory('一段',3,'角色','信息'));assert.throws(()=>revise(story,flags[0].key,'doubt',' '));
+// The cover and the full editor must flag the same dialogue in either language.
+for (const english of [false, true]) {
+  const delayed = ['delay'];
+  const preview = readProof(delayed, english);
+  const keys = preview.marked.filter(line => line.conflict).map(line => line.key);
+  assert.deepEqual(keys, flags.map(line => line.key));
+  assert.equal(readProof([], english).pending, 0);
+  const changes = [...delayed, ...keys];
+  assert.equal(readProof(changes, english).pending, 0);
+  const undone = changes.slice(0, -1);
+  const partial = readProof(undone, english);
+  assert.equal(partial.pending, 1);
+  const ticket = ticketHTML(undone, english, 'https://andyzhang666666.github.io/studio/script/');
+  assert.ok(ticket.includes(partial.story.edits[keys[0]].wording));
+  assert.ok(ticket.includes(english ? '1 open · 1 revised' : '1 处待处理 · 1 处已改'));
+  assert.deepEqual(preview.story.edits, {});
+}
 let w=wallet(),q=quote(w,'director',3,12);
 assert.deepEqual([q.gift,q.paid,q.remaining],[18,18,60]);assert.deepEqual(quote(w,'editor',5,12).gates,['cap']);
 w=reserve(w,'director',3,12,'first');assert.equal(reserve(w,'director',3,12,'first'),w);assert.throws(()=>reserve(w,'director',2,12,'first'));assert.deepEqual([w.gift,w.paid,spentBy(w,'director')],[0,72,36]);

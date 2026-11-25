@@ -1,12 +1,14 @@
 import {escapeText as esc,t} from '../studio/ui.mjs';
 import {setupResearch} from './research-instruments.mjs';
+import {mountCoverDesk} from './cover-desk.mjs';
 const html=document.documentElement,selected=document.querySelector('#selected');
 const desk=document.querySelector('.workdesk');
-if(desk){
- const files=[...desk.querySelectorAll('details')];
- files.forEach(f=>f.addEventListener('toggle',()=>{if(f.open)files.filter(other=>other!==f).forEach(other=>other.open=false);}));
- document.addEventListener('pointerdown',ev=>{if(!desk.contains(ev.target))files.forEach(f=>f.open=false);});
- desk.addEventListener('keydown',ev=>{const f=ev.target.closest('details');if(ev.key==='Escape'&&f?.open){f.open=false;f.querySelector('summary').focus();ev.preventDefault();}});
+if(desk) mountCoverDesk(desk);
+const coverPortrait=document.querySelector('#top [data-original-src]');
+if(coverPortrait) {
+ const useOriginal=()=>{if(coverPortrait.getAttribute('src')!==coverPortrait.dataset.originalSrc)coverPortrait.src=coverPortrait.dataset.originalSrc;};
+ coverPortrait.addEventListener('error',useOriginal,{once:true});
+ if(new URLSearchParams(location.search).get('portrait')==='original'||(coverPortrait.complete&&!coverPortrait.naturalWidth))useOriginal();
 }
 function languageLinks(root=document){
  for(const a of root.querySelectorAll('a[href^="/studio/"]')){
