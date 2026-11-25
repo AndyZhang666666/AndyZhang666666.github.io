@@ -10,7 +10,7 @@ const polish=path.resolve(root,'../../demo-polish-2026-10-27');
 const port=Number(process.env.PREVIEW_PORT||8860);
 if(!Number.isInteger(port)||port<1||port>65535)throw Error('PREVIEW_PORT must be a valid local port');
 const integrated={'llm-output-eval':'eval','bundle-lab':'bundle','commute-compare':'commute','poker-squid-lab':'poker-squid-lab'};
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.jpeg':'image/jpeg','.pdf':'application/pdf','.ttf':'font/ttf','.woff2':'font/woff2','.txt':'text/plain; charset=utf-8'};
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.jpeg':'image/jpeg','.pdf':'application/pdf','.ttf':'font/ttf','.woff':'font/woff','.woff2':'font/woff2','.txt':'text/plain; charset=utf-8'};
 const exports=new Set(['llm-output-eval','bundle-lab','growth-experiment-lab','pricing-model-sim','commute-compare','poker-bankroll-sim','poker-ev-calculator','poker-squid-lab']);
 const ragFiles=new Set(['index.html','app.mjs','engine.mjs','workspace.mjs','personal-workbench.mjs','task-catalog.mjs','task-loop.mjs','import-errors.mjs','style.css','workbench.css','citation-inspector.mjs','public-corpus.json','favicon.svg']);
 const privateFolders=new Set(['server','backend','tests','evidence','corpus','node_modules']);

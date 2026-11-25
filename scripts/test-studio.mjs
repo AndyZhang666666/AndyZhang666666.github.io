@@ -81,6 +81,6 @@ assert.equal(afterBook[9].bidPrice,4997.75);assert.equal(afterBook[9].askPrice,5
 assert.equal(poseAt(4).phase,'hold');assert.equal(poseAt(8).arm,0);
 const data=JSON.parse(fs.readFileSync('data.json')),html=fs.readFileSync('index.html','utf8');
 assert.equal(data.projects.length,22);assert.equal(new Set(data.projects.map(p=>p.id)).size,22);
-for(const o of objects){assert.equal(html.split('id="project-'+o.id+'"').length,2);assert.ok(html.includes('href="/assets/cv/'+o.cv+'.pdf"'));assert.ok(fs.existsSync('studio/'+o.folder+'/index.html'));}
+for(const o of objects){assert.equal(fs.readFileSync('works/index.html','utf8').split('id="project-'+o.id+'"').length,2);assert.ok(html.includes('href="/assets/cv/'+o.cv+'.pdf"'));assert.ok(fs.existsSync('studio/'+o.folder+'/index.html'));}
 assert.ok(lookup('改善跨语言搜索').items.some(h=>h.task.id==='studio-menu'));
 console.log('Passed menu recovery and regression, scene edits, ledger conservation and expiry, research controls, three PDF routes and 22 distinct projects.');

@@ -1,3 +1,4 @@
+import {directoryHome} from '../content/directory-home.mjs';
 import {syncProfile} from './compose-resumes.mjs';
 import {updateRoleLookup} from '../content/role-lookup.mjs';
 import assert from 'node:assert/strict';
@@ -99,7 +100,7 @@ const releasedDesk = /<!--studio-desk-->[\s\S]*?<!--\/studio-desk-->/;
 assert.ok(releasedDesk.test(releasedPage));
 const expectedCover = printCover(releasedPage.replace(releasedDesk, '<!--studio-desk-->' + renderWorkdesk() + '<!--/studio-desk-->'));
 assert.equal(region(html,'top'),region(expectedCover,'top'),'Complete cover with its three printed sheets');
-assert.equal(publicShell(html),publicShell(expectedCover),'Candidate contains only the agreed cover changes');
+assert.equal(publicShell(html),publicShell(directoryHome(expectedCover,data.projects)),'Candidate preserves the cover and all sections outside the directory move');
 const newApp=approved('app.js').replace('data.json?v=20261115-renovation1','data.json?v=cv1')
  .replace('${year(e.period)} · ${e.role}',"${[year(e.period),e.role].filter(Boolean).join(' · ')}")
  .replace('${year(e.period)} · ${e.roleEn || e.role}',"${[year(e.period),e.roleEn || e.role].filter(Boolean).join(' · ')}");
@@ -125,8 +126,10 @@ for(const item of selected){
  assert.equal(current.replace(/<main>[^]*<\/main>/,'<main></main>'),approved(file).replace(/<main>[^]*<\/main>/,'<main></main>'),'Approved portfolio case shell/scripts: '+file);
  for(const [,image,width,height] of current.matchAll(/<img src="([^"]+)" width="(\d+)" height="(\d+)"/g)){if(/^https?:/.test(image))assert.equal(image,evalPublicCoverUrl,'Remote case image is exactly the pinned public Eval image');const size=image===evalPublicCoverUrl?fixedPublicCoverDimensions(image):rasterSize(fs.readFileSync(image.slice(1)));assert.deepEqual({width:Number(width),height:Number(height)},size,'Actual image dimensions: '+image);}
 }
-const snapshot=['index.html','data.json',...selected.map(s=>`cases/${s.id}/index.html`)].map(p=>[p,hash(read(p))]);
+const snapshot=['index.html','data.json','works/index.html','assets/work-inventory.mjs',...selected.map(s=>`cases/${s.id}/index.html`)].map(p=>[p,hash(read(p))]);
 execFileSync(process.execPath,['scripts/update-content.mjs','--selected-only'],{stdio:'pipe'});for(const [file,value] of snapshot)assert.equal(hash(read(file)),value,'Idempotent current-shell generation: '+file);
 console.log('PASS: PRD directions, four canonical previews,original portfolio plus the renovation demo and three studio projects, all supplied facts, protected visual sections and idempotent scoped generation.');
 
 await import('./test-task-lookup.mjs');
+
+await import('./test-work-directory.mjs');

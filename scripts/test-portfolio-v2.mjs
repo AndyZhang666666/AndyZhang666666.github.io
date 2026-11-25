@@ -25,7 +25,8 @@ test('mobile directory has valid destinations and keeps the existing controls un
  for(const id of ['mobileDirectory','directoryToggle','paletteSwitch','presentationToggle','langToggle'])assert.equal((html.match(new RegExp(`id="${id}"`,'g'))||[]).length,1,id);
  const menu=html.match(/<dialog id="mobileDirectory"[^]*?<\/dialog>/)[0];
  for(const [,id] of menu.matchAll(/href="#([^"]+)"/g))assert.ok(html.includes(`id="${id}"`),`Broken section link: ${id}`);
- for(const [,id] of html.matchAll(/<section\b[^>]*id="([^"]+)"/g))assert.ok(menu.includes(`href="#${id}"`),`Directory omitted section: ${id}`);
+ for(const [,id] of html.matchAll(/<section\b[^>]*id="([^"]+)"/g))assert.ok(menu.includes(`href="#${id==='projects'?'poker-table':id}"`),`Directory omitted section: ${id}`);
+ assert.ok(menu.includes('href="/works/"'),'The mobile directory links directly to all works');
  assert.ok(menu.includes('value="system"')&&menu.includes('value="reduce"'));
  assert.equal(enhanceMobileNavigation(html),html);
  for(const dir of fs.readdirSync('cases')){

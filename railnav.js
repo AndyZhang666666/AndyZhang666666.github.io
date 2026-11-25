@@ -13,7 +13,7 @@
     ai:        ['观点', 'On AI'],
     work:      ['经历', 'Work'],
     education: ['教育', 'Education'],
-    projects:  ['项目', 'Projects'],
+    projects:  ['牌桌', 'Poker'],
     awards:    ['奖项', 'Awards'],
     uses:      ['工作方式', 'Methods'],
     skills:    ['能力', 'Skills'],
@@ -37,7 +37,7 @@
       if (!pair) return;
 
       var btn = document.createElement('a');
-      btn.href = '#' + id;
+      btn.href = id === 'projects' ? '#poker-table' : '#' + id;
       btn.className = 'rail-item';
       btn.dataset.target = id;
       btn.setAttribute('aria-label', pair[0]);
