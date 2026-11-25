@@ -88,3 +88,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 .proof-heading a{display:inline-flex;align-items:center;min-height:36px;font-size:.82rem;text-decoration:underline;text-underline-offset:.28em}
 :root:has(#full-proof[open]){overflow:hidden}
 @media(min-width:751px){.work-image{min-height:clamp(190px,23vw,360px);padding:clamp(13px,1.9vw,30px)}.work-image img{max-height:min(33vh,330px)}}
+.work-layout.list-only{grid-template-columns:1fr}
+.work-layout.list-only #desktop-proof{display:none}
+.work-layout.list-only .work-method dl{max-width:64ch}
+.work-method.primary-method:not([open]){margin-inline-start:0}
+.work-method.primary-method summary{color:var(--accent-dim);font-weight:650;text-decoration:underline;text-underline-offset:.3em}
+[data-palette=copper] .work-method.primary-method summary{color:var(--accent)}
+.work-loading{display:none}
+.work-image[aria-busy=true] .work-loading{display:block;position:absolute;inset:auto;font:500 .9rem var(--font-sans);color:var(--fg-muted)}
+.work-image[aria-busy=true] img{visibility:hidden}
+.proof-heading:focus-visible{outline:2px solid var(--accent);outline-offset:3px}

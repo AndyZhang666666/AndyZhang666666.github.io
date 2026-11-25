@@ -9,5 +9,6 @@ export function directoryHome(html, projects){
   if(!html.includes('href="#poker-table"'))html=html.replace(/(<a href="\/works\/"><span data-zh="完整作品库"[^]*?<\/a>)/,'$1<a href="#poker-table">'+text('德州牌桌','Poker table')+'<span aria-hidden="true">↗</span></a>');
   const script='<script src="/assets/work-nav.js"></script>';
   if(!html.includes(script)) html=html.replace('</head>',script+'\n</head>');
+  if(!html.includes('rel="icon"'))html=html.replace('</head>','<link rel="icon" href="data:,">\n</head>');
   return html;
 }

@@ -40,7 +40,7 @@ export function topicFor(p) {
 }
 export function orderedProjects(projects) {
   const first=['eval','taste','bundle','rag-lab'], poker=['squid-lab','poker-ev','bankroll','poker-quiz'];
-  const rank=p=>first.includes(p.id)?first.indexOf(p.id):p.group==='poker'?100+Math.max(0,poker.indexOf(p.id)):p.group==='cases'?80:20;
+  const rank=p=>first.includes(p.id)?first.indexOf(p.id):p.group==='poker'?100+(poker.includes(p.id)?poker.indexOf(p.id):poker.length):p.group==='cases'?80:20;
   return [...projects].sort((a,b)=>rank(a)-rank(b));
 }
 export const text=(zh,en,tag='span')=>`<${tag} data-zh="${e(zh)}" data-en="${e(en||zh)}">${e(zh)}</${tag}>`;
@@ -48,7 +48,9 @@ function details(p) {
   const entries = [
     ['问题','Problem',p.context||p.description,p.contextEn||p.descriptionEn],
     ...(p.approach||[]).map((v,i)=>['做法','Approach',v,p.approachEn?.[i]]),
-    ['结果与边界','Results & limits',p.result,p.resultEn]
+    ['结果与边界','Results & limits',p.result,p.resultEn],
+    ['项目记录','Project notes',p.metrics?.join(' · '),p.metricsEn?.join(' · ')],
+    ['负责范围','Role',p.role,p.roleEn],['时间','Period',p.period,p.periodEn||p.period]
   ].filter(([, ,v])=>v);
   return entries.map(([zh,en,v,ve])=>`<div>${text(zh,en,'dt')}${text(v,ve,'dd')}</div>`).join('');
 }
@@ -60,8 +62,8 @@ function row(p,index) {
   const main=link?`<a class="work-entry" href="${e(link)}" ${isCase?'':'target="_blank" rel="noopener"'}>${text(...visitText)} <b aria-hidden="true">${isCase?'→':'↗'}</b></a>`:'';
   return `<article id="project-${id}" class="work-row" data-project-id="${id}" data-topic="${e(topicFor(p))}" tabindex="-1">
     <div class="work-row-main"><span class="work-no" aria-hidden="true">${String(index+1).padStart(2,'0')}</span><div class="work-row-copy"><h2>${text(...name)}</h2><p>${text(...task)}</p><div class="work-actions">${main}${image?`<noscript><a href="${e(image)}">${text('查看界面原图','View full image')}</a></noscript>`:''}${image?`<button type="button" data-inspect="${id}" aria-controls="work-proof" aria-expanded="false" hidden>${text('预览界面','Preview interface')}</button>`:''}</div>
-    <details class="work-method" id="${viewId}"><summary>${text(isCase&&!link?'阅读案例':'方法与依据',isCase&&!link?'Read case':'Method & evidence')}</summary><dl>${details(p)}</dl>${p.github?`<a class="work-source" href="${e(p.github)}" target="_blank" rel="noopener">${text('源码','Source')} ↗</a>`:''}${p.iterationUrl && p.iterationUrl!==link?`<a href="${e(p.iterationUrl)}">${text('看完整设计过程','Read the design process')} →</a>`:''}${p.analysisUrl?`<a href="${e(p.analysisUrl)}">${text('查看订单分析','Explore orders')} →</a>`:''}</details></div></div>
-    <div class="inline-proof"></div>${image?`<template><figure><div class="proof-heading">${text(...name,'strong')}<a href="${e(image)}" data-enlarge>${text('放大原图','Full image')} ⤢</a></div><a href="${e(image)}" class="work-image" data-enlarge aria-label="放大界面 / Enlarge interface"><img src="${e(thumb)}"${p.id==='eval'?' data-archive-src="/assets/work/showcase/eval-crop.jpg"':''} alt="${e(caption.zh||name[0])}" data-alt-en="${e(caption.en||name[1])}" decoding="async"></a><figcaption>${text(caption.zh||name[0],caption.en||name[1])}</figcaption></figure></template>`:''}</article>`;
+    <details class="work-method${main?'':' primary-method'}" id="${viewId}"><summary>${text(isCase&&!link?'阅读案例':'方法与依据',isCase&&!link?'Read case':'Method & evidence')}</summary><dl>${details(p)}</dl>${p.github?`<a class="work-source" href="${e(p.github)}" target="_blank" rel="noopener">${text('源码','Source')} ↗</a>`:''}${p.iterationUrl && p.iterationUrl!==link?`<a href="${e(p.iterationUrl)}">${text('看完整设计过程','Read the design process')} →</a>`:''}${p.analysisUrl?`<a href="${e(p.analysisUrl)}">${text('查看订单分析','Explore orders')} →</a>`:''}</details></div></div>
+    <div class="inline-proof"></div>${image?`<template><figure><div class="proof-heading">${text(...name,'strong')}<a href="${e(image)}" data-enlarge>${text('放大原图','Full image')} ⤢</a></div><a href="${e(image)}" class="work-image" data-enlarge aria-label="放大界面 / Enlarge interface"><span class="work-loading">${text('正在载入界面…','Loading interface…')}</span><img src="${e(thumb)}"${p.id==='eval'?' data-archive-src="/assets/work/showcase/eval-crop.jpg"':''} alt="${e(caption.zh||name[0])}" data-alt-en="${e(caption.en||name[1])}" decoding="async"></a><figcaption>${text(caption.zh||name[0],caption.en||name[1])}</figcaption></figure></template>`:''}</article>`;
 }
 export function directoryPage(projects) {
   const ordered=orderedProjects(projects), counts=new Map();
@@ -69,7 +71,7 @@ export function directoryPage(projects) {
   const choices={...topics,...(counts.has('other')?{other:['其他工具','More tools']}:{})};
   const stats=['main','cases','poker'].map(key=>projects.filter(p=>p.group===key).length);
   return `<!doctype html><html lang="zh-CN" data-palette="frost"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>作品目录 · 张千羽 / Andy Zhang</title><meta name="description" content="张千羽的产品实验、实践案例与德州工具。按任务浏览作品，查看界面、设计过程和源码。"><link rel="icon" href="data:,"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/assets/personal-art-direction.css"><link rel="stylesheet" href="/assets/works.css"><script src="/assets/work-preferences.js"></script></head>
-  <body><a class="work-skip" href="#work-list">${text('跳至作品','Skip to works')}</a><header class="work-bar"><a class="work-signature" href="/">${text('张千羽','Andy Zhang')}</a><a href="/#selected">${text('首页精选','Selected works')} ↗</a><label class="palette-field">${text('配色','Palette')}<select id="workPalette" aria-label="配色 / Palette"><option value="frost">${'象牙纸'}</option><option value="copper">深海</option><option value="mist">赤砂</option><option value="indigo">苔原</option></select></label><button id="workLanguage" type="button" aria-label="切换语言 / Switch language">EN</button></header>
+  <body><a class="work-skip" href="#work-list">${text('跳至作品','Skip to works')}</a><header class="work-bar"><a class="work-signature" href="/">${text('张千羽','Andy Zhang')}</a><a href="/#selected">${text('首页精选','Selected works')} ↗</a><label class="palette-field">${text('配色','Palette')}<select id="workPalette" aria-label="配色 / Palette"><option value="frost">象牙纸</option><option value="copper">深海</option><option value="mist">赤砂</option><option value="indigo">苔原</option></select></label><button id="workLanguage" type="button" aria-label="切换语言 / Switch language">EN</button></header>
   <main class="work-index"><header class="work-title"><div><h1>${text('作品目录','Work index')}</h1><p>${text(`${stats[0]} 件产品实验 · ${stats[1]} 篇实践案例 · ${stats[2]} 件德州工具`,`${stats[0]} product experiments · ${stats[1]} case studies · ${stats[2]} poker tools`)}</p></div><a href="/#jd">${text('按任务找证据','Find evidence by task')} →</a></header>
   <nav class="work-filters" aria-label="作品分类 / Filter work"><label for="topicChoice">${text('浏览方向','Browse by topic')}</label><select id="topicChoice">${Object.entries(choices).map(([k,[zh,en]])=>`<option value="${k}" data-zh="${e(zh)}" data-en="${e(en)}">${e(zh)}</option>`).join('')}</select><div class="topic-links">${Object.entries(choices).map(([k,[zh,en]])=>`<a href="${k==='all'?'/works/':'?topic='+k}" data-filter="${k}">${text(zh,en)}</a>`).join('')}</div><output id="workCount" aria-live="polite">${projects.length}</output></nav>
   <div class="work-layout"><section id="work-list" aria-label="作品 / Works">${ordered.map(row).join('\n')}</section><aside id="desktop-proof" aria-label="界面预览 / Interface preview"><div id="work-proof" hidden></div></aside></div><noscript><style>.work-filters,#desktop-proof{display:none}.work-layout{display:block}</style></noscript></main>

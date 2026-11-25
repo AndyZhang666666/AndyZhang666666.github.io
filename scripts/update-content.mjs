@@ -15,6 +15,22 @@ import {enhancePresentationHTML,presentationCases} from '../content/presentation
 import {fixedPublicCoverDimensions} from '../content/public-covers.mjs';
 import {rasterSize} from '../content/raster-size.mjs';
 if(process.argv.includes('--selected-only')){await import('./update-selected.mjs');process.exit(0);}
+// The current portfolio is authored in place. The reconstruction below remains
+// available for older checkouts that still keep the project cards on the homepage.
+if(fs.readFileSync('index.html','utf8').includes('id="pokerStage"')){
+  await import('./compose-portfolio.mjs');
+  await import('./update-selected.mjs');
+  const localMark='<meta name="robots" content="noindex,nofollow" data-local-review>';
+  const local=process.argv.includes('--local');
+  const cases=fs.readdirSync('cases').map(id=>'cases/'+id+'/index.html').filter(file=>fs.existsSync(file));
+  for(const file of ['index.html','works/index.html',...cases]){
+    const current=fs.readFileSync(file,'utf8'),publicHTML=current.replace(localMark,'');
+    const next=local&&!publicHTML.includes('name="robots"')?publicHTML.replace('</head>',localMark+'</head>'):publicHTML;
+    if(next!==current)fs.writeFileSync(file,next);
+  }
+  process.exit(0);
+}
+
 import {patchMotionV2} from '../content/motion-v2.mjs';
 import {enhancePortfolioV2,directoryVersion} from '../content/portfolio-v2.mjs';
 const localReview=process.argv.includes('--local');
