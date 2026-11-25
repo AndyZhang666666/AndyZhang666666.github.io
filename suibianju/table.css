@@ -17,3 +17,5 @@ button:active:not(:disabled){transform:scale(.98);transition-duration:70ms}
 .runtime-badge summary{cursor:pointer;min-height:32px;display:flex;align-items:center}
 .runtime-badge[open]>p,.runtime-badge[open]>.runtime-content{position:absolute;right:0;z-index:20;width:min(280px,78vw);padding:12px;background:Canvas;color:CanvasText;border:1px solid currentColor}
 @media(prefers-reduced-motion:reduce){button{transition:none}button:active:not(:disabled){transform:none}}
+
+.budget-conflict { color: #8e382d; font-weight: 600; margin-block: .5rem 0; }

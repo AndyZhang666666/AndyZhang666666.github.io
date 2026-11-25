@@ -1,7 +1,7 @@
 import {scopeDiff,scopeBaseline} from './task-loop.mjs';
 import {TASKS,taskRun} from './task-catalog.mjs';
 import {initializePersonal} from './personal-workbench.mjs?v=20261112-craft1';
-import {openCitation,closeCitation} from './citation-inspector.mjs?v=20261112-craft1';
+import {openCitation,closeCitation} from './citation-inspector.mjs?v=20261125-focus';
 import {retrieveRun, validateInput, SNAPSHOTS} from './engine.mjs';
 
 const $ = id => document.getElementById(id);
