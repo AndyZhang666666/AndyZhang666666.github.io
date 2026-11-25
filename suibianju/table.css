@@ -10,3 +10,10 @@ button,input,select,textarea{border-radius:3px;transition:background .16s,border
 @media(max-width:850px){main{padding:26px}.workspace{gap:18px}.editor,.results{padding:20px}.opening-table>div{padding-inline:16px}.intro h1{font-size:26px}}
 @media(max-width:600px){main{padding:22px 16px;border:0;border-radius:0}.nav{padding:18px 16px;font-size:11px}.intro{gap:15px}.intro h1{font-size:25px}.intro p{font-size:14px}.empty{padding:21px 18px}.empty h2{font-size:21px}.opening-table{gap:12px}.opening-table>div{padding:4px 0 4px 16px}.opening-table p{font-size:15px}.opening-table span{margin-top:6px}.mode{gap:8px}.mode button{font-size:12px;min-height:44px}.notice{font-size:11px}.person{padding:11px 8px}.person button{font-size:12px;min-height:44px}.editor,.results{padding:18px}.results h2{font-size:18px}.journey{font-size:11px;gap:15px}.card .actions button{min-height:44px}.boundary{margin-top:26px}.decision-receipt{padding:20px}.decision-receipt h3{font-size:24px}.fields{gap:10px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+:root {font-variant-numeric:tabular-nums}
+button {transition:transform 200ms ease-out}
+button:active:not(:disabled){transform:scale(.98);transition-duration:70ms}
+.runtime-badge {position:relative;font:12px/1.5 ui-monospace,monospace; margin-inline-start:auto}
+.runtime-badge summary{cursor:pointer;min-height:32px;display:flex;align-items:center}
+.runtime-badge[open]>p,.runtime-badge[open]>.runtime-content{position:absolute;right:0;z-index:20;width:min(280px,78vw);padding:12px;background:Canvas;color:CanvasText;border:1px solid currentColor}
+@media(prefers-reduced-motion:reduce){button{transition:none}button:active:not(:disabled){transform:none}}

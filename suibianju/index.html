@@ -8,17 +8,17 @@
 </head>
 <body>
   <a class="skip" href="#main">跳到体验</a>
-  <header class="nav"><a href="../">Andy Zhang / 小作品</a><a href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/suibianju" target="_blank" rel="noopener">查看源码 ↗</a></header>
+  <header class="nav"><a href="../">Andy Zhang / 小作品</a><a href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/suibianju" target="_blank" rel="noopener">查看源码 ↗</a><details class="runtime-badge"><summary>单人模拟</summary><div class="runtime-content">四位虚构成员。<a href="#mechanism">机制与数据说明</a></div></details></header>
   <main id="main">
     <section class="intro">
       <div><h1>随便局 <span>把「随便」说清楚。</span></h1><p>先说底线，再看取舍。决定之前，每个人都有最后一票。</p></div>
-      <div class="mode"><button id="quick" class="primary" type="button">开始快速体验</button><button id="real" type="button" aria-expanded="false" aria-controls="real-info">创建真实饭局</button></div>
+      <div id="budgetTrial" hidden><label>小满愿意花多少？ ¥<output id="trialValue">40</output><input id="trialBudget" type="range" min="40" max="140" step="5" value="40"></label><p id="trialResult" role="status"></p></div><div class="mode"><button id="quick" class="primary" type="button">开始快速体验</button></div>
     </section>
-    <p class="notice"><strong>单人模拟体验</strong> · 3–5 位虚构朋友、虚构餐厅。本地规则整理，不调用模型，不是真实多人在线。</p>
-    <section id="real-info" class="notice" hidden><h2>真实饭局还没开放</h2><p>目前官网只有静态托管，尚无跨设备房间、成员权限接口或私密数据存储。此版本不生成邀请链接。需要后端、24 小时房间清理/删除和越权测试完成后才能开放；不需要在这里填写任何密钥。</p></section>
+    
+    
     <div id="toast" role="status" aria-live="polite"></div>
     <div id="app"></div>
-    <section class="boundary"><h2>让条件做主，也把边界说清楚。</h2><p>未知价格、排队、营业状态、距离都不会被补写。硬条件必须全部满足；没有交集时，请成员自愿调整，系统不会偷偷放宽。</p><p>本演示把内容保存在当前浏览器，24 小时到期，页面打开时会检查并清除，也可立即删除。同机使用者及同源脚本可能读到内容，请只用虚构信息。真实多人需要接口权限保护，小群体仍可能推断部分偏好，不承诺绝对匿名。</p><div class="actions"><button id="delete" type="button">删除本地演示</button><a href="./docs/PRD.md">阅读精简 PRD</a></div></section>
+    <details id="mechanism" class="boundary"><summary>机制与边界说明</summary><p>未知价格、排队、营业状态、距离都不会被补写。硬条件必须全部满足；没有交集时，请成员自愿调整，系统不会偷偷放宽。</p><p>本演示把内容保存在当前浏览器，24 小时到期，页面打开时会检查并清除，也可立即删除。同机使用者及同源脚本可能读到内容，请只用虚构信息。真实多人需要接口权限保护，小群体仍可能推断部分偏好，不承诺绝对匿名。</p><div class="actions"><button id="delete" type="button">删除本地演示</button><a href="./docs/PRD.md">阅读精简 PRD</a></div></details>
   </main>
   <footer>随便说，认真听。<span>一个仍在验证产品假设的个人项目。</span></footer>
   <script type="module" src="app.mjs?v=20261024-v2"></script>
