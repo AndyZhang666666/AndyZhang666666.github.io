@@ -34,3 +34,20 @@ const extra={id:'future-tool',name:'新作品',nameEn:'New work',subtitle:'核�
 assert.ok(directoryPage([...data.projects,extra]).includes('class="work-entry" href="/future/"'));
 assert.ok(directoryPage([...data.projects,extra]).includes((data.projects.filter(p=>p.group==='main').length+1)+' 件产品实验'));
 console.log('Directory verified against the published homepage, the 22 canonical records, real routes, two task queries and a future addition.');
+
+// The public index and homepage must continue to present the same four working exhibits.
+for(const html of [home,page]){
+  assert.deepEqual([...html.matchAll(/<details class="print-sheet"[^>]+data-sheet="([^"]+)"/g)].map(m=>m[1]),selected.map(s=>s.id));
+  for(const item of selected){
+    assert.ok(html.includes('href="#print-'+item.id+'"'));
+    assert.ok(html.includes('id="selected-panel-'+item.id+'"'));
+  }
+}
+assert.ok(!page.includes('id="desktop-proof"'));
+assert.equal((page.match(/<details class="work-drawer"/g)||[]).length,data.projects.length);
+const bundleRow=page.match(/<article id="project-bundle"[^]*?<\/article>/)[0];
+assert.equal((bundleRow.match(/class="reel-frame"/g)||[]).length,3);
+assert.ok(bundleRow.includes('/assets/work/bundle-candidates.jpg'));
+assert.ok(bundleRow.includes('/assets/work/bundle-ledger.jpg'));
+for(const file of page.matchAll(/data-src="(\/[^"]+)"/g))assert.ok(fs.existsSync('.'+file[1]),file[1]);
+console.log('Shared poster interactions, native drawers, source paths and the multi-view gallery verified.');

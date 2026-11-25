@@ -1,4 +1,4 @@
-import {citationLine,changePoster} from './exhibit-marks.mjs';
+import {citationLine,changePoster,mountPaperStack} from './exhibit-marks.mjs';
 import {renderProjectCards} from './project-cards.mjs';
 import {createShowcaseMotion} from './showcase-motion.mjs?v=20261109-v2';
 import {renderProductPrinciples,initProductPrinciples} from './product-principles.mjs?v=20261109-v2';
@@ -18,7 +18,7 @@ const fixture=id=>JSON.parse(document.getElementById(id).textContent);
 
 // Async profile rendering changes the height above deep-linked work. Correct it once,
 // after data/fonts settle, but never take the scroll back after a visitor starts interacting.
-if(['#selected','#projects','#ai'].includes(location.hash)){
+if(['#selected','#projects','#ai'].includes(location.hash)||/^#print-(trust|taste|bundles|rag)$/.test(location.hash)){
  let touched=false;
  const stop=()=>{touched=true;};
  for(const event of ['pointerdown','wheel','keydown','touchstart'])window.addEventListener(event,stop,{once:true,passive:true});
@@ -139,21 +139,52 @@ async function initBundle(panel){
 if(root){
  const direction=root.querySelector('#showcaseDirection'),tabs=root.querySelector('.showcase-choices');
  const allTabs=[...tabs.querySelectorAll('[data-selected-id]')],panels=[...root.querySelectorAll('[data-preview]')];
- const material=createShowcaseMotion(root);
+ const stack=root.querySelector('.print-stack');
+ const sheets=stack?[...stack.querySelectorAll('[data-sheet]')]:[];
+ if(stack)mountPaperStack(stack);
+ const presentation=()=>document.documentElement.hasAttribute('data-presentation');
+ const material=!stack||presentation()?createShowcaseMotion(root):null;
+ let previousFold=null;
+ function fold(id){
+  for(const sheet of sheets) sheet.open=sheet.dataset.sheet===id;
+ }
  const pending=new Map(),loaders={'trust':initEval,'taste':initTaste,'shared-choice':initShared,'bundles':initBundle,'commute':initCommute,'execution':initExecution,'rag':initRag};
- function activate(id,announce=true){
+ function activate(id,announce=true,openSheet=true){
   const tab=allTabs.find(tab=>tab.dataset.selectedId===id);if(!tab||tab.hidden)return;
   const previous=allTabs.find(item=>item.getAttribute('aria-selected')==='true')?.dataset.selectedId;
   allTabs.forEach(item=>{const active=item===tab;item.setAttribute('aria-selected',String(active));item.tabIndex=active?0:-1;});
   panels.forEach(panel=>panel.hidden=panel.dataset.preview!==id);
   const panel=panels.find(panel=>panel.dataset.preview===id);
-  material.sync();
-  if(announce){words(root.querySelector('#showcaseStatus'),`已展示 ${tab.querySelector('strong').dataset.zh}`,`Showing ${tab.querySelector('strong').dataset.en}`);if(previous!==id)material.enter(panel,previous);}
+  if(openSheet)fold(id);
+  material?.sync();
+  if(announce){words(root.querySelector('#showcaseStatus'),`已展示 ${tab.querySelector('strong').dataset.zh}`,`Showing ${tab.querySelector('strong').dataset.en}`);if(previous!==id)material?.enter(panel,previous);}
   if(!pending.has(id))pending.set(id,Promise.resolve().then(()=>loaders[id](panel)).catch(()=>{
    // Static examples and real destinations still work when an enhancement cannot load.
    pending.delete(id);words(panel.querySelector('.preview-outcome'),'互动暂时不可用；可以打开下方完整工具继续体验。','This preview could not load. Open the full tool below to continue.');
   }));
  }
+ for(const sheet of sheets){
+  const cover=sheet.querySelector('summary');
+  cover.addEventListener('click',event=>{
+   if(presentation()||event.defaultPrevented)return;
+   event.preventDefault();
+   const opening=!sheet.open;
+   if(opening)activate(sheet.dataset.sheet);else sheet.open=false;
+   cover.focus({preventScroll:true});
+   cover.scrollIntoView({block:'start',behavior:'instant'});
+  });
+ }
+ // Native fragment navigation, find-in-page and restored details can also open a sheet.
+ stack?.addEventListener('toggle',event=>{
+  const sheet=event.target;
+  if(sheet.matches('[data-sheet]')&&sheet.open)activate(sheet.dataset.sheet,false,false);
+ },true);
+ new MutationObserver(()=>{
+  if(presentation()){
+   previousFold=sheets.find(s=>s.open)?.dataset.sheet||null;
+   activate(allTabs.find(t=>t.getAttribute('aria-selected')==='true')?.dataset.selectedId||sheets[0].dataset.sheet,false);
+  }else fold(previousFold);
+ }).observe(document.documentElement,{attributes:true,attributeFilter:['data-presentation']});
  allTabs.forEach(tab=>{
   tab.addEventListener('click',event=>{if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();activate(tab.dataset.selectedId);});
   tab.addEventListener('keydown',event=>{
@@ -167,11 +198,18 @@ if(root){
  direction.addEventListener('change',()=>{
   const order=direction.selectedOptions[0].dataset.order.split(',');
   allTabs.forEach(tab=>{tab.hidden=!order.includes(tab.dataset.selectedId);});
-  order.forEach(id=>tabs.append(allTabs.find(tab=>tab.dataset.selectedId===id)));
-  activate(order[0]);
+  for(const id of order){
+   tabs.append(allTabs.find(tab=>tab.dataset.selectedId===id));
+   if(stack){
+    stack.append(sheets.find(sheet=>sheet.dataset.sheet===id));
+    root.querySelector('.print-jumps').append(root.querySelector('[data-jump="'+id+'"]'));
+   }
+  }
+  if(!presentation())fold(null);
+  activate(order[0],true,presentation());
  });
  const syncOrientation=()=>tabs.setAttribute('aria-orientation',matchMedia('(max-width: 900px)').matches?'horizontal':'vertical');
- matchMedia('(max-width: 900px)').addEventListener('change',syncOrientation);syncOrientation();activate(direction.selectedOptions[0].dataset.order.split(',')[0],false);
+ matchMedia('(max-width: 900px)').addEventListener('change',syncOrientation);syncOrientation();activate(direction.selectedOptions[0].dataset.order.split(',')[0],false,presentation());
 }
 
 // One shared, native dialog; original image links remain useful without JavaScript.

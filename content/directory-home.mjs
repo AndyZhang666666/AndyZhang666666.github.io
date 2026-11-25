@@ -10,5 +10,7 @@ export function directoryHome(html, projects){
   const script='<script src="/assets/work-nav.js"></script>';
   if(!html.includes(script)) html=html.replace('</head>',script+'\n</head>');
   if(!html.includes('rel="icon"'))html=html.replace('</head>','<link rel="icon" href="data:,">\n</head>');
+  html=html.replace(/(assets\/demo-showcase\.mjs\?v=)[^"]+/g,(_,prefix)=>prefix+'20261125-print');
+  if(!html.includes('/assets/print-exhibits.css'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/print-exhibits.css">\n</head>');
   return html;
 }

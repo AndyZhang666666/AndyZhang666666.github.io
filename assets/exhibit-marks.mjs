@@ -35,3 +35,29 @@ export function changePoster(canvas,svg) {
     el.animate([{translate:p.x+'px '+p.y+'px',opacity:.62},{translate:'0px 0px',opacity:1}],{duration:430,easing:'cubic-bezier(.2,.78,.2,1)'});
   }
 }
+
+// The next sheet sets the depth of the one underneath. Native scrolling stays in charge.
+export function mountPaperStack(stack){
+ const wide=matchMedia('(min-width:760px) and (min-height:620px)');
+ let visible=false, frame=0;
+ function paint(){
+  frame=0;
+  const cards=[...stack.children];
+  const moving=visible&&wide.matches&&!isMotionReduced()&&!document.hidden&&!document.documentElement.hasAttribute('data-presentation')&&!cards.some(c=>c.open);
+  const rects=moving?cards.map(c=>c.getBoundingClientRect()):[];
+  cards.forEach((card,i)=>{
+   const next=rects[i+1], here=rects[i];
+   const amount=next?Math.min(1,Math.max(0,(here.bottom-next.top)/Math.max(here.height,1))):0;
+   card.style.setProperty('--press-scale',String(1-.027*amount));
+   card.style.setProperty('--press-shade',(11*amount).toFixed(2)+'%');
+  });
+ }
+ function schedule(){if(!frame)frame=requestAnimationFrame(paint);}
+ const observe=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;schedule();});
+ observe.observe(stack);
+ window.addEventListener('scroll',()=>{if(visible&&wide.matches&&!isMotionReduced())schedule();},{passive:true});
+ new ResizeObserver(schedule).observe(stack);
+ stack.addEventListener('toggle',schedule,true);
+ document.addEventListener('portfolio:motionchange',schedule);
+ document.addEventListener('visibilitychange',schedule);
+}
