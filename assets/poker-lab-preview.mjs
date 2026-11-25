@@ -57,7 +57,7 @@ async function init(){
     actions.append(fold,raise,again,link);box.append(prompt,hint,actions,output,note);caption.append(box);return true;
   };
   if(mount())return;
-  const root=document.getElementById('projectGrid');
+  const root=(document.getElementById('pokerStage') || document.getElementById('projectGrid'));
   if(root){const observer=new MutationObserver(()=>{if(mount())observer.disconnect();});observer.observe(root,{childList:true,subtree:true});}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();

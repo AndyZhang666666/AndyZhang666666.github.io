@@ -1,9 +1,11 @@
 import {objects} from '../content/studio-objects.mjs';
 import { containsKeyword, requirements } from './evidence-core.mjs';
-import { tasks } from '../content/task-portfolio.mjs?v=cv1';
+import {catalogTasks} from '../content/task-inventory.mjs';
+import { tasks as curatedTasks } from '../content/task-portfolio.mjs?v=cv1';
 import { quickTasks } from '../content/resume-profile.mjs';
 
 const training = /(?:训练|调优|training|train(?:ing)?|fine[- ]?tun\w*).{0,20}(?:召回|排序|retriev\w*|rank\w*)|(?:召回|排序|retriev\w*|rank\w*).{0,20}(?:训练|调优|training|fine[- ]?tun\w*)/i;
+const tasks=catalogTasks(curatedTasks);
 const byId = new Map(tasks.map(task => [task.id,task]));
 export function lookup(input) {
   const found=new Map(), missing=[], limitations=[];

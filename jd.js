@@ -30,7 +30,7 @@ function render(){
   function note(message){result.append(node('p',message,'task-note'));copyLines.push(message);}
   if(limitations.length)note(phrase('可查看跨语言召回规则与匹配纠错。独立训练或调优排序、召回模型的经历暂无公开材料。','Available evidence covers multilingual retrieval rules and matching decisions. Independent training or tuning of ranking and retrieval models has no public case here.'));
   if(missing.length)note(phrase('尚未找到公开材料 · ','No public material found for · ')+missing.join(' / '));
-  if(!items.length){const link=node('a',phrase('换一个任务，或浏览完整作品库 →','Try another task, or browse all work →'));link.href='#projects';result.append(link);}
+  if(!items.length){const link=node('a',phrase('换一个任务，或浏览完整作品库 →','Try another task, or browse all work →'));link.href='/works/';result.append(link);}
   else{
     const copy=node('button',phrase('复制结果和链接','Copy results and links'),'jd-copy');
     copy.type='button';

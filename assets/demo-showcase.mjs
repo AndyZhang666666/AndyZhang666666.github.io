@@ -116,15 +116,17 @@ async function initBundle(panel){
  const slider=panel.querySelector('[data-bundle-slider]');
  function adoption(rate,animate){
   const result=simulateOne({...args,adoption:rate}),positive=result.marginLift>=0;
+  const flat=Math.abs(result.marginLift)<1e-9;
+  words(panel.querySelector('[data-bundle-verdict]'),flat?'刚好持平':positive?'开始多赚':'仍在少赚',flat?'Break-even':positive?'Earning more':'Earning less');
   slider.value=String(Math.round(100*rate));panel.querySelector('[data-bundle-rate]').textContent=slider.value+'%';
   panel.querySelector('[data-bundle-added]').textContent='+¥'+result.addedMargin.toFixed(3);
   panel.querySelector('[data-bundle-net]').textContent=(positive?'+':'−')+'¥'+Math.abs(result.marginLift).toFixed(3);
-  panel.querySelector('[data-bundle-sign]').dataset.bundleSign=positive?'positive':'negative';
+  panel.querySelector('[data-bundle-sign]').dataset.bundleSign=flat?'flat':positive?'positive':'negative';
   const scale=simulateOne({...args,adoption:1}).addedMargin;
   panel.querySelector('[data-bundle-bar]').style.transform=`scaleX(${result.addedMargin/scale})`;
   panel.querySelector('[data-bundle-loss-bar]').style.transform=`scaleX(${result.existingLoss/scale})`;
   const amount=Math.abs(result.marginLift).toFixed(3),signed=(positive?'+':'−')+'¥'+amount;
-  words(panel.querySelector('[data-bundle-status]'),`当前假设下，每个覆盖订单${positive?'多':'少'}赚 ¥${amount}。这是条件推演，仍需验证真实采纳与成本。`,`Under these assumptions: ¥${amount} ${positive?'more':'less'} per covered order. Actual adoption and cost still require validation.`);
+  words(panel.querySelector('[data-bundle-status]'),flat?'当前假设下，新增毛利刚好抵消既有让利。':`当前假设下，每个覆盖订单${positive?'多':'少'}赚 ¥${amount}。这是条件推演，仍需验证真实采纳与成本。`,flat?'The added margin exactly offsets discounts.':`Under these assumptions: ¥${amount} ${positive?'more':'less'} per covered order. Actual adoption and cost still require validation.`);
   words(panel.querySelector('[data-bundle-plan-result]'),`当前假设净增 ${signed} / 覆盖订单。先核对口径，不能据此宣布上线。`,`The scenario gives ${signed} per covered order. Verify definitions before considering rollout.`);
   press(buttons,buttons.find(b=>Number(b.dataset.bundleAdoption)===rate));
   if(animate)feedback(panel.querySelector('.preview-ledger-total'));
@@ -149,7 +151,7 @@ if(root){
   if(announce){words(root.querySelector('#showcaseStatus'),`已展示 ${tab.querySelector('strong').dataset.zh}`,`Showing ${tab.querySelector('strong').dataset.en}`);if(previous!==id)material.enter(panel,previous);}
   if(!pending.has(id))pending.set(id,Promise.resolve().then(()=>loaders[id](panel)).catch(()=>{
    // Static examples and real destinations still work when an enhancement cannot load.
-   pending.delete(id);words(panel.querySelector('.preview-outcome'),'互动暂时不可用；可以打开上方完整 Demo 继续体验。','This preview could not load. Open the full demo above to continue.');
+   pending.delete(id);words(panel.querySelector('.preview-outcome'),'互动暂时不可用；可以打开下方完整工具继续体验。','This preview could not load. Open the full tool below to continue.');
   }));
  }
  allTabs.forEach(tab=>{

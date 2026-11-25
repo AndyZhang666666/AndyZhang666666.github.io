@@ -30,7 +30,7 @@ export function compose(){
  <textarea id="jdInput" rows="3" maxlength="12000" aria-describedby="taskHint"></textarea>
  ${text('可以粘贴一段岗位要求。输入仅在当前浏览器处理。','You can paste job requirements here. Your text stays in this browser.','small','task-hint').replace('<small ','<small id="taskHint" ')}
  <div class="jd-actions"><button class="jd-btn-run" id="jdRun" disabled>${text('查找材料','Find evidence')}</button><button type="button" class="jd-btn-clear" id="jdClear">${text('清空','Clear')}</button></div></form></div>
- <p id="taskAnnouncement" class="showcase-sr" role="status"></p><div id="jdResult" hidden></div><noscript><a href="#projects">浏览完整作品库 / Browse all work →</a></noscript>`);
+ <p id="taskAnnouncement" class="showcase-sr" role="status"></p><div id="jdResult" hidden></div><noscript><a href="/works/">浏览完整作品库 / Browse all work →</a></noscript>`);
  html=menu(html).replace(/<script src="jd-graph\.js[^"]*"><\/script>\s*/,'').replace(/<script (?:type="module" )?src="jd\.js[^"]*">/,'<script type="module" src="jd.js?v=task1">')
  .replace(/(src="(?:app|railnav)\.js|href="(?:jd|assets\/hero-paper)\.css)\?v=[^"]+/g,'$1?v=task1');
  const description='张千羽的产品作品集。查看 AI 应用、海外增长与商业化、策略产品简历，按具体任务找到工作案例和可操作作品。';

@@ -189,7 +189,7 @@
     } else {
       if (placed === target && wrap.parentNode === target) return;
       // 没有分组：放在 #projects 内、#projectGrid 之前
-      var grid = document.getElementById('projectGrid');
+      var grid = (document.getElementById('pokerStage') || document.getElementById('projectGrid'));
       target.insertBefore(wrap, grid || null);
     }
     placed = target;
@@ -225,7 +225,7 @@
 
   /* ---- 6. 初始化：等 app.js 渲染 + 分组模块改结构 ---- */
   function sync() {
-    var grid = document.getElementById('projectGrid');
+    var grid = (document.getElementById('pokerStage') || document.getElementById('projectGrid'));
     if (!grid || !grid.children.length) return;
     place();
     tagCards();
@@ -233,7 +233,7 @@
 
   function init() {
     var section = document.getElementById('projects');
-    var grid = document.getElementById('projectGrid');
+    var grid = (document.getElementById('pokerStage') || document.getElementById('projectGrid'));
     if (!section || !grid) return;
 
     sync();
