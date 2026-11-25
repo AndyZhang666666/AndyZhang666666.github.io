@@ -1,0 +1,55 @@
+{
+  "source": "AndyZhang666666/poker-ev-calculator",
+  "revision": "0f3d478eec903851e7224bd779358fa00eb9260b",
+  "file": "src/lib/poker/training.ts",
+  "records": [
+    {
+      "id": "lesson-19",
+      "position": "BTN",
+      "hand": "A2o",
+      "cards": [
+        "Ac",
+        "2h"
+      ],
+      "reference": "teaching-rfi-6max-100bb-v1-fe2ea3d4",
+      "fold": false,
+      "raise": true
+    },
+    {
+      "id": "lesson-3",
+      "position": "UTG",
+      "hand": "A5s",
+      "cards": [
+        "Ac",
+        "5c"
+      ],
+      "reference": "teaching-rfi-6max-100bb-v1-75eb0fd3",
+      "fold": true,
+      "raise": false
+    },
+    {
+      "id": "lesson-13",
+      "position": "CO",
+      "hand": "22",
+      "cards": [
+        "2c",
+        "2h"
+      ],
+      "reference": "teaching-rfi-6max-100bb-v1-4df1b0f3",
+      "fold": false,
+      "raise": true
+    },
+    {
+      "id": "lesson-23",
+      "position": "BTN",
+      "hand": "K7o",
+      "cards": [
+        "Kh",
+        "7c"
+      ],
+      "reference": "teaching-rfi-6max-100bb-v1-fe2ea3d4",
+      "fold": true,
+      "raise": false
+    }
+  ]
+}

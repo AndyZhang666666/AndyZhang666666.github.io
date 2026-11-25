@@ -1,3 +1,4 @@
+import {scrubFrames} from './research-tracing.mjs';
 import {t} from '../studio/ui.mjs';
 import {poseAt, lastFrame} from './research-model.mjs';
 
@@ -18,8 +19,10 @@ export function motionStudy(fig) {
     const samples=Array.from({length:lastFrame+1},(_,i)=>(i?'L':'M')+xFor(i)+' '+signalY(key,poseAt(i)[key]).toFixed(2)).join(' ');
     $('[data-trace="'+key+'"]').setAttribute('d',samples);
   }
+  scrubFrames(fig,$('.rp-trace'),lastFrame);
   let frame=0,sensor='arm',pinned=null;
   function draw() {
+    fig.dataset.studyFrame=String(frame+1);
     const p=poseAt(frame),a=p.arm*Math.PI/180,active=p[sensor],name=sensor==='arm'?t('上臂','Upper arm'):t('上背','Upper back');
     $('[data-study-arm]').setAttribute('transform','rotate('+(-p.arm)+')');
     $('[data-phone-arm]').setAttribute('transform','rotate('+(-p.arm)+' 28 24)');
