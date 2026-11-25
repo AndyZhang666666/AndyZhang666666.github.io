@@ -117,8 +117,8 @@
 /* The two research drawings share an instrument scale and real input. */
 .trace-before {pointer-events:none;}
 .trace-vellum {fill:var(--sheet);fill-opacity:.42;}
-.trace-bid,.trace-ask {fill:none;stroke:var(--signal);stroke-width:1.65;stroke-dasharray:3 3;}
-.trace-ask {stroke:var(--opposite);}
+.trace-bid,.trace-ask {fill:none;stroke:var(--book-bid);stroke-width:1.65;stroke-dasharray:3 3;}
+.trace-ask {stroke:var(--book-ask);}
 .tracing-grip {touch-action:none;cursor:ew-resize;}
 .trace-edge {stroke:var(--ink);stroke-width:1.1;}
 .trace-thumb {fill:var(--sheet);stroke:var(--ink);stroke-width:1.2;}

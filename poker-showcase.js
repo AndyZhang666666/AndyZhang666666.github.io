@@ -128,6 +128,8 @@
     var noMotion = reduced();
 
     var swap = function () {
+      // An attached training hand deals its own two known cards.
+      if (!wrap.dispatchEvent(new CustomEvent('portfolio:deal', {cancelable:true}))) return;
       cards.forEach(function (c, i) { fillCard(c, HANDS[handIdx][i]); });
       setLine(line, LINES[lineIdx]);
     };

@@ -1,3 +1,4 @@
+import {mountTracing} from './research-tracing.mjs';
 import {t} from '../studio/ui.mjs';
 import {depthAt, bookRows, highestWithdrawal} from './research-model.mjs';
 
@@ -36,6 +37,7 @@ export function orderBook(fig) {
     const path = document.createElementNS('http://www.w3.org/2000/svg','path');
     $('[data-fill-'+key+']').append(path);
   }
+  const tracing=mountTracing(fig);
   function draw() {
     const q=depthAt(amount, side), rows=bookRows(q), before=depthAt(0);
     for(const s of ['bid','ask']){
@@ -66,6 +68,7 @@ export function orderBook(fig) {
       levelSelect.options[i].textContent=t('第 '+(i+1)+' 档','Level '+(i+1));
     }
     levelSelect.value=String(level);
+    tracing.update(trace(reference,'bid',cumulative).line,trace(reference,'ask',cumulative).line,rows[level][side+'Price'],reference[level][side],rows[level][side]);
     const fields=[t('方向','Side'),t('报价','Price'), cumulative?t('累计手数','Total lots'):t('手数','Lots')];
     read.querySelectorAll('thead th').forEach((th,i)=>th.textContent=fields[i]);
     const row=rows[level];
@@ -101,7 +104,7 @@ export function orderBook(fig) {
     action(key){
       if(key==='bid'||key==='ask'){side=key;amount=Math.min(amount,highestWithdrawal(side));}
       else if(key==='cumulative'||key==='levels')cumulative=key==='cumulative';
-      else if(key==='reset'){side='bid';cumulative=true;level=0;amount=0;}
+      else if(key==='reset'){side='bid';cumulative=true;level=0;amount=0;tracing.reset();}
       return amount;
     }
   };
