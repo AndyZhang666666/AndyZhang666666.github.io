@@ -80,6 +80,7 @@ function controls() {
   $('#previous').disabled=busy||!replayActive||cursor<=0;
   $('#next').disabled=!ready||busy||(replayActive&&cursor>=Replay.maxSteps(records));
   $('#finish').disabled=!ready||busy||(replayActive&&started&&cursor>=Replay.maxSteps(records));
+  $('#run-program').hidden=!localConfig;$('#run-model').hidden=!localConfig?.model_configured;
   $('#run-program').disabled=!localConfig||!currentCase()||busy||playing;
   $('#run-model').disabled=!localConfig?.model_configured||!currentCase()||busy||playing;
   $('#restore').disabled=busy||playing;
@@ -208,7 +209,34 @@ function renderVerdict() {
     const dl=el('dl','recap-facts');for(const [key,value]of [['异常',anomalyText(r)],['处理',handlingText(r)],['实际影响',`${recap.ticket.group} · ${recap.ticket.status==='open'?'工单打开':recap.ticket.status} · ${recap.ticket.notes.length} 条跟进记录`],['结束声明',recap.reply]]){const row=el('div');row.append(el('dt','',key),el('dd','',value));dl.append(row);}card.append(dl);appendRecordDetails(card,r);cards.append(card);}
   container.replaceChildren(heading,note,lesson,cards);
 }
+function renderFork(){
+ const panel=$('#fork');
+ panel.replaceChildren();panel.hidden=!(bundled&&replayActive&&caseId==='timeout');
+ if(panel.hidden)return;
+ const complete=allReplayed();
+ const title=el('h2','',complete?'同一笔写入，两种结束判断':'提交已发出，回执丢了。');
+ panel.append(title);
+ const action=el('button','primary',complete?'回到超时分叉点':'查看两种策略怎么恢复 →');
+ action.onclick=()=>seek(complete?timeoutFrame():Replay.maxSteps(records));
+ panel.append(action);
+ const table=el('table','fork-table'),head=table.createTHead().insertRow();
+ for(const label of ['逻辑阶段','基础策略','可靠策略']){const th=document.createElement('th');th.textContent=label;head.append(th);}
+ const body=table.createTBody();
+ const phases=[['查询','query_ticket'],['批准','confirm'],['回执丢失','submit_change'],['恢复','operation_status']];
+ phases.forEach(([label,kind])=>{
+   const row=body.insertRow();row.insertCell().textContent=label;
+   for(const record of records){
+     const event=record.events.slice(0,cursor).find(e=>e.name===kind);
+     row.insertCell().textContent=event?(kind==='submit_change'?Replay.receipt(record,record.events.indexOf(event)+1).title:shortNames[kind]):complete?'未核对':'待观察';
+   }
+ });
+ const end=body.insertRow();end.insertCell().textContent='数据库快照';
+ for(const r of records){const cell=end.insertCell();cell.textContent=complete?r.ticket.group+' · '+r.ticket.notes.length+' 条跟进 / '+labels[r.run.state]:'待核对';if(complete)cell.className=r.run.state==='succeeded'?'verified':'uncertain';}
+ panel.append(table);
+}
+function timeoutFrame(){return records[0].events.findIndex(e=>e.result?.code==='TIMEOUT')+1;}
 function render() {
+  renderFork();
   const focused=document.activeElement?.dataset.focus;
   const disclosures=new Map([...document.querySelectorAll('#comparison details, #verdict details')].map(d=>[(d.closest('[data-policy]')?.dataset.policy||'')+d.className,d.open]));
   $('#comparison').dataset.live=String(!replayActive);$('#comparison').replaceChildren(...records.map((r,i)=>replayActive?replayColumn(i,r):localColumn(i,r)));
@@ -294,7 +322,7 @@ async function importRecord(event) {
 }
 async function load() {
   clearError();$('#retry-load').hidden=true;
-  try{const response=await fetch('./samples/examples.json');if(!response.ok)throw new Error('案例文件不可用。');catalog=await response.json();if(catalog.schema!=='agent-bench-examples-v1')throw new Error('案例版本无法读取。');$('#case-select').replaceChildren(...catalog.cases.map(c=>{const o=el('option','',caseTitles[c.id]||c.title);o.value=c.id;return o;}));$('#case-select').value=caseId;$('#versions').textContent='界面：逐步回放 · 留档应用 '+catalog.versions.app+' · 案例 '+catalog.versions.cases+' · 判分 '+catalog.versions.grader;selectCase();}
+  try{const response=await fetch('./samples/examples.json');if(!response.ok)throw new Error('案例文件不可用。');catalog=await response.json();if(catalog.schema!=='agent-bench-examples-v1')throw new Error('案例版本无法读取。');$('#case-select').replaceChildren(...catalog.cases.map(c=>{const o=el('option','',caseTitles[c.id]||c.title);o.value=c.id;return o;}));$('#case-select').value=caseId;$('#versions').textContent='界面：逐步回放 · 留档应用 '+catalog.versions.app+' · 案例 '+catalog.versions.cases+' · 判分 '+catalog.versions.grader;selectCase();if(caseId==='timeout')seek(timeoutFrame());}
   catch(e){catalog=null;controls();fail('读取案例失败，请重新加载。'+e.message);$('#retry-load').hidden=false;$('#play-status').textContent='案例读取失败；可重新加载。';return;}
   if(['localhost','127.0.0.1'].includes(location.hostname))try{localConfig=await api('config');$('#local-info').textContent='已连接本地 API。程序测试实际写入 SQLite；真实模型只在服务端配置后启用。';$('#run-model').textContent=localConfig.model_configured?'真实模型运行':'真实模型运行（未配置）';try{$('#restore').hidden=!localStorage.getItem(restoreKey);}catch{}controls();}catch{/* Static local preview has no API; examples remain usable. */}
 }
