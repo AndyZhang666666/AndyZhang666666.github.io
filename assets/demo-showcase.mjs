@@ -1,3 +1,4 @@
+import {citationLine,changePoster} from './exhibit-marks.mjs';
 import {renderProjectCards} from './project-cards.mjs';
 import {createShowcaseMotion} from './showcase-motion.mjs?v=20261109-v2';
 import {renderProductPrinciples,initProductPrinciples} from './product-principles.mjs?v=20261109-v2';
@@ -52,31 +53,35 @@ function initEval(panel){
  const button=panel.querySelector('[data-eval-locate]'),quotes=[...panel.querySelectorAll('[data-eval-source-quote],[data-eval-full-quote]')];
  const reviews=[...panel.querySelectorAll('[data-eval-review]')],clear=panel.querySelector('[data-eval-clear]');
  const labels={supported:['支持该判断','Supported'],unsupported:['评语存疑','Questionable'],needs_context:['需要更多上下文','Needs more context']};
- button.disabled=false;
+ const cited=panel.querySelector('[data-eval-citation]'),join=citationLine(panel),open=panel.querySelector('[data-eval-open]');
+ button.disabled=cited.disabled=false;
+ cited.addEventListener('click',()=>button.click());
  button.addEventListener('click',()=>{
   const active=button.getAttribute('aria-pressed')!=='true';button.setAttribute('aria-pressed',String(active));
+  cited.setAttribute('aria-pressed',String(active));join(active);
   quotes.forEach(quote=>{if(active){const mark=document.createElement('mark');mark.textContent=quote.textContent;quote.replaceChildren(mark);}else quote.replaceChildren(document.createTextNode(quote.textContent));});
   words(button.querySelector('span'),active?'取消高亮':'定位原文',active?'Clear highlight':'Locate quote');
   words(panel.querySelector('[data-eval-status]'),active?'已定位到原文。引用存在，是否支持评语仍待人工判断。':'点击定位，检查这条评语所引用的原文。',active?'Quotation located. Whether it supports the comment still requires human judgement.':'Locate the quotation to inspect the source behind the comment.');
   feedback(quotes[0]);
  });
  reviews.forEach(review=>{review.disabled=false;review.addEventListener('click',()=>{
+  const resolved=review.dataset.evalReview==='supported';words(open,resolved?'0 项待定':'1 项待定',resolved?'0 open':'1 open');
   const [zh,english]=labels[review.dataset.evalReview];press(reviews,review);clear.disabled=false;
   words(panel.querySelector('[data-eval-verdict]'),zh,english);
   words(panel.querySelector('[data-eval-status]'),`本页试用：${zh}。原始评分仍为 2 / 5；未写入完整工具。`,`Preview review: ${english}. The original score remains 2 / 5; nothing is saved to the full tool.`);
   feedback(panel.querySelector('.preview-review-record'));
  });});
- clear.addEventListener('click',()=>{press(reviews,null);clear.disabled=true;words(panel.querySelector('[data-eval-verdict]'),'尚未复核','Unreviewed');words(panel.querySelector('[data-eval-status]'),'试用判断已清除；历史评分与原文不变。','Preview review cleared. The saved score and source are unchanged.');});
+ clear.addEventListener('click',()=>{press(reviews,null);clear.disabled=true;words(open,'1 项待定','1 open');words(panel.querySelector('[data-eval-verdict]'),'尚未复核','Unreviewed');words(panel.querySelector('[data-eval-status]'),'试用判断已清除；历史评分与原文不变。','Preview review cleared. The saved score and source are unchanged.');});
 }
 async function initTaste(panel){
  const [{directionSvg,DIRECTIONS},{createTastePreview,posterContent}]=await Promise.all([import('../tasteroom/directions.js?v=20261112-craft1'),import('./demo-preview/taste-session.mjs?v=20261112-craft1')]);
  const buttons=[...panel.querySelectorAll('[data-taste-direction]')];
  buttons.forEach(button=>{button.disabled=false;button.addEventListener('click',()=>{
   const direction=button.dataset.tasteDirection,{room}=createTastePreview(direction);
-  panel.querySelector('[data-taste-canvas]').innerHTML=directionSvg(room,posterContent);
+  changePoster(panel.querySelector('[data-taste-canvas]'),directionSvg(room,posterContent));
   panel.querySelector('[data-selected-demo=taste]').href='/tasteroom/?direction='+direction;
   press(buttons,button);const english={swiss:'Swiss modernism',deconstructed:'Deconstructivism',editorial:'Editorial',bauhaus:'Bauhaus geometry',japanese:'Japanese whitespace',risograph:'Two-ink print'};words(panel.querySelector('[data-taste-status]'),`正在试「${DIRECTIONS[direction].name}」；同一文案，只传递方向到完整工具，不保存偏好。`,`Trying ${english[direction]}. The copy stays the same. Only direction transfers to the full tool; no preference is saved.`);
-  feedback(panel.querySelector('[data-taste-canvas]'));
+  panel.dataset.artDirection=direction;
  });});
 }
 function initCommute(panel){
@@ -108,48 +113,29 @@ async function initShared(panel){
 async function initBundle(panel){
  const {simulateOne}=await import('./demo-preview/bundle-model.mjs');
  const args=fixture('bundlePreviewInput'),buttons=[...panel.querySelectorAll('[data-bundle-adoption]')];
- buttons.forEach(button=>{button.disabled=false;button.addEventListener('click',()=>{
-  const result=simulateOne({...args,adoption:Number(button.dataset.bundleAdoption)}),positive=result.marginLift>=0;
+ const slider=panel.querySelector('[data-bundle-slider]');
+ function adoption(rate,animate){
+  const result=simulateOne({...args,adoption:rate}),positive=result.marginLift>=0;
+  slider.value=String(Math.round(100*rate));panel.querySelector('[data-bundle-rate]').textContent=slider.value+'%';
   panel.querySelector('[data-bundle-added]').textContent='+¥'+result.addedMargin.toFixed(3);
   panel.querySelector('[data-bundle-net]').textContent=(positive?'+':'−')+'¥'+Math.abs(result.marginLift).toFixed(3);
   panel.querySelector('[data-bundle-sign]').dataset.bundleSign=positive?'positive':'negative';
-  const scale=simulateOne({...args,adoption:.5}).addedMargin;
+  const scale=simulateOne({...args,adoption:1}).addedMargin;
   panel.querySelector('[data-bundle-bar]').style.transform=`scaleX(${result.addedMargin/scale})`;
   panel.querySelector('[data-bundle-loss-bar]').style.transform=`scaleX(${result.existingLoss/scale})`;
   const amount=Math.abs(result.marginLift).toFixed(3),signed=(positive?'+':'−')+'¥'+amount;
   words(panel.querySelector('[data-bundle-status]'),`当前假设下，每个覆盖订单${positive?'多':'少'}赚 ¥${amount}。这是条件推演，仍需验证真实采纳与成本。`,`Under these assumptions: ¥${amount} ${positive?'more':'less'} per covered order. Actual adoption and cost still require validation.`);
   words(panel.querySelector('[data-bundle-plan-result]'),`当前假设净增 ${signed} / 覆盖订单。先核对口径，不能据此宣布上线。`,`The scenario gives ${signed} per covered order. Verify definitions before considering rollout.`);
-  press(buttons,button);feedback(panel.querySelector('.preview-ledger-total'));
- });});
+  press(buttons,buttons.find(b=>Number(b.dataset.bundleAdoption)===rate));
+  if(animate)feedback(panel.querySelector('.preview-ledger-total'));
+ }
+ slider.disabled=false;slider.addEventListener('input',()=>adoption(Number(slider.value)/100,false));
+ buttons.forEach(b=>{b.disabled=false;b.addEventListener('click',()=>adoption(Number(b.dataset.bundleAdoption),true));});
+ adoption(Number(slider.value)/100,false);
 }
 
 if(root){
  const direction=root.querySelector('#showcaseDirection'),tabs=root.querySelector('.showcase-choices');
- // Move existing controls so touch, keyboard and reading order agree at phone widths.
- const phone=matchMedia('(max-width: 600px)');
- const shell=root.querySelector('.showcase-shell'),stage=root.querySelector('.showcase-stage');
- const heading=root.querySelector('.showcase-heading'),allLink=root.querySelector('.showcase-all');
- const filter=direction.parentElement;
- function exampleFirst(){return phone.matches && !document.documentElement.hasAttribute('data-presentation');}
- function placeControls(){
-  if(exampleFirst()){
-   if(allLink.parentElement!==shell)shell.append(filter,tabs,allLink);
-  }else if(allLink.parentElement===shell){
-   heading.append(allLink);
-   shell.before(filter);
-   stage.before(tabs);
-  }
- }
- placeControls();
- phone.addEventListener('change',placeControls);
- new MutationObserver(placeControls).observe(document.documentElement,{attributes:true,attributeFilter:['data-presentation']});
- function showChosenPanel(){
-  if(!exampleFirst())return;
-  const panel=stage.querySelector('[role=tabpanel]:not([hidden])');
-  panel.tabIndex=-1;
-  panel.focus({preventScroll:true});
-  stage.scrollIntoView({block:'start',behavior:'instant'});
- }
  const allTabs=[...tabs.querySelectorAll('[data-selected-id]')],panels=[...root.querySelectorAll('[data-preview]')];
  const material=createShowcaseMotion(root);
  const pending=new Map(),loaders={'trust':initEval,'taste':initTaste,'shared-choice':initShared,'bundles':initBundle,'commute':initCommute,'execution':initExecution,'rag':initRag};
@@ -167,7 +153,7 @@ if(root){
   }));
  }
  allTabs.forEach(tab=>{
-  tab.addEventListener('click',event=>{if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();activate(tab.dataset.selectedId);showChosenPanel();});
+  tab.addEventListener('click',event=>{if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();activate(tab.dataset.selectedId);});
   tab.addEventListener('keydown',event=>{
    const ordered=[...tabs.children].filter(item=>!item.hidden&&item.matches('[data-selected-id]')),index=ordered.indexOf(tab),mobile=matchMedia('(max-width: 900px)').matches;
    const delta={ArrowRight:1,ArrowLeft:-1,ArrowDown:mobile?2:1,ArrowUp:mobile?-2:-1}[event.key];
@@ -180,7 +166,7 @@ if(root){
   const order=direction.selectedOptions[0].dataset.order.split(',');
   allTabs.forEach(tab=>{tab.hidden=!order.includes(tab.dataset.selectedId);});
   order.forEach(id=>tabs.append(allTabs.find(tab=>tab.dataset.selectedId===id)));
-  activate(order[0]);showChosenPanel();
+  activate(order[0]);
  });
  const syncOrientation=()=>tabs.setAttribute('aria-orientation',matchMedia('(max-width: 900px)').matches?'horizontal':'vertical');
  matchMedia('(max-width: 900px)').addEventListener('change',syncOrientation);syncOrientation();activate(direction.selectedOptions[0].dataset.order.split(',')[0],false);
@@ -195,18 +181,36 @@ function imageDialog(){
  document.body.append(dialog);
  const close=()=>dialog.close();dialog.querySelector('button').addEventListener('click',close);
  dialog.addEventListener('click',event=>{if(event.target===dialog)close();});
- dialog.addEventListener('close',()=>{document.documentElement.classList.remove('project-image-open');lastImageTrigger?.focus({preventScroll:true});});
+ dialog.addEventListener('close',()=>{
+   document.documentElement.classList.remove('project-image-open');
+   lastImageTrigger?.focus({preventScroll:true});
+   if(history.state?.portfolioImage===lastImageTrigger?.closest('[data-project-id]')?.id)history.back();
+ });
  dialog.querySelector('img').addEventListener('error',()=>{dialog.querySelector('img').hidden=true;const error=dialog.querySelector('.project-image-error');error.hidden=false;words(error,'图片未能载入。可关闭预览，继续打开完整 Demo。','The image could not load. Close this preview to continue to the full demo.');});
  return dialog;
 }
-document.addEventListener('click',event=>{
- const link=event.target.closest('[data-preview-image]');if(!link||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||typeof HTMLDialogElement==='undefined')return;
- event.preventDefault();const modal=imageDialog(),img=modal.querySelector('img');lastImageTrigger=link;
+function openProjectImage(link,remember){
+ if(!link||dialog?.open)return;
+ const modal=imageDialog(),img=modal.querySelector('img');lastImageTrigger=link;
  words(modal.querySelector('#projectImageCaption'),link.dataset.previewCaption,link.dataset.previewCaptionEn);
  translate(modal);img.hidden=false;modal.querySelector('.project-image-error').hidden=true;
  img.alt=en()?link.dataset.previewCaptionEn:link.dataset.previewCaption;img.src=link.href;modal.querySelector('.project-image-original').href=link.href;
  document.documentElement.classList.add('project-image-open');modal.showModal();
+ const id=link.closest('[data-project-id]')?.id;
+ if(remember&&id){try{history.pushState({...history.state,portfolioImage:id},'');}catch{}}
+}
+document.addEventListener('click',event=>{
+ const link=event.target.closest('[data-preview-image]');
+ if(!link||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||typeof HTMLDialogElement==='undefined')return;
+ event.preventDefault();openProjectImage(link,true);
 });
+function restoreProjectImage(){
+ const id=history.state?.portfolioImage;
+ if(id)openProjectImage(document.getElementById(id)?.querySelector('[data-preview-image]'),false);
+ else if(dialog?.open)dialog.close();
+}
+window.addEventListener('popstate',restoreProjectImage);
+if(history.state?.portfolioImage)restoreProjectImage();
 document.addEventListener('error',event=>{if(event.target.matches?.('.project-preview img'))event.target.closest('.project-preview').classList.add('preview-image-failed');},true);
 // A cached image may have failed before the module registered its capture listener.
 document.querySelectorAll('.project-preview img').forEach(img=>{if(img.complete&&!img.naturalWidth)img.closest('.project-preview').classList.add('preview-image-failed');});

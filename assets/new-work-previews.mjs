@@ -16,7 +16,7 @@ export function initExecution(panel){
  });
 }
 
-const scopes={present:{date:'2026-10-28',snapshot:'baseline'},historic:{date:'2026-06-30',snapshot:'baseline'},revised:{date:'2026-10-28',snapshot:'revised'}};
+const scopes={present:{date:'2026-10-28',snapshot:'baseline'},historic:{date:'2026-06-30',snapshot:'baseline'},revised:{date:'2026-10-28',snapshot:'revised'},before:{date:'2020-01-01',snapshot:'baseline'}};
 export async function initRag(panel){
  // Load the canonical retrieval engine and public-only corpus on first selection.
  const [{retrieveRun},response]=await Promise.all([import('../rag-lab/engine.mjs'),fetch('/rag-lab/public-corpus.json')]);
@@ -30,14 +30,26 @@ export async function initRag(panel){
  });});
  run.addEventListener('click',()=>{
   const scope=scopes[selected],result=retrieveRun(documents,{question:'显示器可以借多久？',...scope,generation:'extractive'},'employee','original-example'),cite=result.citations[0];
-  displayed=selected;run.disabled=true;answer.dataset.stale='false';
+  const prior=panel.querySelector('[data-rag-prior]'),old=panel.querySelector('[data-rag-days]').textContent;
+  const previousDate=scopes[displayed].date,previousDays=parseInt(old,10);
+  words(prior,'上一次查找 · '+previousDate+' · '+(Number.isFinite(previousDays)?previousDays+' 天':'待确认'),
+    'Previous lookup · '+previousDate+' · '+(Number.isFinite(previousDays)?previousDays+' days':'Unconfirmed'));
+  prior.hidden=false;displayed=selected;run.disabled=true;answer.dataset.stale='false';
   panel.querySelector('[data-rag-result-scope]').textContent=`${scope.date} · ${scope.snapshot} · employee`;
-  const days=panel.querySelector('[data-rag-days]');days.replaceChildren(document.createTextNode(result.facts[0].value.replace('天','')));const unit=document.createElement('span');words(unit,'天',' days');days.append(unit);
+  const days=panel.querySelector('[data-rag-days]'),evidence=panel.querySelector('[data-rag-evidence]');
+  panel.querySelector('[data-rag-answer-text]').textContent=result.answer;
+  evidence.hidden=!cite;evidence.open=!!cite;
+  if(!cite||!result.facts.length){
+    words(days,'待确认','Unconfirmed');panel.querySelector('[data-rag-quote]').textContent='';
+    words(panel.querySelector('[data-rag-status]'),'这个日期没有适用条款。请向设备负责人确认借用期限。','No policy covers this date. Confirm the loan period with the equipment owner.');
+    feedback(answer);return;
+  }
+  delete days.dataset.zh;delete days.dataset.en;days.replaceChildren(document.createTextNode(result.facts[0].value.replace('天','')));const unit=document.createElement('span');words(unit,'天',' days');days.append(unit);
   panel.querySelector('[data-rag-answer-text]').textContent=result.answer;
   panel.querySelector('[data-rag-citation]').textContent=`${cite.id} · v${cite.version}`;
   panel.querySelector('[data-rag-quote]').textContent=cite.text;
   words(panel.querySelector('[data-rag-effective]'),`v${cite.version} · ${cite.effectiveFrom} 起生效${cite.effectiveTo?`，${cite.effectiveTo} 失效`:''}`,`v${cite.version} · Effective from ${cite.effectiveFrom}${cite.effectiveTo?` until ${cite.effectiveTo}`:''}`);
-  panel.querySelector('[data-rag-evidence]').open=false;
+  evidence.open=true;
   words(panel.querySelector('[data-rag-status]'),`已按 ${scope.date} / ${scope.snapshot} 重新检索，依据 ${cite.id}。原文为中文原创虚构资料，无模型调用。`,`Searched again for ${scope.date} / ${scope.snapshot}, using ${cite.id}. Source text is original fictional Chinese material. No model call.`);
   feedback(answer);
  });

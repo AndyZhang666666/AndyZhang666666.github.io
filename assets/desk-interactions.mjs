@@ -43,4 +43,3 @@ export function mountSample(node) {
   render();
   return ()=>{const draft=node.querySelector('[name=query]')?.value;render();if(draft!==undefined)node.querySelector('[name=query]').value=draft;};
 }
-

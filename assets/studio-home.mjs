@@ -1,15 +1,11 @@
 import {escapeText as esc,t} from '../studio/ui.mjs';
 import {setupResearch} from './research-instruments.mjs';
 import {mountCoverDesk} from './cover-desk.mjs';
+import {mountWall} from './exhibit-wall.mjs';
 const html=document.documentElement,selected=document.querySelector('#selected');
 const desk=document.querySelector('.workdesk');
 if(desk) mountCoverDesk(desk);
-const coverPortrait=document.querySelector('#top [data-original-src]');
-if(coverPortrait) {
- const useOriginal=()=>{if(coverPortrait.getAttribute('src')!==coverPortrait.dataset.originalSrc)coverPortrait.src=coverPortrait.dataset.originalSrc;};
- coverPortrait.addEventListener('error',useOriginal,{once:true});
- if(new URLSearchParams(location.search).get('portrait')==='original'||(coverPortrait.complete&&!coverPortrait.naturalWidth))useOriginal();
-}
+mountWall(document.getElementById('projectGrid'));
 function languageLinks(root=document){
  for(const a of root.querySelectorAll('a[href^="/studio/"]')){
   const url=new URL(a.href);
@@ -27,14 +23,18 @@ if(selected){
  const quick=document.createElement('label');quick.className='studio-switch';
  quick.innerHTML='<span></span><select aria-label="换作品 / Switch work"></select>';
  const stage=selected.querySelector('.showcase-stage');
- stage.prepend(quick);
+ stage.append(quick);
  const quickSelect=quick.querySelector('select');
  function syncSwitch(){
   const list=tabs(),current=active();
-  quick.firstChild.textContent=t('换作品','Switch work');
+  quick.firstChild.textContent=t('接着看','Next exhibit');
   quickSelect.innerHTML=list.map((tab,i)=>'<option value="'+tab.dataset.selectedId+'" '+(tab===current?'selected':'')+'>'+esc(tab.querySelector('strong').textContent)+' · '+(i+1)+'/'+list.length+'</option>').join('');
  }
- quickSelect.onchange=()=>tabs().find(x=>x.dataset.selectedId===quickSelect.value)?.click();
+ quickSelect.onchange=()=>{
+  const next=tabs().find(x=>x.dataset.selectedId===quickSelect.value);
+  if(!next)return;
+  next.click();next.focus({preventScroll:true});next.scrollIntoView({block:'start',behavior:'instant'});
+ };
  new MutationObserver(syncSwitch).observe(selected.querySelector('.showcase-choices'),{attributes:true,childList:true,subtree:true,attributeFilter:['aria-selected','hidden']});
  const guide=document.createElement('section');guide.className='studio-guide';guide.setAttribute('aria-label','放映路线 / Presentation routes');
  guide.innerHTML='<label><span></span><select id="studioRoute"></select></label><div id="studioFilm" hidden></div>';

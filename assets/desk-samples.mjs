@@ -74,4 +74,3 @@ export function sampleTicket(kind,state,en=false) {
   const url='https://andyzhang666666.github.io/studio/'+(menu?'menu':'credits')+'/'+(en?'?lang=en':'');
   return '<!doctype html><html lang="'+(en?'en':'zh-CN')+'"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><style>html{background:#e6dfce;color:#201d1a;font:17px/1.7 Georgia,serif}body{max-width:35em;margin:6vh auto;background:#fffaf1;padding:clamp(18px,5vw,52px);border-top:9px solid '+(menu?'#344591':'#efb72e')+'}li{border-bottom:1px dashed #cbbfa9;padding:.3em 0}a{color:#334989}@media print{body{margin:0}}</style><body><small>'+t('张千羽 · 原创模拟算例','Andy Zhang · Original example')+'</small><h1>'+title+'</h1><ul>'+lines.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ul><a href="'+url+'">'+t('打开完整工具','Open the full tool')+'</a></body></html>';
 }
-

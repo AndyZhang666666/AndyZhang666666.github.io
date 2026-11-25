@@ -1,4 +1,5 @@
 @import url("./research-plates.css");
+@import url("./exhibition.css");
 .independent-example{display:inline-block;margin:.2rem 0 .6rem;color:var(--accent);text-underline-offset:3px}
 .studio-switch,.studio-guide{display:none}.studio-guide select,.studio-switch select,.film-page select{background:var(--bg-0);color:var(--fg);border:1px solid var(--border-strong);padding:.55em;max-width:100%;font:inherit}.studio-switch span,.studio-guide>label>span{font-size:.8rem;color:var(--fg-muted);margin-right:.7em}
 html[data-presentation] .studio-guide{display:block;margin-bottom:1rem}#selected[data-guided] .showcase-shell{display:none}html:has(#selected[data-guided]) .presentation-current strong,html:has(#selected[data-guided]) .presentation-highlight{display:none}
