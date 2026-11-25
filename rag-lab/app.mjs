@@ -39,7 +39,7 @@ function hidePrivateHistory() {
     currentRun = null;
     $('exampleDraft').value='';$('copyExampleAnswer').disabled=true;$('downloadExampleAnswer').disabled=true;
     for (const id of ['excludedSources','citationLinks','retrieval','runDetails','process','historyList']) $(id).replaceChildren();
-    $('excludedPanel').hidden=true;$('taskNext').textContent='';
+    $('dateTrial').textContent='按当前条件重新查找';$('excludedPanel').hidden=true;$('taskNext').textContent='';
     $('sources').replaceChildren(node('p','身份或运行范围已改变，请重新查找。','empty-evidence'));
     $('answerHeadline').textContent='请重新查找';$('answerText').textContent='旧答复及引用已清除。';
     $('runScope').textContent='';$('answerNote').textContent='';$('runMode').textContent='';$('evidenceCount').textContent='';
@@ -72,6 +72,7 @@ function markStale() {
   $('copyExampleAnswer').disabled=Boolean(currentRun);$('downloadExampleAnswer').disabled=Boolean(currentRun);
   $('error').hidden = true;
   syncSettings();
+  if(currentRun)$('staleLabel').textContent='已失效 · 基于旧条件 '+currentRun.date;
   const question = $('question').value.trim();
   document.querySelectorAll('[data-question]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.question === question)));
 }
@@ -175,6 +176,7 @@ function render(run) {
   $('answerStatus').dataset.kind = run.status;
   $('runScope').textContent = `${roleName(run.role)} · ${run.date} · ${SNAPSHOTS[run.snapshot]}`;
   $('answerHeadline').textContent = headline(run);
+  $('dateTrial').textContent = run.facts?.length && !activeTask && run.question.includes('显示器') ? headline(run)+' · 换个日期核对 →' : '换个日期核对 →';
   $('answerText').textContent = run.answer || run.error?.message || '本次未生成回答。';
   $('runMode').textContent = modeNames[run.mode] ?? run.mode;
   $('exportButton').disabled = false;
@@ -187,19 +189,19 @@ function render(run) {
     '只说明本次范围下缺少依据，不断言其他范围一定存在规则，也不泄露不可访问资料的标题或内容。';
 
   $('citationLinks').replaceChildren(); $('sources').replaceChildren();
-  $('evidenceTitle').textContent = run.status === 'failed' ? '本次找到的依据' : '这次使用的依据';
+  $('evidenceTitle').textContent = run.status === 'failed' ? '本次找到的依据' : '已采用依据';
   $('evidenceCount').textContent = run.citations.length ? `${run.citations.length} 个段落` : '无支持段落';
   if (!run.citations.length) $('sources').append(node('p', '没有找到足以支持结论的段落。相似的资料仍可在下方技术详情中检查。', 'empty-evidence'));
   const excluded = $('excludedSources'); excluded.replaceChildren();
   for (const item of run.excluded ?? []) {
     const row=node('article',undefined,'excluded-row'); row.append(node('strong',`${item.title} · v${item.version}${item.fact?' · '+item.fact:''}`),node('p',`${item.reason}${item.score === undefined ? '' : ` · BM25 ${item.score}`}`)); excluded.append(row);
   }
-  $('excludedPanel').hidden=!(run.excluded?.length);$('excludedPanel').querySelector('summary').textContent=`为什么没用其他相近资料（${run.excluded?.length||0}）`;
+  $('excludedPanel').hidden=!(run.excluded?.length);$('excludedPanel').querySelector('summary').textContent=`已排除的依据（${run.excluded?.length||0}）`;
   if(run.mode==='original-example' && run.role==='admin' && run.status==='insufficient') $('sources').replaceChildren(node('p','公开构建包已在打包期剔除管理范围原文。前端身份切换不会取得这些资料。验证真实管理员检索，请按 README 启动本地 API 并使用独立管理凭据。','empty-evidence'));
   run.citations.forEach((source, index) => {
     const button = node('button', `[${index + 1}] ${source.title} · v${source.version}`);
     button.type = 'button'; button.dataset.citation = source.id; button.setAttribute('aria-controls', `source-${index}`);
-    button.addEventListener('click', () => {if(!$('stale').hidden){$('liveStatus').textContent='条件已变更，请重新查找后展开引用。';return;}openCitation({trigger:button,title:source.title,metadata:`v${source.version} · 自 ${source.effectiveFrom} 生效${source.effectiveTo?'，至 '+source.effectiveTo+' 前有效':''} · ${source.id}`,quote:source.text,detailTarget:$(`source-${index}`)});}); $('citationLinks').append(button);
+    button.addEventListener('click', () => {if(!$('stale').hidden){$('liveStatus').textContent='条件已变更，请重新查找后展开引用。';return;}openCitation({trigger:button,title:source.title,metadata:`v${source.version} · 自 ${source.effectiveFrom} 生效${source.effectiveTo?'，至 '+source.effectiveTo+' 前有效':''} · ${source.id}`,quote:source.text,excerpt:source.quote,detailTarget:$(`source-${index}`)});}); $('citationLinks').append(button);
     const article = node('article', undefined, 'source'); article.id = `source-${index}`; article.tabIndex = -1;
     article.append(node('h3', `[${index + 1}] ${source.title}`));
     article.append(node('p', `v${source.version} · 自 ${source.effectiveFrom} 生效${source.effectiveTo ? `，至 ${source.effectiveTo} 前有效` : ''} · ${source.id}`, 'source-meta'));
@@ -299,6 +301,13 @@ $('exportButton').addEventListener('click', async () => {
 
 async function initialize() {
   initializeTasks();initializePersonal();
+  $('dateTrial').onclick=()=>{
+    if(!currentRun){run();return;}
+    $('date').value=$('date').value==='2026-05-01'?'2026-10-28':'2026-05-01';
+    markStale();
+    $('exampleAnswerPane').scrollIntoView({block:'center'});
+    $('staleRerun').focus({preventScroll:true});
+  };
   try {
     if (matchMedia('(max-width: 650px)').matches) $('conditionSettings').open = false;
     const response = await fetch('./public-corpus.json');
@@ -310,8 +319,8 @@ async function initialize() {
         const {response, data} = await api('/api/health');
         apiAvailable = response.ok && data.service === 'rag-lab-local';
         if (apiAvailable) {
-          $('runtime').options[1].disabled = false; $('runtime').options[2].disabled = false;
-          const capability=await api('/api/capabilities');
+          $('runtimeSettings').hidden=false; $('runtime').add(new Option('本地 API · 规则摘录','api'));
+          const capability=await api('/api/capabilities'); if(capability.data.modelEnabled)$('runtime').add(new Option('本地模型','model'));
           $('apiHint').textContent = `已连接当前本机 API。${capability.data.modelEnabled?'服务端已允许模型阶段，实际运行仍需单独验证。':'服务端默认关闭模型调用；选择模型方式只会报告未配置或未启用，不会自动回退。'}可先用真实检索与规则摘录。`;
         }
       } catch { /* static preview: remain in explicitly labelled example mode */ }
@@ -320,7 +329,8 @@ async function initialize() {
   } catch (error) { setBusy(false); showError(error.message); $('answerHeadline').textContent = '资料暂时无法读取'; }
 }
 function initializeTasks(){
- for(const t of TASKS){const b=node('button',t.title);b.type='button';b.dataset.task=t.id;b.onclick=()=>{if(matchMedia('(max-width:650px)').matches)document.querySelector('.task-library').open=false;activeTask=t;$('taskContext').hidden=false;$('taskTitle').textContent=t.title;$('taskGoal').textContent=t.goal;$('taskFacts').hidden=!t.facts;$('taskBorrowed').value='';$('taskDue').value='';$('taskUsed').value=t.used??'';$('taskBooking').value=t.booking??'unknown';$('date').value=t.date??'2026-10-28';$('snapshot').value=t.snapshot??'baseline';$('runtime').value='example';$('role').value=t.admin?'admin':'employee';$('question').value=t.question;markStale();run();};$('taskList').append(b);}
+ for(const t of TASKS)$('taskList').add(new Option(t.title,t.id));
+ $('taskList').onchange=()=>{const t=TASKS.find(item=>item.id===$('taskList').value);if(!t)return;if(matchMedia('(max-width:650px)').matches)document.querySelector('.task-library').open=false;activeTask=t;$('taskContext').hidden=false;$('taskTitle').textContent=t.title;$('taskGoal').textContent=t.goal;$('taskFacts').hidden=!t.facts;$('taskBorrowed').value='';$('taskDue').value='';$('taskUsed').value=t.used??'';$('taskBooking').value=t.booking??'unknown';$('date').value=t.date??'2026-10-28';$('snapshot').value=t.snapshot??'baseline';$('runtime').value='example';$('role').value=t.admin?'admin':'employee';$('question').value=t.question;markStale();run();};
  for(const id of ['taskBorrowed','taskDue','taskUsed','taskBooking'])$(id).addEventListener('input',markStale);
  const answerDocument=()=>{if(!currentRun||!$('stale').hidden)throw Error('先按当前条件重新查找，再带走答复。');return `# 制度答复草稿\n\n问题：${currentRun.question}\n日期：${currentRun.date} · ${SNAPSHOTS[currentRun.snapshot]}\n运行：${modeNames[currentRun.mode]}\n\n${currentRun.scopeDiff?'条件变化：'+currentRun.scopeDiff.message+'\n\n':''}## 对外答复（用户可编辑）\n${$('exampleDraft').value}\n\n## 待确认与下一步\n${(currentRun.taskNext||[]).join('\n')}\n\n## 本次实际依据\n${currentRun.citations.map(c=>`### ${c.title} · ${c.id}\n${c.quote}`).join('\n\n')}\n\n任务事实：${currentRun.taskFacts?JSON.stringify(currentRun.taskFacts):'未提供额外事实'}\n原创虚构制度示例；未执行实际业务操作。引用匹配不等于语义正确；用户补写需核对。`;};
  $('exampleDraft').oninput=()=>{if(!currentRun)return;currentRun.userDraft=$('exampleDraft').value;const h=history.find(r=>r.id===currentRun.id);if(h)h.userDraft=currentRun.userDraft;};
