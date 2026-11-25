@@ -1,0 +1,12 @@
+:root {font-family:"IBM Plex Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "PingFang SC",
+    "Microsoft YaHei",
+    sans-serif;color:var(--studio-ink);background:#f4f2eb;font-size:14px;--accent:#34574a;--muted:#63665e;--studio-ink:#282923;--studio-line:#deddd5;--studio-paper:#fcfbf7;--work-paper:#eeeee7;--work-panel:#fafaf5;--work-ink:#232b25;--work-muted:#666e63;--work-line:#d7dbd0;--work-accent:#2d4d38;--studio-ease:cubic-bezier(.22,1,.36,1);font-variant-numeric:tabular-nums}
+button {transition:transform 200ms ease-out}
+button:active:not(:disabled){transform:scale(.98);transition-duration:70ms}
+.runtime-badge {position:relative;font:12px/1.5 ui-monospace,monospace; margin-inline-start:auto}
+.runtime-badge summary{cursor:pointer;min-height:32px;display:flex;align-items:center}
+.runtime-badge[open]>p,.runtime-badge[open]>.runtime-content{position:absolute;right:0;z-index:20;width:min(280px,78vw);padding:12px;background:Canvas;color:CanvasText;border:1px solid currentColor}
+@media(prefers-reduced-motion:reduce){button{transition:none}button:active:not(:disabled){transform:none}}

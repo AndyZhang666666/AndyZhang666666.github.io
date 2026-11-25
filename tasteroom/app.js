@@ -142,7 +142,7 @@ function renderMemories() {
           .join("")
       : `<p class="empty">${type === "explicit" ? "你的明确指令会放在这里。<br>它不会把猜测当成你的命令。" : "做两次直觉选择，看看它猜中了什么。"}</p>`;
   }
-  $("#memoryCount").textContent = relevant.length;
+  $("#memoryCount").textContent = relevant.filter(m=>m.type==='explicit' && m.status==='active' && !m.id.startsWith('once_')).length;
 }
 function renderLogs() {
   const labels = {
@@ -171,8 +171,8 @@ function render() {
   if(comparison&&!comparisonIsCurrent(room,comparison)){comparison=null;comparisonSide=null;}
   const ready = !explorer;
   const shown=displayedRoom();
-  $('#startCreate').setAttribute('aria-pressed',String(activePath==='create'));
-  $('#startExplore').setAttribute('aria-pressed',String(activePath==='explore'));
+
+
   $('#storageNotice').hidden=storageOK;$('#storageNotice').textContent='本机存储不可用；仍可编辑、比较和导出，刷新会结束本次草稿。';
   $("#probe").hidden = ready;
   $("#experiment").hidden = !ready;
@@ -265,7 +265,7 @@ function renderComparison(){
   $('#comparisonDimension').value=comparison.dimension;
   $('#directionPair').hidden=comparison.dimension!=='artDirection';
   $('#comparisonTitle').textContent=comparison.dimension==='artDirection'?'同一内容，比较整体构图':'同一内容，只变一项';
-  $('#comparisonScopeNote').textContent=comparison.dimension==='artDirection'?'艺术方向包含构图、字形和图形的整体变化。选择只说明这次更喜欢这个方向，不推断其他五项偏好。':'内容、构图与其他参数保持不变，只比较所选参数。';
+  $('#comparisonScopeNote').textContent=comparison.dimension==='artDirection'?'艺术方向包含构图、字形和图形的整体变化。选择只说明这次更喜欢这个方向，不推断其他五项偏好。':'本轮仅改变 1 个变量：'+DIMENSIONS[comparison.dimension]+'（'+comparison.variants.map(v=>OPTIONS[comparison.dimension][v[comparison.dimension]]).join(' / ')+'）';
   const container=$('#comparisonVariants');container.replaceChildren();container.hidden=!!comparisonSide;
   $('#backToComparison').hidden=!comparisonSide;
   $('#skipComparison').hidden=!!comparisonSide;
@@ -525,8 +525,8 @@ function showBrain(on) {
 }
 $("#showCanvas").onclick = () => showBrain(false);
 $("#showBrain").onclick = () => showBrain(true);
-$('#startCreate').onclick=()=>{stop();explorer=null;activePath='create';comparison=null;comparisonSide=null;render();syncContentEditor();speak('继续当前作品；文案、临时画布与已保存偏好均保留。');};
-$('#startExplore').onclick=()=>{activePath='explore';startFlexibleComparison();};
+
+
 $('#startIntuition').onclick=()=>{stop();comparison=null;comparisonSide=null;activePath='explore';explorer=new Room();render();$('#probe').scrollIntoView({block:'nearest'});};
 $('#backToComparison').onclick=()=>{comparisonSide=null;render();};
 function beginComparison(dimension){
@@ -538,7 +538,7 @@ function beginComparison(dimension){
   }catch(e){speak(e.message)}
 }
 function startFlexibleComparison(){const current=Object.hasOwn(DIRECTIONS,room.canvas.artDirection)?room.canvas.artDirection:'swiss';$('#compareA').value=current;$('#compareB').value=Object.keys(DIRECTIONS).find(d=>d!==current);syncPairOptions();beginComparison('artDirection');}
-$('#startComparison').onclick=startFlexibleComparison;
+$('#startComparison').onclick=()=>beginComparison('typography');
 $('#comparisonDimension').onchange=()=>beginComparison($('#comparisonDimension').value);
 function syncPairOptions(){for(const [a,b] of [['compareA','compareB'],['compareB','compareA']])for(const option of $('#'+a).options)option.disabled=option.value===$('#'+b).value;}
 for(const id of ['compareA','compareB']){$('#'+id).innerHTML=Object.entries(DIRECTIONS).map(([key,d])=>`<option value="${key}">${d.name}</option>`).join('');$('#'+id).onchange=()=>{syncPairOptions();beginComparison('artDirection')};}
