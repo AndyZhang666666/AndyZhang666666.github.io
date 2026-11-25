@@ -1,6 +1,7 @@
 import {withMenuEdits,withQueryEdits,search,compare,parseMenu,rules} from './search.mjs';
 import {t,escapeText as esc,startPage,download} from '../ui.mjs';
 const $=id=>document.getElementById(id);
+let threeRules=false;
 let base='literal',mode='alias',q='shawerma chicken wrap',custom=[],importText='',message='',open=false;
 const ruleLabels=()=>({literal:t('原词匹配','Literal terms'),alias:t('补上音译别名','Spelling aliases'),wide:t('放宽卷类，热销优先','All wraps, popular first')});
 const reasonLabel=k=>({name:t('名称匹配','Name match'),terms:t('词项匹配','Term match'),category:t('扩展到卷类','Category expansion')})[k];
@@ -14,9 +15,9 @@ function renderResults(){
  const labels=ruleLabels(),menuRows=menu(),rows=compare(menuRows,judgments(),base,mode);
  const name=id=>{const d=menuRows.find(x=>x.id===id);return d?t(d.zh,d.en):t('无结果','No result');};
  const expected=judgments().find(row=>row.q.toLowerCase()===q.trim().toLowerCase())?.id;
- $('menus').innerHTML=[base,mode].map((rule,i)=>{
+ $('menus').innerHTML=(threeRules?['literal','alias','wide']:[base,mode]).map((rule,i)=>{
   const result=search(menuRows,q,rule);
-  return '<section class="menu-column"><header><small>'+t(i?'候选规则':'原规则',i?'Candidate':'Baseline')+'</small><h2>'+labels[rule]+'</h2></header>'+
+  return '<section class="menu-column"><header><small>'+t(i?'候选规则':'原规则',i?'Candidate':'Baseline')+'</small><h2>'+labels[rule]+'</h2></header>'+ (threeRules&&expected?'<p>'+t('目标菜排名','Target rank')+' · '+(result.findIndex(row=>row.dish.id===expected)+1||t('未召回','No match'))+'</p>':'')+
    (result.length?'<ol>'+result.slice(0,4).map(({dish,reason})=>'<li><b>'+esc(t(dish.zh,dish.en))+'</b><span lang="ar" dir="rtl">'+esc(dish.ar)+'</span><small>'+reasonLabel(reason)+'</small></li>').join('')+'</ol>':'<div class="empty-result">'+t('这条规则没有找到菜。','No dish matches this rule.')+'</div>')+'</section>';
  }).join('');
  $('expected').textContent=expected?t('这条查询标注的目标菜　','Expected dish　')+name(expected):t('自由查询 · 尚未标注目标菜','Free query · no expected dish assigned');
@@ -39,4 +40,10 @@ function render(){
  $('export').onclick=()=>download('menu-rule-comparison.json',JSON.stringify(report(),null,2),'application/json');
  renderResults();
 }
+$('spotlight').onclick=()=>{
+ threeRules=!threeRules;renderResults();
+ $('menus').classList.toggle('three-rules',threeRules);
+ $('spotlight').setAttribute('aria-pressed',String(threeRules));
+ $('menus').scrollIntoView({block:'center'});
+};
 startPage(render);

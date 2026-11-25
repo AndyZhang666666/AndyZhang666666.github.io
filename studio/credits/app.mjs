@@ -38,4 +38,24 @@ function render(){
  $('shots').querySelectorAll('button').forEach(b=>b.onclick=()=>apply(()=>transition(state,b.dataset.shot,b.dataset.action)));
  drawQuote();
 }
+function replayRetry(){
+ let example=reserve(wallet(),'director',3,12,'retry-demo');
+ const [first,second,third]=example.batches[0].shots;
+ example=transition(example,first.id,'done');
+ example=advance(example,'2026-11-25');
+ example=transition(example,second.id,'failed');
+ example=transition(example,second.id,'retry');
+ example=transition(example,second.id,'done');
+ example=transition(example,third.id,'done');
+ return receipt(example);
+}
+$('spotlight').onclick=()=>{
+ const r=replayRetry();
+ let panel=document.querySelector('#retry-example');
+ if(!panel){panel=document.createElement('section');panel.id='retry-example';panel.className='ledger';$('app').before(panel);}
+ const labels={hold:t('预留','Reserve'),done:t('结算','Settle'),failed:t('失败返还','Failure refund')};
+ panel.innerHTML='<h2>'+t('第二镜的两次尝试','Two attempts at shot two')+'</h2><p>'+t('独立示例账本','Example ledger')+' · '+t('已结算','Settled')+' '+r.charged+' CR · '+t('到期作废','Expired')+' '+r.expired+' CR</p><ol>'+r.events.map(e=>'<li>'+e.day+' · '+e.id+' · '+labels[e.action]+' '+(e.charged??(e.gift??0)+(e.paid??0))+' CR'+(e.action==='failed'?' · '+t('过期','Expired')+' '+e.expired+' / '+t('退回','Returned')+' '+(e.returnedGift+e.returnedPaid):'')+'</li>').join('')+'</ol><button>'+t('返回我的报价','Return to my quote')+'</button>';
+ panel.querySelector('button').onclick=()=>{panel.remove();$('spotlight').focus();};
+ panel.scrollIntoView({block:'center'});
+};
 startPage(render);
