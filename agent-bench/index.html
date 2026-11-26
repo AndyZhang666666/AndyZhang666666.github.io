@@ -6,10 +6,10 @@
   <meta name="description" content="说完成了，真的完成了吗？在虚构工单沙盒里，检查 Agent 的工具执行、最终数据与失败恢复。">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css?v=20261125-focus"><script src="./replay.js?v=guided-20261030" defer></script><script src="./app.js?v=20261125-focus" defer></script>
-</head>
-<body>
+<link rel="stylesheet" href="/demos/continuity/shell.css"><script defer src="/demos/continuity/shell.js"></script><script defer src="/demos/continuity/labels.js"></script></head>
+<body><div class="demo-context" data-demo-card="agent-bench" data-guide-zh="回执丢失后，对照两种恢复策略与实际写入记录。" data-guide-en="A receipt went missing. Compare both recovery strategies against the recorded write."><div class="context-row"><a href="/works/#project-agent-bench">← 返回作品卡</a><strong>Agent Bench</strong><button type="button" aria-label="Switch to English">EN</button></div><output aria-live="polite">回执丢失后，对照两种恢复策略与实际写入记录。</output></div>
 <a class="skip" href="#workbench">跳到评测台</a>
-<header class="site-header"><a href="/" class="wordmark">Andy Zhang<span> / 作品实验</span></a><a href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/agent-bench" target="_blank" rel="noopener">源码 <span aria-hidden="true">↗</span></a><details class="runtime-badge"><summary>运行来源</summary><div class="runtime-content"><div class="source-line"><span class="source-mark" id="source-label">示例演示 · 不调用 AI</span><span id="source-help">原创程序策略记录，只读回放；不计入模型评测。</span></div><p>本地复现：<code>python3 backend/server.py --port 8877</code></p></div></details></header>
+<header class="site-header"><a href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/agent-bench" target="_blank" rel="noopener">源码 <span aria-hidden="true">↗</span></a><details class="runtime-badge"><summary>运行来源</summary><div class="runtime-content"><div class="source-line"><span class="source-mark" id="source-label">示例演示 · 不调用 AI</span><span id="source-help">原创程序策略记录，只读回放；不计入模型评测。</span></div><p>本地复现：<code>python3 backend/server.py --port 8877</code></p></div></details></header>
 <main>
   <div class="intro"><div class="product-name"><svg class="bench-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 7h10v7H5zm12 11h10v7H17zM10 14v7h7M15 10h7v8" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="22" cy="10" r="2" fill="currentColor"/></svg><h1>Agent 执行评测台</h1></div><p>工具没有返回，事情到底做成了吗？</p><span class="intro-note">沿着一张工单，比较两种策略如何执行、核对与恢复。</span></div>
   <section id="workbench" aria-label="案例与执行对照">
@@ -29,6 +29,6 @@
     <details class="technical"><summary>导入一次运行，进行只读回放</summary><div class="technical-body"><p>仅在浏览器读取本项目导出的 JSON，不上传、不调用工具。真实模型留档会保留来源；程序测试不会变成真实模型回放。</p><label for="import-record">选择运行记录（最大 1 MB）</label><input type="file" id="import-record" accept="application/json,.json"><p id="import-status" role="status"></p></div></details>
   </section>
 </main>
-<footer><span>每次运行都有边界，每次完成都要有证据。</span><a href="/">返回个人官网</a></footer>
+<footer><span>每次运行都有边界，每次完成都要有证据。</span><a href="/works/#project-agent-bench">返回作品卡</a></footer>
 <noscript><p>此交互需要 JavaScript；可在 GitHub 阅读源码与测试报告。</p></noscript>
 </body></html>

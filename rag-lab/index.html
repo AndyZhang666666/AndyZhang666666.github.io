@@ -9,11 +9,11 @@
   <link rel="stylesheet" href="style.css?v=20261125-focus">
   <link rel="stylesheet" href="workbench.css?v=20261125-focus">
   <script type="module" src="app.mjs?v=20261125-focus"></script>
-</head>
-<body>
+<link rel="stylesheet" href="/demos/continuity/shell.css"><script defer src="/demos/continuity/shell.js"></script><script defer src="/demos/continuity/labels.js"></script></head>
+<body><div class="demo-context" data-demo-card="rag-lab" data-guide-zh="切换日期并重新检索，看看哪一版制度决定了借期。" data-guide-en="Change the date and search again to see which policy determines the loan period."><div class="context-row"><a href="/works/#project-rag-lab">← 返回作品卡</a><strong>Evidence Lab</strong><button type="button" aria-label="Switch to English">EN</button></div><output aria-live="polite">切换日期并重新检索，看看哪一版制度决定了借期。</output></div>
   <a class="skip" href="#question">跳到问题输入</a>
   <header class="topbar">
-    <a href="../" class="back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 4-6 6 6 6M4 10h12"/></svg>Andy 的作品</a>
+
     <span class="brand">可信 RAG 实验台</span>
     <a class="source-link" href="https://github.com/AndyZhang666666/AndyZhang666666.github.io/tree/main/rag-lab" target="_blank" rel="noopener">源码与运行说明 <span aria-hidden="true">↗</span></a>
   <details class="runtime-badge"><summary>运行方式</summary><div class="runtime-content"><div class="mode-banner"><span class="mode-dot" aria-hidden="true"></span><strong id="modeLabel">原创示例模式</strong><span id="modeDescription">浏览器文本检索 · 规则摘录 · 无模型调用</span></div><a href="./README.md">本地运行说明 ↗</a></div></details></header>
@@ -24,7 +24,7 @@
       <h1>可信 RAG <span>证据工作台</span></h1><button type="button" id="dateTrial">切到历史日期，核对借期 →</button>
       <p>先核对依据，再整理答复。日期、身份与版本决定哪些原文可用。</p>
     </div>
-    
+
 
     <details class="scenario-choices" id="scenarioChoices" open><summary><span>先试一个边界问题</span><span class="scenario-current" id="scenarioCurrent">六种边界 · 选择后收起</span></summary>
 
@@ -68,7 +68,7 @@
 
 <div class="results-desk">
     <div id="error" role="alert" hidden></div>
-    
+
     <div id="liveStatus" class="sr-only" role="status" aria-live="polite"></div>
     <section class="reading-area" id="result" aria-label="本次回答与来源" aria-busy="true">
       <article class="answer-panel" id="exampleAnswerPane">

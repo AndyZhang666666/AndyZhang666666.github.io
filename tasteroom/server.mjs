@@ -107,6 +107,12 @@ export const server = http.createServer(async (req, res) => {
       res.writeHead(405);
       return res.end();
     }
+    const sharedFiles = new Set(['/demos/continuity/shell.js','/demos/continuity/labels.js','/demos/continuity/shell.css']);
+    if (sharedFiles.has(path)) {
+      const data=await readFile(new URL('..'+path,import.meta.url));
+      res.writeHead(200,{'Content-Type':path.endsWith('.css')?'text/css':'text/javascript'});
+      return res.end(req.method==='HEAD'?undefined:data);
+    }
     const relative = decodeURIComponent(path === "/" ? "/index.html" : path);
     const file = resolve(root, "." + relative);
     const allowed = new Set([".html", ".css", ".js", ".png", ".ttf"]);
