@@ -325,7 +325,19 @@ async function importRecord(event) {
 }
 async function load() {
   clearError();$('#retry-load').hidden=true;
-  try{const response=await fetch('./samples/examples.json');if(!response.ok)throw new Error('案例文件不可用。');catalog=await response.json();const requested=new URLSearchParams(location.search).get('case');if(catalog.cases?.some(c=>c.id===requested))caseId=requested;if(catalog.schema!=='agent-bench-examples-v1')throw new Error('案例版本无法读取。');$('#case-select').replaceChildren(...catalog.cases.map(c=>{const o=el('option','',caseTitles[c.id]||c.title);o.value=c.id;return o;}));$('#case-select').value=caseId;$('#versions').textContent='界面：逐步回放 · 留档应用 '+catalog.versions.app+' · 案例 '+catalog.versions.cases+' · 判分 '+catalog.versions.grader;selectCase();if(caseId==='timeout')seek(timeoutFrame());}
+  try{const response=await fetch('./samples/examples.json');if(!response.ok)throw new Error('案例文件不可用。');catalog=await response.json();const requested=new URLSearchParams(location.search).get('case');if(catalog.cases?.some(c=>c.id===requested))caseId=requested;if(catalog.schema!=='agent-bench-examples-v1')throw new Error('案例版本无法读取。');$('#case-select').replaceChildren(...catalog.cases.map(c=>{const o=el('option','',caseTitles[c.id]||c.title);o.value=c.id;return o;}));$('#case-select').value=caseId;$('#versions').textContent='界面：逐步回放 · 留档应用 '+catalog.versions.app+' · 案例 '+catalog.versions.cases+' · 判分 '+catalog.versions.grader;selectCase();
+    if(caseId==='timeout')seek(timeoutFrame());
+    else if(caseId==='permission'||caseId==='conflict'){
+      const expected=caseId==='permission'?'FORBIDDEN':'VERSION_CONFLICT';
+      const event=records[0].events.findIndex(entry=>entry.result?.code===expected);
+      if(event>=0){
+        seek(event+1);
+        const detail=caseId==='permission'
+          ? ['当前身份没有写入权限；查看回执，核对这次写入为何被拒绝。','The identity lacks write permission. Inspect the receipt to see why this write was denied.']
+          : ['批准时的版本已过期。查看并发修改和写入回执，判断原批准还能否使用。','The approved version is out of date. Compare the concurrent change and the write receipt.'];
+        document.dispatchEvent(new CustomEvent('demo-insight',{detail}));
+      }
+    }}
   catch(e){catalog=null;controls();fail('读取案例失败，请重新加载。'+e.message);$('#retry-load').hidden=false;$('#play-status').textContent='案例读取失败；可重新加载。';return;}
   if(['localhost','127.0.0.1'].includes(location.hostname))try{localConfig=await api('config');$('#local-info').textContent='已连接本地 API。程序测试实际写入 SQLite；真实模型只在服务端配置后启用。';$('#run-model').textContent=localConfig.model_configured?'真实模型运行':'真实模型运行（未配置）';try{$('#restore').hidden=!localStorage.getItem(restoreKey);}catch{}controls();}catch{/* Static local preview has no API; examples remain usable. */}
 }
