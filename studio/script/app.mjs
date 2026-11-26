@@ -49,4 +49,13 @@ function render(){
  $('undo').onclick=()=>{if(undo.length){story=undo.pop();editKey=null;form=null;render();}};
  $('export').onclick=()=>download('scene-revisions.md',scriptText(story,isEnglish()),'text/markdown;charset=utf-8');
 }
+$('spotlight').onclick=()=>{
+ if(customSource || form || editKey || Object.keys(story.edits).length){window.open('./?example=reveal','_blank','noopener');return;}
+ setStory({...story,reveal:5});
+ const conflict=rows(story).find(row=>row.conflict);
+ if(conflict)active=conflict.scene-1;
+ render();
+ document.querySelector('.early')?.scrollIntoView({block:'center'});
+};
 startPage(render);
+if(new URLSearchParams(location.search).has('example'))$('spotlight').click();

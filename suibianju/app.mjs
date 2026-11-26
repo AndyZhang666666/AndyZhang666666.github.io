@@ -13,11 +13,13 @@ function money(r){return Number.isFinite(r.min)&&Number.isFinite(r.max)?`¥${r.m
 function options(values,current,empty){return `<option value="">${empty}</option>`+values.map(v=>`<option ${v===current?'selected':''}>${esc(v)}</option>`).join('');}
 function summary(c){return `必须满足：${[c.budget!==null?`人均最高 ${c.budget} 元`:'',c.district?`${esc(c.district)}`:'',c.noSpicy?'需提供无辣':'' ].filter(Boolean).join('、')||'未设置'}。<br>尽量满足：${[esc(c.prefer),c.softNoSpicy?'无辣':''].filter(Boolean).join('、')||'未设置'}。<br>明确排除：${esc(c.exclude)||'未设置'}。`;}
 function render(){
+  $('budgetTrial').hidden=true; $('quick').textContent=!s?'开始模拟':s.members.find(m=>m.id==='c')?.active&&recommend(s).ready&&!recommend(s).feasible.length?'预演小满的预算 →':'编辑当前条件';
   if(!s){$('app').innerHTML=`<section class="empty"><h2>${emptyReason==='expired'?'这场演示已到期':emptyReason==='deleted'?'本地演示已删除':emptyReason==='corrupt'?'本地记录无法恢复，已清除':'今晚，先把条件摊开。'}</h2><p>同一句「随便」，背后可能是三种不同的顾虑。</p><div class="opening-table"><div><strong>小林</strong><p>“我都行，但今天不想吃辣。”</p><span>还需要本人确认</span></div><div><strong>阿禾</strong><p>“别选烤肉，其他可以商量。”</p><span>虚构条件已备好</span></div><div><strong>小满</strong><p>“120 元以内，就在中山路吧。”</p><span>虚构条件已备好</span></div></div><p class="hint">点击上方「开始快速体验」，先确认条件，再逐人表态。不会用多数票替少数人做决定。</p></section>`;return;}
   const m=s.members.find(m=>m.id===role),d=m.draft,result=recommend(s),final=decision(s),active=s.members.filter(m=>m.active);
   const title=final?`已确定：${final.name}`:!result.ready?'先收齐大家的条件':!result.feasible.length?'还没有大家都能接受的一餐':`有 ${result.feasible.length} 个共同可行方案`;
   const plans=voluntaryPlans(s,role),gaps=informationGaps(s);
-  $('app').innerHTML=`<section class="session-head"><div><h2 class="status-title ${final?'good':result.ready&&!result.feasible.length?'conflict':''}">${esc(title)}</h2><p class="muted">虚构饭局 · 周五晚餐 · ${active.filter(m=>m.confirmed).length}/${active.length} 人已确认条件 · 第 ${s.version} 版</p></div><small>本地保留至 ${new Date(s.expiresAt).toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</small></section>
+  const firstBudgetChange=voluntaryPlans(s,'c')[0], memberName=s.members.find(person=>person.id==='c')?.name;
+  $('app').innerHTML=`<section class="session-head"><div><h2 class="status-title ${final?'good':result.ready&&!result.feasible.length?'conflict':''}">${esc(title)}</h2><p class="muted">虚构饭局 · 周五晚餐 · ${active.filter(m=>m.confirmed).length}/${active.length} 人已确认条件 · 第 ${s.version} 版</p>${firstBudgetChange ? `<p class="budget-conflict">${esc(memberName)}的上限是 ¥${firstBudgetChange.from}。其余条件相同，¥${firstBudgetChange.to} 时「${esc(firstBudgetChange.name)}」可选。</p>` : ''}</div><small>本地保留至 ${new Date(s.expiresAt).toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</small></section>
   <ol class="journey" aria-label="当前饭局进度"><li class="${!result.ready?'current':''}">说清条件</li><li class="${result.ready&&!final?'current':''}">比较与协商</li><li class="${final?'current':''}">共同确认，带走决定</li></ol>
   <section aria-label="演示角色切换" class="people">${s.members.map(p=>`<div class="person ${p.id===role?'active':''}"><div><strong>${esc(p.name)}</strong><span>${!p.active?'已退出':p.confirmed?'条件已确认':'待确认条件'}</span></div><button data-action="role" data-id="${p.id}" aria-pressed="${p.id===role}">${p.id===role?'当前角色':'切换体验'}</button></div>`).join('')}</section>
   <details class="group-settings"><summary>体验 4–5 人协商</summary><label for="new-member">新模拟朋友的名字</label><div class="actions"><input id="new-member" maxlength="20" placeholder="仅使用虚构名字"><button data-action="add-member" ${s.members.length>=5?'disabled':''}>加入模拟朋友</button></div><p class="hint">新成员需要自己确认条件和表态；加入会使旧确认失效。没有真实邀请或跨设备同步。</p></details>
@@ -91,8 +93,28 @@ $('app').addEventListener('click',e=>{
     persist();render();if(announce)message(announce);if(action==='submit'&&innerWidth<=600&&recommend(s).ready)$('results-title').scrollIntoView({block:'start'});
   }catch(err){note=err.message;persist();render();message(err.message);}
 });
-$('quick').addEventListener('click',()=>{if(!s)start();else{$('editor-title')?.focus();$('editor-title')?.scrollIntoView({behavior:'auto',block:'start'});message('已回到当前演示。若要重开，请先删除本地演示。');}});
-$('real').addEventListener('click',()=>{const show=$('real-info').hidden;$('real-info').hidden=!show;$('real').setAttribute('aria-expanded',String(show));});
+function tableExample(){
+ const group=createSession(),fourth=addMember(group,'阿远');
+ submit(group,fourth,{...blank(),district:'中山路'});
+ submit(group,'a',{...blank(),noSpicy:true});
+ submit(group,'c',{...group.members[2].conditions,budget:40});
+ return group;
+}
+if(!s&&(!emptyReason||emptyReason==='empty')){s=tableExample();role='c';}
+function trial(){
+ const person=s.members.find(m=>m.id==='c');
+ const amount=Number($('trialBudget').value);
+ const result=previewConditions(s,'c',{...person.conditions,budget:amount});
+ $('trialValue').value=amount;
+ $('trialResult').textContent=result.before.length+' → '+result.after.length+' 家可行 · '+(result.after.map(row=>row.name).join('、')||'当前仍无交集');
+}
+$('trialBudget').oninput=trial;
+$('quick').onclick=()=>{
+ if(!s){start();return;}
+ if(!s.members.find(m=>m.id==='c')?.active||!recommend(s).ready||recommend(s).feasible.length){$('editor-title').focus();return;}
+ $('budgetTrial').hidden=!$('budgetTrial').hidden;
+ if(!$('budgetTrial').hidden){$('trialBudget').value=String(s.members.find(m=>m.id==='c').conditions.budget??40);trial();$('trialBudget').focus();}
+};
 $('delete').addEventListener('click',()=>{s=null;try{localStorage.removeItem(KEY);}catch{}emptyReason='deleted';render();message('本地演示已删除，没有服务端记录。');});
 setInterval(()=>{expire();const timer=$('elapsed');if(timer&&s?.startedAt){const end=decision(s)?s.completedAt||Date.now():Date.now();timer.textContent=Math.max(0,Math.floor((end-s.startedAt)/1000))+' 秒';}},1000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)expire();});
 render();if(!storageOk)message('浏览器存储不可用，刷新可能丢失内容。');

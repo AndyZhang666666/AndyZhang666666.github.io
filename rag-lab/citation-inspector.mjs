@@ -14,7 +14,7 @@ export function closeCitation({restoreFocus=false}={}) {
   if(restoreFocus&&trigger?.isConnected){trigger.focus({preventScroll:true});window.scrollTo({top:scroll,behavior:'instant'});}
 }
 
-export function openCitation({trigger,title,metadata,quote,detailTarget,detailLabel='查看完整来源卡'}) {
+export function openCitation({trigger,title,metadata,quote,excerpt,detailTarget,detailLabel='查看完整来源卡'}) {
   if(active?.trigger===trigger){closeCitation({restoreFocus:true});return;}
   closeCitation();
   const id=++sequence,dialog=document.createElement('dialog'),abort=new AbortController();
@@ -24,6 +24,11 @@ export function openCitation({trigger,title,metadata,quote,detailTarget,detailLa
   const heading=document.createElement('h2');heading.id='citation-inspector-title';heading.textContent=title;
   const meta=document.createElement('p');meta.className='source-meta';meta.textContent=metadata;
   const body=document.createElement('blockquote');body.textContent=quote;
+  const excerptStart=excerpt?quote.indexOf(excerpt):-1;
+  if(excerptStart>=0){
+    const mark=document.createElement('mark');mark.textContent=excerpt;
+    body.replaceChildren(quote.slice(0,excerptStart),mark,quote.slice(excerptStart+excerpt.length));
+  }
   const actions=document.createElement('div');actions.className='inspector-actions';
   const back=document.createElement('button');back.type='button';back.textContent=mobile?'返回这条引用':'关闭引用';
   const full=document.createElement('button');full.type='button';full.textContent=detailLabel;
