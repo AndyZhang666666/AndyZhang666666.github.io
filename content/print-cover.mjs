@@ -33,6 +33,6 @@ export function printCover(html) {
     .replace('<span class="hero-name-en">Andy Zhang</span>', '<span class="hero-name-en"><i>Andy Zhang</i></span>')
     .replace(/<img class="portrait-img portrait-img-dark"[^>]+>\s*/, '')
     .replace(/<img class="portrait-img portrait-img-light"[^>]+>/,
-      '<img class="portrait-img portrait-img-light" src="assets/gen/portrait-light.png" alt="" width="394" height="687" loading="eager" fetchpriority="high" decoding="async">')
+      '<img class="portrait-img portrait-img-light" src="assets/gen/portrait-cover.webp" alt="" width="688" height="1200" loading="eager" fetchpriority="high" decoding="async">')
     .replace(/(href="assets\/hero-paper\.css)\?v=[^"]+/, '$1?v=print1');
 }
