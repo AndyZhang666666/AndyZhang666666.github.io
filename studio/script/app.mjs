@@ -53,7 +53,7 @@ $('spotlight').onclick=()=>{
  if(customSource || form || editKey || Object.keys(story.edits).length){window.open('./?example=reveal','_blank','noopener');return;}
  setStory({...story,reveal:5});
  const conflict=rows(story).find(row=>row.conflict);
- if(conflict)active=conflict.scene-1;
+ if(conflict){ active=conflict.scene-1;document.dispatchEvent(new CustomEvent('demo-insight',{detail:[`揭晓移到第 ${story.reveal} 场，第 ${conflict.scene} 场的对白却已用到这条信息。`,`The reveal moved to scene ${story.reveal}. Dialogue in scene ${conflict.scene} already relies on that fact.`]}));}
  render();
  document.querySelector('.early')?.scrollIntoView({block:'center'});
 };

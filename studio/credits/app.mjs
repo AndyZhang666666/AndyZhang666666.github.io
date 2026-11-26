@@ -51,11 +51,14 @@ function replayRetry(){
 }
 $('spotlight').onclick=()=>{
  const r=replayRetry();
+ document.dispatchEvent(new CustomEvent('demo-insight',{detail:[`第二镜失败后重试：最终实扣 ${r.charged} CR，退回时已有 ${r.expired} CR 赠分过期。`,`Shot two was retried. Final charge: ${r.charged} CR. At refund time ${r.expired} gift credits had expired.`]}));
  let panel=document.querySelector('#retry-example');
  if(!panel){panel=document.createElement('section');panel.id='retry-example';panel.className='ledger';$('app').before(panel);}
  const labels={hold:t('预留','Reserve'),done:t('结算','Settle'),failed:t('失败返还','Failure refund')};
  panel.innerHTML='<h2>'+t('第二镜的两次尝试','Two attempts at shot two')+'</h2><p>'+t('独立示例账本','Example ledger')+' · '+t('已结算','Settled')+' '+r.charged+' CR · '+t('到期作废','Expired')+' '+r.expired+' CR</p><ol>'+r.events.map(e=>'<li>'+e.day+' · '+e.id+' · '+labels[e.action]+' '+(e.charged??(e.gift??0)+(e.paid??0))+' CR'+(e.action==='failed'?' · '+t('过期','Expired')+' '+e.expired+' / '+t('退回','Returned')+' '+(e.returnedGift+e.returnedPaid):'')+'</li>').join('')+'</ol><button>'+t('返回我的报价','Return to my quote')+'</button>';
- panel.querySelector('button').onclick=()=>{panel.remove();$('spotlight').focus();};
+ panel.querySelector('button').onclick=()=>{panel.remove();document.dispatchEvent(new CustomEvent('demo-insight',{detail:null}));$('spotlight').focus();};
  panel.scrollIntoView({block:'center'});
 };
 startPage(render);
+
+if(new URLSearchParams(location.search).get('example')==='retry')$('spotlight').click();
