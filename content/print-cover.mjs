@@ -34,5 +34,5 @@ export function printCover(html) {
     .replace(/<img class="portrait-img portrait-img-dark"[^>]+>\s*/, '')
     .replace(/<img class="portrait-img portrait-img-light"[^>]+>/,
       '<img class="portrait-img portrait-img-light" src="assets/gen/portrait-cover.webp" alt="" width="688" height="1200" loading="eager" fetchpriority="high" decoding="async">')
-    .replace(/(href="assets\/hero-paper\.css)\?v=[^"]+/, '$1?v=print1');
+    .replace(/(href="assets\/hero-paper\.css)\?v=[^"]+/, '$1?v=print2');
 }

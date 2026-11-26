@@ -1,5 +1,5 @@
 import {directoryHome} from '../content/directory-home.mjs';
-import {syncProfile} from './compose-resumes.mjs';
+import {syncProfile,renderHomeIntro} from './compose-resumes.mjs';
 import {updateRoleLookup} from '../content/role-lookup.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -98,7 +98,7 @@ const releasedPage = beforeCover('index.html');
 assert.equal(publicShell(releasedPage),publicShell(approved('index.html')),'Original site outside approved resume surfaces');
 const releasedDesk = /<!--studio-desk-->[\s\S]*?<!--\/studio-desk-->/;
 assert.ok(releasedDesk.test(releasedPage));
-const expectedCover = printCover(releasedPage.replace(releasedDesk, '<!--studio-desk-->' + renderWorkdesk() + '<!--/studio-desk-->'));
+const expectedCover = renderHomeIntro(printCover(releasedPage.replace(releasedDesk, '<!--studio-desk-->' + renderWorkdesk() + '<!--/studio-desk-->')),data.about);
 assert.equal(region(html,'top'),region(expectedCover,'top'),'Complete cover with its three printed sheets');
 assert.equal(publicShell(html),publicShell(directoryHome(expectedCover,data.projects)),'Candidate preserves the cover and all sections outside the directory move');
 const newApp=approved('app.js').replace('data.json?v=20261115-renovation1','data.json?v=cv1')

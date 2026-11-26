@@ -85,21 +85,16 @@
   50%      { opacity: 1; }
 }
 
-/* ---- 三段正文分步揭示（JS 加 .ab-in）---- */
-.about-main .about-body {
-  opacity: 0;
-  transform: translateY(18px);
-  transition:
-    opacity 0.7s var(--ease-out),
-    transform 0.7s var(--ease-out);
+/* The copy is readable on first paint. The observer only adds motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-motion="reduce"]) .about-main .about-body.ab-in {
+    animation: about-copy-arrive .7s var(--ease-out) var(--ab-delay, 0ms);
+  }
 }
-.about-main .about-body.ab-in {
-  opacity: 1;
-  transform: none;
-  transition-delay: var(--ab-delay, 0ms);
+@keyframes about-copy-arrive {
+  from { transform: translateY(5px); }
+  to { transform: none; }
 }
-/* 首段（lead）保留全局 reveal 行为，不重复接管 */
-.about-main .about-lead { opacity: 1; }
 
 /* ---- 原则卡：顶线画入 + 数字轻浮起 ---- */
 .principle-card { position: relative; }

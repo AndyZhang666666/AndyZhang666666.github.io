@@ -12,6 +12,7 @@ export function enhancePortfolioV2(html,{casePage=false,paletteMarkup=''}={}){
  html=enhanceMobileNavigation(html,{casePage});
  html=html.replace(/src="\/scripts\/case-reader\.js(?:\?v=[^"]*)?"/g,`src="/scripts/case-reader.js?v=${portfolioV2Version}"`);
  for(const file of changedResources){
+  if (file === 'bg-layers.css' && html.includes('bg-layers.css?v=about-print1')) continue;
   // The selected-product integration has a newer explicit cache key. Keep it
   // while applying the approved V2 enhancement to every other resource.
   if(file==='assets/demo-showcase.mjs'&&/assets\/demo-showcase\.mjs\?v=(?:20261109-product-depth|20261112-craft1|20261115-entry1|20261125-print)/.test(html))continue;

@@ -226,7 +226,7 @@
 }
 @media(max-width:600px) {
   #top.print-cover { padding:96px 21px 38px; }
-  #top.print-cover .hero-inner {grid-template-columns:1fr; grid-template-areas:"name" "role" "portrait" "desk" "cta" "summary" "example" "meta" "resumes"; gap:9px; }
+  #top.print-cover .hero-inner {grid-template-columns:1fr; grid-template-areas:"name" "role" "portrait" "cta" "resumes" "desk" "summary" "example" "meta"; gap:9px; }
   #top.print-cover .hero-name {display:flex; flex-direction:row; justify-content:space-between; align-items:end; gap:10px; margin:0;}
   #top.print-cover .hero-name-zh {font-size:clamp(61px,17.5vw,91px); line-height:1.05;}
   #top.print-cover .hero-name-en {font-size:clamp(14px,3.7vw,19px); margin:0 0 5px; white-space:nowrap; }

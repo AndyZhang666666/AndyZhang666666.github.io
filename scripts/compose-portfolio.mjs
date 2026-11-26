@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import {methods} from '../content/task-portfolio.mjs';
 
-import {hero,aboutStrategy} from '../content/resume-profile.mjs';
-import {experienceHTML,resumeLinks,resultPrompts,correctFacts,syncProfile} from './compose-resumes.mjs';
+import {hero} from '../content/resume-profile.mjs';
+import {experienceHTML,renderHomeIntro,resultPrompts,correctFacts,syncProfile} from './compose-resumes.mjs';
 const esc=s=>s.replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;');
 const text=(zh,en,tag='span',cls='')=>`<${tag}${cls?' class="'+cls+'"':''} data-zh="${esc(zh)}" data-en="${esc(en)}">${esc(zh)}</${tag}>`;
 const section=(id,body)=>`<section id="${id}" class="section${id==='jd'?' jd-matcher':''}">${body}</section>`;
@@ -15,11 +15,10 @@ function menu(html) {
  .replaceAll('data-zh="按岗位找证据" data-en="Role evidence">按岗位找证据','data-zh="按任务找作品" data-en="Find work by task">按任务找作品');
 }
 export function compose(){
- let html=fs.readFileSync('index.html','utf8').replace(/<details class="resume-picker"[^]*?<\/details>/,'');
+ let html=fs.readFileSync('index.html','utf8');
  html=html.replace(/<title>.*?<\/title>/,'<title>张千羽 Andy Zhang · 产品作品集</title>')
  .replace(/<meta name="description" content="[^"]*">/,'<meta name="description" content="张千羽的产品作品集。操作模型评测、设计和定价工具，了解从用户问题到产品验证的过程。">')
  .replace(/<p class="hero-tagline[^>]*>[\s\S]*?<\/p>/,`<p class="hero-tagline reveal">${text('产品经理','Product manager','strong','hero-role')}${text(...hero[0],'span','hero-summary')}${text(...hero[1],'span','hero-example')}</p>`)
- .replace(/<div class="hero-cta reveal">[\s\S]*?<\/div>(?:\s*<a href="#jd" class="hero-jd-link[\s\S]*?<\/a>)?/,`<div class="hero-cta reveal"><a href="#selected" class="btn btn-primary">${text('体验精选作品','Try selected work')} <span aria-hidden="true">↗</span></a><a href="#jd" class="btn btn-ghost">${text('按任务找作品','Find work by task')}</a><a href="https://github.com/AndyZhang666666" class="portfolio-git" target="_blank" rel="noopener">GitHub ↗</a></div>${resumeLinks()}`)
  .replace(/<section class="stats">[\s\S]*?<\/section>/,'')
  .replace(/<section id="skills"[^>]*>[\s\S]*?<\/section>/,'');
  html=extend(html,'work',head('工作经历','Experience')+experienceHTML());
@@ -35,10 +34,9 @@ export function compose(){
  .replace(/(src="(?:app|railnav)\.js|href="(?:jd|assets\/hero-paper)\.css)\?v=[^"]+/g,'$1?v=task1');
  const description='张千羽的产品作品集。查看 AI 应用、海外增长与商业化、策略产品简历，按具体任务找到工作案例和可操作作品。';
  html=html.replace(/<meta (?:property="og:description"|name="twitter:description")[^>]*>\s*/g,'').replace(/<meta name="description"[^>]*>/,`<meta name="description" content="${description}">\n<meta property="og:description" content="${description}">\n<meta name="twitter:description" content="${description}">`);
- let paragraph=0;
- html=html.replace(/<section id="about"[^]*?<\/section>/,region=>region.replace(/<p class="about-body"[^>]*>[^]*?<\/p>/g,match=>++paragraph===3?text(...aboutStrategy,'p','about-body'):match));
  html=html.replaceAll('?v=task1','?v=cv1');
  const data=syncProfile(JSON.parse(fs.readFileSync('data.json','utf8')));
+ html=renderHomeIntro(html,data.about);
  fs.writeFileSync('data.json',JSON.stringify(data,null,2)+'\n');
  for(const locale of ['zh','en']){
    const file='content/evidence-'+locale+'.json';
