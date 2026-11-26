@@ -15,6 +15,23 @@ export function experienceHTML(){
 export function resumeLinks(){
  return `<details class="resume-picker" id="resumes"><summary>${bilingual('查看简历','View résumés')}</summary><ul>${resumes.map(([id,zh,en,tip,tipEn])=>`<li><a href="/assets/cv/${id}.pdf" target="_blank" rel="noopener">${bilingual(zh,en)} <small>${bilingual('PDF ↗','PDF in Chinese ↗')}</small></a>${bilingual(tip,tipEn,'small')}${id==='strategy-product'?example(id,'cv'):''}</li>`).join('')}</ul></details>`;
 }
+export function renderHomeIntro(html, about) {
+ const actions = '<div class="hero-cta reveal">' +
+  '<a href="#jd" class="btn btn-primary">' + bilingual('按任务找作品','Find work by task') + ' <span aria-hidden="true">↗</span></a>' +
+  '<a href="#selected" class="btn btn-ghost">' + bilingual('体验精选作品','Try selected work') + '</a>' +
+  '<a href="https://github.com/AndyZhang666666" class="portfolio-git" target="_blank" rel="noopener">GitHub ↗</a></div>';
+ const paragraphs = ['lead', 'body', 'body2', 'body3'].map(key =>
+  bilingual(about[key], about[key + 'En'], 'p', key === 'lead' ? 'about-lead' : 'about-body')
+ ).join('\n      ');
+ return html.replace(/<section id="top"[^>]*>[\s\S]*?<\/section>/, cover => cover
+  .replace(/<details class="resume-picker"[\s\S]*?<\/details>/, '')
+  .replace(/<div class="hero-cta reveal">[\s\S]*?<\/div>(?:\s*<a href="#jd" class="hero-jd-link[\s\S]*?<\/a>)?/, () => actions + resumeLinks())
+ ).replace(/<section id="about"[^>]*>[\s\S]*?<\/section>/, section => section
+  .replace('<div class="section-head reveal">', '<div class="section-head">')
+  .replace(/<div class="about-main(?: reveal)?">[\s\S]*?<\/div>/,
+   () => '<div class="about-main">\n      ' + paragraphs + '\n    </div>')
+ ).replace(/(href="bg-layers\.css)\?v=[^"]+/, '$1?v=about-print1');
+}
 export const resultPrompts=()=>quickTasks.map(([id,zh,en])=>`<button type="button" class="jd-sample" data-task="${id}" aria-pressed="false">${bilingual(zh,en)}<span aria-hidden="true">↗</span></button>`).join('');
 const replacements=[
  ['2026.02','2026.03'],['38 个 Skill','40+ 个可复用 Skill'],['38 Skills','40+ reusable Skills'],['6000 次','1 万+ 次'],['6,000 monthly tool calls','over 10,000 monthly tool calls']

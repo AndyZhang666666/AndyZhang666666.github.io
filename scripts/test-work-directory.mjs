@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {directoryPage,taskFor,topicFor} from '../content/work-directory.mjs';
 import {directoryHome} from '../content/directory-home.mjs';
+import {renderHomeIntro} from './compose-resumes.mjs';
 import {sectionRange} from '../content/section-range.mjs';
 import {renderSelected,selected} from '../content/showcase.mjs';
 import {lookup} from '../assets/task-search.mjs';
@@ -15,7 +16,21 @@ const expected=directoryHome(published.slice(0,old.start)+renderSelected(data)+p
 const originalPhoto='src="assets/gen/portrait-light.png" alt="" width="394" height="687"';
 const printPortrait='src="assets/gen/portrait-cover.webp" alt="" width="688" height="1200"';
 assert.ok(expected.includes(originalPhoto), 'Compare against the original cover photograph');
-assert.equal(home,expected.replace(originalPhoto,printPortrait),'Only the cover portrait may differ outside the reviewed directory changes');
+const reviewed=expected.replace(originalPhoto,printPortrait)
+  .replace('href="assets/hero-paper.css?v=print1"','href="assets/hero-paper.css?v=print2"');
+assert.equal(home,renderHomeIntro(reviewed,data.about),'All content outside the approved homepage edits stays pinned');
+assert.equal(renderHomeIntro(home,data.about),home,'Regenerating the homepage introduction is idempotent');
+const actions=home.match(/<div class="hero-cta reveal">([\s\S]*?)<\/div>/)[1];
+assert.deepEqual([...actions.matchAll(/<a href="([^"]+)" class="([^"]+)"/g)].map(m=>m.slice(1)),[
+  ['#jd','btn btn-primary'],['#selected','btn btn-ghost'],['https://github.com/AndyZhang666666','portfolio-git']
+]);
+const aboutCopy=home.match(/<div class="about-main">([\s\S]*?)<\/div>/)[1];
+const escapeHTML=value=>value.replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;');
+const paragraphs=[...aboutCopy.matchAll(/<p class="([^"]+)" data-zh="([^"]+)" data-en="([^"]+)">([^<]+)<\/p>/g)];
+assert.deepEqual(paragraphs.map(m=>m.slice(1)),['lead','body','body2','body3'].map(key=>{
+  const zh=escapeHTML(data.about[key]);
+  return [key==='lead'?'about-lead':'about-body',zh,escapeHTML(data.about[key+'En']),zh];
+}),'The visible paragraphs and both translations must match the existing profile');
 assert.equal(execFileSync('git',['hash-object','assets/gen/portrait-cover.webp'],{encoding:'utf8'}).trim(),'92eebf1fdb37399861ab1e1f019884ca342f148c','Reuse the exact archived print portrait');
 assert.equal(page,directoryPage(data.projects)+'\n');assert.deepEqual(inventory.map(p=>p.id),data.projects.map(p=>p.id));
 assert.equal(new Set(data.projects.map(p=>p.id)).size,data.projects.length);
