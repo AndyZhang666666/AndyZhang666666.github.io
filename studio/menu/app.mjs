@@ -40,11 +40,14 @@ function render(){
  $('export').onclick=()=>download('menu-rule-comparison.json',JSON.stringify(report(),null,2),'application/json');
  renderResults();
 }
-function leaveOverview(){threeRules=false;$('menus').classList.remove('three-rules');$('spotlight').setAttribute('aria-pressed','false');renderResults();}
+function leaveOverview(){document.dispatchEvent(new CustomEvent('demo-insight',{detail:null}));threeRules=false;$('menus').classList.remove('three-rules');$('spotlight').setAttribute('aria-pressed','false');renderResults();}
 $('spotlight').onclick=()=>{
  threeRules=!threeRules;renderResults();
+ if(threeRules){const expected=judgments().find(r=>r.q.toLowerCase()===q.trim().toLowerCase())?.id;if(expected){const ranks=['literal','alias','wide'].map(rule=>search(menu(),q,rule).findIndex(r=>r.dish.id===expected)+1);document.dispatchEvent(new CustomEvent('demo-insight',{detail:[`同一查询，目标菜排名：${ranks.map(r=>r||'未召回').join(' → ')}。别名改变匹配范围，同类扩展让更多菜参与排序。`,`Same query, target ranks: ${ranks.map(r=>r||'not found').join(' → ')}. Aliases widen matching; category expansion adds competing dishes.`]}));}}
  $('menus').classList.toggle('three-rules',threeRules);
  $('spotlight').setAttribute('aria-pressed',String(threeRules));
  $('menus').scrollIntoView({block:'center'});
 };
 startPage(render);
+
+if(new URLSearchParams(location.search).get('example')==='compare')$('spotlight').click();

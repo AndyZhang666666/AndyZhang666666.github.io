@@ -37,6 +37,7 @@ async function bodyJson(req,maxBytes=4096) {
   catch { throw new ApiError(400, 'invalid_json', 'JSON 格式无效。'); }
 }
 
+const shellFiles=new Map([['/demos/continuity/shell.js','text/javascript'],['/demos/continuity/labels.js','text/javascript'],['/demos/continuity/shell.css','text/css']]);
 const staticFiles = new Map([
   ['citation-inspector.mjs','text/javascript'],['workbench.css','text/css'],['vendor/floating-ui.mjs','text/javascript'],['vendor/floating-ui.LICENSE.txt','text/plain'],['task-loop.mjs','text/javascript'],['import-errors.mjs','text/javascript'],['workspace.mjs','text/javascript'],['task-catalog.mjs','text/javascript'],['personal-workbench.mjs','text/javascript'],['vendor/pdf.mjs','text/javascript'],['vendor/pdf.worker.mjs','text/javascript'],
   ['index.html', 'text/html'], ['app.mjs', 'text/javascript'], ['engine.mjs', 'text/javascript'],
@@ -179,9 +180,10 @@ export async function createApp(options = {}) {
       if (req.method !== 'GET') throw new ApiError(405, 'method', '不支持此请求方式。');
       if (path === '/') { res.writeHead(302, {Location: '/rag-lab/'}); return res.end(); }
       const file = path === '/rag-lab/' ? 'index.html' : path.replace(/^\/rag-lab\//, '');
-      if (!path.startsWith('/rag-lab/') || !staticFiles.has(file)) throw new ApiError(404, 'not_found', '页面不存在。');
-      const content = await readFile(new URL(`../${file}`, import.meta.url));
-      res.writeHead(200, {'Content-Type': `${staticFiles.get(file)}; charset=utf-8`, 'X-Content-Type-Options': 'nosniff',
+      const shellType=shellFiles.get(path);
+      if (!shellType && (!path.startsWith('/rag-lab/') || !staticFiles.has(file))) throw new ApiError(404, 'not_found', '页面不存在。');
+      const content = await readFile(new URL(shellType ? `../../${path.slice(1)}` : `../${file}`, import.meta.url));
+      res.writeHead(200, {'Content-Type': `${shellType||staticFiles.get(file)}; charset=utf-8`, 'X-Content-Type-Options': 'nosniff',
         'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'", 'Cache-Control': 'no-store'});
       res.end(content);
     } catch (error) {

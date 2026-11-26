@@ -89,6 +89,8 @@ class Handler(BaseHTTPRequestHandler):
             asset = path.removeprefix('/agent-bench/').lstrip('/') if hasattr(path, 'removeprefix') else path[len('/agent-bench/'):]
             if path in ('/', '/agent-bench', '/agent-bench/'):
                 asset = 'index.html'
+            if path in ('/demos/continuity/shell.js','/demos/continuity/labels.js','/demos/continuity/shell.css'):
+                return self.respond((ROOT.parent / path[1:]).read_bytes(), content_type=mimetypes.guess_type(path)[0])
             if asset not in STATIC or not (ROOT / asset).is_file():
                 raise Problem('NOT_FOUND', '资源不存在。', 404)
             return self.respond((ROOT / asset).read_bytes(), content_type=mimetypes.guess_type(asset)[0] or 'application/octet-stream')

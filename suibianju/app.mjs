@@ -13,6 +13,7 @@ function money(r){return Number.isFinite(r.min)&&Number.isFinite(r.max)?`¥${r.m
 function options(values,current,empty){return `<option value="">${empty}</option>`+values.map(v=>`<option ${v===current?'selected':''}>${esc(v)}</option>`).join('');}
 function summary(c){return `必须满足：${[c.budget!==null?`人均最高 ${c.budget} 元`:'',c.district?`${esc(c.district)}`:'',c.noSpicy?'需提供无辣':'' ].filter(Boolean).join('、')||'未设置'}。<br>尽量满足：${[esc(c.prefer),c.softNoSpicy?'无辣':''].filter(Boolean).join('、')||'未设置'}。<br>明确排除：${esc(c.exclude)||'未设置'}。`;}
 function render(){
+  document.dispatchEvent(new CustomEvent('demo-insight',{detail:null}));
   $('budgetTrial').hidden=true; $('quick').textContent=!s?'开始模拟':s.members.find(m=>m.id==='c')?.active&&recommend(s).ready&&!recommend(s).feasible.length?'预演小满的预算 →':'编辑当前条件';
   if(!s){$('app').innerHTML=`<section class="empty"><h2>${emptyReason==='expired'?'这场演示已到期':emptyReason==='deleted'?'本地演示已删除':emptyReason==='corrupt'?'本地记录无法恢复，已清除':'今晚，先把条件摊开。'}</h2><p>同一句「随便」，背后可能是三种不同的顾虑。</p><div class="opening-table"><div><strong>小林</strong><p>“我都行，但今天不想吃辣。”</p><span>还需要本人确认</span></div><div><strong>阿禾</strong><p>“别选烤肉，其他可以商量。”</p><span>虚构条件已备好</span></div><div><strong>小满</strong><p>“120 元以内，就在中山路吧。”</p><span>虚构条件已备好</span></div></div><p class="hint">点击上方「开始快速体验」，先确认条件，再逐人表态。不会用多数票替少数人做决定。</p></section>`;return;}
   const m=s.members.find(m=>m.id===role),d=m.draft,result=recommend(s),final=decision(s),active=s.members.filter(m=>m.active);
@@ -106,9 +107,13 @@ function trial(){
  const amount=Number($('trialBudget').value);
  const result=previewConditions(s,'c',{...person.conditions,budget:amount});
  $('trialValue').value=amount;
+ document.dispatchEvent(new CustomEvent('demo-insight',{detail:[`只预演小满的预算 ¥${person.conditions.budget} → ¥${amount}：可行餐厅 ${result.before.length} → ${result.after.length} 家。其他人的条件和表态未变。`,`Only Xiaoman’s budget was tested (¥${person.conditions.budget} → ¥${amount}). Feasible restaurants: ${result.before.length} → ${result.after.length}. Everyone’s confirmed choices are intact.`]}));
  $('trialResult').textContent=result.before.length+' → '+result.after.length+' 家可行 · '+(result.after.map(row=>row.name).join('、')||'当前仍无交集');
 }
-$('trialBudget').oninput=trial;
+$('trialBudget').oninput=()=>{
+ trial();
+ const link=new URL(location.href);link.searchParams.set('budget',$('trialBudget').value);history.replaceState(history.state,'',link);
+};
 $('quick').onclick=()=>{
  if(!s){start();return;}
  if(!s.members.find(m=>m.id==='c')?.active||!recommend(s).ready||recommend(s).feasible.length){$('editor-title').focus();return;}
@@ -118,3 +123,8 @@ $('quick').onclick=()=>{
 $('delete').addEventListener('click',()=>{s=null;try{localStorage.removeItem(KEY);}catch{}emptyReason='deleted';render();message('本地演示已删除，没有服务端记录。');});
 setInterval(()=>{expire();const timer=$('elapsed');if(timer&&s?.startedAt){const end=decision(s)?s.completedAt||Date.now():Date.now();timer.textContent=Math.max(0,Math.floor((end-s.startedAt)/1000))+' 秒';}},1000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)expire();});
 render();if(!storageOk)message('浏览器存储不可用，刷新可能丢失内容。');
+
+const linkedBudget=new URLSearchParams(location.search).get('budget');
+if(s&&s.members.find(m=>m.id==='c')?.active&&/^\d+$/.test(linkedBudget||'')&&Number(linkedBudget)>=40&&Number(linkedBudget)<=140&&Number(linkedBudget)%5===0){
+ $('budgetTrial').hidden=false;$('trialBudget').value=linkedBudget;trial();
+}

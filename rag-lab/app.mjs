@@ -66,6 +66,7 @@ function syncSettings() {
 }
 
 function markStale() {
+ document.dispatchEvent(new CustomEvent('demo-insight',{detail:['条件已变；重新检索后才能引用新结果。','Conditions changed. Search again before relying on an answer.']}));
   closeCitation();
   if (busy) return;
   $('stale').hidden = !currentRun;
@@ -168,6 +169,8 @@ function headline(run) {
 }
 
 function render(run) {
+ const fact=run.facts?.find(f=>f.facet==='duration'),source=run.citations?.[0];
+ if(fact&&source){document.dispatchEvent(new CustomEvent('demo-insight',{detail:[`${run.date} 适用 v${source.version}，本次借期上限为 ${fact.value}。点引用可核对原句。`,`On ${run.date}, policy v${source.version} applies. Loan limit: ${String(fact.value).replace(/天/g,' days')}. Open the citation to verify.`]}));} else {document.dispatchEvent(new CustomEvent('demo-insight',{detail:[`本次查到 ${run.citations.length} 段可用依据，排除 ${run.excluded?.length||0} 项。核对当前条件下的原因。`,`This search used ${run.citations.length} passages and excluded ${run.excluded?.length||0} items. Inspect the reasons under the current conditions.`]}));}
   $('scopeDiff').textContent=run.scopeDiff?.message||'';$('scopeDiff').hidden=!run.scopeDiff;
   $('exampleDraft').value=run.userDraft??run.answer;
   $('copyExampleAnswer').disabled=false;$('downloadExampleAnswer').disabled=false;
@@ -304,6 +307,7 @@ async function initialize() {
   $('dateTrial').onclick=()=>{
     if(!currentRun){run();return;}
     $('date').value=$('date').value==='2026-05-01'?'2026-10-28':'2026-05-01';
+    const link=new URL(location.href);link.searchParams.set('date',$('date').value);window.history.replaceState(window.history.state,'',link);
     markStale();
     $('exampleAnswerPane').scrollIntoView({block:'center'});
     $('staleRerun').focus({preventScroll:true});
@@ -325,6 +329,9 @@ async function initialize() {
         }
       } catch { /* static preview: remain in explicitly labelled example mode */ }
     }
+    const requested=new URLSearchParams(location.search),date=requested.get('date'),question=requested.get('q')?.trim();
+    if(date&&/^\d{4}-\d{2}-\d{2}$/.test(date)){const day=new Date(date+'T00:00:00Z');if(Number.isFinite(day.valueOf())&&day.toISOString().slice(0,10)===date)$('date').value=date;}
+    if(question&&question.length<=500)$('question').value=question;
     syncSettings(); await run({focus: false});
   } catch (error) { setBusy(false); showError(error.message); $('answerHeadline').textContent = '资料暂时无法读取'; }
 }

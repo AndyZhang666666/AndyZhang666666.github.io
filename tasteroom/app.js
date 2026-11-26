@@ -534,7 +534,12 @@ function beginComparison(dimension){
   stop();explorer=null;comparisonSide=null;
   try{
     const pair=dimension==='artDirection'?[$('#compareA').value,$('#compareB').value]:null;
-    comparison=createComparison(room,dimension,pair);render();$('#comparisonPanel').scrollIntoView({block:'nearest'});speak(dimension==='artDirection'?'同一内容，两套整体构图；选择不推断其他参数。':'只比较这一项；选择不会立即写入记忆。');
+    comparison=createComparison(room,dimension,pair);
+    const fields={typography:'typeface',layoutDensity:'spacing',colorMood:'colour',alignment:'alignment',decorElements:'decoration'};
+    const notice=dimension==='artDirection'
+      ? ['比较两种整体构图。此处无法把偏好归因到单一参数。','Comparing complete compositions. A choice cannot be attributed to a single parameter.']
+      : [`只改变${names[dimension]}，其余画布设置锁定。选择方案可先试用，再决定是否授权。`,`Only ${fields[dimension]} changes. All other canvas settings are held constant. Try a variant before saving a rule.`];
+    document.dispatchEvent(new CustomEvent('demo-insight',{detail:notice}));render();$('#comparisonPanel').scrollIntoView({block:'nearest'});speak(dimension==='artDirection'?'同一内容，两套整体构图；选择不推断其他参数。':'只比较这一项；选择不会立即写入记忆。');
   }catch(e){speak(e.message)}
 }
 function startFlexibleComparison(){const current=Object.hasOwn(DIRECTIONS,room.canvas.artDirection)?room.canvas.artDirection:'swiss';$('#compareA').value=current;$('#compareB').value=Object.keys(DIRECTIONS).find(d=>d!==current);syncPairOptions();beginComparison('artDirection');}
@@ -581,10 +586,13 @@ $('#posterContentForm').onsubmit=e=>{e.preventDefault();if(applyContent()&&e.sub
 function setMobileMode(editing){document.body.classList.toggle('mobile-editing',editing);$('#mobileCanvas').setAttribute('aria-pressed',String(!editing));$('#mobileEdit').setAttribute('aria-pressed',String(editing));const target=editing?$('.poster-content-editor'):$('.canvas-update-bar');target.scrollIntoView({block:'start',behavior:'instant'});if(!editing)$('#mobileCanvas').focus({preventScroll:true});}
 $('#mobileEdit').onclick=()=>setMobileMode(true);$('#mobileCanvas').onclick=()=>setMobileMode(false);$('#mobileBackCanvas').onclick=()=>setMobileMode(false);
 function previewDirection(value){
+  const names={swiss:'Swiss',deconstructed:'Deconstructivist',editorial:'Editorial',bauhaus:'Bauhaus',japanese:'Japanese minimal',risograph:'Risograph',free:'Custom'};
   if(!validChoice('artDirection',value)||room.pending)return;
   stop();comparison=null;comparisonSide=null;room.round=2;explorer=null;
   trialParameter(room,'artDirection',value);room.log('preview_direction',{direction:value,persisted:false});
+  const link=new URL(location.href);link.searchParams.set('direction',value);history.replaceState(history.state,'',link);
   closeDirectionLibrary();
+  document.dispatchEvent(new CustomEvent('demo-insight',{detail:[`已试用「${DIRECTIONS[value]?.name||'自由参数'}」。改变的是构图；文案与已授权规则保留。`,`Trying ${names[value]}. The composition changed; the copy and saved preferences are intact.`]}));
   render();syncContentEditor();speak('只切换本张构图；其他参数和长期记忆不变。可继续编辑、比较或导出。');
 }
 function renderDirections(c){
