@@ -6,6 +6,7 @@ screenshots/
 assets/gen/*
 !assets/gen/portrait-dark.png
 !assets/gen/portrait-light.png
+!assets/gen/portrait-cover.webp
 
 # 编辑器 / 系统
 .DS_Store
